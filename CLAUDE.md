@@ -1,146 +1,115 @@
-# CLAUDE.md
+# PD-IMU
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Objective
 
-## Project
+**First published UPDRS-III regression on WearGait-PD.** No one has done this. We own the benchmark.
 
-PD-IMU: Predicting Parkinson's Disease severity (MDS-UPDRS-III) from body-worn IMU sensors. Primary dataset is WearGait-PD (178 subjects, 13 IMUs @ 100Hz). Secondary benchmark on PADS (469 subjects, wrist smartwatch). Goal: beat published SOTA while maintaining honest evaluation (proper train/test split, multi-seed reporting).
+Domain: predicting Parkinson's Disease motor severity (MDS-UPDRS Part III total score, range 0-132) from body-worn IMU sensors during gait/balance tasks. The dataset has 178 subjects (101 PD + 86 HC), 13 IMUs at 100Hz, full clinical UPDRS scores.
 
-**Current best:** cross-config ensemble MAE=8.72, r=0.680 on 36 held-out test subjects.
+## SOTA Landscape
 
-## Remote Server
+No published UPDRS-III regression exists on WearGait-PD. Cross-dataset comparisons:
+
+**Hssayeni et al. 2021 (BioMed Eng OnLine)** — best reported MAE
+- 24 PD patients, wrist+ankle gyro, free-body ADL, ensemble of 3 DL models
+- LOOCV: **MAE=5.95, r=0.74**
+- Limitation: N=24 PD-only, LOOCV (not held-out test), free-body ADL (not controlled gait)
+
+**Shuqair et al. 2024 (Bioengineering)** — best reported correlation
+- Same 24 PD patients/dataset as Hssayeni, self-supervised CNN-LSTM
+- LOOCV: **r=0.89, MAE~5.65**
+- Limitation: same N=24 PD-only dataset, LOOCV, benefits from SSL on tiny data
+
+**Disqualified results:**
+- IS22 (Sotirakis 2022): MAE=4.26 — **confirmed window-level data leakage** (same group got RMSE=10.02 with subject-level CV in Sotirakis 2023)
+- Sotirakis 2023 (npj PD): RMSE=10.02 — 74 PD, 7 visits, 5-fold CV over visit-level rows leaks within-subject data across folds
+- He 2024 (JNER): predicts **levodopa response** (medication effect), NOT UPDRS-III total — GPT-5.4/Codex hallucinated this as a UPDRS regression paper; manually verified via web search 2026-03-08
+- Park 2025 (JNER): MAE=0.76 on z-normalized targets — meaningless raw-point units, subject leakage likely (2 visits, split over "samples")
+
+**WearGait-PD prior art:** TRIP (arXiv 2025) is the only published use — classification only (80.07% IMU accuracy), no regression.
+
+**Sources (verified 2026-03-08):**
+- Hssayeni 2021: https://pubmed.ncbi.nlm.nih.gov/33789666/
+- Shuqair 2024: https://www.mdpi.com/2306-5354/11/7/689
+- Sotirakis 2023: https://www.nature.com/articles/s41531-023-00581-2
+- He 2024 (levodopa, NOT UPDRS): https://link.springer.com/article/10.1186/s12984-024-01452-4
+- WearGait-PD dataset: https://www.nature.com/articles/s41597-026-06806-2
+- TRIP 2025 (classification only): https://arxiv.org/html/2510.15748v1
+
+## The Bar
+
+None of the published work uses our dataset, our cohort size, or our evaluation rigor. Comparisons are necessarily cross-dataset.
+
+| Tier | Overall MAE | PD-only MAE | What it means |
+|------|-------------|-------------|---------------|
+| **Publishable** | any | any | First WearGait-PD regression with proper eval is novel by itself |
+| **Cross-dataset SOTA** | < 7.0 | < 5.95 | Beats Hssayeni PD-only MAE on 7x subjects with held-out test |
+| **Clinical SOTA** | < 3.25 | < 3.25 | Within MCID (Horvath 2015) — errors below clinical noise |
+
+Reality check: total UPDRS-III has unobservable items (rigidity, speech, facial expression). Ceiling from gait IMU alone is MAE ~6-7. Observable axial subdomain (gait+posture+lower limb items) can reach MAE ~2-3.
+
+**Current best: MAE=7.97, r=0.821** (LightGBM on 150 selected features, 5-seed ensemble, 36 held-out test subjects). Ceiling with H&Y: MAE=6.72, r=0.844.
+
+## Data: WearGait-PD
+
+On remote at `data/raw/weargait-pd/` (52GB). Split: `data_split.json` — 142 dev + 36 test, stratified by UPDRS bins.
+
+**Per sensor (13 sensors, 22 channels each = 286 IMU channels):**
+
+| Channels | Count | Used | Priority |
+|----------|-------|------|----------|
+| Acc_XYZ, Gyr_XYZ | 78 | YES | — |
+| FreeAcc_E/N/U (gravity-removed, global frame) | 39 | NO | HIGH — clinical standard |
+| Roll/Pitch/Yaw (Euler angles) | 39 | NO | HIGH — trunk lean, arm swing |
+| Mag_XYZ, VelInc_XYZ, OriInc_q0123 | 130 | NO | LOW |
+
+**Additional modalities (already downloaded):**
+- Foot Contact events (binary heel-strike/toe-off) — ALL non-mat files
+- GeneralEvent annotations (Walk/Turn/Sitting/SitToStand) — ALL files
+- Walkway gait metrics (196 pre-computed params) — 135/178 subjects
+- Clinical covariates: Age, Sex, Height, Weight, Years since PD dx, Medications, DBS, H&Y, full UPDRS items
+
+**Tasks:** SelfPace, HurriedPace, TUG, Balance, TandemGait + _mat/_matTURN variants.
+
+## Infrastructure
+
+**This machine = MASTER** (code, git). **Remote = disposable GPU slave.**
 
 ```bash
-ssh -p 40005 root@46.228.83.78 -L 8080:localhost:8080
+./gpu.sh run_something.py       # deploy + run
+./gpu.sh --pull                  # fetch results
+./gpu.sh --status                # GPU + jobs
+./gpu.sh --log                   # tail log
+./gpu.sh --ssh                   # shell in
+./gpu.sh --setup                 # provision new slave
+./gpu.sh --nuke                  # kill jobs
 ```
 
-- GPU: RTX 5060 Ti (Blackwell sm_120), 16.6GB VRAM, PyTorch 2.10.0+cu128
-- Server project path: `/root/pd-imu/`
-- 49GB RAM, 11 cores, 126GB disk
-- Dependencies installed globally (no venv)
+Swap servers: `export GPU_REMOTE=root@x.x.x.x GPU_PORT=22 && ./gpu.sh --setup`
 
-## Workflow
+Current slave: `root@46.228.83.78:40005`, RTX 5060 Ti 16GB, PyTorch cu128.
 
-Files are written locally in `/home/fiod/medical/`, then SCP'd to server for execution:
-```bash
-scp -P 40005 <script>.py root@46.228.83.78:/root/pd-imu/
-ssh -p 40005 root@46.228.83.78 "cd /root/pd-imu && python <script>.py"
+## Files
+
+```
+data_split.py           # Shared data loading (ONLY shared module)
+run_ablation.py         # 23-config ablation reference
+run_ultimate.py         # Best config multi-seed eval
+run_recipe_fix_v2.py    # Global norm + recipe fixes
+run_biomechanics.py     # Biomechanical feature extraction
+run_pads_varghese.py    # PADS benchmark reproduction
+run_pads_experiment.py  # PADS classification
+run_gaitpd_baseline.py  # Gait-PD benchmarks
+synapse_download.py     # Dataset download
+gpu.sh                  # Master/slave deploy
 ```
 
-## Repository Layout
+Each `run_*.py` is self-contained. No cross-imports. Only `data_split.py` is shared.
 
-### Local (`/home/fiod/medical/`)
-```
-# Core modules (flat naming, mapped to server src/ tree)
-src_data_dataset.py          # IMUSegment dataclass, load_gaitpdb(), load_pads(), window_segments()
-src_data_pads_loader.py      # PADSRecord/PADSSubject dataclasses, JSON+CSV PADS loader
-src_data_gait_features.py    # 15 clinical gait features
-src_models_imu_encoder.py    # Patch-embedded Transformer + multi-task heads (1.64M params)
-src_models_neural_ekf.py     # Differentiable EKF (26.5K params)
-src_models_pretrain.py       # MIM (75% mask, MAE-style) + ContrastiveIMU (1.80M params)
-src_models_cnn1d.py          # ResBlock1D CNN + InceptionTime1D (5.67M params)
-src_models_baseline.py       # XGBoost/RF with LOSO CV
+## Rules
 
-# Experiment runners (each is self-contained end-to-end)
-run_weargait_baseline.py     # RF on 68 handcrafted features (SelfPace, wrist+lback)
-run_weargait_cnn.py          # 1D-CNN on raw wrist IMU
-run_weargait_transformer.py  # Multi-task Transformer (classification + regression)
-run_weargait_regressor.py    # Dedicated UPDRS-III regression Transformer
-run_mim_pretrain.py          # MIM self-supervised pretraining
-run_mim_regressor.py         # MIM pretrained → fine-tune for regression
-run_neural_ekf.py            # Neural EKF for UPDRS regression
-run_experiments.py           # Combined experiments with proper 3-way split
-run_ablation.py              # 23-experiment ablation (sensors, scale, data, patch, arch)
-run_robust.py                # Multi-seed evaluation (5 configs x 5 seeds)
-run_ultimate.py              # Best config multi-seed
-run_subitem.py               # UPDRS subitem decomposition (negative result)
-run_pads_varghese.py         # PADS Varghese et al. 2024 benchmark reproduction
-run_pads_experiment.py       # PADS classification (XGBoost + CNN baselines)
-run_gaitpd_baseline.py       # Gait-PD foot force baselines
-data_split.py                # Stratified train/val/test split → data_split.json
-synapse_download.py          # WearGait-PD download from Synapse
-```
-
-### Server (`/root/pd-imu/`)
-```
-src/data/                    # dataset.py, pads_loader.py, gait_features.py
-src/models/                  # imu_encoder.py, neural_ekf.py, pretrain.py, cnn1d.py, baseline.py
-src/training/                # train.py
-data/raw/gait-pd/            # 166 subjects, foot force sensors
-data/raw/pads/               # 469 subjects, wrist smartwatch IMU
-data/raw/weargait-pd/        # 52GB, 101 PD + 86 HC, 13 IMUs @ 100Hz
-data_split.json              # 142 dev + 36 test, stratified by UPDRS bins
-```
-
-## Architecture
-
-Four model tiers:
-
-1. **Feature baselines** (`baseline.py`): XGBoost/RF on handcrafted gait features, LOSO CV
-2. **CNN** (`cnn1d.py`): ResBlock1D on raw 6-axis windows
-3. **Transformer** (`imu_encoder.py`): Patch-embedded CLS-token Transformer, multi-task heads (H&Y, UPDRS, PD/HC, medication). Scalable from medium (256d/6L, 6.5M) to xxl (768d/10L, 86M)
-4. **Neural EKF** (`neural_ekf.py`): Differentiable EKF tracking [gait_phase, tremor, bradykinesia, asymmetry]
-
-Self-supervised pretraining (`pretrain.py`): MIM (reconstruct masked patches) or contrastive (InfoNCE).
-
-## Datasets
-
-| Dataset | N | Sensors | Labels | Status |
-|---------|---|---------|--------|--------|
-| **WearGait-PD** | 187 (101 PD + 86 HC) | 13 body IMUs @ 100Hz | Full UPDRS Parts 1-4, H&Y | Downloaded (52GB) |
-| **PADS** | 469 (276 PD + 79 HC + 114 DD) | Wrist smartwatch 6-axis @ 100Hz | ICD-10 diagnosis only | Downloaded (1.4GB) |
-| **Gait-PD** | 166 | Foot force sensors | PD/HC/neuro | Downloaded |
-| **mPower** | 9.5K | Phone accelerometer | PD self-report | Requires Synapse access |
-| **PPMI** | — | Longitudinal clinical | Gold-standard | Requires application |
-
-### WearGait-PD Details
-- **Sensor locations**: LowerBack, R/L_Wrist, R/L_MidLatThigh, R/L_LatShank, R/L_DorsalFoot, R/L_Ankle, Xiphoid, Forehead
-- **Channels per sensor (22 each)**: Acc_XYZ, FreeAcc_ENU (global frame), Gyr_XYZ, Mag_XYZ, VelInc_XYZ, OriInc_q0123, Roll/Pitch/Yaw
-- **Total columns**: 347 (286 IMU + 2 foot contact + 5 walkway + 50 insole + 4 events)
-- **Currently using**: 78/347 (Acc_XYZ + Gyr_XYZ only). FreeAcc, Euler, Mag, VelInc, OriInc all unused.
-- **Key unused data**: FreeAcc_E/N/U (gravity-removed global-frame accel), Roll/Pitch/Yaw (Euler angles), L/R Foot Contact (binary gait events), GeneralEvent (Walk/Turn/Sitting/SitToStand/TurnToSit)
-- **Walkway metrics**: 135 subjects, 196 pre-computed gait parameters (step/stride length, velocity, cadence, stance/swing %, double support, COP, eGVI)
-- **Insole data**: 174/185 subjects in _mat files, sparse within files
-- **Tasks**: Balance, SelfPace, HurriedPace, TUG, TandemGait + _mat (on walkway) + _matTURN variants
-- **File naming**: `{SubjectID}_{Task}.csv`
-- **Clinical CSVs**: `PD - Demographic+Clinical - datasetV1.csv`, `CONTROLS - Demographic+Clinical - datasetV1.csv`
-- **Clinical covariates**: Age, Sex, Height, Weight, Years since PD dx, Medications, DBS, H&Y, full UPDRS items 3-1 through 3-18
-
-### PADS Details
-- **Excluded tasks** (from official code): LiftHold, PointFinger, TouchIndex
-- **Split tasks**: Relaxed, RelaxedTask, Entrainment split into halves (11 segments total)
-- **Features**: 31 per channel (19 log10-PSD via Welch + 4 std + 4 abs_energy + 4 abs_max)
-- **Vibration artifact removal**: 48 samples (not 50)
-- **Two SEPARATE binary classifiers**: PD/HC and PD/DD (not 3-class)
-
-## Key Results
-
-| Experiment | MAE | r | Notes |
-|-----------|-----|---|-------|
-| Cross-config ensemble | **8.72** | **0.680** | Honest best (5 configs, 5 seeds each) |
-| Medium Transformer (ens) | 9.35 | 0.602 | Most reliable single config |
-| xxl Transformer (ens) | 9.39 | 0.602 | Best mean r but high variance |
-| xxl lucky seed | 8.44 | 0.723 | NOT reproducible (seed dependent) |
-| PADS Varghese stacked | — | — | 90.86% PD/HC, 73.67% PD/DD bal. acc. |
-
-## Critical Rules
-
-- **NEVER per-subject z-normalize for regression** -- amplitude IS severity signal
-- **NEVER use amplitude scaling augmentation** -- destroys severity-correlated info
-- **ALWAYS 3-way split**: train (early stop val) / test (final metrics only)
-- **ALWAYS report multi-seed results** -- single seed is unreliable at N=178
-- **Subject-level splits only** -- window-level leaks same-subject data
-- RTX 5060 Ti needs PyTorch 2.8+ with cu128 (sm_120 Blackwell)
-- WearGait-PD MAT files are unusable -- always use CSVs
-- PADS PhysioNet slug: `parkinsons-disease-smartwatch`
-
-## Current Phase: 4 (Recipe & Methodology Fixes)
-
-Priority order (from GPT-5.4/Codex analysis):
-1. **Global normalization** -- train-set stats, not per-subject (expected ~1-2 MAE)
-2. **Subject-level MIL** -- attention pooling, subject-level loss (fixes seed variance)
-3. **Hybrid features + CatBoost** -- handcrafted + learned + covariates
-4. **Two-stage model** -- PD/HC gate then PD-only regressor (fair SOTA comparison)
-5. **Task-aware features** -- TUG subphases, balance sway, cadence reserve
-
-See `task_plan.md` for detailed phase breakdown, `findings.md` for literature review, `progress.md` for session logs.
+- **NEVER per-subject z-normalize for regression** — amplitude IS severity
+- **NEVER amplitude-scale augmentation** — destroys severity signal
+- **ALWAYS subject-level splits** — window-level leaks
+- **ALWAYS multi-seed** (3-5 seeds) — single seed is noise at N=178
+- **ALWAYS report PD-only MAE alongside overall** — HC inflates metrics

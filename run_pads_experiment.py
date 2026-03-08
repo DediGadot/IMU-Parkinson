@@ -323,7 +323,44 @@ def run_cnn_baseline(records):
     print("DL BASELINE: 1D-CNN on Raw IMU")
     print("=" * 60)
 
-    from src.models.cnn1d import CNN1DBaseline
+    class ResBlock1D(nn.Module):
+        def __init__(self, channels, kernel_size=7):
+            super().__init__()
+            padding = kernel_size // 2
+            self.block = nn.Sequential(
+                nn.Conv1d(channels, channels, kernel_size, padding=padding),
+                nn.BatchNorm1d(channels), nn.GELU(),
+                nn.Conv1d(channels, channels, kernel_size, padding=padding),
+                nn.BatchNorm1d(channels))
+            self.act = nn.GELU()
+        def forward(self, x):
+            return self.act(x + self.block(x))
+
+    class CNN1DBaseline(nn.Module):
+        def __init__(self, in_channels=6, base_channels=64, n_blocks=4, n_classes=3, dropout=0.3):
+            super().__init__()
+            self.stem = nn.Sequential(
+                nn.Conv1d(in_channels, base_channels, 15, stride=2, padding=7),
+                nn.BatchNorm1d(base_channels), nn.GELU())
+            blocks = []
+            ch = base_channels
+            for i in range(n_blocks):
+                blocks.append(ResBlock1D(ch))
+                if i < n_blocks - 1:
+                    next_ch = ch * 2
+                    blocks.extend([nn.Conv1d(ch, next_ch, 3, stride=2, padding=1),
+                                   nn.BatchNorm1d(next_ch), nn.GELU()])
+                    ch = next_ch
+            self.backbone = nn.Sequential(*blocks)
+            self.pool = nn.AdaptiveAvgPool1d(1)
+            self.classifier = nn.Sequential(
+                nn.Dropout(dropout), nn.Linear(ch, ch // 2), nn.GELU(),
+                nn.Dropout(dropout), nn.Linear(ch // 2, n_classes))
+        def forward(self, x):
+            x = self.stem(x)
+            x = self.backbone(x)
+            x = self.pool(x).squeeze(-1)
+            return {"classification": self.classifier(x)}
 
     label_map = {"HC": 0, "PD": 1, "DD": 2}
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
