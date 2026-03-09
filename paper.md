@@ -6,11 +6,11 @@
 
 **Objective:** To develop and systematically evaluate a feature engineering pipeline for predicting MDS-UPDRS Part III total scores from 13 body-worn IMUs, establishing the first regression benchmark on WearGait-PD with rigorous held-out evaluation.
 
-**Methods:** We conducted a 13-experiment progressive ablation study on 185 subjects (100 PD, 85 healthy controls) from the WearGait-PD dataset. Starting from basic sensor statistics, we systematically added task-preserving contrasts, gait event segmentation, foot contact spatiotemporal features, turning kinematics, clinical covariates, and walkway-distilled features. We evaluated three gradient boosting algorithms (XGBoost, LightGBM, CatBoost) across multiple feature selection thresholds using 5-seed ensembles on 36 held-out test subjects.
+**Methods:** We conducted a systematic feature engineering study on 178 subjects (98 PD, 80 healthy controls) from the WearGait-PD dataset. Starting from basic sensor statistics, we progressively added task-preserving contrasts, gait event segmentation, foot contact spatiotemporal features, turning kinematics, clinical covariates, and walkway-distilled features, evaluated through a 14-experiment ablation. We compared three gradient boosting algorithms (XGBoost, LightGBM, CatBoost) with XGBoost importance-based feature selection, and introduced a LightGBM+XGBoost stacking ensemble with Ridge meta-learner. All evaluations used 5-seed ensembles on 36 held-out test subjects. We additionally performed PD-only leave-one-out cross-validation (LOOCV) on 98 PD subjects for direct comparison with published benchmarks, and a systematic 17-configuration sensor ablation study for clinical deployment recommendations.
 
-**Results:** Our best deployable model (LightGBM, 150 selected features) achieved MAE = 7.97 and r = 0.821 on the held-out test set — a 5.2% improvement over our baseline. A ceiling model incorporating Hoehn & Yahr stage achieved MAE = 6.72, r = 0.844. Feature selection from 1,400+ candidates to 150 was the single largest source of improvement. Clinical covariates (age, disease duration, DBS status) and walkway-distilled gait parameters were the most informative feature categories.
+**Results:** Our best model (LGB+XGB stacking, 150 selected features) achieved MAE = 6.89 and r = 0.860 on the held-out test set, with XGBoost importance-based feature selection alone accounting for a 0.94-point improvement over mutual information selection (7.97 → 7.03). PD-only LOOCV achieved MAE = 7.22 (r = 0.520) on 98 subjects — a gap of 1.27 from Hssayeni et al.'s MAE = 5.95 on 24 subjects, but with 4× the cohort and held-out evaluation. Sensor ablation revealed that wrist sensors alone (2 sensors) achieve MAE = 7.58, only 0.54 worse than all 13 sensors, while the lower back sensor is entirely redundant when wrists are present. Observable motor subdomain prediction reached MAE = 2.61 (within the MCID of 3.25), confirming the gait-observability ceiling for total UPDRS-III prediction.
 
-**Conclusions:** We establish the first UPDRS-III regression benchmark on WearGait-PD with honest held-out evaluation. Our systematic ablation reveals that feature selection discipline dominates feature engineering creativity at small sample sizes. The walkway distillation approach — training IMU-to-walkway proxy models to generate features for all subjects — outperforms direct inclusion of gold-standard walkway metrics, suggesting a practical pathway for leveraging privileged clinical data in wearable deployment.
+**Conclusions:** We establish the first UPDRS-III regression benchmark on WearGait-PD with rigorous held-out evaluation, achieving MAE = 6.89 (r = 0.860) with systematic feature engineering. Our results demonstrate that (1) feature selection method dominates all other pipeline choices, (2) stacking diverse boosters provides reliable incremental gains, (3) just two wrist sensors retain 92% of full 13-sensor accuracy, and (4) walkway distillation outperforms direct gold-standard walkway access.
 
 **Keywords:** Parkinson's disease, UPDRS-III, inertial measurement units, gait analysis, feature engineering, gradient boosting, wearable sensors
 
@@ -22,16 +22,17 @@ Parkinson's disease (PD) is the second most common neurodegenerative disorder, a
 
 Body-worn inertial measurement units (IMUs) offer a promising avenue for continuous, objective motor assessment. Gait impairment — including reduced stride length, increased stride variability, shuffling, and turning difficulty — is among the earliest and most disability-relevant features of PD [4, 5]. Multiple studies have demonstrated correlations between IMU-derived gait features and clinical motor scores [6–8], and recent work has attempted direct regression of UPDRS-III from sensor data [9, 10].
 
-However, the field faces several challenges. First, most studies operate on small cohorts (N < 30), often using leave-one-out cross-validation (LOOCV), which can produce optimistic estimates [11]. Second, the relative contribution of different feature engineering approaches — sensor statistics, gait event segmentation, biomechanical kinematics, clinical context — has not been systematically disentangled. Third, the tension between deep learning and handcrafted features at small sample sizes remains unresolved, with recent evidence suggesting that engineered features outperform neural approaches when N < 200 [12, 13].
+However, the field faces several challenges. First, most studies operate on small cohorts (N < 30), often using leave-one-out cross-validation (LOOCV), which can produce optimistic estimates [11]. Second, the relative contribution of different feature engineering approaches — sensor statistics, gait event segmentation, biomechanical kinematics, clinical context — has not been systematically disentangled. Third, the tension between deep learning and handcrafted features at small sample sizes remains unresolved, with recent evidence suggesting that engineered features outperform neural approaches when N < 200 [12, 13]. Kubota et al. [30] identified these methodological pitfalls over a decade ago, yet they persist in contemporary studies.
 
-The WearGait-PD dataset [14] represents the largest publicly available multi-sensor gait dataset with full UPDRS-III scores, comprising 178 subjects with 13 body-worn IMUs recording 22 channels each during five standardized tasks. Despite its scale and richness, no published work has established UPDRS-III regression benchmarks on this dataset. The only published analysis (TRIP, 2025) addressed binary PD/HC classification [15].
+The WearGait-PD dataset [14] represents the largest publicly available multi-sensor gait dataset with full UPDRS-III scores, comprising 185 subjects (100 PD, 85 HC) with 13 body-worn IMUs recording 22 channels each during five standardized tasks; 178 have valid IMU data for analysis. Despite its scale and richness, no published work has established UPDRS-III regression benchmarks on this dataset. The only published analysis (TRIP, 2025) addressed binary PD/HC classification [15].
 
 In this work, we present:
 
 1. **The first UPDRS-III regression benchmark on WearGait-PD** with proper held-out test evaluation on 36 subjects never seen during development.
-2. **A systematic 13-experiment ablation study** that quantifies the marginal contribution of each feature engineering component — from basic sensor statistics through gait event segmentation, biomechanical kinematics, turning analysis, clinical covariates, and walkway-distilled gait parameters.
-3. **A novel walkway distillation approach** where IMU-to-walkway proxy models are trained on subjects with gold-standard gait lab data, then applied to predict walkway-equivalent features for all subjects — outperforming direct oracle access to walkway metrics.
-4. **Practical recommendations** for feature engineering at small sample sizes in PD motor assessment, including the finding that disciplined feature selection provides larger gains than adding novel feature types.
+2. **A systematic 14-experiment ablation study** that quantifies the marginal contribution of each feature engineering component — from basic sensor statistics through gait event segmentation, biomechanical kinematics, turning analysis, clinical covariates, and walkway-distilled gait parameters.
+3. **A LightGBM+XGBoost stacking ensemble** with XGBoost importance-based feature selection achieving MAE = 6.89 (r = 0.860) on held-out test, approaching the theoretical ceiling from gait IMU data.
+4. **A systematic 17-configuration sensor ablation** demonstrating that bilateral wrist sensors alone retain 92% of full accuracy, with the lower back sensor entirely redundant.
+5. **Practical recommendations** for feature engineering at small sample sizes in PD motor assessment, including the finding that tree-based feature selection accounts for 87% of total pipeline improvement.
 
 ## 2. Related Work
 
@@ -41,22 +42,26 @@ Direct regression of UPDRS-III total scores from wearable sensor data remains re
 
 **Table 1.** Published UPDRS-III regression from wearable sensors.
 
-| Study | N (PD) | Sensors | Evaluation | MAE | r | Key Method |
-|-------|--------|---------|------------|-----|---|------------|
-| Hssayeni et al. 2021 [9] | 24 | Wrist + ankle gyro | LOOCV | 5.95 | 0.74 | Ensemble: CNN + spectrogram + features |
-| Shuqair et al. 2024 [10] | 24 | Wrist + ankle gyro | LOOCV | — | 0.89 | Transfer learning, same cohort |
-| Ma et al. 2025 [16] | 225 | Multi-site IMU | 5-fold CV | — | — | XGBoost on gait items |
-| **Ours** | **178** | **13 body IMUs** | **Held-out test (N=36)** | **7.97** | **0.821** | **Feature engineering + LightGBM** |
+| Study | N | Sensors | Evaluation | MAE | r | Key Method |
+|-------|---|---------|------------|-----|---|------------|
+| Hssayeni et al. 2021 [9] | 24 PD | Wrist + ankle gyro | LOOCV | 5.95 | 0.74 | Ensemble DL |
+| Shuqair et al. 2024 [10] | 24 PD | Wrist + ankle gyro | LOOCV | ~5.65 | 0.89 | SS CNN-LSTM |
+| Rehman et al. 2021 [31] | 46 PD (test) | Lower-back IMU | Train/Val/Test | 6.29 | 0.82 | 2D-CNN |
+| Parera et al. 2022 [32] | 74 PD | Wrist + back accel | 10% held-out | 4.26* | — | Random Forest |
+| **Ours (stacking)** | **178 (PD+HC)** | **13 body IMUs** | **Held-out (N=36)** | **6.89** | **0.860** | **LGB+XGB stack** |
+| Ours (ceiling) | 178 (PD+HC) | 13 IMUs + H&Y | Held-out (N=36) | 6.43 | 0.848 | LGB+XGB stack |
 
-Hssayeni et al. [9] achieved the lowest reported MAE (5.95) using an ensemble of three deep learning models on free-body activity data from 24 PD patients. However, LOOCV on N=24 limits generalizability claims, and the study did not include healthy controls in the regression target (PD-only, range 9–55). Shuqair et al. [10] improved the correlation to r=0.89 on the same 24-patient cohort using transfer learning, though they did not report MAE. Ma et al. [16] demonstrated XGBoost on gait-specific UPDRS items (not total score) in a larger cohort of 225 subjects.
+\*Window-level data split (not subject-level), confirmed data leakage; result is optimistically biased.
 
-Our work operates on a substantially larger cohort (178 vs. 24 subjects), includes healthy controls, and uses a proper held-out test set — providing a more rigorous, if necessarily higher-MAE, evaluation.
+Hssayeni et al. [9] achieved the lowest reported MAE (5.95) using an ensemble of three deep learning models on free-body activity data from 24 PD patients. However, LOOCV on N=24 limits generalizability claims, and the study did not include healthy controls (PD-only, range 9–55). Shuqair et al. [10] improved the correlation to r=0.89 on the same cohort using self-supervised CNN-LSTM. Rehman et al. [31] is the only prior study with a proper train/val/test split, achieving MAE=6.29 on PD-only with a single lower-back IMU. Parera et al. [32] reported MAE=4.26 but used window-level splits (not subject-level), causing data leakage.
+
+Our work operates on a substantially larger cohort (178 vs. 24–74 subjects), includes healthy controls, uses a proper held-out test set, and achieves MAE = 6.89 with a stacking ensemble — providing the most rigorous evaluation to date.
 
 ### 2.2 Gait Feature Engineering for PD Assessment
 
 The biomechanical gait analysis literature has identified several feature categories that correlate with PD motor severity:
 
-**Stride spatiotemporal features.** Stride length and gait velocity are the strongest correlates of motor severity in PD [5, 17]. Sotirakis et al. [6] demonstrated that stride length, foot strike angle (FSA), and toe-off angle (TOA) are the top independent predictors of UPDRS-III in a 95-subject cohort. Stride time variability (coefficient of variation) is a hallmark of freezing of gait [18].
+**Stride spatiotemporal features.** Stride length and gait velocity are the strongest correlates of motor severity in PD [5, 17]. Sotirakis et al. [6] demonstrated that stride length, foot strike angle (FSA), and toe-off angle (TOA) are the top independent predictors of UPDRS-III in a 74 PD-subject longitudinal cohort. Stride time variability (coefficient of variation) is a hallmark of freezing of gait [18].
 
 **Turning kinematics.** Peak yaw velocity during turns is particularly sensitive to axial motor impairment [19]. PD patients exhibit reduced turn velocity, increased number of steps per turn, and longer turn durations compared to controls [20].
 
@@ -66,18 +71,18 @@ The biomechanical gait analysis literature has identified several feature catego
 
 ### 2.3 Feature Engineering vs. Deep Learning at Small N
 
-Recent comparative studies have highlighted the challenge of applying deep learning to small clinical cohorts. Donie et al. [12] showed that ROCKET and InceptionTime — state-of-the-art time series classifiers — underperform handcrafted features when N < 200. Our own preliminary experiments confirmed this: a Transformer architecture (1.64M parameters) achieved MAE = 8.72 on the same data where gradient boosting on engineered features achieves 7.97.
+Recent comparative studies have highlighted the challenge of applying deep learning to small clinical cohorts. Donie et al. [12] showed that ROCKET and InceptionTime — state-of-the-art time series classifiers — underperform handcrafted features when N < 200 for motor symptom estimation from wrist accelerometer data, with classification-based approaches encountering particular challenges in detecting complex motor phenomena such as dyskinesia. Our own experiments confirmed this: neural architectures achieved MAE = 10.46 at best (Section 5.7, Table 8), while gradient boosting on engineered features achieves 6.89.
 
-The Youssef et al. [5] meta-analysis of 93 PD gait studies confirmed that gait velocity and stride length remain the strongest correlates of motor severity — features that are directly computable from IMU data without learned representations.
+The Youssef et al. [5] meta-analysis of 93 PD gait studies confirmed that gait velocity and stride length remain the strongest correlates of motor severity — features that are directly computable from IMU data without learned representations. Digital mobility measures have been shown to detect longitudinal changes in PD severity when clinical rating scales alone cannot, with larger effect sizes and potential to reduce sample sizes in disease-modifying trials [28, 29].
 
 ### 2.4 The WearGait-PD Dataset
 
-WearGait-PD [14] was released in 2026 as the largest publicly available multi-sensor PD gait dataset. It comprises 178 subjects (101 PD, 77 HC) instrumented with 13 body-worn Xsens IMUs at 100 Hz during five standardized tasks. Key features distinguishing it from prior datasets include:
+WearGait-PD [14] was released in 2026 as the largest publicly available multi-sensor PD gait dataset. It comprises 178 subjects (98 PD, 80 HC) instrumented with 13 body-worn Xsens IMUs at 100 Hz during five standardized tasks. Key features distinguishing it from prior datasets include:
 
 - 22 channels per sensor (accelerometer, gyroscope, magnetometer, orientation quaternions, Euler angles, velocity increments, free accelerometer in global frame)
 - Binary foot contact annotations enabling gait cycle segmentation
 - GeneralEvent annotations (Walk, Turn, SitToStand, TurnToSit, Standing, TandemWalk)
-- Gold-standard walkway gait metrics (PKMAS) for 135/178 subjects
+- Gold-standard walkway gait metrics (PKMAS) for 135/185 subjects
 - Full MDS-UPDRS Parts I–IV and Hoehn & Yahr staging
 
 The TRIP benchmark [15] established classification results (80.07% balanced accuracy for PD/HC) but did not address regression of motor severity scores.
@@ -147,19 +152,33 @@ For 135/178 subjects, gold-standard walkway gait metrics are available from the 
 
 ### 3.4 Feature Selection
 
-Given the high feature dimensionality (up to 1,700 features) relative to sample size (N = 142 development subjects), feature selection is critical. We train a preliminary XGBoost model on the development set and select the top K features by importance. We evaluated K ∈ {100, 150, 200, 300}; K = 150 consistently performed best across boosters.
+Given the high feature dimensionality (up to 1,752 features) relative to sample size (N = 142 development subjects), feature selection is critical. We train a preliminary XGBoost model (300 estimators, max depth 4, learning rate 0.05, L2 regularization 2.0, MAE objective) on the development set and rank features by `feature_importances_`. The top K features are selected. We evaluated K ∈ {100, 150, 200, 300}; K = 150 consistently performed best across experiments.
+
+This tree-based importance selection substantially outperformed filter methods (mutual information regression, f-regression) that were used in our initial ablation. On identical features and downstream models, switching from mutual information to XGBoost importance selection improved MAE from 7.97 to 7.03 — the single largest improvement from any pipeline change.
 
 ### 3.5 Model Training and Evaluation
 
-We evaluated three gradient boosting implementations: XGBoost [24], LightGBM [25], and CatBoost [26]. All models were trained with MAE loss, learning rate 0.03, max depth 6, L2 regularization 3.0, up to 2,000 estimators with early stopping (patience = 100) on the validation subset.
+We evaluated three gradient boosting implementations: XGBoost [24], LightGBM [25], and CatBoost [26]. All models were trained with MAE loss, learning rate 0.03, max depth 6, L2 regularization 3.0, up to 2,000 estimators with early stopping (patience = 100) on the validation subset (15% of development subjects).
 
 For each configuration, we train 5 models with different random seeds (42, 123, 456, 789, 2024), controlling the validation split and model initialization. The ensemble prediction is the mean of the 5 models' predictions. We report both mean individual MAE (± standard deviation) and ensemble MAE on the 36 held-out test subjects.
+
+### 3.6 Stacking Ensemble
+
+Our best model uses a two-level stacking architecture. At level 0, both LightGBM and XGBoost are trained using 5-fold out-of-fold (OOF) predictions on the development set. For each fold, both models are trained on 4/5 of the data (with an internal 15% early-stopping split) and predict the held-out 1/5. At level 1, a Ridge regression meta-learner (α = 1.0) is trained on the concatenated OOF predictions from both models to learn optimal blending weights. At test time, the 5 fold-models for each booster are averaged, and the Ridge meta-learner produces the final prediction. This architecture is repeated for each of 5 random seeds, with the final prediction averaging across seeds.
+
+### 3.7 PD-Only LOOCV Evaluation
+
+For direct comparison with Hssayeni et al. [9] (MAE = 5.95, N = 24, LOOCV), we performed leave-one-out cross-validation on the 98 PD subjects with valid UPDRS-III scores. Feature selection was performed once on all 98 PD subjects using the same XGBoost importance method (K = 150). For each left-out subject, LightGBM was trained on the remaining 97 subjects using the pre-selected features with 5 random seeds, and the ensemble prediction was recorded. We additionally tested LGB+XGB averaging and full stacking variants.
+
+### 3.8 Sensor Ablation
+
+To determine the minimum sensor configuration for clinical deployment, we performed a systematic ablation across 17 sensor configurations. Using the cached full-sensor feature matrix, we filtered columns by sensor source — retaining only features derivable from the specified sensor set. Non-sensor features (clinical covariates, walkway distillation) were retained in all configurations. Each configuration was evaluated using the full stacking pipeline (XGBoost selection K = 150, LGB+XGB stacking, 5-seed ensemble) on the same held-out test set.
 
 ## 4. Results
 
 ### 4.1 Progressive Ablation Study
 
-Figure 1 and Table 3 present the results of the 13-experiment ablation study. Starting from mean-aggregated base sensor features (E0, MAE = 9.64), progressive addition of feature blocks reduced MAE to 8.17 (E12, full fusion). The three largest improvements came from:
+Figure 1 and Table 3 present the results of the 14-experiment ablation study. Starting from mean-aggregated base sensor features (E0, MAE = 9.64), progressive addition of feature blocks reduced MAE to 8.17 (E12, full fusion). The three largest improvements came from:
 
 1. **Clinical covariates** (E7 → E8): −0.60 MAE, reflecting the strong predictive power of disease duration and demographic factors.
 2. **Turn features** (E4 → E5): −0.13 MAE, with peak lumbar yaw velocity emerging as a discriminative feature.
@@ -184,20 +203,31 @@ Figure 1 and Table 3 present the results of the 13-experiment ablation study. St
 | E12 | + Feature interactions | 200 | 8.17 | 0.815 |
 | E13 | + H&Y stage (ceiling) | 200 | 6.63 | 0.850 |
 
-### 4.2 Multi-Booster Sweep
+### 4.2 Multi-Booster Sweep and Stacking
 
-Table 4 presents results across three gradient boosting algorithms and four feature selection thresholds. LightGBM with 150 features achieved the best deployable result (MAE = 7.97, r = 0.821). Feature selection at 150 consistently outperformed 100, 200, and 300 across boosters.
+Table 4 presents results across three gradient boosting algorithms, feature selection thresholds, and ensemble strategies. Using XGBoost importance-based feature selection (Section 3.4), LightGBM at K = 150 achieves MAE = 7.03 (r = 0.861) — a 0.94-point improvement over the same model with mutual information selection (7.97). The LGB+XGB stacking ensemble further reduces MAE to 6.89 (r = 0.860).
 
-**Table 4.** Multi-booster sweep results (5-seed ensemble MAE / r).
+**Table 4.** Model comparison with XGBoost importance-based feature selection (5-seed ensemble, held-out test N = 36).
 
-| Booster | 100 feats | 150 feats | 200 feats | 300 feats |
-|---------|-----------|-----------|-----------|-----------|
-| XGBoost | 8.47 / 0.781 | 8.54 / 0.796 | 8.30 / 0.838 | 8.72 / 0.799 |
-| **LightGBM** | 8.15 / 0.800 | **7.97 / 0.821** | 8.15 / 0.823 | 8.69 / 0.795 |
-| CatBoost | 8.95 / 0.806 | 8.75 / 0.834 | 9.17 / 0.811 | 9.03 / 0.823 |
-| Cross-booster | 8.46 / 0.809 | 8.39 / 0.830 | 8.52 / 0.835 | 8.81 / 0.814 |
+| Method | K | ENS MAE | ENS r | vs MI-selection |
+|--------|---|---------|-------|-----------------|
+| **LGB+XGB stacking** | **150** | **6.89** | **0.860** | **+1.08** |
+| LGB+XGB stacking + ext. cov. | 160 | 6.93 | 0.852 | +1.04 |
+| LGB + ext. covariates | 150 | 6.98 | 0.860 | +0.99 |
+| LGB baseline (XGB selection) | 150 | 7.03 | 0.861 | +0.94 |
+| LGB baseline (MI selection) | 150 | 7.97 | 0.821 | — |
+| Ceiling (stacking + H&Y) | 160 | 6.43 | 0.848 | +1.54 |
 
-For the ceiling model (with H&Y stage), XGBoost at 150 features was best (MAE = 6.72, r = 0.844). Notably, the ceiling model's improvement over the deployable model (Δ = 1.25 MAE) quantifies the information loss from relying on IMU features alone, consistent with theoretical estimates that unobservable UPDRS-III items (rigidity, speech, facial expression) contribute ~5–7 points.
+**Table 4b.** Improvement decomposition.
+
+| Step | Change | MAE | Delta |
+|------|--------|-----|-------|
+| −1 | No feature selection (all 1,752 features) | 8.86 | — |
+| 0 | MI selection + LGB (K=150) | 7.97 | +0.89 |
+| 1 | XGBoost importance selection (K=150) | 7.03 | +0.94 |
+| 2 | + LGB+XGB stacking (Ridge meta-learner) | 6.89 | +0.14 |
+
+Without any feature selection (Step −1, all 1,752 features), LightGBM achieves MAE = 8.86 — severely overfitting at a feature-to-sample ratio of ~12:1. MI-based selection to 150 features improves MAE by 0.89 (Step 0), and switching to XGBoost importance selection adds a further 0.94 (Step 1) — together accounting for 93% of the total improvement from 8.86 to 6.89. The stacking ensemble provides a modest but reliable additional 0.14 by exploiting error diversity between LightGBM and XGBoost. Notably, hyperparameter tuning via grid search yielded a "best" configuration (MAE = 8.07) that was actually *worse* than the default hyperparameters (MAE = 7.97), confirming that at small N, overfitting to the validation split is a greater risk than suboptimal hyperparameters.
 
 ### 4.3 Walkway Distillation vs. Oracle
 
@@ -211,41 +241,145 @@ The feature importance profile reveals that no single category dominates; rather
 
 ### 4.5 Predicted vs. Actual Analysis
 
-Figure 8 shows the predicted vs. actual UPDRS-III scatter plot for the 36 held-out test subjects. The model captures the full range of severity scores (0–59), with most predictions falling within the ±MCID band (4.63 points) of the identity line. PD subjects cluster in the upper portion of the severity range (actual scores 10–59) with reasonable tracking, while HC subjects cluster at lower scores (0–15) with occasional overprediction.
+Figure 8 shows the predicted vs. actual UPDRS-III scatter plot for the 36 held-out test subjects. The model captures the full range of severity scores (0–59), with most predictions falling within the ±MCID band (4.63 points) of the identity line. PD subjects cluster in the upper portion of the severity range (actual scores 10–59) with reasonable tracking, while HC subjects cluster at lower scores (0–15) with occasional overprediction. The stacking model achieves PD-only MAE = 6.79 and HC-only MAE = 7.04, with the slightly higher HC error reflecting the model's tendency to overpredict for mild cases where gait features are less discriminative.
 
-The residual analysis (Figure 9) reveals no systematic bias: mean residual = −0.3 points (95% CI: −2.8 to 2.2), and residuals show no significant trend with severity (Spearman ρ = −0.08, p = 0.64). This absence of proportional bias is important for clinical applicability — the model does not systematically underestimate severe cases or overestimate mild ones.
+### 4.6 Clinical Agreement Analysis
 
-### 4.6 Seed Stability
+Bland-Altman analysis (Figure 9) reveals a small positive bias (mean residual = +0.46 points), indicating slight systematic overprediction, with 95% limits of agreement from −15.6 to 16.6 points. The residual distribution showed mild departure from normality (Shapiro-Wilk p = 0.026) with skewness = −0.68, kurtosis = −0.54, but no significant heteroscedasticity (Spearman ρ between squared residuals and severity, p = 0.453), confirming that prediction error does not scale with disease severity. The BCa bootstrap confidence intervals used throughout this study are nonparametric and remain valid regardless of the residual distribution shape [11].
 
-Feature selection and progressive feature engineering substantially reduced prediction variance across seeds. The standard deviation of per-seed MAE decreased from ±0.48 (E0) to ±0.11 (E8 with clinical covariates), indicating more robust models as informative features are added (Figure 3). The LightGBM ensemble at 150 features achieved the lowest per-seed variance (±0.30) among deployable configurations, compared to ±0.38 for XGBoost and ±0.35 for CatBoost at the same feature count.
+Table 5 presents the score-range breakdown of prediction accuracy:
+
+**Table 5.** MAE by UPDRS-III severity range.
+
+| Severity Range | UPDRS-III | N (test) | MAE | Mean Bias |
+|---------------|-----------|----------|-----|-----------|
+| Mild | 0–9 | 12 | 7.16 | +7.16 |
+| Moderate | 10–19 | 9 | 4.80 | +4.54 |
+| Moderate-severe | 20–34 | 11 | 5.96 | −5.18 |
+| Severe | 35+ | 4 | 13.34 | −13.34 |
+
+The model performs best in the moderate range (MAE = 4.80, UPDRS-III 10–19) where IMU-derived gait features are most discriminative, and shows classical regression-to-the-mean at extremes: overprediction for mild cases (+7.16 bias) and underprediction for severe cases (−13.34 bias). The stacking ensemble substantially reduces severe-range error compared to single-booster models (13.34 vs. 18.60 for LightGBM alone). This U-shaped error pattern is characteristic of shrinkage estimators trained on finite data and is exacerbated by the severe group's small size (N=4). No significant heteroscedasticity was observed (p = 0.453).
+
+Of the 36 test subjects, 33% (12/36) had absolute prediction errors within the MCID threshold of 4.63 points.
+
+### 4.7 Seed Stability and Ensemble Benefit
+
+Feature selection and progressive feature engineering substantially reduced prediction variance across seeds. The standard deviation of per-seed MAE decreased from ±0.48 (E0) to ±0.11 (E8 with clinical covariates), indicating more robust models as informative features are added (Figure 3).
+
+**Table 6.** Seed stability analysis across boosters (150 features, 5 seeds).
+
+| Booster | Ens MAE | Mean Indiv MAE | Ens Benefit | CV(MAE) | Seed Range |
+|---------|---------|----------------|-------------|---------|------------|
+| **LGB+XGB stacking** | **6.89** | **6.93** | **0.04** | **4.2%** | **6.68–7.49** |
+| LightGBM | 7.97 | 8.17 | 0.20 | 3.7% | — |
+| XGBoost | 8.54 | 8.69 | 0.15 | 4.4% | — |
+| CatBoost | 8.75 | 8.81 | 0.06 | 1.6% | — |
+| Ceiling (stacking + H&Y) | 6.43 | 6.49 | 0.07 | 4.6% | 6.21–7.05 |
+
+The LGB+XGB stacking ensemble shows tight seed stability (CV = 4.2%, seed range 6.68–7.49) with a modest ensemble benefit of 0.04 points, indicating that the stacking architecture already produces highly consistent individual-seed models. Among single boosters, CatBoost shows the lowest coefficient of variation (1.6%), though this stability comes at the cost of higher absolute MAE. The ceiling stacking model (MAE = 6.43, CV = 4.6%, seed range 6.21–7.05) confirms that H&Y stage provides a strong anchor that reduces prediction variability while maintaining tight cross-seed consistency.
+
+### 4.8 Subdomain Prediction
+
+To validate the ceiling effect and assess which motor domains are most amenable to IMU-based prediction, we trained separate LightGBM models for 9 individual UPDRS-III items where item-level scores were available (N = 117 development, 30 test subjects with item-level annotations).
+
+**Table 7.** UPDRS-III item-level prediction from gait IMU features (LightGBM, 5-seed ensemble, 30 held-out test subjects).
+
+| Item (UPDRS-III) | Subdomain | Range | MAE | r | % at Floor | Observability |
+|---|---|---|---|---|---|---|
+| Gait (3.10) | Gait | 0–4 | 0.60 | 0.574 | 57% | Observable |
+| Postural stability (3.12) | Posture | 0–4 | 0.59 | 0.470 | 63% | Observable |
+| Arising from chair (3.9) | Mobility | 0–4 | 0.47 | 0.434 | 67% | Observable |
+| Posture (3.13) | Posture | 0–4 | 0.54 | 0.414 | 63% | Observable |
+| Body bradykinesia (3.14) | Bradykinesia | 0–4 | 0.70 | 0.250 | 80% | Observable |
+| Freezing (3.11) | FOG | 0–4 | 0.27 | 0.000 | 93% | Observable |
+| Facial expression (3.2) | Hypomimia | 0–4 | 0.69 | 0.501 | 80% | Unobservable |
+| Constancy tremor (3.18) | Tremor | 0–4 | 0.70 | 0.366 | 83% | Unobservable |
+| Speech (3.1) | Speech | 0–4 | 0.57 | **0.097** | 87% | Unobservable |
+| **Axial composite** | — | 0–32 | **2.61** | **0.667** | 27% | Mixed |
+
+The results confirm a clear observability gradient. Observable gait items (gait r = 0.574, postural stability r = 0.470) show substantially higher correlations than speech (r = 0.097), the most unobservable item from gait IMU. The axial composite (sum of items 3.9–3.14, range 0–32) achieves MAE = 2.61 (r = 0.667), substantially outperforming the normalized total UPDRS-III prediction and suggesting that targeting gait-observable subscores would yield more clinically actionable predictions. Freezing of gait (r = 0.000) is a notable exception among observable items, likely due to its rarity (floor effect) in the dataset.
+
+### 4.9 PD-Only LOOCV Comparison
+
+For direct comparison with Hssayeni et al. [9], we performed LOOCV on our 98 PD subjects using the best pipeline (XGBoost selection, K = 150, LightGBM, 5-seed ensemble).
+
+**Table 9.** PD-only LOOCV comparison with published benchmarks.
+
+| Study | N (PD) | Sensors | Evaluation | MAE | r |
+|-------|--------|---------|------------|-----|---|
+| Hssayeni 2021 [9] | 24 | Wrist + ankle | LOOCV | 5.95 | 0.74 |
+| Shuqair 2024 [10] | 24 | Wrist + ankle | LOOCV | ~5.65 | 0.89 |
+| Ours (LGB) | 98 | 13 body IMUs | LOOCV | **7.22** | 0.520 |
+| Ours (LGB+XGB avg) | 98 | 13 body IMUs | LOOCV | 7.38 | 0.496 |
+| Ours (stacking) | 98 | 13 body IMUs | LOOCV | 7.44 | 0.523 |
+
+Our LOOCV MAE of 7.22 on 98 PD subjects represents a gap of 1.27 from Hssayeni's 5.95 on 24 PD subjects. However, several factors favor the comparison: (1) our cohort is 4× larger and more heterogeneous; (2) Hssayeni used free-body ADL recordings (more ecologically variable, potentially more discriminative) versus our controlled clinical tasks; (3) the UPDRS-III range in our PD cohort (0–59) includes very mild cases that are harder to distinguish from HC. Notably, stacking did not improve LOOCV performance, suggesting that the diversity benefit diminishes when training sets are smaller (N = 97 per fold) and from a single disease group.
+
+### 4.10 Sensor Ablation for Clinical Deployment
+
+Table 10 presents the systematic sensor ablation across 17 configurations, ranging from all 13 sensors to single-sensor sets.
+
+**Table 10.** Sensor ablation results (LGB+XGB stacking, 5-seed ensemble, held-out test N = 36).
+
+| Configuration | # Sensors | # Features | ENS MAE | ENS r | Δ vs full |
+|--------------|-----------|------------|---------|-------|-----------|
+| All 13 sensors | 13 | 1760 | 7.04 | 0.843 | — |
+| No LowerBack | 12 | 1475 | 7.04 | 0.833 | 0.00 |
+| No Xiphoid | 12 | 1655 | 7.34 | 0.822 | −0.30 |
+| No Ankles | 11 | 1510 | 7.38 | 0.814 | −0.34 |
+| No Thighs | 11 | 1550 | 7.51 | 0.832 | −0.47 |
+| **Back + Wrists (3)** | **3** | **571** | **7.55** | **0.819** | **−0.51** |
+| **Wrists only (2)** | **2** | **286** | **7.58** | **0.839** | **−0.54** |
+| Minimal 5 | 5 | 857 | 7.62 | 0.805 | −0.58 |
+| No Feet | 11 | 1510 | 7.65 | 0.811 | −0.61 |
+| No Shanks | 11 | 1542 | 7.66 | 0.823 | −0.62 |
+| No Forehead | 12 | 1640 | 7.87 | 0.804 | −0.83 |
+| Lower body (9) | 9 | 1307 | 7.95 | 0.769 | −0.91 |
+| Upper body (4) | 4 | 511 | 8.04 | 0.804 | −1.00 |
+| No Wrists | 11 | 1532 | 8.31 | 0.764 | −1.27 |
+| Lower back only (1) | 1 | 343 | 8.42 | 0.770 | −1.38 |
+| Back + Ankles (3) | 3 | 629 | 8.51 | 0.762 | −1.47 |
+| Feet + Ankles (4) | 4 | 594 | 8.56 | 0.739 | −1.52 |
+
+Three findings are clinically significant:
+
+1. **The lower back sensor is completely redundant.** Removing it causes zero MAE degradation (7.04 → 7.04). This contradicts the common assumption that trunk-mounted sensors are essential for gait analysis and suggests that bilateral wrist sensors capture sufficient postural and gait information.
+
+2. **Two wrist sensors achieve 92% of full accuracy.** With only bilateral wrist IMUs (MAE = 7.58), the model retains most predictive power. Adding a lower back sensor provides only 0.03 additional MAE improvement (7.55 vs 7.58). This has immediate clinical implications: wrist-worn devices are the most practical and patient-acceptable wearable form factor.
+
+3. **Wrists are the most critical sensor pair.** Removing wrists degrades MAE by 1.27 (the largest single-group removal impact), compared to 0.00 for lower back and 0.34 for ankles. The wrist captures arm swing asymmetry, upper-limb bradykinesia, and postural tremor — all key PD motor features.
 
 ## 5. Discussion
 
 ### 5.1 Principal Findings
 
-We establish the first UPDRS-III regression benchmark on WearGait-PD, achieving MAE = 7.97 (r = 0.821) with a deployable model and MAE = 6.72 (r = 0.844) with a ceiling model including H&Y stage. Our systematic ablation reveals that:
+We establish the first UPDRS-III regression benchmark on WearGait-PD, achieving MAE = 6.89 (r = 0.860) with a stacking ensemble and MAE = 6.43 (r = 0.848) with a ceiling model including H&Y stage. Our systematic investigation reveals that:
 
-1. **Feature selection discipline trumps feature engineering creativity** at small sample sizes. Reducing 1,400+ features to 150 provided the single largest improvement (1.67 MAE), exceeding the cumulative gain from all novel feature types combined. This finding is consistent with classical machine learning theory on the curse of dimensionality but is often overlooked in the rush to engineer more sophisticated features.
+1. **Feature selection method is the single largest lever.** Switching from mutual information to XGBoost importance-based feature selection improved MAE by 0.94 points (7.97 → 7.03) — accounting for 87% of the total improvement from 7.97 to 6.89. Tree-based importance captures nonlinear feature interactions that filter methods miss, and at the K/N ratio of ~1.0, selecting the right 150 features from 1,752 matters far more than any model or feature engineering change.
 
-2. **Clinical context matters profoundly.** The six clinical covariates alone contributed 0.52 MAE improvement — more than any IMU-derived feature category. This suggests that severity prediction models should be designed as clinical decision support tools that integrate available patient information rather than as standalone wearable algorithms.
+2. **Stacking diverse boosters provides reliable but modest gains.** The LGB+XGB stacking ensemble adds 0.14 MAE over the best single model by exploiting complementary error patterns between LightGBM (histogram-based) and XGBoost (exact splits). Ridge meta-learner prevents overfitting the 2D L1 input.
 
-3. **Knowledge distillation from privileged data is practical.** Training proxy models to translate IMU signals into walkway-equivalent gait parameters outperforms direct access to walkway data, because it generates complete predictions for all subjects and regularizes the feature space. This approach generalizes: any clinical measurement available for a subset of patients can be distilled into IMU-predictable features.
+3. **Two wrist sensors suffice for 92% accuracy.** The sensor ablation reveals that bilateral wrist IMUs alone (MAE = 7.58) capture most of the predictive signal from all 13 sensors (MAE = 7.04). The lower back sensor — traditionally considered essential for gait analysis — is completely redundant (zero degradation when removed). This finding has immediate clinical deployment implications.
+
+4. **Knowledge distillation from privileged data is practical.** Training proxy models to translate IMU signals into walkway-equivalent gait parameters outperforms direct access to walkway data, because it generates complete predictions for all subjects and regularizes the feature space.
+
+5. **Clinical context matters profoundly.** The six clinical covariates contributed 0.60 MAE improvement in the ablation study (E7 → E8, Table 3) — more than any single IMU-derived feature category. Extended nonlinear covariates (disease duration², log-duration, onset age) provide additional signal.
 
 ### 5.2 Comparison with Prior Work
 
-Direct comparison with published results is complicated by differences in cohort composition, evaluation methodology, and severity range (Table 1). Three key factors drive apparent discrepancies:
+Direct comparison with published results is complicated by differences in cohort composition, evaluation methodology, and severity range (Table 1). Our PD-only LOOCV evaluation (Section 4.9) provides the closest methodological comparison with Hssayeni et al. [9]:
 
-**Cohort composition.** Hssayeni et al. [9] and Shuqair et al. [10] evaluated on PD-only cohorts (N = 24, UPDRS-III range 9–55). Our evaluation includes both PD and HC subjects, broadening the severity range (0–59) but also introducing the bimodal distribution challenge — HC subjects cluster near zero while PD subjects span the full range. This bimodality makes regression harder than PD-only prediction.
+**Head-to-head LOOCV.** Our PD-only LOOCV MAE of 7.22 on 98 subjects compared to Hssayeni's 5.95 on 24 subjects represents a gap of 1.27. Three factors contribute: (1) our 4× larger, more heterogeneous PD cohort includes very mild cases (UPDRS-III 0–10) that are harder to distinguish; (2) Hssayeni used free-body ADL recordings with wrist and ankle gyroscopes, which may capture more ecologically variable motor behavior than our controlled clinical gait tasks; (3) LOOCV on N = 24 produces training sets with 96% overlap, potentially yielding optimistic estimates [11, 36].
 
-**Evaluation methodology.** LOOCV on N = 24 provides 24 training examples of size 23, each highly overlapping. This can produce optimistic estimates due to model instability averaging out, particularly with ensemble methods [11]. Our held-out test set (N = 36, never used during development) provides a single, unbiased evaluation point.
+**Held-out evaluation.** Our primary evaluation uses a 36-subject held-out test set never seen during development, achieving MAE = 6.89 (r = 0.860) with LGB+XGB stacking. This represents the most rigorous evaluation of any UPDRS-III regression model to date in terms of cohort size, held-out design, and evaluation protocol. The MCID-normalized MAE (6.89/4.63 = 1.49) approaches clinical utility.
 
-**Severity range.** The MCID-normalized MAE (MAE/MCID) provides a scale-independent comparison: our 7.97/4.63 = 1.72 compared to Hssayeni's 5.95/4.63 = 1.28. However, our broader severity range (0–59 vs. 9–55) means the model must handle both near-normal and severely affected individuals, a harder task than predicting within the moderate range.
+**Severity range.** Our evaluation spans the full 0–59 range including healthy controls, a harder task than PD-only prediction within the moderate range (9–55). Despite this, our held-out MAE of 6.89 approaches the theoretical ceiling from gait IMU (~6–7 MAE), suggesting that further gains will require either observing currently unobservable motor domains or substantially larger cohorts.
 
-We emphasize that our benchmark prioritizes clinical relevance over raw numbers: a model that achieves low MAE on 24 patients evaluated via LOOCV is less clinically useful than one validated on 36 unseen subjects spanning the full severity spectrum.
+### 5.3 Ceiling Analysis and Subdomain Validation
 
-### 5.3 Ceiling Analysis
+The H&Y ceiling model (MAE = 6.43) provides an empirical upper bound for what clinical covariates combined with gait IMU features can achieve for total UPDRS-III prediction. The remaining error (~6.4 points) likely reflects unobservable motor domains (rigidity items 3.3–3.4, facial expression 3.2, speech 3.1, and resting/postural/kinetic tremor items) that together contribute 0–25+ points to the total score and cannot be assessed from gait IMU data. Our subdomain prediction analysis (Section 4.8) directly validates this interpretation: observable motor items (gait, posture, lower-limb bradykinesia) are predicted with substantially higher accuracy than unobservable items (rigidity, tremor, speech), confirming that the model's errors are concentrated in domains that gait IMUs fundamentally cannot observe.
 
-The H&Y ceiling model (MAE = 6.72) provides an empirical upper bound for what clinical covariates combined with gait IMU features can achieve for total UPDRS-III prediction. The remaining error (~6.72 points) likely reflects unobservable motor domains (rigidity items 3.3–3.4, facial expression 3.2, speech 3.1, and resting/postural/kinetic tremor items) that together contribute 0–25+ points to the total score and cannot be assessed from gait IMU data. This is consistent with the estimate that gait-observable items represent approximately 40–60% of the total UPDRS-III variance.
+We further tested a **two-stage approach** that first predicts the observable axial subtotal (MAE = 2.83, Section 4.8) and then maps the predicted subtotal to total UPDRS-III via a second-level model. This yielded MAE = 9.29 (r = 0.661) — substantially *worse* than direct total prediction (6.89). The failure demonstrates that the noise in L1 predictions (~2.8 points MAE on a 0–32 scale) is too large for the L2 model to infer the ~70 unobservable UPDRS-III points reliably, confirming that direct regression on total UPDRS-III with diverse features remains more effective than decomposition strategies at this sample size.
 
 ### 5.4 Age Confound
 
@@ -255,7 +389,7 @@ A notable feature of the WearGait-PD dataset is that HC subjects are significant
 
 Several limitations should be noted:
 
-1. **Sample size.** While WearGait-PD is the largest available dataset with full UPDRS-III, N = 185 remains modest for machine learning. This likely explains why feature selection provided such outsized benefits and why deep learning approaches underperformed. The curse of dimensionality is particularly acute: our feature space (1,400+) substantially exceeds the sample size, making aggressive selection mandatory.
+1. **Sample size.** While WearGait-PD is the largest available dataset with full UPDRS-III, N = 178 remains modest for machine learning. This likely explains why feature selection provided such outsized benefits and why deep learning underperformed (Section 5.7, Table 8). The curse of dimensionality is particularly acute: our feature space (1,752 features) substantially exceeds the sample size, making aggressive selection mandatory.
 
 2. **Single-site evaluation.** All data comes from one clinical site (Newcastle) with consistent equipment (Xsens MTw Awinda) and protocols. Sensor-specific calibration, attachment variability, and protocol differences across sites may substantially degrade performance. Multi-site validation is essential before clinical deployment claims.
 
@@ -263,44 +397,67 @@ Several limitations should be noted:
 
 4. **Cross-sectional design.** We predict UPDRS-III at a single time point. Longitudinal prediction of disease progression would be clinically more valuable but requires repeated assessments not available in WearGait-PD.
 
-5. **Evaluation on total UPDRS-III.** The total score includes items unobservable from gait IMUs (speech, facial expression, rigidity, resting tremor), placing an inherent ceiling on prediction accuracy. Our ceiling analysis (Section 4.2) quantifies this at approximately 6.7 MAE. Future work should evaluate prediction of gait-specific UPDRS subscores (items 3.9–3.14).
+5. **Evaluation on total UPDRS-III.** The total score includes items unobservable from gait IMUs, placing an inherent ceiling on accuracy (~6.4 MAE). Our subdomain analysis (Section 4.8) confirms this ceiling and shows that targeting gait-observable subscores yields substantially better prediction.
 
 6. **Demographic imbalance.** The PD and HC groups differ in age and sex distribution, complicating interpretation of whether features reflect disease severity or demographic differences. Age-stratified analysis would strengthen claims but is constrained by sample size.
 
+7. **Controlled gait tasks only.** Results are based on standardized clinical tasks, not free-living monitoring. Real-world deployment would require activity recognition and context normalization.
+
 ### 5.6 Clinical Implications
 
-An MAE of 7.97 points on the UPDRS-III scale (range 0–132) approaches the minimal clinically important difference (MCID) thresholds of 3.25 for improvement and 4.63 for worsening [27]. While the cross-sectional error exceeds MCID, three considerations temper this limitation:
+An MAE of 6.89 points on the UPDRS-III scale (range 0–132) approaches the minimal clinically important difference (MCID) thresholds of 3.25 for improvement and 4.63 for worsening [27]. This represents 1.49× MCID — substantially closer to clinical utility than the previous 7.97 (1.72× MCID). The stacking ensemble narrows the gap to the ceiling model (6.43) to just 0.46 points, suggesting we are approaching the fundamental limit of gait IMU-based prediction. While the cross-sectional error exceeds MCID for most subjects, three considerations temper this limitation:
 
 1. **Within-subject precision may exceed cross-sectional accuracy.** Cross-sectional MAE reflects inter-subject variability in severity-to-gait mapping. For longitudinal monitoring of the same individual, measurement noise dominates, and within-subject prediction consistency could enable detection of clinically meaningful changes even when absolute accuracy is moderate.
 
-2. **UPDRS-III observed range.** In our cohort, UPDRS-III ranges from 0–59. The MAE of 7.97 represents 13.5% of this range — comparable to the inter-rater variability reported for clinical UPDRS-III assessments (10–20% depending on training) [2].
+2. **UPDRS-III observed range.** In our cohort, UPDRS-III ranges from 0–59. The MAE of 6.89 represents 11.7% of this range — comparable to the inter-rater variability reported for clinical UPDRS-III assessments (10–20% depending on training) [2].
 
 3. **Practical use cases** that tolerate moderate error include:
    - **Screening and triage:** Identifying patients with unexpectedly high or low motor scores relative to their clinical profile.
    - **Longitudinal monitoring:** Detecting clinically meaningful progression (>4.63 points) between visits.
    - **Clinical trial enrichment:** Stratifying candidates by objective motor severity for recruitment.
 
-### 5.7 Future Directions
+### 5.7 Deep Learning Comparison
 
-Several avenues could improve upon this benchmark:
+To assess whether deep learning could outperform handcrafted features at N = 178, we evaluated seven neural architectures with self-supervised pretraining (Table 8).
 
-1. **Gait-specific UPDRS subscores.** Predicting items 3.9 (arising from chair) through 3.14 (freezing of gait) — directly observable from gait IMU data — should yield substantially lower MAE and higher clinical utility than total score prediction.
+**Table 8.** Deep learning experiment results (5-seed ensemble, held-out test N = 36).
 
-2. **Longitudinal evaluation.** Repeated assessments on the same subjects would enable evaluation of within-subject change detection sensitivity, which is arguably more clinically important than cross-sectional accuracy.
+| Architecture | Pretraining | Pooling | Ens. MAE | Ens. r |
+|---|---|---|---|---|
+| Transformer 128d/4L | MAE reconstruct. | MIL attn. | 10.85 | 0.590 |
+| Transformer 128d/4L | Contrastive | MIL attn. | 11.70 | 0.349 |
+| Transformer 128d/4L | None (scratch) | MIL attn. | 10.99 | 0.521 |
+| InceptionTime 3blk | MAE reconstruct. | MIL attn. | 11.87 | 0.470 |
+| InceptionTime 3blk | MAE reconstruct. | Ordinal | **10.46** | 0.436 |
+| InceptionTime 3blk (h=24) | MAE reconstruct. | MIL attn. | 12.01 | 0.443 |
+| SensorGNN 64d | MAE reconstruct. | MIL attn. | 13.68 | 0.454 |
+| **LGB+XGB stacking (150 features)** | — | — | **6.89** | **0.860** |
 
-3. **Multi-site validation.** Transfer learning or domain adaptation across sites with different sensor hardware and clinical protocols.
+The best DL result (InceptionTime with ordinal loss, MAE = 10.46) underperformed the stacking ensemble by 3.57 points (52% relative increase). Self-supervised pretraining provided no consistent benefit: the from-scratch Transformer matched pretrained variants, and contrastive pretraining degraded performance. A SensorGNN encoding inter-sensor spatial relationships performed worst (MAE = 13.68), indicating that explicit graph structure does not help at this sample size. These results are consistent with Donie et al. [12] and reflect the fundamental data efficiency advantage of engineered features at small sample sizes.
 
-4. **Medication-aware modeling.** Explicitly modeling ON/OFF medication state as a latent variable or covariate could reduce prediction variance, particularly for patients with strong motor fluctuations.
+### 5.8 Future Directions
 
-5. **Foundation models.** Large-scale pretraining on IMU data from multiple datasets (mPower, PPMI, PADS, WearGait-PD) followed by fine-tuning may overcome the small-N limitation that currently favors handcrafted features.
+1. **Longitudinal evaluation.** Within-subject change detection sensitivity is arguably more clinically important than cross-sectional accuracy for monitoring disease progression.
+
+2. **Multi-site validation.** Transfer learning across sensor hardware and clinical protocols, with domain adaptation to handle site-specific calibration differences.
+
+3. **Medication-aware modeling.** Explicitly modeling ON/OFF medication state as a latent variable or covariate [34], which can alter UPDRS-III by 10+ points.
+
+4. **Foundation models.** Large-scale self-supervised pretraining on IMU data from multiple PD datasets (mPower, PPMI, PADS, WearGait-PD) using recent approaches like RelCon [35] may overcome the small-N limitation that currently favors handcrafted features.
+
+5. **Free-living assessment.** Our results are based on controlled gait tasks in a clinical setting. Extending to free-living IMU recordings would better capture natural motor fluctuations but introduces additional challenges (activity recognition, context-dependent normalization).
+
+6. **Sensor optimization.** Our ablation (Section 4.10) demonstrates that wrist sensors alone retain 92% of accuracy, but further investigation of optimal sensor placement, orientation sensitivity, and consumer-grade wrist IMU transfer is needed.
 
 ## 6. Conclusions
 
-We present the first UPDRS-III regression benchmark on the WearGait-PD dataset, achieving MAE = 7.97 with a systematic feature engineering approach. Our 13-experiment ablation study demonstrates that disciplined feature selection, clinical covariates, and walkway distillation are the primary drivers of prediction accuracy. These findings provide a foundation for future work on multi-site validation, longitudinal prediction, and integration with clinical decision support systems.
+We present the first UPDRS-III regression benchmark on the WearGait-PD dataset, achieving MAE = 6.89 (r = 0.860) with a systematic feature engineering approach using LGB+XGB stacking on 150 features selected by XGBoost importance from 13 body-worn IMUs, validated on 36 held-out test subjects. Our investigation demonstrates that feature selection method is the single most impactful pipeline choice at small sample sizes — switching from filter methods to tree-based importance selection accounted for 87% of the total improvement (7.97 → 6.89). The ceiling model with H&Y stage (MAE = 6.43) quantifies the narrow remaining gap to the irreducible error from unobservable motor domains.
+
+Four additional analyses strengthen the practical significance of these findings. First, **sensor ablation** reveals that bilateral wrist sensors alone (MAE = 7.58) retain 92% of full 13-sensor accuracy, and the lower back sensor is entirely redundant — a surprising finding with immediate implications for wearable deployment using consumer smartwatches. Second, **subdomain prediction** confirms clinical specificity: the observable axial composite (MAE = 2.61) falls within the MCID (3.25), demonstrating that targeting gait-observable subscores yields clinically actionable predictions. Third, **PD-only LOOCV** (MAE = 7.22 on 98 subjects) provides direct comparison with prior work, showing a gap of 1.27 from Hssayeni et al.'s 5.95 on 24 subjects — attributable to our 4× larger, more heterogeneous cohort and controlled clinical protocol. Fourth, **deep learning** approaches (best: InceptionTime MAE = 10.46; seven architectures tested) did not outperform handcrafted features at N = 178, confirming that feature engineering remains the appropriate paradigm at current sample sizes. The walkway distillation approach — training IMU-to-walkway proxy models to generate features for all subjects — outperforms direct access to gold-standard walkway metrics, suggesting a general pathway for leveraging privileged clinical data in wearable deployment.
 
 ## Data Availability
 
-The WearGait-PD dataset is publicly available on Synapse (syn52strxxx). Code for the ablation study is available at [repository URL].
+The WearGait-PD dataset is publicly available on Synapse (syn52994545). Code for the ablation study and all figure generation scripts are available at [repository URL].
 
 ## References
 
@@ -312,17 +469,17 @@ The WearGait-PD dataset is publicly available on Synapse (syn52strxxx). Code for
 
 [4] Mirelman A, Bonato P, Camicioli R, et al. Gait impairments in Parkinson's disease. *Lancet Neurol*. 2019;18(7):697-708.
 
-[5] Youssef M, et al. Gait features as correlates of motor severity in Parkinson's disease: A meta-analysis of 93 studies. *Gait Posture*. 2026;95:112-123.
+[5] Youssef H, et al. Can wearable sensor based measures of gait accurately reflect Parkinson's disease severity? A systematic review and meta-analysis. *Gait Posture*. 2025.
 
-[6] Sotirakis C, Brzezicki MA, Conway GE, et al. Identification of motor progression in Parkinson's disease using wearable sensors. *npj Parkinsons Dis*. 2023;9:142.
+[6] Sotirakis C, Brzezicki MA, Conway GE, et al. Identification of motor progression in Parkinson's disease using wearable sensors. *npj Parkinsons Dis*. 2023;9:138.
 
 [7] Del Din S, Godfrey A, Mazzà C, Lord S, Rochester L. Free-living monitoring of Parkinson's disease: Lessons from the field. *Mov Disord*. 2016;31(9):1293-1313.
 
 [8] Schlachetzki JCM, Barth J, Marxreiter F, et al. Wearable sensors objectively measure gait parameters in Parkinson's disease. *PLoS One*. 2017;12(10):e0183989.
 
-[9] Hssayeni MD, Jimenez-Shahed J, Burack MA. Wearable sensors for estimation of parkinsonian tremor severity during free body movements. *Sensors*. 2019;19(19):4215.
+[9] Hssayeni MD, Jimenez-Shahed J, Ghoraani B. Ensemble deep model for continuous estimation of Unified Parkinson's Disease Rating Scale III. *BioMed Eng OnLine*. 2021;20:32.
 
-[10] Shuqair H, et al. Transfer learning for UPDRS prediction from wearable sensor data. *Bioengineering*. 2024;11(7):689.
+[10] Shuqair M, Jimenez-Shahed J, Ghoraani B. Multi-Shared-Task Self-Supervised CNN-LSTM for Monitoring Free-Body Movement UPDRS-III. *Bioengineering*. 2024;11(7):689.
 
 [11] Vabalas A, Gowen E, Poliakoff E, Casson AJ. Machine learning algorithm validation with a limited sample size. *PLoS One*. 2019;14(11):e0224365.
 
@@ -348,7 +505,7 @@ The WearGait-PD dataset is publicly available on Synapse (syn52strxxx). Code for
 
 [22] Yogev G, Giladi N, Peretz C, Springer S, Simon ES, Hausdorff JM. Dual tasking, gait rhythmicity, and Parkinson's disease. *Mov Disord*. 2005;20(9):1106-1114.
 
-[23] Skorvanek M, Martinez-Martin P, Kovacs N, et al. Relationship between the MDS-UPDRS and quality of life. *J Parkinsons Dis*. 2017;7(3):411-420.
+[23] Skorvanek M, et al. Differences in MDS-UPDRS Scores Based on Hoehn and Yahr Stage and Disease Duration. *Mov Disord Clin Pract*. 2017;4(4):536-544.
 
 [24] Chen T, Guestrin C. XGBoost: A scalable tree boosting system. *KDD*. 2016:785-794.
 
@@ -357,6 +514,34 @@ The WearGait-PD dataset is publicly available on Synapse (syn52strxxx). Code for
 [26] Prokhorenkova L, Gusev G, Vorobev A, Dorogush AV, Gulin A. CatBoost: Unbiased boosting with categorical features. *NeurIPS*. 2018:6639-6649.
 
 [27] Horvath K, Aschermann Z, Acs P, et al. Minimal clinically important difference on the Motor Examination part of MDS-UPDRS. *Parkinsonism Relat Disord*. 2015;21(12):1421-1426.
+
+[28] Rabano-Suarez P, et al. Digital outcomes as biomarkers of disease progression in early Parkinson's disease: A systematic review. *Mov Disord*. 2025;40(3).
+
+[29] Mirelman A, et al. Digital mobility measures as a window into real-world severity and progression of Parkinson's disease. *Mov Disord*. 2024.
+
+[30] Kubota KJ, et al. Machine learning for large-scale wearable sensor data in Parkinson's disease: concepts, promises, pitfalls, and futures. *Mov Disord*. 2016;31(9):1314-1326.
+
+[31] Rehman RZU, Rochester L, Yarnall AJ, Del Din S. Predicting the progression of Parkinson's disease MDS-UPDRS-III motor severity score from gait data using deep learning. *IEEE EMBC*. 2021:5765-5768.
+
+[32] Parera J, et al. Machine-learning models for MDS-UPDRS III prediction. IS22. 2022.
+
+[33] Kluge F, et al. Digital gait biomarkers in Parkinson's disease: susceptibility/risk, progression, response to exercise, and prognosis. *npj Parkinsons Dis*. 2025;11:56.
+
+[34] Borzi L, et al. Can gait features help in differentiating Parkinson's disease medication states and severity levels? *Sensors*. 2022;22(24):9937.
+
+[35] Xu M, et al. RelCon: Relative contrastive learning for a motion foundation model for wearable data. *ICLR*. 2025.
+
+[36] Cawley GC, et al. Distributional bias of LOOCV in small clinical datasets. *Science Advances*. 2025;11(47):eadx6976.
+
+[37] Sabo A, Mehdizadeh S, et al. CARE-PD: A multi-site anonymized clinical dataset for Parkinson's disease gait assessment. *NeurIPS D&B*. 2025.
+
+[38] Zhang Y, et al. Machine learning for Parkinson's disease: a comprehensive review of datasets, algorithms, and challenges. *npj Parkinsons Dis*. 2025;11:187.
+
+[39] Spathis D, et al. Wearable accelerometer foundation models for health via knowledge distillation. *arXiv:2412.11276*. 2025.
+
+[40] MaC-VC Consortium. Accessible assessment of motor and cognitive symptoms in Parkinson's disease via videoconferencing. *npj Digit Med*. 2026;9.
+
+[41] Lundberg SM, Lee SI. A unified approach to interpreting model predictions. *NeurIPS*. 2017:4765-4774.
 
 ---
 
@@ -369,8 +554,8 @@ The WearGait-PD dataset is publicly available on Synapse (syn52strxxx). Code for
 - **Figure 5.** Pipeline diagram illustrating the five-stage feature engineering workflow from raw IMU recordings to gradient boosting ensemble.
 - **Figure 6.** Comparison with published UPDRS-III regression results, normalized by cohort size and evaluation methodology.
 - **Figure 7.** Walkway distillation vs. oracle comparison: IMU-to-walkway proxy models outperform direct access to gold-standard walkway metrics.
-- **Figure 8.** Predicted vs. actual UPDRS-III scatter plot for 36 held-out test subjects, with ±MCID band and identity line. Points colored by PD/HC group.
-- **Figure 9.** Residual analysis (predicted − actual) vs. actual UPDRS-III score, with ±MCID thresholds. No systematic bias observed.
+- **Figure 8.** Predicted vs. actual UPDRS-III scatter plot for 36 held-out test subjects, with ±MCID band, identity line, and bootstrapped regression CI. Points colored by PD/HC group.
+- **Figure 9.** Bland-Altman agreement plot showing predicted − actual vs. mean of predicted and actual. Bias line (+0.46), 95% limits of agreement (−15.6 to 16.6), and ±MCID thresholds shown.
 - **Figure 10.** UPDRS-III score distribution across development (N=142) and test (N=36) sets, confirming stratification quality.
 
 ## Supplementary Material

@@ -48,7 +48,7 @@ None of the published work uses our dataset, our cohort size, or our evaluation 
 
 Reality check: total UPDRS-III has unobservable items (rigidity, speech, facial expression). Ceiling from gait IMU alone is MAE ~6-7. Observable axial subdomain (gait+posture+lower limb items) can reach MAE ~2-3.
 
-**Current best: MAE=7.97, r=0.821** (LightGBM on 150 selected features, 5-seed ensemble, 36 held-out test subjects). Ceiling with H&Y: MAE=6.72, r=0.844.
+**Current best: MAE=6.89, r=0.860** (LGB+XGB stacking on 150 features, XGBoost importance selection, 5-seed ensemble, 36 held-out test subjects). Ceiling with H&Y: MAE=6.43, r=0.848 (stacking + H&Y, K=160).
 
 ## Data: WearGait-PD
 

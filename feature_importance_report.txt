@@ -1,0 +1,136 @@
+======================================================================
+FEATURE IMPORTANCE ANALYSIS (SHAP)
+======================================================================
+
+Model: LightGBM, 150 features, 5-seed ensemble
+SHAP: TreeExplainer, averaged over 5 seeds
+Test subjects: 36
+
+Note: SHAP values explain the MODEL's predictions,
+not causal relationships. Feature importance reflects
+predictive utility, not clinical causation.
+
+======================================================================
+TOP 20 PREDICTORS
+======================================================================
+
+ 1. cv_yrs
+    SHAP = 3.0112 (14.4% of total)
+    Category: Clinical Covariates | Location: Clinical
+    Clinical: Years since PD diagnosis — strongest single severity correlate
+
+ 2. R_DorsalFoot_ay_loco
+    SHAP = 2.2213 (10.6% of total)
+    Category: Frequency Content | Location: Right Foot
+
+ 3. R_LatShank_ax_high_r
+    SHAP = 0.7959 (3.8% of total)
+    Category: Frequency Content | Location: Right Shank
+
+ 4. L_Wrist_ro_skew
+    SHAP = 0.6117 (2.9% of total)
+    Category: Signal Shape | Location: Left Wrist
+
+ 5. L_LatShank_gm_se
+    SHAP = 0.5784 (2.8% of total)
+    Category: Frequency Content | Location: Left Shank
+
+ 6. d_tug_LowerBack_ro_jerk
+    SHAP = 0.5374 (2.6% of total)
+    Category: Task Contrasts | Location: Lower Back
+
+ 7. r_tug_R_Wrist_ax_jerk
+    SHAP = 0.5215 (2.5% of total)
+    Category: Task Contrasts | Location: Right Wrist
+
+ 8. R_DorsalFoot_g_stride_reg
+    SHAP = 0.4438 (2.1% of total)
+    Category: Gait Rhythm | Location: Right Foot
+
+ 9. R_Wrist_ay_skew
+    SHAP = 0.4212 (2.0% of total)
+    Category: Signal Shape | Location: Right Wrist
+
+10. L_LatShank_ay_loco_r
+    SHAP = 0.4200 (2.0% of total)
+    Category: Frequency Content | Location: Left Shank
+
+11. L_MidLatThigh_pi_jerk
+    SHAP = 0.4109 (2.0% of total)
+    Category: Movement Quality | Location: Left Thigh
+
+12. Xiphoid_gm_trem
+    SHAP = 0.3788 (1.8% of total)
+    Category: Frequency Content | Location: Chest
+
+13. cv_age
+    SHAP = 0.3687 (1.8% of total)
+    Category: Clinical Covariates | Location: Clinical
+    Clinical: Age — age-related motor decline compounds PD effects
+
+14. R_DorsalFoot_ya_rms
+    SHAP = 0.3625 (1.7% of total)
+    Category: Movement Amplitude | Location: Right Foot
+
+15. R_MidLatThigh_ro_zcr
+    SHAP = 0.3240 (1.5% of total)
+    Category: Movement Quality | Location: Right Thigh
+
+16. fc_L_st_cv
+    SHAP = 0.2974 (1.4% of total)
+    Category: Foot Contact | Location: Feet (bilateral)
+
+17. L_LatShank_ya_jerk
+    SHAP = 0.2965 (1.4% of total)
+    Category: Movement Quality | Location: Left Shank
+
+18. L_LatShank_ya_iqr
+    SHAP = 0.2957 (1.4% of total)
+    Category: Movement Amplitude | Location: Left Shank
+
+19. dv_L_DorsalFoot_ro_rms_rng
+    SHAP = 0.2834 (1.4% of total)
+    Category: Cross-Task Variability | Location: Left Foot
+
+20. r_tg_R_Wrist_ax_rms
+    SHAP = 0.2618 (1.2% of total)
+    Category: Task Contrasts | Location: Right Wrist
+
+======================================================================
+CATEGORY BREAKDOWN
+======================================================================
+  Frequency Content               34.3%
+  Clinical Covariates             16.4%
+  Signal Shape                    11.5%
+  Movement Quality                 9.7%
+  Task Contrasts                   9.1%
+  Movement Amplitude               8.6%
+  Cross-Task Variability           3.4%
+  Gait Rhythm                      3.1%
+  Foot Contact                     2.1%
+  Insole Pressure                  0.9%
+  Walkway Distillation             0.5%
+  Kinematics                       0.4%
+  Balance/Postural                 0.1%
+
+======================================================================
+SENSOR LOCATION BREAKDOWN
+======================================================================
+  Clinical                   16.4%
+  Right Foot                 15.6%
+  Right Wrist                10.4%
+  Left Wrist                  9.8%
+  Left Shank                  9.5%
+  Lower Back                  9.3%
+  Right Shank                 5.3%
+  Right Thigh                 4.4%
+  Left Ankle                  3.2%
+  Left Thigh                  3.2%
+  Right Ankle                 2.6%
+  Left Foot                   2.4%
+  Chest                       2.2%
+  Feet (bilateral)            2.1%
+  Head                        1.6%
+  Feet (insole)               0.9%
+  Walkway (distilled)         0.5%
+  Other                       0.4%

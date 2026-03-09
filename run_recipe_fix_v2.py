@@ -87,12 +87,11 @@ def load_raw_windows(subjects, sid_list, tasks, sensor_cols):
 
 def apply_per_window_norm(X):
     """Per-window z-normalization (current working recipe)."""
-    X_norm = np.empty_like(X)
-    for i in range(len(X)):
-        mean = X[i].mean(axis=0, keepdims=True)
-        std = X[i].std(axis=0, keepdims=True) + 1e-8
-        X_norm[i] = (X[i] - mean) / std
-    return X_norm
+    if len(X) == 0:
+        return X.copy()
+    mean = X.mean(axis=1, keepdims=True)
+    std = X.std(axis=1, keepdims=True) + 1e-8
+    return ((X - mean) / std).astype(X.dtype, copy=False)
 
 
 def compute_global_stats(X):

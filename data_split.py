@@ -39,16 +39,23 @@ N_CH = len(IMU_COLS)  # 78
 
 
 def parse_clinical():
-    """Parse clinical data, return subjects with valid UPDRS-III."""
-    pd_df = pd.read_csv(os.path.join(DATA_DIR, "PD - Demographic+Clinical - datasetV1.csv"), header=1)
-    hc_df = pd.read_csv(os.path.join(DATA_DIR, "CONTROLS - Demographic+Clinical - datasetV1.csv"), header=1)
+    """Parse clinical data, return subjects with valid UPDRS-III.
+
+    Uses sum of available UPDRS-III subitems (skipna=True). Subjects with
+    partially missing subitems (e.g. 32/33) get the sum of present items.
+    Only subjects where ALL subitems are NaN are excluded.
+    """
     subjects = {}
-    for df, group in [(pd_df, "PD"), (hc_df, "HC")]:
+    for filename, group in [
+        ("PD - Demographic+Clinical - datasetV1.csv", "PD"),
+        ("CONTROLS - Demographic+Clinical - datasetV1.csv", "HC"),
+    ]:
+        df = pd.read_csv(os.path.join(DATA_DIR, filename), header=1)
+        u3cols = [c for c in df.columns if c.startswith("MDSUPDRS_3-")]
         for _, row in df.iterrows():
             sid = str(row.get("Subject ID", "")).strip()
             if not sid or sid == "nan":
                 continue
-            u3cols = [c for c in df.columns if c.startswith("MDSUPDRS_3-")]
             u3 = pd.to_numeric(row[u3cols], errors="coerce").sum()
             if np.isnan(u3):
                 continue

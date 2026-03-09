@@ -55,6 +55,41 @@ def safe_stat(func, data, default=0.0):
         return default
 
 
+def load_subject_covariates():
+    """Parse clinical covariates with fallbacks for column-name variants."""
+    covariates = {}
+    for fn in [
+        "PD - Demographic+Clinical - datasetV1.csv",
+        "CONTROLS - Demographic+Clinical - datasetV1.csv",
+    ]:
+        path = os.path.join(DATA_DIR, fn)
+        if not os.path.exists(path):
+            continue
+        df = pd.read_csv(path, header=1)
+        for _, row in df.iterrows():
+            sid = str(row.get("Subject ID", "")).strip()
+            if not sid or sid == "nan":
+                continue
+            age = pd.to_numeric(row.get("Age (years)", row.get("Age", np.nan)), errors="coerce")
+            sex = 1.0 if str(row.get("Sex", "")).strip().upper().startswith("M") else 0.0
+            yrs = pd.to_numeric(
+                row.get("Years since PD diagnosis", row.get("Years Since Diagnosis", 0)),
+                errors="coerce",
+            )
+            med_raw = str(
+                row.get("Medication State", row.get("Medication status", row.get("Med State", "")))
+            ).strip().upper()
+            dbs_raw = str(row.get("DBS?", row.get("DBS", ""))).strip().upper()
+            covariates[sid] = np.array([
+                float(age) if pd.notna(age) else 65.0,
+                sex,
+                float(yrs) if pd.notna(yrs) else 0.0,
+                1.0 if med_raw == "ON" else 0.0,
+                1.0 if dbs_raw in ("YES", "Y", "1") else 0.0,
+            ], dtype=np.float32)
+    return covariates
+
+
 def time_domain_features(x, prefix=""):
     """Time-domain features for a single axis signal."""
     feats = {}
@@ -345,7 +380,7 @@ def aggregate_subject_features(feature_records, subjects):
 
 # ── CatBoost training ────────────────────────────────────────────────
 
-def train_catboost(X_train, y_train, X_val, y_val, X_test, y_test):
+def train_catboost(X_train, y_train, X_val, y_val, X_test, y_test, seed=42):
     """Train CatBoost regressor."""
     try:
         from catboost import CatBoostRegressor
@@ -358,7 +393,7 @@ def train_catboost(X_train, y_train, X_val, y_val, X_test, y_test):
         learning_rate=0.03,
         depth=6,
         l2_leaf_reg=3.0,
-        random_seed=42,
+        random_seed=seed,
         verbose=100,
         early_stopping_rounds=100,
         task_type="CPU",
@@ -372,13 +407,13 @@ def train_catboost(X_train, y_train, X_val, y_val, X_test, y_test):
     return model, pred_test, pred_val
 
 
-def train_xgboost(X_train, y_train, X_val, y_val, X_test, y_test):
+def train_xgboost(X_train, y_train, X_val, y_val, X_test, y_test, seed=42):
     """Fallback: XGBoost regressor."""
     from xgboost import XGBRegressor
 
     model = XGBRegressor(
         n_estimators=2000, learning_rate=0.03, max_depth=6,
-        reg_lambda=3.0, random_state=42, n_jobs=N_CORES,
+        reg_lambda=3.0, random_state=seed, n_jobs=N_CORES,
         early_stopping_rounds=100, objective="reg:absoluteerror",
     )
     model.fit(X_train, y_train, eval_set=[(X_val, y_val)], verbose=100)
@@ -388,7 +423,7 @@ def train_xgboost(X_train, y_train, X_val, y_val, X_test, y_test):
     return model, pred_test, pred_val
 
 
-def train_lightgbm(X_train, y_train, X_val, y_val, X_test, y_test):
+def train_lightgbm(X_train, y_train, X_val, y_val, X_test, y_test, seed=42):
     """Alternative: LightGBM regressor."""
     try:
         import lightgbm as lgb
@@ -397,7 +432,7 @@ def train_lightgbm(X_train, y_train, X_val, y_val, X_test, y_test):
 
     model = lgb.LGBMRegressor(
         n_estimators=2000, learning_rate=0.03, max_depth=6,
-        reg_lambda=3.0, random_state=42, n_jobs=N_CORES,
+        reg_lambda=3.0, random_state=seed, n_jobs=N_CORES,
         objective="mae",
     )
     model.fit(X_train, y_train, eval_set=[(X_val, y_val)],
@@ -416,27 +451,9 @@ def main():
     print("=" * 70)
 
     subjects = parse_clinical()
-    # Add covariates
-    for fn, group in [
-        ("PD - Demographic+Clinical - datasetV1.csv", "PD"),
-        ("CONTROLS - Demographic+Clinical - datasetV1.csv", "HC"),
-    ]:
-        path = os.path.join(DATA_DIR, fn)
-        if not os.path.exists(path):
-            continue
-        df = pd.read_csv(path, header=1)
-        for _, row in df.iterrows():
-            sid = str(row.get("Subject ID", "")).strip()
-            if sid in subjects:
-                age = pd.to_numeric(row.get("Age", np.nan), errors="coerce")
-                sex = 1.0 if str(row.get("Sex", "")).strip().upper() == "M" else 0.0
-                yrs = pd.to_numeric(row.get("Years Since Diagnosis", 0), errors="coerce")
-                med = 1.0 if str(row.get("Medication State", "")).strip().upper() == "ON" else 0.0
-                dbs = 1.0 if str(row.get("DBS", "")).strip().upper() == "YES" else 0.0
-                subjects[sid]["covariates"] = np.array([
-                    float(age) if not np.isnan(age) else 65.0, sex,
-                    float(yrs) if not np.isnan(yrs) else 0.0, med, dbs
-                ], dtype=np.float32)
+    for sid, covariates in load_subject_covariates().items():
+        if sid in subjects:
+            subjects[sid]["covariates"] = covariates
 
     split = load_split()
     dev_sids, test_sids = split["dev_sids"], split["test_sids"]
@@ -505,7 +522,9 @@ def main():
             X_va, y_va = X_dev[val_idx], y_dev[val_idx]
 
             try:
-                model, pred_test, pred_val = train_fn(X_tr, y_tr, X_va, y_va, X_test, y_test)
+                model, pred_test, pred_val = train_fn(
+                    X_tr, y_tr, X_va, y_va, X_test, y_test, seed=seed
+                )
                 mae = mean_absolute_error(y_test, pred_test)
                 r, p = sp_stats.pearsonr(y_test, pred_test)
                 print(f"  Seed {seed}: MAE={mae:.2f}, r={r:.3f}")
