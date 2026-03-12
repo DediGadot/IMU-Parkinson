@@ -1,319 +1,346 @@
 """
-PD-only LOOCV with Proven Stacking Pipeline
-=============================================
-Uses the EXACT pipeline from run_proven_stack.py that achieved MAE=6.89:
-  - XGBoost-based feature selection (K=150)
-  - LGB+XGB stacking with Ridge meta-learner
-  - Extended covariates
+PD-only nested LOOCV with the deployable stacking pipeline
+==========================================================
+This runner exists for literature comparison, but unlike the legacy version it
+performs feature selection inside each leave-one-out fold.
 
-LOOCV on PD-only subjects for direct comparison with:
-  - Hssayeni 2021: MAE=5.95, r=0.74, N=24 PD, LOOCV
-  - Shuqair 2024:  MAE~5.65, r=0.89, N=24 PD, LOOCV
-
-Three LOOCV variants:
-  L1: LGB-only (new XGB feature selection)
-  L2: LGB+XGB simple average (0.6/0.4)
-  L3: Full stacking (5-fold inner CV for OOF → Ridge)
+Experiments:
+  L1: LightGBM only
+  L2: LightGBM + XGBoost weighted average
+  L3: LightGBM + XGBoost stack with ridge meta-learner
 """
-import os, sys, json, time, warnings
+import os
+import sys
+import time
+import warnings
+from collections import Counter
+
 import numpy as np
 import pandas as pd
 from scipy import stats as sp_stats
-from sklearn.metrics import mean_absolute_error
 from sklearn.linear_model import Ridge
+from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import KFold
+
 warnings.filterwarnings("ignore")
 
-sys.path.insert(0, "/root/pd-imu")
-from data_split import parse_clinical, load_split, DATA_DIR
+from project_paths import REPO_ROOT, repo_artifact_path, save_json_artifact
+
+sys.path.insert(0, str(REPO_ROOT))
+from data_split import parse_clinical, load_split
 from run_ablation_v2 import N_CORES
 
-FEATURE_CACHE = "/root/pd-imu/proven_stack_features.csv"
+
+FEATURE_CACHE = str(repo_artifact_path("proven_stack_features.csv"))
+SEEDS = [42, 123, 456, 789, 2024]
 
 
 def load_extended_covariates():
-    """Parse extended clinical covariates."""
-    covariates = {}
-    for fn in [
-        "PD - Demographic+Clinical - datasetV1.csv",
-        "CONTROLS - Demographic+Clinical - datasetV1.csv",
-    ]:
-        path = os.path.join(DATA_DIR, fn)
-        if not os.path.exists(path):
-            continue
-        df = pd.read_csv(path, header=1)
-        for _, row in df.iterrows():
-            sid = str(row.get("Subject ID", "")).strip()
-            if not sid or sid == "nan":
-                continue
-            age = pd.to_numeric(row.get("Age (years)", row.get("Age", np.nan)), errors="coerce")
-            height = pd.to_numeric(row.get("Height (cm)", row.get("Height", np.nan)), errors="coerce")
-            weight = pd.to_numeric(row.get("Weight (kg)", row.get("Weight", np.nan)), errors="coerce")
-            yrs = pd.to_numeric(row.get("Years since PD diagnosis",
-                                        row.get("Years Since Diagnosis", 0)), errors="coerce")
-            age_v = float(age) if pd.notna(age) else 65.0
-            yrs_v = float(yrs) if pd.notna(yrs) else 0.0
-            h = float(height) if pd.notna(height) else 170.0
-            w = float(weight) if pd.notna(weight) else 75.0
-            covariates[sid] = {
-                "ext_height": h, "ext_weight": w,
-                "ext_bmi": w / ((h / 100.0) ** 2) if h > 0 else 25.0,
-                "ext_age_onset": age_v - yrs_v if yrs_v > 0 else age_v,
-                "ext_yrs_sq": yrs_v ** 2,
-                "ext_yrs_log": float(np.log1p(yrs_v)),
-                "ext_early_pd": 1.0 if 0 < yrs_v <= 5 else 0.0,
-                "ext_late_pd": 1.0 if yrs_v > 10 else 0.0,
-            }
-    return covariates
+    from run_proven_stack import load_extended_covariates as _load_extended_covariates
+    return _load_extended_covariates()
 
 
 def feature_select(X, y, names, k=150):
-    """XGBoost-based feature selection (same as run_proven_stack.py)."""
     from xgboost import XGBRegressor
-    sel = XGBRegressor(n_estimators=300, max_depth=4, learning_rate=0.05,
-                       reg_lambda=2.0, random_state=42, n_jobs=N_CORES,
-                       objective="reg:absoluteerror")
+
+    k = min(k, X.shape[1])
+    sel = XGBRegressor(
+        n_estimators=300,
+        max_depth=4,
+        learning_rate=0.05,
+        reg_lambda=2.0,
+        random_state=42,
+        n_jobs=N_CORES,
+        objective="reg:absoluteerror",
+    )
     sel.fit(X, y)
     idx = np.argsort(sel.feature_importances_)[::-1][:k]
     return idx, [names[i] for i in idx]
 
 
+def split_train_val(X, y, seed, val_frac=0.15):
+    rng = np.random.RandomState(seed)
+    idx = np.arange(len(X))
+    rng.shuffle(idx)
+    nv = max(1, int(len(idx) * val_frac))
+    return X[idx[nv:]], y[idx[nv:]], X[idx[:nv]], y[idx[:nv]]
+
+
+def train_lgbm(Xtr, ytr, Xval, yval, Xte, seed=42):
+    import lightgbm as lgb
+
+    model = lgb.LGBMRegressor(
+        n_estimators=2000,
+        learning_rate=0.03,
+        max_depth=6,
+        reg_lambda=3.0,
+        random_state=seed,
+        n_jobs=N_CORES,
+        objective="mae",
+        verbose=-1,
+    )
+    model.fit(
+        Xtr,
+        ytr,
+        eval_set=[(Xval, yval)],
+        callbacks=[lgb.early_stopping(100, verbose=False)],
+    )
+    return model.predict(Xte), model
+
+
+def train_xgb(Xtr, ytr, Xval, yval, Xte, seed=42):
+    from xgboost import XGBRegressor
+
+    model = XGBRegressor(
+        n_estimators=2000,
+        learning_rate=0.03,
+        max_depth=6,
+        reg_lambda=3.0,
+        random_state=seed,
+        n_jobs=N_CORES,
+        early_stopping_rounds=100,
+        objective="reg:absoluteerror",
+    )
+    model.fit(Xtr, ytr, eval_set=[(Xval, yval)], verbose=False)
+    return model.predict(Xte), model
+
+
+def nested_lgb(X_all, y_all, feat_cols, k=150):
+    preds = np.zeros(len(y_all))
+    feature_counter = Counter()
+
+    for i in range(len(y_all)):
+        mask = np.ones(len(y_all), dtype=bool)
+        mask[i] = False
+        X_train, y_train = X_all[mask], y_all[mask]
+        X_test = X_all[i:i + 1]
+
+        sel_idx, sel_names = feature_select(X_train, y_train, feat_cols, k)
+        feature_counter.update(sel_names)
+        X_train_sel = X_train[:, sel_idx]
+        X_test_sel = X_test[:, sel_idx]
+
+        seed_preds = []
+        for seed in SEEDS:
+            Xtr, ytr, Xv, yv = split_train_val(X_train_sel, y_train, seed)
+            pred, _ = train_lgbm(Xtr, ytr, Xv, yv, X_test_sel, seed)
+            seed_preds.append(pred[0])
+        preds[i] = np.clip(np.mean(seed_preds), 0, 132)
+
+        if (i + 1) % 10 == 0 or i == len(y_all) - 1:
+            running_mae = mean_absolute_error(y_all[:i + 1], preds[:i + 1])
+            print(f"  L1 {i+1}/{len(y_all)}: running MAE={running_mae:.2f}")
+
+    mae = mean_absolute_error(y_all, preds)
+    r, _ = sp_stats.pearsonr(y_all, preds)
+    return mae, r, preds, feature_counter
+
+
+def nested_average(X_all, y_all, feat_cols, k=150):
+    preds_avg = np.zeros(len(y_all))
+    preds_xgb = np.zeros(len(y_all))
+    feature_counter = Counter()
+
+    for i in range(len(y_all)):
+        mask = np.ones(len(y_all), dtype=bool)
+        mask[i] = False
+        X_train, y_train = X_all[mask], y_all[mask]
+        X_test = X_all[i:i + 1]
+
+        sel_idx, sel_names = feature_select(X_train, y_train, feat_cols, k)
+        feature_counter.update(sel_names)
+        X_train_sel = X_train[:, sel_idx]
+        X_test_sel = X_test[:, sel_idx]
+
+        seed_avg = []
+        seed_xgb = []
+        for seed in SEEDS:
+            Xtr, ytr, Xv, yv = split_train_val(X_train_sel, y_train, seed)
+            p_l, _ = train_lgbm(Xtr, ytr, Xv, yv, X_test_sel, seed)
+            p_x, _ = train_xgb(Xtr, ytr, Xv, yv, X_test_sel, seed)
+            seed_xgb.append(p_x[0])
+            seed_avg.append(0.6 * p_l[0] + 0.4 * p_x[0])
+
+        preds_xgb[i] = np.clip(np.mean(seed_xgb), 0, 132)
+        preds_avg[i] = np.clip(np.mean(seed_avg), 0, 132)
+
+        if (i + 1) % 10 == 0 or i == len(y_all) - 1:
+            running_mae = mean_absolute_error(y_all[:i + 1], preds_avg[:i + 1])
+            print(f"  L2 {i+1}/{len(y_all)}: running MAE={running_mae:.2f}")
+
+    mae_avg = mean_absolute_error(y_all, preds_avg)
+    r_avg, _ = sp_stats.pearsonr(y_all, preds_avg)
+    mae_xgb = mean_absolute_error(y_all, preds_xgb)
+    r_xgb, _ = sp_stats.pearsonr(y_all, preds_xgb)
+    return mae_avg, r_avg, preds_avg, mae_xgb, r_xgb, preds_xgb, feature_counter
+
+
+def nested_stacking(X_all, y_all, feat_cols, k=150):
+    preds = np.zeros(len(y_all))
+    feature_counter = Counter()
+
+    for i in range(len(y_all)):
+        mask = np.ones(len(y_all), dtype=bool)
+        mask[i] = False
+        X_train, y_train = X_all[mask], y_all[mask]
+        X_test = X_all[i:i + 1]
+
+        sel_idx, sel_names = feature_select(X_train, y_train, feat_cols, k)
+        feature_counter.update(sel_names)
+        X_train_sel = X_train[:, sel_idx]
+        X_test_sel = X_test[:, sel_idx]
+
+        seed_preds = []
+        for seed in SEEDS:
+            inner_folds = min(5, len(X_train_sel))
+            kf = KFold(n_splits=inner_folds, shuffle=True, random_state=seed)
+            oof_lgb = np.zeros(len(X_train_sel))
+            oof_xgb = np.zeros(len(X_train_sel))
+            test_lgb = np.zeros(1)
+            test_xgb = np.zeros(1)
+
+            for tr_i, val_i in kf.split(X_train_sel):
+                Xtr, ytr, Xv, yv = split_train_val(X_train_sel[tr_i], y_train[tr_i], seed + len(tr_i))
+
+                p_l_val, _ = train_lgbm(Xtr, ytr, Xv, yv, X_train_sel[val_i], seed)
+                p_l_test, _ = train_lgbm(Xtr, ytr, Xv, yv, X_test_sel, seed)
+                oof_lgb[val_i] = p_l_val
+                test_lgb += p_l_test / inner_folds
+
+                p_x_val, _ = train_xgb(Xtr, ytr, Xv, yv, X_train_sel[val_i], seed)
+                p_x_test, _ = train_xgb(Xtr, ytr, Xv, yv, X_test_sel, seed)
+                oof_xgb[val_i] = p_x_val
+                test_xgb += p_x_test / inner_folds
+
+            meta = Ridge(alpha=1.0)
+            meta.fit(np.column_stack([oof_lgb, oof_xgb]), y_train)
+            seed_preds.append(meta.predict(np.column_stack([test_lgb, test_xgb]))[0])
+
+        preds[i] = np.clip(np.mean(seed_preds), 0, 132)
+
+        if (i + 1) % 10 == 0 or i == len(y_all) - 1:
+            running_mae = mean_absolute_error(y_all[:i + 1], preds[:i + 1])
+            print(f"  L3 {i+1}/{len(y_all)}: running MAE={running_mae:.2f}")
+
+    mae = mean_absolute_error(y_all, preds)
+    r, _ = sp_stats.pearsonr(y_all, preds)
+    return mae, r, preds, feature_counter
+
+
+def summarize_feature_counter(counter):
+    return [{"feature": name, "count": int(count)} for name, count in counter.most_common(10)]
+
+
 def main():
     t0 = time.time()
     print("=" * 70)
-    print("PD-ONLY LOOCV WITH PROVEN STACKING PIPELINE")
-    print("Target: beat Hssayeni 2021 MAE=5.95 (N=24 PD, LOOCV)")
+    print("PD-ONLY NESTED LOOCV WITH STACKING PIPELINE")
     print("=" * 70)
 
-    # Load features
     if not os.path.exists(FEATURE_CACHE):
-        print(f"ERROR: Feature cache not found: {FEATURE_CACHE}")
-        print("Run run_proven_stack.py first to build features.")
+        print(f"ERROR: feature cache not found: {FEATURE_CACHE}")
+        print("Run run_proven_stack.py first.")
         sys.exit(1)
 
     df = pd.read_csv(FEATURE_CACHE)
     subjects = parse_clinical()
     split = load_split()
 
-    # Add extended covariates
     ext_cov = load_extended_covariates()
-    ext_names = ["ext_height", "ext_weight", "ext_bmi", "ext_age_onset",
-                 "ext_yrs_sq", "ext_yrs_log", "ext_early_pd", "ext_late_pd"]
+    ext_names = [
+        "ext_height",
+        "ext_weight",
+        "ext_bmi",
+        "ext_age_onset",
+        "ext_yrs_sq",
+        "ext_yrs_log",
+        "ext_early_pd",
+        "ext_late_pd",
+    ]
     for col_name in ext_names:
         df[col_name] = df["sid"].map(lambda s: ext_cov.get(s, {}).get(col_name, 0.0)).fillna(0.0)
 
-    feat_cols = [c for c in df.columns if c not in ("sid", "updrs3")]
-    all_cols = feat_cols  # already includes ext_names after addition above
+    all_cols = [c for c in df.columns if c not in ("sid", "updrs3")]
+    for col in all_cols:
+        df[col] = pd.to_numeric(df[col], errors="coerce").replace([np.inf, -np.inf], 0.0).fillna(0.0)
 
-    # Filter to PD-only
     all_sids = split["dev_sids"] + split["test_sids"]
-    pd_sids = [s for s in all_sids if subjects.get(s, {}).get("group") == "PD"]
-    pd_mask = df["sid"].isin(pd_sids)
-    df_pd = df[pd_mask].copy()
-
-    # Clean
-    for c in all_cols:
-        df_pd[c] = pd.to_numeric(df_pd[c], errors="coerce").replace([np.inf, -np.inf], 0.0).fillna(0.0)
+    pd_sids = [sid for sid in all_sids if subjects.get(sid, {}).get("group") == "PD"]
+    df_pd = df[df["sid"].isin(pd_sids)].copy()
 
     X_pd = df_pd[all_cols].values.astype(np.float32)
     y_pd = df_pd["updrs3"].values.astype(np.float32)
-    sids_pd = df_pd["sid"].values
+    sids_pd = df_pd["sid"].values.tolist()
 
     print(f"PD subjects: {len(X_pd)}")
-    print(f"UPDRS-III: mean={y_pd.mean():.1f}, std={y_pd.std():.1f}, "
-          f"range=[{y_pd.min():.0f}, {y_pd.max():.0f}]")
-    print(f"Features: {len(all_cols)}")
+    print(f"UPDRS-III: mean={y_pd.mean():.1f}, std={y_pd.std():.1f}, range=[{y_pd.min():.0f}, {y_pd.max():.0f}]")
+    print(f"Features available: {len(all_cols)}")
 
-    # Feature selection on ALL PD subjects (outside LOOCV — matches Hssayeni protocol)
-    print(f"\nFeature selection (XGBoost, K=150 on all {len(X_pd)} PD subjects)...")
-    sel_idx, sel_names = feature_select(X_pd, y_pd, all_cols, k=150)
-    X_pd_sel = X_pd[:, sel_idx]
-    print(f"  Top 10: {sel_names[:10]}")
-
-    import lightgbm as lgb
-    from xgboost import XGBRegressor
-
-    # ── L1: LGB-only LOOCV ─────────────────────────────────────────────
     print(f"\n{'='*70}")
-    print("L1: LGB-only LOOCV (new XGB feature selection)")
+    print("L1: LightGBM nested LOOCV")
     print(f"{'='*70}")
-    preds_lgb = np.zeros(len(y_pd))
-    for i in range(len(y_pd)):
-        tr_idx = np.concatenate([np.arange(0, i), np.arange(i + 1, len(y_pd))])
-        Xtr, ytr = X_pd_sel[tr_idx], y_pd[tr_idx]
-        Xte = X_pd_sel[i:i+1]
-
-        # 15% val split for early stopping
-        rng = np.random.RandomState(42)
-        shuf = tr_idx.copy()
-        rng.shuffle(shuf)
-        nv = max(1, int(len(shuf) * 0.15))
-        vi = shuf[:nv]
-        ti = shuf[nv:]
-        # Map to local indices in Xtr
-        local_v = np.searchsorted(tr_idx, vi)
-        local_t = np.searchsorted(tr_idx, ti)
-
-        m = lgb.LGBMRegressor(n_estimators=2000, learning_rate=0.03, max_depth=6,
-                              reg_lambda=3.0, random_state=42, n_jobs=N_CORES,
-                              objective="mae", verbose=-1)
-        m.fit(Xtr[local_t], ytr[local_t],
-              eval_set=[(Xtr[local_v], ytr[local_v])],
-              callbacks=[lgb.early_stopping(100, verbose=False)])
-        preds_lgb[i] = np.clip(m.predict(Xte)[0], 0, 132)
-
-        if (i + 1) % 20 == 0:
-            running_mae = mean_absolute_error(y_pd[:i+1], preds_lgb[:i+1])
-            print(f"  {i+1}/{len(y_pd)}: running MAE={running_mae:.2f}")
-
-    mae_l1 = mean_absolute_error(y_pd, preds_lgb)
-    r_l1, _ = sp_stats.pearsonr(y_pd, preds_lgb)
+    mae_l1, r_l1, preds_l1, feat_l1 = nested_lgb(X_pd, y_pd, all_cols, k=150)
     print(f"  L1 RESULT: MAE={mae_l1:.2f}, r={r_l1:.3f}")
 
-    # ── L2: LGB+XGB average LOOCV ─────────────────────────────────────
     print(f"\n{'='*70}")
-    print("L2: LGB+XGB average LOOCV (0.6 LGB + 0.4 XGB)")
+    print("L2: LightGBM + XGBoost average nested LOOCV")
     print(f"{'='*70}")
-    preds_avg = np.zeros(len(y_pd))
-    preds_xgb_only = np.zeros(len(y_pd))
-    for i in range(len(y_pd)):
-        tr_idx = np.concatenate([np.arange(0, i), np.arange(i + 1, len(y_pd))])
-        Xtr, ytr = X_pd_sel[tr_idx], y_pd[tr_idx]
-        Xte = X_pd_sel[i:i+1]
-
-        rng = np.random.RandomState(42)
-        shuf = tr_idx.copy()
-        rng.shuffle(shuf)
-        nv = max(1, int(len(shuf) * 0.15))
-        vi = shuf[:nv]
-        ti = shuf[nv:]
-        local_v = np.searchsorted(tr_idx, vi)
-        local_t = np.searchsorted(tr_idx, ti)
-
-        # LGB
-        m1 = lgb.LGBMRegressor(n_estimators=2000, learning_rate=0.03, max_depth=6,
-                               reg_lambda=3.0, random_state=42, n_jobs=N_CORES,
-                               objective="mae", verbose=-1)
-        m1.fit(Xtr[local_t], ytr[local_t],
-               eval_set=[(Xtr[local_v], ytr[local_v])],
-               callbacks=[lgb.early_stopping(100, verbose=False)])
-        p1 = m1.predict(Xte)[0]
-
-        # XGB
-        m2 = XGBRegressor(n_estimators=2000, learning_rate=0.03, max_depth=6,
-                          reg_lambda=3.0, random_state=42, n_jobs=N_CORES,
-                          early_stopping_rounds=100, objective="reg:absoluteerror")
-        m2.fit(Xtr[local_t], ytr[local_t],
-               eval_set=[(Xtr[local_v], ytr[local_v])], verbose=False)
-        p2 = m2.predict(Xte)[0]
-
-        preds_xgb_only[i] = np.clip(p2, 0, 132)
-        preds_avg[i] = np.clip(0.6 * p1 + 0.4 * p2, 0, 132)
-
-        if (i + 1) % 20 == 0:
-            running_mae = mean_absolute_error(y_pd[:i+1], preds_avg[:i+1])
-            print(f"  {i+1}/{len(y_pd)}: running MAE={running_mae:.2f}")
-
-    mae_xgb = mean_absolute_error(y_pd, preds_xgb_only)
-    r_xgb, _ = sp_stats.pearsonr(y_pd, preds_xgb_only)
-    mae_l2 = mean_absolute_error(y_pd, preds_avg)
-    r_l2, _ = sp_stats.pearsonr(y_pd, preds_avg)
+    mae_l2, r_l2, preds_l2, mae_xgb, r_xgb, preds_xgb, feat_l2 = nested_average(X_pd, y_pd, all_cols, k=150)
     print(f"  XGB-only: MAE={mae_xgb:.2f}, r={r_xgb:.3f}")
     print(f"  L2 RESULT: MAE={mae_l2:.2f}, r={r_l2:.3f}")
 
-    # ── L3: Full stacking LOOCV ────────────────────────────────────────
     print(f"\n{'='*70}")
-    print("L3: Full stacking LOOCV (5-fold inner CV → Ridge)")
+    print("L3: Stacking nested LOOCV")
     print(f"{'='*70}")
-    preds_stack = np.zeros(len(y_pd))
-    for i in range(len(y_pd)):
-        tr_idx = np.concatenate([np.arange(0, i), np.arange(i + 1, len(y_pd))])
-        Xtr, ytr = X_pd_sel[tr_idx], y_pd[tr_idx]
-        Xte = X_pd_sel[i:i+1]
-
-        # Inner 5-fold for OOF predictions
-        kf = KFold(n_splits=5, shuffle=True, random_state=42)
-        oof_lgb = np.zeros(len(Xtr))
-        oof_xgb = np.zeros(len(Xtr))
-        test_lgb = 0.0
-        test_xgb = 0.0
-
-        for fold_tr, fold_val in kf.split(Xtr):
-            rng = np.random.RandomState(42 + len(fold_tr))
-            shuf = fold_tr.copy()
-            rng.shuffle(shuf)
-            nv = max(1, int(len(shuf) * 0.15))
-
-            m1 = lgb.LGBMRegressor(n_estimators=2000, learning_rate=0.03, max_depth=6,
-                                   reg_lambda=3.0, random_state=42, n_jobs=N_CORES,
-                                   objective="mae", verbose=-1)
-            m1.fit(Xtr[shuf[nv:]], ytr[shuf[nv:]],
-                   eval_set=[(Xtr[shuf[:nv]], ytr[shuf[:nv]])],
-                   callbacks=[lgb.early_stopping(100, verbose=False)])
-            oof_lgb[fold_val] = m1.predict(Xtr[fold_val])
-            test_lgb += m1.predict(Xte)[0] / 5
-
-            m2 = XGBRegressor(n_estimators=2000, learning_rate=0.03, max_depth=6,
-                              reg_lambda=3.0, random_state=42, n_jobs=N_CORES,
-                              early_stopping_rounds=100, objective="reg:absoluteerror")
-            m2.fit(Xtr[shuf[nv:]], ytr[shuf[nv:]],
-                   eval_set=[(Xtr[shuf[:nv]], ytr[shuf[:nv]])], verbose=False)
-            oof_xgb[fold_val] = m2.predict(Xtr[fold_val])
-            test_xgb += m2.predict(Xte)[0] / 5
-
-        L0_train = np.column_stack([oof_lgb, oof_xgb])
-        L0_test = np.array([[test_lgb, test_xgb]])
-        meta = Ridge(alpha=1.0)
-        meta.fit(L0_train, ytr)
-        preds_stack[i] = np.clip(meta.predict(L0_test)[0], 0, 132)
-
-        if (i + 1) % 10 == 0:
-            running_mae = mean_absolute_error(y_pd[:i+1], preds_stack[:i+1])
-            print(f"  {i+1}/{len(y_pd)}: running MAE={running_mae:.2f}")
-
-    mae_l3 = mean_absolute_error(y_pd, preds_stack)
-    r_l3, _ = sp_stats.pearsonr(y_pd, preds_stack)
+    mae_l3, r_l3, preds_l3, feat_l3 = nested_stacking(X_pd, y_pd, all_cols, k=150)
     print(f"  L3 RESULT: MAE={mae_l3:.2f}, r={r_l3:.3f}")
 
-    # ── SUMMARY ────────────────────────────────────────────────────────
     elapsed = time.time() - t0
     print(f"\n{'='*70}")
-    print(f"PD-ONLY LOOCV SUMMARY ({elapsed/60:.1f} min)")
+    print(f"PD-ONLY NESTED LOOCV SUMMARY ({elapsed/60:.1f} min)")
     print(f"{'='*70}")
     print(f"  {'Method':<35s} {'MAE':>7s} {'r':>7s}")
     print(f"  {'-'*50}")
     print(f"  {'Hssayeni 2021 (N=24, ref)':<35s} {'5.95':>7s} {'0.740':>7s}")
     print(f"  {'Shuqair 2024 (N=24, ref)':<35s} {'~5.65':>7s} {'0.890':>7s}")
     print(f"  {'-'*50}")
-    print(f"  {'L1: LGB-only (new feat sel)':<35s} {mae_l1:>7.2f} {r_l1:>7.3f}")
-    print(f"  {'XGB-only':<35s} {mae_xgb:>7.2f} {r_xgb:>7.3f}")
-    print(f"  {'L2: LGB+XGB avg (0.6/0.4)':<35s} {mae_l2:>7.2f} {r_l2:>7.3f}")
-    print(f"  {'L3: Stacking (LGB+XGB→Ridge)':<35s} {mae_l3:>7.2f} {r_l3:>7.3f}")
-    print(f"  {'Previous LOOCV (old pipeline)':<35s} {'7.21':>7s} {'0.559':>7s}")
-    beat = mae_l3 < 5.95 or mae_l2 < 5.95 or mae_l1 < 5.95
-    best_mae = min(mae_l1, mae_l2, mae_l3)
-    print(f"\n  {'BEATS Hssayeni!' if beat else f'Gap to Hssayeni: {best_mae - 5.95:.2f}'}")
-    print(f"  N subjects: {len(y_pd)} (vs Hssayeni N=24)")
+    print(f"  {'L1: LGB nested LOOCV':<35s} {mae_l1:>7.2f} {r_l1:>7.3f}")
+    print(f"  {'XGB-only nested LOOCV':<35s} {mae_xgb:>7.2f} {r_xgb:>7.3f}")
+    print(f"  {'L2: Avg nested LOOCV':<35s} {mae_l2:>7.2f} {r_l2:>7.3f}")
+    print(f"  {'L3: Stack nested LOOCV':<35s} {mae_l3:>7.2f} {r_l3:>7.3f}")
 
-    results = {
+    payload = {
         "n_pd": len(y_pd),
         "updrs_mean": round(float(y_pd.mean()), 1),
         "updrs_std": round(float(y_pd.std()), 1),
-        "L1_lgb_mae": round(float(mae_l1), 3), "L1_lgb_r": round(float(r_l1), 3),
-        "L2_avg_mae": round(float(mae_l2), 3), "L2_avg_r": round(float(r_l2), 3),
-        "L3_stack_mae": round(float(mae_l3), 3), "L3_stack_r": round(float(r_l3), 3),
-        "xgb_only_mae": round(float(mae_xgb), 3), "xgb_only_r": round(float(r_xgb), 3),
+        "L1_lgb_mae": round(float(mae_l1), 3),
+        "L1_lgb_r": round(float(r_l1), 3),
+        "L2_avg_mae": round(float(mae_l2), 3),
+        "L2_avg_r": round(float(r_l2), 3),
+        "L3_stack_mae": round(float(mae_l3), 3),
+        "L3_stack_r": round(float(r_l3), 3),
+        "xgb_only_mae": round(float(mae_xgb), 3),
+        "xgb_only_r": round(float(r_xgb), 3),
         "runtime_min": round(elapsed / 60, 1),
-        "preds_lgb": preds_lgb.tolist(),
-        "preds_avg": preds_avg.tolist(),
-        "preds_stack": preds_stack.tolist(),
+        "preds_lgb": preds_l1.tolist(),
+        "preds_avg": preds_l2.tolist(),
+        "preds_stack": preds_l3.tolist(),
+        "preds_xgb": preds_xgb.tolist(),
         "y_true": y_pd.tolist(),
-        "sids": sids_pd.tolist(),
-        "top10_features": sel_names[:10],
+        "sids": sids_pd,
+        "top10_feature_frequency": {
+            "lgb": summarize_feature_counter(feat_l1),
+            "avg": summarize_feature_counter(feat_l2),
+            "stack": summarize_feature_counter(feat_l3),
+        },
+        "protocol": {
+            "nested_feature_selection": True,
+            "selection_scope": "within_each_loocv_fold",
+            "legacy_optimistic_runner_replaced": True,
+        },
     }
-    with open("/root/pd-imu/loocv_stack_results.json", "w") as f:
-        json.dump(results, f, indent=2)
-    print(f"  Saved to /root/pd-imu/loocv_stack_results.json")
+    save_json_artifact("loocv_stack_results.json", payload)
+    print("  Saved to results/loocv_stack_results.json")
 
 
 if __name__ == "__main__":

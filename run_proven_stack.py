@@ -1,8 +1,13 @@
 """
-Apply Stacking + Extended Covariates to the PROVEN 7.97 Pipeline
-================================================================
-Imports exact feature extraction from run_ablation_v2.py (the pipeline
-that achieved MAE=7.97 with 1752 features + K=150 selection).
+Apply Stacking + Extended Covariates to the established feature pipeline
+=======================================================================
+Builds the same recording universe as run_ablation_v2.py:
+main walking tasks plus `_mat` and `_matTURN` recordings for insole blocks.
+
+Important protocol note:
+this script compares multiple model variants on the held-out test set, so the
+"best" configuration it reports is exploratory rather than a pristine final
+generalization estimate.
 
 Experiments:
   S0: Baseline reproduction (LGB K=150)
@@ -25,7 +30,9 @@ from sklearn.preprocessing import StandardScaler
 from concurrent.futures import ProcessPoolExecutor
 warnings.filterwarnings("ignore")
 
-sys.path.insert(0, "/root/pd-imu")
+from project_paths import REPO_ROOT, repo_artifact_path, save_json_artifact
+
+sys.path.insert(0, str(REPO_ROOT))
 from data_split import parse_clinical, load_split, DATA_DIR, SENSORS, FS
 
 from run_ablation_v2 import (
@@ -34,7 +41,8 @@ from run_ablation_v2 import (
     agg_mean, TASKS, N_CORES, SEEDS,
 )
 
-FEATURE_CACHE = "/root/pd-imu/proven_stack_features.csv"
+FEATURE_CACHE = str(repo_artifact_path("proven_stack_features.csv"))
+ALL_TASKS = TASKS + [f"{t}_mat" for t in TASKS] + [f"{t}_matTURN" for t in ["SelfPace", "HurriedPace"]]
 
 
 def load_extended_covariates():
@@ -241,7 +249,7 @@ def main():
     else:
         print("Building proven feature matrix (run_ablation_v2 pipeline)...")
         jobs = []
-        for task in TASKS:
+        for task in ALL_TASKS:
             for sid in all_sids:
                 if sid not in subjects:
                     continue
@@ -256,17 +264,20 @@ def main():
             records = [r for r in pool.map(extract_recording, jobs, chunksize=4) if r is not None]
         print(f"  Done: {len(records)} recordings in {time.time()-t0:.0f}s")
 
-        # Aggregate: mean across tasks
-        df = agg_mean(records, subjects)
+        main_recs = [r for r in records if "_mat" not in r["task"]]
+        mat_recs = [r for r in records if "_mat" in r["task"]]
+
+        # Aggregate: mean across non-mat tasks
+        df = agg_mean(main_recs, subjects)
 
         # Task-preserving features (contrasts) — returns DataFrame
-        df_tp = agg_task_preserving(records, subjects)
+        df_tp = agg_task_preserving(main_recs, subjects)
         for col in df_tp.columns:
             if col not in ("sid", "updrs3") and col not in df.columns:
                 df[col] = df["sid"].map(dict(zip(df_tp["sid"], df_tp[col]))).fillna(0.0)
 
         # Cross-task variability — returns dict[sid -> dict]
-        dist = compute_dist_feats(records, subjects)
+        dist = compute_dist_feats(main_recs, subjects)
         if dist:
             all_dist_keys = set()
             for feats in dist.values():
@@ -298,6 +309,20 @@ def main():
                         df[k] = df["sid"].map(lambda s, kk=k: dist_feats.get(s, {}).get(kk, 0.0)).fillna(0.0)
         except Exception as e:
             print(f"  Walkway distillation skipped: {e}")
+
+        if mat_recs:
+            df_mat = agg_mean(mat_recs, subjects)
+            ins_cols = [c for c in df_mat.columns if c.startswith("ins_")]
+            for ic in ins_cols:
+                if ic not in df.columns:
+                    df[ic] = 0.0
+            for _, row in df_mat.iterrows():
+                sid = row["sid"]
+                mask = df["sid"] == sid
+                if mask.any():
+                    for ic in ins_cols:
+                        if ic in row and np.isfinite(row[ic]):
+                            df.loc[mask, ic] = row[ic]
 
         # Clean
         for c in df.columns:
@@ -385,11 +410,21 @@ def main():
     print(f"\n  Top features ({best['config']}): {best.get('top10', [])[:5]}")
     print(f"  Runtime: {total:.0f}s ({total/60:.1f}m)")
 
-    with open("/root/pd-imu/proven_stack_results.json", "w") as f:
-        json.dump({"baseline_mae": float(baseline_mae), "best_mae": float(best["ens_mae"]),
-                    "best_config": best["config"], "results": results,
-                    "runtime_s": round(total, 1)}, f, indent=2)
-    print("  Saved to /root/pd-imu/proven_stack_results.json")
+    payload = {
+        "baseline_mae": float(baseline_mae),
+        "best_mae": float(best["ens_mae"]),
+        "best_config": best["config"],
+        "results": results,
+        "runtime_s": round(total, 1),
+        "protocol": {
+            "feature_build_matches_run_ablation_v2": True,
+            "recording_tasks": ALL_TASKS,
+            "model_selection": "exploratory_test_set_sweep",
+            "held_out_test_is_pristine": False,
+        },
+    }
+    save_json_artifact("proven_stack_results.json", payload)
+    print("  Saved to results/proven_stack_results.json")
 
 
 if __name__ == "__main__":

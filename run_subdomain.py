@@ -15,7 +15,10 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from concurrent.futures import ProcessPoolExecutor
 
 warnings.filterwarnings("ignore")
-sys.path.insert(0, "/root/pd-imu")
+from project_paths import FIGURES_DIR as FIGURES_DIR_PATH, REPO_ROOT, save_json_artifact
+from updrs_columns import find_updrs_value
+
+sys.path.insert(0, str(REPO_ROOT))
 from data_split import parse_clinical, load_split, DATA_DIR, SENSORS, FS
 
 from run_ablation_v2 import (extract_recording, agg_task_preserving, compute_dist_feats,
@@ -26,8 +29,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-FIGURES_DIR = "/root/pd-imu/figures"
-RESULTS_FILE = "/root/pd-imu/subdomain_results.json"
+FIGURES_DIR = str(FIGURES_DIR_PATH)
 os.makedirs(FIGURES_DIR, exist_ok=True)
 
 
@@ -163,7 +165,7 @@ def parse_item_scores():
 
 
 def _score_single_item(row, columns, item_num, group):
-    val = _find_col_value(row, columns, f"MDSUPDRS_3-{item_num}")
+    val = find_updrs_value(row, columns, item_num)
     if val is not None:
         return val
     if group == "HC":
@@ -174,7 +176,7 @@ def _score_single_item(row, columns, item_num, group):
 def _score_multi_item(row, columns, item_num, suffixes, group):
     values = []
     for suffix in suffixes:
-        val = _find_col_value(row, columns, f"MDSUPDRS_3-{item_num}{suffix}")
+        val = find_updrs_value(row, columns, item_num, suffix)
         if val is None:
             if values:
                 return None
@@ -184,26 +186,6 @@ def _score_multi_item(row, columns, item_num, suffixes, group):
         return float(sum(values))
     if len(values) == 0 and group == "HC":
         return 0.0
-    return None
-
-
-def _find_col_value(row, columns, target):
-    """Find a column value, handling case/whitespace variations."""
-    target_lower = target.lower().strip()
-    for col in columns:
-        if col.lower().strip() == target_lower:
-            val = pd.to_numeric(row[col], errors="coerce")
-            if pd.notna(val):
-                return float(val)
-            return None
-    # Try partial match (some CSVs have extra spaces or dots)
-    for col in columns:
-        clean = col.strip().replace(" ", "")
-        if clean.lower() == target_lower.replace(" ", ""):
-            val = pd.to_numeric(row[col], errors="coerce")
-            if pd.notna(val):
-                return float(val)
-            return None
     return None
 
 
@@ -856,6 +838,7 @@ def main():
             for r in composite_results
         ],
         "observable_vs_unobservable": {
+            "comparison_available": obs_result is not None and unobs_result is not None,
             "observable_r": obs_result["ens_r"] if obs_result else None,
             "observable_mae": obs_result["ens_mae"] if obs_result else None,
             "unobservable_r": unobs_result["ens_r"] if unobs_result else None,
@@ -874,9 +857,8 @@ def main():
         },
     }
 
-    with open(RESULTS_FILE, "w") as f:
-        json.dump(output, f, indent=2, default=str)
-    print(f"\nResults saved: {RESULTS_FILE}")
+    save_json_artifact("subdomain_results.json", output)
+    print("\nResults saved: results/subdomain_results.json")
 
     elapsed = time.time() - t0
     print(f"\nTotal time: {elapsed/60:.1f} min")

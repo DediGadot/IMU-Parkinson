@@ -18,7 +18,14 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from concurrent.futures import ProcessPoolExecutor
 
 warnings.filterwarnings("ignore")
-sys.path.insert(0, "/root/pd-imu")
+from project_paths import (
+    FIGURES_DIR as FIGURES_DIR_PATH,
+    REPO_ROOT,
+    load_json_artifact,
+    save_json_artifact,
+)
+
+sys.path.insert(0, str(REPO_ROOT))
 from data_split import parse_clinical, load_split, DATA_DIR, SENSORS, FS
 
 from run_ablation_v2 import (extract_recording, agg_task_preserving, compute_dist_feats,
@@ -29,7 +36,7 @@ MCID_IMPROVE = 3.25
 MCID_WORSEN = 4.63
 N_BOOTSTRAP = 10000
 RESULTS_DIR = "/root/pd-imu"
-FIGURES_DIR = "/root/pd-imu/figures"
+FIGURES_DIR = str(FIGURES_DIR_PATH)
 
 os.makedirs(FIGURES_DIR, exist_ok=True)
 
@@ -280,6 +287,30 @@ def train_all_models(df, dev_sids, test_sids, subjects):
     return results, meta
 
 
+def load_stack_predictions(meta):
+    """Load the best stack predictions from the saved artifact for stats/reporting."""
+    benchmark, source = load_json_artifact("clean_benchmark_results.json")
+    results = {row["config"]: row for row in benchmark.get("results", [])}
+    stack = results.get("S6_stack_orig_K150")
+    if stack is None:
+        raise KeyError("S6_stack_orig_K150 not found in clean_benchmark_results.json")
+
+    preds = stack["ens_preds"]
+    if len(preds) != len(meta["test_true"]):
+        raise ValueError("Stack prediction length does not match current held-out test set")
+
+    return {
+        "seed_preds": [preds],
+        "seed_maes": [float(stack["ens_mae"])],
+        "seed_rs": [float(stack["ens_r"])],
+        "ens_pred": preds,
+        "ens_mae": float(stack["ens_mae"]),
+        "ens_r": float(stack["ens_r"]),
+        "source_artifact": str(source),
+        "seed_source": "ensemble_only",
+    }
+
+
 # ═══════════════════════════════════════════════════════════════════
 # 2. BOOTSTRAP CONFIDENCE INTERVALS (BCa)
 # ═══════════════════════════════════════════════════════════════════
@@ -524,6 +555,8 @@ def seed_stability(y_true, seed_preds, seed_maes, seed_rs):
             r, _ = sp_stats.pearsonr(seed_preds[i], seed_preds[j])
             pred_corrs.append(float(r))
 
+    mean_inter_seed_r = float(np.mean(pred_corrs)) if pred_corrs else None
+
     return {
         "per_seed": per_seed,
         "ens_mae": ens_mae,
@@ -531,7 +564,7 @@ def seed_stability(y_true, seed_preds, seed_maes, seed_rs):
         "ens_benefit": float(ens_benefit),
         "cv_mae": cv_mae,
         "std_mae": float(np.std(seed_maes)),
-        "mean_inter_seed_r": float(np.mean(pred_corrs)),
+        "mean_inter_seed_r": mean_inter_seed_r,
     }
 
 
@@ -672,13 +705,14 @@ def generate_latex(all_stats):
     lines.append(r"\midrule")
 
     model_labels = {
+        "stack": "Stack (artifact-backed)",
         "lgb": "LightGBM (150 feat)",
         "xgb": "XGBoost (150 feat)",
         "cat": "CatBoost (150 feat)",
         "ceiling": "XGBoost + H\\&Y (ceiling)",
     }
 
-    for mname in ["lgb", "xgb", "cat", "ceiling"]:
+    for mname in ["stack", "lgb", "xgb", "cat", "ceiling"]:
         if mname not in all_stats:
             continue
         s = all_stats[mname]
@@ -722,6 +756,12 @@ def main():
     # 2. Train models and get per-subject predictions
     print("\n[2/7] Training models (LGB/XGB/CAT + ceiling)...")
     model_results, meta = train_all_models(df, dev_sids, test_sids, subjects)
+    model_results["stack"] = load_stack_predictions(meta)
+    print(
+        "  stack artifact: "
+        f"MAE={model_results['stack']['ens_mae']:.3f} "
+        f"r={model_results['stack']['ens_r']:.3f}"
+    )
 
     y_true = np.array(meta["test_true"])
     groups = meta["test_groups"]
@@ -740,7 +780,15 @@ def main():
 
     # 4. Permutation tests
     print("\n[4/7] Paired permutation tests...")
-    comparisons = [("lgb", "xgb"), ("lgb", "cat"), ("lgb", "ceiling")]
+    comparisons = [
+        ("stack", "lgb"),
+        ("stack", "xgb"),
+        ("stack", "cat"),
+        ("stack", "ceiling"),
+        ("lgb", "xgb"),
+        ("lgb", "cat"),
+        ("lgb", "ceiling"),
+    ]
     perm_results = {}
     for a, b in comparisons:
         if a in model_results and b in model_results:
@@ -770,21 +818,22 @@ def main():
     for mname, mres in model_results.items():
         stab = seed_stability(y_true, mres["seed_preds"], mres["seed_maes"], mres["seed_rs"])
         all_stats[mname]["seed_stability"] = stab
+        inter_seed = "n/a" if stab["mean_inter_seed_r"] is None else f"{stab['mean_inter_seed_r']:.3f}"
         print(f"  {mname}: ens_mae={stab['ens_mae']:.3f}, "
               f"mean_indiv={stab['mean_individual_mae']:.3f}, "
               f"benefit={stab['ens_benefit']:.3f}, "
               f"cv_mae={stab['cv_mae']:.3f}, "
-              f"inter_seed_r={stab['mean_inter_seed_r']:.3f}")
+              f"inter_seed_r={inter_seed}")
 
     # 7. Plots
     print("\n[7/7] Generating figures...")
-    best_name = "lgb"
+    best_name = min(model_results, key=lambda name: model_results[name]["ens_mae"])
     best_pred = np.array(model_results[best_name]["ens_pred"])
     plot_scatter(y_true, best_pred, groups,
-                "LightGBM (150 features): Predicted vs Actual UPDRS-III",
+                f"{best_name.upper()} : Predicted vs Actual UPDRS-III",
                 os.path.join(FIGURES_DIR, "stats_scatter.png"))
     plot_bland_altman(y_true, best_pred, groups,
-                     "LightGBM (150 features): Bland-Altman Plot",
+                     f"{best_name.upper()} : Bland-Altman Plot",
                      os.path.join(FIGURES_DIR, "stats_bland_altman.png"))
 
     # Also plot ceiling
@@ -819,10 +868,8 @@ def main():
         },
     }
 
-    out_path = os.path.join(RESULTS_DIR, "stats_report.json")
-    with open(out_path, "w") as f:
-        json.dump(report, f, indent=2, default=str)
-    print(f"\nFull report saved: {out_path}")
+    save_json_artifact("stats_report.json", report)
+    print("\nFull report saved: results/stats_report.json")
 
     elapsed = time.time() - t0
     print(f"\nTotal time: {elapsed/60:.1f} min")
@@ -833,13 +880,13 @@ def main():
     print("=" * 70)
     print(f"{'Model':<25} {'MAE [95% CI]':<30} {'r [95% CI]':<30} {'MCID%':<8}")
     print("-" * 95)
-    for mname in ["lgb", "xgb", "cat", "ceiling"]:
+    for mname in ["stack", "lgb", "xgb", "cat", "ceiling"]:
         if mname not in all_stats:
             continue
         s = all_stats[mname]
         ci = s["bootstrap_cis"]
         clin = s["clinical"]
-        label = {"lgb": "LightGBM", "xgb": "XGBoost", "cat": "CatBoost",
+        label = {"stack": "Stack (artifact)", "lgb": "LightGBM", "xgb": "XGBoost", "cat": "CatBoost",
                  "ceiling": "Ceiling (XGB+H&Y)"}[mname]
         mae_str = f"{ci['mae'][0]:.2f} [{ci['mae'][1]:.2f}, {ci['mae'][2]:.2f}]"
         r_str = f"{ci['r'][0]:.3f} [{ci['r'][1]:.3f}, {ci['r'][2]:.3f}]"

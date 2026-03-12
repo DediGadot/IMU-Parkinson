@@ -1,7 +1,7 @@
 """
 V3 Experiments: Proven Feature Pipeline + New Analyses
 ======================================================
-Uses the EXACT feature pipeline from run_ablation_v2 + run_hp_sensitivity
+Uses the exact cleaned feature pipeline built on top of `run_ablation_v2.py`
 that achieved MAE=7.97. Adds:
   1. Baseline reproduction (5-seed ensemble with winning HP config)
   2. Observable-subtotal prediction
@@ -19,7 +19,10 @@ from sklearn.model_selection import LeaveOneOut
 from concurrent.futures import ProcessPoolExecutor
 
 warnings.filterwarnings("ignore")
-sys.path.insert(0, "/root/pd-imu")
+from project_paths import REPO_ROOT, load_json_artifact, repo_artifact_path, save_json_artifact
+from updrs_columns import find_updrs_value
+
+sys.path.insert(0, str(REPO_ROOT))
 from data_split import parse_clinical, load_split, DATA_DIR, SENSORS, FS
 
 from run_ablation_v2 import (
@@ -28,28 +31,15 @@ from run_ablation_v2 import (
     agg_mean, TASKS, N_CORES, SEEDS,
 )
 
-RESULTS_FILE = "/root/pd-imu/v3_results.json"
-FEATURE_CACHE = "/root/pd-imu/v3_features.csv"
+RESULTS_NAME = "v3_results.json"
+RESULTS_FILE = str(repo_artifact_path(RESULTS_NAME))
+FEATURE_CACHE = str(repo_artifact_path("v3_features.csv"))
 
 # Observable UPDRS-III subitems (items assessable from gait IMU)
-OBSERVABLE = [
-    "MDSUPDRS_3-9",       # arising from chair
-    "MDSUPDRS_3-10",      # gait
-    "MDSUPDRS_3-11",      # freezing of gait
-    "MDSUPDRS_3-12",      # postural stability
-    "MDSUPDRS_3-13",      # posture
-    "MDSUPDRS_3-14",      # body bradykinesia
-    "MDSUPDRS_3-8-L",     # leg agility L
-    "MDSUPDRS_3-8-R",     # leg agility R
-]
+OBSERVABLE_ITEMS = [(9, None), (10, None), (11, None), (12, None), (13, None), (14, None), (8, "a"), (8, "b")]
 
 # Partially observable (some signal from IMU but less direct)
-PARTIAL_OBSERVABLE = [
-    "MDSUPDRS_3-15-L",    # postural tremor L
-    "MDSUPDRS_3-15-R",    # postural tremor R
-    "MDSUPDRS_3-7-L",     # toe tapping L
-    "MDSUPDRS_3-7-R",     # toe tapping R
-]
+PARTIAL_OBSERVABLE_ITEMS = [(15, "a"), (15, "b"), (7, "a"), (7, "b")]
 
 
 def parse_clinical_with_subitems():
@@ -82,8 +72,14 @@ def parse_clinical_with_subitems():
             for c in u3cols:
                 v = pd.to_numeric(row[c], errors="coerce")
                 subitems[c] = float(v) if pd.notna(v) else 0.0
-            obs_score = sum(subitems.get(c, 0.0) for c in OBSERVABLE)
-            part_score = sum(subitems.get(c, 0.0) for c in PARTIAL_OBSERVABLE)
+            obs_score = sum(
+                find_updrs_value(row, df.columns, item_num, suffix) or 0.0
+                for item_num, suffix in OBSERVABLE_ITEMS
+            )
+            part_score = sum(
+                find_updrs_value(row, df.columns, item_num, suffix) or 0.0
+                for item_num, suffix in PARTIAL_OBSERVABLE_ITEMS
+            )
             # Covariates
             age = pd.to_numeric(row.get("Age (years)", row.get("Age", np.nan)), errors="coerce")
             sex = 1.0 if str(row.get("Sex", "")).strip().upper().startswith("M") else 0.0
@@ -119,7 +115,7 @@ def feature_select(X, y, n_feats, feat_names):
 
 
 def build_features(subjects, dev_sids, test_sids):
-    """Build full feature set (EXACT same pipeline as run_hp_sensitivity.py)."""
+    """Build full feature set from the cleaned ablation_v2-based pipeline."""
     if os.path.exists(FEATURE_CACHE):
         print(f"  Loading cached features from {FEATURE_CACHE}")
         df = pd.read_csv(FEATURE_CACHE)
@@ -299,14 +295,15 @@ def main():
     # Resume logic
     all_results = []
     done_names = set()
-    if os.path.exists(RESULTS_FILE):
-        all_results = json.load(open(RESULTS_FILE))
+    try:
+        all_results, _ = load_json_artifact(RESULTS_NAME)
         done_names = {r["name"] for r in all_results}
         print(f"  Resuming: {len(done_names)} experiments done")
+    except Exception:
+        pass
 
     def save():
-        with open(RESULTS_FILE, "w") as f:
-            json.dump(all_results, f, indent=2, default=str)
+        save_json_artifact(RESULTS_NAME, all_results)
 
     # ── Build features (proven pipeline) ──────────────────────────────
     print("\n" + "=" * 80)
@@ -508,13 +505,15 @@ def main():
         sids_pd = sids_all[pd_mask]
         print(f"  PD subjects: {len(X_pd)}, UPDRS mean={y_pd.mean():.1f}")
 
-        # Feature selection on PD-only
-        top_pd, _ = feature_select(X_pd, y_pd, 150, feat_cols)
-        X_pd_sel = X_pd[:, top_pd]
-
         loo = LeaveOneOut()
         preds = np.zeros(len(y_pd))
-        for i, (tr_idx, te_idx) in enumerate(loo.split(X_pd_sel)):
+        selected_name_counts = {}
+        for i, (tr_idx, te_idx) in enumerate(loo.split(X_pd)):
+            top_pd, top_names = feature_select(X_pd[tr_idx], y_pd[tr_idx], 150, feat_cols)
+            for name in top_names:
+                selected_name_counts[name] = selected_name_counts.get(name, 0) + 1
+
+            X_pd_sel = X_pd[:, top_pd]
             m = lgb.LGBMRegressor(**LGB_BEST, random_state=42, n_jobs=N_CORES,
                                   objective="mae", verbose=-1)
             # Use 15% of training for validation
@@ -538,6 +537,11 @@ def main():
             "ens_r": round(loocv_r, 3),
             "n_subjects": len(y_pd),
             "method": "LOOCV",
+            "protocol": "nested_feature_selection",
+            "top10_feature_frequency": sorted(
+                [{"feature": k, "count": v} for k, v in selected_name_counts.items()],
+                key=lambda item: (-item["count"], item["feature"]),
+            )[:10],
         })
         save()
 

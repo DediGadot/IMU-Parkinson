@@ -12,12 +12,14 @@ Usage:
 """
 import os
 import json
+from pathlib import Path
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import StratifiedShuffleSplit, GroupKFold
+from project_paths import DATA_DIR, SPLIT_FILE, ensure_parent
 
-DATA_DIR = "/root/pd-imu/data/raw/weargait-pd"
-SPLIT_FILE = "/root/pd-imu/data_split.json"
+DATA_DIR = str(DATA_DIR)
+SPLIT_FILE = str(SPLIT_FILE)
 
 FS = 100
 WINDOW_LEN = 1000
@@ -132,8 +134,9 @@ def create_split(seed=42):
         "n_test": len(test_sids),
     }
 
-    with open(SPLIT_FILE, "w") as f:
-        json.dump(split_info, f, indent=2)
+    split_path = Path(SPLIT_FILE)
+    ensure_parent(split_path)
+    split_path.write_text(json.dumps(split_info, indent=2) + "\n")
 
     print(f"Split created: {len(dev_sids)} dev + {len(test_sids)} test subjects")
     print(f"  Dev  UPDRS bins: {np.bincount(dev_bins, minlength=5).tolist()}")

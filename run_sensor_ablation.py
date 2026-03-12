@@ -6,6 +6,8 @@ Systematic sensor reduction for clinical deployment recommendation.
 
 Uses cached features from run_proven_stack.py (proven_stack_features.csv).
 Column filtering by sensor name simulates only having certain sensors.
+Distilled walkway proxies are excluded by default because they were learned
+from the full-sensor feature matrix and would contaminate reduced-sensor claims.
 
 Pipeline: XGBoost importance selection K=150 → LGB+XGB stacking → Ridge L1.
 """
@@ -19,11 +21,13 @@ from sklearn.linear_model import Ridge
 from sklearn.model_selection import KFold
 warnings.filterwarnings("ignore")
 
-sys.path.insert(0, "/root/pd-imu")
+from project_paths import REPO_ROOT, repo_artifact_path, save_json_artifact
+
+sys.path.insert(0, str(REPO_ROOT))
 from data_split import parse_clinical, load_split, SENSORS
 
-FEATURE_CACHE = "/root/pd-imu/proven_stack_features.csv"
-RESULTS_FILE = "/root/pd-imu/sensor_ablation_results.json"
+FEATURE_CACHE = str(repo_artifact_path("proven_stack_features.csv"))
+ALLOW_PRIVILEGED_DST = os.getenv("WEARGAIT_ALLOW_PRIVILEGED_DISTILLATION", "").strip() == "1"
 N_CORES = 11
 SEEDS = [42, 123, 456, 789, 2024]
 
@@ -52,7 +56,7 @@ SENSOR_CONFIGS = OrderedDict([
 ])
 
 
-def filter_features_for_sensors(all_cols, sensor_set):
+def filter_features_for_sensors(all_cols, sensor_set, allow_privileged_dst=False):
     """Return columns available if only sensor_set sensors are worn.
 
     Rules:
@@ -62,7 +66,8 @@ def filter_features_for_sensors(all_cols, sensor_set):
     - Foot contact (fc_*): keep if any foot/ankle sensor in set
     - Kinematics (k_*): keep if relevant ankle/shank in set
     - Distribution (dv_*) and contrasts (d_*, r_*): keep if source sensor in set
-    - Covariates, distillation, metadata: always keep
+    - Covariates and metadata: always keep
+    - Distilled walkway features: excluded unless explicitly requested
     """
     sensor_set = set(sensor_set)
     keep = []
@@ -119,9 +124,15 @@ def filter_features_for_sensors(all_cols, sensor_set):
                 keep.append(col)
             continue
 
-        # Covariates, walkway distillation, metadata: always keep
-        if col.startswith(("cv_", "dst_", "ext_", "n_")) or col in ("duration_s",):
+        # Covariates and metadata: always keep
+        if col.startswith(("cv_", "ext_", "n_")) or col in ("duration_s",):
             keep.append(col)
+            continue
+
+        # Distilled walkway proxies were learned from the full-sensor matrix.
+        if col.startswith("dst_"):
+            if allow_privileged_dst:
+                keep.append(col)
             continue
 
         # Unknown column — keep
@@ -250,7 +261,11 @@ def main():
         print(f"{'='*70}")
 
         # Filter features for this sensor set
-        avail_cols = filter_features_for_sensors(all_cols, sensor_list)
+        avail_cols = filter_features_for_sensors(
+            all_cols,
+            sensor_list,
+            allow_privileged_dst=ALLOW_PRIVILEGED_DST,
+        )
         print(f"  Features available: {len(avail_cols)} / {len(all_cols)}")
 
         if len(avail_cols) < 10:
@@ -302,10 +317,17 @@ def main():
 
     print(f"\n  Runtime: {total:.0f}s ({total/60:.1f}m)")
 
-    with open(RESULTS_FILE, "w") as f:
-        json.dump({"results": results, "baseline_mae": float(baseline_mae),
-                   "runtime_s": round(total, 1)}, f, indent=2, default=str)
-    print(f"  Saved to {RESULTS_FILE}")
+    payload = {
+        "results": results,
+        "baseline_mae": float(baseline_mae),
+        "runtime_s": round(total, 1),
+        "protocol": {
+            "allow_privileged_distilled_walkway_features": ALLOW_PRIVILEGED_DST,
+            "sensor_isolation_valid_for_dst": not ALLOW_PRIVILEGED_DST,
+        },
+    }
+    save_json_artifact("sensor_ablation_results.json", payload)
+    print("  Saved to results/sensor_ablation_results.json")
 
 
 if __name__ == "__main__":

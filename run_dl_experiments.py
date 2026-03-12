@@ -32,7 +32,15 @@ from collections import defaultdict
 from concurrent.futures import ProcessPoolExecutor
 
 warnings.filterwarnings("ignore")
-sys.path.insert(0, "/root/pd-imu")
+from project_paths import (
+    CACHE_DIR as CACHE_DIR_PATH,
+    REPO_ROOT,
+    load_json_artifact,
+    repo_artifact_path,
+    save_json_artifact,
+)
+
+sys.path.insert(0, str(REPO_ROOT))
 from data_split import (
     parse_clinical, load_split,
     DATA_DIR, WINDOW_LEN, STRIDE_LEN, SENSORS, IMU_COLS, N_CH, FS
@@ -48,9 +56,10 @@ NUM_WORKERS = 4
 N_CORES = 11
 SEEDS = [42, 123, 456, 789, 2024]
 ALL_TASKS = ("SelfPace", "HurriedPace", "TandemGait", "TUG", "Balance")
-TEST_TASKS = ("SelfPace", "HurriedPace")
-RESULTS_FILE = "/root/pd-imu/dl_experiment_results.json"
-CACHE_DIR = "/root/pd-imu/data/cache"
+TEST_TASKS = ALL_TASKS
+CACHE_DIR = str(CACHE_DIR_PATH)
+RESULTS_NAME = "dl_experiment_results.json"
+RESULTS_FILE = str(repo_artifact_path(RESULTS_NAME))
 
 # Sensor adjacency graph
 SENSOR_EDGES = [
@@ -171,7 +180,7 @@ def _load_windows_to_cache(subjects, sid_list, tasks, tag):
 def load_all_data(subjects, dev_sids, test_sids):
     """Load and normalize all data. Returns dev/test/all arrays with global norm."""
     X_dev, y_dev, s_dev = _load_windows_to_cache(subjects, dev_sids, ALL_TASKS, "dev_all5")
-    X_test, y_test, s_test = _load_windows_to_cache(subjects, test_sids, TEST_TASKS, "test_sp_hp")
+    X_test, y_test, s_test = _load_windows_to_cache(subjects, test_sids, TEST_TASKS, "test_all5")
     X_all, _, _ = _load_windows_to_cache(subjects, dev_sids + test_sids, ALL_TASKS, "all_all5")
 
     # Global norm from dev set
@@ -914,18 +923,15 @@ def main():
     # Resume: load any existing results
     all_results = []
     done_names = set()
-    if os.path.exists(RESULTS_FILE):
-        try:
-            with open(RESULTS_FILE) as f:
-                all_results = json.load(f)
-            done_names = {r["name"] for r in all_results}
-            print(f"  Resuming: {len(done_names)} experiments already done")
-        except Exception:
-            pass
+    try:
+        all_results, _ = load_json_artifact(RESULTS_NAME)
+        done_names = {r["name"] for r in all_results}
+        print(f"  Resuming: {len(done_names)} experiments already done")
+    except Exception:
+        pass
 
     def save():
-        with open(RESULTS_FILE, "w") as f:
-            json.dump(all_results, f, indent=2, default=str)
+        save_json_artifact(RESULTS_NAME, all_results)
 
     def run_if_new(name, model_fn, xd, yd, sd, xt, yt, st, cv, **kw):
         if name in done_names:
@@ -1271,7 +1277,7 @@ def main():
             print(f"\n  ★ NEW BEST: {best['name']} → MAE={best['ens_mae']:.2f}")
         else:
             print(f"\n  Best DL: {best['name']} → MAE={best['ens_mae']:.2f}")
-    print(f"\nResults: {RESULTS_FILE}")
+    print("\nResults: results/dl_experiment_results.json")
 
 
 if __name__ == "__main__":
