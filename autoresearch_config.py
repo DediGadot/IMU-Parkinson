@@ -29,8 +29,8 @@ Constraints (DO NOT violate):
 def get_config():
     return {
         # ── Identity ─────────────────────────────────────────────
-        "name": "baseline",
-        "description": "Default v2+FM LGB ensemble K=300 — matches current SOTA config",
+        "name": "mse_loss",
+        "description": "MSE loss objective (from MAE) — stable gradients, may give better MAE despite squared loss",
 
         # ── Features ─────────────────────────────────────────────
         # "v2+fm"  : handcrafted v2 + MOMENT FM embeddings (default, best known)
@@ -71,7 +71,7 @@ def get_config():
             "min_data_in_leaf": 20,     # min samples per leaf
             "colsample_bytree": 1.0,    # feature fraction per tree (< 1 = random subsets)
             "subsample": 1.0,           # row fraction per tree (< 1 = bagging)
-            "objective": "mae",         # "mae", "huber", "mse", "quantile"
+            "objective": "mse",         # "mae", "huber", "mse", "quantile"
             "early_stopping_rounds": 100,
             "val_frac": 0.15,           # fraction held out for early stopping
         },
