@@ -26,11 +26,21 @@ Constraints (DO NOT violate):
 """
 
 
+def _log_transform(Xd, yd, Xt, names):
+    import numpy as np
+    Xd_log = np.log1p(np.abs(Xd))
+    Xt_log = np.log1p(np.abs(Xt))
+    log_names = [f"log_{n}" for n in names]
+    return (np.hstack([Xd, Xd_log]),
+            np.hstack([Xt, Xt_log]),
+            names + log_names)
+
+
 def get_config():
     return {
         # ── Identity ─────────────────────────────────────────────
-        "name": "mse_loss",
-        "description": "MSE loss objective (from MAE) — stable gradients, may give better MAE despite squared loss",
+        "name": "mse_k400_7s",
+        "description": "MSE + K=400 + 7 seeds — combine two strongest near-miss improvements",
 
         # ── Features ─────────────────────────────────────────────
         # "v2+fm"  : handcrafted v2 + MOMENT FM embeddings (default, best known)
@@ -41,7 +51,7 @@ def get_config():
 
         # Top K features after XGB importance selection
         # Sweet spot: 200-400 for v2+fm, 100-200 for v2-only or fm-only
-        "feature_k": 300,
+        "feature_k": 400,
 
         # Include normally-excluded feature groups (empty = standard filter)
         # Options: "nl_" (nonlinear), "ext_" (extended covariates),
@@ -59,7 +69,7 @@ def get_config():
         "ensemble": "lgb_only",
 
         # Seeds for ensemble averaging
-        "seeds": [42, 123, 456, 789, 2024],
+        "seeds": [42, 123, 456, 789, 2024, 7, 999],
 
         # ── LightGBM hyperparameters ─────────────────────────────
         "lgb_params": {
