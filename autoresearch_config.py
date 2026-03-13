@@ -39,8 +39,8 @@ def _log_transform(Xd, yd, Xt, names):
 def get_config():
     return {
         # ── Identity ─────────────────────────────────────────────
-        "name": "mse_k400_7s",
-        "description": "MSE + K=400 + 7 seeds — combine two strongest near-miss improvements",
+        "name": "k600_col0.5",
+        "description": "K=600 + colsample=0.5 — more features + subsampling = diverse tree ensembles",
 
         # ── Features ─────────────────────────────────────────────
         # "v2+fm"  : handcrafted v2 + MOMENT FM embeddings (default, best known)
@@ -51,7 +51,7 @@ def get_config():
 
         # Top K features after XGB importance selection
         # Sweet spot: 200-400 for v2+fm, 100-200 for v2-only or fm-only
-        "feature_k": 400,
+        "feature_k": 600,
 
         # Include normally-excluded feature groups (empty = standard filter)
         # Options: "nl_" (nonlinear), "ext_" (extended covariates),
@@ -79,7 +79,7 @@ def get_config():
             "num_leaves": 31,           # max leaves per tree
             "reg_lambda": 3.0,          # L2 regularization
             "min_data_in_leaf": 20,     # min samples per leaf
-            "colsample_bytree": 1.0,    # feature fraction per tree (< 1 = random subsets)
+            "colsample_bytree": 0.5,    # feature fraction per tree (< 1 = random subsets)
             "subsample": 1.0,           # row fraction per tree (< 1 = bagging)
             "objective": "mse",         # "mae", "huber", "mse", "quantile"
             "early_stopping_rounds": 100,
