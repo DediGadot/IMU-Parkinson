@@ -1,0 +1,46 @@
+# === Regenerable artifacts (from uv.lock / pyproject.toml) ===
+.venv/
+venv/
+env/
+.uv/
+
+# === Python bytecode / cache ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+
+# === Raw data (52 GB, download via synapse_download.py) ===
+data/
+
+# === Large binary caches (regenerable, exceed GitHub 100 MB limit) ===
+**/rocket_recordings.npz
+
+# === Nested results mirror (gpu.sh --pull artifact duplication) ===
+results/results/
+
+# === Secrets / credentials ===
+.env
+*.key
+*.pem
+synapse_credentials.json
+
+# === OS / editor junk ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === Third-party tracking (use native tools instead) ===
+wandb/
+mlruns/
+tensorboard/
+catboost_info/
