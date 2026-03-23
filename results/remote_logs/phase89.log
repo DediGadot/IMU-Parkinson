@@ -1,0 +1,108 @@
+ROCKET ABLATION — phase=9,8
+N_CORES=11, SEQ_LEN=1000, N_ROCKET_KERNELS=5000
+Subjects: 178 (98 PD)
+V2 cache: (178, 1877)
+[cache] Loading recordings from /root/pd-imu/results/rocket_recordings.npz
+  1417 recordings, 1417 coord rows
+
+======================================================================
+PHASE 9: Observable subdomain (items 7-14) with FM embeddings
+======================================================================
+[cache] Loading FM embeddings from /root/pd-imu/results/fm_embeddings.npz
+Subjects with observable scores: 174/178
+Subjects with features + observable: 174
+v2 K=150, fused K=300, FM features=768
+
+--- 10-split validation (observable target: items 7-14) ---
+  obs_s1_v2: MAE=3.413 r=0.818 PD-MAE=3.529 (K=150)
+  obs_s1_v2+fm: MAE=3.023 r=0.878 PD-MAE=3.268 (K=300)
+  obs_s1_v2+fm_stk: MAE=2.884 r=0.857 PD-MAE=3.021 (K=300, stack)
+  [1/10] v2=3.41 fused=3.02 stk=2.88
+  obs_s2_v2: MAE=3.204 r=0.684 PD-MAE=3.403 (K=150)
+  obs_s2_v2+fm: MAE=3.066 r=0.719 PD-MAE=3.289 (K=300)
+  obs_s2_v2+fm_stk: MAE=2.971 r=0.731 PD-MAE=3.125 (K=300, stack)
+  [2/10] v2=3.20 fused=3.07 stk=2.97
+  obs_s3_v2: MAE=3.465 r=0.557 PD-MAE=3.495 (K=150)
+  obs_s3_v2+fm: MAE=3.364 r=0.569 PD-MAE=3.451 (K=300)
+  obs_s3_v2+fm_stk: MAE=3.204 r=0.630 PD-MAE=3.342 (K=300, stack)
+  [3/10] v2=3.46 fused=3.36 stk=3.20
+  obs_s4_v2: MAE=4.080 r=0.711 PD-MAE=4.420 (K=150)
+  obs_s4_v2+fm: MAE=4.070 r=0.735 PD-MAE=4.417 (K=300)
+  obs_s4_v2+fm_stk: MAE=3.826 r=0.718 PD-MAE=4.045 (K=300, stack)
+  [4/10] v2=4.08 fused=4.07 stk=3.83
+  obs_s5_v2: MAE=3.492 r=0.550 PD-MAE=3.826 (K=150)
+  obs_s5_v2+fm: MAE=3.438 r=0.600 PD-MAE=3.725 (K=300)
+  obs_s5_v2+fm_stk: MAE=3.390 r=0.575 PD-MAE=3.594 (K=300, stack)
+  [5/10] v2=3.49 fused=3.44 stk=3.39
+  obs_s6_v2: MAE=2.855 r=0.735 PD-MAE=3.034 (K=150)
+  obs_s6_v2+fm: MAE=2.823 r=0.714 PD-MAE=2.954 (K=300)
+  obs_s6_v2+fm_stk: MAE=2.898 r=0.719 PD-MAE=3.099 (K=300, stack)
+  [6/10] v2=2.85 fused=2.82 stk=2.90
+  obs_s7_v2: MAE=2.572 r=0.744 PD-MAE=2.443 (K=150)
+  obs_s7_v2+fm: MAE=2.546 r=0.739 PD-MAE=2.393 (K=300)
+  obs_s7_v2+fm_stk: MAE=2.493 r=0.764 PD-MAE=2.451 (K=300, stack)
+  [7/10] v2=2.57 fused=2.55 stk=2.49
+  obs_s8_v2: MAE=3.592 r=0.783 PD-MAE=3.898 (K=150)
+  obs_s8_v2+fm: MAE=3.611 r=0.799 PD-MAE=3.961 (K=300)
+  obs_s8_v2+fm_stk: MAE=3.284 r=0.808 PD-MAE=3.597 (K=300, stack)
+  [8/10] v2=3.59 fused=3.61 stk=3.28
+  obs_s9_v2: MAE=3.151 r=0.742 PD-MAE=3.326 (K=150)
+  obs_s9_v2+fm: MAE=3.121 r=0.751 PD-MAE=3.320 (K=300)
+  obs_s9_v2+fm_stk: MAE=3.052 r=0.763 PD-MAE=3.219 (K=300, stack)
+  [9/10] v2=3.15 fused=3.12 stk=3.05
+  obs_s10_v2: MAE=2.568 r=0.759 PD-MAE=2.714 (K=150)
+  obs_s10_v2+fm: MAE=2.310 r=0.801 PD-MAE=2.504 (K=300)
+  obs_s10_v2+fm_stk: MAE=2.147 r=0.814 PD-MAE=2.353 (K=300, stack)
+  [10/10] v2=2.57 fused=2.31 stk=2.15
+
+10-split v2: 3.239 +/- 0.450
+
+10-split fused: 3.137 +/- 0.489
+
+10-split stk: 3.015 +/- 0.443
+
+Wilcoxon stk vs v2: p=0.0020
+
+ROCKET obs baseline: 3.068 ± 0.463 (p=0.032)
+
+Phase 9 done in 9.8m
+
+======================================================================
+PHASE 8: PD-only LOOCV with FM embeddings (MOMENT-1-base)
+======================================================================
+[cache] Loading FM embeddings from /root/pd-imu/results/fm_embeddings.npz
+PD subjects: 98, FM features: 768
+  [1/98] NLS002: true=18 v2=18.0 fm=21.4 (59s) v2_MAE=0.02 fm_MAE=3.40 ETA=96m
+  [5/98] NLS036: true=46 v2=26.5 fm=30.5 (63s) v2_MAE=7.83 fm_MAE=6.90 ETA=98m
+  [10/98] NLS121: true=11 v2=25.7 fm=25.4 (59s) v2_MAE=7.03 fm_MAE=6.78 ETA=87m
+  [15/98] NLS139: true=33 v2=25.7 fm=26.5 (61s) v2_MAE=7.67 fm_MAE=7.62 ETA=85m
+  [20/98] NLS144: true=29 v2=28.1 fm=28.3 (57s) v2_MAE=7.56 fm_MAE=7.41 ETA=74m
+  [25/98] NLS150: true=35 v2=17.4 fm=20.4 (56s) v2_MAE=8.00 fm_MAE=7.40 ETA=68m
+  [30/98] NLS155: true=6 v2=21.1 fm=28.6 (60s) v2_MAE=8.29 fm_MAE=8.07 ETA=68m
+  [35/98] NLS161: true=39 v2=19.2 fm=21.4 (63s) v2_MAE=8.47 fm_MAE=8.28 ETA=66m
+  [40/98] NLS166: true=26 v2=23.8 fm=28.5 (60s) v2_MAE=8.92 fm_MAE=8.57 ETA=58m
+  [45/98] NLS173: true=38 v2=21.7 fm=21.4 (61s) v2_MAE=9.11 fm_MAE=8.76 ETA=54m
+  [50/98] NLS179: true=43 v2=28.7 fm=26.7 (60s) v2_MAE=8.84 fm_MAE=8.72 ETA=48m
+  [55/98] NLS186: true=17 v2=21.3 fm=21.6 (59s) v2_MAE=8.46 fm_MAE=8.36 ETA=42m
+  [60/98] NLS191: true=36 v2=19.3 fm=20.2 (61s) v2_MAE=8.58 fm_MAE=8.51 ETA=38m
+  [65/98] NLS198: true=24 v2=18.8 fm=24.1 (66s) v2_MAE=8.66 fm_MAE=8.35 ETA=36m
+  [70/98] NLS211: true=24 v2=20.2 fm=20.1 (54s) v2_MAE=8.70 fm_MAE=8.38 ETA=25m
+  [75/98] WPD005: true=15 v2=4.5 fm=11.1 (59s) v2_MAE=8.83 fm_MAE=8.33 ETA=23m
+  [80/98] WPD010: true=24 v2=12.9 fm=20.4 (58s) v2_MAE=8.78 fm_MAE=8.17 ETA=17m
+  [85/98] WPD015: true=22 v2=19.6 fm=21.8 (62s) v2_MAE=8.79 fm_MAE=8.07 ETA=13m
+  [90/98] WPD020: true=13 v2=21.6 fm=25.2 (61s) v2_MAE=9.13 fm_MAE=8.46 ETA=8m
+  [95/98] WPD025: true=30 v2=22.7 fm=27.5 (61s) v2_MAE=9.00 fm_MAE=8.34 ETA=3m
+
+=== PD-only LOOCV Results (N=98) ===
+v2-only:  MAE=8.808  r=0.412
+FM-fused: MAE=8.147  r=0.429
+Hssayeni: MAE=5.95   r=0.74
+ROCKET LOOCV ref: MAE=8.223  r=0.405
+Wilcoxon: p=0.0421, FM wins 56/98 subjects
+FM 95% CI: [6.95, 9.38]
+
+Phase 8 done in 98.4m
+
+======================================================================
+TOTAL RUNTIME: 108.3 minutes
+Results: results/rocket_ablation_results.json

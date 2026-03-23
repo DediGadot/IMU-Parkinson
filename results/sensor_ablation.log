@@ -1,0 +1,141 @@
+======================================================================
+SENSOR ABLATION STUDY
+======================================================================
+Loaded split: 142 dev + 36 test subjects
+Loaded: 178 subjects × 1752 features
+
+======================================================================
+all_13: 13 sensors — ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+======================================================================
+  Features available: 1760 / 1760
+  → ENS MAE=7.04, r=0.843 (1760 feats → K=150)
+
+======================================================================
+no_LowerBack: 12 sensors — ['R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+======================================================================
+  Features available: 1475 / 1760
+  → ENS MAE=7.04, r=0.833 (1475 feats → K=150)
+
+======================================================================
+no_Wrists: 11 sensors — ['LowerBack', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+======================================================================
+  Features available: 1532 / 1760
+  → ENS MAE=8.31, r=0.764 (1532 feats → K=150)
+
+======================================================================
+no_Feet: 11 sensors — ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+======================================================================
+  Features available: 1510 / 1760
+  → ENS MAE=7.65, r=0.811 (1510 feats → K=150)
+
+======================================================================
+no_Ankles: 11 sensors — ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'Xiphoid', 'Forehead']
+======================================================================
+  Features available: 1510 / 1760
+  → ENS MAE=7.38, r=0.814 (1510 feats → K=150)
+
+======================================================================
+no_Shanks: 11 sensors — ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+======================================================================
+  Features available: 1542 / 1760
+  → ENS MAE=7.66, r=0.823 (1542 feats → K=150)
+
+======================================================================
+no_Thighs: 11 sensors — ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+======================================================================
+  Features available: 1550 / 1760
+  → ENS MAE=7.51, r=0.832 (1550 feats → K=150)
+
+======================================================================
+no_Xiphoid: 12 sensors — ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Forehead']
+======================================================================
+  Features available: 1655 / 1760
+  → ENS MAE=7.34, r=0.822 (1655 feats → K=150)
+
+======================================================================
+no_Forehead: 12 sensors — ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid']
+======================================================================
+  Features available: 1640 / 1760
+  → ENS MAE=7.87, r=0.804 (1640 feats → K=150)
+
+======================================================================
+lower_back_1: 1 sensors — ['LowerBack']
+======================================================================
+  Features available: 343 / 1760
+  → ENS MAE=8.42, r=0.770 (343 feats → K=150)
+
+======================================================================
+wrists_2: 2 sensors — ['R_Wrist', 'L_Wrist']
+======================================================================
+  Features available: 286 / 1760
+  → ENS MAE=7.58, r=0.839 (286 feats → K=150)
+
+======================================================================
+back_wrists_3: 3 sensors — ['LowerBack', 'R_Wrist', 'L_Wrist']
+======================================================================
+  Features available: 571 / 1760
+  → ENS MAE=7.55, r=0.819 (571 feats → K=150)
+
+======================================================================
+back_ankles_3: 3 sensors — ['LowerBack', 'R_Ankle', 'L_Ankle']
+======================================================================
+  Features available: 629 / 1760
+  → ENS MAE=8.51, r=0.762 (629 feats → K=150)
+
+======================================================================
+feet_ankles_4: 4 sensors — ['R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle']
+======================================================================
+  Features available: 594 / 1760
+  → ENS MAE=8.56, r=0.739 (594 feats → K=150)
+
+======================================================================
+minimal_5: 5 sensors — ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_Ankle', 'L_Ankle']
+======================================================================
+  Features available: 857 / 1760
+  → ENS MAE=7.62, r=0.805 (857 feats → K=150)
+
+======================================================================
+lower_body_9: 9 sensors — ['LowerBack', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle']
+======================================================================
+  Features available: 1307 / 1760
+  → ENS MAE=7.95, r=0.769 (1307 feats → K=150)
+
+======================================================================
+upper_body_4: 4 sensors — ['R_Wrist', 'L_Wrist', 'Xiphoid', 'Forehead']
+======================================================================
+  Features available: 511 / 1760
+  → ENS MAE=8.04, r=0.804 (511 feats → K=150)
+
+======================================================================
+SENSOR ABLATION RESULTS (sorted by ENS MAE)
+======================================================================
+  Config               #Sen  #Feat    K      MAE±std     ENS      r       Δ
+  ----------------------------------------------------------------------
+  no_LowerBack           12   1475  150  7.10±0.42    7.04  0.833   +0.00
+  all_13                 13   1760  150  7.11±0.46    7.04  0.843    0.00
+  no_Xiphoid             12   1655  150  7.37±0.52    7.34  0.822   -0.30
+  no_Ankles              11   1510  150  7.42±0.27    7.38  0.814   -0.34
+  no_Thighs              11   1550  150  7.52±0.12    7.51  0.832   -0.47
+  back_wrists_3           3    571  150  7.65±0.32    7.55  0.819   -0.51
+  wrists_2                2    286  150  7.60±0.37    7.58  0.839   -0.54
+  minimal_5               5    857  150  7.67±0.21    7.62  0.805   -0.58
+  no_Feet                11   1510  150  7.72±0.20    7.65  0.811   -0.61
+  no_Shanks              11   1542  150  7.67±0.23    7.66  0.823   -0.62
+  no_Forehead            12   1640  150  7.90±0.24    7.87  0.804   -0.83
+  lower_body_9            9   1307  150  7.99±0.42    7.95  0.769   -0.91
+  upper_body_4            4    511  150  8.06±0.54    8.04  0.804   -1.00
+  no_Wrists              11   1532  150  8.34±0.26    8.31  0.764   -1.27
+  lower_back_1            1    343  150  8.43±0.14    8.42  0.770   -1.38
+  back_ankles_3           3    629  150  8.54±0.16    8.51  0.762   -1.47
+  feet_ankles_4           4    594  150  8.58±0.20    8.56  0.739   -1.52
+
+  CLINICAL DEPLOYMENT SUMMARY:
+    all_13              : MAE=7.04 (+0.0% vs full)
+    minimal_5           : MAE=7.62 (+8.3% vs full)
+    back_wrists_3       : MAE=7.55 (+7.3% vs full)
+    back_ankles_3       : MAE=8.51 (+21.0% vs full)
+    lower_back_1        : MAE=8.42 (+19.7% vs full)
+    wrists_2            : MAE=7.58 (+7.7% vs full)
+
+  Runtime: 378s (6.3m)
+  Saved to /root/pd-imu/sensor_ablation_results.json

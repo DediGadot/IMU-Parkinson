@@ -1,0 +1,27 @@
+PD-ONLY EXPERIMENTS -- phase=2
+N_CORES=11
+Subjects: 178 (98 PD, 80 HC)
+V2 cache: (178, 1877)
+
+======================================================================
+PHASE 2: FM LOOCV Enhanced Statistics + Demographic Baseline
+======================================================================
+Loaded 98 FM LOOCV predictions from /root/pd-imu/results/rocket_phase8_fm_loocv.json
+FM LOOCV: {'mae': 8.146, 'rmse': 10.182, 'r2': 0.125, 'ccc': 0.369, 'r': 0.429, 'spearman_rho': 0.382, 'spearman_p': 0.0001, 'mae_sd': 0.748, 'nrmse': 0.173, 'cal_slope': 0.256, 'cal_intercept': 16.261}
+Running demographic LOO baseline...
+Demo LOO: {'mae': 7.863, 'rmse': 9.901, 'r2': 0.172, 'ccc': 0.338, 'r': 0.427, 'spearman_rho': 0.346, 'spearman_p': 0.0005, 'mae_sd': 0.722, 'nrmse': 0.168, 'cal_slope': 0.211, 'cal_intercept': 18.488}
+FM vs Demo bootstrap: diff=-0.287 [-1.345, 0.769] p=0.5924
+Permutation test: p=0.000300
+Bland-Altman: bias=-1.903, LOA=[-21.51, 17.70]
+Partial correlation (controlling age+yrs_dx): r=0.360 p=0.0003
+Clinical significance: <=3.25: 25.5%, <=5: 37.8%, <=10: 68.4%
+  Q1(<12) (n=9): MAE=14.092, bias=14.09
+  Q2(12-20) (n=26): MAE=5.96, bias=4.45
+  Q3(20-35) (n=46): MAE=5.944, bias=-4.04
+  Q4(>35) (n=17): MAE=14.301, bias=-14.3
+
+Phase 2 done in 0.0m
+
+======================================================================
+TOTAL RUNTIME: 0.1 minutes
+Results saved to results/pd_only_*.json

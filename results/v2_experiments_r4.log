@@ -1,0 +1,83 @@
+================================================================================
+V2 EXPERIMENTS: FEATURE-FIRST + DL-ASSISTED
+Baseline: LightGBM 150 features -> MAE=7.97, r=0.821
+================================================================================
+Loaded split: 142 dev + 36 test subjects
+Subjects: 185, Dev: 142, Test: 36
+Observable subtotal: mean=2.9, range=[0, 12]
+  Resuming: 1 experiments done
+
+================================================================================
+PHASE 0: EXPANDED FEATURE EXTRACTION
+================================================================================
+  Extracting features from 885 recordings using 11 cores...
+  Done: 885 recordings in 109s
+  Saved 16390 columns for 178 subjects to /root/pd-imu/v2_features.csv
+  Total raw features: 16384
+  Dev: (142, 16384), Test: (36, 16384)
+
+================================================================================
+PHASE 1: EXPANDED FEATURE BASELINES
+================================================================================
+  Running stable feature selection (multi-seed XGBoost)...
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 150 features (multi-seed stable)
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 200 features (multi-seed stable)
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 300 features (multi-seed stable)
+
+  SKIP (done): E1A: LGB expanded 200 feats
+
+--- E1B: LGB expanded 150 feats ---
+  Features: 150, Dev: 142, Test: 36
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[777]	valid_0's l1: 7.78609
+  Seed 42: MAE=9.10, r=0.647
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[1990]	valid_0's l1: 8.19051
+  Seed 123: MAE=9.19, r=0.659
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1098]	valid_0's l1: 7.01753
+  Seed 456: MAE=9.27, r=0.640
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1001]	valid_0's l1: 6.75842
+  Seed 789: MAE=9.50, r=0.633
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[639]	valid_0's l1: 6.64481
+  Seed 2024: MAE=8.91, r=0.705
+  MEAN: MAE=9.19+/-0.20, r=0.657
+  ENS:  MAE=9.14, r=0.684
+
+--- E1C: LGB expanded 300 feats ---
+  Features: 300, Dev: 142, Test: 36
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[388]	valid_0's l1: 7.99378
+  Seed 42: MAE=8.98, r=0.692
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[676]	valid_0's l1: 8.96314
+  Seed 123: MAE=9.10, r=0.680
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1733]	valid_0's l1: 7.9075
+  Seed 456: MAE=8.93, r=0.693
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[343]	valid_0's l1: 6.98908
+  Seed 789: MAE=9.67, r=0.651
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1706]	valid_0's l1: 6.72832
+  Seed 2024: MAE=8.49, r=0.744
+  MEAN: MAE=9.03+/-0.38, r=0.692
+  ENS:  MAE=9.01, r=0.721
+
+--- E1D: XGB expanded 200 feats ---
+  Features: 200, Dev: 142, Test: 36

@@ -1,0 +1,109 @@
+{
+  "hard_gate": {
+    "method": "hard_hc_pd_gate",
+    "combined_mae": 6.036,
+    "combined_r": 0.827,
+    "pd_mae": 7.856,
+    "pd_r": 0.449,
+    "n_hc_dev": 66,
+    "n_pd_dev": 76,
+    "n_hc_test": 14,
+    "n_pd_test": 22
+  },
+  "severity_stratified": {
+    "method": "severity_stratified",
+    "combined_mae": 4.443,
+    "combined_r": 0.929,
+    "pd_mae": 5.404,
+    "pd_r": 0.817
+  },
+  "gated_ensemble": {
+    "method": "soft_gated_ensemble",
+    "global_mae": 8.663,
+    "global_r": 0.751,
+    "gated_mae": 8.853,
+    "gated_r": 0.65,
+    "pd_mae_global": 9.769,
+    "pd_mae_gated": 9.214,
+    "pd_r_gated": 0.496,
+    "gate_weights": {
+      "global": 0.767,
+      "pd": 3.462,
+      "hc": 0.344,
+      "bias": -78.102
+    }
+  },
+  "split_validation": {
+    "global": {
+      "mean": 8.357,
+      "std": 0.679,
+      "values": [
+        8.093,
+        9.47,
+        8.762,
+        8.491,
+        9.075,
+        7.913,
+        8.639,
+        8.552,
+        7.357,
+        7.221
+      ]
+    },
+    "gated": {
+      "mean": 8.629,
+      "std": 0.503,
+      "values": [
+        8.0,
+        9.149,
+        8.662,
+        8.666,
+        9.268,
+        8.959,
+        9.214,
+        8.113,
+        7.784,
+        8.474
+      ]
+    },
+    "pd_global": {
+      "mean": 9.154,
+      "std": 0.796,
+      "values": [
+        9.809,
+        9.831,
+        9.923,
+        8.278,
+        9.672,
+        8.009,
+        9.462,
+        9.882,
+        8.859,
+        7.815
+      ]
+    },
+    "pd_gated": {
+      "mean": 9.314,
+      "std": 0.791,
+      "values": [
+        9.115,
+        8.873,
+        10.985,
+        7.813,
+        9.468,
+        9.871,
+        9.726,
+        9.131,
+        9.484,
+        8.673
+      ]
+    },
+    "wilcoxon_gated_vs_global_p": 0.2324
+  },
+  "pdonly_loocv": {
+    "n_pd": 98,
+    "mae": 8.129,
+    "r": 0.316
+  },
+  "runtime_s": 49001.4
+}

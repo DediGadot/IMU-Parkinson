@@ -1,0 +1,231 @@
+{
+  "results": [
+    {
+      "config": "all_13",
+      "n_sensors": 13,
+      "n_features_available": 1729,
+      "n_selected": 150,
+      "mean_mae": 9.951,
+      "std_mae": 0.197,
+      "ens_mae": 9.914,
+      "ens_r": 0.549,
+      "seed_maes": [
+        9.878,
+        10.239,
+        9.684,
+        10.107,
+        9.847
+      ],
+      "top5_features": [
+        "L_MidLatThigh_ax_se",
+        "cv_yrs",
+        "R_DorsalFoot_ay_loco",
+        "L_Wrist_am_se",
+        "fc_R_st_cv"
+      ],
+      "sensors": [
+        "LowerBack",
+        "R_Wrist",
+        "L_Wrist",
+        "R_MidLatThigh",
+        "L_MidLatThigh",
+        "R_LatShank",
+        "L_LatShank",
+        "R_DorsalFoot",
+        "L_DorsalFoot",
+        "R_Ankle",
+        "L_Ankle",
+        "Xiphoid",
+        "Forehead"
+      ]
+    },
+    {
+      "config": "no_LowerBack",
+      "n_sensors": 12,
+      "n_features_available": 1444,
+      "n_selected": 150,
+      "mean_mae": 9.295,
+      "std_mae": 0.25,
+      "ens_mae": 9.249,
+      "ens_r": 0.609,
+      "seed_maes": [
+        9.401,
+        9.413,
+        8.808,
+        9.516,
+        9.338
+      ],
+      "top5_features": [
+        "cv_yrs",
+        "R_DorsalFoot_ay_loco",
+        "R_DorsalFoot_g_stride_reg",
+        "fc_R_st_cv",
+        "R_LatShank_az_iqr"
+      ],
+      "sensors": [
+        "R_Wrist",
+        "L_Wrist",
+        "R_MidLatThigh",
+        "L_MidLatThigh",
+        "R_LatShank",
+        "L_LatShank",
+        "R_DorsalFoot",
+        "L_DorsalFoot",
+        "R_Ankle",
+        "L_Ankle",
+        "Xiphoid",
+        "Forehead"
+      ]
+    },
+    {
+      "config": "wrists_2",
+      "n_sensors": 2,
+      "n_features_available": 255,
+      "n_selected": 150,
+      "mean_mae": 8.751,
+      "std_mae": 0.314,
+      "ens_mae": 8.749,
+      "ens_r": 0.662,
+      "seed_maes": [
+        8.441,
+        8.732,
+        8.705,
+        8.537,
+        9.34
+      ],
+      "top5_features": [
+        "R_Wrist_az_high",
+        "R_Wrist_az_loco",
+        "cv_yrs",
+        "R_Wrist_ay_high",
+        "L_Wrist_az_zcr"
+      ],
+      "sensors": [
+        "R_Wrist",
+        "L_Wrist"
+      ]
+    },
+    {
+      "config": "back_wrists_3",
+      "n_sensors": 3,
+      "n_features_available": 540,
+      "n_selected": 150,
+      "mean_mae": 9.021,
+      "std_mae": 0.152,
+      "ens_mae": 8.989,
+      "ens_r": 0.601,
+      "seed_maes": [
+        8.85,
+        8.962,
+        8.893,
+        9.229,
+        9.172
+      ],
+      "top5_features": [
+        "trn_dur_m",
+        "d_hp_LowerBack_ay_rms",
+        "r_hp_LowerBack_ax_rms",
+        "r_hp_LowerBack_ax_jerk",
+        "LowerBack_ay_loco"
+      ],
+      "sensors": [
+        "LowerBack",
+        "R_Wrist",
+        "L_Wrist"
+      ]
+    },
+    {
+      "config": "back_ankles_3",
+      "n_sensors": 3,
+      "n_features_available": 598,
+      "n_selected": 150,
+      "mean_mae": 9.402,
+      "std_mae": 0.118,
+      "ens_mae": 9.349,
+      "ens_r": 0.564,
+      "seed_maes": [
+        9.417,
+        9.255,
+        9.278,
+        9.524,
+        9.536
+      ],
+      "top5_features": [
+        "R_Ankle_ax_iqr",
+        "R_Ankle_az_loco_r",
+        "cv_yrs",
+        "LowerBack_ay_loco",
+        "fc_R_strd_cv"
+      ],
+      "sensors": [
+        "LowerBack",
+        "R_Ankle",
+        "L_Ankle"
+      ]
+    },
+    {
+      "config": "lower_back_1",
+      "n_sensors": 1,
+      "n_features_available": 312,
+      "n_selected": 150,
+      "mean_mae": 9.54,
+      "std_mae": 0.123,
+      "ens_mae": 9.5,
+      "ens_r": 0.562,
+      "seed_maes": [
+        9.527,
+        9.72,
+        9.587,
+        9.339,
+        9.526
+      ],
+      "top5_features": [
+        "r_tug_LowerBack_ya_jerk",
+        "cv_yrs",
+        "d_tug_LowerBack_ya_jerk",
+        "LowerBack_gm_loco",
+        "r_tg_LowerBack_fi"
+      ],
+      "sensors": [
+        "LowerBack"
+      ]
+    },
+    {
+      "config": "minimal_5",
+      "n_sensors": 5,
+      "n_features_available": 826,
+      "n_selected": 150,
+      "mean_mae": 8.982,
+      "std_mae": 0.066,
+      "ens_mae": 8.917,
+      "ens_r": 0.621,
+      "seed_maes": [
+        8.975,
+        9.111,
+        8.951,
+        8.93,
+        8.941
+      ],
+      "top5_features": [
+        "LowerBack_am_trem",
+        "LowerBack_ay_trem",
+        "LowerBack_am_std",
+        "duration_s",
+        "R_Ankle_az_rms"
+      ],
+      "sensors": [
+        "LowerBack",
+        "R_Wrist",
+        "L_Wrist",
+        "R_Ankle",
+        "L_Ankle"
+      ]
+    }
+  ],
+  "baseline_mae": 9.914,
+  "runtime_s": 1368.1,
+  "protocol": {
+    "allow_privileged_distilled_walkway_features": false,
+    "sensor_isolation_valid_for_dst": true
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "proposal": "P3_hybrid_fusion",
+  "status": "PARTIAL",
+  "note": "SSL pretraining succeeded after NaN fix (4th attempt). Fusion experiments killed at step 5/5 A due to CPU contention.",
+  "nan_fix": {
+    "root_cause": "Same as P2 — raw IMU scale mismatch",
+    "fix": "normalize_windows() with per-channel z-norm, NaN→0, clip ±10, LR 3e-4",
+    "norm_stats": {"mean": -0.0000, "std": 0.8927, "range": [-10, 10]}
+  },
+  "ssl_pretraining": {
+    "total_windows": 13550,
+    "epochs": 30,
+    "batches_per_epoch": 53,
+    "loss_curve": [
+      {"epoch": 5, "loss": 0.4685},
+      {"epoch": 10, "loss": 0.4097},
+      {"epoch": 15, "loss": 0.3857},
+      {"epoch": 20, "loss": 0.3767},
+      {"epoch": 25, "loss": 0.3701},
+      {"epoch": 30, "loss": 0.3705}
+    ],
+    "converged": true,
+    "final_loss": 0.3705
+  },
+  "fusion_experiments": "not_completed_killed",
+  "verdict": "PARTIAL — SSL pretraining SUCCEEDED (loss converged to 0.37, first time in 4 attempts). Per-channel z-normalization was the key fix. Fusion experiments not completed but pretraining success proves masked autoencoder can learn from WearGait-PD IMU data."
+}

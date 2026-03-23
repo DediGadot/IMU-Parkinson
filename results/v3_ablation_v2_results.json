@@ -1,0 +1,265 @@
+{
+  "baseline_mae": 8.468,
+  "best_mae": 7.865,
+  "best_config": "A5_all_K200",
+  "results": [
+    {
+      "config": "A0_baseline",
+      "n_raw": 3011,
+      "n_sel": 150,
+      "mean_mae": 8.541,
+      "std_mae": 0.54,
+      "ens_mae": 8.468,
+      "ens_r": 0.747,
+      "seed_maes": [
+        8.267,
+        8.346,
+        8.04,
+        8.471,
+        9.583
+      ],
+      "top10": [
+        "R_DorsalFoot_fa_y_p95",
+        "R_DorsalFoot_fa_y_loco",
+        "R_Wrist_ya_mean",
+        "L_LatShank_pi_rms",
+        "R_LatShank_fa_z_tremor_rel",
+        "LowerBack_fa_x_psd_total",
+        "L_LatShank_fa_m_se",
+        "R_DorsalFoot_fi",
+        "Forehead_ro_jerk_mean",
+        "R_Wrist_fa_y_mean"
+      ]
+    },
+    {
+      "config": "A1_base+phase",
+      "n_raw": 3041,
+      "n_sel": 180,
+      "mean_mae": 9.011,
+      "std_mae": 0.369,
+      "ens_mae": 8.918,
+      "ens_r": 0.752,
+      "seed_maes": [
+        8.995,
+        8.624,
+        8.985,
+        8.759,
+        9.694
+      ],
+      "top10": [
+        "R_DorsalFoot_fa_y_loco",
+        "R_Ankle_gm_tremor",
+        "L_LatShank_fa_m_se",
+        "R_DorsalFoot_fa_y_p95",
+        "L_Ankle_pi_p5",
+        "Forehead_gm_psd_total",
+        "LowerBack_fa_x_psd_total",
+        "R_DorsalFoot_gait_stride_reg",
+        "R_Wrist_fa_y_high_r_rel",
+        "R_Wrist_fa_y_loco_rel"
+      ]
+    },
+    {
+      "config": "A2_base+foot_contact",
+      "n_raw": 3031,
+      "n_sel": 180,
+      "mean_mae": 8.877,
+      "std_mae": 0.405,
+      "ens_mae": 8.849,
+      "ens_r": 0.75,
+      "seed_maes": [
+        8.487,
+        8.788,
+        9.031,
+        8.498,
+        9.579
+      ],
+      "top10": [
+        "Xiphoid_fa_x_zcr",
+        "R_DorsalFoot_fa_y_p95",
+        "R_DorsalFoot_fa_y_loco",
+        "R_LatShank_fa_z_tremor_rel",
+        "Xiphoid_gm_psd_total",
+        "LowerBack_fa_x_high_r_rel",
+        "R_Ankle_fa_x_high_r_rel",
+        "R_Wrist_fa_z_kurt",
+        "R_MidLatThigh_fa_z_se",
+        "L_Wrist_fa_y_se"
+      ]
+    },
+    {
+      "config": "A3_base+nonlinear",
+      "n_raw": 3017,
+      "n_sel": 180,
+      "mean_mae": 8.822,
+      "std_mae": 0.204,
+      "ens_mae": 8.752,
+      "ens_r": 0.747,
+      "seed_maes": [
+        8.615,
+        8.789,
+        8.632,
+        8.901,
+        9.171
+      ],
+      "top10": [
+        "L_DorsalFoot_fa_m_iqr",
+        "R_DorsalFoot_fa_y_loco",
+        "R_DorsalFoot_fa_y_p95",
+        "R_LatShank_fa_z_tremor_rel",
+        "R_LatShank_fa_m_se",
+        "R_DorsalFoot_gait_stride_reg",
+        "LowerBack_fa_x_psd_total",
+        "R_Wrist_fa_y_high_r_rel",
+        "R_Ankle_ya_iqr",
+        "L_LatShank_fa_m_se"
+      ]
+    },
+    {
+      "config": "A4_base+covariates",
+      "n_raw": 3019,
+      "n_sel": 180,
+      "mean_mae": 8.204,
+      "std_mae": 0.35,
+      "ens_mae": 8.007,
+      "ens_r": 0.801,
+      "seed_maes": [
+        8.127,
+        7.778,
+        8.613,
+        8.607,
+        7.896
+      ],
+      "top10": [
+        "R_DorsalFoot_fa_y_loco",
+        "cov_yrs_sq",
+        "LowerBack_gm_mean",
+        "R_MidLatThigh_fa_x_kurt",
+        "L_Wrist_fa_y_loco_rel",
+        "R_DorsalFoot_gm_jerk_mean",
+        "L_Ankle_fa_y_iqr",
+        "R_Ankle_fa_x_high_r_rel",
+        "Xiphoid_gm_loco",
+        "Forehead_gm_tremor"
+      ]
+    },
+    {
+      "config": "A5_all_K150",
+      "n_raw": 3075,
+      "n_sel": 150,
+      "mean_mae": 8.163,
+      "std_mae": 0.09,
+      "ens_mae": 8.002,
+      "ens_r": 0.782,
+      "seed_maes": [
+        8.225,
+        8.045,
+        8.264,
+        8.065,
+        8.218
+      ],
+      "top10": [
+        "R_DorsalFoot_fa_y_loco",
+        "LowerBack_gm_mean",
+        "cov_yrs_sq",
+        "R_Ankle_fa_z_loco_rel",
+        "Forehead_ro_jerk_mean",
+        "Xiphoid_gm_std",
+        "L_LatShank_ya_kurt",
+        "Forehead_gm_std",
+        "Xiphoid_gm_loco_rel",
+        "LowerBack_fa_y_loco"
+      ]
+    },
+    {
+      "config": "A5_all_K200",
+      "n_raw": 3075,
+      "n_sel": 200,
+      "mean_mae": 7.976,
+      "std_mae": 0.277,
+      "ens_mae": 7.865,
+      "ens_r": 0.796,
+      "seed_maes": [
+        8.132,
+        7.615,
+        7.853,
+        7.856,
+        8.424
+      ],
+      "top10": [
+        "R_DorsalFoot_fa_y_loco",
+        "LowerBack_gm_mean",
+        "cov_yrs_sq",
+        "R_Ankle_fa_z_loco_rel",
+        "Forehead_ro_jerk_mean",
+        "Xiphoid_gm_std",
+        "L_LatShank_ya_kurt",
+        "Forehead_gm_std",
+        "Xiphoid_gm_loco_rel",
+        "LowerBack_fa_y_loco"
+      ]
+    },
+    {
+      "config": "A5_all_K250",
+      "n_raw": 3075,
+      "n_sel": 250,
+      "mean_mae": 8.292,
+      "std_mae": 0.162,
+      "ens_mae": 8.167,
+      "ens_r": 0.761,
+      "seed_maes": [
+        8.103,
+        8.295,
+        8.555,
+        8.145,
+        8.362
+      ],
+      "top10": [
+        "R_DorsalFoot_fa_y_loco",
+        "LowerBack_gm_mean",
+        "cov_yrs_sq",
+        "R_Ankle_fa_z_loco_rel",
+        "Forehead_ro_jerk_mean",
+        "Xiphoid_gm_std",
+        "L_LatShank_ya_kurt",
+        "Forehead_gm_std",
+        "Xiphoid_gm_loco_rel",
+        "LowerBack_fa_y_loco"
+      ]
+    },
+    {
+      "config": "A5_all_K300",
+      "n_raw": 3075,
+      "n_sel": 300,
+      "mean_mae": 8.385,
+      "std_mae": 0.245,
+      "ens_mae": 8.232,
+      "ens_r": 0.757,
+      "seed_maes": [
+        8.085,
+        8.59,
+        8.444,
+        8.116,
+        8.69
+      ],
+      "top10": [
+        "R_DorsalFoot_fa_y_loco",
+        "LowerBack_gm_mean",
+        "cov_yrs_sq",
+        "R_Ankle_fa_z_loco_rel",
+        "Forehead_ro_jerk_mean",
+        "Xiphoid_gm_std",
+        "L_LatShank_ya_kurt",
+        "Forehead_gm_std",
+        "Xiphoid_gm_loco_rel",
+        "LowerBack_fa_y_loco"
+      ]
+    },
+    {
+      "config": "A6_xgb_K200",
+      "n_raw": 3075,
+      "n_sel": 200,
+      "mean_mae": 9.04,
+      "std_mae": 0.519,
+      "ens_mae": 8.849,
+      "ens_r": 

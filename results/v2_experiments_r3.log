@@ -1,0 +1,172 @@
+================================================================================
+V2 EXPERIMENTS: FEATURE-FIRST + DL-ASSISTED
+Baseline: LightGBM 150 features -> MAE=7.97, r=0.821
+================================================================================
+Loaded split: 142 dev + 36 test subjects
+Subjects: 173, Dev: 142, Test: 36
+Observable subtotal: mean=3.0, range=[0, 12]
+  Resuming: 12 experiments done
+
+================================================================================
+PHASE 0: EXPANDED FEATURE EXTRACTION
+================================================================================
+  Loading cached features from /root/pd-imu/v2_features.csv
+  Total raw features: 16384
+  WARNING: 12 subjects missing features, padding with 0
+  Dev: (132, 16384), Test: (34, 16384)
+
+================================================================================
+PHASE 1: EXPANDED FEATURE BASELINES
+================================================================================
+  Running stable feature selection (multi-seed XGBoost)...
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 150 features (multi-seed stable)
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 200 features (multi-seed stable)
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 300 features (multi-seed stable)
+
+  SKIP (done): E1A: LGB expanded 200 feats
+
+  SKIP (done): E1B: LGB expanded 150 feats
+
+  SKIP (done): E1C: LGB expanded 300 feats
+
+  SKIP (done): E1D: XGB expanded 200 feats
+  Pre-filter: 4096 -> 4096 features (removed 0 constant)
+  Selected top 200 features (multi-seed stable)
+
+  SKIP (done): E1E: LGB mean-only 200 feats
+
+================================================================================
+PHASE 3: OBSERVABLE-FIRST TWO-STAGE
+================================================================================
+
+  SKIP (done): E3A: LGB observable subtotal
+
+  SKIP (done): E3B: LGB obs+partial subtotal
+
+  SKIP (done): E3C: Two-stage obs→total
+
+================================================================================
+PHASE 4: PER-TASK MODELS
+================================================================================
+
+  SKIP (done): E4A: Per-task LGB ensemble
+  Pre-filter: 4096 -> 4080 features (removed 16 constant)
+  Selected top 100 features (multi-seed stable)
+
+  SKIP (done): E4B: LGB contrast-only 100 feats
+
+================================================================================
+PHASE 2: DL EMBEDDING FUSION
+================================================================================
+
+  Loading cached window data for DL...
+  Using cached dev_all5
+  Using cached test_sp_hp
+  Training InceptionTime+ordinal (5 seeds) for embeddings...
+  Seed 42: done (0.5GB VRAM)
+  Seed 123: done (0.5GB VRAM)
+  Seed 456: done (0.5GB VRAM)
+  Seed 789: done (0.5GB VRAM)
+  Seed 2024: done (0.5GB VRAM)
+  Extracted 644d embeddings for 132 dev + 34 test subjects
+  Pre-filter: 17028 -> 16979 features (removed 49 constant)
+  Selected top 200 features (multi-seed stable)
+
+--- E2A: LGB features+DL 200 ---
+  Features: 200, Dev: 132, Test: 34
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[975]	valid_0's l1: 3.27541
+  Seed 42: MAE=10.19, r=0.513
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[485]	valid_0's l1: 3.46682
+  Seed 123: MAE=10.57, r=0.502
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[904]	valid_0's l1: 2.93158
+  Seed 456: MAE=10.64, r=0.529
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[746]	valid_0's l1: 4.37491
+  Seed 789: MAE=10.64, r=0.505
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[203]	valid_0's l1: 4.02123
+  Seed 2024: MAE=10.50, r=0.502
+  MEAN: MAE=10.51+/-0.17, r=0.510
+  ENS:  MAE=10.49, r=0.516
+
+--- E2B: LGB DL embeddings only ---
+  Features: 644, Dev: 132, Test: 34
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[407]	valid_0's l1: 2.89938
+  Seed 42: MAE=10.45, r=0.487
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[407]	valid_0's l1: 3.91869
+  Seed 123: MAE=10.54, r=0.494
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1026]	valid_0's l1: 3.47403
+  Seed 456: MAE=10.13, r=0.547
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[298]	valid_0's l1: 4.97031
+  Seed 789: MAE=10.74, r=0.506
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[152]	valid_0's l1: 4.41251
+  Seed 2024: MAE=10.54, r=0.506
+  MEAN: MAE=10.48+/-0.20, r=0.508
+  ENS:  MAE=10.41, r=0.516
+
+--- E2C: XGB features+DL 200 ---
+  Features: 200, Dev: 132, Test: 34
+  Seed 42: MAE=10.13, r=0.546
+  Seed 123: MAE=10.87, r=0.473
+  Seed 456: MAE=10.14, r=0.543
+  Seed 789: MAE=10.29, r=0.528
+  Seed 2024: MAE=10.68, r=0.502
+  MEAN: MAE=10.42+/-0.30, r=0.518
+  ENS:  MAE=10.41, r=0.525
+
+================================================================================
+PHASE 5: GRAND ENSEMBLE + PD-ONLY
+================================================================================
+
+  SKIP (done): E5A: Grand ensemble
+
+  SKIP (done): E5B: PD-only LOOCV
+
+================================================================================
+FINAL SUMMARY (13.3 min)
+================================================================================
+  Baseline: LightGBM 150 features -> MAE=7.97, r=0.821
+
+   # Model                                     ENS MAE   ENS r
+  ------------------------------------------------------------
+   1 E3A: LGB observable subtotal                1.92   0.817 ***
+   2 E3B: LGB obs+partial subtotal               1.92   0.817 ***
+   3 E5B: PD-only LOOCV                          6.88   0.514 ***
+   4 E1D: XGB expanded 200 feats                 8.93   0.743
+   5 E1A: LGB expanded 200 feats                 8.95   0.746
+   6 E1C: LGB expanded 300 feats                 9.01   0.757
+   7 E3C: Two-stage obs→total                    9.17   0.689
+   8 E1B: LGB expanded 150 feats                 9.22   0.735
+   9 E4A: Per-task LGB ensemble                  9.25   0.797
+  10 E1E: LGB mean-only 200 feats                9.32   0.749
+  11 E5A: Grand ensemble                        10.01   0.716
+  12 E2C: XGB features+DL 200                   10.41   0.525
+  13 E2B: LGB DL embeddings only                10.41   0.516
+  14 E2A: LGB features+DL 200                   10.49   0.516
+  15 E4B: LGB contrast-only 100 feats           12.34   0.148
+
+  NEW BEST: E3A: LGB observable subtotal -> MAE=1.92, r=0.817
+
+Results: /root/pd-imu/v2_results.json
+Features: /root/pd-imu/v2_features.csv

@@ -1,0 +1,245 @@
+[
+  {
+    "name": "final_ceiling",
+    "source": "stats_report",
+    "booster": "ceiling",
+    "n_features": 150,
+    "mae": 6.72,
+    "mae_ci": [
+      5.35,
+      8.46
+    ],
+    "r": 0.844,
+    "rmse": 8.17,
+    "seeds": 5
+  },
+  {
+    "name": "E13_ceiling",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 6.82,
+    "std_mae": 0.36,
+    "seeds": 5
+  },
+  {
+    "name": "final_lgb",
+    "source": "stats_report",
+    "booster": "lgb",
+    "n_features": 150,
+    "mae": 7.97,
+    "mae_ci": [
+      6.46,
+      9.87
+    ],
+    "r": 0.821,
+    "rmse": 9.54,
+    "seeds": 5
+  },
+  {
+    "name": "E10_distillation",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 8.34,
+    "std_mae": 0.58,
+    "seeds": 5
+  },
+  {
+    "name": "E12_fused",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 8.34,
+    "std_mae": 0.58,
+    "seeds": 5
+  },
+  {
+    "name": "E11_insole",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 8.37,
+    "std_mae": 0.42,
+    "seeds": 5
+  },
+  {
+    "name": "bio_lightgbm",
+    "source": "biomechanics",
+    "booster": "lightgbm",
+    "mae": 8.49,
+    "seeds": 5
+  },
+  {
+    "name": "E9_walkway_oracle",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 8.52,
+    "std_mae": 0.43,
+    "seeds": 5
+  },
+  {
+    "name": "final_xgb",
+    "source": "stats_report",
+    "booster": "xgb",
+    "n_features": 150,
+    "mae": 8.54,
+    "mae_ci": [
+      7.05,
+      10.46
+    ],
+    "r": 0.796,
+    "rmse": 9.98,
+    "seeds": 5
+  },
+  {
+    "name": "bio_xgboost",
+    "source": "biomechanics",
+    "booster": "lightgbm",
+    "mae": 8.63,
+    "seeds": 5
+  },
+  {
+    "name": "E8_clinical",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 8.73,
+    "std_mae": 0.11,
+    "seeds": 5
+  },
+  {
+    "name": "final_cat",
+    "source": "stats_report",
+    "booster": "cat",
+    "n_features": 150,
+    "mae": 8.75,
+    "mae_ci": [
+      7.37,
+      10.5
+    ],
+    "r": 0.834,
+    "rmse": 9.97,
+    "seeds": 5
+  },
+  {
+    "name": "E5_turns",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 9.26,
+    "std_mae": 0.13,
+    "seeds": 5
+  },
+  {
+    "name": "E7_distributions",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 9.29,
+    "std_mae": 0.48,
+    "seeds": 5
+  },
+  {
+    "name": "bio_catboost",
+    "source": "biomechanics",
+    "booster": "lightgbm",
+    "mae": 9.29,
+    "seeds": 5
+  },
+  {
+    "name": "E4_kinematics",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 9.34,
+    "std_mae": 0.31,
+    "seeds": 5
+  },
+  {
+    "name": "E6_transitions",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 9.34,
+    "std_mae": 0.53,
+    "seeds": 5
+  },
+  {
+    "name": "E3_contact",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 9.44,
+    "std_mae": 0.27,
+    "seeds": 5
+  },
+  {
+    "name": "recipe_I:_global_norm_+_InstNorm_+_MI",
+    "source": "recipe_fix_v2",
+    "booster": "lightgbm",
+    "mae": 9.48,
+    "ens_mae": 8.92,
+    "seeds": 5
+  },
+  {
+    "name": "E1_task_preserving",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 9.58,
+    "std_mae": 0.48,
+    "seeds": 5
+  },
+  {
+    "name": "recipe_G:_per-window_norm_+_MIL",
+    "source": "recipe_fix_v2",
+    "booster": "lightgbm",
+    "mae": 9.61,
+    "ens_mae": 8.85,
+    "seeds": 5
+  },
+  {
+    "name": "E2_events",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 9.64,
+    "std_mae": 0.34,
+    "seeds": 5
+  },
+  {
+    "name": "E0_baseline",
+    "source": "ablation_v2",
+    "booster": "xgboost",
+    "n_features": 200,
+    "mae": 9.83,
+    "std_mae": 0.48,
+    "seeds": 5
+  },
+  {
+    "name": "recipe_H:_per-window_norm_+_MIL_+_cov",
+    "source": "recipe_fix_v2",
+    "booster": "lightgbm",
+    "mae": 10.46,
+    "ens_mae": 9.47,
+    "seeds": 5
+  },
+  {
+    "name": "recipe_J:_hybrid_norm_+_MIL_(117ch)",
+    "source": "recipe_fix_v2",
+    "booster": "lightgbm",
+    "mae": 10.49,
+    "ens_mae": 9.88,
+    "seeds": 5
+  },
+  {
+    "name": "recipe_K:_per-window_norm_+_MIL_+_5_t",
+    "source": "recipe_fix_v2",
+    "booster": "lightgbm",
+    "mae": 11.93,
+    "ens_mae": 11.04,
+    "seeds": 5
+  }
+]

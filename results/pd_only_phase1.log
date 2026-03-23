@@ -1,0 +1,121 @@
+PD-ONLY EXPERIMENTS -- phase=1
+N_CORES=11
+Subjects: 178 (98 PD, 80 HC)
+V2 cache: (178, 1877)
+[cache] Loading recordings from /root/pd-imu/results/rocket_recordings.npz
+  1417 recordings
+[cache] Loading FM embeddings from /root/pd-imu/results/fm_embeddings.npz
+FM features per subject: 768
+
+======================================================================
+PHASE 1: PD-only 10-split (B1 + B2 + demographic baseline)
+======================================================================
+PD subjects: 98, HC subjects: 80
+
+--- Split 1/10 (seed=1) ---
+  PD dev: 78, PD test: 20
+  Demographic: MAE=8.43
+  B1 v2: MAE=9.274
+  B1 v2+FM LGB: MAE=9.541
+  B1 v2+FM stack: MAE=9.825
+  B2 v2: MAE=11.499
+  B2 v2+FM stack: MAE=11.542
+
+--- Split 2/10 (seed=2) ---
+  PD dev: 78, PD test: 20
+  Demographic: MAE=7.58
+  B1 v2: MAE=8.124
+  B1 v2+FM LGB: MAE=7.933
+  B1 v2+FM stack: MAE=8.425
+  B2 v2: MAE=8.447
+  B2 v2+FM stack: MAE=8.303
+
+--- Split 3/10 (seed=3) ---
+  PD dev: 78, PD test: 20
+  Demographic: MAE=7.004
+  B1 v2: MAE=7.362
+  B1 v2+FM LGB: MAE=7.764
+  B1 v2+FM stack: MAE=7.455
+  B2 v2: MAE=8.364
+  B2 v2+FM stack: MAE=9.055
+
+--- Split 4/10 (seed=4) ---
+  PD dev: 78, PD test: 20
+  Demographic: MAE=8.204
+  B1 v2: MAE=8.368
+  B1 v2+FM LGB: MAE=8.431
+  B1 v2+FM stack: MAE=8.581
+  B2 v2: MAE=9.494
+  B2 v2+FM stack: MAE=9.574
+
+--- Split 5/10 (seed=5) ---
+  PD dev: 78, PD test: 20
+  Demographic: MAE=7.224
+  B1 v2: MAE=8.879
+  B1 v2+FM LGB: MAE=8.637
+  B1 v2+FM stack: MAE=8.733
+  B2 v2: MAE=11.306
+  B2 v2+FM stack: MAE=10.957
+
+--- Split 6/10 (seed=6) ---
+  PD dev: 78, PD test: 20
+  Demographic: MAE=7.311
+  B1 v2: MAE=8.544
+  B1 v2+FM LGB: MAE=8.555
+  B1 v2+FM stack: MAE=8.921
+  B2 v2: MAE=10.703
+  B2 v2+FM stack: MAE=10.412
+
+--- Split 7/10 (seed=7) ---
+  PD dev: 78, PD test: 20
+  Demographic: MAE=8.658
+  B1 v2: MAE=9.483
+  B1 v2+FM LGB: MAE=9.926
+  B1 v2+FM stack: MAE=10.334
+  B2 v2: MAE=12.272
+  B2 v2+FM stack: MAE=11.488
+
+--- Split 8/10 (seed=8) ---
+  PD dev: 78, PD test: 20
+  Demographic: MAE=6.881
+  B1 v2: MAE=8.598
+  B1 v2+FM LGB: MAE=7.904
+  B1 v2+FM stack: MAE=8.617
+  B2 v2: MAE=10.283
+  B2 v2+FM stack: MAE=10.246
+
+--- Split 9/10 (seed=9) ---
+  PD dev: 78, PD test: 20
+  Demographic: MAE=6.068
+  B1 v2: MAE=7.245
+  B1 v2+FM LGB: MAE=6.769
+  B1 v2+FM stack: MAE=6.947
+  B2 v2: MAE=9.431
+  B2 v2+FM stack: MAE=9.478
+
+--- Split 10/10 (seed=10) ---
+  PD dev: 78, PD test: 20
+  Demographic: MAE=7.069
+  B1 v2: MAE=8.328
+  B1 v2+FM LGB: MAE=8.204
+  B1 v2+FM stack: MAE=7.904
+  B2 v2: MAE=10.352
+  B2 v2+FM stack: MAE=10.311
+
+10-split demographic: MAE=7.443+/-0.752  CCC=0.327+/-0.102
+
+10-split b1_v2: MAE=8.421+/-0.687  CCC=-0.004+/-0.087
+
+10-split b1_fm_lgb: MAE=8.366+/-0.853  CCC=-0.000+/-0.080
+
+10-split b1_fm_stk: MAE=8.574+/-0.958  CCC=-0.019+/-0.112
+
+10-split b2_v2: MAE=10.215+/-1.225  CCC=0.027+/-0.133
+
+10-split b2_fm_stk: MAE=10.137+/-0.994  CCC=-0.013+/-0.130
+
+Phase 1 done in 13.6m
+
+======================================================================
+TOTAL RUNTIME: 13.7 minutes
+Results saved to results/pd_only_*.json

@@ -1,0 +1,312 @@
+{
+  "deployable": [
+    {
+      "config": "xgb_f100",
+      "booster": "xgb",
+      "n_feats": 100,
+      "mean_mae": 8.753,
+      "std_mae": 0.259,
+      "ens_mae": 8.468,
+      "ens_r": 0.781
+    },
+    {
+      "config": "lgb_f100",
+      "booster": "lgb",
+      "n_feats": 100,
+      "mean_mae": 8.378,
+      "std_mae": 0.364,
+      "ens_mae": 8.148,
+      "ens_r": 0.8
+    },
+    {
+      "config": "cat_f100",
+      "booster": "cat",
+      "n_feats": 100,
+      "mean_mae": 8.986,
+      "std_mae": 0.351,
+      "ens_mae": 8.95,
+      "ens_r": 0.806
+    },
+    {
+      "config": "xgb_f150",
+      "booster": "xgb",
+      "n_feats": 150,
+      "mean_mae": 8.69,
+      "std_mae": 0.384,
+      "ens_mae": 8.543,
+      "ens_r": 0.796
+    },
+    {
+      "config": "lgb_f150",
+      "booster": "lgb",
+      "n_feats": 150,
+      "mean_mae": 8.172,
+      "std_mae": 0.3,
+      "ens_mae": 7.969,
+      "ens_r": 0.821
+    },
+    {
+      "config": "cat_f150",
+      "booster": "cat",
+      "n_feats": 150,
+      "mean_mae": 8.813,
+      "std_mae": 0.141,
+      "ens_mae": 8.751,
+      "ens_r": 0.834
+    },
+    {
+      "config": "xgb_f200",
+      "booster": "xgb",
+      "n_feats": 200,
+      "mean_mae": 8.47,
+      "std_mae": 0.318,
+      "ens_mae": 8.299,
+      "ens_r": 0.838
+    },
+    {
+      "config": "lgb_f200",
+      "booster": "lgb",
+      "n_feats": 200,
+      "mean_mae": 8.423,
+      "std_mae": 0.75,
+      "ens_mae": 8.151,
+      "ens_r": 0.823
+    },
+    {
+      "config": "cat_f200",
+      "booster": "cat",
+      "n_feats": 200,
+      "mean_mae": 9.228,
+      "std_mae": 0.217,
+      "ens_mae": 9.169,
+      "ens_r": 0.811
+    },
+    {
+      "config": "xgb_f300",
+      "booster": "xgb",
+      "n_feats": 300,
+      "mean_mae": 8.85,
+      "std_mae": 0.567,
+      "ens_mae": 8.723,
+      "ens_r": 0.799
+    },
+    {
+      "config": "lgb_f300",
+      "booster": "lgb",
+      "n_feats": 300,
+      "mean_mae": 8.791,
+      "std_mae": 0.396,
+      "ens_mae": 8.694,
+      "ens_r": 0.795
+    },
+    {
+      "config": "cat_f300",
+      "booster": "cat",
+      "n_feats": 300,
+      "mean_mae": 9.044,
+      "std_mae": 0.226,
+      "ens_mae": 9.027,
+      "ens_r": 0.823
+    },
+    {
+      "config": "cross_f100",
+      "booster": "cross",
+      "n_feats": 100,
+      "mean_mae": 0,
+      "std_mae": 0,
+      "ens_mae": 8.458,
+      "ens_r": 0.809
+    },
+    {
+      "config": "cross_f150",
+      "booster": "cross",
+      "n_feats": 150,
+      "mean_mae": 0,
+      "std_mae": 0,
+      "ens_mae": 8.389,
+      "ens_r": 0.83
+    },
+    {
+      "config": "cross_f200",
+      "booster": "cross",
+      "n_feats": 200,
+      "mean_mae": 0,
+      "std_mae": 0,
+      "ens_mae": 8.518,
+      "ens_r": 0.835
+    },
+    {
+      "config": "cross_f300",
+      "booster": "cross",
+      "n_feats": 300,
+      "mean_mae": 0,
+      "std_mae": 0,
+      "ens_mae": 8.814,
+      "ens_r": 0.814
+    },
+    {
+      "config": "grand_ensemble",
+      "booster": "grand",
+      "n_feats": 0,
+      "mean_mae": 0,
+      "std_mae": 0,
+      "ens_mae": 8.528,
+      "ens_r": 0.827
+    }
+  ],
+  "ceiling": [
+    {
+      "config": "xgb_f100",
+      "booster": "xgb",
+      "n_feats": 100,
+      "mean_mae": 7.17,
+      "std_mae": 0.409,
+      "ens_mae": 6.785,
+      "ens_r": 0.837
+    },
+    {
+      "config": "lgb_f100",
+      "booster": "lgb",
+      "n_feats": 100,
+      "mean_mae": 7.213,
+      "std_mae": 0.257,
+      "ens_mae": 7.022,
+      "ens_r": 0.818
+    },
+    {
+      "config": "cat_f100",
+      "booster": "cat",
+      "n_feats": 100,
+      "mean_mae": 7.393,
+      "std_mae": 0.194,
+      "ens_mae": 7.379,
+      "ens_r": 0.838
+    },
+    {
+      "config": "xgb_f150",
+      "booster": "xgb",
+      "n_feats": 150,
+      "mean_mae": 6.918,
+      "std_mae": 0.345,
+      "ens_mae": 6.723,
+      "ens_r": 0.844
+    },
+    {
+      "config": "lgb_f150",
+      "booster": "lgb",
+      "n_feats": 150,
+      "mean_mae": 7.293,
+      "std_mae": 0.442,
+      "ens_mae": 7.223,
+      "ens_r": 0.8
+    },
+    {
+      "config": "cat_f150",
+      "booster": "cat",
+      "n_feats": 150,
+      "mean_mae": 7.653,
+      "std_mae": 0.223,
+      "ens_mae": 7.602,
+      "ens_r": 0.834
+    },
+    {
+      "config": "xgb_f200",
+      "booster": "xgb",
+      "n_feats": 200,
+      "mean_mae": 6.943,
+      "std_mae": 0.433,
+      "ens_mae": 6.818,
+      "ens_r": 0.847
+    },
+    {
+      "config": "lgb_f200",
+      "booster": "lgb",
+      "n_feats": 200,
+      "mean_mae": 7.206,
+      "std_mae": 0.407,
+      "ens_mae": 7.108,
+      "ens_r": 0.817
+    },
+    {
+      "config": "cat_f200",
+      "booster": "cat",
+      "n_feats": 200,
+      "mean_mae": 7.645,
+      "std_mae": 0.218,
+      "ens_mae": 7.626,
+      "ens_r": 0.85
+    },
+    {
+      "config": "xgb_f300",
+      "booster": "xgb",
+      "n_feats": 300,
+      "mean_mae": 7.164,
+      "std_mae": 0.363,
+      "ens_mae": 7.065,
+      "ens_r": 0.834
+    },
+    {
+      "config": "lgb_f300",
+      "booster": "lgb",
+      "n_feats": 300,
+      "mean_mae": 7.223,
+      "std_mae": 0.417,
+      "ens_mae": 7.076,
+      "ens_r": 0.814
+    },
+    {
+      "config": "cat_f300",
+      "booster": "cat",
+      "n_feats": 300,
+      "mean_mae": 7.831,
+      "std_mae": 0.22,
+      "ens_mae": 7.806,
+      "ens_r": 0.835
+    },
+    {
+      "config": "cross_f100",
+      "booster": "cross",
+      "n_feats": 100,
+      "mean_mae": 0,
+      "std_mae": 0,
+      "ens_mae": 6.9,
+      "ens_r": 0.842
+    },
+    {
+      "config": "cross_f150",
+      "booster": "cross",
+      "n_feats": 150,
+      "mean_mae": 0,
+      "std_mae": 0,
+      "ens_mae": 7.087,
+      "ens_r": 0.837
+    },
+    {
+      "config": "cross_f200",
+      "booster": "cross",
+      "n_feats": 200,
+      "mean_mae": 0,
+      "std_mae": 0,
+      "ens_mae": 7.145,
+      "ens_r": 0.849
+    },
+    {
+      "config": "cross_f300",
+      "booster": "cross",
+      "n_feats": 300,
+      "mean_mae": 0,
+      "std_mae": 0,
+      "ens_mae": 7.252,
+      "ens_r": 0.84
+    },
+    {
+      "config": "grand_ensemble",
+      "booster": "grand",
+      "n_feats": 0,
+      "mean_mae": 0,
+      "std_mae": 0,
+      "ens_mae": 7.091,
+      "ens_r": 0.843
+    }
+  ]
+}

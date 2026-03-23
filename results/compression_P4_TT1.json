@@ -1,0 +1,40 @@
+{
+  "mae": 1.387,
+  "rmse": 1.725,
+  "r": 0.729,
+  "ccc": 0.671,
+  "cal_slope": 0.484,
+  "cal_intercept": 2.105,
+  "quartiles": [
+    {
+      "label": "Q1 (<2)",
+      "n": 16,
+      "bias": 2.179,
+      "mae": 2.179
+    },
+    {
+      "label": "Q2 (2-4)",
+      "n": 31,
+      "bias": 0.619,
+      "mae": 0.822
+    },
+    {
+      "label": "Q3 (4-5)",
+      "n": 19,
+      "bias": -0.164,
+      "mae": 0.968
+    },
+    {
+      "label": "Q4 (>=5)",
+      "n": 29,
+      "bias": -1.499,
+      "mae": 1.826
+    }
+  ],
+  "n": 95,
+  "eval_mode": "5split",
+  "runtime_s": 638.2,
+  "proposal": "P4_ngboost",
+  "target": "T1",
+  "phase": 4
+}

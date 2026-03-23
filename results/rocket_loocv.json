@@ -1,0 +1,608 @@
+{
+  "phase": "5_pd_loocv",
+  "predictions": [
+    {
+      "sid": "NLS002",
+      "true": 18.0,
+      "pred_v2": 18.02,
+      "pred_fused": 22.02
+    },
+    {
+      "sid": "NLS022",
+      "true": 32.0,
+      "pred_v2": 16.93,
+      "pred_fused": 19.52
+    },
+    {
+      "sid": "NLS033",
+      "true": 31.0,
+      "pred_v2": 26.88,
+      "pred_fused": 30.75
+    },
+    {
+      "sid": "NLS035",
+      "true": 20.0,
+      "pred_v2": 20.46,
+      "pred_fused": 20.61
+    },
+    {
+      "sid": "NLS036",
+      "true": 46.0,
+      "pred_v2": 26.51,
+      "pred_fused": 29.71
+    },
+    {
+      "sid": "NLS056",
+      "true": 32.0,
+      "pred_v2": 28.88,
+      "pred_fused": 32.29
+    },
+    {
+      "sid": "NLS069",
+      "true": 25.0,
+      "pred_v2": 23.41,
+      "pred_fused": 26.42
+    },
+    {
+      "sid": "NLS101",
+      "true": 14.0,
+      "pred_v2": 22.68,
+      "pred_fused": 23.6
+    },
+    {
+      "sid": "NLS102",
+      "true": 14.0,
+      "pred_v2": 10.98,
+      "pred_fused": 11.44
+    },
+    {
+      "sid": "NLS121",
+      "true": 11.0,
+      "pred_v2": 25.68,
+      "pred_fused": 26.38
+    },
+    {
+      "sid": "NLS124",
+      "true": 41.0,
+      "pred_v2": 30.34,
+      "pred_fused": 33.37
+    },
+    {
+      "sid": "NLS127",
+      "true": 19.0,
+      "pred_v2": 13.05,
+      "pred_fused": 14.93
+    },
+    {
+      "sid": "NLS130",
+      "true": 22.0,
+      "pred_v2": 24.69,
+      "pred_fused": 29.24
+    },
+    {
+      "sid": "NLS135",
+      "true": 43.0,
+      "pred_v2": 24.87,
+      "pred_fused": 23.41
+    },
+    {
+      "sid": "NLS139",
+      "true": 33.0,
+      "pred_v2": 25.7,
+      "pred_fused": 25.78
+    },
+    {
+      "sid": "NLS140",
+      "true": 40.0,
+      "pred_v2": 30.18,
+      "pred_fused": 32.26
+    },
+    {
+      "sid": "NLS141",
+      "true": 17.0,
+      "pred_v2": 24.92,
+      "pred_fused": 28.23
+    },
+    {
+      "sid": "NLS142",
+      "true": 24.0,
+      "pred_v2": 23.28,
+      "pred_fused": 28.08
+    },
+    {
+      "sid": "NLS143",
+      "true": 36.0,
+      "pred_v2": 19.2,
+      "pred_fused": 23.48
+    },
+    {
+      "sid": "NLS144",
+      "true": 29.0,
+      "pred_v2": 28.13,
+      "pred_fused": 29.58
+    },
+    {
+      "sid": "NLS146",
+      "true": 10.0,
+      "pred_v2": 23.28,
+      "pred_fused": 21.13
+    },
+    {
+      "sid": "NLS147",
+      "true": 19.0,
+      "pred_v2": 20.97,
+      "pred_fused": 27.47
+    },
+    {
+      "sid": "NLS148",
+      "true": 38.0,
+      "pred_v2": 24.74,
+      "pred_fused": 29.19
+    },
+    {
+      "sid": "NLS149",
+      "true": 29.0,
+      "pred_v2": 26.18,
+      "pred_fused": 29.07
+    },
+    {
+      "sid": "NLS150",
+      "true": 35.0,
+      "pred_v2": 17.39,
+      "pred_fused": 20.23
+    },
+    {
+      "sid": "NLS151",
+      "true": 0.0,
+      "pred_v2": 18.6,
+      "pred_fused": 24.22
+    },
+    {
+      "sid": "NLS152",
+      "true": 19.0,
+      "pred_v2": 23.84,
+      "pred_fused": 25.44
+    },
+    {
+      "sid": "NLS153",
+      "true": 30.0,
+      "pred_v2": 24.32,
+      "pred_fused": 28.9
+    },
+    {
+      "sid": "NLS154",
+      "true": 13.0,
+      "pred_v2": 17.48,
+      "pred_fused": 19.71
+    },
+    {
+      "sid": "NLS155",
+      "true": 6.0,
+      "pred_v2": 21.14,
+      "pred_fused": 26.47
+    },
+    {
+      "sid": "NLS157",
+      "true": 25.0,
+      "pred_v2": 26.23,
+      "pred_fused": 27.97
+    },
+    {
+      "sid": "NLS158",
+      "true": 15.0,
+      "pred_v2": 14.17,
+      "pred_fused": 14.98
+    },
+    {
+      "sid": "NLS159",
+      "true": 39.0,
+      "pred_v2": 30.4,
+      "pred_fused": 30.42
+    },
+    {
+      "sid": "NLS160",
+      "true": 37.0,
+      "pred_v2": 19.77,
+      "pred_fused": 21.1
+    },
+    {
+      "sid": "NLS161",
+      "true": 39.0,
+      "pred_v2": 19.2,
+      "pred_fused": 22.53
+    },
+    {
+      "sid": "NLS162",
+      "true": 38.0,
+      "pred_v2": 19.39,
+      "pred_fused": 21.94
+    },
+    {
+      "sid": "NLS163",
+      "true": 25.0,
+      "pred_v2": 3.79,
+      "pred_fused": 12.15
+    },
+    {
+      "sid": "NLS164",
+      "true": 13.0,
+      "pred_v2": 16.92,
+      "pred_fused": 22.67
+    },
+    {
+      "sid": "NLS165",
+      "true": 33.0,
+      "pred_v2": 18.6,
+      "pred_fused": 20.41
+    },
+    {
+      "sid": "NLS166",
+      "true": 26.0,
+      "pred_v2": 23.79,
+      "pred_fused": 28.8
+    },
+    {
+      "sid": "NLS167",
+      "true": 12.0,
+      "pred_v2": 27.99,
+      "pred_fused": 28.24
+    },
+    {
+      "sid": "NLS169",
+      "true": 22.0,
+      "pred_v2": 17.86,
+      "pred_fused": 18.94
+    },
+    {
+      "sid": "NLS170",
+      "true": 27.0,
+      "pred_v2": 23.97,
+      "pred_fused": 24.81
+    },
+    {
+      "sid": "NLS172",
+      "true": 10.0,
+      "pred_v2": 23.52,
+      "pred_fused": 26.84
+    },
+    {
+      "sid": "NLS173",
+      "true": 38.0,
+      "pred_v2": 21.67,
+      "pred_fused": 21.52
+    },
+    {
+      "sid": "NLS174",
+      "true": 27.0,
+      "pred_v2": 27.75,
+      "pred_fused": 30.81
+    },
+    {
+      "sid": "NLS175",
+      "true": 29.0,
+      "pred_v2": 24.74,
+      "pred_fused": 26.13
+    },
+    {
+      "sid": "NLS176",
+      "true": 9.0,
+      "pred_v2": 21.15,
+      "pred_fused": 25.28
+    },
+    {
+      "sid": "NLS177",
+      "true": 25.0,
+      "pred_v2": 25.87,
+      "pred_fused": 25.8
+    },
+    {
+      "sid": "NLS179",
+      "true": 43.0,
+      "pred_v2": 28.69,
+      "pred_fused": 27.53
+    },
+    {
+      "sid": "NLS182",
+      "true": 14.0,
+      "pred_v2": 17.91,
+      "pred_fused": 18.08
+    },
+    {
+      "sid": "NLS183",
+      "true": 14.0,
+      "pred_v2": 18.34,
+      "pred_fused": 16.51
+    },
+    {
+      "sid": "NLS184",
+      "true": 21.0,
+      "pred_v2": 21.09,
+      "pred_fused": 16.8
+    },
+    {
+      "sid": "NLS185",
+      "true": 40.0,
+      "pred_v2": 29.56,
+      "pred_fused": 30.55
+    },
+    {
+      "sid": "NLS186",
+      "true": 17.0,
+      "pred_v2": 21.34,
+      "pred_fused": 24.1
+    },
+    {
+      "sid": "NLS187",
+      "true": 33.0,
+      "pred_v2": 25.21,
+      "pred_fused": 25.11
+    },
+    {
+      "sid": "NLS188",
+      "true": 0.0,
+      "pred_v2": 9.31,
+      "pred_fused": 7.52
+    },
+    {
+      "sid": "NLS189",
+      "true": 13.0,
+      "pred_v2": 15.71,
+      "pred_fused": 15.98
+    },
+    {
+      "sid": "NLS190",
+      "true": 34.0,
+      "pred_v2": 20.89,
+      "pred_fused": 22.67
+    },
+    {
+      "sid": "NLS191",
+      "true": 36.0,
+      "pred_v2": 19.34,
+      "pred_fused": 19.33
+    },
+    {
+      "sid": "NLS192",
+      "true": 18.0,
+      "pred_v2": 27.17,
+      "pred_fused": 25.74
+    },
+    {
+      "sid": "NLS195",
+      "true": 16.0,
+      "pred_v2": 20.6,
+      "pred_fused": 22.82
+    },
+    {
+      "sid": "NLS196",
+      "true": 52.0,
+      "pred_v2": 31.03,
+      "pred_fused": 33.87
+    },
+    {
+      "sid": "NLS197",
+      "true": 23.0,
+      "pred_v2": 14.64,
+      "pred_fused": 22.22
+    },
+    {
+      "sid": "NLS198",
+      "true": 24.0,
+      "pred_v2": 18.77,
+      "pred_fused": 23.46
+    },
+    {
+      "sid": "NLS201",
+      "true": 59.0,
+      "pred_v2": 31.47,
+      "pred_fused": 32.13
+    },
+    {
+      "sid": "NLS208",
+      "true": 22.0,
+      "pred_v2": 29.64,
+      "pred_fused": 25.97
+    },
+    {
+      "sid": "NLS209",
+      "true": 26.0,
+      "pred_v2": 23.2,
+      "pred_fused": 25.24
+    },
+    {
+      "sid": "NLS210",
+      "true": 26.0,
+      "pred_v2": 30.04,
+      "pred_fused": 30.05
+    },
+    {
+      "sid": "NLS211",
+      "true": 24.0,
+      "pred_v2": 20.18,
+      "pred_fused": 20.13
+    },
+    {
+      "sid": "WPD001",
+      "true": 13.0,
+      "pred_v2": 15.07,
+      "pred_fused": 13.43
+    },
+    {
+      "sid": "WPD002",
+      "true": 19.0,
+      "pred_v2": 10.44,
+      "pred_fused": 11.07
+    },
+    {
+      "sid": "WPD003",
+      "true": 30.0,
+      "pred_v2": 16.46,
+      "pred_fused": 17.86
+    },
+    {
+      "sid": "WPD004",
+      "true": 30.0,
+      "pred_v2": 11.59,
+      "pred_fused": 16.95
+    },
+    {
+      "sid": "WPD005",
+      "true": 15.0,
+      "pred_v2": 4.54,
+      "pred_fused": 10.26
+    },
+    {
+      "sid": "WPD006",
+      "true": 34.0,
+      "pred_v2": 22.07,
+      "pred_fused": 24.91
+    },
+    {
+      "sid": "WPD007",
+      "true": 12.0,
+      "pred_v2": 15.4,
+      "pred_fused": 13.02
+    },
+    {
+      "sid": "WPD008",
+      "true": 23.0,
+      "pred_v2": 11.42,
+      "pred_fused": 11.93
+    },
+    {
+      "sid": "WPD009",
+      "true": 19.0,
+      "pred_v2": 16.94,
+      "pred_fused": 26.25
+    },
+    {
+      "sid": "WPD010",
+      "true": 24.0,
+      "pred_v2": 12.94,
+      "pred_fused": 21.57
+    },
+    {
+      "sid": "WPD011",
+      "true": 26.0,
+      "pred_v2": 16.6,
+      "pred_fused": 18.26
+    },
+    {
+      "sid": "WPD012",
+      "true": 19.0,
+      "pred_v2": 14.79,
+      "pred_fused": 15.68
+    },
+    {
+      "sid": "WPD013",
+      "true": 0.0,
+      "pred_v2": 11.87,
+      "pred_fused": 14.62
+    },
+    {
+      "sid": "WPD014",
+      "true": 24.0,
+      "pred_v2": 6.99,
+      "pred_fused": 10.47
+    },
+    {
+      "sid": "WPD015",
+      "true": 22.0,
+      "pred_v2": 19.59,
+      "pred_fused": 22.29
+    },
+    {
+      "sid": "WPD016",
+      "true": 10.0,
+      "pred_v2": 18.96,
+      "pred_fused": 20.18
+    },
+    {
+      "sid": "WPD017",
+      "true": 27.0,
+      "pred_v2": 7.92,
+      "pred_fused": 10.24
+    },
+    {
+      "sid": "WPD018",
+      "true": 26.0,
+      "pred_v2": 4.53,
+      "pred_fused": 4.49
+    },
+    {
+      "sid": "WPD019",
+      "true": 25.0,
+      "pred_v2": 8.62,
+      "pred_fused": 9.38
+    },
+    {
+      "sid": "WPD020",
+      "true": 13.0,
+      "pred_v2": 21.58,
+      "pred_fused": 23.63
+    },
+    {
+      "sid": "WPD021",
+      "true": 25.0,
+      "pred_v2": 14.31,
+      "pred_fused": 12.06
+    },
+    {
+      "sid": "WPD022",
+      "true": 27.0,
+      "pred_v2": 20.02,
+      "pred_fused": 21.46
+    },
+    {
+      "sid": "WPD023",
+      "true": 13.0,
+      "pred_v2": 18.98,
+      "pred_fused": 21.83
+    },
+    {
+      "sid": "WPD024",
+      "true": 18.0,
+      "pred_v2": 15.45,
+      "pred_fused": 18.69
+    },
+    {
+      "sid": "WPD025",
+      "true": 30.0,
+      "pred_v2": 22.68,
+      "pred_fused": 25.65
+    },
+    {
+      "sid": "WPD026",
+      "true": 28.0,
+      "pred_v2": 23.45,
+      "pred_fused": 26.05
+    },
+    {
+      "sid": "WPD027",
+      "true": 26.0,
+      "pred_v2": 23.74,
+      "pred_fused": 26.82
+    },
+    {
+      "sid": "WPD029",
+      "true": 25.0,
+      "pred_v2": 23.6,
+      "pred_fused": 26.17
+    }
+  ],
+  "k": 500,
+  "v2": {
+    "mae": 8.808,
+    "r": 0.412
+  },
+  "fused_stk": {
+    "mae": 8.223,
+    "r": 0.405,
+    "ci_95": [
+      6.97,
+      9.47
+    ]
+  },
+  "n_pd": 98,
+  "runtime_s": 12200.1
+}

@@ -1,0 +1,95 @@
+{
+  "name": "D17_v2fm_k500",
+  "description": "Phase D: v2+fm K=500 (more features)",
+  "n_splits": 5,
+  "ensemble": "lgb_only",
+  "feature_k": 500,
+  "use_groups": [
+    "v2",
+    "fm"
+  ],
+  "n_features": 2520,
+  "ccc_mean": 0.5442,
+  "ccc_std": 0.127,
+  "slope_mean": 0.369,
+  "mae_mean": 1.6928,
+  "mae_std": 0.1627,
+  "r_mean": 0.6709,
+  "split_cccs": [
+    0.3827,
+    0.4511,
+    0.7047,
+    0.5029,
+    0.6798
+  ],
+  "split_maes": [
+    1.7487,
+    1.8778,
+    1.6634,
+    1.7764,
+    1.3975
+  ],
+  "split_slopes": [
+    0.2863,
+    0.2544,
+    0.5138,
+    0.3419,
+    0.4486
+  ],
+  "runtime_s": 20.9,
+  "config": {
+    "name": "D17_v2fm_k500",
+    "description": "Phase D: v2+fm K=500 (more features)",
+    "use_groups": [
+      "v2",
+      "fm"
+    ],
+    "feature_k": 500,
+    "fs_params": null,
+    "ensemble": "lgb_only",
+    "seeds": [
+      42,
+      123,
+      456,
+      789,
+      2024
+    ],
+    "lgb_params": {
+      "n_estimators": 2000,
+      "learning_rate": 0.03,
+      "max_depth": 6,
+      "num_leaves": 31,
+      "reg_lambda": 0.5,
+      "min_data_in_leaf": 10,
+      "colsample_bytree": 0.5,
+      "subsample": 1.0,
+      "objective": "mse",
+      "early_stopping_rounds": 100,
+      "val_frac": 0.15
+    },
+    "xgb_params": {
+      "n_estimators": 2000,
+      "learning_rate": 0.03,
+      "max_depth": 6,
+      "reg_lambda": 3.0,
+      "colsample_bytree": 1.0,
+      "subsample": 1.0,
+      "objective": "reg:absoluteerror",
+      "early_stopping_rounds": 100,
+      "val_frac": 0.15
+    },
+    "meta_alpha": 1.0,
+    "n_splits": 5
+  },
+  "status": "OK",
+  "comparison": {
+    "has_baseline": true,
+    "comparable": true,
+    "baseline_ccc": 0.5145,
+    "experiment_ccc": 0.5442,
+    "improvement": 0.0297,
+    "wilcoxon_p": 0.1875,
+    "keep": true,
+    "reason": "KEEP: \u0394CCC=+0.0297, p=0.1875"
+  }
+}

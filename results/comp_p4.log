@@ -1,0 +1,139 @@
+======================================================================
+COMPRESSION ABLATION — Anti-compression proposals x 3 targets
+Phases: [4]
+Targets: ['t1', 't2', 't3']
+Eval: 5split
+======================================================================
+Loading per-item scores from cache: /root/pd-imu/results/per_item_scores.json
+
+Data loaded:
+  PD subjects: 94
+  All subjects (PD+HC): 174
+  Features: 2520 (v2: 1752, FM: 768)
+  T1: range [0, 14], mean=4.1, std=2.8
+  T2: range [1, 20], mean=6.8, std=3.8
+  T3: range [6, 59], mean=25.2, std=10.2
+
+────────────────────────────────────────────────────────────
+Running P4_T1 (5split)...
+  Target: T1, range [0, 24]
+────────────────────────────────────────────────────────────
+      P4 Poisson: inner CCC=0.320
+      P4 Normal: inner CCC=0.711
+      P4 selected: Normal (inner CCC=0.711)
+  Split 1/5: CCC=0.637 slope=0.434 MAE=1.293
+      P4 Poisson: inner CCC=0.231
+      P4 Normal: inner CCC=0.502
+      P4 selected: Normal (inner CCC=0.502)
+  Split 2/5: CCC=0.381 slope=0.262 MAE=1.780
+      P4 Poisson: inner CCC=-0.007
+      P4 Normal: inner CCC=0.768
+      P4 selected: Normal (inner CCC=0.768)
+  Split 3/5: CCC=0.645 slope=0.547 MAE=1.304
+      P4 Poisson: inner CCC=0.508
+      P4 Normal: inner CCC=0.705
+      P4 selected: Normal (inner CCC=0.705)
+  Split 4/5: CCC=0.806 slope=0.602 MAE=1.170
+      P4 Poisson: inner CCC=0.164
+      P4 Normal: inner CCC=0.559
+      P4 selected: Normal (inner CCC=0.559)
+  Split 5/5: CCC=0.719 slope=0.506 MAE=1.459
+
+  Results for P4_T1:
+    CCC       = 0.661
+    cal_slope = 0.480
+    MAE       = 1.401
+    r         = 0.714
+    RMSE      = 1.756
+    Quartile biases:
+      Q1 (<2): n=16, bias=+2.203, mae=2.203
+      Q2 (2-4): n=31, bias=+0.477, mae=0.769
+      Q3 (4-5): n=19, bias=-0.205, mae=1.009
+      Q4 (>=5): n=29, bias=-1.606, mae=1.891
+  Saved: /root/pd-imu/results/compression_P4_TT1.json
+
+────────────────────────────────────────────────────────────
+Running P4_T2 (5split)...
+  Target: T2, range [0, 32]
+────────────────────────────────────────────────────────────
+      P4 Normal: inner CCC=0.713
+      P4 LogNormal: inner CCC=0.560
+      P4 selected: Normal (inner CCC=0.713)
+  Split 1/5: CCC=0.455 slope=0.404 MAE=1.752
+      P4 Normal: inner CCC=0.887
+      P4 LogNormal: inner CCC=0.770
+      P4 selected: Normal (inner CCC=0.887)
+  Split 2/5: CCC=0.490 slope=0.523 MAE=1.655
+      P4 Normal: inner CCC=0.642
+      P4 LogNormal: inner CCC=0.610
+      P4 selected: Normal (inner CCC=0.642)
+  Split 3/5: CCC=0.578 slope=0.454 MAE=1.884
+      P4 Normal: inner CCC=0.725
+      P4 LogNormal: inner CCC=0.408
+      P4 selected: Normal (inner CCC=0.725)
+  Split 4/5: CCC=0.721 slope=0.633 MAE=1.748
+      P4 Normal: inner CCC=0.656
+      P4 LogNormal: inner CCC=0.474
+      P4 selected: Normal (inner CCC=0.656)
+  Split 5/5: CCC=0.533 slope=0.330 MAE=1.963
+
+  Results for P4_T2:
+    CCC       = 0.586
+    cal_slope = 0.483
+    MAE       = 1.800
+    r         = 0.617
+    RMSE      = 2.338
+    Quartile biases:
+      Q1 (<4): n=12, bias=+3.473, mae=3.473
+      Q2 (4-6): n=26, bias=+0.833, mae=1.256
+      Q3 (6-8): n=27, bias=+0.764, mae=1.425
+      Q4 (>=8): n=30, bias=-1.123, mae=1.940
+  Saved: /root/pd-imu/results/compression_P4_TT2.json
+
+────────────────────────────────────────────────────────────
+Running P4_T3 (5split)...
+  Target: T3, range [0, 59]
+────────────────────────────────────────────────────────────
+      P4 Normal: inner CCC=0.527
+      P4 LogNormal: inner CCC=0.453
+      P4 selected: Normal (inner CCC=0.527)
+  Split 1/5: CCC=0.131 slope=0.071 MAE=8.775
+      P4 Normal: inner CCC=0.136
+      P4 LogNormal: inner CCC=0.008
+      P4 selected: Normal (inner CCC=0.136)
+  Split 2/5: CCC=0.150 slope=0.089 MAE=8.486
+      P4 Normal: inner CCC=0.553
+      P4 LogNormal: inner CCC=0.472
+      P4 selected: Normal (inner CCC=0.553)
+  Split 3/5: CCC=0.241 slope=0.139 MAE=8.087
+      P4 Normal: inner CCC=0.203
+      P4 LogNormal: inner CCC=0.252
+      P4 selected: LogNormal (inner CCC=0.252)
+  Split 4/5: CCC=0.141 slope=0.079 MAE=8.390
+      P4 Normal: inner CCC=0.428
+      P4 LogNormal: inner CCC=0.309
+      P4 selected: Normal (inner CCC=0.428)
+  Split 5/5: CCC=0.245 slope=0.148 MAE=7.424
+
+  Results for P4_T3:
+    CCC       = 0.184
+    cal_slope = 0.106
+    MAE       = 8.232
+    r         = 0.277
+    RMSE      = 10.658
+    Quartile biases:
+      Q1 (<17): n=23, bias=+11.332, mae=11.332
+      Q2 (17-25): n=23, bias=+3.623, mae=4.969
+      Q3 (25-31): n=24, bias=-2.033, mae=3.894
+      Q4 (>=31): n=25, bias=-12.297, mae=12.548
+  Saved: /root/pd-imu/results/compression_P4_TT3.json
+
+==========================================================================================
+Proposal     Target Eval         CCC   Slope     MAE       r     Time
+------------------------------------------------------------------------------------------
+P4_ngboost   T1     5split     0.661   0.480   1.401   0.714   281.9s
+P4_ngboost   T2     5split     0.586   0.483   1.800   0.617   305.7s
+P4_ngboost   T3     5split     0.184   0.106   8.232   0.277   301.8s
+==========================================================================================
+
+All results saved to: /root/pd-imu/results/compression_ablation_all.json

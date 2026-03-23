@@ -1,0 +1,40 @@
+======================================================================
+OBSERVABLE SUBSCORE CALIBRATION BIAS ABLATION
+Phases: [0]
+Items: 3.9-3.14 (direct observable), max=24
+Seeds: [42, 123, 456, 789, 2024]
+Device: CPU (GPU too slow for N=94)
+======================================================================
+
+======================================================================
+PHASE 0: Baseline (reproduce Phase 3 observable model)
+======================================================================
+Data loaded: 178 subjects, 1752 v2 + 768 FM = 2520 features
+PD subjects with obs_subscore: 94
+
+  [P0_baseline] LOOCV over 94 PD subjects, K=300, 2520 features
+    [10/94] running MAE=1.513 (91s elapsed, ~764s remaining)
+    [20/94] running MAE=1.902 (181s elapsed, ~668s remaining)
+    [30/94] running MAE=1.897 (263s elapsed, ~561s remaining)
+    [40/94] running MAE=1.777 (346s elapsed, ~467s remaining)
+    [50/94] running MAE=1.581 (433s elapsed, ~381s remaining)
+    [60/94] running MAE=1.650 (517s elapsed, ~293s remaining)
+    [70/94] running MAE=1.720 (600s elapsed, ~206s remaining)
+    [80/94] running MAE=1.683 (690s elapsed, ~121s remaining)
+    [90/94] running MAE=1.586 (776s elapsed, ~34s remaining)
+  [P0_baseline] DONE in 808s: MAE=1.618, CCC=0.61, cal_slope=0.446, r=0.675
+
+Saved: /root/pd-imu/results/obs_bias_ablation_phase0.json
+
+==========================================================================================
+SUMMARY: Observable Subscore Calibration Bias Ablation
+==========================================================================================
+Experiment                                  MAE    CCC  cal_slope      r     N
+------------------------------------------------------------------------------------------
+P0_baseline                               1.618  0.610      0.446  0.675    94
+==========================================================================================
+
+Target: cal_slope closer to 1.0 (current baseline ~0.40)
+Observable subscore range: [0, 24], items 3.9-3.14
+
+Total runtime: 810s (13.5 min)

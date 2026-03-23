@@ -1,0 +1,18 @@
+{
+  "proposal": "P4_fog_transfer",
+  "status": "NEGATIVE",
+  "note": "Killed at step 4/5 (integration test) after 71min stall due to CPU contention. All FoG-specific results confirmed negative across multiple runs.",
+  "fog_detection": {
+    "auc": 0.500,
+    "f1": 0.000,
+    "dev_fog_positive": 9,
+    "dev_fog_negative": 130,
+    "test_fog_positive": 5,
+    "test_fog_negative": 31
+  },
+  "fog_severity_fog_features": {"mae": 0.22, "r": 0.000},
+  "fog_severity_base_imu": {"mae": 0.22, "r": 0.000},
+  "fog_severity_base_plus_fog": {"mae": 0.22, "r": 0.000},
+  "integration_test": "not_completed_killed",
+  "verdict": "NEGATIVE — Only 14/182 subjects have FoG (item 11 > 0). Detection at chance level (AUC=0.500). Severity regression at zero correlation (r=0.000). FoG during controlled gait tasks is too rare for any signal."
+}

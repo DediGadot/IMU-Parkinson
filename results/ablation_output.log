@@ -1,0 +1,126 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti, 16.6 GB
+================================================================================
+WearGait-PD: FULL ABLATION STUDY
+================================================================================
+Loaded split: 142 dev + 36 test subjects
+
+================================================================================
+ABLATION 1: Sensor Subsets
+================================================================================
+  Config                                                      CV MAE/r    TEST MAE/r  Params   VRAM   Time
+  ----------------------------------------------------------------------------------------------------
+  sensors=wrist (12ch)                                    CV=11.45/0.106  TEST=11.28/0.334    6.5M   0.4GB    98s
+  sensors=wrist+lback (18ch)                              CV=11.08/0.188  TEST=10.88/0.399    6.5M   0.4GB   161s
+  sensors=lower_body (48ch)                               CV=11.44/0.190  TEST=13.96/-0.066    6.5M   0.4GB   155s
+  sensors=upper_body (30ch)                               CV=10.98/0.201  TEST=10.67/0.569    6.5M   0.4GB   124s
+  sensors=all_13 (78ch)                                   CV=11.01/0.240  TEST= 8.89/0.627    6.5M   0.4GB   187s
+
+================================================================================
+ABLATION 2: Model Scale (all 78ch, SP+HP)
+================================================================================
+  Config                                                      CV MAE/r    TEST MAE/r  Params   VRAM   Time
+  ----------------------------------------------------------------------------------------------------
+  scale=small (128d/4L)                                   CV=10.80/0.263  TEST=10.29/0.572    1.3M   0.3GB   226s
+  scale=medium (256d/6L)                                  CV=10.80/0.279  TEST= 9.68/0.585    6.5M   0.4GB   188s
+  scale=large (384d/8L)                                   CV=10.37/0.338  TEST= 9.57/0.630   18.1M   0.8GB   253s
+  scale=xlarge (512d/8L)                                  CV=10.79/0.266  TEST=10.15/0.611   32.1M   0.9GB   333s
+  scale=xxl (768d/10L)                                    CV=10.70/0.307  TEST= 8.44/0.723   86.3M   2.1GB   818s
+
+================================================================================
+ABLATION 3: Training Data (all 78ch, 256d/6L)
+================================================================================
+  Config                                                      CV MAE/r    TEST MAE/r  Params   VRAM   Time
+  ----------------------------------------------------------------------------------------------------
+  data=SelfPace only (1183 win)                           CV=10.40/0.322  TEST= 9.95/0.617    6.5M   0.7GB   182s
+  data=SP+HP (2021 win)                                   CV=10.79/0.270  TEST= 9.49/0.597    6.5M   0.4GB   214s
+  data=SP+HP+TG (3148 win)                                CV=10.86/0.238  TEST= 9.14/0.604    6.5M   0.4GB   237s
+  data=all 5 tasks (8822 win)                             CV=10.30/0.400  TEST= 9.43/0.641    6.5M   0.4GB   524s
+
+================================================================================
+ABLATION 4: Patch Size (all 78ch, 256d/6L, SP+HP)
+================================================================================
+  Config                                                      CV MAE/r    TEST MAE/r  Params   VRAM   Time
+  ----------------------------------------------------------------------------------------------------
+  patch_size=25                                           CV=11.12/0.240  TEST= 9.98/0.614    5.7M   0.6GB   208s
+  patch_size=50                                           CV=10.83/0.319  TEST= 9.36/0.573    6.5M   0.4GB   233s
+  patch_size=100                                          CV=10.94/0.245  TEST= 9.72/0.611    8.2M   0.4GB   288s
+  patch_size=200                                          CV=10.35/0.365  TEST= 9.69/0.566   11.4M   0.5GB   272s
+
+================================================================================
+ABLATION 5: Architecture (all 78ch, SP+HP)
+================================================================================
+  Config                                                      CV MAE/r    TEST MAE/r  Params   VRAM   Time
+  ----------------------------------------------------------------------------------------------------
+  CNN+Transformer hybrid (256d, CNN3+TF4L)                CV=11.32/0.184  TEST=10.22/0.662    3.6M   0.6GB   242s
+  Transformer (256d/6L) + augmentation                    CV=10.28/0.342  TEST= 9.79/0.636    6.5M   0.4GB   230s
+  Transformer (256d/6L) no augmentation                   CV=10.80/0.288  TEST=11.74/0.542    6.5M   0.4GB   186s
+
+================================================================================
+ABLATION 6: Best Config Scaled Up (maximize GPU)
+================================================================================
+  Config                                                      CV MAE/r    TEST MAE/r  Params   VRAM   Time
+  ----------------------------------------------------------------------------------------------------
+  Transformer 512d/8L + all tasks + aug                   CV=10.07/0.451  TEST= 9.47/0.658   32.1M   0.9GB  1169s
+  CNN+TF 384d/6L + all tasks + aug                        CV=10.40/0.372  TEST=10.43/0.508   11.2M   0.6GB   762s
+
+================================================================================
+ENSEMBLE: Average top-3 TEST predictions
+================================================================================
+  Top 3 models by TEST MAE:
+    1. scale=xxl (768d/10L): MAE=8.44, r=0.723
+    2. sensors=all_13 (78ch): MAE=8.89, r=0.627
+    3. data=SP+HP+TG (3148 win): MAE=9.14, r=0.604
+
+  ENSEMBLE (top-3 avg): TEST MAE=8.53, r=0.674 (p=0.000007)
+  ENSEMBLE (top-5 avg): TEST MAE=8.75, r=0.665
+
+================================================================================
+FULL ABLATION SUMMARY (sorted by TEST MAE)
+================================================================================
+   # Model                                                   CV MAE  CV r TEST MAE TEST r Params  VRAM
+  -----------------------------------------------------------------------------------------------
+   1 scale=xxl (768d/10L)                                     10.70 0.307     8.44  0.723  86.3M  2.1GB *
+   2 sensors=all_13 (78ch)                                    11.01 0.240     8.89  0.627   6.5M  0.4GB *
+   3 data=SP+HP+TG (3148 win)                                 10.86 0.238     9.14  0.604   6.5M  0.4GB *
+   4 patch_size=50                                            10.83 0.319     9.36  0.573   6.5M  0.4GB
+   5 data=all 5 tasks (8822 win)                              10.30 0.400     9.43  0.641   6.5M  0.4GB
+   6 Transformer 512d/8L + all tasks + aug                    10.07 0.451     9.47  0.658  32.1M  0.9GB
+   7 data=SP+HP (2021 win)                                    10.79 0.270     9.49  0.597   6.5M  0.4GB
+   8 scale=large (384d/8L)                                    10.37 0.338     9.57  0.630  18.1M  0.8GB
+   9 scale=medium (256d/6L)                                   10.80 0.279     9.68  0.585   6.5M  0.4GB
+  10 patch_size=200                                           10.35 0.365     9.69  0.566  11.4M  0.5GB
+  11 patch_size=100                                           10.94 0.245     9.72  0.611   8.2M  0.4GB
+  12 Transformer (256d/6L) + augmentation                     10.28 0.342     9.79  0.636   6.5M  0.4GB
+  13 data=SelfPace only (1183 win)                            10.40 0.322     9.95  0.617   6.5M  0.7GB
+  14 patch_size=25                                            11.12 0.240     9.98  0.614   5.7M  0.6GB
+  15 scale=xlarge (512d/8L)                                   10.79 0.266    10.15  0.611  32.1M  0.9GB
+  16 CNN+Transformer hybrid (256d, CNN3+TF4L)                 11.32 0.184    10.22  0.662   3.6M  0.6GB
+  17 scale=small (128d/4L)                                    10.80 0.263    10.29  0.572   1.3M  0.3GB
+  18 CNN+TF 384d/6L + all tasks + aug                         10.40 0.372    10.43  0.508  11.2M  0.6GB
+  19 sensors=upper_body (30ch)                                10.98 0.201    10.67  0.569   6.5M  0.4GB
+  20 sensors=wrist+lback (18ch)                               11.08 0.188    10.88  0.399   6.5M  0.4GB
+  21 sensors=wrist (12ch)                                     11.45 0.106    11.28  0.334   6.5M  0.4GB
+  22 Transformer (256d/6L) no augmentation                    10.80 0.288    11.74  0.542   6.5M  0.4GB
+  23 sensors=lower_body (48ch)                                11.44 0.190    13.96 -0.066   6.5M  0.4GB
+
+  ENSEMBLE (top-3): TEST MAE=8.53, r=0.674
+  Total experiments: 23
+Traceback (most recent call last):
+  File "/root/pd-imu/run_ablation.py", line 538, in <module>
+    main()
+  File "/root/pd-imu/run_ablation.py", line 533, in main
+    json.dump(all_results, f, indent=2)
+  File "/usr/lib/python3.10/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.10/json/encoder.py", line 429, in _iterencode
+    yield from _iterencode_list(o, _current_indent_level)
+  File "/usr/lib/python3.10/json/encoder.py", line 325, in _iterencode_list
+    yield from chunks
+  File "/usr/lib/python3.10/json/encoder.py", line 405, in _iterencode_dict
+    yield from chunks
+  File "/usr/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/usr/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type float32 is not JSON serializable

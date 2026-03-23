@@ -1,0 +1,77 @@
+======================================================================
+OBSERVABLE SUBSCORE CALIBRATION BIAS ABLATION
+Phases: [5]
+Items: 3.9-3.14 (direct observable), max=24
+Seeds: [42, 123, 456, 789, 2024]
+Device: CPU (GPU too slow for N=94)
+======================================================================
+
+======================================================================
+PHASE 5: VelocityIncrement Features
+======================================================================
+Data loaded: 178 subjects, 1752 v2 + 768 FM = 2520 features
+  Extracting VelInc features (phase_gated=False)...
+  VelInc: 178 subjects, 832 features, 1412 recordings (670s)
+
+--- E5.0: VelInc-only ---
+  PD with VelInc: 94
+
+  [E5.0_velinc_only] LOOCV over 94 PD subjects, K=150, 832 features
+    [10/94] running MAE=1.623 (39s elapsed, ~328s remaining)
+    [20/94] running MAE=2.096 (74s elapsed, ~275s remaining)
+    [30/94] running MAE=2.073 (111s elapsed, ~237s remaining)
+    [40/94] running MAE=1.991 (151s elapsed, ~204s remaining)
+    [50/94] running MAE=1.850 (188s elapsed, ~165s remaining)
+    [60/94] running MAE=1.924 (226s elapsed, ~128s remaining)
+    [70/94] running MAE=1.899 (261s elapsed, ~89s remaining)
+    [80/94] running MAE=1.965 (296s elapsed, ~52s remaining)
+    [90/94] running MAE=1.896 (332s elapsed, ~15s remaining)
+  [E5.0_velinc_only] DONE in 347s: MAE=1.991, CCC=0.427, cal_slope=0.306, r=0.501
+
+--- E5.1: VelInc + v2 + FM ---
+
+  [E5.1_velinc_v2_fm] LOOCV over 94 PD subjects, K=300, 3352 features
+    [10/94] running MAE=1.491 (127s elapsed, ~1067s remaining)
+    [20/94] running MAE=1.891 (258s elapsed, ~955s remaining)
+    [30/94] running MAE=1.864 (387s elapsed, ~826s remaining)
+    [40/94] running MAE=1.710 (518s elapsed, ~699s remaining)
+    [50/94] running MAE=1.537 (650s elapsed, ~572s remaining)
+    [60/94] running MAE=1.671 (777s elapsed, ~440s remaining)
+    [70/94] running MAE=1.714 (906s elapsed, ~311s remaining)
+    [80/94] running MAE=1.680 (1033s elapsed, ~181s remaining)
+    [90/94] running MAE=1.609 (1166s elapsed, ~52s remaining)
+  [E5.1_velinc_v2_fm] DONE in 1215s: MAE=1.66, CCC=0.587, cal_slope=0.425, r=0.664
+
+--- E5.2: Phase-gated VelInc ---
+  Extracting VelInc features (phase_gated=True)...
+  VelInc: 178 subjects, 1664 features, 1237 recordings (794s)
+  PD with phase-gated VelInc: 94
+
+  [E5.2_velinc_phase_gated] LOOCV over 94 PD subjects, K=300, 4184 features
+    [10/94] running MAE=1.473 (159s elapsed, ~1338s remaining)
+    [20/94] running MAE=1.885 (324s elapsed, ~1198s remaining)
+    [30/94] running MAE=1.804 (493s elapsed, ~1051s remaining)
+    [40/94] running MAE=1.682 (656s elapsed, ~886s remaining)
+    [50/94] running MAE=1.530 (816s elapsed, ~718s remaining)
+    [60/94] running MAE=1.655 (977s elapsed, ~554s remaining)
+    [70/94] running MAE=1.674 (1141s elapsed, ~391s remaining)
+    [80/94] running MAE=1.650 (1306s elapsed, ~228s remaining)
+    [90/94] running MAE=1.582 (1470s elapsed, ~65s remaining)
+  [E5.2_velinc_phase_gated] DONE in 1536s: MAE=1.626, CCC=0.62, cal_slope=0.461, r=0.68
+
+Phase 5 saved: /root/pd-imu/results/obs_bias_ablation_phase5.json
+
+==========================================================================================
+SUMMARY: Observable Subscore Calibration Bias Ablation
+==========================================================================================
+Experiment                                  MAE    CCC  cal_slope      r     N
+------------------------------------------------------------------------------------------
+E5.0_velinc_only                          1.991  0.427      0.306  0.501    94
+E5.1_velinc_v2_fm                         1.660  0.587      0.425  0.664    94
+E5.2_velinc_phase_gated                   1.626  0.620      0.461  0.680    94
+==========================================================================================
+
+Target: cal_slope closer to 1.0 (current baseline ~0.40)
+Observable subscore range: [0, 24], items 3.9-3.14
+
+Total runtime: 4563s (76.1 min)

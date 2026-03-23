@@ -1,0 +1,79 @@
+
+*** TARGET: obs_subscore (range 0-24) ***
+
+
+============================================================
+PHASE 0: Baseline Verification (target=obs_subscore)
+============================================================
+
+  Running FM LOOCV for obs_subscore (100 PD subjects)...
+  FM obs LOOCV: MAE=4.062, CCC=0.256, cal_slope=0.141
+
+  Running Demo Ridge LOOCV for obs_subscore...
+  Demo obs LOOCV: MAE=4.289, CCC=0.318, cal_slope=0.197
+
+  Cached direct obs (items 9-14): MAE=1.769, CCC=0.56, cal_slope=0.401
+  Saved: /root/pd-imu/results/calibration_obs_ablation_phase0.json
+
+  Phase 0 complete.
+
+============================================================
+PHASE 2: Residual Modeling on Demographics (target=obs_subscore)
+============================================================
+
+  [E2.0] Control (direct prediction, v2+FM, target=obs_subscore)...
+    MAE=4.062, CCC=0.256, cal_slope=0.141
+
+  [E2.1] Residual: demo Ridge → IMU residual (v2+FM, target=obs_subscore)...
+    MAE=4.266, CCC=0.363, cal_slope=0.235
+
+  [E2.3] Embedded demographics (v2+FM+demo, target=obs_subscore)...
+    MAE=4.062, CCC=0.256, cal_slope=0.141
+
+  [E2.4] Two-stage stack (demo + IMU → Ridge meta, target=obs_subscore)...
+    MAE=4.131, CCC=0.398, cal_slope=0.259
+  Saved: /root/pd-imu/results/calibration_obs_ablation_phase2.json
+
+  Phase 2 complete.
+
+============================================================
+PHASE 4: Post-Hoc Calibration (target=obs_subscore)
+============================================================
+  Running FM LOOCV for 100 PD subjects (target=obs_subscore)...
+  Got 98 predictions
+  Baseline: MAE=4.062, CCC=0.256, cal_slope=0.141
+
+  [E4.1] Isotonic regression...
+    MAE=4.254, CCC=0.314, cal_slope=0.2
+
+  [E4.2] Platt scaling (linear)...
+    MAE=4.165, CCC=0.305, cal_slope=0.184
+
+  [E4.3] Linear recalibration (global slope/intercept)...
+    MAE=7.563, CCC=0.383, cal_slope=0.68
+
+  [E4.4] Polynomial calibration (quadratic)...
+    MAE=4.166, CCC=0.308, cal_slope=0.189
+  Saved: /root/pd-imu/results/calibration_obs_ablation_phase4.json
+
+  Phase 4 complete.
+
+============================================================
+PHASE 5: Training Modifications (target=obs_subscore)
+============================================================
+
+  [E5.1] Severity-weighted MAE (target=obs_subscore)...
+    MAE=3.904, CCC=0.37, cal_slope=0.22
+
+  [E5.2] Inverse-frequency weighting (target=obs_subscore)...
+    MAE=4.057, CCC=0.246, cal_slope=0.134
+
+  [E5.4] Huber loss (target=obs_subscore)...
+    MAE=4.044, CCC=0.298, cal_slope=0.167
+  Saved: /root/pd-imu/results/calibration_obs_ablation_phase5.json
+
+  Phase 5 complete.
+
+============================================================
+All requested phases complete in 139.5 minutes
+============================================================

@@ -1,0 +1,122 @@
+{
+  "phase": "4_severity_confounds",
+  "n": 98,
+  "severity_quartiles": [
+    {
+      "mae": 14.092,
+      "rmse": 15.078,
+      "r2": -9.794,
+      "ccc": 0.141,
+      "r": 0.605,
+      "spearman_rho": 0.431,
+      "spearman_p": 0.2464,
+      "mae_sd": 3.071,
+      "nrmse": 1.371,
+      "cal_slope": 0.882,
+      "cal_intercept": 14.824,
+      "n": 9,
+      "label": "Q1(<12)",
+      "mean_true": 6.2,
+      "mean_pred": 20.3,
+      "bias": 14.09
+    },
+    {
+      "mae": 5.96,
+      "rmse": 7.11,
+      "r2": -6.816,
+      "ccc": 0.068,
+      "r": 0.138,
+      "spearman_rho": 0.117,
+      "spearman_p": 0.5681,
+      "mae_sd": 2.344,
+      "nrmse": 1.016,
+      "cal_slope": 0.287,
+      "cal_intercept": 15.577,
+      "n": 26,
+      "label": "Q2(12-20)",
+      "mean_true": 15.6,
+      "mean_pred": 20.1,
+      "bias": 4.45
+    },
+    {
+      "mae": 5.944,
+      "rmse": 7.889,
+      "r2": -3.66,
+      "ccc": 0.152,
+      "r": 0.231,
+      "spearman_rho": 0.209,
+      "spearman_p": 0.1639,
+      "mae_sd": 1.626,
+      "nrmse": 0.564,
+      "cal_slope": 0.418,
+      "cal_intercept": 11.53,
+      "n": 46,
+      "label": "Q3(20-35)",
+      "mean_true": 26.8,
+      "mean_pred": 22.7,
+      "bias": -4.04
+    },
+    {
+      "mae": 14.301,
+      "rmse": 15.217,
+      "r2": -5.386,
+      "ccc": 0.138,
+      "r": 0.583,
+      "spearman_rho": 0.68,
+      "spearman_p": 0.0027,
+      "mae_sd": 2.375,
+      "nrmse": 0.634,
+      "cal_slope": 0.51,
+      "cal_intercept": 5.873,
+      "n": 17,
+      "label": "Q4(>35)",
+      "mean_true": 41.2,
+      "mean_pred": 26.9,
+      "bias": -14.3
+    }
+  ],
+  "spearman": {
+    "rho": 0.382,
+    "p": 0.000102
+  },
+  "weighted_kappa": 0.245,
+  "proportional_bias": {
+    "slope": 0.1251,
+    "intercept": 5.091,
+    "r": 0.223,
+    "p": 0.0273
+  },
+  "partial_correlation": {
+    "r": 0.36,
+    "p": 0.0003
+  },
+  "error_correlations": {
+    "age": {
+      "r": -0.037,
+      "p": 0.7207
+    },
+    "sex": {
+      "r": NaN,
+      "p": NaN
+    },
+    "years_dx": {
+      "r": -0.137,
+      "p": 0.239
+    },
+    "height_cm": {
+      "r": -0.122,
+      "p": 0.2309
+    },
+    "weight_kg": {
+      "r": 0.014,
+      "p": 0.8949
+    }
+  },
+  "missing_data": {
+    "n_complete": 89,
+    "n_partial": 9,
+    "mae_complete": 8.034,
+    "mae_partial": 9.258
+  },
+  "runtime_s": 1.2
+}

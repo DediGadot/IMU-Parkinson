@@ -8,7 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **First published UPDRS-III regression on WearGait-PD.** No one has done this. We own the benchmark.
 
-Domain: predicting Parkinson's Disease motor severity (MDS-UPDRS Part III total score, range 0-132) from body-worn IMU sensors during gait/balance tasks. The dataset has 178 subjects total, 13 IMUs at 100Hz, and full clinical UPDRS scores.
+Domain: predicting Parkinson's Disease motor severity (MDS-UPDRS Part III total score, range 0-132) from body-worn IMU sensors during gait/balance tasks. The dataset has 178 subjects (98 PD + 80 HC), 13 IMUs at 100Hz, and full clinical UPDRS scores.
+
+**Paper's core contribution:** 3-level observability gradient. IMU predicts gait-observable items well (CCC=0.87), partially observable items poorly (CCC=0.12), unobservable items not at all (CCC=0.18). The SSL ranking method (using HC as calibration anchors) is the key methodological innovation.
 
 ## SOTA Landscape
 
@@ -42,38 +44,49 @@ No published UPDRS-III regression exists on WearGait-PD. Cross-dataset compariso
 
 ## The Bar
 
-None of the published work uses our dataset, our cohort size, or our evaluation rigor. Comparisons are necessarily cross-dataset.
-
 | Tier | Overall MAE | PD-only MAE | What it means |
 |------|-------------|-------------|---------------|
 | **Publishable** | any | any | First WearGait-PD regression with proper eval is novel by itself |
 | **Cross-dataset SOTA** | < 7.0 | < 5.95 | Beats Hssayeni PD-only MAE on 7x subjects with held-out test |
 | **Clinical SOTA** | < 3.25 | < 3.25 | Within MCID (Horvath 2015) — errors below clinical noise |
 
-Reality check: total UPDRS-III has unobservable items (rigidity, speech, facial expression). Ceiling from gait IMU alone is likely MAE ~8-10 on a clean evaluation. Observable axial subdomain (gait+posture+lower limb items) may reach MAE ~2-3 but needs revalidation.
+Reality check: total UPDRS-III has unobservable items (rigidity, speech, facial expression). Ceiling from gait IMU alone is likely MAE ~8-10 on clean evaluation. Observable axial subdomain (gait+posture+lower limb items) can reach MAE ~1.0 with SSL ranking.
 
-## Current Results
+## Current Results (2026-03-15)
 
-### Best: FM Stack (10-split CV, 2026-03-11)
+### Best: P5 SSL Ranking (PD-only LOOCV, N=94)
+
+XGBRanker trained on ALL subjects (PD+HC, N=178) → leaf indices as features → LightGBM on PD-only. HC subjects serve as "known-zero" calibration anchors. Script: `run_compression_ablation.py --phase 5`.
+
+| Target | Items | CCC | slope | MAE | r |
+|--------|-------|-----|-------|-----|---|
+| **T1 (direct obs)** | 9-14 | **0.868** | 0.689 | 0.986 | 0.899 |
+| **T2 (broad obs)** | 7-14 | **0.852** | 0.699 | 1.334 | 0.873 |
+| **T3 (total UPDRS)** | all | **0.776** | 0.576 | 4.646 | 0.827 |
+
+### 3-Level Observability Gradient (paper's core table)
+
+| Subscore | Items | MAE | CCC | r |
+|----------|-------|-----|-----|---|
+| **Direct observable** | 9-14 | **1.77** | **0.56** | **0.667** |
+| Partially observable | 5-8, 15-17 | 4.89 | 0.12 | 0.169 |
+| Not observable | 1-4, 18 | 3.94 | 0.18 | 0.290 |
+
+### Pre-SSL baselines (10-split CV, 2026-03-11)
 
 | Model | 10-split Mean ± Std | p vs v2 |
 |-------|--------------------|---------|
-| **FM Stack (v2+MOMENT)** | **7.775 ± 0.439** | **0.0039** |
-| Ultimate (v2+RK+FM+coord) | 7.897 ± 0.529 | 0.020 |
-| Triple (v2+RK+FM) | 7.940 ± 0.559 | 0.037 |
+| FM Stack (v2+MOMENT) | 7.775 ± 0.439 | 0.0039 |
 | v2 LGB baseline | 8.485 ± 0.497 | — |
-| PD-only LOOCV (FM) | 8.147 (N=98) | 0.042 |
-
-Observable subdomain (items 7-14): FM+v2 stack **3.015 ± 0.443** (below MCID 3.25).
 
 ### Clean held-out test (post-contamination audit, 2026-03-09)
 
-Outer split: `results/paper3_split.json` — 142 dev + 36 test, seed=20260309. See CONT.md for full audit.
+Split: `results/paper3_split.json` — 142 dev + 36 test, seed=20260309. See CONT.md for full audit.
 
 | Model | MAE | r | Role |
 |-------|-----|---|------|
 | LGB baseline (S0_K150) | 9.47 | 0.605 | clean baseline |
-| **Deployable stack (S6_K150)** | **9.68** | **0.579** | **pre-specified primary** |
+| Deployable stack (S6_K150) | 9.68 | 0.579 | pre-specified primary |
 | H&Y ceiling | 8.22 | 0.705 | upper bound with clinical staging |
 
 **The old MAE=6.89 result was contaminated by adaptive test-set reuse (~2.8 MAE inflation). Do not cite it.**
@@ -102,20 +115,27 @@ On remote at `data/raw/weargait-pd/` (52GB). Clean split: `results/paper3_split.
 ## Commands
 
 ```bash
-# Environment
+# Environment (local — only matplotlib, numpy, pandas, scipy)
 uv sync                                    # install deps (local, for tests/paper gen)
 
-# Run experiments (on GPU slave)
-./gpu.sh run_rocket_ablation.py --phase 2  # deploy code + run on remote GPU
+# Run experiments (on GPU slave — has torch, lightgbm, xgboost, momentfm, etc.)
+./gpu.sh run_compression_ablation.py --phase 5  # deploy code + run on remote GPU
 ./gpu.sh --pull                            # fetch results back to ./results/
 ./gpu.sh --status                          # check GPU + running jobs
+./gpu.sh --push-cache                      # upload cached features to remote
+
+# Autoresearch (autonomous HP search loop)
+./gpu.sh autoresearch_eval.py --baseline   # compute MAE baseline (once)
+./gpu.sh autoresearch_eval.py              # run current config from autoresearch_config.py
+./gpu.sh autoresearch_ccc_eval.py --baseline  # compute CCC baseline (once)
+./gpu.sh autoresearch_ccc_eval.py          # run CCC-optimized config
 
 # Tests (local)
 uv run pytest tests/ -v                    # all tests
 uv run pytest tests/test_data_split.py -v  # single test file
 
 # Paper generation (local, reads from results/)
-uv run python generate_paper.py            # generate paper HTML
+uv run python generate_paper.py            # generate paper HTML → NEW.html
 uv run python paper3_data.py               # prepare paper data artifacts
 ```
 
@@ -133,11 +153,26 @@ updrs_columns.py    ← shared: UPDRS subitem column name resolution
 run_*.py            ← self-contained experiments (import only the 3 above)
 ```
 
-Cross-import exception: `run_clean_benchmark.py` imports from `run_ablation_v2.py` and `run_proven_stack.py` for feature extraction functions. No other cross-imports between `run_*.py` files.
+**Cross-import exceptions:** `run_clean_benchmark.py`, `run_ablation_v3.py`, and `run_paper_supplements.py` import feature extraction functions from `run_ablation_v2.py` and `run_proven_stack.py`. No other cross-imports between `run_*.py` files.
 
 **Execution model:** Code lives on this machine (MASTER). `gpu.sh` rsyncs to the remote GPU slave, runs there, and `--pull` fetches results back. The remote has the 52GB dataset at `data/raw/weargait-pd/`.
 
-**Feature extraction tiers:** v2 handcrafted (statistical, spectral) → MiniRocket (5000 temporal kernels) → MOMENT-1-base (frozen 768-dim FM embeddings). FM beats all others — adding ROCKET to FM actually hurts (dilutes signal at K=400).
+**Feature extraction tiers:**
+
+| Tier | Approach | Dim | Best for |
+|------|----------|-----|----------|
+| v2 | Handcrafted (statistical + spectral) | ~1752 | Observable subscore |
+| ROCKET | MiniRocket (5000 temporal kernels) | 5000 | Hurts when added to FM |
+| FM | MOMENT-1-base (frozen 768-dim) | 768 | Total UPDRS |
+| SSL Ranking | XGBRanker leaf indices (PD+HC) | ~200 | All targets (breakthrough) |
+
+**Cached artifacts on remote** (reused across experiments):
+- `results/ablation_v3_features.csv` — pre-computed v2 handcrafted features
+- `results/fm_embeddings.npz` — MOMENT-1-base frozen embeddings (deterministic, no SIDs)
+- `results/rocket_recordings.npz` — recording-level SIDs (use this for SID lookup, not FM cache)
+- `results/velinc_features.csv`, `results/velinc_gated_features.csv` — VelInc channel features
+- `results/per_item_scores.json` — all 18 UPDRS items per subject
+- `results/obs_direct_subscores.json` — ground truth items 9-14
 
 ## Infrastructure
 
@@ -146,6 +181,7 @@ Cross-import exception: `run_clean_benchmark.py` imports from `run_ablation_v2.p
 ```bash
 ./gpu.sh run_something.py       # deploy + run
 ./gpu.sh --pull                  # fetch results
+./gpu.sh --push-cache            # upload cached features
 ./gpu.sh --status                # GPU + jobs
 ./gpu.sh --log                   # tail log
 ./gpu.sh --ssh                   # shell in
@@ -155,7 +191,7 @@ Cross-import exception: `run_clean_benchmark.py` imports from `run_ablation_v2.p
 
 Swap servers: `export GPU_REMOTE=root@x.x.x.x GPU_PORT=22 && ./gpu.sh --setup`
 
-Current slave: `root@46.228.83.78:40005`, RTX 5060 Ti 16GB, PyTorch cu128.
+Current slave: `root@142.170.89.112:37397`, PyTorch cu128.
 
 ## Files
 
@@ -168,39 +204,50 @@ updrs_columns.py        # Robust UPDRS subitem column resolution across naming v
 
 **Primary experiment scripts:**
 ```
-run_rocket_ablation.py  # ROCKET + FM + coordination ablation (phases 0-9, current best)
-run_clean_benchmark.py  # Clean eval on fresh split (primary for Paper3)
-run_proven_stack.py     # Stack variants (exploratory, test set NOT pristine)
-run_ablation_v2.py      # v2 feature extraction baseline (imported by run_clean_benchmark)
-run_ablation_v3.py      # v3 ablation (5 phases)
+run_compression_ablation.py # Anti-compression proposals × 3 targets: ordinal, pairwise, SMOGN, NGBoost, SSL ranking
+run_pd_only_experiments.py  # 7-phase PD-only experiments (10-split, LOOCV, 3-level observability, held-out)
+run_calibration_ablation.py # Calibration-fix ablation (--target total|obs, residual modeling)
+run_rocket_ablation.py      # ROCKET + FM + coordination ablation (phases 0-9)
+run_obs_bias_ablation.py    # Walkway/task-specific/VelInc ablation for observable subscore
+run_clean_benchmark.py      # Clean eval on fresh split (primary for Paper3)
+run_proven_stack.py         # Stack variants (exploratory, test set NOT pristine)
+run_ablation_v2.py          # v2 feature extraction baseline (imported by other scripts)
+run_ablation_v3.py          # v3 ablation (5 phases)
+run_step_function.py        # Step-function analysis
 ```
 
-**Supplementary experiment scripts:**
+**Autoresearch (autonomous HP search):**
 ```
-run_sensor_ablation.py  # Corrected sensor ablation (no dst_ by default)
-run_loocv_stack.py      # Corrected nested LOOCV (feature selection inside loop)
-run_stats_report.py     # Corrected stats (uses actual stack, dynamic best model)
-run_dl_experiments.py   # DL experiments (TEST_TASKS = ALL_TASKS)
-run_dl_rebenchmark.py   # DL rebenchmark on fresh split
-run_subdomain.py        # Subdomain analysis (corrected UPDRS resolution)
-run_subdomain_v3.py     # v3 subdomain prediction (obs vs unobs)
-run_v3_experiments.py   # Exploratory experiments (corrected UPDRS resolution)
-run_followup_v3.py      # Follow-up experiments
-run_biomechanics.py     # Biomechanical feature extraction
-run_shap_explain.py     # SHAP feature importance analysis
-run_transfer.py         # Cross-dataset transfer validation
-run_pads_varghese.py    # PADS benchmark reproduction
-run_paper_supplements.py # Supplementary analyses for paper
+autoresearch_config.py      # ONLY file the agent modifies — knobs for features, HP, ensemble strategy
+autoresearch_eval.py        # Fixed MAE evaluation harness — DO NOT MODIFY
+autoresearch_ccc_eval.py    # Fixed CCC evaluation harness with feature group selection — DO NOT MODIFY
+autoresearch_program.md     # Agent instructions for the autoresearch loop
+autoresearch_results.tsv    # Append-only log of MAE experiment outcomes
+autoresearch_ccc_results.tsv # Append-only log of CCC experiment outcomes
 ```
 
 **Paper generation:**
 ```
-generate_paper.py       # Main paper HTML generator
-generate_html_paper3.py # Paper3 HTML generator
-paper3_data.py          # Paper data artifact preparation
+generate_paper.py       # Main paper HTML generator (182 KB) → outputs NEW.html
+paper.tex               # LaTeX version of the manuscript
 paper_figures_v2.py     # Figure generation
 paper_refs.py           # Reference management
-paper2_renderer.py      # Alternate renderer
+paper3_data.py          # Paper data artifact preparation
+```
+
+**Supplementary experiment scripts:**
+```
+run_sensor_ablation.py  # Corrected sensor ablation (FM re-extracted per config, no leakage)
+run_loocv_stack.py      # Corrected nested LOOCV (feature selection inside loop)
+run_stats_report.py     # Corrected stats (uses actual stack, dynamic best model)
+run_dl_experiments.py   # DL experiments (all architectures failed, see What Failed)
+run_subdomain.py        # Subdomain analysis (corrected UPDRS resolution)
+run_subdomain_v3.py     # v3 subdomain prediction (obs vs unobs)
+run_shap_explain.py     # SHAP feature importance analysis
+run_transfer.py         # Cross-dataset transfer validation
+run_biomechanics.py     # Biomechanical feature extraction
+run_paper_supplements.py # Supplementary analyses for paper
+cache_extra_features.py # Caches VelInc, VelInc-gated, walkway features
 ```
 
 **Infra:**
@@ -208,6 +255,34 @@ paper2_renderer.py      # Alternate renderer
 gpu.sh                  # Master/slave deploy, pull results, manage remote jobs
 synapse_download.py     # Download WearGait-PD from Synapse
 ```
+
+**Remote-only dependencies** (installed via `gpu.sh --setup`, NOT in pyproject.toml):
+torch, torchvision, lightgbm, xgboost, momentfm, sktime (MiniRocket), tslearn
+
+## Gotchas
+
+- **FM embedding aggregation:** `fm_embeddings.npz` has recording-level data with no SIDs. Must use `rocket_recordings.npz["sids"]` as the subject mapping to aggregate per-subject.
+- **Two split files:** `data_split.json` (old, seed=42, CONTAMINATED) vs `paper3_split.json` (clean, seed=20260309). Always use `paper3_split.json`.
+- **Feature selection inside folds:** XGB importance-based selection (K=500) must be computed per fold, not once on all data, to prevent leakage.
+- **LightGBM device='gpu' is 2.2x SLOWER than CPU** for N<200. Always use CPU.
+- **Demographics are competitive on total UPDRS:** Ridge on age/sex/dx_yrs beats IMU (7.44 vs 8.37). IMU signal is real but partial (r=0.36, p=0.0003 after partialing out demographics).
+- **SSL ranking uses HC for representation, NOT evaluation.** Final eval must always be PD-only.
+
+## What Failed (DO NOT RETRY)
+
+- All handcrafted feature groups (stride-var, asymmetry, nonlinear, frequency, interactions)
+- End-to-end DL (5 architectures), item decomposition (52% worse)
+- MoE/severity stratification, cross-sensor coordination, two-stage, HP sweeps
+- FoG transfer (AUC=0.500, only 14/182 FoG+)
+- Post-hoc calibration (isotonic/Platt/linear/polynomial) — predictions lack variance
+- Euler/FreeAcc channel expansion — marginal, not worth complexity
+- Severity-weighted + residual combination — no additive effect
+- Embedded demographics as features — tree model ignores them
+- Walkway metrics for obs subscore — redundant with v2 features
+- Task-specific ensemble for obs — worse than all-task pooling
+- Per-item ordinal + temperature sharpening — CCC=0.338, catastrophic
+- NGBoost Poisson distributional — CCC=0.671, no improvement over tuned LGB
+- Pairwise contrastive boosting — slow and mediocre (CCC~0.62)
 
 ## Rules
 
@@ -218,3 +293,4 @@ synapse_download.py     # Download WearGait-PD from Synapse
 - **ALWAYS report PD-only MAE alongside overall** — HC inflates metrics
 - **NEVER reuse clean test split for model search** — this caused the original 6.89 contamination
 - **NEVER promote a sensitivity-check winner as new primary** — recreates contamination cycle
+- **ALWAYS verify SOTA claims from LLMs against actual papers** — multiple hallucinated citations found

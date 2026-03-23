@@ -1,0 +1,55 @@
+PD-ONLY EXPERIMENTS -- phase=7
+N_CORES=11
+Subjects: 178 (98 PD, 80 HC)
+V2 cache: (178, 1877)
+
+======================================================================
+PHASE 7: Consolidated Report
+======================================================================
+
+--- Table 1: Demographics ---
+  PD: N=98, Age=66.9+/-8.3, UPDRS=24.4+/-10.9
+  HC: N=80, Age=74.6+/-8.5, UPDRS=7.1+/-9.7
+  All: N=178, Age=70.4+/-9.2, UPDRS=16.6+/-13.5
+  Loaded pd_only_phase1.json
+  Loaded pd_only_phase2.json
+  Loaded pd_only_phase3.json
+  Loaded pd_only_phase4.json
+  Loaded pd_only_phase5.json
+  Loaded pd_only_phase6.json
+
+--- Master results table ---
+  10split_b1_v2: MAE=8.42, CCC=-0.004
+  10split_b1_fm_stk: MAE=8.574, CCC=-0.019
+  10split_b2_fm_stk: MAE=10.137, CCC=-0.013
+  10split_demographic: MAE=7.443, CCC=0.326
+  loocv_fm: MAE=8.146, CCC=0.369
+  loocv_demo: MAE=7.863, CCC=0.338
+  obs_direct_loocv: MAE=1.769, CCC=0.56
+  obs_partial_loocv: MAE=4.889, CCC=0.12
+  obs_unobs_loocv: MAE=3.937, CCC=0.182
+  obs_binary_obs_loocv: MAE=3.128, CCC=0.464
+  held_out_full: MAE=9.355, CCC=0.559
+  held_out_pd_subset: MAE=9.477, CCC=0.263
+  held_out_demo: MAE=10.35, CCC=0.293
+  sensor_all_13: MAE=7.723, CCC=0.184
+  sensor_wrists_2: MAE=7.805, CCC=0.102
+  sensor_lower_back_1: MAE=8.116, CCC=0.048
+  sensor_wrists_back_3: MAE=7.892, CCC=0.113
+  sensor_minimal_5: MAE=7.675, CCC=0.152
+
+--- Holm-Bonferroni correction ---
+  P1_fm_vs_v2_median: p_raw=0.469200 -> p_adj=0.938400 ns
+  P1_fm_vs_demo_median: p_raw=0.299100 -> p_adj=0.897300 ns
+  P2_permutation: p_raw=0.000300 -> p_adj=0.002100 **
+  P2_fm_vs_demo_bootstrap: p_raw=0.592400 -> p_adj=0.938400 ns
+  P2_partial_corr: p_raw=0.000300 -> p_adj=0.002100 **
+  P3_ordering_test: p_raw=0.172100 -> p_adj=0.688400 ns
+  P4_spearman: p_raw=0.000102 -> p_adj=0.000816 ***
+  P4_partial_corr: p_raw=0.000300 -> p_adj=0.002100 **
+
+Phase 7 done in 0.0m
+
+======================================================================
+TOTAL RUNTIME: 0.1 minutes
+Results saved to results/pd_only_*.json

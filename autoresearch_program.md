@@ -1,228 +1,164 @@
-# Autoresearch Program — PD-IMU UPDRS-III Regression
+# Autoresearch Program — Observable Subscore CCC Optimization
 
 ## What This Is
 
-You are an autonomous AI researcher optimizing a UPDRS-III regression model
-from IMU sensor data. Your job: modify `autoresearch_config.py`, run experiments
-on the remote GPU, keep improvements, discard failures, repeat until stopped.
+You are an autonomous AI researcher optimizing the **observable motor subscore** (MDS-UPDRS Part III items 3.9-3.14, range 0-24) prediction from IMU sensor data. Your primary optimization target is **CCC** (Lin's concordance correlation coefficient). Secondary targets: calibration slope and MAE.
 
-You have a fixed evaluation harness (`autoresearch_eval.py`) and pre-computed
-features (v2 handcrafted + MOMENT foundation model embeddings). You only change
-configuration: hyperparameters, feature selection, ensemble strategy.
+You have a fixed evaluation harness (`autoresearch_ccc_eval.py`) and multiple pre-computed feature caches. You only change configuration in `autoresearch_config.py`.
 
-**Current best:** MAE = 7.775 ± 0.439 on 10-split CV with LGB+XGB stack.
-**Ceiling estimate:** MAE ~7.0-7.5 (unobservable UPDRS items limit this).
-**Your target:** beat the 5-split fast-track baseline consistently.
+## Current State (Session 9 results, 2026-03-14)
 
-## Setup (run once at the start)
+**Best config:** CCC=0.515 (5-split), CCC=0.581 (10-split)
+- reg_lambda=0.5, min_data_in_leaf=10, K=300, colsample=0.5, MSE, 5 seeds
+- **HP optimization is exhausted** — 32 experiments showed CCC plateau at ~0.515
 
-### 1. Create a branch
+**What worked:**
+- min_data_in_leaf 20→10: +0.105 CCC (dominant knob)
+- reg_lambda 3.0→0.5: +0.017 CCC
 
+**What failed (DO NOT retry):**
+- All other HP variations (leaves, depth, K, colsample, lr, loss functions, ensembles, seeds)
+- Walkway gait metrics — completely redundant with v2
+- Task-specific ensemble — worse than pooling
+- VelInc additive (non-gated) — no improvement
+- Euler/FreeAcc channels — degraded CCC
+- FM-only: CCC=0.19 (terrible for obs subscore)
+- Post-hoc calibration, end-to-end DL
+- device='gpu' for LightGBM — 2.2x slower at N=94
+
+**Key insight:** v2 handcrafted features dominate for observable subscore. FM adds near-zero. The CCC ceiling is a **feature-space limit**, not HP.
+
+## Phase 2: Feature Space Exploration
+
+The HP ceiling at CCC=0.515 means further gains MUST come from new/different features. The harness now supports fine-grained feature group selection via `use_groups`.
+
+### Available Feature Groups
+
+| Group | N Features | Description | Status |
+|-------|-----------|-------------|--------|
+| `v2_core` | ~1480 | Per-sensor acc/gyr: RMS, std, range, IQR, skew, kurt, jerk, ZCR, PSD bands, entropy | DEFAULT ON |
+| `v2_dv` | ~80 | Task-contrast range features | DEFAULT ON |
+| `v2_delta` | ~75 | Task-contrast delta features | DEFAULT ON |
+| `v2_fc` | ~22 | Foot contact: stride time, stance %, cadence, asymmetry | DEFAULT ON |
+| `v2_ev` | ~28 | GeneralEvent phase features (Walk/Turn/SitToStand) | DEFAULT ON |
+| `v2_turn` | ~6 | Turn-specific features | DEFAULT ON |
+| `v2_asym` | ~10 | Left-right asymmetry | DEFAULT ON |
+| `v2_kinematic` | ~14 | Contact-phase kinematics | DEFAULT ON |
+| `v2_covariate` | ~6 | Clinical covariates (age, sex, dx_years, height, weight, DBS) | DEFAULT ON |
+| `v2_distilled` | ~31 | Distilled walkway features (imputed from IMU) | DEFAULT ON |
+| `v2_extra_nl` | ~30 | Nonlinear dynamics (sample entropy, DFA) | DEFAULT OFF |
+| `v2_extra_sv` | ~22 | Stride variability | DEFAULT OFF |
+| `v2_extra_fq` | ~44 | Extended frequency features | DEFAULT OFF |
+| `v2_extra_ix` | ~7 | Interaction features | DEFAULT OFF |
+| `v2_extra_ext` | ~8 | Extended covariates | DEFAULT OFF |
+| `v2_extra_pa` | ~8 | Phase-angle features | DEFAULT OFF |
+| `v2_extra_hr` | ~2 | Heart rate features | DEFAULT OFF |
+| `fm` | 768 | MOMENT-1-base frozen embeddings | DEFAULT ON (but ~zero signal for obs) |
+| `velinc` | ~832 | VelocityIncrement features (regular) | CACHED, OFF |
+| `velinc_gated` | ~1600 | Phase-gated VelInc (Walk vs Turn separate) | CACHED, OFF |
+| `walkway` | ~196 | Raw walkway gait metrics | CACHED, OFF |
+
+### Config Knob: `use_groups`
+
+```python
+# In autoresearch_config.py:
+"use_groups": ["v2", "fm"],                    # current default (v2 = all v2_* subgroups)
+"use_groups": ["v2"],                          # v2 only (drop FM — may actually help!)
+"use_groups": ["v2", "velinc_gated"],          # v2 + phase-gated VelInc
+"use_groups": ["v2", "v2_extra_nl", "v2_extra_fq"],  # v2 + nonlinear + frequency
+"use_groups": ["v2+extras"],                   # v2 + ALL normally-excluded groups
+"use_groups": ["v2_core", "v2_fc", "v2_ev"],   # minimal: core + foot contact + events
+"use_groups": ["all"],                         # everything available
+```
+
+Shortcut: `"v2"` expands to all `v2_*` groups (excl `v2_extra_*`). `"v2+extras"` includes all.
+
+### Strategy for Feature Exploration
+
+**Priority 1: Subtract noisy groups (v2 alone nearly matches v2+FM)**
+- Try `["v2"]` — drop FM entirely (v2_only got CCC=0.522 in session 9!)
+- Try `["v2_core"]` — core sensor features only, no task-contrast/contact
+- Try `["v2_core", "v2_fc", "v2_ev"]` — core + foot contact + events
+
+**Priority 2: Add normally-excluded feature groups**
+- Try `["v2", "v2_extra_fq"]` — add 44 frequency features
+- Try `["v2", "v2_extra_nl"]` — add 30 nonlinear dynamics features
+- Try `["v2", "v2_extra_sv"]` — add 22 stride variability features
+- Try `["v2+extras"]` — add ALL excluded groups at once
+
+**Priority 3: New modalities**
+- Try `["v2", "velinc_gated"]` — v2 + phase-gated VelocityIncrement (ablation winner)
+- Try `["v2", "velinc"]` — v2 + regular VelInc
+- Try `["v2", "walkway"]` — v2 + raw walkway metrics
+
+**Priority 4: Extreme combinations**
+- Try `["v2+extras", "velinc_gated"]` — everything from IMU
+- Try `["all"]` — kitchen sink
+- Try minimal subsets to find the signal-carrying groups
+
+**Priority 5: Feature selection K exploration WITH new groups**
+- When adding groups, K may need to increase (e.g., K=400-600)
+- More features + lower K = stronger feature selection = potentially cleaner signal
+
+## Setup
+
+### 1. Branch
 ```bash
-git checkout -b autoresearch-$(date +%Y%m%d)
+git checkout -b autoresearch-ccc-features-$(date +%Y%m%d)
 ```
 
 ### 2. Read context
+- `CLAUDE.md` — project rules
+- `autoresearch_config.py` — knobs
+- `autoresearch_ccc_results.tsv` — prior results (32 HP experiments)
 
-Read these files to understand the project constraints:
-- `CLAUDE.md` — project rules (especially the Rules section)
-- `autoresearch_config.py` — available knobs and their docs
-- `autoresearch_eval.py` lines 1-60 — harness overview
-
-### 3. Verify remote GPU
-
+### 3. Verify server + caches
 ```bash
 ./gpu.sh --status
+ssh -p 37397 root@142.170.89.112 "ls -lh /root/pd-imu/results/velinc*.csv /root/pd-imu/results/walkway*.csv 2>/dev/null"
 ```
 
-If no GPU or the server is down, stop and report.
-
-### 4. Compute baseline (CRITICAL)
-
+### 4. Compute baseline
 ```bash
-./gpu.sh autoresearch_eval.py --baseline
+./gpu.sh autoresearch_ccc_eval.py --baseline
 ```
 
-Set Bash timeout to 600000 (10 minutes). Parse the `<<<AUTORESEARCH_RESULT>>>`
-block from stdout to get the baseline MAE. This saves to
-`results/autoresearch_baseline.json` on the remote.
+### 5. Results log
+Append to `autoresearch_ccc_results.tsv` (same format as before).
 
-### 5. Initialize results log
+## Experiment Loop
 
-Create `autoresearch_results.tsv` with this header:
+Same as before:
+1. Edit `autoresearch_config.py` (change `use_groups` or HP, one thing at a time)
+2. Deploy + run: `./gpu.sh autoresearch_ccc_eval.py`
+3. Record result in TSV
+4. KEEP if ΔCCC > 0.01 AND p < 0.20
+5. Commit winners
+6. Validate with `--full` or `--loocv` every 5-10 KEEPs
 
-```
-timestamp	name	description	mae_mean	mae_std	pd_mae	improvement	wilcoxon_p	status	runtime_s
-```
-
-## Experiment Loop (repeat forever)
-
-### Step 1: Decide what to try
-
-Review `autoresearch_results.tsv`. Look at patterns:
-- Which HP directions improved MAE?
-- Which crashed or made things worse?
-- What hasn't been tried yet?
-
-Use the **Strategy** section below for guidance. Change **ONE thing at a time**.
-
-### Step 2: Edit autoresearch_config.py
-
-- Update `name` to a short identifier (e.g., `lr_0.01`, `leaves_63`)
-- Update `description` to explain what changed and why
-- Change exactly one parameter or a small coherent group
-- Keep `n_splits: 5` for fast exploration
-
-### Step 3: Deploy and run
-
-```bash
-./gpu.sh autoresearch_eval.py
-```
-
-**IMPORTANT:** Set Bash tool `timeout` to `600000` (10 minutes).
-
-The `gpu.sh` script:
-1. Rsyncs code to the remote (including your edited config)
-2. Runs `python3 -u autoresearch_eval.py` on the GPU server
-3. Streams output back to stdout
-
-### Step 4: Parse result
-
-Find `<<<AUTORESEARCH_RESULT>>>` ... `<<<END_RESULT>>>` in stdout.
-Extract the JSON between these markers. Key fields:
+## Understanding the Output
 
 ```json
 {
-  "status": "OK",           // or "CRASH"
-  "mae_mean": 8.12,         // lower is better
-  "mae_std": 0.45,
-  "pd_mae_mean": 9.34,      // PD-only MAE
-  "ccc_mean": 0.42,
-  "r_mean": 0.58,
+  "ccc_mean": 0.55,        // PRIMARY — higher is better
+  "ccc_std": 0.12,         // lower is better (stability)
+  "slope_mean": 0.45,      // closer to 1.0 is better
+  "mae_mean": 1.65,        // lower is better (secondary)
+  "n_features": 1752,      // how many features were used
+  "use_groups": ["v2"],    // which groups were active
   "comparison": {
-    "keep": true,            // harness recommendation
-    "improvement": 0.15,     // positive = better than baseline
+    "improvement": 0.02,    // CCC delta (positive = better)
     "wilcoxon_p": 0.08,
-    "reason": "KEEP: delta=+0.1500, p=0.0800"
+    "keep": true
   }
 }
 ```
 
-### Step 5: Record and decide
+## Key Constraints
 
-Append a row to `autoresearch_results.tsv` (tab-separated):
-
-```
-2026-03-13T14:30	lr_0.01	Lower learning rate	8.12	0.45	9.34	0.15	0.08	KEEP	145.2
-```
-
-**If KEEP** (`comparison.keep == true`):
-1. Commit: `git add autoresearch_config.py && git commit -m "autoresearch: NAME — DESCRIPTION"`
-2. The baseline auto-updates on the remote (harness does this automatically)
-
-**If DISCARD** (`comparison.keep == false`):
-1. Revert: `git checkout -- autoresearch_config.py`
-
-**If CRASH** (`status == "CRASH"`):
-1. Log as CRASH in TSV
-2. Read the error in `comparison.error`
-3. Fix `autoresearch_config.py` — usually a bad parameter value
-4. If 3 crashes in a row, stop and review
-
-### Step 6: Go to Step 1
-
-## Strategy: What to Try (Ordered by Expected Impact)
-
-### Phase 1: LightGBM core hyperparameters (~8 experiments)
-
-These have the highest impact-to-effort ratio. Try one at a time:
-
-| Parameter | Current | Try |
-|-----------|---------|-----|
-| learning_rate | 0.03 | 0.01, 0.02, 0.05, 0.1 |
-| num_leaves | 31 | 15, 20, 40, 63 |
-| max_depth | 6 | 4, 5, 7, 8, -1 |
-| reg_lambda | 3.0 | 0.5, 1.0, 5.0, 10.0 |
-| min_data_in_leaf | 20 | 5, 10, 30, 50 |
-
-After finding best individual values, combine the top 2-3 winners.
-
-### Phase 2: Feature selection (~4 experiments)
-
-| Parameter | Current | Try |
-|-----------|---------|-----|
-| feature_k | 300 | 100, 150, 200, 400, 500 |
-| use_cols | v2+fm | v2, fm (to check if fusion helps at 5-split) |
-
-### Phase 3: Regularization & subsampling (~4 experiments)
-
-| Parameter | Current | Try |
-|-----------|---------|-----|
-| colsample_bytree | 1.0 | 0.5, 0.7, 0.8, 0.9 |
-| subsample | 1.0 | 0.7, 0.8, 0.9 |
-| val_frac | 0.15 | 0.10, 0.20 |
-| early_stopping_rounds | 100 | 50, 150 |
-
-### Phase 4: Alternative objectives & ensembles (~3 experiments)
-
-| Change | Details |
-|--------|---------|
-| objective: "huber" | More robust to outliers than MAE |
-| objective: "mse" | Sometimes wins despite MAE metric |
-| ensemble: "average" | LGB+XGB average (no stacking overhead) |
-
-### Phase 5: Feature engineering (~3 experiments)
-
-| Change | Details |
-|--------|---------|
-| include_extra_prefixes: ["ext_"] | Extended covariates (height, weight, BMI) |
-| include_extra_prefixes: ["ix_"] | Interaction features |
-| custom_transform with log features | Log-transform all features before selection |
-
-### Phase 6: Grand combination & validation
-
-1. Combine all winners from phases 1-5
-2. Validate with `n_splits: 10` (slower but reliable)
-3. Try `ensemble: "stack"` with best config
-
-## Rules (DO NOT VIOLATE)
-
-1. **NEVER modify autoresearch_eval.py** — it is the fixed evaluation harness
-2. **NEVER modify shared modules** (data_split.py, project_paths.py, updrs_columns.py)
-3. **NEVER modify any run_*.py files** — those are separate experiments
-4. **NEVER pause to ask the human** — you are autonomous, decide and act
-5. **NEVER install new packages** — use only what's on the GPU server
-6. **ONE change at a time** — multi-variable changes hide causality
-7. **If 3 experiments crash in a row, STOP** — something systemic is wrong
-8. **Never use obs_subscore or hy as features** — ground truth leakage
-9. **Never z-normalize targets** — amplitude IS severity
-10. **Keep it fast** — use n_splits=5 for exploration, 10 only for final validation
-11. **Record EVERYTHING** — every experiment gets a TSV row
-12. **If MAE < 7.5, you may be at ceiling** — try 10-split validation to confirm
-
-## File Reference
-
-```
-autoresearch_eval.py       ← FIXED harness (DO NOT MODIFY)
-autoresearch_config.py     ← YOUR EXPERIMENT FILE (MODIFY THIS)
-autoresearch_program.md    ← THESE INSTRUCTIONS (YOU ARE HERE)
-autoresearch_results.tsv   ← EXPERIMENT LOG (APPEND ONLY)
-results/autoresearch_baseline.json  ← BASELINE (auto-managed)
-```
-
-## Troubleshooting
-
-**Experiment > 5 min:** Probably using `stack` or `n_splits: 10`.
-Switch to `lgb_only` + `n_splits: 5`.
-
-**CRASH: ModuleNotFoundError:** Bad import in config. Remove it.
-
-**CRASH: CUDA OOM:** Reduce n_estimators or try CPU-only (remove device="gpu").
-
-**All experiments DISCARD:** Local optimum. Try a bigger change
-(different ensemble, different feature set, custom_transform).
-
-**Baseline not found:** Run `./gpu.sh autoresearch_eval.py --baseline` first.
-
-**Wilcoxon p always 1.0:** Identical results to baseline. Your change had no effect.
-Try a bigger delta.
+- **N = 94 PD subjects** — small data, high variance
+- **Observable subscore range: 0-14 actual (max 24)** — predictions clipped [0, 24]
+- **Feature selection inside each fold** — prevents leakage
+- **CPU-only** — GPU is slower for N=94
+- **~20s per experiment** at 5 splits
+- **obs_target, obs_subscore, hy are FORBIDDEN features** (ground truth leakage)

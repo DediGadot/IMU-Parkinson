@@ -1,0 +1,122 @@
+[
+  {
+    "mae": 0.953,
+    "rmse": 1.207,
+    "r": 0.877,
+    "ccc": 0.865,
+    "cal_slope": 0.745,
+    "cal_intercept": 1.013,
+    "quartiles": [
+      {
+        "label": "Q1 (<2)",
+        "n": 16,
+        "bias": 1.651,
+        "mae": 1.651
+      },
+      {
+        "label": "Q2 (2-4)",
+        "n": 31,
+        "bias": 0.126,
+        "mae": 0.636
+      },
+      {
+        "label": "Q3 (4-5)",
+        "n": 19,
+        "bias": -0.737,
+        "mae": 0.844
+      },
+      {
+        "label": "Q4 (>=5)",
+        "n": 29,
+        "bias": -0.526,
+        "mae": 0.978
+      }
+    ],
+    "n": 95,
+    "eval_mode": "5split",
+    "runtime_s": 7153.9,
+    "proposal": "P5_ranking",
+    "target": "T1",
+    "phase": 5
+  },
+  {
+    "mae": 1.162,
+    "rmse": 1.517,
+    "r": 0.847,
+    "ccc": 0.831,
+    "cal_slope": 0.707,
+    "cal_intercept": 2.053,
+    "quartiles": [
+      {
+        "label": "Q1 (<4)",
+        "n": 12,
+        "bias": 2.829,
+        "mae": 2.829
+      },
+      {
+        "label": "Q2 (4-6)",
+        "n": 26,
+        "bias": 0.448,
+        "mae": 0.751
+      },
+      {
+        "label": "Q3 (6-8)",
+        "n": 27,
+        "bias": -0.659,
+        "mae": 0.973
+      },
+      {
+        "label": "Q4 (>=8)",
+        "n": 30,
+        "bias": -0.296,
+        "mae": 1.021
+      }
+    ],
+    "n": 95,
+    "eval_mode": "5split",
+    "runtime_s": 5241.9,
+    "proposal": "P5_ranking",
+    "target": "T2",
+    "phase": 5
+  },
+  {
+    "mae": 4.464,
+    "rmse": 5.806,
+    "r": 0.877,
+    "ccc": 0.807,
+    "cal_slope": 0.581,
+    "cal_intercept": 10.894,
+    "quartiles": [
+      {
+        "label": "Q1 (<17)",
+        "n": 23,
+        "bias": 7.644,
+        "mae": 7.644
+      },
+      {
+        "label": "Q2 (17-25)",
+        "n": 23,
+        "bias": 0.246,
+        "mae": 2.524
+      },
+      {
+        "label": "Q3 (25-31)",
+        "n": 24,
+        "bias": -2.71,
+        "mae": 3.564
+      },
+      {
+        "label": "Q4 (>=31)",
+        "n": 25,
+        "bias": -3.729,
+        "mae": 4.187
+      }
+    ],
+    "n": 95,
+    "eval_mode": "5split",
+    "runtime_s": 5072.5,
+    "proposal": "P5_ranking",
+    "target": "T3",
+    "phase": 5
+  }
+]

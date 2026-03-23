@@ -1,0 +1,658 @@
+======================================================================
+HYPERPARAMETER SENSITIVITY ANALYSIS
+======================================================================
+
+[1/6] Feature extraction...
+Loaded split: 142 dev + 36 test subjects
+  Walkway loaded: 135 subjects, 31 metrics
+  Distilled 31 walkway cols for 178 subjects
+  150 features selected, 142 dev, 36 test subjects
+  Train: 121, Val: 21, Test: 36
+
+======================================================================
+BOOSTER: LIGHTGBM
+======================================================================
+
+[2/6] Latin Hypercube Sampling (lightgbm)...
+  Generated 100 configs across 8 HPs
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[339]	valid_0's l1: 9.45535
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1306]	valid_0's l1: 10.0673
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[1458]	valid_0's l1: 9.76284
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[826]	valid_0's l1: 9.67177
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[155]	valid_0's l1: 10.8304
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 12.3333
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[117]	valid_0's l1: 9.54593
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[939]	valid_0's l1: 10.689
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[136]	valid_0's l1: 11.0573
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[186]	valid_0's l1: 10.135
+  [ 10/100] MAE=8.64 r=0.795 (95.6s) | Best so far: 8.18
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 12.3333
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[88]	valid_0's l1: 9.43298
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[1472]	valid_0's l1: 9.68647
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[953]	valid_0's l1: 10.8668
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[2703]	valid_0's l1: 10.609
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[1420]	valid_0's l1: 11.0105
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[510]	valid_0's l1: 11.6814
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[177]	valid_0's l1: 10.1866
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[204]	valid_0's l1: 10.3092
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[491]	valid_0's l1: 10.0914
+  [ 20/100] MAE=8.91 r=0.789 (242.8s) | Best so far: 8.18
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 12.3333
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[183]	valid_0's l1: 10.5445
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1294]	valid_0's l1: 10.316
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[117]	valid_0's l1: 9.51481
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[574]	valid_0's l1: 9.87801
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[470]	valid_0's l1: 10.9025
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[1500]	valid_0's l1: 10.2475
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[69]	valid_0's l1: 9.06134
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[119]	valid_0's l1: 9.35592
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[220]	valid_0's l1: 9.38672
+  [ 30/100] MAE=9.27 r=0.746 (0.2s) | Best so far: 8.18
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[815]	valid_0's l1: 9.55649
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[188]	valid_0's l1: 9.45475
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[259]	valid_0's l1: 9.08082
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[970]	valid_0's l1: 10.1998
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1420]	valid_0's l1: 10.3886
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[270]	valid_0's l1: 10.0597
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[278]	valid_0's l1: 10.1743
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[557]	valid_0's l1: 9.13143
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[2999]	valid_0's l1: 9.66361
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[839]	valid_0's l1: 10.2228
+  [ 40/100] MAE=8.72 r=0.764 (0.7s) | Best so far: 8.09
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[963]	valid_0's l1: 9.87793
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[325]	valid_0's l1: 10.2188
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[367]	valid_0's l1: 9.88015
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[691]	valid_0's l1: 9.68168
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[433]	valid_0's l1: 9.81755
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 12.3333
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[500]	valid_0's l1: 10.5838
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[661]	valid_0's l1: 9.96603
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1187]	valid_0's l1: 10.3126
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[125]	valid_0's l1: 9.78391
+  [ 50/100] MAE=8.19 r=0.795 (0.3s) | Best so far: 8.09
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 12.3333
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[630]	valid_0's l1: 10.244
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[556]	valid_0's l1: 10.1702
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[557]	valid_0's l1: 9.65891
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[2911]	valid_0's l1: 11.0152
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[172]	valid_0's l1: 10.3227
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1007]	valid_0's l1: 10.5591
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1062]	valid_0's l1: 9.64105
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[521]	valid_0's l1: 10.2752
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[599]	valid_0's l1: 10.2174
+  [ 60/100] MAE=8.76 r=0.794 (0.4s) | Best so far: 8.09
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[170]	valid_0's l1: 11.6192
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[498]	valid_0's l1: 10.4871
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[500]	valid_0's l1: 11.3065
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 12.3333
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[133]	valid_0's l1: 9.47512
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 12.3333
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[443]	valid_0's l1: 10.7229
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[282]	valid_0's l1: 10.0474
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[963]	valid_0's l1: 10.2062
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[120]	valid_0's l1: 9.5546
+  [ 70/100] MAE=8.74 r=0.766 (0.8s) | Best so far: 8.09
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[554]	valid_0's l1: 9.14271
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[948]	valid_0's l1: 10.154
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[510]	valid_0's l1: 11.6814
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[169]	valid_0's l1: 10.1177
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[804]	valid_0's l1: 9.3541
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[770]	valid_0's l1: 10.2278
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[497]	valid_0's l1: 9.9596
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1227]	valid_0's l1: 10.0677
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[541]	valid_0's l1: 10.9489
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[48]	valid_0's l1: 9.4919
+  [ 80/100] MAE=8.96 r=0.742 (0.9s) | Best so far: 8.09
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1405]	valid_0's l1: 9.86181
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 12.3333
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1123]	valid_0's l1: 10.1146
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[498]	valid_0's l1: 9.9696
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[49]	valid_0's l1: 9.47546
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[2163]	valid_0's l1: 10.0176
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[407]	valid_0's l1: 9.11856
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[993]	valid_0's l1: 10.6084
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[572]	valid_0's l1: 10.4292
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[498]	valid_0's l1: 10.8781
+  [ 90/100] MAE=10.56 r=0.568 (0.1s) | Best so far: 8.09
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[101]	valid_0's l1: 9.48819
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[122]	valid_0's l1: 9.54429
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[325]	valid_0's l1: 10.0335
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[234]	valid_0's l1: 10.1236
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[497]	valid_0's l1: 9.66612
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[90]	valid_0's l1: 9.88979
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[498]	valid_0's l1: 10.9441
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[666]	valid_0's l1: 10.7341
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[490]	valid_0's l1: 10.0737
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[215]	valid_0's l1: 9.15296
+  [100/100] MAE=8.94 r=0.726 (2.6s) | Best so far: 8.00
+
+  LHS Best:  MAE=8.00 r=0.811
+  LHS Worst: MAE=12.19 r=nan
+  LHS Mean:  MAE=9.29 +/- 1.12
+
+[3/6] One-at-a-time sensitivity (lightgbm)...
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[573]	valid_0's l1: 10.3221
+    OAT colsample_bytree=0.5: MAE=8.68 r=0.771 (0.9s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[399]	valid_0's l1: 10.5009
+    OAT colsample_bytree=0.7: MAE=8.73 r=0.784 (0.4s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT colsample_bytree=0.8: MAE=8.50 r=0.789 (0.3s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[775]	valid_0's l1: 10.2918
+    OAT colsample_bytree=0.9: MAE=8.45 r=0.759 (2.5s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[304]	valid_0's l1: 10.2771
+    OAT colsample_bytree=1.0: MAE=8.79 r=0.755 (0.3s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1292]	valid_0's l1: 10.3669
+    OAT learning_rate=0.005: MAE=8.83 r=0.776 (1.1s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[747]	valid_0's l1: 10.3505
+    OAT learning_rate=0.01: MAE=8.86 r=0.768 (0.5s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT learning_rate=0.03: MAE=8.50 r=0.789 (2.6s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1134]	valid_0's l1: 9.7612
+    OAT learning_rate=0.05: MAE=8.31 r=0.792 (0.7s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[218]	valid_0's l1: 9.84829
+    OAT learning_rate=0.1: MAE=8.80 r=0.740 (0.1s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[447]	valid_0's l1: 10.0267
+    OAT max_depth=3: MAE=8.58 r=0.788 (0.8s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT max_depth=4: MAE=8.50 r=0.789 (0.5s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT max_depth=5: MAE=8.50 r=0.789 (0.3s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT max_depth=6: MAE=8.50 r=0.789 (2.3s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT max_depth=8: MAE=8.50 r=0.789 (0.5s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT max_depth=10: MAE=8.50 r=0.789 (0.3s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[244]	valid_0's l1: 9.69974
+    OAT min_child_samples=5: MAE=8.29 r=0.808 (0.7s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[281]	valid_0's l1: 9.69191
+    OAT min_child_samples=10: MAE=8.65 r=0.778 (0.5s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT min_child_samples=20: MAE=8.50 r=0.789 (0.3s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1584]	valid_0's l1: 10.1519
+    OAT min_child_samples=50: MAE=10.05 r=0.592 (0.2s)
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[480]	valid_0's l1: 9.99808
+    OAT n_estimators=500: MAE=8.60 r=0.788 (2.0s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT n_estimators=1000: MAE=8.50 r=0.789 (0.8s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT n_estimators=1500: MAE=8.50 r=0.789 (0.3s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT n_estimators=2000: MAE=8.50 r=0.789 (0.3s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT n_estimators=3000: MAE=8.50 r=0.789 (0.8s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT num_leaves=15: MAE=8.50 r=0.789 (0.5s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT num_leaves=31: MAE=8.50 r=0.789 (1.4s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT num_leaves=63: MAE=8.50 r=0.789 (1.1s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT num_leaves=127: MAE=8.50 r=0.789 (0.5s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[372]	valid_0's l1: 10.4251
+    OAT reg_lambda=0.1: MAE=8.53 r=0.804 (0.7s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[570]	valid_0's l1: 10.0533
+    OAT reg_lambda=0.5: MAE=8.75 r=0.759 (0.4s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[284]	valid_0's l1: 10.4679
+    OAT reg_lambda=1.0: MAE=8.98 r=0.756 (0.1s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT reg_lambda=3.0: MAE=8.50 r=0.789 (2.3s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1153]	valid_0's l1: 9.65209
+    OAT reg_lambda=5.0: MAE=8.49 r=0.776 (0.6s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[816]	valid_0's l1: 9.92491
+    OAT reg_lambda=10.0: MAE=8.32 r=0.800 (0.3s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1019]	valid_0's l1: 9.26359
+    OAT subsample=0.5: MAE=8.03 r=0.792 (0.9s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[498]	valid_0's l1: 10.0314
+    OAT subsample=0.7: MAE=8.69 r=0.758 (0.2s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[835]	valid_0's l1: 9.89838
+    OAT subsample=0.8: MAE=8.50 r=0.789 (2.6s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[280]	valid_0's l1: 9.9862
+    OAT subsample=0.9: MAE=8.73 r=0.785 (0.1s)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[817]	valid_0's l1: 10.127
+    OAT subsample=1.0: MAE=8.63 r=0.782 (0.6s)
+
+[4/6] Global sensitivity analysis (lightgbm)...
+  RF R2 (predicting MAE from HPs): 0.990
+
+  SENSITIVITY RANKING (Pearson |r| with MAE):
+    1. min_child_samples      Pearson=+0.810 (p=0.000)  Partial=+0.820  RF=0.738
+    2. learning_rate          Pearson=-0.228 (p=0.023)  Partial=-0.182  RF=0.040
+    3. n_estimators           Pearson=-0.150 (p=0.137)  Partial=-0.290  RF=0.017
+    4. max_depth              Pearson=-0.113 (p=0.264)  Partial=-0.055  RF=0.007
+    5. reg_lambda             Pearson=-0.079 (p=0.435)  Partial=+0.103  RF=0.009
+    6. subsample              Pearson=-0.044 (p=0.666)  Partial=-0.089  RF=0.170
+    7. num_leaves             Pearson=-0.015 (p=0.882)  Partial=-0.079  RF=0.011
+    8. colsample_bytree       Pearson=-0.000 (p=0.998)  Partial=+0.018  RF=0.009
+
+  ROBUSTNESS:
+    MAE < 8.5 (within ~0.5 of best):  16%
+    MAE < 9.0 (reasonable):            59%
+    MAE > 10.0 (bad):                  18%
+
+[5/6] Generating figures (lightgbm)...
+  Saved: /root/pd-imu/figures/hp_sensitivity_matrix.png
+  Saved: /root/pd-imu/figures/hp_marginal_effects.png
+  Saved: /root/pd-imu/figures/hp_interactions.png
+  Saved: /root/pd-imu/figures/hp_robustness.png
+
+======================================================================
+BOOSTER: XGBOOST
+======================================================================
+
+[2/6] Latin Hypercube Sampling (xgboost)...
+  Generated 100 configs across 7 HPs
+  [ 10/100] MAE=9.34 r=0.678 (0.6s) | Best so far: 8.34
+  [ 20/100] MAE=8.26 r=0.760 (1.8s) | Best so far: 8.12
+  [ 30/100] MAE=9.05 r=0.749 (3.6s) | Best so far: 8.12
+  [ 40/100] MAE=8.68 r=0.750 (3.0s) | Best so far: 8.12
+  [ 50/100] MAE=9.10 r=0.704 (7.7s) | Best so far: 8.12
+  [ 60/100] MAE=9.31 r=0.676 (4.6s) | Best so far: 8.12
+  [ 70/100] MAE=8.46 r=0.765 (3.6s) | Best so far: 8.12
+  [ 80/100] MAE=9.85 r=0.621 (5.0s) | Best so far: 8.12
+  [ 90/100] MAE=8.95 r=0.773 (9.1s) | Best so far: 8.12
+  [100/100] MAE=8.62 r=0.738 (0.6s) | Best so far: 8.12
+
+  LHS Best:  MAE=8.12 r=0.829
+  LHS Worst: MAE=10.19 r=0.578
+  LHS Mean:  MAE=8.95 +/- 0.35
+
+[3/6] One-at-a-time sensitivity (xgboost)...
+    OAT colsample_bytree=0.5: MAE=8.82 r=0.783 (2.8s)
+    OAT colsample_bytree=0.7: MAE=8.96 r=0.735 (2.2s)
+    OAT colsample_bytree=0.8: MAE=9.08 r=0.782 (4.1s)
+    OAT colsample_bytree=0.9: MAE=8.58 r=0.767 (4.5s)
+    OAT colsample_bytree=1.0: MAE=8.71 r=0.764 (4.6s)
+    OAT learning_rate=0.005: MAE=9.01 r=0.782 (12.5s)
+    OAT learning_rate=0.01: MAE=8.99 r=0.761 (8.4s)
+    OAT learning_rate=0.03: MAE=9.08 r=0.782 (2.2s)
+    OAT learning_rate=0.05: MAE=8.80 r=0.750 (7.5s)
+    OAT learning_rate=0.1: MAE=8.69 r=0.741 (6.4s)
+    OAT max_depth=3: MAE=8.68 r=0.776 (2.7s)
+    OAT max_depth=4: MAE=8.95 r=0.756 (1.9s)
+    OAT max_depth=5: MAE=8.98 r=0.757 (3.3s)
+    OAT max_depth=6: MAE=9.08 r=0.782 (3.9s)
+    OAT max_depth=8: MAE=8.91 r=0.751 (2.0s)
+    OAT max_depth=10: MAE=9.04 r=0.756 (3.6s)
+    OAT n_estimators=500: MAE=9.08 r=0.782 (2.7s)
+    OAT n_estimators=1000: MAE=9.08 r=0.782 (3.3s)
+    OAT n_estimators=1500: MAE=9.08 r=0.782 (3.5s)
+    OAT n_estimators=2000: MAE=9.08 r=0.782 (4.1s)
+    OAT n_estimators=3000: MAE=9.08 r=0.782 (1.8s)
+    OAT reg_alpha=0.0: MAE=8.83 r=0.748 (4.6s)
+    OAT reg_alpha=0.1: MAE=9.08 r=0.782 (3.3s)
+    OAT reg_alpha=0.5: MAE=8.99 r=0.766 (3.9s)
+    OAT reg_alpha=1.0: MAE=9.12 r=0.737 (4.6s)
+    OAT reg_lambda=0.1: MAE=8.89 r=0.760 (2.1s)
+    OAT reg_lambda=0.5: MAE=9.16 r=0.733 (6.6s)
+    OAT reg_lambda=1.0: MAE=9.02 r=0.720 (6.7s)
+    OAT reg_lambda=3.0: MAE=9.08 r=0.782 (3.7s)
+    OAT reg_lambda=5.0: MAE=9.18 r=0.745 (4.4s)
+    OAT reg_lambda=10.0: MAE=9.35 r=0.717 (1.9s)
+    OAT subsample=0.5: MAE=8.99 r=0.732 (6.7s)
+    OAT subsample=0.7: MAE=8.94 r=0.788 (1.9s)
+    OAT subsample=0.8: MAE=9.08 r=0.782 (3.2s)
+    OAT subsample=0.9: MAE=8.87 r=0.743 (5.0s)
+    OAT subsample=1.0: MAE=9.15 r=0.741 (3.8s)
+
+[4/6] Global sensitivity analysis (xgboost)...
+  RF R2 (predicting MAE from HPs): 0.844
+
+  SENSITIVITY RANKING (Pearson |r| with MAE):
+    1. n_estimators           Pearson=+0.137 (p=0.175)  Partial=+0.122  RF=0.170
+    2. colsample_bytree       Pearson=-0.094 (p=0.353)  Partial=-0.089  RF=0.141
+    3. reg_lambda             Pearson=-0.069 (p=0.495)  Partial=-0.038  RF=0.093
+    4. learning_rate          Pearson=-0.059 (p=0.561)  Partial=-0.058  RF=0.258
+    5. reg_alpha              Pearson=-0.043 (p=0.669)  Partial=-0.064  RF=0.101
+    6. max_depth              Pearson=-0.000 (p=0.997)  Partial=+0.013  RF=0.138
+    7. subsample              Pearson=+0.000 (p=0.997)  Partial=-0.000  RF=0.098
+
+  ROBUSTNESS:
+    MAE < 8.5 (within ~0.5 of best):  8%
+    MAE < 9.0 (reasonable):            63%
+    MAE > 10.0 (bad):                  1%
+
+[5/6] Generating figures (xgboost)...
+  Saved: /root/pd-imu/figures/hp_sensitivity_matrix_xgboost.png
+  Saved: /root/pd-imu/figures/hp_marginal_effects_xgboost.png
+  Saved: /root/pd-imu/figures/hp_interactions_xgboost.png
+  Saved: /root/pd-imu/figures/hp_robustness_xgboost.png
+
+[6/6] Saving results...
+  Saved: /root/pd-imu/hp_sensitivity_results.json
+
+======================================================================
+HP SENSITIVITY ANALYSIS COMPLETE (181.0 min)
+======================================================================
+
+--- LIGHTGBM ---
+Configs tested: 100 (Latin Hypercube)
+Best MAE:  8.00
+Worst MAE: 12.19
+Mean MAE:  9.29 +/- 1.12
+
+SENSITIVITY RANKING (most to least sensitive):
+  1. min_child_samples      Corr=+0.810  Best=20  Range=[5, 20]
+  2. learning_rate          Corr=-0.228  Best=0.03  Range=[0.03, 0.1]
+  3. n_estimators           Corr=-0.150  Best=2000  Range=[500, 3000]
+  4. max_depth              Corr=-0.113  Best=6  Range=[3, 10]
+  5. reg_lambda             Corr=-0.079  Best=3.0  Range=[0.1, 10.0]
+  6. subsample              Corr=-0.044  Best=0.8  Range=[0.5, 0.8]
+  7. num_leaves             Corr=-0.015  Best=31  Range=[15, 127]
+  8. colsample_bytree       Corr=-0.000  Best=0.8  Range=[0.5, 1.0]
+
+ROBUSTNESS:
+  MAE < 8.5 (within ~0.5 of best): 16% of configs
+  MAE < 9.0 (reasonable):           59% of configs
+  MAE > 10.0 (bad):                 18% of configs
+
+RECOMMENDATION:
+  The model is ROBUST to HP choices.
+  Critical HPs: min_child_samples, learning_rate
+  Safe HPs:     n_estimators, max_depth, reg_lambda, subsample, num_leaves, colsample_bytree
+
+--- XGBOOST ---
+Configs tested: 100 (Latin Hypercube)
+Best MAE:  8.12
+Worst MAE: 10.19
+Mean MAE:  8.95 +/- 0.35
+
+SENSITIVITY RANKING (most to least sensitive):
+  1. n_estimators           Corr=+0.137  Best=2000  Range=[500, 3000]
+  2. colsample_bytree       Corr=-0.094  Best=0.8  Range=[0.5, 1.0]
+  3. reg_lambda             Corr=-0.069  Best=3.0  Range=[0.1, 10.0]
+  4. learning_rate          Corr=-0.059  Best=0.03  Range=[0.005, 0.1]
+  5. reg_alpha              Corr=-0.043  Best=0.1  Range=[0.0, 1.0]
+  6. max_depth              Corr=-0.000  Best=6  Range=[3, 10]
+  7. subsample              Corr=+0.000  Best=0.8  Range=[0.5, 1.0]
+
+ROBUSTNESS:
+  MAE < 8.5 (within ~0.5 of best): 8% of configs
+  MAE < 9.0 (reasonable):           63% of configs
+  MAE > 10.0 (bad):                 1% of configs
+
+RECOMMENDATION:
+  The model is ROBUST to HP choices. No HP has |r| > 0.2 with MAE.
+
+Results: /root/pd-imu/hp_sensitivity_results.json
+Figures: /root/pd-imu/figures/hp_*.png

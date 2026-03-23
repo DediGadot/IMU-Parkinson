@@ -1,0 +1,104 @@
+PD-ONLY EXPERIMENTS -- phase=6
+N_CORES=11
+Subjects: 178 (98 PD, 80 HC)
+V2 cache: (178, 1877)
+[cache] Loading recordings from /root/pd-imu/results/rocket_recordings.npz
+  1417 recordings
+[cache] Loading FM embeddings from /root/pd-imu/results/fm_embeddings.npz
+FM features per subject: 768
+
+======================================================================
+PHASE 6: PD-Only Sensor Ablation (FM re-extracted per config)
+======================================================================
+
+--- Config: all_13 (13 sensors) ---
+  Channels: 26 ([0, 1, 2, 3, 4, 5]...)
+  rec_sub shape: (1417, 26, 1000)
+Loading AutonLab/MOMENT-1-base on cuda...
+  Model loaded in 1.7s
+  Input: (1417, 26, 512) (truncated to 512, z-normalized)
+  FM: 320/1417 (13s, 25.6 rec/s, ETA=0.7m)
+  FM: 640/1417 (25s, 25.8 rec/s, ETA=0.5m)
+  FM: 960/1417 (37s, 25.8 rec/s, ETA=0.3m)
+  FM: 1280/1417 (50s, 25.8 rec/s, ETA=0.1m)
+  FM: 1417/1417 (55s, 25.8 rec/s, ETA=0.0m)
+  FM embeddings: (1417, 768), cached to /root/pd-imu/results/fm_embeddings_all_13.npz
+  Extraction time: 0.9m
+  v2 features: 1721/1752, FM features: 768
+  all_13: MAE=7.723+/-0.779, CCC=0.184
+
+--- Config: wrists_2 (2 sensors) ---
+  Channels: 4 ([2, 3, 4, 5]...)
+  rec_sub shape: (1417, 4, 1000)
+Loading AutonLab/MOMENT-1-base on cuda...
+  Model loaded in 1.6s
+  Input: (1417, 4, 512) (truncated to 512, z-normalized)
+  FM: 320/1417 (2s, 169.4 rec/s, ETA=0.1m)
+  FM: 640/1417 (4s, 169.3 rec/s, ETA=0.1m)
+  FM: 960/1417 (6s, 169.2 rec/s, ETA=0.0m)
+  FM: 1280/1417 (8s, 169.0 rec/s, ETA=0.0m)
+  FM: 1417/1417 (8s, 169.1 rec/s, ETA=0.0m)
+  FM embeddings: (1417, 768), cached to /root/pd-imu/results/fm_embeddings_wrists_2.npz
+  Extraction time: 0.2m
+  v2 features: 247/1752, FM features: 768
+  wrists_2: MAE=7.805+/-0.631, CCC=0.102
+
+--- Config: lower_back_1 (1 sensors) ---
+  Channels: 2 ([0, 1]...)
+  rec_sub shape: (1417, 2, 1000)
+Loading AutonLab/MOMENT-1-base on cuda...
+  Model loaded in 1.5s
+  Input: (1417, 2, 512) (truncated to 512, z-normalized)
+  FM: 320/1417 (1s, 349.1 rec/s, ETA=0.1m)
+  FM: 640/1417 (2s, 348.8 rec/s, ETA=0.0m)
+  FM: 960/1417 (3s, 348.4 rec/s, ETA=0.0m)
+  FM: 1280/1417 (4s, 348.3 rec/s, ETA=0.0m)
+  FM: 1417/1417 (4s, 348.5 rec/s, ETA=0.0m)
+  FM embeddings: (1417, 768), cached to /root/pd-imu/results/fm_embeddings_lower_back_1.npz
+  Extraction time: 0.1m
+  v2 features: 304/1752, FM features: 768
+  lower_back_1: MAE=8.116+/-0.758, CCC=0.048
+
+--- Config: wrists_back_3 (3 sensors) ---
+  Channels: 6 ([0, 1, 2, 3, 4, 5]...)
+  rec_sub shape: (1417, 6, 1000)
+Loading AutonLab/MOMENT-1-base on cuda...
+  Model loaded in 1.5s
+  Input: (1417, 6, 512) (truncated to 512, z-normalized)
+  FM: 320/1417 (3s, 112.3 rec/s, ETA=0.2m)
+  FM: 640/1417 (6s, 112.2 rec/s, ETA=0.1m)
+  FM: 960/1417 (9s, 112.1 rec/s, ETA=0.1m)
+  FM: 1280/1417 (11s, 112.0 rec/s, ETA=0.0m)
+  FM: 1417/1417 (13s, 112.0 rec/s, ETA=0.0m)
+  FM embeddings: (1417, 768), cached to /root/pd-imu/results/fm_embeddings_wrists_back_3.npz
+  Extraction time: 0.2m
+  v2 features: 532/1752, FM features: 768
+  wrists_back_3: MAE=7.892+/-0.637, CCC=0.113
+
+--- Config: minimal_5 (5 sensors) ---
+  Channels: 10 ([0, 1, 2, 3, 4, 5]...)
+  rec_sub shape: (1417, 10, 1000)
+Loading AutonLab/MOMENT-1-base on cuda...
+  Model loaded in 1.5s
+  Input: (1417, 10, 512) (truncated to 512, z-normalized)
+  FM: 320/1417 (5s, 67.7 rec/s, ETA=0.3m)
+  FM: 640/1417 (9s, 67.6 rec/s, ETA=0.2m)
+  FM: 960/1417 (14s, 67.6 rec/s, ETA=0.1m)
+  FM: 1280/1417 (19s, 67.5 rec/s, ETA=0.0m)
+  FM: 1417/1417 (21s, 67.5 rec/s, ETA=0.0m)
+  FM embeddings: (1417, 768), cached to /root/pd-imu/results/fm_embeddings_minimal_5.npz
+  Extraction time: 0.4m
+  v2 features: 818/1752, FM features: 768
+  minimal_5: MAE=7.675+/-0.841, CCC=0.152
+
+--- Paired bootstrap: config vs all_13 ---
+  wrists_2 vs all_13: diff=0.086 [-0.210, 0.366] p=0.5548
+  lower_back_1 vs all_13: diff=0.396 [0.075, 0.767] p=0.0136
+  wrists_back_3 vs all_13: diff=0.170 [-0.102, 0.423] p=0.2020
+  minimal_5 vs all_13: diff=-0.043 [-0.423, 0.288] p=0.8512
+
+Phase 6 done in 4.9m
+
+======================================================================
+TOTAL RUNTIME: 5.0 minutes
+Results saved to results/pd_only_*.json

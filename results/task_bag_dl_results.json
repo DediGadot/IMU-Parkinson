@@ -1,0 +1,33 @@
+{
+  "proposal": "P2_task_bag_dl",
+  "status": "PARTIAL",
+  "note": "DL training succeeded after NaN fix (4th attempt). Late fusion killed at step 6/6 due to CPU contention. Key DL results captured.",
+  "nan_fix": {
+    "root_cause": "Raw IMU scale mismatch (±70 raw vs model ±0.2 output) → gradient explosion",
+    "fix": "Per-channel z-norm, NaN→0, clip ±10, kaiming init, reduced dims 128→64, LR 1e-4",
+    "norm_stats": {"mean": 0.021, "std": 0.913}
+  },
+  "training": {
+    "subjects_with_bags": 174,
+    "windows_per_subject": {"min": 21, "max": 100, "mean": 75},
+    "epochs": 80,
+    "epoch_10": {"loss": 50.412, "val_obs_mae": 4.92, "best_mae": 4.88},
+    "epoch_20": {"loss": 46.785, "val_obs_mae": 4.88},
+    "epoch_30": {"loss": 38.081, "val_obs_mae": 4.98, "best_mae": 4.83}
+  },
+  "dl_head_results": {
+    "observable_composite": {"mae": 4.80, "r": 0.103},
+    "total_score": {"mae": 12.26, "r": 0.184},
+    "item_12_postural_stability": {"mae": 0.87, "r": -0.302},
+    "item_13_posture": {"mae": 0.63, "r": 0.255},
+    "item_14_body_bradykinesia": {"mae": 0.71, "r": -0.314}
+  },
+  "attention_analysis": {
+    "arising_from_chair": "HurriedPace (0.161)",
+    "posture": "TUG (0.086)",
+    "body_bradykinesia": "TUG (0.050)",
+    "total": "TUG (0.085)"
+  },
+  "late_fusion": "not_completed_killed",
+  "verdict": "PARTIAL — DL trains successfully after NaN fix but underperforms handcrafted features (obs 4.80 vs 3.21 baseline). Attention patterns clinically sensible. DL alone not competitive at N=178 but NaN is fixable with proper normalization."
+}

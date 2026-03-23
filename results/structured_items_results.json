@@ -1,0 +1,473 @@
+{
+  "proposal": "P1_structured_items",
+  "description": "Stacked multi-target ordinal item models with Ridge refinement",
+  "item_results": {
+    "1": {
+      "name": "Speech",
+      "max_score": 4,
+      "cont_mae": 0.499,
+      "cont_r": 0.371,
+      "ordinal_mae": 0.412,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5
+      ],
+      "refined_mae": 0.424
+    },
+    "2": {
+      "name": "Facial expression",
+      "max_score": 4,
+      "cont_mae": 0.664,
+      "cont_r": 0.536,
+      "ordinal_mae": 0.647,
+      "thresholds": [
+        0.477,
+        1.519,
+        2.57,
+        3.598
+      ],
+      "refined_mae": 0.614
+    },
+    "3": {
+      "name": "Rigidity (5 sites)",
+      "max_score": 20,
+      "cont_mae": 2.112,
+      "cont_r": 0.466,
+      "ordinal_mae": 2.147,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5,
+        4.5,
+        5.5,
+        6.5,
+        7.5,
+        8.5,
+        9.5,
+        10.5,
+        11.5,
+        12.5,
+        13.5,
+        14.5,
+        15.5,
+        16.5,
+        17.5,
+        18.5,
+        19.5
+      ],
+      "refined_mae": 2.25
+    },
+    "4": {
+      "name": "Finger tapping (R/L)",
+      "max_score": 8,
+      "cont_mae": 1.061,
+      "cont_r": 0.555,
+      "ordinal_mae": 1.0,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5,
+        4.5,
+        5.5,
+        6.5,
+        7.5
+      ],
+      "refined_mae": 1.057
+    },
+    "5": {
+      "name": "Hand movements (R/L)",
+      "max_score": 8,
+      "cont_mae": 1.201,
+      "cont_r": 0.423,
+      "ordinal_mae": 1.235,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5,
+        4.5,
+        5.5,
+        6.5,
+        7.5
+      ],
+      "refined_mae": 1.03
+    },
+    "6": {
+      "name": "Pronation-supination (R/L)",
+      "max_score": 8,
+      "cont_mae": 1.126,
+      "cont_r": 0.272,
+      "ordinal_mae": 1.059,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5,
+        4.5,
+        5.5,
+        6.5,
+        7.5
+      ],
+      "refined_mae": 1.047
+    },
+    "7": {
+      "name": "Toe tapping (R/L)",
+      "max_score": 8,
+      "cont_mae": 1.097,
+      "cont_r": 0.69,
+      "ordinal_mae": 1.118,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5,
+        4.5,
+        5.5,
+        6.5,
+        7.5
+      ],
+      "refined_mae": 0.899
+    },
+    "8": {
+      "name": "Leg agility (R/L)",
+      "max_score": 8,
+      "cont_mae": 1.124,
+      "cont_r": 0.435,
+      "ordinal_mae": 1.147,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5,
+        4.5,
+        5.5,
+        6.5,
+        7.5
+      ],
+      "refined_mae": 1.039
+    },
+    "9": {
+      "name": "Arising from chair",
+      "max_score": 4,
+      "cont_mae": 0.265,
+      "cont_r": 0.492,
+      "ordinal_mae": 0.265,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5
+      ],
+      "refined_mae": 0.303
+    },
+    "10": {
+      "name": "Gait",
+      "max_score": 4,
+      "cont_mae": 0.523,
+      "cont_r": 0.74,
+      "ordinal_mae": 0.412,
+      "thresholds": [
+        0.517,
+        1.481,
+        2.586,
+        3.358
+      ],
+      "refined_mae": 0.467
+    },
+    "11": {
+      "name": "Freezing of gait",
+      "max_score": 4,
+      "cont_mae": 0.235,
+      "cont_r": 0.0,
+      "ordinal_mae": 0.235,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5
+      ],
+      "refined_mae": 0.271
+    },
+    "12": {
+      "name": "Postural stability",
+      "max_score": 4,
+      "cont_mae": 0.696,
+      "cont_r": 0.447,
+      "ordinal_mae": 0.706,
+      "thresholds": [
+        0.525,
+        1.5,
+        2.5,
+        3.5
+      ],
+      "refined_mae": 0.578
+    },
+    "13": {
+      "name": "Posture",
+      "max_score": 4,
+      "cont_mae": 0.483,
+      "cont_r": 0.534,
+      "ordinal_mae": 0.441,
+      "thresholds": [
+        0.547,
+        1.493,
+        2.452,
+        3.428
+      ],
+      "refined_mae": 0.543
+    },
+    "14": {
+      "name": "Body bradykinesia",
+      "max_score": 4,
+      "cont_mae": 0.645,
+      "cont_r": 0.398,
+      "ordinal_mae": 0.647,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5
+      ],
+      "refined_mae": 0.435
+    },
+    "15": {
+      "name": "Postural tremor (R/L)",
+      "max_score": 8,
+      "cont_mae": 0.325,
+      "cont_r": 0.114,
+      "ordinal_mae": 0.324,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5,
+        4.5,
+        5.5,
+        6.5,
+        7.5
+      ],
+      "refined_mae": 0.461
+    },
+    "16": {
+      "name": "Kinetic tremor (R/L)",
+      "max_score": 8,
+      "cont_mae": 0.658,
+      "cont_r": 0.378,
+      "ordinal_mae": 0.588,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5,
+        4.5,
+        5.5,
+        6.5,
+        7.5
+      ],
+      "refined_mae": 0.585
+    },
+    "17": {
+      "name": "Rest tremor amplitude (5 sites)",
+      "max_score": 20,
+      "cont_mae": 0.813,
+      "cont_r": 0.067,
+      "ordinal_mae": 0.794,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5,
+        4.5,
+        5.5,
+        6.5,
+        7.5,
+        8.5,
+        9.5,
+        10.5,
+        11.5,
+        12.5,
+        13.5,
+        14.5,
+        15.5,
+        16.5,
+        17.5,
+        18.5,
+        19.5
+      ],
+      "refined_mae": 1.065
+    },
+    "18": {
+      "name": "Constancy of rest tremor",
+      "max_score": 4,
+      "cont_mae": 0.503,
+      "cont_r": 0.166,
+      "ordinal_mae": 0.5,
+      "thresholds": [
+        0.5,
+        1.5,
+        2.5,
+        3.5
+      ],
+      "refined_mae": 0.777
+    }
+  },
+  "composite_results": {
+    "observable_gait": {
+      "items": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "max_score": 40,
+      "stage1_mae": 3.992,
+      "stage1_r": 0.807,
+      "stage2_mae": 2.856,
+      "stage2_r": 0.851
+    },
+    "unobservable": {
+      "items": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        15,
+        16,
+        17,
+        18
+      ],
+      "max_score": 92,
+      "stage1_mae": 6.218,
+      "stage1_r": 0.742,
+      "stage2_mae": 5.318,
+      "stage2_r": 0.752
+    },
+    "total": {
+      "items": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "max_score": 132,
+      "stage1_mae": 9.555,
+      "stage1_r": 0.817,
+      "stage2_mae": 7.381,
+      "stage2_r": 0.834
+    }
+  },
+  "split_validation": {
+    "obs_stage1": {
+      "mean": 4.687,
+      "std": 0.552,
+      "values": [
+        4.573,
+        4.794,
+        4.492,
+        5.514,
+        5.289,
+        4.138,
+        3.862,
+        5.487,
+        4.59,
+        4.131
+      ]
+    },
+    "obs_stage2": {
+      "mean": 4.601,
+      "std": 0.526,
+      "values": [
+        4.456,
+        4.362,
+        4.489,
+        5.562,
+        5.0,
+        4.454,
+        3.917,
+        5.416,
+        4.383,
+        3.971
+      ]
+    },
+    "total_stage1": {
+      "mean": 12.82,
+      "std": 0.886,
+      "values": [
+        12.299,
+        13.893,
+        11.793,
+        12.992,
+        14.472,
+        13.368,
+        11.598,
+        13.252,
+        12.337,
+        12.194
+      ]
+    },
+    "total_stage2": {
+      "mean": 12.452,
+      "std": 0.908,
+      "values": [
+        12.258,
+        12.198,
+        11.563,
+        12.757,
+        13.789,
+        13.056,
+        11.784,
+        14.128,
+        11.534,
+        11.451
+      ]
+    },
+    "total_direct": {
+      "mean": 12.296,
+      "std": 0.789,
+      "values": [
+        12.445,
+        12.298,
+        11.111,
+        12.407,
+        13.728,
+        12.68,
+        11.634,
+        13.358,
+        11.346,
+        11.949
+      ]
+    },
+    "wilcoxon_structured_vs_direct_p": 0.2324,
+    "wilcoxon_obs_s2_vs_s1_p": 0.1934
+  },
+  "pdonly_loocv": {
+    "n_pd": 94,
+    "mae": 3.14,
+    "r": 0.643
+  },
+  "runtime_s": 52176.7
+}

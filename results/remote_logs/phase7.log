@@ -1,0 +1,124 @@
+ROCKET ABLATION — phase=7
+N_CORES=11, SEQ_LEN=1000, N_ROCKET_KERNELS=5000
+Subjects: 178 (98 PD)
+V2 cache: (178, 1877)
+[cache] Loading recordings from /root/pd-imu/results/rocket_recordings.npz
+  1417 recordings, 1417 coord rows
+
+======================================================================
+PHASE 7: Ultimate Grand — v2 + ROCKET + MOMENT + Coordination
+======================================================================
+[cache] Loading FM embeddings from /root/pd-imu/results/fm_embeddings.npz
+Feature groups: v2=1752, FM=768, coord=26
+ROCKET features extracted per split (fit on dev only)
+
+--- 10-split validation ---
+  ROCKET: 1417 recordings -> 4956 features
+  s1_v2: MAE=8.627 r=0.627 PD-MAE=8.596 (K=150)
+  s1_v2+fm: MAE=8.279 r=0.647 PD-MAE=8.383 (K=300, stack)
+  s1_v2+rk: MAE=8.290 r=0.631 PD-MAE=8.179 (K=400, stack)
+  s1_triple: MAE=8.212 r=0.653 PD-MAE=8.305 (K=400, stack)
+  s1_ultimate: MAE=8.226 r=0.657 PD-MAE=8.368 (K=400, stack)
+  [1/10] v2=8.63 fm=8.28 rk=8.29 triple=8.21 ult=8.23
+  ROCKET: 1417 recordings -> 4956 features
+  s2_v2: MAE=9.539 r=0.576 PD-MAE=9.601 (K=150)
+  s2_v2+fm: MAE=8.206 r=0.682 PD-MAE=8.459 (K=300, stack)
+  s2_v2+rk: MAE=8.385 r=0.675 PD-MAE=8.594 (K=400, stack)
+  s2_triple: MAE=8.289 r=0.684 PD-MAE=8.466 (K=400, stack)
+  s2_ultimate: MAE=8.080 r=0.706 PD-MAE=8.257 (K=400, stack)
+  [2/10] v2=9.54 fm=8.21 rk=8.38 triple=8.29 ult=8.08
+  ROCKET: 1417 recordings -> 4956 features
+  s3_v2: MAE=8.512 r=0.593 PD-MAE=9.215 (K=150)
+  s3_v2+fm: MAE=7.933 r=0.594 PD-MAE=8.746 (K=300, stack)
+  s3_v2+rk: MAE=8.298 r=0.607 PD-MAE=9.071 (K=400, stack)
+  s3_triple: MAE=8.285 r=0.569 PD-MAE=8.884 (K=400, stack)
+  s3_ultimate: MAE=8.184 r=0.597 PD-MAE=8.773 (K=400, stack)
+  [3/10] v2=8.51 fm=7.93 rk=8.30 triple=8.29 ult=8.18
+  ROCKET: 1417 recordings -> 4956 features
+  s4_v2: MAE=8.750 r=0.663 PD-MAE=9.353 (K=150)
+  s4_v2+fm: MAE=7.286 r=0.709 PD-MAE=7.602 (K=300, stack)
+  s4_v2+rk: MAE=8.119 r=0.656 PD-MAE=8.461 (K=400, stack)
+  s4_triple: MAE=7.619 r=0.677 PD-MAE=7.968 (K=400, stack)
+  s4_ultimate: MAE=7.595 r=0.674 PD-MAE=7.929 (K=400, stack)
+  [4/10] v2=8.75 fm=7.29 rk=8.12 triple=7.62 ult=7.59
+  ROCKET: 1417 recordings -> 4956 features
+  s5_v2: MAE=8.659 r=0.730 PD-MAE=9.215 (K=150)
+  s5_v2+fm: MAE=8.319 r=0.769 PD-MAE=8.854 (K=300, stack)
+  s5_v2+rk: MAE=8.022 r=0.756 PD-MAE=8.730 (K=400, stack)
+  s5_triple: MAE=8.352 r=0.728 PD-MAE=9.144 (K=400, stack)
+  s5_ultimate: MAE=8.282 r=0.720 PD-MAE=9.054 (K=400, stack)
+  [5/10] v2=8.66 fm=8.32 rk=8.02 triple=8.35 ult=8.28
+  ROCKET: 1417 recordings -> 4956 features
+  s6_v2: MAE=8.050 r=0.679 PD-MAE=7.838 (K=150)
+  s6_v2+fm: MAE=8.110 r=0.760 PD-MAE=7.676 (K=300, stack)
+  s6_v2+rk: MAE=8.746 r=0.700 PD-MAE=8.311 (K=400, stack)
+  s6_triple: MAE=8.860 r=0.691 PD-MAE=8.546 (K=400, stack)
+  s6_ultimate: MAE=8.680 r=0.695 PD-MAE=8.350 (K=400, stack)
+  [6/10] v2=8.05 fm=8.11 rk=8.75 triple=8.86 ult=8.68
+  ROCKET: 1417 recordings -> 4956 features
+  s7_v2: MAE=8.089 r=0.679 PD-MAE=8.640 (K=150)
+  s7_v2+fm: MAE=7.356 r=0.720 PD-MAE=8.240 (K=300, stack)
+  s7_v2+rk: MAE=7.589 r=0.697 PD-MAE=8.303 (K=400, stack)
+  s7_triple: MAE=7.398 r=0.699 PD-MAE=8.308 (K=400, stack)
+  s7_ultimate: MAE=7.331 r=0.715 PD-MAE=8.144 (K=400, stack)
+  [7/10] v2=8.09 fm=7.36 rk=7.59 triple=7.40 ult=7.33
+  ROCKET: 1417 recordings -> 4956 features
+  s8_v2: MAE=8.842 r=0.694 PD-MAE=8.946 (K=150)
+  s8_v2+fm: MAE=7.774 r=0.777 PD-MAE=7.729 (K=300, stack)
+  s8_v2+rk: MAE=8.456 r=0.718 PD-MAE=8.598 (K=400, stack)
+  s8_triple: MAE=8.149 r=0.762 PD-MAE=8.289 (K=400, stack)
+  s8_ultimate: MAE=8.346 r=0.738 PD-MAE=8.399 (K=400, stack)
+  [8/10] v2=8.84 fm=7.77 rk=8.46 triple=8.15 ult=8.35
+  ROCKET: 1417 recordings -> 4956 features
+  s9_v2: MAE=7.713 r=0.677 PD-MAE=7.941 (K=150)
+  s9_v2+fm: MAE=7.438 r=0.697 PD-MAE=7.871 (K=300, stack)
+  s9_v2+rk: MAE=7.677 r=0.681 PD-MAE=8.004 (K=400, stack)
+  s9_triple: MAE=7.167 r=0.722 PD-MAE=7.524 (K=400, stack)
+  s9_ultimate: MAE=7.046 r=0.728 PD-MAE=7.386 (K=400, stack)
+  [9/10] v2=7.71 fm=7.44 rk=7.68 triple=7.17 ult=7.05
+  ROCKET: 1417 recordings -> 4956 features
+  s10_v2: MAE=8.071 r=0.621 PD-MAE=7.872 (K=150)
+  s10_v2+fm: MAE=7.047 r=0.702 PD-MAE=7.125 (K=300, stack)
+  s10_v2+rk: MAE=7.192 r=0.711 PD-MAE=7.141 (K=400, stack)
+  s10_triple: MAE=7.070 r=0.712 PD-MAE=7.216 (K=400, stack)
+  s10_ultimate: MAE=7.205 r=0.698 PD-MAE=7.374 (K=400, stack)
+  [10/10] v2=8.07 fm=7.05 rk=7.19 triple=7.07 ult=7.21
+
+10-split v2: 8.485 +/- 0.497
+
+10-split v2_fm_stk: 7.775 +/- 0.439
+
+10-split v2_rk_stk: 8.077 +/- 0.443
+
+10-split triple_stk: 7.940 +/- 0.559
+
+10-split ultimate_stk: 7.897 +/- 0.529
+
+Wilcoxon v2+FM vs v2: p=0.0039
+
+Wilcoxon triple vs v2: p=0.0371
+
+Wilcoxon ultimate vs v2: p=0.0195
+
+Wilcoxon triple vs FM-only: p=0.0840
+
+--- K sweep (primary split, seed=1) ---
+  ROCKET: 1417 recordings -> 4956 features
+  K200_lgb: MAE=8.605 r=0.654 PD-MAE=8.899 (K=200)
+  K200_stk: MAE=8.435 r=0.634 PD-MAE=8.570 (K=200, stack)
+  K300_lgb: MAE=8.314 r=0.689 PD-MAE=8.519 (K=300)
+  K300_stk: MAE=8.132 r=0.666 PD-MAE=8.197 (K=300, stack)
+  K400_lgb: MAE=8.265 r=0.690 PD-MAE=8.432 (K=400)
+  K400_stk: MAE=8.212 r=0.653 PD-MAE=8.305 (K=400, stack)
+  K500_lgb: MAE=8.256 r=0.679 PD-MAE=8.435 (K=500)
+  K500_stk: MAE=8.156 r=0.659 PD-MAE=8.253 (K=500, stack)
+  K600_lgb: MAE=8.286 r=0.680 PD-MAE=8.424 (K=600)
+  K600_stk: MAE=8.043 r=0.667 PD-MAE=8.124 (K=600, stack)
+  K700_lgb: MAE=8.386 r=0.680 PD-MAE=8.517 (K=700)
+  K700_stk: MAE=8.098 r=0.658 PD-MAE=8.187 (K=700, stack)
+
+Phase 7 done in 46.6m
+
+======================================================================
+TOTAL RUNTIME: 46.7 minutes
+Results: results/rocket_ablation_results.json

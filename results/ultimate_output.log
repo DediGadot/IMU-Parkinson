@@ -1,0 +1,48 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti, 16.6 GB
+================================================================================
+ULTIMATE CONFIG: xxl Transformer + All Tasks + Augmentation
+================================================================================
+Loaded split: 142 dev + 36 test subjects
+
+Loading training data (all 5 tasks, 78ch)...
+  Dev: 8822 windows from 142 subjects
+  Test: 511 windows from 36 subjects
+
+--- Seed 42 ---
+  Model: 86.3M params
+  TEST MAE=9.21, r=0.603 (p=0.000099), GPU=2.1GB, Time=765s
+
+--- Seed 123 ---
+  Model: 86.3M params
+  TEST MAE=8.12, r=0.684 (p=0.000004), GPU=2.1GB, Time=1202s
+
+--- Seed 456 ---
+  Model: 86.3M params
+  TEST MAE=9.84, r=0.569 (p=0.000289), GPU=2.1GB, Time=1056s
+
+--- Seed 789 ---
+  Model: 86.3M params
+  TEST MAE=12.04, r=0.292 (p=0.084416), GPU=2.1GB, Time=516s
+
+--- Seed 2024 ---
+  Model: 86.3M params
+  TEST MAE=12.01, r=0.193 (p=0.260431), GPU=2.1GB, Time=513s
+
+================================================================================
+MULTI-SEED RESULTS
+================================================================================
+  Individual runs:
+    Seed 42: MAE=9.21, r=0.603
+    Seed 123: MAE=8.12, r=0.684
+    Seed 456: MAE=9.84, r=0.569
+    Seed 789: MAE=12.04, r=0.292
+    Seed 2024: MAE=12.01, r=0.193
+
+  Mean MAE: 10.25 +/- 1.55
+  Mean r:   0.468 +/- 0.191
+
+  SEED ENSEMBLE (avg of 5 runs):
+    TEST MAE=10.02, r=0.636 (p=0.000031)
+
+Results saved to /root/pd-imu/ultimate_results.json

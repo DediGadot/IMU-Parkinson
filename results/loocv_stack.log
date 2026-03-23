@@ -1,0 +1,62 @@
+======================================================================
+PD-ONLY LOOCV WITH PROVEN STACKING PIPELINE
+Target: beat Hssayeni 2021 MAE=5.95 (N=24 PD, LOOCV)
+======================================================================
+Loaded split: 142 dev + 36 test subjects
+PD subjects: 98
+UPDRS-III: mean=24.4, std=10.9, range=[0, 59]
+Features: 1760
+
+Feature selection (XGBoost, K=150 on all 98 PD subjects)...
+  Top 10: ['R_LatShank_gm_rms', 'R_DorsalFoot_ax_trem_r', 'R_DorsalFoot_gm_loco', 'dv_L_Ankle_az_rms_cv', 'L_Wrist_az_loco_r', 'dv_L_Ankle_g_stride_t_rng', 'L_DorsalFoot_gm_trem', 'Xiphoid_am_iqr', 'L_Wrist_ay_se', 'dst_wk_ds_cop_dist']
+
+======================================================================
+L1: LGB-only LOOCV (new XGB feature selection)
+======================================================================
+  20/98: running MAE=8.43
+  40/98: running MAE=7.99
+  60/98: running MAE=7.16
+  80/98: running MAE=7.11
+  L1 RESULT: MAE=7.22, r=0.520
+
+======================================================================
+L2: LGB+XGB average LOOCV (0.6 LGB + 0.4 XGB)
+======================================================================
+  20/98: running MAE=8.83
+  40/98: running MAE=8.24
+  60/98: running MAE=7.42
+  80/98: running MAE=7.28
+  XGB-only: MAE=7.74, r=0.382
+  L2 RESULT: MAE=7.38, r=0.496
+
+======================================================================
+L3: Full stacking LOOCV (5-fold inner CV → Ridge)
+======================================================================
+  10/98: running MAE=7.19
+  20/98: running MAE=8.41
+  30/98: running MAE=8.15
+  40/98: running MAE=7.92
+  50/98: running MAE=7.60
+  60/98: running MAE=7.33
+  70/98: running MAE=7.53
+  80/98: running MAE=7.35
+  90/98: running MAE=7.27
+  L3 RESULT: MAE=7.44, r=0.523
+
+======================================================================
+PD-ONLY LOOCV SUMMARY (11.6 min)
+======================================================================
+  Method                                  MAE       r
+  --------------------------------------------------
+  Hssayeni 2021 (N=24, ref)              5.95   0.740
+  Shuqair 2024 (N=24, ref)              ~5.65   0.890
+  --------------------------------------------------
+  L1: LGB-only (new feat sel)            7.22   0.520
+  XGB-only                               7.74   0.382
+  L2: LGB+XGB avg (0.6/0.4)              7.38   0.496
+  L3: Stacking (LGB+XGB→Ridge)           7.44   0.523
+  Previous LOOCV (old pipeline)          7.21   0.559
+
+  Gap to Hssayeni: 1.27
+  N subjects: 98 (vs Hssayeni N=24)
+  Saved to /root/pd-imu/loocv_stack_results.json

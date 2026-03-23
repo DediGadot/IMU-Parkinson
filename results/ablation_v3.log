@@ -1,0 +1,191 @@
+Loaded split: 142 dev + 36 test subjects
+V3 extraction: 1417 recordings, 11 cores...
+  1417 done in 160s
+  Walkway loaded: 135 subjects, 31 metrics
+  Distilled 31 walkway cols for 178 subjects
+Cached: 178 subjects x 1875 features -> /root/pd-imu/results/ablation_v3_features.csv
+
+======================================================================
+PHASE 0: FOUNDATION — 10-split stability + K sweep
+======================================================================
+  split1_lgb: MAE=8.63 r=0.627 PD-MAE=8.60 (K=150)
+  split1_stk: MAE=8.53 r=0.610 PD-MAE=8.41 (K=150, 2 base)
+  [1/10] seed=1 lgb=8.63 stk=8.53
+  split2_lgb: MAE=9.54 r=0.576 PD-MAE=9.60 (K=150)
+  split2_stk: MAE=8.96 r=0.600 PD-MAE=9.02 (K=150, 2 base)
+  [2/10] seed=2 lgb=9.54 stk=8.96
+  split3_lgb: MAE=8.51 r=0.593 PD-MAE=9.22 (K=150)
+  split3_stk: MAE=8.16 r=0.620 PD-MAE=9.14 (K=150, 2 base)
+  [3/10] seed=3 lgb=8.51 stk=8.16
+  split4_lgb: MAE=8.75 r=0.663 PD-MAE=9.35 (K=150)
+  split4_stk: MAE=8.49 r=0.666 PD-MAE=8.94 (K=150, 2 base)
+  [4/10] seed=4 lgb=8.75 stk=8.49
+  split5_lgb: MAE=8.66 r=0.730 PD-MAE=9.21 (K=150)
+  split5_stk: MAE=8.52 r=0.748 PD-MAE=9.01 (K=150, 2 base)
+  [5/10] seed=5 lgb=8.66 stk=8.52
+  split6_lgb: MAE=8.05 r=0.679 PD-MAE=7.84 (K=150)
+  split6_stk: MAE=8.27 r=0.720 PD-MAE=7.91 (K=150, 2 base)
+  [6/10] seed=6 lgb=8.05 stk=8.27
+  split7_lgb: MAE=8.09 r=0.679 PD-MAE=8.64 (K=150)
+  split7_stk: MAE=7.56 r=0.707 PD-MAE=8.19 (K=150, 2 base)
+  [7/10] seed=7 lgb=8.09 stk=7.56
+  split8_lgb: MAE=8.84 r=0.694 PD-MAE=8.95 (K=150)
+  split8_stk: MAE=8.02 r=0.729 PD-MAE=8.17 (K=150, 2 base)
+  [8/10] seed=8 lgb=8.84 stk=8.02
+  split9_lgb: MAE=7.71 r=0.677 PD-MAE=7.94 (K=150)
+  split9_stk: MAE=7.69 r=0.689 PD-MAE=8.05 (K=150, 2 base)
+  [9/10] seed=9 lgb=7.71 stk=7.69
+  split10_lgb: MAE=8.07 r=0.621 PD-MAE=7.87 (K=150)
+  split10_stk: MAE=7.92 r=0.657 PD-MAE=7.63 (K=150, 2 base)
+  [10/10] seed=10 lgb=8.07 stk=7.92
+
+10-split LGB: 8.49 +/- 0.50
+10-split STK: 8.21 +/- 0.41
+Loaded split: 142 dev + 36 test subjects
+  K100: MAE=7.68 r=0.831 PD-MAE=7.90 (K=100)
+  K125: MAE=7.86 r=0.822 PD-MAE=8.16 (K=125)
+  K150: MAE=7.98 r=0.816 PD-MAE=8.15 (K=150)
+  K175: MAE=7.78 r=0.833 PD-MAE=7.92 (K=175)
+  K200: MAE=7.75 r=0.835 PD-MAE=7.93 (K=200)
+  K250: MAE=7.71 r=0.836 PD-MAE=7.93 (K=250)
+  K300: MAE=7.78 r=0.830 PD-MAE=8.08 (K=300)
+
+Best K: 100 -> MAE=7.68
+Phase 0 done in 6.2m -> results/ablation_v3_phase0.json
+
+======================================================================
+PHASE 1: MEGA FEATURE EXTRACTION
+======================================================================
+Loaded split: 142 dev + 36 test subjects
+[cache] /root/pd-imu/results/ablation_v3_features.csv
+Total: 1875 features (1752 v2 + 123 new)
+
+======================================================================
+PHASE 2: FEATURE ABLATION
+======================================================================
+Loaded split: 142 dev + 36 test subjects
+  P2_baseline_v2_lgb: MAE=7.98 r=0.816 PD-MAE=8.15 (K=150)
+  P2_baseline_v2_stk: MAE=7.48 r=0.819 PD-MAE=7.53 (K=150, 2 base)
+  P2_+nonlinear_lgb: MAE=7.94 r=0.850 PD-MAE=8.08 (K=150)
+  P2_+nonlinear_stk: MAE=7.48 r=0.825 PD-MAE=7.52 (K=150, 2 base)
+  P2_+stride_var_lgb: MAE=7.51 r=0.832 PD-MAE=7.74 (K=150)
+  P2_+stride_var_stk: MAE=6.95 r=0.837 PD-MAE=7.10 (K=150, 2 base)
+  P2_+adv_asym_lgb: MAE=7.85 r=0.805 PD-MAE=7.99 (K=150)
+  P2_+adv_asym_stk: MAE=7.35 r=0.824 PD-MAE=7.29 (K=150, 2 base)
+  P2_+fine_freq_lgb: MAE=7.81 r=0.816 PD-MAE=8.01 (K=150)
+  P2_+fine_freq_stk: MAE=7.78 r=0.810 PD-MAE=7.80 (K=150, 2 base)
+  P2_+clin_interact_lgb: MAE=8.18 r=0.810 PD-MAE=8.21 (K=150)
+  P2_+clin_interact_stk: MAE=7.47 r=0.817 PD-MAE=7.51 (K=150, 2 base)
+  P2_+obs_subscore_lgb: MAE=4.39 r=0.898 PD-MAE=5.09 (K=150)
+  P2_+obs_subscore_stk: MAE=4.16 r=0.913 PD-MAE=4.88 (K=150, 2 base)
+  P2_ALL_features_lgb: MAE=4.00 r=0.913 PD-MAE=4.57 (K=150)
+  P2_ALL_features_stk: MAE=3.86 r=0.922 PD-MAE=4.53 (K=150, 2 base)
+  P2_ALL_K150: MAE=4.00 r=0.913 PD-MAE=4.57 (K=150)
+  P2_ALL_K200: MAE=3.98 r=0.914 PD-MAE=4.58 (K=200)
+  P2_ALL_K250: MAE=4.09 r=0.911 PD-MAE=4.66 (K=250)
+  P2_ALL_K300: MAE=4.33 r=0.905 PD-MAE=4.94 (K=300)
+
+Group                    N     LGB   Stack    ΔLGB
+--------------------------------------------------
+  baseline_v2         1752    7.98    7.48   +0.00
+  +nonlinear          1782    7.94    7.48   +0.04
+  +stride_var         1774    7.51    6.95   +0.46
+  +adv_asym           1760    7.85    7.35   +0.13
+  +fine_freq          1798    7.81    7.78   +0.17
+  +clin_interact      1767    8.18    7.47   -0.20
+  +obs_subscore       1753    4.39    4.16   +3.59
+  ALL_features        1875    4.00    3.86   +3.97
+
+Best ALL K: 200 -> MAE=3.98
+Phase 2 done in 4.6m
+
+======================================================================
+PHASE 3: ARCHITECTURE ABLATION
+======================================================================
+Loaded split: 142 dev + 36 test subjects
+  P3_catboost: MAE=4.81 r=0.922 PD-MAE=4.94 (K=200)
+  P3_stack3: MAE=3.90 r=0.922 PD-MAE=4.59 (K=200, 3 base)
+  P3_stack2: MAE=3.87 r=0.922 PD-MAE=4.55 (K=200, 2 base)
+  P3_huber: MAE=3.87 r=0.918 PD-MAE=4.45 (K=200)
+  P3_sqrt_lgb_raw: MAE=14.18 r=0.880 PD-MAE=16.97 (K=200)
+  P3_sqrt_lgb: MAE=3.73 r=0.918 (K=200)
+  P3_obs_meta: MAE=4.58 r=0.892 PD-MAE=5.12 (K=201)
+
+Config                   MAE      r
+-----------------------------------
+  P3_sqrt_lgb           3.73  0.918
+  P3_huber              3.87  0.918
+  P3_stack2             3.88  0.922
+  P3_stack3             3.90  0.922
+  P3_obs_meta           4.58  0.892
+  P3_catboost           4.81  0.922
+Phase 3 done in 2.7m
+
+======================================================================
+PHASE 4: GRAND COMBINATION + VALIDATION
+======================================================================
+Loaded split: 142 dev + 36 test subjects
+  grand_lgb: MAE=3.98 r=0.914 PD-MAE=4.58 (K=200)
+  grand_stk2: MAE=3.87 r=0.922 PD-MAE=4.55 (K=200, 2 base)
+  grand_stk3: MAE=3.90 r=0.922 PD-MAE=4.59 (K=200, 3 base)
+
+--- 10-split validation ---
+  val1_lgb: MAE=4.18 r=0.911 PD-MAE=4.77 (K=200)
+  val1_stk2: MAE=4.40 r=0.913 PD-MAE=5.22 (K=200, 2 base)
+  val1_stk3: MAE=4.40 r=0.913 PD-MAE=5.22 (K=200, 3 base)
+  val2_lgb: MAE=4.43 r=0.905 PD-MAE=5.09 (K=200)
+  val2_stk2: MAE=3.98 r=0.921 PD-MAE=4.64 (K=200, 2 base)
+  val2_stk3: MAE=3.99 r=0.920 PD-MAE=4.66 (K=200, 3 base)
+  val3_lgb: MAE=3.80 r=0.897 PD-MAE=4.40 (K=200)
+  val3_stk2: MAE=3.73 r=0.901 PD-MAE=4.45 (K=200, 2 base)
+  val3_stk3: MAE=3.68 r=0.901 PD-MAE=4.39 (K=200, 3 base)
+  val4_lgb: MAE=4.56 r=0.894 PD-MAE=5.25 (K=200)
+  val4_stk2: MAE=3.91 r=0.920 PD-MAE=4.61 (K=200, 2 base)
+  val4_stk3: MAE=3.90 r=0.919 PD-MAE=4.60 (K=200, 3 base)
+  val5_lgb: MAE=4.95 r=0.885 PD-MAE=5.74 (K=200)
+  val5_stk2: MAE=4.54 r=0.893 PD-MAE=5.32 (K=200, 2 base)
+  val5_stk3: MAE=4.67 r=0.889 PD-MAE=5.46 (K=200, 3 base)
+  val6_lgb: MAE=4.42 r=0.916 PD-MAE=5.17 (K=200)
+  val6_stk2: MAE=3.70 r=0.926 PD-MAE=4.36 (K=200, 2 base)
+  val6_stk3: MAE=3.69 r=0.926 PD-MAE=4.34 (K=200, 3 base)
+  val7_lgb: MAE=3.43 r=0.947 PD-MAE=4.06 (K=200)
+  val7_stk2: MAE=2.93 r=0.950 PD-MAE=3.52 (K=200, 2 base)
+  val7_stk3: MAE=3.06 r=0.946 PD-MAE=3.65 (K=200, 3 base)
+  val8_lgb: MAE=4.20 r=0.905 PD-MAE=4.83 (K=200)
+  val8_stk2: MAE=4.05 r=0.913 PD-MAE=4.71 (K=200, 2 base)
+  val8_stk3: MAE=4.07 r=0.912 PD-MAE=4.72 (K=200, 3 base)
+  val9_lgb: MAE=4.36 r=0.906 PD-MAE=5.00 (K=200)
+  val9_stk2: MAE=4.23 r=0.921 PD-MAE=5.00 (K=200, 2 base)
+  val9_stk3: MAE=4.25 r=0.920 PD-MAE=5.03 (K=200, 3 base)
+  val10_lgb: MAE=4.65 r=0.879 PD-MAE=5.45 (K=200)
+  val10_stk2: MAE=4.26 r=0.890 PD-MAE=5.07 (K=200, 2 base)
+  val10_stk3: MAE=4.23 r=0.891 PD-MAE=5.02 (K=200, 3 base)
+  lgb: 4.30 +/- 0.41
+  stk2: 3.97 +/- 0.43
+  stk3: 3.99 +/- 0.43
+  Wilcoxon LGB vs baseline: stat=0.0 p=0.0020
+
+--- Bootstrap CIs ---
+  MAE=3.98 95%CI=[2.62, 5.66]
+
+--- PD-only LOOCV ---
+    LOOCV 20/98
+    LOOCV 40/98
+    LOOCV 60/98
+    LOOCV 80/98
+  PD-only LOOCV: MAE=6.13 r=0.728 (N=98)
+
+Phase 4 done in 28.0m
+
+======================================================================
+FINAL SUMMARY
+======================================================================
+  Primary split best: MAE=3.88 (grand_stk2)
+  10-split lgb: 4.30 +/- 0.41
+  10-split stk2: 3.97 +/- 0.43
+  10-split stk3: 3.99 +/- 0.43
+  PD-only LOOCV: MAE=6.13 r=0.728
+  Bootstrap 95%CI: [2.62, 5.66]
+  Hssayeni target: MAE=5.95 (N=24, PD-only)
+
+DONE.

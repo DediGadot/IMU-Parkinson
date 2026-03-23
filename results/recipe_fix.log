@@ -1,0 +1,125 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti, 16.6 GB
+======================================================================
+PHASE 4.1: PREPROCESSING + CHANNELS + MIL
+======================================================================
+Parsed 185 subjects, observable items: 10
+Loaded split: 142 dev + 36 test subjects
+
+Loading orig_78ch (78 channels)...
+  Skipped 1 recordings (missing columns)
+  Dev: 2021 windows (142 subjects)
+  Test: 511 windows (36 subjects)
+
+Loading freeacc_78ch (78 channels)...
+  Skipped 1 recordings (missing columns)
+  Skipped 2 recordings (missing columns)
+  Dev: 2021 windows (142 subjects)
+  Test: 497 windows (35 subjects)
+
+Loading freeacc_rpy_117ch (117 channels)...
+  Skipped 1 recordings (missing columns)
+  Skipped 2 recordings (missing columns)
+  Dev: 2021 windows (142 subjects)
+  Test: 497 windows (35 subjects)
+
+Loading orig_78ch ALL tasks...
+  Skipped 6 recordings (missing columns)
+  Dev: 8822 windows, Test: 2053 windows
+
+============================================================
+1: per-subject norm (baseline) 78ch
+============================================================
+W0308 12:38:05.128000 84005 torch/_inductor/utils.py:1679] [0/0] Not enough SMs to use max_autotune_gemm mode
+  seed=42: MAE=8.96 r=0.676 (88s, 0.4GB)
+  seed=123: MAE=9.71 r=0.535 (35s, 0.4GB)
+  seed=456: MAE=9.59 r=0.608 (22s, 0.4GB)
+  MEAN: MAE=9.42+/-0.33 r=0.606
+  ENS:  MAE=9.39 r=0.628
+
+============================================================
+2: global norm 78ch
+============================================================
+  seed=42: MAE=11.02 r=0.443 (22s, 0.4GB)
+  seed=123: MAE=9.82 r=0.545 (30s, 0.4GB)
+  seed=456: MAE=10.61 r=0.516 (19s, 0.4GB)
+  MEAN: MAE=10.48+/-0.50 r=0.501
+  ENS:  MAE=10.31 r=0.522
+
+============================================================
+3: FreeAcc+Gyr global norm 78ch
+============================================================
+  seed=42: MAE=14.14 r=0.230 (14s, 0.4GB)
+  seed=123: MAE=7.16 r=0.759 (31s, 0.4GB)
+  seed=456: MAE=9.38 r=0.587 (19s, 0.4GB)
+  MEAN: MAE=10.23+/-2.91 r=0.525
+  ENS:  MAE=9.09 r=0.739
+
+============================================================
+4: FreeAcc+Gyr+RPY global norm 117ch
+============================================================
+  seed=42: MAE=10.14 r=0.520 (66s, 0.3GB)
+  seed=123: MAE=12.61 r=0.151 (20s, 0.3GB)
+  seed=456: MAE=9.64 r=0.602 (41s, 0.3GB)
+  MEAN: MAE=10.80+/-1.30 r=0.424
+  ENS:  MAE=9.67 r=0.587
+
+============================================================
+5: global norm 78ch ALL tasks
+============================================================
+  seed=42: MAE=10.15 r=0.534 (66s, 0.4GB)
+  seed=123: MAE=8.62 r=0.609 (102s, 0.4GB)
+  seed=456: MAE=9.31 r=0.601 (69s, 0.4GB)
+  MEAN: MAE=9.36+/-0.62 r=0.581
+  ENS:  MAE=9.07 r=0.612
+
+============================================================
+6: global norm 78ch LARGE (384d/8L)
+============================================================
+  seed=42: MAE=11.48 r=0.417 (71s, 0.5GB)
+  seed=123: MAE=9.70 r=0.527 (34s, 0.5GB)
+  seed=456: MAE=11.28 r=0.400 (68s, 0.5GB)
+  MEAN: MAE=10.82+/-0.79 r=0.448
+  ENS:  MAE=10.47 r=0.477
+
+============================================================
+7: MIL global norm 78ch
+============================================================
+  seed=42: MAE=9.58 r=0.611 (143s, 0.7GB)
+  seed=123: MAE=11.01 r=0.432 (141s, 0.7GB)
+  seed=456: MAE=9.53 r=0.624 (139s, 0.7GB)
+  MEAN: MAE=10.04+/-0.69 r=0.556
+  ENS:  MAE=9.45 r=0.613
+
+============================================================
+8: MIL FreeAcc+RPY global 117ch
+============================================================
+  seed=42: MAE=12.29 r=0.196 (178s, 0.7GB)
+  seed=123: MAE=11.85 r=0.263 (169s, 0.7GB)
+  seed=456: MAE=11.17 r=0.281 (171s, 0.7GB)
+  MEAN: MAE=11.77+/-0.46 r=0.247
+  ENS:  MAE=11.42 r=0.287
+
+======================================================================
+FINAL SUMMARY
+======================================================================
+  Experiment                                      Mean MAE   Ens MAE   Ens r
+  ---------------------------------------------------------------------------
+  5: global norm 78ch ALL tasks                   9.36+/-0.62    9.07   0.612
+  3: FreeAcc+Gyr global norm 78ch                10.23+/-2.91    9.09   0.739
+  1: per-subject norm (baseline) 78ch             9.43+/-0.33    9.39   0.628
+  7: MIL global norm 78ch                        10.04+/-0.69    9.45   0.613
+  4: FreeAcc+Gyr+RPY global norm 117ch           10.80+/-1.30    9.67   0.587
+  2: global norm 78ch                            10.48+/-0.50   10.31   0.522
+  6: global norm 78ch LARGE (384d/8L)            10.82+/-0.79   10.47   0.477
+  8: MIL FreeAcc+RPY global 117ch                11.77+/-0.46   11.42   0.287
+
+  CROSS-EXPERIMENT ENSEMBLES:
+Traceback (most recent call last):
+  File "/root/pd-imu/run_recipe_fix.py", line 757, in <module>
+  File "/root/pd-imu/run_recipe_fix.py", line 731, in main
+  File "/usr/local/lib/python3.10/dist-packages/numpy/_core/fromnumeric.py", line 3860, in mean
+    return _methods._mean(a, axis=axis, dtype=dtype,
+  File "/usr/local/lib/python3.10/dist-packages/numpy/_core/_methods.py", line 119, in _mean
+    arr = asanyarray(a)
+ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (8,) + inhomogeneous part.

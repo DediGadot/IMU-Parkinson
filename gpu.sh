@@ -16,8 +16,8 @@
 set -euo pipefail
 
 # === SLAVE CONFIG (change these two lines to swap servers) ===
-REMOTE="${GPU_REMOTE:-root@46.228.83.78}"
-PORT="${GPU_PORT:-40005}"
+REMOTE="${GPU_REMOTE:-root@142.170.89.112}"
+PORT="${GPU_PORT:-37397}"
 # =============================================================
 
 REMOTE_DIR="/root/pd-imu"
@@ -44,18 +44,42 @@ deploy() {
 case "${1:-}" in
     --setup)
         echo "=== Provisioning GPU slave: $REMOTE ==="
-        $SSH "mkdir -p $REMOTE_DIR"
+        $SSH "mkdir -p $REMOTE_DIR/results"
+
+        # 1. Install PyTorch with CUDA support
+        echo "--- Installing PyTorch (CUDA 12.8) ---"
         $SSH "pip install --quiet torch torchvision torchaudio \
-            --index-url https://download.pytorch.org/whl/nightly/cu128 && \
-            pip install --quiet numpy pandas scipy scikit-learn \
-            xgboost catboost einops torchdiffeq"
+            --index-url https://download.pytorch.org/whl/nightly/cu128"
+
+        # 2. Deploy code + requirements file
         deploy
+
+        # 3. Install all other dependencies from pinned requirements
+        echo "--- Installing dependencies from requirements-gpu.txt ---"
+        $SSH "cd $REMOTE_DIR && pip install --quiet -r requirements-gpu.txt"
+
+        # 4. Verify critical imports
+        echo "--- Verifying installation ---"
+        $SSH "python3 -c '
+import torch, lightgbm, xgboost, catboost, momentfm, shap, aeon
+print(f\"torch {torch.__version__}, CUDA: {torch.cuda.is_available()}\")
+print(f\"lightgbm {lightgbm.__version__}, xgboost {xgboost.__version__}\")
+print(f\"momentfm {momentfm.__version__}\")
+print(\"All imports OK\")
+'"
+
         echo ""
-        echo "Done. Now sync data from an existing slave:"
+        echo "=== Setup complete. Next steps: ==="
+        echo ""
+        echo "  # Upload cached artifacts (saves hours of recomputation):"
+        echo "  rsync -az -e 'ssh -p $PORT' results/*.npz results/ablation_v3_features.csv \\"
+        echo "      $REMOTE:$REMOTE_DIR/results/"
+        echo ""
+        echo "  # Upload dataset from another slave:"
         echo "  rsync -az -e 'ssh -p OLD_PORT' OLD_REMOTE:$REMOTE_DIR/data/ \\"
-        echo "    \$($SSH echo $REMOTE_DIR/data/)"
+        echo "      \$($SSH echo $REMOTE_DIR/data/)"
         echo ""
-        echo "Or download fresh:"
+        echo "  # Or download fresh (requires Synapse credentials):"
         echo "  ./gpu.sh synapse_download.py"
         ;;
     --pull)
@@ -80,9 +104,30 @@ case "${1:-}" in
     --nuke)
         $SSH "pkill -f 'python.*run_' && echo 'killed all python jobs' || echo 'nothing to kill'"
         ;;
+    --push-cache)
+        echo "=== Uploading cached artifacts to $REMOTE ==="
+        $SSH "mkdir -p $REMOTE_DIR/results"
+        rsync -avz --progress \
+            -e "ssh -p $PORT" \
+            results/fm_embeddings.npz \
+            results/fm_embeddings_all_13.npz \
+            results/fm_embeddings_minimal_5.npz \
+            results/fm_embeddings_wrists_2.npz \
+            results/fm_embeddings_wrists_back_3.npz \
+            results/fm_embeddings_lower_back_1.npz \
+            results/fm_embeddings_recording_norm.npz \
+            results/rocket_recordings.npz \
+            results/ablation_v3_features.csv \
+            results/coordination_features.csv \
+            results/paper3_split.json \
+            results/data_split.json \
+            "$REMOTE:$REMOTE_DIR/results/"
+        echo "done — cached artifacts uploaded"
+        ;;
     "")
         echo "usage: ./gpu.sh <script.py> [args]   deploy + run"
         echo "       ./gpu.sh --pull                fetch results"
+        echo "       ./gpu.sh --push-cache           upload cached artifacts"
         echo "       ./gpu.sh --status              GPU + jobs"
         echo "       ./gpu.sh --log                 tail latest log"
         echo "       ./gpu.sh --ssh                 shell into slave"

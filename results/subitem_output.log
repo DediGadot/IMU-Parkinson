@@ -1,0 +1,89 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti, 16.6 GB
+================================================================================
+UPDRS-III SUBITEM DECOMPOSITION EXPERIMENT
+================================================================================
+Loaded split: 142 dev + 36 test subjects
+Subjects: 185 total, 142 dev, 36 test
+
+================================================================================
+APPROACH 1: Independent Subscale Models
+Each subscale trained with matched sensor subset
+================================================================================
+
+--- Seed 42 ---
+  gait_posture         MAE=2.29 r=0.646 range=[0,14] 30ch 20s 0.3GB
+  upper_limb           MAE=3.81 r=0.223 range=[0,15] 12ch 14s 0.3GB
+  lower_limb           MAE=2.23 r=0.356 range=[0,10] 36ch 60s 0.2GB
+  tremor               MAE=2.25 r=0.118 range=[0,16] 78ch 21s 0.2GB
+  rigidity_other       MAE=2.93 r=0.274 range=[0,13] 78ch 29s 0.2GB
+
+  TOTAL (subscale sum): MAE=11.79, r=0.471
+
+--- Seed 123 ---
+  gait_posture         MAE=2.14 r=0.710 range=[0,14] 30ch 17s 0.3GB
+  upper_limb           MAE=3.75 r=0.374 range=[0,15] 12ch 11s 0.3GB
+  lower_limb           MAE=2.47 r=0.532 range=[0,10] 36ch 17s 0.2GB
+  tremor               MAE=2.35 r=0.002 range=[0,16] 78ch 23s 0.2GB
+  rigidity_other       MAE=2.71 r=0.405 range=[0,13] 78ch 27s 0.2GB
+
+  TOTAL (subscale sum): MAE=12.62, r=0.664
+
+--- Seed 456 ---
+  gait_posture         MAE=2.41 r=0.698 range=[0,14] 30ch 30s 0.3GB
+  upper_limb           MAE=3.58 r=0.302 range=[0,15] 12ch 13s 0.3GB
+  lower_limb           MAE=2.24 r=0.491 range=[0,10] 36ch 21s 0.2GB
+  tremor               MAE=2.24 r=0.128 range=[0,16] 78ch 24s 0.2GB
+  rigidity_other       MAE=2.90 r=0.488 range=[0,13] 78ch 21s 0.2GB
+
+  TOTAL (subscale sum): MAE=12.62, r=0.771
+
+================================================================================
+APPROACH 2: Multi-Head Transformer (shared encoder, 5 subscale heads)
+All 13 sensors, single large model, predict all subscales simultaneously
+================================================================================
+
+--- Seed 42 ---
+  gait_posture         MAE=2.34 r=0.413
+  upper_limb           MAE=3.47 r=0.489
+  lower_limb           MAE=2.44 r=0.415
+  tremor               MAE=2.24 r=0.403
+  rigidity_other       MAE=3.02 r=0.377
+
+  TOTAL (multi-head sum): MAE=11.99, r=0.527 (18.2M, 0.6GB, 36s)
+
+--- Seed 123 ---
+  gait_posture         MAE=1.67 r=0.770
+  upper_limb           MAE=2.96 r=0.708
+  lower_limb           MAE=1.60 r=0.720
+  tremor               MAE=2.10 r=0.240
+  rigidity_other       MAE=2.46 r=0.422
+
+  TOTAL (multi-head sum): MAE=8.96, r=0.778 (18.2M, 0.6GB, 55s)
+
+--- Seed 456 ---
+  gait_posture         MAE=2.37 r=0.656
+  upper_limb           MAE=3.34 r=0.471
+  lower_limb           MAE=2.09 r=0.619
+  tremor               MAE=2.01 r=0.403
+  rigidity_other       MAE=2.72 r=0.394
+
+  TOTAL (multi-head sum): MAE=11.59, r=0.598 (18.2M, 0.6GB, 41s)
+
+================================================================================
+APPROACH 3: Direct Total Prediction (baseline comparison)
+Same model size, all 13 sensors, predict UPDRS-III total directly
+================================================================================
+
+--- Seed 42 ---
+  Direct total: MAE=10.32, r=0.712 (18.1M, 0.6GB, 55s)
+
+--- Seed 123 ---
+  Direct total: MAE=9.01, r=0.658 (18.1M, 0.6GB, 211s)
+
+--- Seed 456 ---
+  Direct total: MAE=15.30, r=0.638 (18.1M, 0.6GB, 166s)
+
+================================================================================
+EXPERIMENT COMPLETE
+================================================================================

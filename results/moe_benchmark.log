@@ -1,0 +1,115 @@
+======================================================================
+PROPOSALS P5: PHENOTYPE-AWARE MIXTURE-OF-EXPERTS
+======================================================================
+
+[1/5] Loading data...
+Loaded split: 142 dev + 36 test subjects
+  Feature cache: 178 subjects x 1752 features
+
+[2/5] Hard HC/PD gate...
+
+  EXP 1: Hard HC/PD Gate
+  ----------------------------------------
+    Dev: 66 HC + 76 PD = 142
+    Test: 14 HC + 22 PD = 36
+    HC: MAE=3.18 r=0.518 (N_test=14)
+    PD: MAE=7.86 r=0.449 (N_test=22)
+    Combined: MAE=6.04 r=0.827
+    PD-only:  MAE=7.86 r=0.449
+
+[3/5] Severity-stratified experts...
+
+  EXP 2: Severity-Stratified Experts
+  ----------------------------------------
+    bin=low: MAE=3.80 (train=72 test=16)
+    bin=medium: MAE=5.10 (train=54 test=16)
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+    bin=high: MAE=4.40 (train=16 test=4)
+    Combined: MAE=4.44 r=0.929
+    PD-only:  MAE=5.40 r=0.817
+
+[3.5/5] Soft gated ensemble...
+
+  EXP 3: Soft Gated Ensemble
+  ----------------------------------------
+    Gate weights: global=0.767 pd=3.462 hc=0.344 bias=-78.102
+    Global:  MAE=8.66 r=0.751
+    Gated:   MAE=8.85 r=0.650
+    PD-only global: MAE=9.77
+    PD-only gated:  MAE=9.21 r=0.496
+
+[4/5] 10-split validation...
+
+  --- 10-split validation ---
+    [1/10] global=8.09 gated=8.00
+    [2/10] global=9.47 gated=9.15
+    [3/10] global=8.76 gated=8.66
+    [4/10] global=8.49 gated=8.67
+    [5/10] global=9.07 gated=9.27
+    [6/10] global=7.91 gated=8.96
+    [7/10] global=8.64 gated=9.21
+    [8/10] global=8.55 gated=8.11
+    [9/10] global=7.36 gated=7.78
+    [10/10] global=7.22 gated=8.47
+    global: 8.36 ± 0.68
+    gated: 8.63 ± 0.50
+    pd_global: 9.15 ± 0.80
+    pd_gated: 9.31 ± 0.79
+    Wilcoxon gated vs global: p=0.2324
+
+[5/5] PD-only LOOCV...
+
+  --- PD-only LOOCV ---
+    PD subjects: 98
+    LOOCV 20/98
+    LOOCV 40/98
+    LOOCV 60/98
+    LOOCV 80/98
+    PD-only LOOCV: MAE=8.13 r=0.316 (N=98)
+
+======================================================================
+MoE RESULTS SUMMARY
+======================================================================
+
+  BASELINES TO BEAT:
+    Total 10-split stack: 8.21 ± 0.41 (ablation_v3)
+    PD-only LOOCV: MAE=8.21, r=0.302 (followup_v3)
+
+  hard_gate: MAE=6.04 PD-MAE=7.856
+
+  severity_stratified: MAE=4.44 PD-MAE=5.404
+
+  Total runtime: 816.7m
+  Saved: results/moe_benchmark_results.json

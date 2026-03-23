@@ -1,0 +1,139 @@
+{
+  "phase": "2_fm_loocv_stats",
+  "n_pd": 98,
+  "fm_metrics": {
+    "mae": 8.146,
+    "rmse": 10.182,
+    "r2": 0.125,
+    "ccc": 0.369,
+    "r": 0.429,
+    "spearman_rho": 0.382,
+    "spearman_p": 0.0001,
+    "mae_sd": 0.748,
+    "nrmse": 0.173,
+    "cal_slope": 0.256,
+    "cal_intercept": 16.261
+  },
+  "demo_metrics": {
+    "mae": 7.863,
+    "rmse": 9.901,
+    "r2": 0.172,
+    "ccc": 0.338,
+    "r": 0.427,
+    "spearman_rho": 0.346,
+    "spearman_p": 0.0005,
+    "mae_sd": 0.722,
+    "nrmse": 0.168,
+    "cal_slope": 0.211,
+    "cal_intercept": 18.488
+  },
+  "bootstrap_fm_vs_demo": {
+    "mean_diff": -0.287,
+    "ci_lo": -1.345,
+    "ci_hi": 0.769,
+    "p": 0.5924
+  },
+  "cohens_d_fm_vs_demo": -0.053,
+  "permutation_test": {
+    "n_perm": 10000,
+    "p": 0.0003,
+    "fm_mae": 8.146,
+    "mean_mae": 8.471
+  },
+  "bland_altman": {
+    "bias": -1.903,
+    "loa_lo": -21.508,
+    "loa_hi": 17.702,
+    "prop_bias_slope": -0.6883,
+    "prop_bias_r": -0.512,
+    "prop_bias_p": 0.0
+  },
+  "partial_correlation": {
+    "r": 0.36,
+    "p": 0.0003,
+    "controlling": [
+      "age",
+      "years_dx"
+    ]
+  },
+  "clinical_significance": {
+    "pct_within_mcid_3.25": 25.5,
+    "pct_within_5": 37.8,
+    "pct_within_10": 68.4
+  },
+  "severity_quartiles": [
+    {
+      "mae": 14.092,
+      "rmse": 15.078,
+      "r2": -9.794,
+      "ccc": 0.141,
+      "r": 0.605,
+      "spearman_rho": 0.431,
+      "spearman_p": 0.2464,
+      "mae_sd": 3.071,
+      "nrmse": 1.371,
+      "cal_slope": 0.882,
+      "cal_intercept": 14.824,
+      "n": 9,
+      "label": "Q1(<12)",
+      "mean_true": 6.2,
+      "mean_pred": 20.3,
+      "bias": 14.09
+    },
+    {
+      "mae": 5.96,
+      "rmse": 7.11,
+      "r2": -6.816,
+      "ccc": 0.068,
+      "r": 0.138,
+      "spearman_rho": 0.117,
+      "spearman_p": 0.5681,
+      "mae_sd": 2.344,
+      "nrmse": 1.016,
+      "cal_slope": 0.287,
+      "cal_intercept": 15.577,
+      "n": 26,
+      "label": "Q2(12-20)",
+      "mean_true": 15.6,
+      "mean_pred": 20.1,
+      "bias": 4.45
+    },
+    {
+      "mae": 5.944,
+      "rmse": 7.889,
+      "r2": -3.66,
+      "ccc": 0.152,
+      "r": 0.231,
+      "spearman_rho": 0.209,
+      "spearman_p": 0.1639,
+      "mae_sd": 1.626,
+      "nrmse": 0.564,
+      "cal_slope": 0.418,
+      "cal_intercept": 11.53,
+      "n": 46,
+      "label": "Q3(20-35)",
+      "mean_true": 26.8,
+      "mean_pred": 22.7,
+      "bias": -4.04
+    },
+    {
+      "mae": 14.301,
+      "rmse": 15.217,
+      "r2": -5.386,
+      "ccc": 0.138,
+      "r": 0.583,
+      "spearman_rho": 0.68,
+      "spearman_p": 0.0027,
+      "mae_sd": 2.375,
+      "nrmse": 0.634,
+      "cal_slope": 0.51,
+      "cal_intercept": 5.873,
+      "n": 17,
+      "label": "Q4(>35)",
+      "mean_true": 41.2,
+      "mean_pred": 26.9,
+      "bias": -14.3
+    }
+  ],
+  "runtime_s": 3.0
+}

@@ -1,0 +1,169 @@
+{
+  "phase": "6_sensor_ablation",
+  "configs": {
+    "all_13": {
+      "n_sensors": 13,
+      "sensors": [
+        "LowerBack",
+        "R_Wrist",
+        "L_Wrist",
+        "R_MidLatThigh",
+        "L_MidLatThigh",
+        "R_LatShank",
+        "L_LatShank",
+        "R_DorsalFoot",
+        "L_DorsalFoot",
+        "R_Ankle",
+        "L_Ankle",
+        "Xiphoid",
+        "Forehead"
+      ],
+      "n_v2_features": 1721,
+      "n_fm_features": 768,
+      "mae_mean": 7.723,
+      "mae_std": 0.779,
+      "ccc_mean": 0.184,
+      "ccc_std": 0.091,
+      "split_maes": [
+        9.142,
+        7.177,
+        7.628,
+        7.689,
+        8.467,
+        7.48,
+        8.703,
+        7.382,
+        6.401,
+        7.163
+      ]
+    },
+    "wrists_2": {
+      "n_sensors": 2,
+      "sensors": [
+        "R_Wrist",
+        "L_Wrist"
+      ],
+      "n_v2_features": 247,
+      "n_fm_features": 768,
+      "mae_mean": 7.805,
+      "mae_std": 0.631,
+      "ccc_mean": 0.102,
+      "ccc_std": 0.033,
+      "split_maes": [
+        8.263,
+        7.409,
+        7.333,
+        8.091,
+        8.535,
+        7.977,
+        8.666,
+        7.134,
+        6.582,
+        8.062
+      ],
+      "vs_all_13": {
+        "mean_diff": 0.086,
+        "ci_lo": -0.21,
+        "ci_hi": 0.366,
+        "p": 0.5548
+      }
+    },
+    "lower_back_1": {
+      "n_sensors": 1,
+      "sensors": [
+        "LowerBack"
+      ],
+      "n_v2_features": 304,
+      "n_fm_features": 768,
+      "mae_mean": 8.116,
+      "mae_std": 0.758,
+      "ccc_mean": 0.048,
+      "ccc_std": 0.064,
+      "split_maes": [
+        8.638,
+        7.485,
+        7.73,
+        8.261,
+        9.169,
+        9.179,
+        8.684,
+        7.553,
+        6.754,
+        7.706
+      ],
+      "vs_all_13": {
+        "mean_diff": 0.396,
+        "ci_lo": 0.075,
+        "ci_hi": 0.767,
+        "p": 0.0136
+      }
+    },
+    "wrists_back_3": {
+      "n_sensors": 3,
+      "sensors": [
+        "R_Wrist",
+        "L_Wrist",
+        "LowerBack"
+      ],
+      "n_v2_features": 532,
+      "n_fm_features": 768,
+      "mae_mean": 7.892,
+      "mae_std": 0.637,
+      "ccc_mean": 0.113,
+      "ccc_std": 0.043,
+      "split_maes": [
+        8.471,
+        7.53,
+        7.493,
+        8.275,
+        8.735,
+        8.278,
+        8.684,
+        7.111,
+        6.9,
+        7.44
+      ],
+      "vs_all_13": {
+        "mean_diff": 0.17,
+        "ci_lo": -0.102,
+        "ci_hi": 0.423,
+        "p": 0.202
+      }
+    },
+    "minimal_5": {
+      "n_sensors": 5,
+      "sensors": [
+        "LowerBack",
+        "R_Wrist",
+        "L_Wrist",
+        "R_Ankle",
+        "L_Ankle"
+      ],
+      "n_v2_features": 818,
+      "n_fm_features": 768,
+      "mae_mean": 7.675,
+      "mae_std": 0.841,
+      "ccc_mean": 0.152,
+      "ccc_std": 0.099,
+      "split_maes": [
+        7.86,
+        7.231,
+        6.936,
+        7.593,
+        8.553,
+        8.13,
+        9.41,
+        7.267,
+        6.221,
+        7.55
+      ],
+      "vs_all_13": {
+        "mean_diff": -0.043,
+        "ci_lo": -0.423,
+        "ci_hi": 0.288,
+        "p": 0.8512
+      }
+    }
+  },
+  "runtime_s": 294.1
+}

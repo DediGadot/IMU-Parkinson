@@ -1,0 +1,240 @@
+======================================================================
+UPDRS-III SUBDOMAIN PREDICTION
+======================================================================
+
+[1/6] Parsing clinical data + item-level UPDRS scores...
+Loaded split: 142 dev + 36 test subjects
+  153 subjects with item-level scores
+  Items per subject: min=7, max=9, mean=9.0
+  HC total UPDRS-III: mean=3.5, max=15, n=56
+  PD total UPDRS-III: mean=7.3, max=19, n=97
+
+[2/6] Feature extraction...
+  1417 recordings, 11 cores...
+  1417 done in 291s
+  Walkway loaded: 135 subjects, 31 metrics
+  Distilled 31 walkway cols for 178 subjects
+  1752 features, 178 subjects
+
+[3/6] Training individual item models (18 items x 5 seeds)...
+  Subdomain                 Range           MAE             95% CI       r             95% CI  <=1pt          Obs
+  --------------------------------------------------------------------------------------------------------------
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[90]	valid_0's l1: 0.492758
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[3]	valid_0's l1: 0.35315
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[146]	valid_0's l1: 0.470725
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[450]	valid_0's l1: 0.52025
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1085]	valid_0's l1: 0.647059
+  speech                    range=0-4    MAE=0.57 [0.46,0.70] r=0.097 [-0.289,0.458] <=1pt=87% [UNOBSERVABLE]
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[9]	valid_0's l1: 0.823888
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.708529
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[674]	valid_0's l1: 0.704091
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[379]	valid_0's l1: 0.735067
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[270]	valid_0's l1: 0.546728
+  facial                    range=0-4    MAE=0.69 [0.50,0.91] r=0.501 [0.247,0.731] <=1pt=80% [UNOBSERVABLE]
+  SKIP rigidity: only 0 dev subjects with scores
+  SKIP finger_tap: only 0 dev subjects with scores
+  SKIP hand_mvmt: only 0 dev subjects with scores
+  SKIP pronation: only 0 dev subjects with scores
+  SKIP toe_tap: only 0 dev subjects with scores
+  SKIP leg_agility: only 0 dev subjects with scores
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.527647
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.178235
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.176471
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.293235
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.237059
+  arising                   range=0-4    MAE=0.30 [0.10,0.53] r=0.434 [0.015,0.739] <=1pt=93% [OBSERVABLE]
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[166]	valid_0's l1: 0.709926
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[5]	valid_0's l1: 0.519468
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.529412
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.520588
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.418824
+  gait                      range=0-4    MAE=0.69 [0.48,0.93] r=0.574 [0.230,0.782] <=1pt=80% [OBSERVABLE]
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.235294
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.176471
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.0588235
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0
+  freezing                  range=0-4    MAE=0.27 [0.07,0.53] r=0.000 [0.000,0.000] <=1pt=93% [OBSERVABLE]
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[119]	valid_0's l1: 0.64193
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[105]	valid_0's l1: 0.538082
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1108]	valid_0's l1: 0.299412
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[117]	valid_0's l1: 0.773271
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[3]	valid_0's l1: 0.351282
+  postural_stability        range=0-4    MAE=0.77 [0.46,1.11] r=0.470 [0.073,0.764] <=1pt=77% [OBSERVABLE]
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[7]	valid_0's l1: 0.52208
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.302941
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1104]	valid_0's l1: 0.492582
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.825294
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[571]	valid_0's l1: 0.735297
+  posture                   range=0-4    MAE=0.52 [0.38,0.66] r=0.414 [0.091,0.656] <=1pt=87% [OBSERVABLE]
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[3]	valid_0's l1: 0.638341
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[250]	valid_0's l1: 0.614513
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[343]	valid_0's l1: 0.80735
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[207]	valid_0's l1: 0.6887
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[103]	valid_0's l1: 0.305455
+  body_bradykinesia         range=0-4    MAE=0.70 [0.52,0.88] r=0.250 [-0.110,0.627] <=1pt=80% [OBSERVABLE]
+  SKIP postural_tremor: only 0 dev subjects with scores
+  SKIP kinetic_tremor: only 0 dev subjects with scores
+  SKIP rest_tremor_amp: only 0 dev subjects with scores
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.474118
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.529412
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.709412
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[51]	valid_0's l1: 0.687975
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1]	valid_0's l1: 0.584706
+  constancy_tremor          range=0-4    MAE=0.70 [0.30,1.22] r=0.366 [-0.009,0.778] <=1pt=83% [UNOBSERVABLE]
+
+[4/6] Training composite subdomain models (7 composites x 5 seeds)...
+  Subdomain                 Range           MAE             95% CI       r             95% CI  <=1pt          Obs
+  --------------------------------------------------------------------------------------------------------------
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1706]	valid_0's l1: 2.72635
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[85]	valid_0's l1: 2.59208
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1004]	valid_0's l1: 2.52391
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[65]	valid_0's l1: 3.33251
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1357]	valid_0's l1: 2.3533
+  axial                     range=0-32   MAE=2.61 [1.87,3.51] r=0.667 [0.405,0.865] <=1pt=27% [MIXED]
+  SKIP lower_limb: only 0 dev subjects with scores
+  SKIP upper_limb: only 0 dev subjects with scores
+  SKIP tremor: only 0 dev subjects with scores
+  SKIP rigidity_total: only 0 dev subjects with scores
+  SKIP observable_gait: only 0 dev subjects with scores
+  SKIP unobservable: only 0 dev subjects with scores
+
+[5/6] Observable vs Unobservable comparison...
+  WARNING: Could not compute permutation test — missing composite results
+
+  Individual items (mean r):
+    Observable items:   0.357 (n=6, range [0.000, 0.574])
+    Unobservable items: 0.321 (n=3, range [0.097, 0.501])
+
+[6/6] Generating figures...
+  Saved: /root/pd-imu/figures/subdomain_predictability.png
+  WARNING: Cannot plot scatter — missing observable/unobservable composites
+
+======================================================================
+SUBDOMAIN PREDICTION RESULTS
+======================================================================
+
+Subdomain                  Range     MAE       r  <=1pt  Observability
+----------------------------------------------------------------------
+
+OBSERVABLE (from gait IMU):
+
+UNOBSERVABLE (from gait IMU):
+
+MIXED:
+  axial                     0-32    2.61   0.667    27%          MIXED
+
+INDIVIDUAL ITEMS:
+  gait                       0-4    0.69   0.574    80%     OBSERVABLE
+  facial                     0-4    0.69   0.501    80%   UNOBSERVABLE
+  postural_stability         0-4    0.77   0.470    77%     OBSERVABLE
+  arising                    0-4    0.30   0.434    93%     OBSERVABLE
+  posture                    0-4    0.52   0.414    87%     OBSERVABLE
+  constancy_tremor           0-4    0.70   0.366    83%   UNOBSERVABLE
+  body_bradykinesia          0-4    0.70   0.250    80%     OBSERVABLE
+  speech                     0-4    0.57   0.097    87%   UNOBSERVABLE
+  freezing                   0-4    0.27   0.000    93%     OBSERVABLE
+
+Results saved: /root/pd-imu/subdomain_results.json
+
+Total time: 168.8 min

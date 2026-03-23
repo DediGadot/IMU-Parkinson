@@ -1,0 +1,94 @@
+======================================================================
+COMPRESSION ABLATION — Anti-compression proposals x 3 targets
+Phases: [5]
+Targets: ['t1', 't2', 't3']
+Eval: 5split
+======================================================================
+Loading per-item scores from cache: /root/pd-imu/results/per_item_scores.json
+
+Data loaded:
+  PD subjects: 94
+  All subjects (PD+HC): 174
+  Features: 2520 (v2: 1752, FM: 768)
+  T1: range [0, 14], mean=4.1, std=2.8
+  T2: range [1, 20], mean=6.8, std=3.8
+  T3: range [6, 59], mean=25.2, std=10.2
+
+────────────────────────────────────────────────────────────
+Running P5_T1 (5split)...
+  Target: T1, range [0, 24]
+────────────────────────────────────────────────────────────
+  Split 1/5: CCC=0.884 slope=0.827 MAE=0.892
+  Split 2/5: CCC=0.754 slope=0.514 MAE=1.052
+  Split 3/5: CCC=0.808 slope=0.764 MAE=1.087
+  Split 4/5: CCC=0.916 slope=0.807 MAE=0.798
+  Split 5/5: CCC=0.895 slope=0.767 MAE=0.934
+
+  Results for P5_T1:
+    CCC       = 0.865
+    cal_slope = 0.745
+    MAE       = 0.953
+    r         = 0.877
+    RMSE      = 1.207
+    Quartile biases:
+      Q1 (<2): n=16, bias=+1.651, mae=1.651
+      Q2 (2-4): n=31, bias=+0.126, mae=0.636
+      Q3 (4-5): n=19, bias=-0.737, mae=0.844
+      Q4 (>=5): n=29, bias=-0.526, mae=0.978
+  Saved: /root/pd-imu/results/compression_P5_TT1.json
+
+────────────────────────────────────────────────────────────
+Running P5_T2 (5split)...
+  Target: T2, range [0, 32]
+────────────────────────────────────────────────────────────
+  Split 1/5: CCC=0.772 slope=0.743 MAE=1.180
+  Split 2/5: CCC=0.828 slope=0.744 MAE=1.000
+  Split 3/5: CCC=0.808 slope=0.626 MAE=1.220
+  Split 4/5: CCC=0.892 slope=0.834 MAE=1.044
+  Split 5/5: CCC=0.811 slope=0.625 MAE=1.367
+
+  Results for P5_T2:
+    CCC       = 0.831
+    cal_slope = 0.707
+    MAE       = 1.162
+    r         = 0.847
+    RMSE      = 1.517
+    Quartile biases:
+      Q1 (<4): n=12, bias=+2.829, mae=2.829
+      Q2 (4-6): n=26, bias=+0.448, mae=0.751
+      Q3 (6-8): n=27, bias=-0.659, mae=0.973
+      Q4 (>=8): n=30, bias=-0.296, mae=1.021
+  Saved: /root/pd-imu/results/compression_P5_TT2.json
+
+────────────────────────────────────────────────────────────
+Running P5_T3 (5split)...
+  Target: T3, range [0, 59]
+────────────────────────────────────────────────────────────
+  Split 1/5: CCC=0.880 slope=0.703 MAE=3.871
+  Split 2/5: CCC=0.737 slope=0.493 MAE=5.059
+  Split 3/5: CCC=0.821 slope=0.579 MAE=4.333
+  Split 4/5: CCC=0.805 slope=0.568 MAE=4.465
+  Split 5/5: CCC=0.785 slope=0.578 MAE=4.590
+
+  Results for P5_T3:
+    CCC       = 0.807
+    cal_slope = 0.581
+    MAE       = 4.464
+    r         = 0.877
+    RMSE      = 5.806
+    Quartile biases:
+      Q1 (<17): n=23, bias=+7.644, mae=7.644
+      Q2 (17-25): n=23, bias=+0.246, mae=2.524
+      Q3 (25-31): n=24, bias=-2.710, mae=3.564
+      Q4 (>=31): n=25, bias=-3.729, mae=4.187
+  Saved: /root/pd-imu/results/compression_P5_TT3.json
+
+==========================================================================================
+Proposal     Target Eval         CCC   Slope     MAE       r     Time
+------------------------------------------------------------------------------------------
+P5_ranking   T1     5split     0.865   0.745   0.953   0.877  3013.6s
+P5_ranking   T2     5split     0.831   0.707   1.162   0.847  2290.0s
+P5_ranking   T3     5split     0.807   0.581   4.464   0.877  2336.9s
+==========================================================================================
+
+All results saved to: /root/pd-imu/results/compression_ablation_all.json

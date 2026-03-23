@@ -1,0 +1,10 @@
+
+*** TARGET: updrs3 (range 0-132) ***
+
+
+============================================================
+PHASE 1: Feature Expansion (Euler + FreeAcc, mode=additive)
+============================================================
+  PD subjects: 100
+
+  [E1.0] Baseline control (v2+FM)...

@@ -1,0 +1,71 @@
+======================================================================
+CROSS-DATASET TRANSFER & GENERALIZATION STUDY
+======================================================================
+Loaded split: 142 dev + 36 test subjects
+
+======================================================================
+EXPERIMENT 1: SENSOR REDUCTION STUDY
+======================================================================
+  Walkway loaded: 135 subjects, 31 metrics
+
+  Config: full_13 (13 sensors)
+Traceback (most recent call last):
+  File "/root/pd-imu/run_transfer.py", line 638, in <module>
+    main()
+  File "/root/pd-imu/run_transfer.py", line 583, in main
+    sensor_results = run_sensor_reduction(subjects, dev_sids, test_sids)
+  File "/root/pd-imu/run_transfer.py", line 244, in run_sensor_reduction
+    dst = distill_walkway(df, wk, dev_sids)
+  File "/root/pd-imu/run_ablation_v2.py", line 588, in distill_walkway
+    m.fit(Xtr, ytr, verbose=False)
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 751, in inner_f
+    return func(**kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/sklearn.py", line 1343, in fit
+    train_dmatrix, evals = _wrap_evaluation_matrices(
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/sklearn.py", line 700, in _wrap_evaluation_matrices
+    train_dmatrix = create_dmatrix(
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/sklearn.py", line 1257, in _create_dmatrix
+    return QuantileDMatrix(
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 751, in inner_f
+    return func(**kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 1719, in __init__
+    self._init(
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 1783, in _init
+    it.reraise()
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 594, in reraise
+    raise exc  # pylint: disable=raising-bad-type
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 575, in _handle_exception
+    return fn()
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 662, in <lambda>
+    return self._handle_exception(lambda: int(self.next(input_data)), 0)
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/data.py", line 1642, in next
+    input_data(**self.kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 751, in inner_f
+    return func(**kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 651, in input_data
+    self.proxy.set_info(
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 751, in inner_f
+    return func(**kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 1052, in set_info
+    self.set_label(label)
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 1179, in set_label
+    dispatch_meta_backend(self, label, "label", "float")
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/data.py", line 1574, in dispatch_meta_backend
+    _meta_from_numpy(data, name, dtype, handle)
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/data.py", line 1521, in _meta_from_numpy
+    _check_call(_LIB.XGDMatrixSetInfoFromInterface(handle, c_str(field), interface_str))
+  File "/usr/local/lib/python3.10/dist-packages/xgboost/core.py", line 324, in _check_call
+    raise XGBoostError(py_str(_LIB.XGBGetLastError()))
+xgboost.core.XGBoostError: [21:53:41] /__w/xgboost/xgboost/src/data/data.cc:522: Check failed: p_info->Size() % n_samples == 0 (8 vs. 0) : Invalid size for `label`:(99,1). n_samples:91
+Stack trace:
+  [bt] (0) /usr/local/lib/python3.10/dist-packages/xgboost/lib/libxgboost.so(+0x2c1a8c) [0x756e936c1a8c]
+  [bt] (1) /usr/local/lib/python3.10/dist-packages/xgboost/lib/libxgboost.so(+0x5966d3) [0x756e939966d3]
+  [bt] (2) /usr/local/lib/python3.10/dist-packages/xgboost/lib/libxgboost.so(+0x5b018e) [0x756e939b018e]
+  [bt] (3) /usr/local/lib/python3.10/dist-packages/xgboost/lib/libxgboost.so(+0x5b1655) [0x756e939b1655]
+  [bt] (4) /usr/local/lib/python3.10/dist-packages/xgboost/lib/libxgboost.so(XGDMatrixSetInfoFromInterface+0x10b) [0x756e935c9cab]
+  [bt] (5) /lib/x86_64-linux-gnu/libffi.so.8(+0x7e2e) [0x756ef38f2e2e]
+  [bt] (6) /lib/x86_64-linux-gnu/libffi.so.8(+0x4493) [0x756ef38ef493]
+  [bt] (7) /usr/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so(+0xa5d7) [0x756ef34a85d7]
+  [bt] (8) /usr/lib/python3.10/lib-dynload/_ctypes.cpython-310-x86_64-linux-gnu.so(+0x9a00) [0x756ef34a7a00]
+
+

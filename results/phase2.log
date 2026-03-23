@@ -1,0 +1,89 @@
+ROCKET ABLATION — phase=2
+N_CORES=11, SEQ_LEN=1000, N_ROCKET_KERNELS=5000
+Subjects: 178 (98 PD)
+V2 cache: (178, 1877)
+[cache] Loading recordings from /root/pd-imu/results/rocket_recordings.npz
+  1417 recordings, 1417 coord rows
+
+======================================================================
+PHASE 2: Foundation Model Embeddings (MOMENT-1-base, frozen)
+======================================================================
+[cache] Loading FM embeddings from /root/pd-imu/results/fm_embeddings.npz
+FM features per subject: 768 (d_model=768)
+V2 baseline: 1752 features
+
+--- 10-split validation ---
+  s1_v2: MAE=8.627 r=0.627 PD-MAE=8.596 (K=150)
+  s1_fm_only: MAE=10.971 r=0.258 PD-MAE=11.465 (K=150)
+  s1_v2+fm: MAE=8.445 r=0.663 PD-MAE=8.609 (K=300)
+  s1_v2+fm_stk: MAE=8.279 r=0.647 PD-MAE=8.383 (K=300, stack)
+  [1/10] v2=8.63 fm=10.97 fused=8.45 stk=8.28
+  s2_v2: MAE=9.539 r=0.576 PD-MAE=9.601 (K=150)
+  s2_fm_only: MAE=11.553 r=0.265 PD-MAE=11.485 (K=150)
+  s2_v2+fm: MAE=9.079 r=0.659 PD-MAE=9.381 (K=300)
+  s2_v2+fm_stk: MAE=8.206 r=0.682 PD-MAE=8.459 (K=300, stack)
+  [2/10] v2=9.54 fm=11.55 fused=9.08 stk=8.21
+  s3_v2: MAE=8.512 r=0.593 PD-MAE=9.215 (K=150)
+  s3_fm_only: MAE=10.851 r=0.174 PD-MAE=10.394 (K=150)
+  s3_v2+fm: MAE=8.454 r=0.555 PD-MAE=9.156 (K=300)
+  s3_v2+fm_stk: MAE=7.933 r=0.594 PD-MAE=8.746 (K=300, stack)
+  [3/10] v2=8.51 fm=10.85 fused=8.45 stk=7.93
+  s4_v2: MAE=8.750 r=0.663 PD-MAE=9.353 (K=150)
+  s4_fm_only: MAE=11.158 r=0.224 PD-MAE=10.782 (K=150)
+  s4_v2+fm: MAE=8.090 r=0.690 PD-MAE=8.413 (K=300)
+  s4_v2+fm_stk: MAE=7.286 r=0.709 PD-MAE=7.602 (K=300, stack)
+  [4/10] v2=8.75 fm=11.16 fused=8.09 stk=7.29
+  s5_v2: MAE=8.659 r=0.730 PD-MAE=9.215 (K=150)
+  s5_fm_only: MAE=12.321 r=0.100 PD-MAE=12.573 (K=150)
+  s5_v2+fm: MAE=9.287 r=0.720 PD-MAE=9.646 (K=300)
+  s5_v2+fm_stk: MAE=8.319 r=0.769 PD-MAE=8.854 (K=300, stack)
+  [5/10] v2=8.66 fm=12.32 fused=9.29 stk=8.32
+  s6_v2: MAE=8.050 r=0.679 PD-MAE=7.838 (K=150)
+  s6_fm_only: MAE=11.103 r=0.290 PD-MAE=11.547 (K=150)
+  s6_v2+fm: MAE=7.967 r=0.742 PD-MAE=7.571 (K=300)
+  s6_v2+fm_stk: MAE=8.110 r=0.760 PD-MAE=7.676 (K=300, stack)
+  [6/10] v2=8.05 fm=11.10 fused=7.97 stk=8.11
+  s7_v2: MAE=8.089 r=0.679 PD-MAE=8.640 (K=150)
+  s7_fm_only: MAE=10.225 r=0.338 PD-MAE=9.641 (K=150)
+  s7_v2+fm: MAE=8.024 r=0.681 PD-MAE=8.830 (K=300)
+  s7_v2+fm_stk: MAE=7.356 r=0.720 PD-MAE=8.240 (K=300, stack)
+  [7/10] v2=8.09 fm=10.22 fused=8.02 stk=7.36
+  s8_v2: MAE=8.842 r=0.694 PD-MAE=8.946 (K=150)
+  s8_fm_only: MAE=11.613 r=0.225 PD-MAE=12.013 (K=150)
+  s8_v2+fm: MAE=8.714 r=0.729 PD-MAE=8.850 (K=300)
+  s8_v2+fm_stk: MAE=7.774 r=0.777 PD-MAE=7.729 (K=300, stack)
+  [8/10] v2=8.84 fm=11.61 fused=8.71 stk=7.77
+  s9_v2: MAE=7.713 r=0.677 PD-MAE=7.941 (K=150)
+  s9_fm_only: MAE=10.682 r=0.185 PD-MAE=10.563 (K=150)
+  s9_v2+fm: MAE=7.587 r=0.678 PD-MAE=7.973 (K=300)
+  s9_v2+fm_stk: MAE=7.438 r=0.697 PD-MAE=7.871 (K=300, stack)
+  [9/10] v2=7.71 fm=10.68 fused=7.59 stk=7.44
+  s10_v2: MAE=8.071 r=0.621 PD-MAE=7.872 (K=150)
+  s10_fm_only: MAE=10.044 r=0.345 PD-MAE=9.897 (K=150)
+  s10_v2+fm: MAE=7.951 r=0.641 PD-MAE=8.095 (K=300)
+  s10_v2+fm_stk: MAE=7.047 r=0.702 PD-MAE=7.125 (K=300, stack)
+  [10/10] v2=8.07 fm=10.04 fused=7.95 stk=7.05
+
+10-split v2: 8.485 +/- 0.497
+
+10-split fm_only: 11.052 +/- 0.638
+
+10-split fused: 8.360 +/- 0.512
+
+10-split fused_stk: 7.775 +/- 0.439
+
+Wilcoxon fused_stk vs v2: p=0.0039
+
+--- K sweep (primary split, seed=1) ---
+  K100: MAE=8.694 r=0.658 PD-MAE=9.169 (K=100)
+  K150: MAE=8.696 r=0.650 PD-MAE=9.014 (K=150)
+  K200: MAE=8.425 r=0.671 PD-MAE=8.687 (K=200)
+  K300: MAE=8.445 r=0.663 PD-MAE=8.609 (K=300)
+  K400: MAE=8.337 r=0.671 PD-MAE=8.580 (K=400)
+  K500: MAE=8.368 r=0.668 PD-MAE=8.580 (K=500)
+
+Phase 2 done in 13.0m
+
+======================================================================
+TOTAL RUNTIME: 13.1 minutes
+Results: results/rocket_ablation_results.json

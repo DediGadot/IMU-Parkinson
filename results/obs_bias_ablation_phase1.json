@@ -1,0 +1,143 @@
+{
+  "phase": 1,
+  "description": "Walkway Metrics Ablation",
+  "experiments": {
+    "E1.0_walkway_only": {
+      "mae": 2.168,
+      "rmse": 3.007,
+      "r": 0.201,
+      "ccc": 0.092,
+      "cal_slope": 0.058,
+      "cal_intercept": 2.694,
+      "quartiles": [
+        {
+          "label": "Q1 (<4)",
+          "n": 45,
+          "bias": 0.865,
+          "mae": 1.167
+        },
+        {
+          "label": "Q2 (4-8)",
+          "n": 38,
+          "bias": -2.024,
+          "mae": 2.074
+        },
+        {
+          "label": "Q3 (8-14)",
+          "n": 10,
+          "bias": -6.13,
+          "mae": 6.13
+        },
+        {
+          "label": "Q4 (>=14)",
+          "n": 1,
+          "bias": -11.19,
+          "mae": 11.19
+        }
+      ],
+      "n": 94
+    },
+    "E1.1_walkway_v2": {
+      "mae": 1.692,
+      "rmse": 2.227,
+      "r": 0.646,
+      "ccc": 0.564,
+      "cal_slope": 0.405,
+      "cal_intercept": 1.863,
+      "quartiles": [
+        {
+          "label": "Q1 (<4)",
+          "n": 45,
+          "bias": 0.728,
+          "mae": 1.143
+        },
+        {
+          "label": "Q2 (4-8)",
+          "n": 38,
+          "bias": -1.221,
+          "mae": 1.756
+        },
+        {
+          "label": "Q3 (8-14)",
+          "n": 10,
+          "bias": -3.402,
+          "mae": 3.402
+        },
+        {
+          "label": "Q4 (>=14)",
+          "n": 1,
+          "bias": -6.88,
+          "mae": 6.88
+        }
+      ],
+      "n": 94
+    },
+    "E1.2_walkway_v2_fm": {
+      "mae": 1.637,
+      "rmse": 2.146,
+      "r": 0.673,
+      "ccc": 0.604,
+      "cal_slope": 0.443,
+      "cal_intercept": 1.775,
+      "quartiles": [
+        {
+          "label": "Q1 (<4)",
+          "n": 45,
+          "bias": 0.765,
+          "mae": 1.059
+        },
+        {
+          "label": "Q2 (4-8)",
+          "n": 38,
+          "bias": -1.197,
+          "mae": 1.808
+        },
+        {
+          "label": "Q3 (8-14)",
+          "n": 10,
+          "bias": -3.051,
+          "mae": 3.075
+        },
+        {
+          "label": "Q4 (>=14)",
+          "n": 1,
+          "bias": -6.724,
+          "mae": 6.724
+        }
+      ],
+      "n": 94
+    },
+    "E1.3_walkway_only_available": {
+      "mae": 1.752,
+      "rmse": 2.315,
+      "r": 0.481,
+      "ccc": 0.292,
+      "cal_slope": 0.21,
+      "cal_intercept": 2.064,
+      "quartiles": [
+        {
+          "label": "Q1 (<4)",
+          "n": 27,
+          "bias": 0.429,
+          "mae": 0.883
+        },
+        {
+          "label": "Q2 (4-8)",
+          "n": 28,
+          "bias": -1.998,
+          "mae": 2.052
+        },
+        {
+          "label": "Q3 (8-14)",
+          "n": 5,
+          "bias": -4.764,
+          "mae": 4.764
+        }
+      ],
+      "n": 60
+    }
+  },
+  "n_pd_with_walkway": 60,
+  "n_pd_without_walkway": 34,
+  "runtime_s": 1654.2
+}

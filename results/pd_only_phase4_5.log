@@ -1,0 +1,59 @@
+PD-ONLY EXPERIMENTS -- phase=4,5
+N_CORES=11
+Subjects: 178 (98 PD, 80 HC)
+V2 cache: (178, 1877)
+[cache] Loading recordings from /root/pd-imu/results/rocket_recordings.npz
+  1417 recordings
+[cache] Loading FM embeddings from /root/pd-imu/results/fm_embeddings.npz
+FM features per subject: 768
+
+======================================================================
+PHASE 4: Severity-Stratified Error + Confound Analysis
+======================================================================
+
+--- Severity quartile stratification ---
+  Q1(<12) (n=9): MAE=14.092, CCC=0.141, bias=14.09
+  Q2(12-20) (n=26): MAE=5.96, CCC=0.068, bias=4.45
+  Q3(20-35) (n=46): MAE=5.944, CCC=0.152, bias=-4.04
+  Q4(>35) (n=17): MAE=14.301, CCC=0.138, bias=-14.3
+
+Spearman: rho=0.382, p=0.000102
+Weighted kappa (quadratic): 0.245
+Proportional bias: slope=0.1251, r=0.223, p=0.0273
+Partial correlation (age+yrs_dx): r=0.360, p=0.0003
+
+--- Error correlation with demographics ---
+  error ~ age: r=-0.037, p=0.7207
+  error ~ sex: r=nan, p=nan
+  error ~ years_dx: r=-0.137, p=0.2390
+  error ~ height_cm: r=-0.122, p=0.2309
+  error ~ weight_kg: r=0.014, p=0.8949
+
+--- Missing-data sensitivity ---
+  Complete items: 89, Partial items: 9
+  MAE(complete)=8.034, MAE(partial)=9.258
+
+Phase 4 done in 0.0m
+
+======================================================================
+PHASE 5: Locked Held-Out Test (paper3_split.json)
+======================================================================
+Split: 142 dev + 36 test
+
+--- Full test (all subjects) ---
+Full test: {'mae': 9.355, 'rmse': 11.02, 'r2': 0.373, 'ccc': 0.559, 'r': 0.615, 'spearman_rho': 0.575, 'spearman_p': 0.0002, 'mae_sd': 0.672, 'nrmse': 0.24, 'cal_slope': 0.397, 'cal_intercept': 11.381}
+
+--- PD-subset test (N=21) ---
+PD-subset: {'mae': 9.477, 'rmse': 10.946, 'r2': 0.055, 'ccc': 0.263, 'r': 0.319, 'spearman_rho': 0.294, 'spearman_p': 0.1957, 'mae_sd': 0.842, 'nrmse': 0.238, 'cal_slope': 0.168, 'cal_intercept': 19.876, 'n': 21, 'caveat': 'N too small for primary PD claim'}
+
+--- Demographic baseline on test ---
+Demographic baseline: {'mae': 10.35, 'rmse': 12.633, 'r2': 0.176, 'ccc': 0.293, 'r': 0.455, 'spearman_rho': 0.367, 'spearman_p': 0.0275, 'mae_sd': 0.744, 'nrmse': 0.275, 'cal_slope': 0.171, 'cal_intercept': 12.248}
+
+--- Observable subscore on test PD ---
+Observable subscore on test PD: {'mae': 4.12, 'rmse': 5.06, 'r2': 0.112, 'ccc': 0.301, 'r': 0.378, 'spearman_rho': 0.298, 'spearman_p': 0.2015, 'mae_sd': 0.767, 'nrmse': 0.281, 'cal_slope': 0.191, 'cal_intercept': 5.788, 'n': 20}
+
+Phase 5 done in 1.5m
+
+======================================================================
+TOTAL RUNTIME: 1.6 minutes
+Results saved to results/pd_only_*.json

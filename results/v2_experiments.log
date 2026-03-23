@@ -1,0 +1,672 @@
+================================================================================
+V2 EXPERIMENTS: FEATURE-FIRST + DL-ASSISTED
+Baseline: LightGBM 150 features -> MAE=7.97, r=0.821
+================================================================================
+Loaded split: 142 dev + 36 test subjects
+Subjects: 173, Dev: 142, Test: 36
+Observable subtotal: mean=3.0, range=[0, 12]
+
+================================================================================
+PHASE 0: EXPANDED FEATURE EXTRACTION
+================================================================================
+  Extracting features from 825 recordings using 11 cores...
+  Done: 825 recordings in 101s
+  Saved 16390 columns for 166 subjects to /root/pd-imu/v2_features.csv
+  Total raw features: 16384
+  WARNING: 12 subjects missing features, padding with 0
+  Dev: (132, 16384), Test: (34, 16384)
+
+================================================================================
+PHASE 1: EXPANDED FEATURE BASELINES
+================================================================================
+  Running stable feature selection (multi-seed XGBoost)...
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 150 features (multi-seed stable)
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 200 features (multi-seed stable)
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 300 features (multi-seed stable)
+
+--- E1A: LGB expanded 200 feats ---
+  Features: 200, Dev: 132, Test: 34
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1516]	valid_0's l1: 4.70701
+  Seed 42: MAE=8.58, r=0.736
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[329]	valid_0's l1: 7.38345
+  Seed 123: MAE=8.74, r=0.751
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1099]	valid_0's l1: 6.51355
+  Seed 456: MAE=9.57, r=0.608
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1254]	valid_0's l1: 8.85172
+  Seed 789: MAE=9.23, r=0.737
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[307]	valid_0's l1: 9.24533
+  Seed 2024: MAE=9.04, r=0.770
+  MEAN: MAE=9.03+/-0.35, r=0.720
+  ENS:  MAE=8.95, r=0.746
+
+--- E1B: LGB expanded 150 feats ---
+  Features: 150, Dev: 132, Test: 34
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[727]	valid_0's l1: 5.10153
+  Seed 42: MAE=8.84, r=0.711
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[256]	valid_0's l1: 7.87304
+  Seed 123: MAE=9.51, r=0.704
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[365]	valid_0's l1: 6.48854
+  Seed 456: MAE=9.31, r=0.668
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[683]	valid_0's l1: 8.16502
+  Seed 789: MAE=9.73, r=0.704
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[841]	valid_0's l1: 8.96991
+  Seed 2024: MAE=9.09, r=0.742
+  MEAN: MAE=9.30+/-0.31, r=0.706
+  ENS:  MAE=9.22, r=0.735
+
+--- E1C: LGB expanded 300 feats ---
+  Features: 300, Dev: 132, Test: 34
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[796]	valid_0's l1: 5.46808
+  Seed 42: MAE=8.34, r=0.742
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[262]	valid_0's l1: 8.18945
+  Seed 123: MAE=9.45, r=0.726
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[966]	valid_0's l1: 6.42688
+  Seed 456: MAE=9.73, r=0.598
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[421]	valid_0's l1: 9.40112
+  Seed 789: MAE=9.20, r=0.790
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1142]	valid_0's l1: 8.7532
+  Seed 2024: MAE=8.70, r=0.793
+  MEAN: MAE=9.08+/-0.50, r=0.730
+  ENS:  MAE=9.01, r=0.757
+
+--- E1D: XGB expanded 200 feats ---
+  Features: 200, Dev: 132, Test: 34
+  Seed 42: MAE=8.75, r=0.729
+  Seed 123: MAE=9.02, r=0.706
+  Seed 456: MAE=9.26, r=0.711
+  Seed 789: MAE=8.41, r=0.779
+  Seed 2024: MAE=9.75, r=0.635
+  MEAN: MAE=9.04+/-0.46, r=0.712
+  ENS:  MAE=8.93, r=0.743
+  Pre-filter: 4096 -> 4096 features (removed 0 constant)
+  Selected top 200 features (multi-seed stable)
+
+--- E1E: LGB mean-only 200 feats ---
+  Features: 200, Dev: 132, Test: 34
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[377]	valid_0's l1: 5.34412
+  Seed 42: MAE=9.46, r=0.754
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[379]	valid_0's l1: 7.74167
+  Seed 123: MAE=9.41, r=0.703
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[686]	valid_0's l1: 6.37324
+  Seed 456: MAE=9.49, r=0.679
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[366]	valid_0's l1: 9.00152
+  Seed 789: MAE=9.25, r=0.749
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[209]	valid_0's l1: 8.94621
+  Seed 2024: MAE=8.96, r=0.712
+  MEAN: MAE=9.32+/-0.20, r=0.720
+  ENS:  MAE=9.32, r=0.749
+
+================================================================================
+PHASE 3: OBSERVABLE-FIRST TWO-STAGE
+================================================================================
+
+--- E3A: LGB observable subtotal ---
+  Features: 200, Dev: 132, Test: 34
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[170]	valid_0's l1: 1.51774
+  Seed 42: MAE=1.96, r=0.778
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[256]	valid_0's l1: 1.99697
+  Seed 123: MAE=1.84, r=0.794
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1159]	valid_0's l1: 1.66512
+  Seed 456: MAE=2.03, r=0.772
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[595]	valid_0's l1: 2.3322
+  Seed 789: MAE=1.94, r=0.787
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[732]	valid_0's l1: 1.65462
+  Seed 2024: MAE=1.95, r=0.808
+  MEAN: MAE=1.94+/-0.06, r=0.788
+  ENS:  MAE=1.92, r=0.817
+
+--- E3B: LGB obs+partial subtotal ---
+  Features: 200, Dev: 132, Test: 34
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[170]	valid_0's l1: 1.51774
+  Seed 42: MAE=1.96, r=0.778
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[256]	valid_0's l1: 1.99697
+  Seed 123: MAE=1.84, r=0.794
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1159]	valid_0's l1: 1.66512
+  Seed 456: MAE=2.03, r=0.772
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[595]	valid_0's l1: 2.3322
+  Seed 789: MAE=1.94, r=0.787
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[732]	valid_0's l1: 1.65462
+  Seed 2024: MAE=1.95, r=0.808
+  MEAN: MAE=1.94+/-0.06, r=0.788
+  ENS:  MAE=1.92, r=0.817
+
+--- E3C: Two-stage observable → total ---
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[170]	valid_0's l1: 1.51774
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[216]	valid_0's l1: 5.00226
+  Seed 42: MAE=8.70, r=0.716
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[256]	valid_0's l1: 1.99697
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1376]	valid_0's l1: 7.55772
+  Seed 123: MAE=8.01, r=0.774
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1159]	valid_0's l1: 1.66512
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[186]	valid_0's l1: 5.33549
+  Seed 456: MAE=10.05, r=0.546
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[595]	valid_0's l1: 2.3322
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[928]	valid_0's l1: 7.51322
+  Seed 789: MAE=9.51, r=0.609
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[732]	valid_0's l1: 1.65462
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[255]	valid_0's l1: 9.35447
+  Seed 2024: MAE=10.28, r=0.539
+  MEAN: MAE=9.31+/-0.85
+  ENS:  MAE=9.17, r=0.689
+
+================================================================================
+PHASE 4: PER-TASK MODELS
+================================================================================
+
+--- E4A: Per-task LGB ensemble ---
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[412]	valid_0's l1: 7.58454
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[464]	valid_0's l1: 8.38954
+  Seed 42: MAE=9.48, r=0.764
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[811]	valid_0's l1: 9.74719
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[487]	valid_0's l1: 10.157
+  Seed 123: MAE=9.02, r=0.801
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[679]	valid_0's l1: 9.82908
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[55]	valid_0's l1: 9.84143
+  Seed 456: MAE=9.21, r=0.764
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[315]	valid_0's l1: 11.3075
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[515]	valid_0's l1: 11.3952
+  Seed 789: MAE=8.58, r=0.750
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1046]	valid_0's l1: 10.5518
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[115]	valid_0's l1: 11.4737
+  Seed 2024: MAE=10.00, r=0.749
+  MEAN: MAE=9.26+/-0.47
+  ENS:  MAE=9.25, r=0.797
+  Pre-filter: 4096 -> 4080 features (removed 16 constant)
+  Selected top 100 features (multi-seed stable)
+
+--- E4B: LGB contrast-only 100 feats ---
+  Features: 100, Dev: 132, Test: 34
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[315]	valid_0's l1: 7.26542
+  Seed 42: MAE=12.51, r=0.180
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[954]	valid_0's l1: 9.4813
+  Seed 123: MAE=12.69, r=0.105
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[957]	valid_0's l1: 8.34821
+  Seed 456: MAE=11.97, r=0.235
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1552]	valid_0's l1: 8.75512
+  Seed 789: MAE=12.66, r=0.050
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[443]	valid_0's l1: 10.6978
+  Seed 2024: MAE=12.83, r=0.105
+  MEAN: MAE=12.53+/-0.30, r=0.135
+  ENS:  MAE=12.34, r=0.148
+
+================================================================================
+PHASE 2: DL EMBEDDING FUSION
+================================================================================
+
+  Loading cached window data for DL...
+  Using cached dev_all5
+  Using cached test_sp_hp
+  Training InceptionTime+ordinal (5 seeds) for embeddings...
+  DL embedding extraction failed: CUDA out of memory. Tried to allocate 2.16 GiB. GPU 0 has a total capacity of 15.48 GiB of which 615.94 MiB is free. Including non-PyTorch memory, this process has 14.87 GiB memory in use. Of the allocated memory 13.45 GiB is allocated by PyTorch, and 1.26 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/root/pd-imu/run_v2_experiments.py", line 1172, in main
+    dev_embs, test_embs, embed_dim = extract_dl_embeddings(subjects, dev_sids, test_sids)
+  File "/root/pd-imu/run_v2_experiments.py", line 835, in extract_dl_embeddings
+    loss = model.get_loss(tr[0], tr[2], tr[3], tr[1])
+  File "/root/pd-imu/run_v2_experiments.py", line 699, in get_loss
+    emb = self.encoder(bags.reshape(B*N, C, T)).reshape(B, N, -1)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/pd-imu/run_v2_experiments.py", line 644, in forward
+    return self.pool(self.blocks(x)).squeeze(-1)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/pd-imu/run_v2_experiments.py", line 627, in forward
+    outs.append(self.pool_conv(x))
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/pooling.py", line 144, in forward
+    return F.max_pool1d(
+  File "/usr/local/lib/python3.10/dist-packages/torch/_jit_internal.py", line 619, in fn
+    return if_false(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/functional.py", line 743, in _max_pool1d
+    return torch.max_pool1d(input, kernel_size, stride, padding, dilation, ceil_mode)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.16 GiB. GPU 0 has a total capacity of 15.48 GiB of which 615.94 MiB is free. Including non-PyTorch memory, this process has 14.87 GiB memory in use. Of the allocated memory 13.45 GiB is allocated by PyTorch, and 1.26 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+================================================================================
+PHASE 5: GRAND ENSEMBLE + PD-ONLY
+================================================================================
+
+--- E5A: Stacking ensemble ---
+  Components (ranked):
+    1. E3A: LGB observable subtotal: MAE=1.92
+    2. E3B: LGB obs+partial subtotal: MAE=1.92
+    3. E1D: XGB expanded 200 feats: MAE=8.93
+    4. E1A: LGB expanded 200 feats: MAE=8.95
+    5. E1C: LGB expanded 300 feats: MAE=9.01
+    6. E3C: Two-stage obs→total: MAE=9.17
+    7. E1B: LGB expanded 150 feats: MAE=9.22
+    8. E4A: Per-task LGB ensemble: MAE=9.25
+  Top-3 mean: MAE=12.16, r=0.722
+  Top-5 mean: MAE=10.39, r=0.755
+  Top-10 mean: MAE=10.01, r=0.769
+  Weighted top-5: MAE=12.94, r=0.716
+
+--- E5B: PD-only LOOCV ---
+  Pre-filter: 16384 -> 16334 features (removed 50 constant)
+  Selected top 200 features (multi-seed stable)
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[905]	valid_0's l1: 6.0648
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[325]	valid_0's l1: 5.50086
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[822]	valid_0's l1: 4.94101
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[1994]	valid_0's l1: 4.74724
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1345]	valid_0's l1: 5.18483
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1433]	valid_0's l1: 5.09992
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[144]	valid_0's l1: 5.4674
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[275]	valid_0's l1: 5.40734
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[441]	valid_0's l1: 5.17358
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[201]	valid_0's l1: 5.47975
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[135]	valid_0's l1: 5.59797
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[207]	valid_0's l1: 5.62225
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1006]	valid_0's l1: 4.98738
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1006]	valid_0's l1: 6.41414
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[194]	valid_0's l1: 6.54064
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[1997]	valid_0's l1: 6.46314
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[1998]	valid_0's l1: 6.34105
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[384]	valid_0's l1: 6.62489
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[222]	valid_0's l1: 6.64757
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[222]	valid_0's l1: 6.79406
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[102]	valid_0's l1: 6.71643
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[84]	valid_0's l1: 6.92822
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[193]	valid_0's l1: 6.77668
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[193]	valid_0's l1: 6.76319
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[1338]	valid_0's l1: 6.50874
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[104]	valid_0's l1: 7.02225
+Training until validation scores don't improve for 100 rounds
+Did not meet early stopping. Best iteration is:
+[1951]	valid_0's l1: 6.53879
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[62]	valid_0's l1: 6.58582
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[174]	valid_0's l1: 6.25668
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[63]	valid_0's l1: 6.58974
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[209]	valid_0's l1: 6.59549
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[133]	valid_0's l1: 6.63749
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[69]	valid_0's l1: 6.80557
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[92]	valid_0's l1: 6.32644
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[135]	valid_0's l1: 6.4365
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[109]	valid_0's l1: 6.33298
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[181]	valid_0's l1: 6.69105
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[44]	valid_0's l1: 6.77379
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[60]	valid_0's l1: 6.46047
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[44]	valid_0's l1: 6.43359
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[288]	valid_0's l1: 6.34887
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[120]	valid_0's l1: 6.41808
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[171]	valid_0's l1: 6.66219
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[384]	valid_0's l1: 6.20394
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[90]	valid_0's l1: 6.47557
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[203]	valid_0's l1: 6.41678
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[142]	valid_0's l1: 6.12328
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[48]	valid_0's l1: 6.36357
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[365]	valid_0's l1: 6.13039
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[132]	valid_0's l1: 6.61136
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[63]	valid_0's l1: 6.78742
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[150]	valid_0's l1: 6.46619
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[33]	valid_0's l1: 6.89086
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[48]	valid_0's l1: 6.08943
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[48]	valid_0's l1: 6.16642
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[62]	valid_0's l1: 6.17999
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[50]	valid_0's l1: 6.5479
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[54]	valid_0's l1: 6.44897
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[91]	valid_0's l1: 6.18312
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[111]	valid_0's l1: 6.33801
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[97]	valid_0's l1: 6.14534
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[97]	valid_0's l1: 6.50085
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[137]	valid_0's l1: 6.59845
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[663]	valid_0's l1: 6.2625
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[67]	valid_0's l1: 6.35507
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[119]	valid_0's l1: 6.13712
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[119]	valid_0's l1: 5.87288
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[92]	valid_0's l1: 5.99218
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[792]	valid_0's l1: 6.02847
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[795]	valid_0's l1: 6.09872
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[383]	valid_0's l1: 6.31783
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[374]	valid_0's l1: 6.0191
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[655]	valid_0's l1: 6.01099
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[259]	valid_0's l1: 6.37369
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[154]	valid_0's l1: 6.44484
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[76]	valid_0's l1: 6.34288
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[478]	valid_0's l1: 5.94228
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[391]	valid_0's l1: 6.72452
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[388]	valid_0's l1: 6.70944
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[221]	valid_0's l1: 7.11393
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[191]	valid_0's l1: 6.85019
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[179]	valid_0's l1: 6.98111
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[854]	valid_0's l1: 6.46709
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[525]	valid_0's l1: 7.04299
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[266]	valid_0's l1: 6.92295
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[233]	valid_0's l1: 6.76298
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[246]	valid_0's l1: 5.34579
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[638]	valid_0's l1: 4.79775
+Training until validation scores don't improve for 100 rounds
+Early stopping, best iteration is:
+[333]	valid_0's l1: 5.5359
+  PD-only LOOCV (N=89): MAE=6.88, r=0.514
+  Compare: Hssayeni 2021 MAE=5.95, Shuqair 2024 MAE~5.65 (N=24)
+
+================================================================================
+FINAL SUMMARY (7.0 min)
+================================================================================
+  Baseline: LightGBM 150 features -> MAE=7.97, r=0.821
+
+   # Model                                     ENS MAE   ENS r
+  ------------------------------------------------------------
+   1 E3A: LGB observable subtotal                1.92   0.817 ***
+   2 E3B: LGB obs+partial subtotal               1.92   0.817 ***
+   3 E5B: PD-only LOOCV                          6.88   0.514 ***
+   4 E1D: XGB expanded 200 feats                 8.93   0.743
+   5 E1A: LGB expanded 200 feats                 8.95   0.746
+   6 E1C: LGB expanded 300 feats                 9.01   0.757
+   7 E3C: Two-stage obs→total                    9.17   0.689
+   8 E1B: LGB expanded 150 feats                 9.22   0.735
+   9 E4A: Per-task LGB ensemble                  9.25   0.797
+  10 E1E: LGB mean-only 200 feats                9.32   0.749
+  11 E5A: Grand ensemble                        10.01   0.716
+  12 E4B: LGB contrast-only 100 feats           12.34   0.148
+
+  NEW BEST: E3A: LGB observable subtotal -> MAE=1.92, r=0.817
+
+Results: /root/pd-imu/v2_results.json
+Features: /root/pd-imu/v2_features.csv

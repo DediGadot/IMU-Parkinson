@@ -1,0 +1,292 @@
+{
+  "phase": 3,
+  "description": "Task-Specific Ensemble Ablation",
+  "experiments": {
+    "E3.0_task_ensemble": {
+      "mae": 1.692,
+      "rmse": 2.162,
+      "r": 0.617,
+      "ccc": 0.548,
+      "cal_slope": 0.417,
+      "cal_intercept": 1.592,
+      "quartiles": [
+        {
+          "label": "Q1 (<4)",
+          "n": 46,
+          "bias": 0.577,
+          "mae": 1.195
+        },
+        {
+          "label": "Q2 (4-8)",
+          "n": 39,
+          "bias": -1.538,
+          "mae": 1.89
+        },
+        {
+          "label": "Q3 (8-14)",
+          "n": 7,
+          "bias": -2.887,
+          "mae": 2.92
+        },
+        {
+          "label": "Q4 (>=14)",
+          "n": 1,
+          "bias": -8.218,
+          "mae": 8.218
+        }
+      ],
+      "n": 93
+    },
+    "E3.1_single_task_results": {
+      "SelfPace": {
+        "mae": 1.98,
+        "rmse": 2.505,
+        "r": 0.544,
+        "ccc": 0.494,
+        "cal_slope": 0.386,
+        "cal_intercept": 1.817,
+        "quartiles": [
+          {
+            "label": "Q1 (<4)",
+            "n": 46,
+            "bias": 0.799,
+            "mae": 1.359
+          },
+          {
+            "label": "Q2 (4-8)",
+            "n": 39,
+            "bias": -1.56,
+            "mae": 2.212
+          },
+          {
+            "label": "Q3 (8-14)",
+            "n": 10,
+            "bias": -3.41,
+            "mae": 3.41
+          },
+          {
+            "label": "Q4 (>=14)",
+            "n": 1,
+            "bias": -7.27,
+            "mae": 7.27
+          }
+        ],
+        "n": 96
+      },
+      "HurriedPace": {
+        "mae": 1.968,
+        "rmse": 2.476,
+        "r": 0.584,
+        "ccc": 0.48,
+        "cal_slope": 0.356,
+        "cal_intercept": 1.68,
+        "quartiles": [
+          {
+            "label": "Q1 (<4)",
+            "n": 46,
+            "bias": 0.564,
+            "mae": 1.293
+          },
+          {
+            "label": "Q2 (4-8)",
+            "n": 39,
+            "bias": -1.819,
+            "mae": 2.147
+          },
+          {
+            "label": "Q3 (8-14)",
+            "n": 10,
+            "bias": -3.787,
+            "mae": 3.803
+          },
+          {
+            "label": "Q4 (>=14)",
+            "n": 1,
+            "bias": -7.762,
+            "mae": 7.762
+          }
+        ],
+        "n": 96
+      },
+      "TUG": {
+        "mae": 1.951,
+        "rmse": 2.454,
+        "r": 0.568,
+        "ccc": 0.485,
+        "cal_slope": 0.361,
+        "cal_intercept": 1.76,
+        "quartiles": [
+          {
+            "label": "Q1 (<4)",
+            "n": 46,
+            "bias": 0.643,
+            "mae": 1.445
+          },
+          {
+            "label": "Q2 (4-8)",
+            "n": 39,
+            "bias": -1.662,
+            "mae": 1.962
+          },
+          {
+            "label": "Q3 (8-14)",
+            "n": 9,
+            "bias": -3.885,
+            "mae": 3.885
+          },
+          {
+            "label": "Q4 (>=14)",
+            "n": 1,
+            "bias": -7.371,
+            "mae": 7.371
+          }
+        ],
+        "n": 95
+      },
+      "TandemGait": {
+        "mae": 1.826,
+        "rmse": 2.535,
+        "r": 0.369,
+        "ccc": 0.271,
+        "cal_slope": 0.175,
+        "cal_intercept": 2.506,
+        "quartiles": [
+          {
+            "label": "Q1 (<4)",
+            "n": 46,
+            "bias": 0.77,
+            "mae": 1.329
+          },
+          {
+            "label": "Q2 (4-8)",
+            "n": 39,
+            "bias": -1.354,
+            "mae": 1.596
+          },
+          {
+            "label": "Q3 (8-14)",
+            "n": 7,
+            "bias": -5.047,
+            "mae": 5.047
+          },
+          {
+            "label": "Q4 (>=14)",
+            "n": 1,
+            "bias": -11.11,
+            "mae": 11.11
+          }
+        ],
+        "n": 93
+      },
+      "Balance": {
+        "mae": 1.918,
+        "rmse": 2.552,
+        "r": 0.468,
+        "ccc": 0.373,
+        "cal_slope": 0.258,
+        "cal_intercept": 2.198,
+        "quartiles": [
+          {
+            "label": "Q1 (<4)",
+            "n": 46,
+            "bias": 0.825,
+            "mae": 1.304
+          },
+          {
+            "label": "Q2 (4-8)",
+            "n": 39,
+            "bias": -1.576,
+            "mae": 1.866
+          },
+          {
+            "label": "Q3 (8-14)",
+            "n": 9,
+            "bias": -4.529,
+            "mae": 4.529
+          },
+          {
+            "label": "Q4 (>=14)",
+            "n": 1,
+            "bias": -8.739,
+            "mae": 8.739
+          }
+        ],
+        "n": 95
+      }
+    },
+    "E3.1_best_task": "TandemGait",
+    "E3.1_best_metrics": {
+      "mae": 1.826,
+      "rmse": 2.535,
+      "r": 0.369,
+      "ccc": 0.271,
+      "cal_slope": 0.175,
+      "cal_intercept": 2.506,
+      "quartiles": [
+        {
+          "label": "Q1 (<4)",
+          "n": 46,
+          "bias": 0.77,
+          "mae": 1.329
+        },
+        {
+          "label": "Q2 (4-8)",
+          "n": 39,
+          "bias": -1.354,
+          "mae": 1.596
+        },
+        {
+          "label": "Q3 (8-14)",
+          "n": 7,
+          "bias": -5.047,
+          "mae": 5.047
+        },
+        {
+          "label": "Q4 (>=14)",
+          "n": 1,
+          "bias": -11.11,
+          "mae": 11.11
+        }
+      ],
+      "n": 93
+    },
+    "E3.2_task_walkway_fusion": {
+      "mae": 1.708,
+      "rmse": 2.168,
+      "r": 0.607,
+      "ccc": 0.547,
+      "cal_slope": 0.417,
+      "cal_intercept": 1.655,
+      "quartiles": [
+        {
+          "label": "Q1 (<4)",
+          "n": 46,
+          "bias": 0.644,
+          "mae": 1.189
+        },
+        {
+          "label": "Q2 (4-8)",
+          "n": 39,
+          "bias": -1.498,
+          "mae": 1.908
+        },
+        {
+          "label": "Q3 (8-14)",
+          "n": 7,
+          "bias": -2.792,
+          "mae": 3.171
+        },
+        {
+          "label": "Q4 (>=14)",
+          "n": 1,
+          "bias": -7.581,
+          "mae": 7.581
+        }
+      ],
+      "n": 93
+    }
+  },
+  "n_common_pd": 93,
+  "n_tasks": 5,
+  "runtime_s": 7141.8
+}

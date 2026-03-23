@@ -1,0 +1,111 @@
+
+*** TARGET: updrs3 (range 0-132) ***
+
+
+============================================================
+PHASE 8: FM Normalization + Task-Aware Pooling
+============================================================
+[cache] Loading custom FM embeddings from /root/pd-imu/results/fm_embeddings_recording_norm.npz
+
+  [E8.0_cached_mean] pooling=subject_mean, k=300
+    [E8.0_cached_mean total] LOOCV 10/100 (0.5m elapsed, ETA 4.4m)
+    [E8.0_cached_mean total] LOOCV 20/100 (1.0m elapsed, ETA 3.9m)
+    [E8.0_cached_mean total] LOOCV 30/100 (1.5m elapsed, ETA 3.4m)
+    [E8.0_cached_mean total] LOOCV 40/100 (2.0m elapsed, ETA 2.9m)
+    [E8.0_cached_mean total] LOOCV 50/100 (2.5m elapsed, ETA 2.5m)
+    [E8.0_cached_mean total] LOOCV 60/100 (3.0m elapsed, ETA 2.0m)
+    [E8.0_cached_mean total] LOOCV 70/100 (3.4m elapsed, ETA 1.5m)
+    [E8.0_cached_mean total] LOOCV 80/100 (3.9m elapsed, ETA 1.0m)
+    [E8.0_cached_mean total] LOOCV 90/100 (4.4m elapsed, ETA 0.5m)
+    [E8.0_cached_mean total] LOOCV 100/100 (4.9m elapsed, ETA 0.0m)
+    [E8.0_cached_mean obs] LOOCV 10/100 (0.5m elapsed, ETA 4.5m)
+    [E8.0_cached_mean obs] LOOCV 20/100 (1.1m elapsed, ETA 4.4m)
+    [E8.0_cached_mean obs] LOOCV 30/100 (1.7m elapsed, ETA 3.9m)
+    [E8.0_cached_mean obs] LOOCV 40/100 (2.3m elapsed, ETA 3.4m)
+    [E8.0_cached_mean obs] LOOCV 50/100 (2.9m elapsed, ETA 2.9m)
+    [E8.0_cached_mean obs] LOOCV 60/100 (3.4m elapsed, ETA 2.3m)
+    [E8.0_cached_mean obs] LOOCV 70/100 (3.9m elapsed, ETA 1.7m)
+    [E8.0_cached_mean obs] LOOCV 80/100 (4.6m elapsed, ETA 1.1m)
+    [E8.0_cached_mean obs] LOOCV 90/100 (5.1m elapsed, ETA 0.6m)
+    [E8.0_cached_mean obs] LOOCV 100/100 (5.7m elapsed, ETA 0.0m)
+    Total: MAE=8.079, CCC=0.175
+    Obs:   MAE=4.041, CCC=0.245
+
+  [E8.1_recording_mean] pooling=subject_mean, k=300
+    [E8.1_recording_mean total] LOOCV 10/100 (0.5m elapsed, ETA 4.1m)
+    [E8.1_recording_mean total] LOOCV 20/100 (1.0m elapsed, ETA 3.9m)
+    [E8.1_recording_mean total] LOOCV 30/100 (1.5m elapsed, ETA 3.4m)
+    [E8.1_recording_mean total] LOOCV 40/100 (2.0m elapsed, ETA 3.0m)
+    [E8.1_recording_mean total] LOOCV 50/100 (2.5m elapsed, ETA 2.5m)
+    [E8.1_recording_mean total] LOOCV 60/100 (3.0m elapsed, ETA 2.0m)
+    [E8.1_recording_mean total] LOOCV 70/100 (3.4m elapsed, ETA 1.5m)
+    [E8.1_recording_mean total] LOOCV 80/100 (3.9m elapsed, ETA 1.0m)
+    [E8.1_recording_mean total] LOOCV 90/100 (4.4m elapsed, ETA 0.5m)
+    [E8.1_recording_mean total] LOOCV 100/100 (4.9m elapsed, ETA 0.0m)
+    [E8.1_recording_mean obs] LOOCV 10/100 (0.5m elapsed, ETA 4.7m)
+    [E8.1_recording_mean obs] LOOCV 20/100 (1.1m elapsed, ETA 4.4m)
+    [E8.1_recording_mean obs] LOOCV 30/100 (1.7m elapsed, ETA 3.9m)
+    [E8.1_recording_mean obs] LOOCV 40/100 (2.3m elapsed, ETA 3.4m)
+    [E8.1_recording_mean obs] LOOCV 50/100 (2.9m elapsed, ETA 2.9m)
+    [E8.1_recording_mean obs] LOOCV 60/100 (3.4m elapsed, ETA 2.3m)
+    [E8.1_recording_mean obs] LOOCV 70/100 (3.9m elapsed, ETA 1.7m)
+    [E8.1_recording_mean obs] LOOCV 80/100 (4.5m elapsed, ETA 1.1m)
+    [E8.1_recording_mean obs] LOOCV 90/100 (5.2m elapsed, ETA 0.6m)
+    [E8.1_recording_mean obs] LOOCV 100/100 (5.8m elapsed, ETA 0.0m)
+    Total: MAE=8.065, CCC=0.184
+    Obs:   MAE=4.04, CCC=0.263
+
+  [E8.2_recording_task_mean] pooling=task_mean, k=350
+    [E8.2_recording_task_mean total] LOOCV 10/100 (0.8m elapsed, ETA 7.0m)
+    [E8.2_recording_task_mean total] LOOCV 20/100 (1.7m elapsed, ETA 6.6m)
+    [E8.2_recording_task_mean total] LOOCV 30/100 (2.5m elapsed, ETA 5.9m)
+    [E8.2_recording_task_mean total] LOOCV 40/100 (3.4m elapsed, ETA 5.1m)
+    [E8.2_recording_task_mean total] LOOCV 50/100 (4.2m elapsed, ETA 4.2m)
+    [E8.2_recording_task_mean total] LOOCV 60/100 (5.1m elapsed, ETA 3.4m)
+    [E8.2_recording_task_mean total] LOOCV 70/100 (5.9m elapsed, ETA 2.5m)
+    [E8.2_recording_task_mean total] LOOCV 80/100 (6.7m elapsed, ETA 1.7m)
+    [E8.2_recording_task_mean total] LOOCV 90/100 (7.6m elapsed, ETA 0.8m)
+    [E8.2_recording_task_mean total] LOOCV 100/100 (8.5m elapsed, ETA 0.0m)
+    [E8.2_recording_task_mean obs] LOOCV 10/100 (0.8m elapsed, ETA 7.6m)
+    [E8.2_recording_task_mean obs] LOOCV 20/100 (1.8m elapsed, ETA 7.1m)
+    [E8.2_recording_task_mean obs] LOOCV 30/100 (2.7m elapsed, ETA 6.3m)
+    [E8.2_recording_task_mean obs] LOOCV 40/100 (3.6m elapsed, ETA 5.5m)
+    [E8.2_recording_task_mean obs] LOOCV 50/100 (4.6m elapsed, ETA 4.6m)
+    [E8.2_recording_task_mean obs] LOOCV 60/100 (5.5m elapsed, ETA 3.7m)
+    [E8.2_recording_task_mean obs] LOOCV 70/100 (6.4m elapsed, ETA 2.7m)
+    [E8.2_recording_task_mean obs] LOOCV 80/100 (7.3m elapsed, ETA 1.8m)
+    [E8.2_recording_task_mean obs] LOOCV 90/100 (8.2m elapsed, ETA 0.9m)
+    [E8.2_recording_task_mean obs] LOOCV 100/100 (9.3m elapsed, ETA 0.0m)
+    Total: MAE=8.06, CCC=0.176
+    Obs:   MAE=4.13, CCC=0.244
+
+  [E8.3_recording_task_mean_var] pooling=task_mean_var, k=400
+    [E8.3_recording_task_mean_var total] LOOCV 10/100 (0.8m elapsed, ETA 7.5m)
+    [E8.3_recording_task_mean_var total] LOOCV 20/100 (1.8m elapsed, ETA 7.2m)
+    [E8.3_recording_task_mean_var total] LOOCV 30/100 (2.7m elapsed, ETA 6.3m)
+    [E8.3_recording_task_mean_var total] LOOCV 40/100 (3.6m elapsed, ETA 5.5m)
+    [E8.3_recording_task_mean_var total] LOOCV 50/100 (4.6m elapsed, ETA 4.6m)
+    [E8.3_recording_task_mean_var total] LOOCV 60/100 (5.5m elapsed, ETA 3.6m)
+    [E8.3_recording_task_mean_var total] LOOCV 70/100 (6.3m elapsed, ETA 2.7m)
+    [E8.3_recording_task_mean_var total] LOOCV 80/100 (7.2m elapsed, ETA 1.8m)
+    [E8.3_recording_task_mean_var total] LOOCV 90/100 (8.2m elapsed, ETA 0.9m)
+    [E8.3_recording_task_mean_var total] LOOCV 100/100 (9.1m elapsed, ETA 0.0m)
+    [E8.3_recording_task_mean_var obs] LOOCV 10/100 (0.9m elapsed, ETA 8.0m)
+    [E8.3_recording_task_mean_var obs] LOOCV 20/100 (1.9m elapsed, ETA 7.5m)
+    [E8.3_recording_task_mean_var obs] LOOCV 30/100 (2.9m elapsed, ETA 6.7m)
+    [E8.3_recording_task_mean_var obs] LOOCV 40/100 (3.9m elapsed, ETA 5.8m)
+    [E8.3_recording_task_mean_var obs] LOOCV 50/100 (4.9m elapsed, ETA 4.9m)
+    [E8.3_recording_task_mean_var obs] LOOCV 60/100 (5.9m elapsed, ETA 3.9m)
+    [E8.3_recording_task_mean_var obs] LOOCV 70/100 (6.8m elapsed, ETA 2.9m)
+    [E8.3_recording_task_mean_var obs] LOOCV 80/100 (7.8m elapsed, ETA 2.0m)
+    [E8.3_recording_task_mean_var obs] LOOCV 90/100 (8.8m elapsed, ETA 1.0m)
+    [E8.3_recording_task_mean_var obs] LOOCV 100/100 (9.8m elapsed, ETA 0.0m)
+    Total: MAE=8.011, CCC=0.168
+    Obs:   MAE=4.164, CCC=0.234
+  Saved: /root/pd-imu/results/calibration_ablation_phase8.json
+
+  Phase 8 complete.
+
+============================================================
+All requested phases complete in 58.0 minutes
+============================================================

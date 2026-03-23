@@ -1,0 +1,86 @@
+======================================================================
+OBSERVABLE SUBSCORE CALIBRATION BIAS ABLATION
+Phases: [1]
+Items: 3.9-3.14 (direct observable), max=24
+Seeds: [42, 123, 456, 789, 2024]
+Device: CPU (GPU too slow for N=94)
+======================================================================
+
+======================================================================
+PHASE 1: Walkway Metrics
+======================================================================
+Data loaded: 178 subjects, 1752 v2 + 768 FM = 2520 features
+Walkway loaded: 135 subjects, 31 metrics
+PD with walkway: 60, without: 34
+Walkway features in DataFrame: 32
+
+--- E1.0: Walkway-only ---
+
+  [E1.0_walkway_only] LOOCV over 94 PD subjects, K=150, 32 features
+    [10/94] running MAE=1.887 (7s elapsed, ~56s remaining)
+    [20/94] running MAE=2.173 (11s elapsed, ~41s remaining)
+    [30/94] running MAE=2.184 (16s elapsed, ~34s remaining)
+    [40/94] running MAE=2.021 (20s elapsed, ~28s remaining)
+    [50/94] running MAE=1.921 (25s elapsed, ~22s remaining)
+    [60/94] running MAE=2.068 (29s elapsed, ~17s remaining)
+    [70/94] running MAE=2.074 (34s elapsed, ~12s remaining)
+    [80/94] running MAE=2.173 (38s elapsed, ~7s remaining)
+    [90/94] running MAE=2.053 (43s elapsed, ~2s remaining)
+  [E1.0_walkway_only] DONE in 44s: MAE=2.168, CCC=0.092, cal_slope=0.058, r=0.201
+
+--- E1.1: Walkway + v2 ---
+
+  [E1.1_walkway_v2] LOOCV over 94 PD subjects, K=300, 1784 features
+    [10/94] running MAE=1.500 (74s elapsed, ~624s remaining)
+    [20/94] running MAE=1.916 (147s elapsed, ~544s remaining)
+    [30/94] running MAE=1.919 (215s elapsed, ~459s remaining)
+    [40/94] running MAE=1.793 (284s elapsed, ~383s remaining)
+    [50/94] running MAE=1.602 (354s elapsed, ~312s remaining)
+    [60/94] running MAE=1.671 (424s elapsed, ~240s remaining)
+    [70/94] running MAE=1.740 (491s elapsed, ~168s remaining)
+    [80/94] running MAE=1.713 (559s elapsed, ~98s remaining)
+    [90/94] running MAE=1.637 (629s elapsed, ~28s remaining)
+  [E1.1_walkway_v2] DONE in 657s: MAE=1.692, CCC=0.564, cal_slope=0.405, r=0.646
+
+--- E1.2: Walkway + v2 + FM ---
+
+  [E1.2_walkway_v2_fm] LOOCV over 94 PD subjects, K=300, 2552 features
+    [10/94] running MAE=1.632 (103s elapsed, ~867s remaining)
+    [20/94] running MAE=1.990 (205s elapsed, ~757s remaining)
+    [30/94] running MAE=1.930 (302s elapsed, ~644s remaining)
+    [40/94] running MAE=1.835 (401s elapsed, ~541s remaining)
+    [50/94] running MAE=1.628 (502s elapsed, ~441s remaining)
+    [60/94] running MAE=1.678 (600s elapsed, ~340s remaining)
+    [70/94] running MAE=1.726 (697s elapsed, ~239s remaining)
+    [80/94] running MAE=1.674 (795s elapsed, ~139s remaining)
+    [90/94] running MAE=1.588 (888s elapsed, ~39s remaining)
+  [E1.2_walkway_v2_fm] DONE in 927s: MAE=1.637, CCC=0.604, cal_slope=0.443, r=0.673
+
+--- E1.3: Walkway-only (walkway-available subjects only) ---
+
+  [E1.3_walkway_only_available] LOOCV over 60 PD subjects, K=150, 31 features
+    [10/60] running MAE=2.583 (4s elapsed, ~19s remaining)
+    [20/60] running MAE=2.203 (7s elapsed, ~15s remaining)
+    [30/60] running MAE=1.987 (12s elapsed, ~12s remaining)
+    [40/60] running MAE=1.918 (16s elapsed, ~8s remaining)
+    [50/60] running MAE=1.827 (21s elapsed, ~4s remaining)
+    [60/60] running MAE=1.752 (24s elapsed, ~0s remaining)
+  [E1.3_walkway_only_available] DONE in 24s: MAE=1.752, CCC=0.292, cal_slope=0.21, r=0.481
+
+Phase 1 saved: /root/pd-imu/results/obs_bias_ablation_phase1.json
+
+==========================================================================================
+SUMMARY: Observable Subscore Calibration Bias Ablation
+==========================================================================================
+Experiment                                  MAE    CCC  cal_slope      r     N
+------------------------------------------------------------------------------------------
+E1.0_walkway_only                         2.168  0.092      0.058  0.201    94
+E1.1_walkway_v2                           1.692  0.564      0.405  0.646    94
+E1.2_walkway_v2_fm                        1.637  0.604      0.443  0.673    94
+E1.3_walkway_only_available               1.752  0.292      0.210  0.481    60
+==========================================================================================
+
+Target: cal_slope closer to 1.0 (current baseline ~0.40)
+Observable subscore range: [0, 24], items 3.9-3.14
+
+Total runtime: 1654s (27.6 min)

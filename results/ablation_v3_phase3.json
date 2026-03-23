@@ -1,0 +1,117 @@
+{
+  "results": [
+    {
+      "config": "P3_catboost",
+      "n_sel": 200,
+      "ens_mae": 4.808,
+      "ens_r": 0.922,
+      "pd_mae": 4.938,
+      "mean_mae": 4.943,
+      "std_mae": 0.169,
+      "top10": [
+        "obs_subscore",
+        "R_Ankle_am_skew",
+        "hy",
+        "R_Ankle_ax_se",
+        "R_Ankle_ay_jerk",
+        "LowerBack_gm_range",
+        "R_DorsalFoot_az_range",
+        "L_LatShank_ax_high_r",
+        "R_Ankle_ay_trem_r",
+        "R_DorsalFoot_am_se"
+      ]
+    },
+    {
+      "config": "P3_stack3",
+      "n_sel": 200,
+      "ens_mae": 3.9,
+      "ens_r": 0.922,
+      "pd_mae": 4.595,
+      "mean_mae": 3.934,
+      "std_mae": 0.187,
+      "top10": [
+        "obs_subscore",
+        "R_Ankle_am_skew",
+        "hy",
+        "R_Ankle_ax_se",
+        "R_Ankle_ay_jerk",
+        "LowerBack_gm_range",
+        "R_DorsalFoot_az_range",
+        "L_LatShank_ax_high_r",
+        "R_Ankle_ay_trem_r",
+        "R_DorsalFoot_am_se"
+      ]
+    },
+    {
+      "config": "P3_stack2",
+      "n_sel": 200,
+      "ens_mae": 3.875,
+      "ens_r": 0.922,
+      "pd_mae": 4.551,
+      "mean_mae": 3.91,
+      "std_mae": 0.175,
+      "top10": [
+        "obs_subscore",
+        "R_Ankle_am_skew",
+        "hy",
+        "R_Ankle_ax_se",
+        "R_Ankle_ay_jerk",
+        "LowerBack_gm_range",
+        "R_DorsalFoot_az_range",
+        "L_LatShank_ax_high_r",
+        "R_Ankle_ay_trem_r",
+        "R_DorsalFoot_am_se"
+      ]
+    },
+    {
+      "config": "P3_huber",
+      "n_sel": 200,
+      "ens_mae": 3.873,
+      "ens_r": 0.918,
+      "pd_mae": 4.448,
+      "mean_mae": 3.991,
+      "std_mae": 0.355,
+      "top10": [
+        "obs_subscore",
+        "R_Ankle_am_skew",
+        "hy",
+        "R_Ankle_ax_se",
+        "R_Ankle_ay_jerk",
+        "LowerBack_gm_range",
+        "R_DorsalFoot_az_range",
+        "L_LatShank_ax_high_r",
+        "R_Ankle_ay_trem_r",
+        "R_DorsalFoot_am_se"
+      ]
+    },
+    {
+      "config": "P3_sqrt_lgb",
+      "ens_mae": 3.73,
+      "ens_r": 0.918,
+      "n_sel": 200
+    },
+    {
+      "config": "P3_obs_meta",
+      "n_sel": 201,
+      "ens_mae": 4.581,
+      "ens_r": 0.892,
+      "pd_mae": 5.118,
+      "mean_mae": 4.602,
+      "std_mae": 0.222,
+      "top10": [
+        "L_MidLatThigh_gm_dom",
+        "oof_obs_pred",
+        "obs_subscore",
+        "hy",
+        "R_Wrist_am_kurt",
+        "L_Wrist_az_trem_r",
+        "L_MidLatThigh_ax_high_r",
+        "dv_Forehead_ya_rms_cv",
+        "d_tg_LowerBack_g_stride_reg",
+        "R_DorsalFoot_ay_se"
+      ]
+    }
+  ],
+  "best_k": 200,
+  "runtime_s": 159.8
+}

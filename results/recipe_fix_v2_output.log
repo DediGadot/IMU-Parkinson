@@ -1,0 +1,87 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti, 16.6 GB
+======================================================================
+PHASE 4.1+4.2 v2: FOLLOW-UP EXPERIMENTS
+======================================================================
+Loaded split: 142 dev + 36 test subjects
+Subjects: 185 total, 142 dev, 36 test
+Covariates: 185 subjects
+
+Loading raw SP+HP data...
+  Dev: 2021 windows, 142 subjects
+  Test: 511 windows, 36 subjects
+
+======================================================================
+EXPERIMENT G: Per-window norm + MIL (the missing combination)
+======================================================================
+
+--- G: per-window norm + MIL ---
+  Seed 42: MAE=9.01, r=0.663, 63s, 0.7GB
+  Seed 123: MAE=10.20, r=0.582, 92s, 0.7GB
+  Seed 456: MAE=9.64, r=0.611, 65s, 0.7GB
+  MEAN: MAE=9.61±0.49, r=0.619
+  ENS:  MAE=8.85, r=0.689
+
+======================================================================
+EXPERIMENT H: Per-window norm + MIL + covariates
+======================================================================
+
+--- H: per-window norm + MIL + cov ---
+  Seed 42: MAE=9.85, r=0.639, 57s, 0.7GB
+  Seed 123: MAE=10.63, r=0.516, 86s, 0.7GB
+  Seed 456: MAE=10.89, r=0.504, 79s, 0.7GB
+  MEAN: MAE=10.46±0.45, r=0.553
+  ENS:  MAE=9.47, r=0.619
+
+======================================================================
+EXPERIMENT I: Global norm + InstanceNorm + MIL
+======================================================================
+
+--- I: global norm + InstNorm + MIL ---
+  Seed 42: MAE=9.29, r=0.559, 76s, 0.7GB
+  Seed 123: MAE=9.05, r=0.636, 46s, 0.7GB
+  Seed 456: MAE=10.10, r=0.593, 58s, 0.7GB
+  MEAN: MAE=9.48±0.45, r=0.596
+  ENS:  MAE=8.92, r=0.655
+
+======================================================================
+EXPERIMENT J: Per-window norm + global severity channels + MIL
+======================================================================
+  Hybrid channels: 117 (78 + 39 severity)
+
+--- J: hybrid norm + MIL (117ch) ---
+  Seed 42: MAE=9.03, r=0.663, 142s, 0.7GB
+  Seed 123: MAE=10.39, r=0.609, 61s, 0.7GB
+  Seed 456: MAE=12.05, r=0.494, 93s, 0.7GB
+  MEAN: MAE=10.49±1.24, r=0.589
+  ENS:  MAE=9.88, r=0.692
+
+======================================================================
+EXPERIMENT K: Per-window norm + MIL + all 5 tasks
+======================================================================
+Loading all 5 tasks...
+  Dev: 8822 windows, 142 subjects
+  Test: 2053 windows, 36 subjects
+
+--- K: per-window norm + MIL + 5 tasks ---
+  Seed 42: MAE=9.59, r=0.586, 188s, 1.0GB
+  Seed 123: MAE=11.09, r=0.451, 171s, 1.0GB
+  Seed 456: MAE=15.10, r=-0.066, 77s, 1.0GB
+  MEAN: MAE=11.93±2.33, r=0.324
+  ENS:  MAE=11.04, r=0.565
+
+======================================================================
+FINAL SUMMARY (v2)
+======================================================================
+  Experiment                                         Mean MAE   Mean r   Ens MAE   Ens r
+  -----------------------------------------------------------------------------------
+  G: per-window norm + MIL                           9.61±0.49  0.619    8.85   0.689
+  I: global norm + InstNorm + MIL                    9.48±0.45  0.596    8.92   0.655
+  [v1] A: per-window norm (baseline)                 9.06±0.45  0.619    9.04   0.644
+  H: per-window norm + MIL + cov                    10.46±0.45  0.553    9.47   0.619
+  J: hybrid norm + MIL (117ch)                      10.49±1.24  0.589    9.88   0.692
+  [v1] D: global norm + MIL                         10.45±0.46  0.507   10.08   0.553
+  [v1] B: global norm                               10.81±0.18  0.462   10.53   0.502
+  K: per-window norm + MIL + 5 tasks                11.93±2.33  0.324   11.04   0.565
+
+Saved to /root/pd-imu/recipe_fix_v2_results.json

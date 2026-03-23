@@ -1,0 +1,87 @@
+Device: cuda
+============================================================
+WearGait-PD: UPDRS-III Regression (Proper Splits)
+============================================================
+Loaded split: 142 dev + 36 test subjects
+
+Loading dev data...
+  Dev: 2021 windows, 142 subjects, UPDRS [0-59] mean=17.6
+Loading test data...
+  Test: 511 windows, 36 subjects, UPDRS [0-52] mean=20.2
+Loading pretraining data (dev subjects, all tasks)...
+  Pretrain: 8822 windows
+
+============================================================
+EXPERIMENT A: Transformer Regression-Only (256d/6L)
+============================================================
+  Fold 1/5: MAE=12.65 (29 subj) [40.9s]
+  Fold 2/5: MAE=9.75 (28 subj) [22.0s]
+  Fold 3/5: MAE=11.15 (28 subj) [36.4s]
+  Fold 4/5: MAE=10.57 (28 subj) [47.1s]
+  Fold 5/5: MAE=10.58 (29 subj) [25.2s]
+
+  CV Results: MAE=10.95, RMSE=13.19, r=0.246
+
+  Training final model on full dev set...
+  TEST Results: MAE=9.57, RMSE=11.89, r=0.585 (p=0.000178)
+  Total time: 205s
+
+============================================================
+EXPERIMENT B: MIM Pretrained → Regression-Only
+============================================================
+
+  MIM Pretraining (8822 windows, 150 epochs, 256d/6L)
+  Model params: 7.41M
+    Epoch 25/150: loss=0.982054 [85s]
+    Epoch 50/150: loss=0.975239 [169s]
+    Epoch 75/150: loss=0.968413 [253s]
+    Epoch 100/150: loss=0.966815 [337s]
+    Epoch 125/150: loss=0.964176 [421s]
+    Epoch 150/150: loss=0.966744 [505s]
+  Pretraining done in 505s, GPU peak: 0.68 GB
+  Fold 1/5: MAE=13.78 (29 subj) [27.1s]
+  Fold 2/5: MAE=10.10 (28 subj) [23.3s]
+  Fold 3/5: MAE=11.19 (28 subj) [34.5s]
+  Fold 4/5: MAE=9.22 (28 subj) [54.7s]
+  Fold 5/5: MAE=10.00 (29 subj) [28.4s]
+
+  CV Results: MAE=10.87, RMSE=13.19, r=0.241
+
+  Training final model on full dev set...
+  TEST Results: MAE=13.90, RMSE=17.29, r=-0.242 (p=0.154256)
+  Total time: 187s (excl. pretraining)
+
+============================================================
+EXPERIMENT C: Neural EKF & GRU (Sequential Models)
+============================================================
+  Dev: 142 subjects, Test: 36 subjects
+
+  --- Neural EKF (state=8) ---
+    Fold 1/5: MAE=12.96 (29 subj) [98.9s]
+    Fold 2/5: MAE=27.34 (29 subj) [70.5s]
+    Fold 3/5: MAE=10.82 (28 subj) [80.7s]
+    Fold 4/5: MAE=10.37 (28 subj) [86.1s]
+    Fold 5/5: MAE=11.86 (28 subj) [94.1s]
+  CV: MAE=14.75, RMSE=42.75, r=0.310
+  TEST: MAE=10.81, RMSE=13.68, r=0.632
+  Time: 554s
+
+  --- GRU (2-layer) ---
+    Fold 1/5: MAE=12.29 (29 subj) [97.1s]
+    Fold 2/5: MAE=12.85 (29 subj) [101.0s]
+    Fold 3/5: MAE=9.90 (28 subj) [58.7s]
+    Fold 4/5: MAE=10.42 (28 subj) [67.4s]
+    Fold 5/5: MAE=10.64 (28 subj) [100.1s]
+  CV: MAE=11.24, RMSE=14.40, r=0.288
+  TEST: MAE=11.44, RMSE=13.71, r=0.310
+  Time: 501s
+
+======================================================================
+FINAL RESULTS (proper train/val/test split)
+======================================================================
+Model                                     CV MAE   CV r  TEST MAE  TEST r
+----------------------------------------------------------------------
+Transformer reg-only (256d/6L)             10.95  0.246      9.57   0.585
+MIM Pretrained → reg-only                  10.87  0.241     13.90  -0.242
+Neural EKF (state=8)                       14.75  0.310     10.81   0.632
+GRU (2-layer)                              11.24  0.288     11.44   0.310

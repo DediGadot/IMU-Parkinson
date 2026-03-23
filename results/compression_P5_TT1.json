@@ -1,0 +1,40 @@
+{
+  "mae": 0.986,
+  "rmse": 1.29,
+  "r": 0.899,
+  "ccc": 0.868,
+  "cal_slope": 0.689,
+  "cal_intercept": 1.215,
+  "quartiles": [
+    {
+      "label": "Q1 (<2)",
+      "n": 15,
+      "bias": 1.906,
+      "mae": 1.906
+    },
+    {
+      "label": "Q2 (2-4)",
+      "n": 30,
+      "bias": 0.039,
+      "mae": 0.56
+    },
+    {
+      "label": "Q3 (4-5)",
+      "n": 16,
+      "bias": -0.755,
+      "mae": 0.789
+    },
+    {
+      "label": "Q4 (>=5)",
+      "n": 33,
+      "bias": -0.709,
+      "mae": 1.052
+    }
+  ],
+  "n": 94,
+  "eval_mode": "loocv",
+  "runtime_s": 14080.9,
+  "proposal": "P5_ranking",
+  "target": "T1",
+  "phase": 5
+}

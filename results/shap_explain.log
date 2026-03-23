@@ -1,0 +1,8 @@
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+======================================================================
+SHAP FEATURE IMPORTANCE ANALYSIS
+======================================================================
+
+[1/5] Feature extraction...
+Loaded split: 142 dev + 36 test subjects
+  Walkway loaded: 135 subjects, 31 metrics

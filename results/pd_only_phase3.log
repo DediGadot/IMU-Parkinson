@@ -1,0 +1,74 @@
+PD-ONLY EXPERIMENTS -- phase=3
+N_CORES=11
+Subjects: 178 (98 PD, 80 HC)
+V2 cache: (178, 1877)
+[cache] Loading recordings from /root/pd-imu/results/rocket_recordings.npz
+  1417 recordings
+[cache] Loading FM embeddings from /root/pd-imu/results/fm_embeddings.npz
+FM features per subject: 768
+
+======================================================================
+PHASE 3: Observable vs Partially-Observable vs Unobservable
+======================================================================
+  direct: 94 PD + 80 HC = 174 total
+  partial: 94 PD + 80 HC = 174 total
+  unobs: 91 PD + 80 HC = 171 total
+  binary_obs: 94 PD + 80 HC = 174 total
+
+--- LOOCV for direct (items [9, 10, 11, 12, 13, 14], max=24) ---
+  [20/94] running MAE=1.919
+  [40/94] running MAE=1.988
+  [60/94] running MAE=1.891
+  [80/94] running MAE=1.830
+  direct LOOCV: MAE=1.769, CCC=0.56, r=0.667, MAE/SD=0.628
+
+--- LOOCV for partial (items [5, 6, 7, 8, 15, 16, 17], max=68) ---
+  [20/94] running MAE=5.976
+  [40/94] running MAE=5.791
+  [60/94] running MAE=5.302
+  [80/94] running MAE=4.933
+  partial LOOCV: MAE=4.889, CCC=0.12, r=0.169, MAE/SD=0.888
+
+--- LOOCV for unobs (items [1, 2, 3, 4, 18], max=40) ---
+  [20/91] running MAE=2.998
+  [40/91] running MAE=3.235
+  [60/91] running MAE=3.793
+  [80/91] running MAE=4.099
+  unobs LOOCV: MAE=3.937, CCC=0.182, r=0.29, MAE/SD=0.843
+
+--- LOOCV for binary_obs (items [7, 8, 9, 10, 11, 12, 13, 14], max=40) ---
+  [20/94] running MAE=3.934
+  [40/94] running MAE=3.638
+  [60/94] running MAE=3.437
+  [80/94] running MAE=3.273
+  binary_obs LOOCV: MAE=3.128, CCC=0.464, r=0.608, MAE/SD=0.646
+
+--- 10-split B1 for direct ---
+  direct 10-split: MAE=1.717+/-0.331
+
+--- 10-split B1 for partial ---
+  partial 10-split: MAE=3.986+/-0.645
+
+--- 10-split B1 for unobs ---
+  unobs 10-split: MAE=3.848+/-0.464
+
+--- Permutation test: prediction quality ordering ---
+  r_direct=0.667 > r_partial=0.169 > r_unobs=0.290 -> monotonic=False, p=0.1721
+
+--- Residualization: predict subscore after removing total-severity variance ---
+  direct: r(sub,total)=0.691, residual SD=2.035
+  partial: r(sub,total)=0.859, residual SD=2.823
+  unobs: r(sub,total)=0.755, residual SD=3.063
+
+--- Feature importance x sensor alignment ---
+  direct: top sensors = [('R_DorsalFoot', 3), ('Xiphoid', 3), ('LowerBack', 2), ('L_MidLatThigh', 1), ('Forehead', 1)]
+  partial: top sensors = [('L_Wrist', 2), ('LowerBack', 1), ('R_Wrist', 1), ('R_MidLatThigh', 1), ('L_MidLatThigh', 1)]
+  unobs: top sensors = [('Forehead', 3), ('LowerBack', 1), ('R_MidLatThigh', 1), ('L_LatShank', 1), ('R_DorsalFoot', 1)]
+
+Decomposition: recon error=0.000, r(sum,total)=1.000
+
+Phase 3 done in 75.3m
+
+======================================================================
+TOTAL RUNTIME: 75.4 minutes
+Results saved to results/pd_only_*.json

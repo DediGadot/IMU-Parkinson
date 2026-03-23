@@ -1,0 +1,79 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti, 16.6 GB
+================================================================================
+DL STEP-FUNCTION EXPERIMENTS — MAX GPU UTILIZATION
+Baseline: LightGBM 150 features → MAE=7.97, r=0.821
+================================================================================
+Loaded split: 142 dev + 36 test subjects
+Subjects: 173, Dev: 142, Test: 36, Covs: 185
+  Loading dev_all5 from CSVs (will cache)...
+  Cached dev_all5: (8200, 1000, 78) → /root/pd-imu/data/cache/dev_all5_X.npy
+  Loading test_sp_hp from CSVs (will cache)...
+  Cached test_sp_hp: (486, 1000, 78) → /root/pd-imu/data/cache/test_sp_hp_X.npy
+  Loading all_all5 from CSVs (will cache)...
+  Cached all_all5: (10155, 1000, 78) → /root/pd-imu/data/cache/all_all5_X.npy
+  Dev: (8200, 1000, 78), Test: (486, 1000, 78), All(SSL): (10155, 1000, 78)
+  Resuming: 5 experiments already done
+
+================================================================================
+PHASE 1: SELF-SUPERVISED PRETRAINING
+================================================================================
+
+  SSL pretrain (mae): 10155 windows, 100 epochs, bs=128
+    Ep 25: loss=0.9568
+    Ep 50: loss=0.9119
+    Ep 75: loss=0.8536
+    Ep 100: loss=0.9132
+  MAE done in 315s
+
+  SSL pretrain (contrastive): 10155 windows, 100 epochs, bs=128
+    Ep 25: loss=0.0142
+    Ep 50: loss=0.0084
+    Ep 75: loss=0.0049
+    Ep 100: loss=0.0040
+  Contrastive done in 551s
+
+  SKIP (done): P1A: MAE→Transformer 128d/4L + MIL
+
+  SKIP (done): P1B: Contrastive→Transformer 128d/4L + MIL
+
+  SKIP (done): P1C: Transformer 128d/4L + MIL (scratch)
+
+================================================================================
+PHASE 3: INCEPTIONTIME
+================================================================================
+
+  SKIP (done): P3A: InceptionTime 3blk + MIL
+
+  SKIP (done): P3B: InceptionTime 3blk + ordinal
+
+--- P3C: InceptionTime 3blk h24 + MIL ---
+  Params: 1.2M
+  Seed 42: MAE=13.44, r=0.192, 146s, 3.4GB
+  Seed 123: MAE=13.91, r=0.039, 148s, 3.4GB
+  Seed 456: MAE=13.24, r=0.170, 175s, 3.4GB
+  Seed 789: MAE=12.39, r=0.336, 319s, 3.4GB
+  Seed 2024: MAE=11.23, r=0.468, 289s, 3.4GB
+  MEAN: MAE=12.84+/-0.94, r=0.241
+  ENS:  MAE=12.00, r=0.443
+
+================================================================================
+PHASE 6: SENSOR GNN
+================================================================================
+
+--- P6A: SensorGNN 64d + MIL ---
+  Params: 0.1M
+  Seed 42: MAE=13.65, r=0.292, 150s, 5.2GB
+  Seed 123: MAE=14.23, r=0.470, 329s, 5.2GB
+  Seed 456: MAE=13.06, r=0.483, 255s, 5.2GB
+  Seed 789: MAE=13.30, r=0.481, 351s, 5.2GB
+  Seed 2024: MAE=14.74, r=0.420, 408s, 5.2GB
+  MEAN: MAE=13.80+/-0.61, r=0.429
+  ENS:  MAE=13.68, r=0.454
+
+--- P6B: SensorGNN 128d + MIL ---
+  Params: 0.4M
+  Seed 42: MAE=14.13, r=0.391, 370s, 10.3GB
+  Seed 123: MAE=13.42, r=0.510, 386s, 10.3GB
+  Seed 456: MAE=15.01, r=0.393, 322s, 10.3GB
+  Seed 789: MAE=12.41, r=0.530, 417s, 10.3GB

@@ -1,0 +1,95 @@
+
+============================================================
+PHASE 2: Residual Modeling on Demographics
+============================================================
+
+  [E2.0] Control (direct prediction, v2+FM)...
+    MAE=8.128, CCC=0.159, cal_slope=0.085
+
+  [E2.1] Residual: demo Ridge → IMU residual (v2+FM)...
+    Total: MAE=7.699, CCC=0.396, cal_slope=0.256
+    Obs:   MAE=4.266, CCC=0.363
+
+  [E2.3] Embedded demographics (v2+FM+demo as features)...
+    MAE=8.128, CCC=0.159, cal_slope=0.085
+
+  [E2.4] Two-stage stack (demo + IMU → Ridge meta)...
+    MAE=7.865, CCC=0.364, cal_slope=0.235
+  Saved: /root/pd-imu/results/calibration_ablation_phase2.json
+
+  Phase 2 complete.
+
+============================================================
+PHASE 4: Post-Hoc Calibration
+============================================================
+  Running FM LOOCV for 100 PD subjects to get predictions...
+  Got 98 predictions
+  Baseline: MAE=8.128, CCC=0.159, cal_slope=0.085
+
+  [E4.1] Isotonic regression...
+    MAE=8.419, CCC=0.221, cal_slope=0.135
+
+  [E4.2] Platt scaling (linear)...
+    MAE=8.323, CCC=0.153, cal_slope=0.085
+
+  [E4.3] Linear recalibration (global slope/intercept)...
+    MAE=22.012, CCC=0.228, cal_slope=0.89
+
+  [E4.4] Polynomial calibration (quadratic)...
+    MAE=8.499, CCC=0.15, cal_slope=0.084
+  Saved: /root/pd-imu/results/calibration_ablation_phase4.json
+
+  Phase 4 complete.
+
+============================================================
+PHASE 5: Training Modifications
+============================================================
+
+  [E5.1] Severity-weighted MAE...
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+1 warning generated.
+    MAE=7.846, CCC=0.234, cal_slope=0.134
+
+  [E5.2] Inverse-frequency weighting...
+    MAE=8.049, CCC=0.151, cal_slope=0.079
+
+  [E5.4] Huber loss...
+    MAE=8.27, CCC=0.116, cal_slope=0.06
+  Saved: /root/pd-imu/results/calibration_ablation_phase5.json
+
+  Phase 5 complete.
+
+============================================================
+All requested phases complete in 130.9 minutes
+============================================================

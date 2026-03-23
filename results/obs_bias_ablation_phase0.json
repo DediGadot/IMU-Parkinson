@@ -1,0 +1,41 @@
+{
+  "phase": 0,
+  "experiment": "P0_baseline",
+  "description": "Reproduce Phase 3 observable model (v2+FM, K=300, LOOCV)",
+  "metrics": {
+    "mae": 1.618,
+    "rmse": 2.125,
+    "r": 0.675,
+    "ccc": 0.61,
+    "cal_slope": 0.446,
+    "cal_intercept": 1.824,
+    "quartiles": [
+      {
+        "label": "Q1 (<4)",
+        "n": 45,
+        "bias": 0.761,
+        "mae": 1.049
+      },
+      {
+        "label": "Q2 (4-8)",
+        "n": 38,
+        "bias": -1.065,
+        "mae": 1.781
+      },
+      {
+        "label": "Q3 (8-14)",
+        "n": 10,
+        "bias": -2.992,
+        "mae": 3.081
+      },
+      {
+        "label": "Q4 (>=14)",
+        "n": 1,
+        "bias": -6.363,
+        "mae": 6.363
+      }
+    ],
+    "n": 94
+  },
+  "runtime_s": 809.5
+}

@@ -1,0 +1,113 @@
+{
+  "phase": 5,
+  "description": "VelocityIncrement Features Ablation",
+  "experiments": {
+    "E5.0_velinc_only": {
+      "mae": 1.991,
+      "rmse": 2.552,
+      "r": 0.501,
+      "ccc": 0.427,
+      "cal_slope": 0.306,
+      "cal_intercept": 2.153,
+      "quartiles": [
+        {
+          "label": "Q1 (<4)",
+          "n": 45,
+          "bias": 0.938,
+          "mae": 1.366
+        },
+        {
+          "label": "Q2 (4-8)",
+          "n": 38,
+          "bias": -1.52,
+          "mae": 1.998
+        },
+        {
+          "label": "Q3 (8-14)",
+          "n": 10,
+          "bias": -4.118,
+          "mae": 4.118
+        },
+        {
+          "label": "Q4 (>=14)",
+          "n": 1,
+          "bias": -8.584,
+          "mae": 8.584
+        }
+      ],
+      "n": 94
+    },
+    "E5.1_velinc_v2_fm": {
+      "mae": 1.66,
+      "rmse": 2.178,
+      "r": 0.664,
+      "ccc": 0.587,
+      "cal_slope": 0.425,
+      "cal_intercept": 1.804,
+      "quartiles": [
+        {
+          "label": "Q1 (<4)",
+          "n": 45,
+          "bias": 0.753,
+          "mae": 1.052
+        },
+        {
+          "label": "Q2 (4-8)",
+          "n": 38,
+          "bias": -1.231,
+          "mae": 1.788
+        },
+        {
+          "label": "Q3 (8-14)",
+          "n": 10,
+          "bias": -3.266,
+          "mae": 3.407
+        },
+        {
+          "label": "Q4 (>=14)",
+          "n": 1,
+          "bias": -6.696,
+          "mae": 6.696
+        }
+      ],
+      "n": 94
+    },
+    "E5.2_velinc_phase_gated": {
+      "mae": 1.626,
+      "rmse": 2.115,
+      "r": 0.68,
+      "ccc": 0.62,
+      "cal_slope": 0.461,
+      "cal_intercept": 1.752,
+      "quartiles": [
+        {
+          "label": "Q1 (<4)",
+          "n": 45,
+          "bias": 0.749,
+          "mae": 1.11
+        },
+        {
+          "label": "Q2 (4-8)",
+          "n": 38,
+          "bias": -1.073,
+          "mae": 1.747
+        },
+        {
+          "label": "Q3 (8-14)",
+          "n": 10,
+          "bias": -3.024,
+          "mae": 3.024
+        },
+        {
+          "label": "Q4 (>=14)",
+          "n": 1,
+          "bias": -6.222,
+          "mae": 6.222
+        }
+      ],
+      "n": 94
+    }
+  },
+  "n_velinc_features": 832,
+  "runtime_s": 4563.4
+}

@@ -1,0 +1,28 @@
+Device: cuda
+============================================================
+WearGait-PD: MIM Pretrained → Regression-Only
+============================================================
+
+Loading pretraining data (all tasks)...
+  Task 1/5 'SelfPace': 178 subjects
+  Task 2/5 'HurriedPace': 177 subjects
+  Task 3/5 'TandemGait': 174 subjects
+  Task 4/5 'TUG': 176 subjects
+  Task 5/5 'Balance': 174 subjects
+Total unlabeled: 10875 windows
+
+Loading fine-tuning data (SP+HP)...
+  Task 1/2 'SelfPace': 178 subjects
+  Task 2/2 'HurriedPace': 177 subjects
+Total: 2532 windows from 178 subjects
+  UPDRS-III range: [0, 59], mean: 18.1
+
+============================================================
+MIM Pretraining (10875 windows, 150 epochs, 384d/8L)
+============================================================
+Model params: 19.76M
+  Epoch 10/150: loss=0.988171 [51s, 1.04GB]
+  Epoch 20/150: loss=0.980924 [102s, 1.04GB]
+  Epoch 30/150: loss=0.977905 [153s, 1.04GB]
+  Epoch 40/150: loss=0.970059 [203s, 1.04GB]
+  Epoch 50/150: loss=0.969914 [254s, 1.04GB]

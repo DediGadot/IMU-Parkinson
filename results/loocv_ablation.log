@@ -1,0 +1,34 @@
+======================================================================
+PD-ONLY LOOCV — BEST PIPELINE
+======================================================================
+Loaded split: 142 dev + 36 test subjects
+Loaded: 178 subjects × 1752 features
+PD subjects: 98
+All subjects: 178
+
+======================================================================
+L1: PD-only LOOCV — LGB + XGB selection
+======================================================================
+    [10/98] running MAE=8.36 (sid=WPD020, pred=24.2, true=13)
+    [20/98] running MAE=9.83 (sid=WPD018, pred=20.7, true=26)
+    [30/98] running MAE=9.04 (sid=NLS160, pred=21.2, true=37)
+    [40/98] running MAE=8.75 (sid=NLS172, pred=23.8, true=10)
+    [50/98] running MAE=8.48 (sid=WPD016, pred=25.2, true=10)
+    [60/98] running MAE=8.16 (sid=WPD017, pred=20.4, true=27)
+    [70/98] running MAE=8.30 (sid=WPD019, pred=23.6, true=25)
+    [80/98] running MAE=8.08 (sid=NLS022, pred=21.4, true=32)
+    [90/98] running MAE=7.93 (sid=WPD007, pred=22.3, true=12)
+    [98/98] running MAE=8.01 (sid=NLS187, pred=26.8, true=33)
+  L1 RESULT: MAE=8.015, r=0.342 (300s)
+
+======================================================================
+L2: PD-only LOOCV — LGB+XGB stacking
+======================================================================
+    [10/98] running MAE=8.15 (sid=WPD020, pred=24.4, true=13)
+    [20/98] running MAE=9.24 (sid=WPD018, pred=20.1, true=26)
+    [30/98] running MAE=8.55 (sid=NLS160, pred=19.7, true=37)
+    [40/98] running MAE=8.30 (sid=NLS172, pred=24.4, true=10)
+    [50/98] running MAE=8.14 (sid=WPD016, pred=24.7, true=10)
+    [60/98] running MAE=8.08 (sid=WPD017, pred=19.3, true=27)
+    [70/98] running MAE=8.27 (sid=WPD019, pred=22.6, true=25)
+Terminated

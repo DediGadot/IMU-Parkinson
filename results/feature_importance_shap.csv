@@ -1,0 +1,151 @@
+feature,mean_abs_shap,category,sensor_location,pct_importance
+cv_yrs,3.0112136370259446,Clinical Covariates,Clinical,14.35797603507591
+R_DorsalFoot_ay_loco,2.2212674289579324,Frequency Content,Right Foot,10.591378878043345
+R_LatShank_ax_high_r,0.7958660953788095,Frequency Content,Right Shank,3.794824181211002
+L_Wrist_ro_skew,0.6116543113356497,Signal Shape,Left Wrist,2.9164712313742918
+L_LatShank_gm_se,0.5783777097267697,Frequency Content,Left Shank,2.7578027654261383
+d_tug_LowerBack_ro_jerk,0.5373724357838356,Task Contrasts,Lower Back,2.5622826823124547
+r_tug_R_Wrist_ax_jerk,0.5215197170027497,Task Contrasts,Right Wrist,2.486694237324395
+R_DorsalFoot_g_stride_reg,0.4438310980470244,Gait Rhythm,Right Foot,2.116261759386319
+R_Wrist_ay_skew,0.4212357953026514,Signal Shape,Right Wrist,2.008523533403319
+L_LatShank_ay_loco_r,0.4200444432207005,Frequency Content,Left Shank,2.0028429651328845
+L_MidLatThigh_pi_jerk,0.4108874604393106,Movement Quality,Left Thigh,1.9591809221239893
+Xiphoid_gm_trem,0.3788014842464443,Frequency Content,Chest,1.8061895595801494
+cv_age,0.36874132721692937,Clinical Covariates,Clinical,1.7582210289641895
+R_DorsalFoot_ya_rms,0.3624750351192582,Movement Amplitude,Right Foot,1.728342288159864
+R_MidLatThigh_ro_zcr,0.32399624787970116,Movement Quality,Right Thigh,1.5448689210592803
+fc_L_st_cv,0.2974059153326818,Foot Contact,Feet (bilateral),1.4180817171291482
+L_LatShank_ya_jerk,0.2964853099593185,Movement Quality,Left Shank,1.4136921149680852
+L_LatShank_ya_iqr,0.2957310713121794,Movement Amplitude,Left Shank,1.4100957775022893
+dv_L_DorsalFoot_ro_rms_rng,0.2834366857949393,Cross-Task Variability,Left Foot,1.3514740674874326
+r_tg_R_Wrist_ax_rms,0.26180289548322194,Task Contrasts,Right Wrist,1.2483204954445402
+L_Wrist_gm_zcr,0.2547186222841493,Movement Quality,Left Wrist,1.214541482369043
+R_Wrist_ax_rms,0.23947435166588646,Movement Amplitude,Right Wrist,1.1418542211538587
+R_MidLatThigh_gm_se,0.23795107903803497,Frequency Content,Right Thigh,1.1345909995688301
+dv_Forehead_ya_rms_cv,0.2236605212476437,Cross-Task Variability,Head,1.066451202458667
+LowerBack_ay_loco,0.21831227963421382,Frequency Content,Lower Back,1.0409498816718548
+L_Wrist_ay_loco_r,0.20417573685706306,Frequency Content,Left Wrist,0.9735444541998857
+LowerBack_g_stride_reg,0.20267578078309736,Gait Rhythm,Lower Back,0.9663924098882982
+LowerBack_ya_skew,0.19844003222008813,Signal Shape,Lower Back,0.9461956441688257
+L_Ankle_ro_kurt,0.1972078889928744,Signal Shape,Left Ankle,0.9403205768170491
+R_Wrist_ay_loco_r,0.1930254946382115,Frequency Content,Right Wrist,0.9203782129890224
+R_Ankle_az_loco_r,0.18518313320795954,Frequency Content,Right Ankle,0.8829845069797828
+r_tg_LowerBack_ya_jerk,0.1825020068574189,Task Contrasts,Lower Back,0.8702004429682725
+ins_L_mn,0.1804446784392262,Insole Pressure,Feet (insole),0.8603907530274864
+L_Wrist_ro_kurt,0.17914181490353676,Signal Shape,Left Wrist,0.8541784792809849
+L_Wrist_ay_zcr,0.17665423800831934,Movement Quality,Left Wrist,0.8423172918156492
+L_Ankle_ya_zcr,0.1766259866746387,Movement Quality,Left Ankle,0.8421825846773185
+fc_L_strd_cv,0.1496573481037232,Foot Contact,Feet (bilateral),0.7135915536263748
+L_LatShank_ay_dom,0.13979573332649822,Frequency Content,Left Shank,0.6665697060571695
+R_MidLatThigh_ay_se,0.1347198194200189,Frequency Content,Right Thigh,0.6423668898473839
+R_Wrist_az_rms,0.13448235611622975,Movement Amplitude,Right Wrist,0.6412346246427197
+L_Wrist_am_zcr,0.13127566501135554,Movement Quality,Left Wrist,0.6259445789715836
+d_hp_R_Wrist_ay_rms,0.12378652126116875,Task Contrasts,Right Wrist,0.5902350746155185
+L_Ankle_pi_std,0.12218819636134093,Movement Amplitude,Left Ankle,0.5826139911009465
+R_Ankle_ax_iqr,0.12005172398493687,Movement Amplitude,Right Ankle,0.5724269293784483
+R_MidLatThigh_ya_skew,0.11817967158202146,Signal Shape,Right Thigh,0.5635006668220617
+L_Wrist_gm_skew,0.11554186830910917,Signal Shape,Left Wrist,0.550923174573745
+LowerBack_am_loco_r,0.10732510591104409,Frequency Content,Lower Back,0.5117442614117245
+L_LatShank_ax_loco_r,0.10715874162195989,Frequency Content,Left Shank,0.5109510083371527
+Forehead_az_high,0.10351000098652935,Frequency Content,Head,0.49355319572181755
+L_MidLatThigh_ay_iqr,0.10107597172624208,Movement Amplitude,Left Thigh,0.48194733243860166
+R_Ankle_gm_trem,0.09680271716187754,Frequency Content,Right Ankle,0.46157173175969307
+R_LatShank_ro_skew,0.09521220915500216,Signal Shape,Right Shank,0.4539879205131194
+L_DorsalFoot_az_iqr,0.08616663094430549,Movement Amplitude,Left Foot,0.4108570733438495
+R_MidLatThigh_ax_kurt,0.08412957883344045,Signal Shape,Right Thigh,0.4011440642665899
+R_DorsalFoot_ay_rms,0.07948104108365783,Movement Amplitude,Right Foot,0.3789790498721132
+R_LatShank_ax_se,0.07407688372030932,Frequency Content,Right Shank,0.35321111333029676
+dst_wk_toe_in/out_angle,0.07298263130173388,Walkway Distillation,Walkway (distilled),0.3479935326814035
+dv_L_Ankle_gm_rms_cv,0.07214398223981591,Cross-Task Variability,Left Ankle,0.3439947120780438
+R_Wrist_gm_se,0.07026221869980886,Frequency Content,Right Wrist,0.3350221451771494
+r_tug_LowerBack_ro_jerk,0.0694848072704158,Task Contrasts,Lower Back,0.33131531596537545
+Xiphoid_gm_loco,0.06917635047576837,Frequency Content,Chest,0.3298445417861716
+R_Wrist_ay_trem_r,0.06841138044395761,Frequency Content,Right Wrist,0.3261970352628092
+d_tug_R_Wrist_ay_rms,0.061752790078321323,Task Contrasts,Right Wrist,0.294447749950852
+L_Wrist_ax_high_r,0.06105783866078107,Frequency Content,Left Wrist,0.29113410402553663
+R_Ankle_ay_kurt,0.06090402722940738,Signal Shape,Right Ankle,0.2904007051001235
+LowerBack_ay_kurt,0.05982015866576351,Signal Shape,Lower Back,0.2852326364282039
+L_Wrist_ay_high_r,0.05888120046827296,Frequency Content,Left Wrist,0.28075552489691363
+dv_L_LatShank_az_rms_rng,0.05613407284057375,Cross-Task Variability,Left Shank,0.2676567556303276
+L_MidLatThigh_pi_zcr,0.05612242269159738,Movement Quality,Left Thigh,0.2676012057491266
+L_DorsalFoot_ay_trem_r,0.05558611570789037,Frequency Content,Left Foot,0.26504400332256134
+L_LatShank_gm_kurt,0.05383289859918058,Signal Shape,Left Shank,0.2566843675525791
+cv_wt,0.05114451238111443,Clinical Covariates,Clinical,0.243865687264539
+L_Wrist_ro_jerk,0.05058666239938952,Movement Quality,Left Wrist,0.24120576417894732
+R_DorsalFoot_ay_trem_r,0.05046910392905819,Frequency Content,Right Foot,0.24064522550477857
+L_Wrist_ax_skew,0.05027874071517632,Signal Shape,Left Wrist,0.23973754149681975
+R_Wrist_ax_range,0.048095346317184734,Movement Amplitude,Right Wrist,0.22932674763748917
+d_hp_LowerBack_g_cadence,0.046034571751430636,Task Contrasts,Lower Back,0.2195006258821378
+dv_L_DorsalFoot_g_stride_reg_rng,0.04590614166507209,Cross-Task Variability,Left Foot,0.21888824950357572
+LowerBack_az_zcr,0.04526902591137666,Movement Quality,Lower Back,0.21585037380766092
+R_LatShank_ro_kurt,0.04441501321385514,Signal Shape,Right Shank,0.21177829679064294
+L_MidLatThigh_ax_high,0.04312045468865665,Frequency Content,Left Thigh,0.20560562273913957
+k_L_toa_sd,0.042620977448089466,Kinematics,Other,0.20322403075843493
+LowerBack_gm_trem,0.04249133725762946,Frequency Content,Lower Back,0.2026058843988011
+LowerBack_ay_skew,0.041847073607330386,Signal Shape,Lower Back,0.1995339263226545
+k_L_toa_m,0.040646135956699955,Kinematics,Other,0.19380765243914405
+L_Ankle_az_high,0.03978273235628663,Frequency Content,Left Ankle,0.18969079800845792
+LowerBack_ax_high,0.03452798969872639,Frequency Content,Lower Back,0.16463529606065938
+r_tg_LowerBack_ax_rms,0.03440342192612354,Task Contrasts,Lower Back,0.1640413358474807
+L_MidLatThigh_ay_trem_r,0.03328114393249599,Frequency Content,Left Thigh,0.15869012451558986
+L_Wrist_ax_loco_r,0.03188009764428234,Frequency Content,Left Wrist,0.1520096987952575
+L_Wrist_pi_std,0.03130297999276529,Movement Amplitude,Left Wrist,0.14925790420054216
+R_LatShank_az_se,0.031228393053622943,Frequency Content,Right Shank,0.1489022610566724
+R_DorsalFoot_az_high,0.031054006644513354,Frequency Content,Right Foot,0.14807075715669957
+R_Wrist_ay_high_r,0.030707529437849903,Frequency Content,Right Wrist,0.14641869522100537
+R_LatShank_az_high_r,0.030068818461317117,Frequency Content,Right Shank,0.14337321323273464
+r_hp_LowerBack_g_stride_reg,0.028806630820102135,Task Contrasts,Lower Back,0.13735488903231938
+R_Ankle_am_skew,0.028311713933063403,Signal Shape,Right Ankle,0.13499504158872358
+L_Wrist_ro_range,0.02791215591044063,Movement Amplitude,Left Wrist,0.13308988134273517
+L_LatShank_az_iqr,0.026388499833093285,Movement Amplitude,Left Shank,0.1258248314056415
+LowerBack_ay_dom,0.025785452655230162,Frequency Content,Lower Back,0.1229494004427522
+R_LatShank_ay_trem,0.025615661685694582,Frequency Content,Right Shank,0.12213980837608902
+R_MidLatThigh_az_loco,0.02481701395080541,Frequency Content,Right Thigh,0.11833172086711642
+R_LatShank_ro_jerk,0.024414997554963423,Movement Quality,Right Shank,0.1164148386817303
+L_Wrist_am_loco,0.023527125697293823,Frequency Content,Left Wrist,0.1121813154610965
+LowerBack_am_zcr,0.023316976200629023,Movement Quality,Lower Back,0.11117928710953906
+L_DorsalFoot_ax_range,0.022947187457330237,Movement Amplitude,Left Foot,0.10941607182350285
+dst_wk_swing_time,0.02210233436562537,Walkway Distillation,Walkway (distilled),0.10538766935656964
+L_Wrist_az_skew,0.0219853061140325,Signal Shape,Left Wrist,0.10482965885504412
+R_Ankle_az_jerk,0.02182239886722955,Movement Quality,Right Ankle,0.10405288954290488
+dv_L_Ankle_ax_rms_rng,0.02006323971869141,Cross-Task Variability,Left Ankle,0.09566492112179298
+L_LatShank_az_high,0.01870825751275725,Frequency Content,Left Shank,0.08920413673853292
+L_MidLatThigh_ay_se,0.01820356733322596,Frequency Content,Left Thigh,0.0867976885829629
+L_Wrist_pi_iqr,0.018137785793169128,Movement Amplitude,Left Wrist,0.08648403107156187
+Xiphoid_ay_jerk,0.017783937431601275,Movement Quality,Chest,0.08479682222228872
+L_Ankle_ay_iqr,0.01693514997333405,Movement Amplitude,Left Ankle,0.08074966003000061
+R_DorsalFoot_gm_trem_r,0.015591372540364789,Frequency Content,Right Foot,0.07434230189977366
+R_DorsalFoot_gm_range,0.014980260023558198,Movement Amplitude,Right Foot,0.07142841403637051
+R_Wrist_ax_trem,0.014219884550754855,Frequency Content,Right Wrist,0.06780281514762722
+bal_ap_rms,0.01387457666785552,Balance/Postural,Lower Back,0.06615632874545742
+d_tg_LowerBack_ax_rms,0.013791052486523438,Task Contrasts,Lower Back,0.06575807131889376
+R_DorsalFoot_ax_kurt,0.01292297026258326,Signal Shape,Right Foot,0.0616189084197384
+Forehead_ya_zcr,0.01285550711908087,Movement Quality,Head,0.061297232738628346
+R_Ankle_az_loco,0.012499586982542898,Frequency Content,Right Ankle,0.05960014531581088
+dst_wk_stance_%.1,0.01240501584082909,Walkway Distillation,Walkway (distilled),0.05914921411330819
+r_hp_LowerBack_g_stride_t,0.012319468952203157,Task Contrasts,Lower Back,0.05874131207618153
+R_DorsalFoot_ax_se,0.012236640864966907,Frequency Content,Right Foot,0.05834637374402658
+L_Ankle_pi_skew,0.010075951031950659,Signal Shape,Left Ankle,0.04804383909148039
+LowerBack_ya_zcr,0.009726110725899842,Movement Quality,Lower Back,0.04637574132896419
+R_DorsalFoot_ro_std,0.009494616403755882,Movement Amplitude,Right Foot,0.045271937238570294
+ins_R_mn,0.009469660604098453,Insole Pressure,Feet (insole),0.04515294376397531
+L_Ankle_gm_iqr,0.008860308642160829,Movement Amplitude,Left Ankle,0.04224745052402439
+dv_L_DorsalFoot_gm_rms_rng,0.00859275938381267,Cross-Task Variability,Left Foot,0.04097173039831479
+L_MidLatThigh_am_range,0.007705193353401535,Movement Amplitude,Left Thigh,0.03673966541378685
+L_Ankle_ax_dom,0.007028664246162645,Frequency Content,Left Ankle,0.0335138601805318
+R_DorsalFoot_am_rms,0.006120264261032936,Movement Amplitude,Right Foot,0.029182455375379043
+R_Ankle_ax_high,0.005999031167144956,Frequency Content,Right Ankle,0.0286043954744479
+Xiphoid_az_high,0.0059660310149408915,Frequency Content,Chest,0.028447045166029472
+d_hp_LowerBack_g_stride_t,0.005673328557236794,Task Contrasts,Lower Back,0.027051390330567842
+L_Wrist_ay_range,0.005388048817182864,Movement Amplitude,Left Wrist,0.025691128268579937
+L_LatShank_az_high_r,0.005046485285042396,Frequency Content,Left Shank,0.024062495564268607
+L_DorsalFoot_pi_zcr,0.004616457958726957,Movement Quality,Left Foot,0.022012052523713382
+R_Ankle_ay_iqr,0.003930955552141176,Movement Amplitude,Right Ankle,0.018743461081139258
+L_LatShank_gm_dom,0.0038702646332469687,Frequency Content,Left Shank,0.01845407651263338
+r_tug_LowerBack_ro_rms,0.003316843248112677,Task Contrasts,Lower Back,0.015815269724781346
+L_DorsalFoot_am_iqr,0.00329475118082936,Movement Amplitude,Left Foot,0.015709931010610127
+R_DorsalFoot_ay_trem,0.002612927431757742,Frequency Content,Right Foot,0.012458880029390242
+L_Ankle_gm_rms,0.0025568985619460077,Movement Amplitude,Left Ankle,0.012191724899598851
+dst_wk_ss_cop_dist._%.1,0.002222296154875104,Walkway Distillation,Walkway (distilled),0.01059628401724828
+R_Ankle_am_iqr,0.0008880277772240758,Movement Amplitude,Right Ankle,0.004234266671446783
+Forehead_gm_dom,0.0,Frequency Content,Head,0.0

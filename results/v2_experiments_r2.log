@@ -1,0 +1,144 @@
+================================================================================
+V2 EXPERIMENTS: FEATURE-FIRST + DL-ASSISTED
+Baseline: LightGBM 150 features -> MAE=7.97, r=0.821
+================================================================================
+Loaded split: 142 dev + 36 test subjects
+Subjects: 173, Dev: 142, Test: 36
+Observable subtotal: mean=3.0, range=[0, 12]
+  Resuming: 12 experiments done
+
+================================================================================
+PHASE 0: EXPANDED FEATURE EXTRACTION
+================================================================================
+  Loading cached features from /root/pd-imu/v2_features.csv
+  Total raw features: 16384
+  WARNING: 12 subjects missing features, padding with 0
+  Dev: (132, 16384), Test: (34, 16384)
+
+================================================================================
+PHASE 1: EXPANDED FEATURE BASELINES
+================================================================================
+  Running stable feature selection (multi-seed XGBoost)...
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 150 features (multi-seed stable)
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 200 features (multi-seed stable)
+  Pre-filter: 16384 -> 16335 features (removed 49 constant)
+  Selected top 300 features (multi-seed stable)
+
+  SKIP (done): E1A: LGB expanded 200 feats
+
+  SKIP (done): E1B: LGB expanded 150 feats
+
+  SKIP (done): E1C: LGB expanded 300 feats
+
+  SKIP (done): E1D: XGB expanded 200 feats
+  Pre-filter: 4096 -> 4096 features (removed 0 constant)
+  Selected top 200 features (multi-seed stable)
+
+  SKIP (done): E1E: LGB mean-only 200 feats
+
+================================================================================
+PHASE 3: OBSERVABLE-FIRST TWO-STAGE
+================================================================================
+
+  SKIP (done): E3A: LGB observable subtotal
+
+  SKIP (done): E3B: LGB obs+partial subtotal
+
+  SKIP (done): E3C: Two-stage obs→total
+
+================================================================================
+PHASE 4: PER-TASK MODELS
+================================================================================
+
+  SKIP (done): E4A: Per-task LGB ensemble
+  Pre-filter: 4096 -> 4080 features (removed 16 constant)
+  Selected top 100 features (multi-seed stable)
+
+  SKIP (done): E4B: LGB contrast-only 100 feats
+
+================================================================================
+PHASE 2: DL EMBEDDING FUSION
+================================================================================
+
+  Loading cached window data for DL...
+  Using cached dev_all5
+  Using cached test_sp_hp
+  Training InceptionTime+ordinal (5 seeds) for embeddings...
+  DL embedding extraction failed: CUDA out of memory. Tried to allocate 2.16 GiB. GPU 0 has a total capacity of 15.48 GiB of which 1011.94 MiB is free. Including non-PyTorch memory, this process has 14.48 GiB memory in use. Of the allocated memory 13.07 GiB is allocated by PyTorch, and 1.26 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/root/pd-imu/run_v2_experiments.py", line 1179, in main
+    dev_embs, test_embs, embed_dim = extract_dl_embeddings(subjects, dev_sids, test_sids)
+  File "/root/pd-imu/run_v2_experiments.py", line 835, in extract_dl_embeddings
+    loss = model.get_loss(tr[0], tr[2], tr[3], tr[1])
+  File "/root/pd-imu/run_v2_experiments.py", line 699, in get_loss
+    emb = self.encoder(bags.reshape(B*N, C, T)).reshape(B, N, -1)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/pd-imu/run_v2_experiments.py", line 644, in forward
+    return self.pool(self.blocks(x)).squeeze(-1)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/pd-imu/run_v2_experiments.py", line 627, in forward
+    outs.append(self.pool_conv(x))
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/pooling.py", line 144, in forward
+    return F.max_pool1d(
+  File "/usr/local/lib/python3.10/dist-packages/torch/_jit_internal.py", line 619, in fn
+    return if_false(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/functional.py", line 743, in _max_pool1d
+    return torch.max_pool1d(input, kernel_size, stride, padding, dilation, ceil_mode)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.16 GiB. GPU 0 has a total capacity of 15.48 GiB of which 1011.94 MiB is free. Including non-PyTorch memory, this process has 14.48 GiB memory in use. Of the allocated memory 13.07 GiB is allocated by PyTorch, and 1.26 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+================================================================================
+PHASE 5: GRAND ENSEMBLE + PD-ONLY
+================================================================================
+
+  SKIP (done): E5A: Grand ensemble
+
+  SKIP (done): E5B: PD-only LOOCV
+
+================================================================================
+FINAL SUMMARY (3.8 min)
+================================================================================
+  Baseline: LightGBM 150 features -> MAE=7.97, r=0.821
+
+   # Model                                     ENS MAE   ENS r
+  ------------------------------------------------------------
+   1 E3A: LGB observable subtotal                1.92   0.817 ***
+   2 E3B: LGB obs+partial subtotal               1.92   0.817 ***
+   3 E5B: PD-only LOOCV                          6.88   0.514 ***
+   4 E1D: XGB expanded 200 feats                 8.93   0.743
+   5 E1A: LGB expanded 200 feats                 8.95   0.746
+   6 E1C: LGB expanded 300 feats                 9.01   0.757
+   7 E3C: Two-stage obs→total                    9.17   0.689
+   8 E1B: LGB expanded 150 feats                 9.22   0.735
+   9 E4A: Per-task LGB ensemble                  9.25   0.797
+  10 E1E: LGB mean-only 200 feats                9.32   0.749
+  11 E5A: Grand ensemble                        10.01   0.716
+  12 E4B: LGB contrast-only 100 feats           12.34   0.148
+
+  NEW BEST: E3A: LGB observable subtotal -> MAE=1.92, r=0.817
+
+Results: /root/pd-imu/v2_results.json
+Features: /root/pd-imu/v2_features.csv

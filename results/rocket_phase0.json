@@ -1,0 +1,953 @@
+{
+  "phase": "0_rocket",
+  "splits": [
+    {
+      "seed": 1,
+      "v2": {
+        "config": "s1_v2",
+        "k": 150,
+        "mae": 8.627,
+        "r": 0.627,
+        "pd_mae": 8.596,
+        "top10": [
+          "LowerBack_ay_loco",
+          "LowerBack_ax_loco",
+          "R_DorsalFoot_az_trem",
+          "cv_yrs",
+          "L_DorsalFoot_ax_loco_r",
+          "R_Ankle_ay_iqr",
+          "R_Ankle_az_loco_r",
+          "Xiphoid_gm_std",
+          "R_DorsalFoot_ay_loco",
+          "Forehead_gm_trem"
+        ]
+      },
+      "rocket": {
+        "config": "s1_rocket",
+        "k": 150,
+        "mae": 9.456,
+        "r": 0.499,
+        "pd_mae": 9.457,
+        "top10": [
+          "rk_4690",
+          "rk_2769",
+          "rk_4447",
+          "rk_3570",
+          "rk_1350",
+          "rk_1858",
+          "rk_4438",
+          "rk_3054",
+          "rk_2193",
+          "rk_3335"
+        ]
+      },
+      "fused": {
+        "config": "s1_fused",
+        "k": 500,
+        "mae": 8.34,
+        "r": 0.642,
+        "pd_mae": 8.303,
+        "top10": [
+          "R_MidLatThigh_ay_loco",
+          "rk_4220",
+          "cv_yrs",
+          "ev_TurnToSit_grms",
+          "R_LatShank_gm_range",
+          "rk_2741",
+          "rk_1386",
+          "L_MidLatThigh_am_range",
+          "LowerBack_ay_loco",
+          "Forehead_gm_std"
+        ]
+      },
+      "fused_stk": {
+        "config": "s1_fused_stk",
+        "k": 500,
+        "mae": 8.339,
+        "r": 0.624,
+        "pd_mae": 8.267,
+        "top10": [
+          "R_MidLatThigh_ay_loco",
+          "rk_4220",
+          "cv_yrs",
+          "ev_TurnToSit_grms",
+          "R_LatShank_gm_range",
+          "rk_2741",
+          "rk_1386",
+          "L_MidLatThigh_am_range",
+          "LowerBack_ay_loco",
+          "Forehead_gm_std"
+        ]
+      }
+    },
+    {
+      "seed": 2,
+      "v2": {
+        "config": "s2_v2",
+        "k": 150,
+        "mae": 9.539,
+        "r": 0.576,
+        "pd_mae": 9.601,
+        "top10": [
+          "cv_yrs",
+          "Forehead_gm_rms",
+          "Forehead_gm_std",
+          "R_LatShank_ay_high_r",
+          "trn_dur_sd",
+          "LowerBack_ay_trem",
+          "Xiphoid_gm_range",
+          "L_Wrist_ay_zcr",
+          "R_DorsalFoot_g_stride_reg",
+          "ev_Walk_f"
+        ]
+      },
+      "rocket": {
+        "config": "s2_rocket",
+        "k": 150,
+        "mae": 10.479,
+        "r": 0.473,
+        "pd_mae": 10.673,
+        "top10": [
+          "rk_2837",
+          "rk_3555",
+          "rk_3257",
+          "rk_2773",
+          "rk_2268",
+          "rk_4470",
+          "rk_816",
+          "rk_1201",
+          "rk_3025",
+          "rk_3659"
+        ]
+      },
+      "fused": {
+        "config": "s2_fused",
+        "k": 500,
+        "mae": 9.146,
+        "r": 0.651,
+        "pd_mae": 9.406,
+        "top10": [
+          "Xiphoid_gm_loco",
+          "cv_yrs",
+          "R_DorsalFoot_az_trem",
+          "R_MidLatThigh_az_se",
+          "ev_TurnToSit_rms",
+          "R_DorsalFoot_ay_loco",
+          "rk_21",
+          "fc_R_strd_cv",
+          "rk_876",
+          "R_LatShank_am_se"
+        ]
+      },
+      "fused_stk": {
+        "config": "s2_fused_stk",
+        "k": 500,
+        "mae": 8.419,
+        "r": 0.669,
+        "pd_mae": 8.622,
+        "top10": [
+          "Xiphoid_gm_loco",
+          "cv_yrs",
+          "R_DorsalFoot_az_trem",
+          "R_MidLatThigh_az_se",
+          "ev_TurnToSit_rms",
+          "R_DorsalFoot_ay_loco",
+          "rk_21",
+          "fc_R_strd_cv",
+          "rk_876",
+          "R_LatShank_am_se"
+        ]
+      }
+    },
+    {
+      "seed": 3,
+      "v2": {
+        "config": "s3_v2",
+        "k": 150,
+        "mae": 8.512,
+        "r": 0.593,
+        "pd_mae": 9.215,
+        "top10": [
+          "fc_ds_pct",
+          "L_Wrist_ax_loco_r",
+          "cv_yrs",
+          "R_Ankle_gm_trem",
+          "R_Ankle_az_loco_r",
+          "Forehead_gm_rms",
+          "Xiphoid_gm_std",
+          "Forehead_az_high",
+          "r_tug_LowerBack_ya_rms",
+          "Xiphoid_pi_zcr"
+        ]
+      },
+      "rocket": {
+        "config": "s3_rocket",
+        "k": 150,
+        "mae": 10.399,
+        "r": 0.317,
+        "pd_mae": 10.217,
+        "top10": [
+          "rk_1267",
+          "rk_2563",
+          "rk_1889",
+          "rk_2254",
+          "rk_998",
+          "rk_2941",
+          "rk_4799",
+          "rk_2306",
+          "rk_582",
+          "rk_1142"
+        ]
+      },
+      "fused": {
+        "config": "s3_fused",
+        "k": 500,
+        "mae": 8.657,
+        "r": 0.571,
+        "pd_mae": 9.327,
+        "top10": [
+          "cv_yrs",
+          "rk_4059",
+          "rk_2103",
+          "L_Wrist_ax_loco_r",
+          "fc_ds_pct",
+          "rk_242",
+          "rk_3256",
+          "R_MidLatThigh_ay_se",
+          "R_DorsalFoot_ro_range",
+          "rk_2503"
+        ]
+      },
+      "fused_stk": {
+        "config": "s3_fused_stk",
+        "k": 500,
+        "mae": 8.303,
+        "r": 0.61,
+        "pd_mae": 9.102,
+        "top10": [
+          "cv_yrs",
+          "rk_4059",
+          "rk_2103",
+          "L_Wrist_ax_loco_r",
+          "fc_ds_pct",
+          "rk_242",
+          "rk_3256",
+          "R_MidLatThigh_ay_se",
+          "R_DorsalFoot_ro_range",
+          "rk_2503"
+        ]
+      }
+    },
+    {
+      "seed": 4,
+      "v2": {
+        "config": "s4_v2",
+        "k": 150,
+        "mae": 8.75,
+        "r": 0.663,
+        "pd_mae": 9.353,
+        "top10": [
+          "cv_yrs",
+          "R_DorsalFoot_g_stride_reg",
+          "R_DorsalFoot_ay_loco",
+          "R_DorsalFoot_az_trem",
+          "L_LatShank_ay_iqr",
+          "dst_wk_stance_cop_dist._%.1",
+          "R_Ankle_fi",
+          "L_Ankle_am_high",
+          "R_DorsalFoot_gm_trem",
+          "L_LatShank_ro_range"
+        ]
+      },
+      "rocket": {
+        "config": "s4_rocket",
+        "k": 150,
+        "mae": 10.617,
+        "r": 0.436,
+        "pd_mae": 10.156,
+        "top10": [
+          "rk_4445",
+          "rk_3798",
+          "rk_2239",
+          "rk_326",
+          "rk_4763",
+          "rk_3402",
+          "rk_1063",
+          "rk_1734",
+          "rk_3669",
+          "rk_3964"
+        ]
+      },
+      "fused": {
+        "config": "s4_fused",
+        "k": 500,
+        "mae": 8.828,
+        "r": 0.642,
+        "pd_mae": 9.027,
+        "top10": [
+          "R_DorsalFoot_ay_trem",
+          "L_Ankle_ay_iqr",
+          "R_DorsalFoot_ay_std",
+          "Forehead_gm_std",
+          "rk_4686",
+          "rk_281",
+          "rk_4175",
+          "dv_L_DorsalFoot_gm_rms_rng",
+          "cv_yrs",
+          "LowerBack_gm_std"
+        ]
+      },
+      "fused_stk": {
+        "config": "s4_fused_stk",
+        "k": 500,
+        "mae": 8.31,
+        "r": 0.646,
+        "pd_mae": 8.561,
+        "top10": [
+          "R_DorsalFoot_ay_trem",
+          "L_Ankle_ay_iqr",
+          "R_DorsalFoot_ay_std",
+          "Forehead_gm_std",
+          "rk_4686",
+          "rk_281",
+          "rk_4175",
+          "dv_L_DorsalFoot_gm_rms_rng",
+          "cv_yrs",
+          "LowerBack_gm_std"
+        ]
+      }
+    },
+    {
+      "seed": 5,
+      "v2": {
+        "config": "s5_v2",
+        "k": 150,
+        "mae": 8.659,
+        "r": 0.73,
+        "pd_mae": 9.215,
+        "top10": [
+          "d_tg_LowerBack_az_rms",
+          "cv_yrs",
+          "fc_R_strd_cv",
+          "R_Wrist_ay_loco_r",
+          "Forehead_gm_std",
+          "ins_R_pk",
+          "Forehead_ro_jerk",
+          "R_Ankle_az_loco_r",
+          "L_LatShank_az_iqr",
+          "R_MidLatThigh_az_iqr"
+        ]
+      },
+      "rocket": {
+        "config": "s5_rocket",
+        "k": 150,
+        "mae": 10.09,
+        "r": 0.536,
+        "pd_mae": 11.185,
+        "top10": [
+          "rk_3032",
+          "rk_4770",
+          "rk_4575",
+          "rk_3341",
+          "rk_4087",
+          "rk_252",
+          "rk_3680",
+          "rk_4851",
+          "rk_692",
+          "rk_4589"
+        ]
+      },
+      "fused": {
+        "config": "s5_fused",
+        "k": 500,
+        "mae": 8.559,
+        "r": 0.719,
+        "pd_mae": 9.208,
+        "top10": [
+          "L_LatShank_am_iqr",
+          "dst_wk_gait_cycle_time",
+          "Forehead_az_jerk",
+          "dst_wk_step_time",
+          "Xiphoid_am_jerk",
+          "R_DorsalFoot_az_std",
+          "R_LatShank_ay_iqr",
+          "Xiphoid_az_jerk",
+          "R_MidLatThigh_ax_kurt",
+          "cv_yrs"
+        ]
+      },
+      "fused_stk": {
+        "config": "s5_fused_stk",
+        "k": 500,
+        "mae": 8.074,
+        "r": 0.746,
+        "pd_mae": 8.834,
+        "top10": [
+          "L_LatShank_am_iqr",
+          "dst_wk_gait_cycle_time",
+          "Forehead_az_jerk",
+          "dst_wk_step_time",
+          "Xiphoid_am_jerk",
+          "R_DorsalFoot_az_std",
+          "R_LatShank_ay_iqr",
+          "Xiphoid_az_jerk",
+          "R_MidLatThigh_ax_kurt",
+          "cv_yrs"
+        ]
+      }
+    },
+    {
+      "seed": 6,
+      "v2": {
+        "config": "s6_v2",
+        "k": 150,
+        "mae": 8.05,
+        "r": 0.679,
+        "pd_mae": 7.838,
+        "top10": [
+          "R_DorsalFoot_gm_trem_r",
+          "R_DorsalFoot_az_trem",
+          "R_Wrist_am_trem_r",
+          "R_Wrist_ay_high_r",
+          "R_Wrist_gm_se",
+          "R_Wrist_pi_jerk",
+          "R_DorsalFoot_g_stride_reg",
+          "R_Ankle_az_loco_r",
+          "R_DorsalFoot_ay_loco",
+          "R_MidLatThigh_ay_loco"
+        ]
+      },
+      "rocket": {
+        "config": "s6_rocket",
+        "k": 150,
+        "mae": 11.503,
+        "r": 0.314,
+        "pd_mae": 11.025,
+        "top10": [
+          "rk_1876",
+          "rk_4811",
+          "rk_3774",
+          "rk_3680",
+          "rk_4494",
+          "rk_4918",
+          "rk_149",
+          "rk_1034",
+          "rk_1720",
+          "rk_367"
+        ]
+      },
+      "fused": {
+        "config": "s6_fused",
+        "k": 500,
+        "mae": 8.357,
+        "r": 0.718,
+        "pd_mae": 8.172,
+        "top10": [
+          "rk_137",
+          "rk_3092",
+          "rk_3894",
+          "rk_982",
+          "rk_3009",
+          "rk_3777",
+          "rk_2901",
+          "cv_yrs",
+          "Forehead_ro_jerk",
+          "rk_1217"
+        ]
+      },
+      "fused_stk": {
+        "config": "s6_fused_stk",
+        "k": 500,
+        "mae": 8.717,
+        "r": 0.705,
+        "pd_mae": 8.351,
+        "top10": [
+          "rk_137",
+          "rk_3092",
+          "rk_3894",
+          "rk_982",
+          "rk_3009",
+          "rk_3777",
+          "rk_2901",
+          "cv_yrs",
+          "Forehead_ro_jerk",
+          "rk_1217"
+        ]
+      }
+    },
+    {
+      "seed": 7,
+      "v2": {
+        "config": "s7_v2",
+        "k": 150,
+        "mae": 8.089,
+        "r": 0.679,
+        "pd_mae": 8.64,
+        "top10": [
+          "Xiphoid_gm_zcr",
+          "Xiphoid_gm_trem",
+          "R_MidLatThigh_ay_iqr",
+          "L_Wrist_am_zcr",
+          "Forehead_gm_std",
+          "cv_yrs",
+          "R_Wrist_ay_trem_r",
+          "R_LatShank_am_se",
+          "R_Ankle_gm_trem",
+          "ev_Turn_grms"
+        ]
+      },
+      "rocket": {
+        "config": "s7_rocket",
+        "k": 150,
+        "mae": 9.659,
+        "r": 0.433,
+        "pd_mae": 9.909,
+        "top10": [
+          "rk_4827",
+          "rk_2088",
+          "rk_4881",
+          "rk_4810",
+          "rk_713",
+          "rk_4730",
+          "rk_3673",
+          "rk_4375",
+          "rk_3348",
+          "rk_4843"
+        ]
+      },
+      "fused": {
+        "config": "s7_fused",
+        "k": 500,
+        "mae": 8.067,
+        "r": 0.669,
+        "pd_mae": 8.592,
+        "top10": [
+          "R_MidLatThigh_ay_iqr",
+          "rk_4181",
+          "rk_2586",
+          "rk_1748",
+          "rk_4172",
+          "rk_426",
+          "rk_4783",
+          "rk_4926",
+          "rk_2741",
+          "cv_yrs"
+        ]
+      },
+      "fused_stk": {
+        "config": "s7_fused_stk",
+        "k": 500,
+        "mae": 7.612,
+        "r": 0.699,
+        "pd_mae": 8.301,
+        "top10": [
+          "R_MidLatThigh_ay_iqr",
+          "rk_4181",
+          "rk_2586",
+          "rk_1748",
+          "rk_4172",
+          "rk_426",
+          "rk_4783",
+          "rk_4926",
+          "rk_2741",
+          "cv_yrs"
+        ]
+      }
+    },
+    {
+      "seed": 8,
+      "v2": {
+        "config": "s8_v2",
+        "k": 150,
+        "mae": 8.842,
+        "r": 0.694,
+        "pd_mae": 8.946,
+        "top10": [
+          "cv_yrs",
+          "sts_dur",
+          "Xiphoid_ro_zcr",
+          "R_Wrist_ax_loco",
+          "R_DorsalFoot_g_stride_reg",
+          "LowerBack_ay_loco",
+          "R_Wrist_ay_high_r",
+          "L_Wrist_ro_skew",
+          "R_LatShank_ay_trem",
+          "R_DorsalFoot_ya_rms"
+        ]
+      },
+      "rocket": {
+        "config": "s8_rocket",
+        "k": 150,
+        "mae": 11.2,
+        "r": 0.421,
+        "pd_mae": 11.163,
+        "top10": [
+          "rk_3908",
+          "rk_4882",
+          "rk_4879",
+          "rk_3321",
+          "rk_1037",
+          "rk_3984",
+          "rk_2003",
+          "rk_4371",
+          "rk_4221",
+          "rk_1336"
+        ]
+      },
+      "fused": {
+        "config": "s8_fused",
+        "k": 500,
+        "mae": 8.491,
+        "r": 0.709,
+        "pd_mae": 8.556,
+        "top10": [
+          "R_DorsalFoot_ay_jerk",
+          "R_DorsalFoot_ya_rms",
+          "cv_yrs",
+          "R_DorsalFoot_gm_trem",
+          "rk_4231",
+          "fc_ds_pct",
+          "Xiphoid_gm_trem",
+          "ev_TurnToSit_grms",
+          "rk_4197",
+          "R_Ankle_ax_iqr"
+        ]
+      },
+      "fused_stk": {
+        "config": "s8_fused_stk",
+        "k": 500,
+        "mae": 8.424,
+        "r": 0.719,
+        "pd_mae": 8.582,
+        "top10": [
+          "R_DorsalFoot_ay_jerk",
+          "R_DorsalFoot_ya_rms",
+          "cv_yrs",
+          "R_DorsalFoot_gm_trem",
+          "rk_4231",
+          "fc_ds_pct",
+          "Xiphoid_gm_trem",
+          "ev_TurnToSit_grms",
+          "rk_4197",
+          "R_Ankle_ax_iqr"
+        ]
+      }
+    },
+    {
+      "seed": 9,
+      "v2": {
+        "config": "s9_v2",
+        "k": 150,
+        "mae": 7.713,
+        "r": 0.677,
+        "pd_mae": 7.941,
+        "top10": [
+          "R_DorsalFoot_az_trem",
+          "L_Wrist_gm_zcr",
+          "L_MidLatThigh_pi_jerk",
+          "L_Wrist_ay_trem_r",
+          "cv_yrs",
+          "Forehead_ro_jerk",
+          "LowerBack_ay_loco",
+          "L_MidLatThigh_ay_loco",
+          "ev_Turn_grms",
+          "R_DorsalFoot_ay_loco"
+        ]
+      },
+      "rocket": {
+        "config": "s9_rocket",
+        "k": 150,
+        "mae": 9.777,
+        "r": 0.341,
+        "pd_mae": 9.76,
+        "top10": [
+          "rk_4107",
+          "rk_4678",
+          "rk_952",
+          "rk_3827",
+          "rk_2944",
+          "rk_3313",
+          "rk_3530",
+          "rk_4865",
+          "rk_2907",
+          "rk_2862"
+        ]
+      },
+      "fused": {
+        "config": "s9_fused",
+        "k": 500,
+        "mae": 7.777,
+        "r": 0.655,
+        "pd_mae": 8.078,
+        "top10": [
+          "rk_4709",
+          "rk_2100",
+          "rk_545",
+          "rk_3142",
+          "rk_410",
+          "R_DorsalFoot_g_stride_reg",
+          "rk_3379",
+          "rk_3667",
+          "rk_3787",
+          "cv_yrs"
+        ]
+      },
+      "fused_stk": {
+        "config": "s9_fused_stk",
+        "k": 500,
+        "mae": 7.601,
+        "r": 0.684,
+        "pd_mae": 7.943,
+        "top10": [
+          "rk_4709",
+          "rk_2100",
+          "rk_545",
+          "rk_3142",
+          "rk_410",
+          "R_DorsalFoot_g_stride_reg",
+          "rk_3379",
+          "rk_3667",
+          "rk_3787",
+          "cv_yrs"
+        ]
+      }
+    },
+    {
+      "seed": 10,
+      "v2": {
+        "config": "s10_v2",
+        "k": 150,
+        "mae": 8.071,
+        "r": 0.621,
+        "pd_mae": 7.872,
+        "top10": [
+          "R_Ankle_gm_trem",
+          "R_LatShank_am_se",
+          "R_DorsalFoot_az_trem",
+          "L_LatShank_am_se",
+          "R_DorsalFoot_ay_loco",
+          "R_DorsalFoot_ay_loco_r",
+          "R_Wrist_gm_loco",
+          "R_DorsalFoot_am_iqr",
+          "L_MidLatThigh_az_iqr",
+          "dv_Forehead_gm_rms_rng"
+        ]
+      },
+      "rocket": {
+        "config": "s10_rocket",
+        "k": 150,
+        "mae": 8.777,
+        "r": 0.52,
+        "pd_mae": 8.774,
+        "top10": [
+          "rk_1359",
+          "rk_856",
+          "rk_1278",
+          "rk_1433",
+          "rk_1999",
+          "rk_756",
+          "rk_392",
+          "rk_4494",
+          "rk_377",
+          "rk_1247"
+        ]
+      },
+      "fused": {
+        "config": "s10_fused",
+        "k": 500,
+        "mae": 7.465,
+        "r": 0.68,
+        "pd_mae": 7.26,
+        "top10": [
+          "R_LatShank_gm_loco",
+          "L_DorsalFoot_am_iqr",
+          "fc_L_strd_cv",
+          "rk_2218",
+          "rk_1843",
+          "rk_516",
+          "L_LatShank_am_se",
+          "R_DorsalFoot_ay_loco",
+          "rk_4128",
+          "Xiphoid_ay_trem"
+        ]
+      },
+      "fused_stk": {
+        "config": "s10_fused_stk",
+        "k": 500,
+        "mae": 7.24,
+        "r": 0.703,
+        "pd_mae": 7.104,
+        "top10": [
+          "R_LatShank_gm_loco",
+          "L_DorsalFoot_am_iqr",
+          "fc_L_strd_cv",
+          "rk_2218",
+          "rk_1843",
+          "rk_516",
+          "L_LatShank_am_se",
+          "R_DorsalFoot_ay_loco",
+          "rk_4128",
+          "Xiphoid_ay_trem"
+        ]
+      }
+    }
+  ],
+  "k_sweep": [
+    {
+      "config": "K150",
+      "k": 150,
+      "mae": 9.084,
+      "r": 0.582,
+      "pd_mae": 9.114,
+      "top10": [
+        "R_MidLatThigh_ay_loco",
+        "rk_4220",
+        "cv_yrs",
+        "ev_TurnToSit_grms",
+        "R_LatShank_gm_range",
+        "rk_2741",
+        "rk_1386",
+        "L_MidLatThigh_am_range",
+        "LowerBack_ay_loco",
+        "Forehead_gm_std"
+      ]
+    },
+    {
+      "config": "K200",
+      "k": 200,
+      "mae": 8.632,
+      "r": 0.623,
+      "pd_mae": 8.712,
+      "top10": [
+        "R_MidLatThigh_ay_loco",
+        "rk_4220",
+        "cv_yrs",
+        "ev_TurnToSit_grms",
+        "R_LatShank_gm_range",
+        "rk_2741",
+        "rk_1386",
+        "L_MidLatThigh_am_range",
+        "LowerBack_ay_loco",
+        "Forehead_gm_std"
+      ]
+    },
+    {
+      "config": "K250",
+      "k": 250,
+      "mae": 8.677,
+      "r": 0.623,
+      "pd_mae": 8.7,
+      "top10": [
+        "R_MidLatThigh_ay_loco",
+        "rk_4220",
+        "cv_yrs",
+        "ev_TurnToSit_grms",
+        "R_LatShank_gm_range",
+        "rk_2741",
+        "rk_1386",
+        "L_MidLatThigh_am_range",
+        "LowerBack_ay_loco",
+        "Forehead_gm_std"
+      ]
+    },
+    {
+      "config": "K300",
+      "k": 300,
+      "mae": 8.536,
+      "r": 0.645,
+      "pd_mae": 8.45,
+      "top10": [
+        "R_MidLatThigh_ay_loco",
+        "rk_4220",
+        "cv_yrs",
+        "ev_TurnToSit_grms",
+        "R_LatShank_gm_range",
+        "rk_2741",
+        "rk_1386",
+        "L_MidLatThigh_am_range",
+        "LowerBack_ay_loco",
+        "Forehead_gm_std"
+      ]
+    },
+    {
+      "config": "K400",
+      "k": 400,
+      "mae": 8.365,
+      "r": 0.647,
+      "pd_mae": 8.276,
+      "top10": [
+        "R_MidLatThigh_ay_loco",
+        "rk_4220",
+        "cv_yrs",
+        "ev_TurnToSit_grms",
+        "R_LatShank_gm_range",
+        "rk_2741",
+        "rk_1386",
+        "L_MidLatThigh_am_range",
+        "LowerBack_ay_loco",
+        "Forehead_gm_std"
+      ]
+    },
+    {
+      "config": "K500",
+      "k": 500,
+      "mae": 8.34,
+      "r": 0.642,
+      "pd_mae": 8.303,
+      "top10": [
+        "R_MidLatThigh_ay_loco",
+        "rk_4220",
+        "cv_yrs",
+        "ev_TurnToSit_grms",
+        "R_LatShank_gm_range",
+        "rk_2741",
+        "rk_1386",
+        "L_MidLatThigh_am_range",
+        "LowerBack_ay_loco",
+        "Forehead_gm_std"
+      ]
+    },
+    {
+      "config": "K700",
+      "k": 700,
+      "mae": 8.359,
+      "r": 0.658,
+      "pd_mae": 8.337,
+      "top10": [
+        "R_MidLatThigh_ay_loco",
+        "rk_4220",
+        "cv_yrs",
+        "ev_TurnToSit_grms",
+        "R_LatShank_gm_range",
+        "rk_2741",
+        "rk_1386",
+        "L_MidLatThigh_am_range",
+        "LowerBack_ay_loco",
+        "Forehead_gm_std"
+      ]
+    }
+  ],
+  "summary": {
+    "v2": {
+      "mean": 8.485,
+      "std": 0.497
+    },
+    "rocket": {
+      "mean": 10.196,
+      "std": 0.778
+    },
+    "fused": {
+      "mean": 8.369,
+      "std": 0.47
+    },
+    "fused_stk": {
+      "mean": 8.104,
+      "std": 0.442
+    }
+  },
+  "wilcoxon_fused_vs_v2": {
+    "statistic": 8.0,
+    "p": 0.0488
+  },
+  "runtime_s": 1258.6
+}

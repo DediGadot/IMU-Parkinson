@@ -1,0 +1,57 @@
+======================================================================
+PROPOSALS P2: TASK-AWARE BAG-OF-SEGMENTS DL
+Device: cuda
+======================================================================
+
+[1/6] Loading clinical data...
+Loaded split: 142 dev + 36 test subjects
+
+[2/6] Building subject bags (loading raw IMU)...
+    Loaded 20/178 subjects...
+    Loaded 40/178 subjects...
+    Loaded 60/178 subjects...
+    Loaded 80/178 subjects...
+    Loaded 100/178 subjects...
+    Loaded 120/178 subjects...
+    Loaded 140/178 subjects...
+    Loaded 160/178 subjects...
+  Total subjects with bags: 174
+  Windows per subject: min=21 max=100 mean=75
+  Normalizing bags per channel...
+  Bag stats after norm: mean=0.0206 std=0.9128
+  Train: 125, Val: 13, Test: 36
+
+[3/6] Training bag-of-segments model...
+      Epoch 10/80: loss=50.412 val_obs_MAE=4.92 best=4.88
+      Epoch 20/80: loss=46.785 val_obs_MAE=4.88 best=4.88
+      Epoch 30/80: loss=38.081 val_obs_MAE=4.98 best=4.83
+      Early stop at epoch 38
+
+[4/6] Evaluating on test set...
+
+  ITEM-LEVEL RESULTS (test set):
+    Item  7 (Toe tapping (R/L)        ): MAE=1.45 r=0.004
+    Item  8 (Leg agility (R/L)        ): MAE=1.32 r=0.128
+    Item  9 (Arising from chair       ): MAE=0.40 r=0.054
+    Item 10 (Gait                     ): MAE=0.76 r=0.406
+    Item 11 (Freezing of gait         ): MAE=0.38 r=0.123
+    Item 12 (Postural stability       ): MAE=0.87 r=-0.302
+    Item 13 (Posture                  ): MAE=0.63 r=0.255
+    Item 14 (Body bradykinesia        ): MAE=0.71 r=-0.314
+
+  Observable composite: MAE=4.80 r=0.103
+  Total score (DL head): MAE=12.26 r=0.184
+
+[5/6] Attention weight analysis...
+  Top task attention per item head:
+    Toe tapping (R/L)        : SelfPace=0.074, SelfPace_matTURN=0.055, SelfPace_mat=0.016
+    Leg agility (R/L)        : SelfPace=0.044, TUG=0.027, HurriedPace=0.019
+    Arising from chair       : HurriedPace=0.161, Balance=0.001, HurriedPace_mat=0.001
+    Gait                     : HurriedPace_mat=0.031, SelfPace_matTURN=0.019, SelfPace_mat=0.017
+    Freezing of gait         : Balance=0.037, SelfPace_mat=0.005, TandemGait=0.001
+    Postural stability       : SelfPace=0.076, SelfPace_mat=0.019, TandemGait=0.018
+    Posture                  : TUG=0.086, HurriedPace_mat=0.006, SelfPace=0.006
+    Body bradykinesia        : TUG=0.050, Balance=0.018, SelfPace=0.000
+    total                    : TUG=0.085, TandemGait=0.007, Balance=0.003
+
+[6/6] Late fusion with handcrafted features...

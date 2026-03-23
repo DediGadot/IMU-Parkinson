@@ -1,0 +1,156 @@
+Loaded features: 178 subjects x 1877 columns
+
+======================================================================
+EXP 1: 10-SPLIT STRIDE-VAR VALIDATION (IMU-only)
+======================================================================
+  Features: 1752 v2 + 22 stride_var = 1774 total
+  base_s1_lgb: MAE=8.63 r=0.627 PD-MAE=8.60 (K=150)
+  base_s1_stk: MAE=8.53 r=0.610 PD-MAE=8.41 (K=150, 2 base)
+  sv_s1_lgb: MAE=8.63 r=0.653 PD-MAE=8.63 (K=150)
+  sv_s1_stk: MAE=8.54 r=0.629 PD-MAE=8.59 (K=150, 2 base)
+  [1/10] base_stk=8.53  sv_stk=8.54
+  base_s2_lgb: MAE=9.54 r=0.576 PD-MAE=9.60 (K=150)
+  base_s2_stk: MAE=8.96 r=0.600 PD-MAE=9.02 (K=150, 2 base)
+  sv_s2_lgb: MAE=9.45 r=0.577 PD-MAE=9.71 (K=150)
+  sv_s2_stk: MAE=8.81 r=0.623 PD-MAE=8.99 (K=150, 2 base)
+  [2/10] base_stk=8.96  sv_stk=8.81
+  base_s3_lgb: MAE=8.51 r=0.593 PD-MAE=9.22 (K=150)
+  base_s3_stk: MAE=8.16 r=0.620 PD-MAE=9.14 (K=150, 2 base)
+  sv_s3_lgb: MAE=9.09 r=0.516 PD-MAE=9.88 (K=150)
+  sv_s3_stk: MAE=8.48 r=0.584 PD-MAE=9.39 (K=150, 2 base)
+  [3/10] base_stk=8.16  sv_stk=8.48
+  base_s4_lgb: MAE=8.75 r=0.663 PD-MAE=9.35 (K=150)
+  base_s4_stk: MAE=8.49 r=0.666 PD-MAE=8.94 (K=150, 2 base)
+  sv_s4_lgb: MAE=9.23 r=0.599 PD-MAE=9.64 (K=150)
+  sv_s4_stk: MAE=8.76 r=0.605 PD-MAE=9.12 (K=150, 2 base)
+  [4/10] base_stk=8.49  sv_stk=8.76
+  base_s5_lgb: MAE=8.66 r=0.730 PD-MAE=9.21 (K=150)
+  base_s5_stk: MAE=8.52 r=0.748 PD-MAE=9.01 (K=150, 2 base)
+  sv_s5_lgb: MAE=9.64 r=0.668 PD-MAE=10.18 (K=150)
+  sv_s5_stk: MAE=8.87 r=0.730 PD-MAE=9.35 (K=150, 2 base)
+  [5/10] base_stk=8.52  sv_stk=8.87
+  base_s6_lgb: MAE=8.05 r=0.679 PD-MAE=7.84 (K=150)
+  base_s6_stk: MAE=8.27 r=0.720 PD-MAE=7.91 (K=150, 2 base)
+  sv_s6_lgb: MAE=7.96 r=0.717 PD-MAE=7.81 (K=150)
+  sv_s6_stk: MAE=8.33 r=0.727 PD-MAE=8.00 (K=150, 2 base)
+  [6/10] base_stk=8.27  sv_stk=8.33
+  base_s7_lgb: MAE=8.09 r=0.679 PD-MAE=8.64 (K=150)
+  base_s7_stk: MAE=7.56 r=0.707 PD-MAE=8.19 (K=150, 2 base)
+  sv_s7_lgb: MAE=7.43 r=0.734 PD-MAE=8.10 (K=150)
+  sv_s7_stk: MAE=6.90 r=0.756 PD-MAE=7.56 (K=150, 2 base)
+  [7/10] base_stk=7.56  sv_stk=6.90
+  base_s8_lgb: MAE=8.84 r=0.694 PD-MAE=8.95 (K=150)
+  base_s8_stk: MAE=8.02 r=0.729 PD-MAE=8.17 (K=150, 2 base)
+  sv_s8_lgb: MAE=8.66 r=0.689 PD-MAE=8.61 (K=150)
+  sv_s8_stk: MAE=8.42 r=0.691 PD-MAE=8.37 (K=150, 2 base)
+  [8/10] base_stk=8.02  sv_stk=8.42
+  base_s9_lgb: MAE=7.71 r=0.677 PD-MAE=7.94 (K=150)
+  base_s9_stk: MAE=7.69 r=0.689 PD-MAE=8.05 (K=150, 2 base)
+  sv_s9_lgb: MAE=7.93 r=0.639 PD-MAE=8.35 (K=150)
+  sv_s9_stk: MAE=7.82 r=0.668 PD-MAE=8.30 (K=150, 2 base)
+  [9/10] base_stk=7.69  sv_stk=7.82
+  base_s10_lgb: MAE=8.07 r=0.621 PD-MAE=7.87 (K=150)
+  base_s10_stk: MAE=7.92 r=0.657 PD-MAE=7.63 (K=150, 2 base)
+  sv_s10_lgb: MAE=7.81 r=0.661 PD-MAE=7.48 (K=150)
+  sv_s10_stk: MAE=7.47 r=0.693 PD-MAE=7.15 (K=150, 2 base)
+  [10/10] base_stk=7.92  sv_stk=7.47
+
+  Baseline v2 stack: 8.21 +/- 0.41
+  Stride-var stack:  8.24 +/- 0.61
+  Delta:             -0.03
+  Wilcoxon p-value:  0.6953
+  EXP 1 done in 10.4m
+
+======================================================================
+EXP 2: PD-ONLY LOOCV — IMU-ONLY (no obs_subscore, no hy)
+======================================================================
+  PD subjects: 98
+  IMU-only features (v2): 1752
+  IMU + stride_var + adv_asym: 1782
+
+  --- imu_v2 (K=150, 1752 features) ---
+    LOOCV 20/98
+    LOOCV 40/98
+    LOOCV 60/98
+    LOOCV 80/98
+  imu_v2: MAE=8.21 r=0.302 (N=98)
+
+  --- imu_sv_pa (K=150, 1782 features) ---
+    LOOCV 20/98
+    LOOCV 40/98
+    LOOCV 60/98
+    LOOCV 80/98
+  imu_sv_pa: MAE=8.23 r=0.298 (N=98)
+
+  Hssayeni target: MAE=5.95, r=0.74 (N=24, PD-only)
+  EXP 2 done in 10.8m
+
+======================================================================
+EXP 3: COMBINED STRIDE_VAR + ADV_ASYM (IMU-only)
+======================================================================
+  Features: 1752 v2 + 22 sv + 8 pa = 1782 total
+Loaded split: 142 dev + 36 test subjects
+
+  --- Primary split ---
+  comb_lgb: MAE=8.00 r=0.788 PD-MAE=8.16 (K=150)
+  comb_stk: MAE=7.53 r=0.808 PD-MAE=7.55 (K=150, 2 base)
+
+  --- K sweep ---
+  comb_K100: MAE=7.66 r=0.784 PD-MAE=7.93 (K=100)
+  comb_K100_stk: MAE=7.55 r=0.801 PD-MAE=7.61 (K=100, 2 base)
+  comb_K125: MAE=7.87 r=0.802 PD-MAE=8.04 (K=125)
+  comb_K125_stk: MAE=7.55 r=0.816 PD-MAE=7.61 (K=125, 2 base)
+  comb_K150: MAE=8.00 r=0.788 PD-MAE=8.16 (K=150)
+  comb_K150_stk: MAE=7.53 r=0.808 PD-MAE=7.55 (K=150, 2 base)
+  comb_K175: MAE=8.14 r=0.789 PD-MAE=8.23 (K=175)
+  comb_K175_stk: MAE=7.52 r=0.812 PD-MAE=7.58 (K=175, 2 base)
+  comb_K200: MAE=8.32 r=0.781 PD-MAE=8.48 (K=200)
+  comb_K200_stk: MAE=7.56 r=0.807 PD-MAE=7.60 (K=200, 2 base)
+  Best K config: comb_K175_stk -> MAE=7.52
+
+  --- 10-split validation ---
+  comb_val1_lgb: MAE=8.73 r=0.650 PD-MAE=8.82 (K=150)
+  comb_val1_stk: MAE=8.61 r=0.621 PD-MAE=8.69 (K=150, 2 base)
+  [1/10] lgb=8.73 stk=8.61
+  comb_val2_lgb: MAE=9.86 r=0.551 PD-MAE=9.90 (K=150)
+  comb_val2_stk: MAE=8.97 r=0.620 PD-MAE=9.00 (K=150, 2 base)
+  [2/10] lgb=9.86 stk=8.97
+  comb_val3_lgb: MAE=8.95 r=0.509 PD-MAE=9.78 (K=150)
+  comb_val3_stk: MAE=8.36 r=0.604 PD-MAE=9.48 (K=150, 2 base)
+  [3/10] lgb=8.95 stk=8.36
+  comb_val4_lgb: MAE=9.05 r=0.626 PD-MAE=9.66 (K=150)
+  comb_val4_stk: MAE=8.60 r=0.628 PD-MAE=9.10 (K=150, 2 base)
+  [4/10] lgb=9.05 stk=8.60
+  comb_val5_lgb: MAE=9.19 r=0.733 PD-MAE=9.59 (K=150)
+  comb_val5_stk: MAE=8.44 r=0.765 PD-MAE=8.90 (K=150, 2 base)
+  [5/10] lgb=9.19 stk=8.44
+  comb_val6_lgb: MAE=8.67 r=0.694 PD-MAE=8.40 (K=150)
+  comb_val6_stk: MAE=8.89 r=0.693 PD-MAE=8.40 (K=150, 2 base)
+  [6/10] lgb=8.67 stk=8.89
+  comb_val7_lgb: MAE=7.64 r=0.691 PD-MAE=8.36 (K=150)
+  comb_val7_stk: MAE=7.22 r=0.726 PD-MAE=8.02 (K=150, 2 base)
+  [7/10] lgb=7.64 stk=7.22
+  comb_val8_lgb: MAE=8.35 r=0.722 PD-MAE=8.45 (K=150)
+  comb_val8_stk: MAE=8.10 r=0.727 PD-MAE=8.20 (K=150, 2 base)
+  [8/10] lgb=8.35 stk=8.10
+  comb_val9_lgb: MAE=7.80 r=0.667 PD-MAE=7.94 (K=150)
+  comb_val9_stk: MAE=7.75 r=0.687 PD-MAE=8.13 (K=150, 2 base)
+  [9/10] lgb=7.80 stk=7.75
+  comb_val10_lgb: MAE=7.80 r=0.648 PD-MAE=7.67 (K=150)
+  comb_val10_stk: MAE=7.43 r=0.697 PD-MAE=7.08 (K=150, 2 base)
+  [10/10] lgb=7.80 stk=7.43
+
+  10-split LGB: 8.60 +/- 0.67
+  10-split STK: 8.24 +/- 0.57
+  EXP 3 done in 7.9m
+
+======================================================================
+ALL FOLLOW-UP EXPERIMENTS COMPLETE
+======================================================================
+Total runtime: 29.1m
+Results: results/followup_v3_results.json
+
+  EXP 1: stride_var 10-split stack = 8.24 +/- 0.61 (baseline 8.21 +/- 0.41) delta=-0.03 p=0.6953
+  EXP 2: imu_v2 LOOCV MAE=8.21 r=0.302 (Hssayeni: 5.95)
+  EXP 2: imu_sv_pa LOOCV MAE=8.23 r=0.298 (Hssayeni: 5.95)
+  EXP 3: combined sv+pa 10-split stack = 8.24 +/- 0.57

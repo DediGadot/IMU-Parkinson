@@ -1,0 +1,129 @@
+{
+  "grand": {
+    "lgb": {
+      "config": "grand_lgb",
+      "n_sel": 200,
+      "ens_mae": 3.982,
+      "ens_r": 0.914,
+      "pd_mae": 4.578,
+      "mean_mae": 4.034,
+      "std_mae": 0.377,
+      "top10": [
+        "obs_subscore",
+        "R_Ankle_am_skew",
+        "hy",
+        "R_Ankle_ax_se",
+        "R_Ankle_ay_jerk",
+        "LowerBack_gm_range",
+        "R_DorsalFoot_az_range",
+        "L_LatShank_ax_high_r",
+        "R_Ankle_ay_trem_r",
+        "R_DorsalFoot_am_se"
+      ]
+    },
+    "stk2": {
+      "config": "grand_stk2",
+      "n_sel": 200,
+      "ens_mae": 3.875,
+      "ens_r": 0.922,
+      "pd_mae": 4.551,
+      "mean_mae": 3.91,
+      "std_mae": 0.175,
+      "top10": [
+        "obs_subscore",
+        "R_Ankle_am_skew",
+        "hy",
+        "R_Ankle_ax_se",
+        "R_Ankle_ay_jerk",
+        "LowerBack_gm_range",
+        "R_DorsalFoot_az_range",
+        "L_LatShank_ax_high_r",
+        "R_Ankle_ay_trem_r",
+        "R_DorsalFoot_am_se"
+      ]
+    },
+    "stk3": {
+      "config": "grand_stk3",
+      "n_sel": 200,
+      "ens_mae": 3.9,
+      "ens_r": 0.922,
+      "pd_mae": 4.595,
+      "mean_mae": 3.934,
+      "std_mae": 0.187,
+      "top10": [
+        "obs_subscore",
+        "R_Ankle_am_skew",
+        "hy",
+        "R_Ankle_ax_se",
+        "R_Ankle_ay_jerk",
+        "LowerBack_gm_range",
+        "R_DorsalFoot_az_range",
+        "L_LatShank_ax_high_r",
+        "R_Ankle_ay_trem_r",
+        "R_DorsalFoot_am_se"
+      ]
+    }
+  },
+  "split_validation": {
+    "lgb": {
+      "mean": 4.298,
+      "std": 0.409,
+      "values": [
+        4.181,
+        4.435,
+        3.796,
+        4.559,
+        4.948,
+        4.42,
+        3.434,
+        4.204,
+        4.359,
+        4.645
+      ]
+    },
+    "stk2": {
+      "mean": 3.974,
+      "std": 0.433,
+      "values": [
+        4.398,
+        3.978,
+        3.734,
+        3.913,
+        4.544,
+        3.699,
+        2.934,
+        4.05,
+        4.229,
+        4.261
+      ]
+    },
+    "stk3": {
+      "mean": 3.993,
+      "std": 0.428,
+      "values": [
+        4.399,
+        3.986,
+        3.683,
+        3.897,
+        4.674,
+        3.686,
+        3.057,
+        4.073,
+        4.251,
+        4.227
+      ]
+    }
+  },
+  "wilcoxon_p": 0.002,
+  "bootstrap_ci": [
+    2.623,
+    5.656
+  ],
+  "loocv": {
+    "mae": 6.134,
+    "r": 0.728,
+    "n": 98
+  },
+  "best_k": 200,
+  "runtime_s": 1677.4
+}

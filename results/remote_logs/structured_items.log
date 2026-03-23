@@ -1,0 +1,509 @@
+======================================================================
+PROPOSALS P1: STRUCTURED ITEM ORDINAL MODELING
+======================================================================
+
+[1/5] Loading data...
+Loaded split: 142 dev + 36 test subjects
+  Feature cache: 178 subjects x 1752 IMU-only features
+
+[2/5] Building item targets...
+  Dev: 135 subjects, Test: 34 subjects
+  Items: 18, targets shape: (135, 18)
+
+[3/5] Training stacked multi-target model...
+  Stage 1: Training 18 independent item models...
+    Item  1 (Speech                   ): MAE=0.50 r=0.371 ord_MAE=0.41
+    Item  2 (Facial expression        ): MAE=0.66 r=0.536 ord_MAE=0.65
+    Item  3 (Rigidity (5 sites)       ): MAE=2.11 r=0.466 ord_MAE=2.15
+    Item  4 (Finger tapping (R/L)     ): MAE=1.06 r=0.555 ord_MAE=1.00
+    Item  5 (Hand movements (R/L)     ): MAE=1.20 r=0.423 ord_MAE=1.24
+    Item  6 (Pronation-supination (R/L)): MAE=1.13 r=0.272 ord_MAE=1.06
+    Item  7 (Toe tapping (R/L)        ): MAE=1.10 r=0.690 ord_MAE=1.12
+    Item  8 (Leg agility (R/L)        ): MAE=1.12 r=0.435 ord_MAE=1.15
+    Item  9 (Arising from chair       ): MAE=0.26 r=0.492 ord_MAE=0.26
+    Item 10 (Gait                     ): MAE=0.52 r=0.740 ord_MAE=0.41
+    Item 11 (Freezing of gait         ): MAE=0.24 r=0.000 ord_MAE=0.24
+    Item 12 (Postural stability       ): MAE=0.70 r=0.447 ord_MAE=0.71
+    Item 13 (Posture                  ): MAE=0.48 r=0.534 ord_MAE=0.44
+    Item 14 (Body bradykinesia        ): MAE=0.64 r=0.398 ord_MAE=0.65
+    Item 15 (Postural tremor (R/L)    ): MAE=0.32 r=0.114 ord_MAE=0.32
+    Item 16 (Kinetic tremor (R/L)     ): MAE=0.66 r=0.378 ord_MAE=0.59
+    Item 17 (Rest tremor amplitude (5 sites)): MAE=0.81 r=0.067 ord_MAE=0.79
+    Item 18 (Constancy of rest tremor ): MAE=0.50 r=0.166 ord_MAE=0.50
+  Stage 2: Ridge multi-target refinement...
+    Item  1 refined: MAE=0.42 (delta=-0.08)
+    Item  2 refined: MAE=0.61 (delta=-0.05)
+    Item  3 refined: MAE=2.25 (delta=+0.14)
+    Item  4 refined: MAE=1.06 (delta=-0.00)
+    Item  5 refined: MAE=1.03 (delta=-0.17)
+    Item  6 refined: MAE=1.05 (delta=-0.08)
+    Item  7 refined: MAE=0.90 (delta=-0.20)
+    Item  8 refined: MAE=1.04 (delta=-0.09)
+    Item  9 refined: MAE=0.30 (delta=+0.04)
+    Item 10 refined: MAE=0.47 (delta=-0.06)
+    Item 11 refined: MAE=0.27 (delta=+0.04)
+    Item 12 refined: MAE=0.58 (delta=-0.12)
+    Item 13 refined: MAE=0.54 (delta=+0.06)
+    Item 14 refined: MAE=0.44 (delta=-0.21)
+    Item 15 refined: MAE=0.46 (delta=+0.14)
+    Item 16 refined: MAE=0.59 (delta=-0.07)
+    Item 17 refined: MAE=1.06 (delta=+0.25)
+    Item 18 refined: MAE=0.78 (delta=+0.27)
+
+[3.5/5] Computing composite scores...
+  observable_gait           S1 MAE=3.99 r=0.807  S2 MAE=2.86 r=0.851  (0-40)
+  unobservable              S1 MAE=6.22 r=0.742  S2 MAE=5.32 r=0.752  (0-92)
+  total                     S1 MAE=9.56 r=0.817  S2 MAE=7.38 r=0.834  (0-132)
+
+[4/5] 10-split validation...
+
+  --- 10-split validation ---
+  Stage 1: Training 18 independent item models...
+    Item  1 (Speech                   ): MAE=0.65 r=-0.230 ord_MAE=0.62
+    Item  2 (Facial expression        ): MAE=0.89 r=-0.191 ord_MAE=0.91
+    Item  3 (Rigidity (5 sites)       ): MAE=2.20 r=-0.171 ord_MAE=2.15
+    Item  4 (Finger tapping (R/L)     ): MAE=1.33 r=-0.196 ord_MAE=1.15
+    Item  5 (Hand movements (R/L)     ): MAE=1.50 r=-0.411 ord_MAE=1.47
+    Item  6 (Pronation-supination (R/L)): MAE=1.42 r=-0.238 ord_MAE=1.35
+    Item  7 (Toe tapping (R/L)        ): MAE=1.40 r=-0.229 ord_MAE=1.47
+    Item  8 (Leg agility (R/L)        ): MAE=1.03 r=0.320 ord_MAE=1.06
+    Item  9 (Arising from chair       ): MAE=0.33 r=-0.065 ord_MAE=0.32
+    Item 10 (Gait                     ): MAE=0.67 r=0.157 ord_MAE=0.65
+    Item 11 (Freezing of gait         ): MAE=0.18 r=0.000 ord_MAE=0.18
+    Item 12 (Postural stability       ): MAE=0.85 r=0.097 ord_MAE=0.85
+    Item 13 (Posture                  ): MAE=0.77 r=-0.115 ord_MAE=0.85
+    Item 14 (Body bradykinesia        ): MAE=0.52 r=0.303 ord_MAE=0.41
+    Item 15 (Postural tremor (R/L)    ): MAE=0.86 r=-0.124 ord_MAE=0.85
+    Item 16 (Kinetic tremor (R/L)     ): MAE=0.70 r=-0.055 ord_MAE=0.65
+    Item 17 (Rest tremor amplitude (5 sites)): MAE=0.83 r=-0.012 ord_MAE=0.82
+    Item 18 (Constancy of rest tremor ): MAE=0.62 r=-0.049 ord_MAE=0.62
+  Stage 2: Ridge multi-target refinement...
+    Item  1 refined: MAE=0.65 (delta=+0.00)
+    Item  2 refined: MAE=0.81 (delta=-0.07)
+    Item  3 refined: MAE=2.56 (delta=+0.37)
+    Item  4 refined: MAE=1.29 (delta=-0.04)
+    Item  5 refined: MAE=1.49 (delta=-0.01)
+    Item  6 refined: MAE=1.52 (delta=+0.10)
+    Item  7 refined: MAE=1.42 (delta=+0.02)
+    Item  8 refined: MAE=1.26 (delta=+0.22)
+    Item  9 refined: MAE=0.46 (delta=+0.13)
+    Item 10 refined: MAE=0.68 (delta=+0.01)
+    Item 11 refined: MAE=0.33 (delta=+0.16)
+    Item 12 refined: MAE=0.87 (delta=+0.01)
+    Item 13 refined: MAE=0.72 (delta=-0.06)
+    Item 14 refined: MAE=0.63 (delta=+0.11)
+    Item 15 refined: MAE=0.97 (delta=+0.11)
+    Item 16 refined: MAE=0.83 (delta=+0.13)
+    Item 17 refined: MAE=1.16 (delta=+0.33)
+    Item 18 refined: MAE=0.90 (delta=+0.28)
+    [1/10] obs_s1=4.57 obs_s2=4.46 total_s1=12.30 total_s2=12.26 direct=12.45
+  Stage 1: Training 18 independent item models...
+    Item  1 (Speech                   ): MAE=0.63 r=-0.285 ord_MAE=0.61
+    Item  2 (Facial expression        ): MAE=0.92 r=0.095 ord_MAE=1.00
+    Item  3 (Rigidity (5 sites)       ): MAE=3.40 r=-0.123 ord_MAE=3.36
+    Item  4 (Finger tapping (R/L)     ): MAE=1.46 r=-0.003 ord_MAE=1.36
+    Item  5 (Hand movements (R/L)     ): MAE=1.09 r=0.268 ord_MAE=1.00
+    Item  6 (Pronation-supination (R/L)): MAE=1.05 r=0.044 ord_MAE=1.03
+    Item  7 (Toe tapping (R/L)        ): MAE=1.22 r=0.141 ord_MAE=1.24
+    Item  8 (Leg agility (R/L)        ): MAE=1.14 r=0.039 ord_MAE=1.12
+    Item  9 (Arising from chair       ): MAE=0.31 r=0.286 ord_MAE=0.30
+    Item 10 (Gait                     ): MAE=0.88 r=0.071 ord_MAE=0.91
+    Item 11 (Freezing of gait         ): MAE=0.21 r=0.000 ord_MAE=0.21
+    Item 12 (Postural stability       ): MAE=0.58 r=-0.086 ord_MAE=0.52
+    Item 13 (Posture                  ): MAE=0.66 r=-0.020 ord_MAE=0.70
+    Item 14 (Body bradykinesia        ): MAE=0.67 r=0.125 ord_MAE=0.70
+    Item 15 (Postural tremor (R/L)    ): MAE=0.85 r=-0.162 ord_MAE=0.85
+    Item 16 (Kinetic tremor (R/L)     ): MAE=0.56 r=0.124 ord_MAE=0.55
+    Item 17 (Rest tremor amplitude (5 sites)): MAE=0.82 r=-0.236 ord_MAE=0.82
+    Item 18 (Constancy of rest tremor ): MAE=0.58 r=-0.054 ord_MAE=0.58
+  Stage 2: Ridge multi-target refinement...
+    Item  1 refined: MAE=0.58 (delta=-0.04)
+    Item  2 refined: MAE=0.91 (delta=-0.01)
+    Item  3 refined: MAE=3.39 (delta=-0.01)
+    Item  4 refined: MAE=1.47 (delta=+0.01)
+    Item  5 refined: MAE=1.23 (delta=+0.13)
+    Item  6 refined: MAE=1.05 (delta=-0.00)
+    Item  7 refined: MAE=1.25 (delta=+0.03)
+    Item  8 refined: MAE=1.26 (delta=+0.12)
+    Item  9 refined: MAE=0.41 (delta=+0.11)
+    Item 10 refined: MAE=0.82 (delta=-0.07)
+    Item 11 refined: MAE=0.29 (delta=+0.08)
+    Item 12 refined: MAE=0.68 (delta=+0.10)
+    Item 13 refined: MAE=0.66 (delta=-0.00)
+    Item 14 refined: MAE=0.72 (delta=+0.05)
+    Item 15 refined: MAE=1.00 (delta=+0.15)
+    Item 16 refined: MAE=0.69 (delta=+0.13)
+    Item 17 refined: MAE=0.99 (delta=+0.16)
+    Item 18 refined: MAE=0.77 (delta=+0.19)
+    [2/10] obs_s1=4.79 obs_s2=4.36 total_s1=13.89 total_s2=12.20 direct=12.30
+  Stage 1: Training 18 independent item models...
+    Item  1 (Speech                   ): MAE=0.73 r=-0.099 ord_MAE=0.76
+    Item  2 (Facial expression        ): MAE=0.94 r=-0.433 ord_MAE=0.94
+    Item  3 (Rigidity (5 sites)       ): MAE=2.71 r=-0.258 ord_MAE=2.68
+    Item  4 (Finger tapping (R/L)     ): MAE=1.35 r=-0.089 ord_MAE=1.41
+    Item  5 (Hand movements (R/L)     ): MAE=1.28 r=-0.546 ord_MAE=1.18
+    Item  6 (Pronation-supination (R/L)): MAE=1.46 r=-0.209 ord_MAE=1.53
+    Item  7 (Toe tapping (R/L)        ): MAE=1.50 r=-0.200 ord_MAE=1.50
+    Item  8 (Leg agility (R/L)        ): MAE=1.02 r=0.123 ord_MAE=0.97
+    Item  9 (Arising from chair       ): MAE=0.12 r=-0.072 ord_MAE=0.12
+    Item 10 (Gait                     ): MAE=0.83 r=-0.391 ord_MAE=0.88
+    Item 11 (Freezing of gait         ): MAE=0.15 r=0.000 ord_MAE=0.15
+    Item 12 (Postural stability       ): MAE=0.46 r=0.129 ord_MAE=0.44
+    Item 13 (Posture                  ): MAE=0.69 r=-0.050 ord_MAE=0.65
+    Item 14 (Body bradykinesia        ): MAE=0.63 r=-0.339 ord_MAE=0.68
+    Item 15 (Postural tremor (R/L)    ): MAE=0.36 r=0.193 ord_MAE=0.35
+    Item 16 (Kinetic tremor (R/L)     ): MAE=0.75 r=-0.182 ord_MAE=0.71
+    Item 17 (Rest tremor amplitude (5 sites)): MAE=0.50 r=-0.022 ord_MAE=0.47
+    Item 18 (Constancy of rest tremor ): MAE=0.45 r=0.001 ord_MAE=0.44
+  Stage 2: Ridge multi-target refinement...
+    Item  1 refined: MAE=0.68 (delta=-0.06)
+    Item  2 refined: MAE=0.94 (delta=+0.00)
+    Item  3 refined: MAE=2.96 (delta=+0.25)
+    Item  4 refined: MAE=1.38 (delta=+0.03)
+    Item  5 refined: MAE=1.36 (delta=+0.08)
+    Item  6 refined: MAE=1.51 (delta=+0.05)
+    Item  7 refined: MAE=1.56 (delta=+0.06)
+    Item  8 refined: MAE=1.11 (delta=+0.10)
+    Item  9 refined: MAE=0.38 (delta=+0.26)
+    Item 10 refined: MAE=0.76 (delta=-0.07)
+    Item 11 refined: MAE=0.27 (delta=+0.12)
+    Item 12 refined: MAE=0.67 (delta=+0.21)
+    Item 13 refined: MAE=0.73 (delta=+0.03)
+    Item 14 refined: MAE=0.66 (delta=+0.03)
+    Item 15 refined: MAE=0.50 (delta=+0.14)
+    Item 16 refined: MAE=0.89 (delta=+0.14)
+    Item 17 refined: MAE=0.85 (delta=+0.35)
+    Item 18 refined: MAE=0.81 (delta=+0.36)
+    [3/10] obs_s1=4.49 obs_s2=4.49 total_s1=11.79 total_s2=11.56 direct=11.11
+  Stage 1: Training 18 independent item models...
+    Item  1 (Speech                   ): MAE=0.53 r=-0.279 ord_MAE=0.53
+    Item  2 (Facial expression        ): MAE=0.64 r=0.094 ord_MAE=0.65
+    Item  3 (Rigidity (5 sites)       ): MAE=2.55 r=-0.046 ord_MAE=2.56
+    Item  4 (Finger tapping (R/L)     ): MAE=1.34 r=0.016 ord_MAE=1.38
+    Item  5 (Hand movements (R/L)     ): MAE=1.22 r=-0.120 ord_MAE=1.18
+    Item  6 (Pronation-supination (R/L)): MAE=1.11 r=0.240 ord_MAE=1.12
+    Item  7 (Toe tapping (R/L)        ): MAE=1.50 r=0.309 ord_MAE=1.50
+    Item  8 (Leg agility (R/L)        ): MAE=1.53 r=-0.095 ord_MAE=1.56
+    Item  9 (Arising from chair       ): MAE=0.21 r=0.127 ord_MAE=0.21
+    Item 10 (Gait                     ): MAE=0.69 r=-0.050 ord_MAE=0.68
+    Item 11 (Freezing of gait         ): MAE=0.15 r=0.000 ord_MAE=0.15
+    Item 12 (Postural stability       ): MAE=0.68 r=0.202 ord_MAE=0.68
+    Item 13 (Posture                  ): MAE=0.65 r=0.037 ord_MAE=0.65
+    Item 14 (Body bradykinesia        ): MAE=0.65 r=0.196 ord_MAE=0.65
+    Item 15 (Postural tremor (R/L)    ): MAE=0.77 r=0.101 ord_MAE=0.76
+    Item 16 (Kinetic tremor (R/L)     ): MAE=0.69 r=-0.053 ord_MAE=0.68
+    Item 17 (Rest tremor amplitude (5 sites)): MAE=0.60 r=0.255 ord_MAE=0.59
+    Item 18 (Constancy of rest tremor ): MAE=0.56 r=0.017 ord_MAE=0.56
+  Stage 2: Ridge multi-target refinement...
+    Item  1 refined: MAE=0.52 (delta=-0.01)
+    Item  2 refined: MAE=0.65 (delta=+0.00)
+    Item  3 refined: MAE=2.72 (delta=+0.17)
+    Item  4 refined: MAE=1.29 (delta=-0.05)
+    Item  5 refined: MAE=1.23 (delta=+0.00)
+    Item  6 refined: MAE=1.13 (delta=+0.02)
+    Item  7 refined: MAE=1.46 (delta=-0.04)
+    Item  8 refined: MAE=1.60 (delta=+0.08)
+    Item  9 refined: MAE=0.41 (delta=+0.20)
+    Item 10 refined: MAE=0.68 (delta=-0.01)
+    Item 11 refined: MAE=0.30 (delta=+0.15)
+    Item 12 refined: MAE=0.83 (delta=+0.15)
+    Item 13 refined: MAE=0.63 (delta=-0.02)
+    Item 14 refined: MAE=0.70 (delta=+0.05)
+    Item 15 refined: MAE=0.98 (delta=+0.21)
+    Item 16 refined: MAE=0.75 (delta=+0.06)
+    Item 17 refined: MAE=0.81 (delta=+0.21)
+    Item 18 refined: MAE=0.74 (delta=+0.18)
+    [4/10] obs_s1=5.51 obs_s2=5.56 total_s1=12.99 total_s2=12.76 direct=12.41
+  Stage 1: Training 18 independent item models...
+    Item  1 (Speech                   ): MAE=0.66 r=-0.191 ord_MAE=0.71
+    Item  2 (Facial expression        ): MAE=0.82 r=-0.008 ord_MAE=0.85
+    Item  3 (Rigidity (5 sites)       ): MAE=2.74 r=0.097 ord_MAE=2.74
+    Item  4 (Finger tapping (R/L)     ): MAE=1.53 r=-0.220 ord_MAE=1.50
+    Item  5 (Hand movements (R/L)     ): MAE=1.26 r=0.099 ord_MAE=1.21
+    Item  6 (Pronation-supination (R/L)): MAE=1.12 r=-0.457 ord_MAE=1.06
+    Item  7 (Toe tapping (R/L)        ): MAE=1.68 r=-0.493 ord_MAE=1.74
+    Item  8 (Leg agility (R/L)        ): MAE=1.31 r=-0.253 ord_MAE=1.29
+    Item  9 (Arising from chair       ): MAE=0.33 r=-0.158 ord_MAE=0.32
+    Item 10 (Gait                     ): MAE=0.72 r=-0.144 ord_MAE=0.59
+    Item 11 (Freezing of gait         ): MAE=0.15 r=0.000 ord_MAE=0.15
+    Item 12 (Postural stability       ): MAE=0.74 r=-0.061 ord_MAE=0.74
+    Item 13 (Posture                  ): MAE=0.72 r=-0.247 ord_MAE=0.71
+    Item 14 (Body bradykinesia        ): MAE=0.67 r=0.158 ord_MAE=0.68
+    Item 15 (Postural tremor (R/L)    ): MAE=0.94 r=-0.201 ord_MAE=0.94
+    Item 16 (Kinetic tremor (R/L)     ): MAE=0.87 r=-0.215 ord_MAE=0.85
+    Item 17 (Rest tremor amplitude (5 sites)): MAE=0.80 r=0.201 ord_MAE=0.79
+    Item 18 (Constancy of rest tremor ): MAE=0.39 r=-0.043 ord_MAE=0.38
+  Stage 2: Ridge multi-target refinement...
+    Item  1 refined: MAE=0.66 (delta=+0.00)
+    Item  2 refined: MAE=0.88 (delta=+0.05)
+    Item  3 refined: MAE=2.69 (delta=-0.05)
+    Item  4 refined: MAE=1.57 (delta=+0.04)
+    Item  5 refined: MAE=1.31 (delta=+0.05)
+    Item  6 refined: MAE=1.20 (delta=+0.08)
+    Item  7 refined: MAE=1.63 (delta=-0.05)
+    Item  8 refined: MAE=1.32 (delta=+0.01)
+    Item  9 refined: MAE=0.46 (delta=+0.14)
+    Item 10 refined: MAE=0.70 (delta=-0.02)
+    Item 11 refined: MAE=0.24 (delta=+0.09)
+    Item 12 refined: MAE=0.81 (delta=+0.07)
+    Item 13 refined: MAE=0.65 (delta=-0.06)
+    Item 14 refined: MAE=0.69 (delta=+0.01)
+    Item 15 refined: MAE=1.02 (delta=+0.07)
+    Item 16 refined: MAE=0.92 (delta=+0.06)
+    Item 17 refined: MAE=1.01 (delta=+0.22)
+    Item 18 refined: MAE=0.64 (delta=+0.26)
+    [5/10] obs_s1=5.29 obs_s2=5.00 total_s1=14.47 total_s2=13.79 direct=13.73
+  Stage 1: Training 18 independent item models...
+    Item  1 (Speech                   ): MAE=0.68 r=-0.107 ord_MAE=0.70
+    Item  2 (Facial expression        ): MAE=0.86 r=0.039 ord_MAE=0.85
+    Item  3 (Rigidity (5 sites)       ): MAE=3.95 r=-0.095 ord_MAE=4.06
+    Item  4 (Finger tapping (R/L)     ): MAE=1.71 r=-0.067 ord_MAE=1.76
+    Item  5 (Hand movements (R/L)     ): MAE=1.22 r=0.169 ord_MAE=1.21
+    Item  6 (Pronation-supination (R/L)): MAE=1.28 r=0.010 ord_MAE=1.27
+    Item  7 (Toe tapping (R/L)        ): MAE=1.28 r=-0.105 ord_MAE=1.30
+    Item  8 (Leg agility (R/L)        ): MAE=1.02 r=-0.002 ord_MAE=0.94
+    Item  9 (Arising from chair       ): MAE=0.21 r=0.000 ord_MAE=0.21
+    Item 10 (Gait                     ): MAE=0.76 r=0.165 ord_MAE=0.70
+    Item 11 (Freezing of gait         ): MAE=0.12 r=0.000 ord_MAE=0.12
+    Item 12 (Postural stability       ): MAE=0.58 r=-0.103 ord_MAE=0.58
+    Item 13 (Posture                  ): MAE=0.76 r=0.007 ord_MAE=0.73
+    Item 14 (Body bradykinesia        ): MAE=0.67 r=-0.073 ord_MAE=0.61
+    Item 15 (Postural tremor (R/L)    ): MAE=0.20 r=-0.134 ord_MAE=0.18
+    Item 16 (Kinetic tremor (R/L)     ): MAE=0.62 r=-0.018 ord_MAE=0.55
+    Item 17 (Rest tremor amplitude (5 sites)): MAE=0.40 r=0.132 ord_MAE=0.39
+    Item 18 (Constancy of rest tremor ): MAE=0.62 r=-0.187 ord_MAE=0.61
+  Stage 2: Ridge multi-target refinement...
+    Item  1 refined: MAE=0.65 (delta=-0.03)
+    Item  2 refined: MAE=0.91 (delta=+0.05)
+    Item  3 refined: MAE=3.90 (delta=-0.04)
+    Item  4 refined: MAE=1.63 (delta=-0.08)
+    Item  5 refined: MAE=1.27 (delta=+0.05)
+    Item  6 refined: MAE=1.28 (delta=-0.00)
+    Item  7 refined: MAE=1.28 (delta=-0.00)
+    Item  8 refined: MAE=1.18 (delta=+0.16)
+    Item  9 refined: MAE=0.37 (delta=+0.16)
+    Item 10 refined: MAE=0.81 (delta=+0.04)
+    Item 11 refined: MAE=0.22 (delta=+0.09)
+    Item 12 refined: MAE=0.71 (delta=+0.13)
+    Item 13 refined: MAE=0.75 (delta=-0.02)
+    Item 14 refined: MAE=0.76 (delta=+0.09)
+    Item 15 refined: MAE=0.50 (delta=+0.30)
+    Item 16 refined: MAE=0.82 (delta=+0.20)
+    Item 17 refined: MAE=0.94 (delta=+0.54)
+    Item 18 refined: MAE=0.99 (delta=+0.37)
+    [6/10] obs_s1=4.14 obs_s2=4.45 total_s1=13.37 total_s2=13.06 direct=12.68
+  Stage 1: Training 18 independent item models...
+    Item  1 (Speech                   ): MAE=0.51 r=0.049 ord_MAE=0.47
+    Item  2 (Facial expression        ): MAE=0.76 r=-0.003 ord_MAE=0.81
+    Item  3 (Rigidity (5 sites)       ): MAE=2.75 r=0.037 ord_MAE=2.72
+    Item  4 (Finger tapping (R/L)     ): MAE=1.21 r=0.178 ord_MAE=1.19
+    Item  5 (Hand movements (R/L)     ): MAE=1.30 r=0.114 ord_MAE=1.31
+    Item  6 (Pronation-supination (R/L)): MAE=1.37 r=-0.379 ord_MAE=1.39
+    Item  7 (Toe tapping (R/L)        ): MAE=1.40 r=-0.124 ord_MAE=1.44
+    Item  8 (Leg agility (R/L)        ): MAE=0.90 r=-0.131 ord_MAE=1.00
+    Item  9 (Arising from chair       ): MAE=0.20 r=0.044 ord_MAE=0.19
+    Item 10 (Gait                     ): MAE=0.64 r=-0.078 ord_MAE=0.64
+    Item 11 (Freezing of gait         ): MAE=0.03 r=0.000 ord_MAE=0.03
+    Item 12 (Postural stability       ): MAE=0.61 r=-0.206 ord_MAE=0.58
+    Item 13 (Posture                  ): MAE=0.63 r=0.078 ord_MAE=0.64
+    Item 14 (Body bradykinesia        ): MAE=0.58 r=-0.060 ord_MAE=0.58
+    Item 15 (Postural tremor (R/L)    ): MAE=0.34 r=-0.237 ord_MAE=0.33
+    Item 16 (Kinetic tremor (R/L)     ): MAE=0.80 r=0.005 ord_MAE=0.81
+    Item 17 (Rest tremor amplitude (5 sites)): MAE=0.61 r=0.370 ord_MAE=0.61
+    Item 18 (Constancy of rest tremor ): MAE=0.48 r=-0.103 ord_MAE=0.47
+  Stage 2: Ridge multi-target refinement...
+    Item  1 refined: MAE=0.58 (delta=+0.07)
+    Item  2 refined: MAE=0.70 (delta=-0.05)
+    Item  3 refined: MAE=2.69 (delta=-0.06)
+    Item  4 refined: MAE=1.25 (delta=+0.04)
+    Item  5 refined: MAE=1.36 (delta=+0.06)
+    Item  6 refined: MAE=1.27 (delta=-0.09)
+    Item  7 refined: MAE=1.34 (delta=-0.06)
+    Item  8 refined: MAE=1.04 (delta=+0.14)
+    Item  9 refined: MAE=0.45 (delta=+0.25)
+    Item 10 refined: MAE=0.64 (delta=-0.00)
+    Item 11 refined: MAE=0.17 (delta=+0.14)
+    Item 12 refined: MAE=0.77 (delta=+0.16)
+    Item 13 refined: MAE=0.64 (delta=+0.00)
+    Item 14 refined: MAE=0.54 (delta=-0.04)
+    Item 15 refined: MAE=0.53 (delta=+0.19)
+    Item 16 refined: MAE=0.86 (delta=+0.06)
+    Item 17 refined: MAE=0.89 (delta=+0.28)
+    Item 18 refined: MAE=0.70 (delta=+0.22)
+    [7/10] obs_s1=3.86 obs_s2=3.92 total_s1=11.60 total_s2=11.78 direct=11.63
+  Stage 1: Training 18 independent item models...
+    Item  1 (Speech                   ): MAE=0.64 r=-0.113 ord_MAE=0.62
+    Item  2 (Facial expression        ): MAE=1.00 r=-0.094 ord_MAE=1.03
+    Item  3 (Rigidity (5 sites)       ): MAE=2.90 r=0.044 ord_MAE=2.88
+    Item  4 (Finger tapping (R/L)     ): MAE=1.41 r=-0.015 ord_MAE=1.35
+    Item  5 (Hand movements (R/L)     ): MAE=1.47 r=-0.096 ord_MAE=1.41
+    Item  6 (Pronation-supination (R/L)): MAE=1.23 r=-0.209 ord_MAE=1.18
+    Item  7 (Toe tapping (R/L)        ): MAE=1.49 r=-0.152 ord_MAE=1.44
+    Item  8 (Leg agility (R/L)        ): MAE=1.32 r=-0.024 ord_MAE=1.35
+    Item  9 (Arising from chair       ): MAE=0.18 r=0.158 ord_MAE=0.18
+    Item 10 (Gait                     ): MAE=0.76 r=-0.166 ord_MAE=0.74
+    Item 11 (Freezing of gait         ): MAE=0.29 r=0.000 ord_MAE=0.29
+    Item 12 (Postural stability       ): MAE=0.58 r=-0.215 ord_MAE=0.53
+    Item 13 (Posture                  ): MAE=0.63 r=0.038 ord_MAE=0.56
+    Item 14 (Body bradykinesia        ): MAE=0.83 r=-0.248 ord_MAE=0.74
+    Item 15 (Postural tremor (R/L)    ): MAE=0.29 r=0.070 ord_MAE=0.21
+    Item 16 (Kinetic tremor (R/L)     ): MAE=0.61 r=-0.063 ord_MAE=0.50
+    Item 17 (Rest tremor amplitude (5 sites)): MAE=0.50 r=0.032 ord_MAE=0.44
+    Item 18 (Constancy of rest tremor ): MAE=0.33 r=-0.027 ord_MAE=0.32
+  Stage 2: Ridge multi-target refinement...
+    Item  1 refined: MAE=0.63 (delta=-0.00)
+    Item  2 refined: MAE=1.14 (delta=+0.14)
+    Item  3 refined: MAE=3.16 (delta=+0.26)
+    Item  4 refined: MAE=1.66 (delta=+0.25)
+    Item  5 refined: MAE=1.51 (delta=+0.04)
+    Item  6 refined: MAE=1.27 (delta=+0.03)
+    Item  7 refined: MAE=1.49 (delta=-0.00)
+    Item  8 refined: MAE=1.51 (delta=+0.18)
+    Item  9 refined: MAE=0.37 (delta=+0.19)
+    Item 10 refined: MAE=0.79 (delta=+0.03)
+    Item 11 refined: MAE=0.36 (delta=+0.07)
+    Item 12 refined: MAE=0.74 (delta=+0.16)
+    Item 13 refined: MAE=0.62 (delta=-0.01)
+    Item 14 refined: MAE=0.86 (delta=+0.03)
+    Item 15 refined: MAE=0.60 (delta=+0.31)
+    Item 16 refined: MAE=0.83 (delta=+0.22)
+    Item 17 refined: MAE=0.97 (delta=+0.47)
+    Item 18 refined: MAE=0.86 (delta=+0.53)
+    [8/10] obs_s1=5.49 obs_s2=5.42 total_s1=13.25 total_s2=14.13 direct=13.36
+  Stage 1: Training 18 independent item models...
+    Item  1 (Speech                   ): MAE=0.50 r=0.227 ord_MAE=0.48
+    Item  2 (Facial expression        ): MAE=0.78 r=0.200 ord_MAE=0.76
+    Item  3 (Rigidity (5 sites)       ): MAE=2.27 r=-0.229 ord_MAE=2.30
+    Item  4 (Finger tapping (R/L)     ): MAE=1.49 r=-0.101 ord_MAE=1.58
+    Item  5 (Hand movements (R/L)     ): MAE=1.10 r=-0.343 ord_MAE=1.03
+    Item  6 (Pronation-supination (R/L)): MAE=1.12 r=-0.337 ord_MAE=1.06
+    Item  7 (Toe tapping (R/L)        ): MAE=1.42 r=-0.030 ord_MAE=1.42
+    Item  8 (Leg agility (R/L)        ): MAE=1.02 r=0.378 ord_MAE=0.97
+    Item  9 (Arising from chair       ): MAE=0.13 r=-0.009 ord_MAE=0.12
+    Item 10 (Gait                     ): MAE=0.70 r=-0.068 ord_MAE=0.67
+    Item 11 (Freezing of gait         ): MAE=0.15 r=0.000 ord_MAE=0.15
+    Item 12 (Postural stability       ): MAE=0.53 r=0.185 ord_MAE=0.52
+    Item 13 (Posture                  ): MAE=0.81 r=-0.074 ord_MAE=0.79
+    Item 14 (Body bradykinesia        ): MAE=0.61 r=0.025 ord_MAE=0.61
+    Item 15 (Postural tremor (R/L)    ): MAE=0.94 r=-0.022 ord_MAE=0.94
+    Item 16 (Kinetic tremor (R/L)     ): MAE=0.97 r=-0.237 ord_MAE=0.94
+    Item 17 (Rest tremor amplitude (5 sites)): MAE=1.03 r=0.075 ord_MAE=1.03
+    Item 18 (Constancy of rest tremor ): MAE=0.64 r=-0.274 ord_MAE=0.64
+  Stage 2: Ridge multi-target refinement...
+    Item  1 refined: MAE=0.54 (delta=+0.04)
+    Item  2 refined: MAE=0.76 (delta=-0.02)
+    Item  3 refined: MAE=2.45 (delta=+0.18)
+    Item  4 refined: MAE=1.42 (delta=-0.07)
+    Item  5 refined: MAE=1.32 (delta=+0.21)
+    Item  6 refined: MAE=1.22 (delta=+0.10)
+    Item  7 refined: MAE=1.35 (delta=-0.07)
+    Item  8 refined: MAE=1.14 (delta=+0.11)
+    Item  9 refined: MAE=0.41 (delta=+0.28)
+    Item 10 refined: MAE=0.69 (delta=-0.01)
+    Item 11 refined: MAE=0.27 (delta=+0.12)
+    Item 12 refined: MAE=0.69 (delta=+0.17)
+    Item 13 refined: MAE=0.76 (delta=-0.05)
+    Item 14 refined: MAE=0.64 (delta=+0.03)
+    Item 15 refined: MAE=1.05 (delta=+0.11)
+    Item 16 refined: MAE=0.93 (delta=-0.04)
+    Item 17 refined: MAE=1.17 (delta=+0.14)
+    Item 18 refined: MAE=0.78 (delta=+0.14)
+    [9/10] obs_s1=4.59 obs_s2=4.38 total_s1=12.34 total_s2=11.53 direct=11.35
+  Stage 1: Training 18 independent item models...
+    Item  1 (Speech                   ): MAE=0.59 r=-0.040 ord_MAE=0.53
+    Item  2 (Facial expression        ): MAE=1.00 r=0.020 ord_MAE=1.00
+    Item  3 (Rigidity (5 sites)       ): MAE=2.83 r=0.058 ord_MAE=2.85
+    Item  4 (Finger tapping (R/L)     ): MAE=1.49 r=0.030 ord_MAE=1.44
+    Item  5 (Hand movements (R/L)     ): MAE=1.19 r=-0.024 ord_MAE=1.18
+    Item  6 (Pronation-supination (R/L)): MAE=1.30 r=-0.141 ord_MAE=1.18
+    Item  7 (Toe tapping (R/L)        ): MAE=1.45 r=-0.043 ord_MAE=1.38
+    Item  8 (Leg agility (R/L)        ): MAE=1.03 r=0.036 ord_MAE=0.97
+    Item  9 (Arising from chair       ): MAE=0.12 r=0.310 ord_MAE=0.12
+    Item 10 (Gait                     ): MAE=0.66 r=0.152 ord_MAE=0.62
+    Item 11 (Freezing of gait         ): MAE=0.12 r=0.000 ord_MAE=0.12
+    Item 12 (Postural stability       ): MAE=0.39 r=0.136 ord_MAE=0.38
+    Item 13 (Posture                  ): MAE=0.73 r=0.136 ord_MAE=0.59
+    Item 14 (Body bradykinesia        ): MAE=0.65 r=-0.173 ord_MAE=0.59
+    Item 15 (Postural tremor (R/L)    ): MAE=0.39 r=-0.070 ord_MAE=0.38
+    Item 16 (Kinetic tremor (R/L)     ): MAE=0.66 r=-0.104 ord_MAE=0.65
+    Item 17 (Rest tremor amplitude (5 sites)): MAE=0.89 r=-0.103 ord_MAE=0.88
+    Item 18 (Constancy of rest tremor ): MAE=0.74 r=-0.352 ord_MAE=0.74
+  Stage 2: Ridge multi-target refinement...
+    Item  1 refined: MAE=0.70 (delta=+0.11)
+    Item  2 refined: MAE=1.02 (delta=+0.02)
+    Item  3 refined: MAE=2.79 (delta=-0.04)
+    Item  4 refined: MAE=1.49 (delta=-0.00)
+    Item  5 refined: MAE=1.28 (delta=+0.09)
+    Item  6 refined: MAE=1.27 (delta=-0.03)
+    Item  7 refined: MAE=1.37 (delta=-0.08)
+    Item  8 refined: MAE=1.27 (delta=+0.24)
+    Item  9 refined: MAE=0.31 (delta=+0.19)
+    Item 10 refined: MAE=0.69 (delta=+0.03)
+    Item 11 refined: MAE=0.21 (delta=+0.10)
+    Item 12 refined: MAE=0.57 (delta=+0.18)
+    Item 13 refined: MAE=0.71 (delta=-0.02)
+    Item 14 refined: MAE=0.72 (delta=+0.07)
+    Item 15 refined: MAE=0.48 (delta=+0.10)
+    Item 16 refined: MAE=0.79 (delta=+0.12)
+    Item 17 refined: MAE=1.14 (delta=+0.25)
+    Item 18 refined: MAE=0.94 (delta=+0.20)
+    [10/10] obs_s1=4.13 obs_s2=3.97 total_s1=12.19 total_s2=11.45 direct=11.95
+    obs_stage1: 4.69 ± 0.55
+    obs_stage2: 4.60 ± 0.53
+    total_stage1: 12.82 ± 0.89
+    total_stage2: 12.45 ± 0.91
+    total_direct: 12.30 ± 0.79
+    Wilcoxon structured vs direct: p=0.2324
+
+[5/5] PD-only LOOCV for observable subdomain...
+
+  --- PD-only LOOCV: observable via structured items ---
+    PD subjects with complete observable scores: 94
+    LOOCV 20/94
+    LOOCV 40/94
+    LOOCV 60/94
+    LOOCV 80/94
+    Observable PD-only LOOCV: MAE=3.14 r=0.643 (N=94)
+
+======================================================================
+STRUCTURED ITEMS RESULTS SUMMARY
+======================================================================
+
+  ITEM-LEVEL (primary split):
+     1. Speech                    MAE=0.50 r=0.371 refined=0.424
+     2. Facial expression         MAE=0.66 r=0.536 refined=0.614
+     3. Rigidity (5 sites)        MAE=2.11 r=0.466 refined=2.25
+     4. Finger tapping (R/L)      MAE=1.06 r=0.555 refined=1.057
+     5. Hand movements (R/L)      MAE=1.20 r=0.423 refined=1.03
+     6. Pronation-supination (R/L) MAE=1.13 r=0.272 refined=1.047
+     7. Toe tapping (R/L)         MAE=1.10 r=0.690 refined=0.899
+     8. Leg agility (R/L)         MAE=1.12 r=0.435 refined=1.039
+     9. Arising from chair        MAE=0.27 r=0.492 refined=0.303
+    10. Gait                      MAE=0.52 r=0.740 refined=0.467
+    11. Freezing of gait          MAE=0.23 r=0.000 refined=0.271
+    12. Postural stability        MAE=0.70 r=0.447 refined=0.578
+    13. Posture                   MAE=0.48 r=0.534 refined=0.543
+    14. Body bradykinesia         MAE=0.65 r=0.398 refined=0.435
+    15. Postural tremor (R/L)     MAE=0.33 r=0.114 refined=0.461
+    16. Kinetic tremor (R/L)      MAE=0.66 r=0.378 refined=0.585
+    17. Rest tremor amplitude (5 sites) MAE=0.81 r=0.067 refined=1.065
+    18. Constancy of rest tremor  MAE=0.50 r=0.166 refined=0.777
+
+  COMPOSITES (primary split):
+    observable_gait           S1=3.99 S2=2.86 r_S1=0.807 r_S2=0.851
+    unobservable              S1=6.22 S2=5.32 r_S1=0.742 r_S2=0.752
+    total                     S1=9.55 S2=7.38 r_S1=0.817 r_S2=0.834
+
+  OBSERVABLE 10-SPLIT: 4.60 ± 0.53
+  TOTAL 10-SPLIT:     12.45 ± 0.91
+
+  PD-ONLY LOOCV (observable): MAE=3.14 r=0.643 (N=94)
+
+  BASELINES TO BEAT:
+    Observable 10-split stack: 3.21 ± 0.43 (subdomain_v3)
+    Observable PD-only LOOCV:  3.32, r=0.460 (subdomain_v3)
+    Total 10-split stack:      8.21 ± 0.41 (ablation_v3)
+
+  Total runtime: 869.6m
+  Saved: results/structured_items_results.json
+  Saved: /root/pd-imu/results/structured_items_oof.csv

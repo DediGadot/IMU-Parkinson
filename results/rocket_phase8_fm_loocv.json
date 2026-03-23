@@ -1,0 +1,614 @@
+{
+  "phase": "8_fm_loocv",
+  "predictions": [
+    {
+      "sid": "NLS002",
+      "true": 18.0,
+      "pred_v2": 18.02,
+      "pred_fm": 21.4
+    },
+    {
+      "sid": "NLS022",
+      "true": 32.0,
+      "pred_v2": 16.93,
+      "pred_fm": 19.9
+    },
+    {
+      "sid": "NLS033",
+      "true": 31.0,
+      "pred_v2": 26.88,
+      "pred_fm": 31.87
+    },
+    {
+      "sid": "NLS035",
+      "true": 20.0,
+      "pred_v2": 20.46,
+      "pred_fm": 17.39
+    },
+    {
+      "sid": "NLS036",
+      "true": 46.0,
+      "pred_v2": 26.51,
+      "pred_fm": 30.5
+    },
+    {
+      "sid": "NLS056",
+      "true": 32.0,
+      "pred_v2": 28.88,
+      "pred_fm": 33.7
+    },
+    {
+      "sid": "NLS069",
+      "true": 25.0,
+      "pred_v2": 23.41,
+      "pred_fm": 30.79
+    },
+    {
+      "sid": "NLS101",
+      "true": 14.0,
+      "pred_v2": 22.68,
+      "pred_fm": 25.23
+    },
+    {
+      "sid": "NLS102",
+      "true": 14.0,
+      "pred_v2": 10.98,
+      "pred_fm": 14.25
+    },
+    {
+      "sid": "NLS121",
+      "true": 11.0,
+      "pred_v2": 25.68,
+      "pred_fm": 25.36
+    },
+    {
+      "sid": "NLS124",
+      "true": 41.0,
+      "pred_v2": 30.34,
+      "pred_fm": 32.02
+    },
+    {
+      "sid": "NLS127",
+      "true": 19.0,
+      "pred_v2": 13.05,
+      "pred_fm": 13.88
+    },
+    {
+      "sid": "NLS130",
+      "true": 22.0,
+      "pred_v2": 24.69,
+      "pred_fm": 27.88
+    },
+    {
+      "sid": "NLS135",
+      "true": 43.0,
+      "pred_v2": 24.87,
+      "pred_fm": 23.03
+    },
+    {
+      "sid": "NLS139",
+      "true": 33.0,
+      "pred_v2": 25.7,
+      "pred_fm": 26.53
+    },
+    {
+      "sid": "NLS140",
+      "true": 40.0,
+      "pred_v2": 30.18,
+      "pred_fm": 34.16
+    },
+    {
+      "sid": "NLS141",
+      "true": 17.0,
+      "pred_v2": 24.92,
+      "pred_fm": 31.42
+    },
+    {
+      "sid": "NLS142",
+      "true": 24.0,
+      "pred_v2": 23.28,
+      "pred_fm": 28.84
+    },
+    {
+      "sid": "NLS143",
+      "true": 36.0,
+      "pred_v2": 19.2,
+      "pred_fm": 27.81
+    },
+    {
+      "sid": "NLS144",
+      "true": 29.0,
+      "pred_v2": 28.13,
+      "pred_fm": 28.27
+    },
+    {
+      "sid": "NLS146",
+      "true": 10.0,
+      "pred_v2": 23.28,
+      "pred_fm": 16.95
+    },
+    {
+      "sid": "NLS147",
+      "true": 19.0,
+      "pred_v2": 20.97,
+      "pred_fm": 26.15
+    },
+    {
+      "sid": "NLS148",
+      "true": 38.0,
+      "pred_v2": 24.74,
+      "pred_fm": 30.82
+    },
+    {
+      "sid": "NLS149",
+      "true": 29.0,
+      "pred_v2": 26.18,
+      "pred_fm": 28.09
+    },
+    {
+      "sid": "NLS150",
+      "true": 35.0,
+      "pred_v2": 17.39,
+      "pred_fm": 20.38
+    },
+    {
+      "sid": "NLS151",
+      "true": 0.0,
+      "pred_v2": 18.6,
+      "pred_fm": 22.02
+    },
+    {
+      "sid": "NLS152",
+      "true": 19.0,
+      "pred_v2": 23.84,
+      "pred_fm": 22.95
+    },
+    {
+      "sid": "NLS153",
+      "true": 30.0,
+      "pred_v2": 24.32,
+      "pred_fm": 28.85
+    },
+    {
+      "sid": "NLS154",
+      "true": 13.0,
+      "pred_v2": 17.48,
+      "pred_fm": 20.47
+    },
+    {
+      "sid": "NLS155",
+      "true": 6.0,
+      "pred_v2": 21.14,
+      "pred_fm": 28.56
+    },
+    {
+      "sid": "NLS157",
+      "true": 25.0,
+      "pred_v2": 26.23,
+      "pred_fm": 29.39
+    },
+    {
+      "sid": "NLS158",
+      "true": 15.0,
+      "pred_v2": 14.17,
+      "pred_fm": 14.17
+    },
+    {
+      "sid": "NLS159",
+      "true": 39.0,
+      "pred_v2": 30.4,
+      "pred_fm": 30.38
+    },
+    {
+      "sid": "NLS160",
+      "true": 37.0,
+      "pred_v2": 19.77,
+      "pred_fm": 21.04
+    },
+    {
+      "sid": "NLS161",
+      "true": 39.0,
+      "pred_v2": 19.2,
+      "pred_fm": 21.37
+    },
+    {
+      "sid": "NLS162",
+      "true": 38.0,
+      "pred_v2": 19.39,
+      "pred_fm": 19.96
+    },
+    {
+      "sid": "NLS163",
+      "true": 25.0,
+      "pred_v2": 3.79,
+      "pred_fm": 10.42
+    },
+    {
+      "sid": "NLS164",
+      "true": 13.0,
+      "pred_v2": 16.92,
+      "pred_fm": 21.2
+    },
+    {
+      "sid": "NLS165",
+      "true": 33.0,
+      "pred_v2": 18.6,
+      "pred_fm": 23.04
+    },
+    {
+      "sid": "NLS166",
+      "true": 26.0,
+      "pred_v2": 23.79,
+      "pred_fm": 28.5
+    },
+    {
+      "sid": "NLS167",
+      "true": 12.0,
+      "pred_v2": 27.99,
+      "pred_fm": 27.27
+    },
+    {
+      "sid": "NLS169",
+      "true": 22.0,
+      "pred_v2": 17.86,
+      "pred_fm": 20.53
+    },
+    {
+      "sid": "NLS170",
+      "true": 27.0,
+      "pred_v2": 23.97,
+      "pred_fm": 25.29
+    },
+    {
+      "sid": "NLS172",
+      "true": 10.0,
+      "pred_v2": 23.52,
+      "pred_fm": 26.12
+    },
+    {
+      "sid": "NLS173",
+      "true": 38.0,
+      "pred_v2": 21.67,
+      "pred_fm": 21.41
+    },
+    {
+      "sid": "NLS174",
+      "true": 27.0,
+      "pred_v2": 27.75,
+      "pred_fm": 30.47
+    },
+    {
+      "sid": "NLS175",
+      "true": 29.0,
+      "pred_v2": 24.74,
+      "pred_fm": 24.41
+    },
+    {
+      "sid": "NLS176",
+      "true": 9.0,
+      "pred_v2": 21.15,
+      "pred_fm": 25.04
+    },
+    {
+      "sid": "NLS177",
+      "true": 25.0,
+      "pred_v2": 25.87,
+      "pred_fm": 23.7
+    },
+    {
+      "sid": "NLS179",
+      "true": 43.0,
+      "pred_v2": 28.69,
+      "pred_fm": 26.71
+    },
+    {
+      "sid": "NLS182",
+      "true": 14.0,
+      "pred_v2": 17.91,
+      "pred_fm": 17.35
+    },
+    {
+      "sid": "NLS183",
+      "true": 14.0,
+      "pred_v2": 18.34,
+      "pred_fm": 17.35
+    },
+    {
+      "sid": "NLS184",
+      "true": 21.0,
+      "pred_v2": 21.09,
+      "pred_fm": 19.0
+    },
+    {
+      "sid": "NLS185",
+      "true": 40.0,
+      "pred_v2": 29.56,
+      "pred_fm": 29.42
+    },
+    {
+      "sid": "NLS186",
+      "true": 17.0,
+      "pred_v2": 21.34,
+      "pred_fm": 21.59
+    },
+    {
+      "sid": "NLS187",
+      "true": 33.0,
+      "pred_v2": 25.21,
+      "pred_fm": 27.03
+    },
+    {
+      "sid": "NLS188",
+      "true": 0.0,
+      "pred_v2": 9.31,
+      "pred_fm": 7.97
+    },
+    {
+      "sid": "NLS189",
+      "true": 13.0,
+      "pred_v2": 15.71,
+      "pred_fm": 20.49
+    },
+    {
+      "sid": "NLS190",
+      "true": 34.0,
+      "pred_v2": 20.89,
+      "pred_fm": 20.37
+    },
+    {
+      "sid": "NLS191",
+      "true": 36.0,
+      "pred_v2": 19.34,
+      "pred_fm": 20.17
+    },
+    {
+      "sid": "NLS192",
+      "true": 18.0,
+      "pred_v2": 27.17,
+      "pred_fm": 25.65
+    },
+    {
+      "sid": "NLS195",
+      "true": 16.0,
+      "pred_v2": 20.6,
+      "pred_fm": 22.02
+    },
+    {
+      "sid": "NLS196",
+      "true": 52.0,
+      "pred_v2": 31.03,
+      "pred_fm": 35.1
+    },
+    {
+      "sid": "NLS197",
+      "true": 23.0,
+      "pred_v2": 14.64,
+      "pred_fm": 21.31
+    },
+    {
+      "sid": "NLS198",
+      "true": 24.0,
+      "pred_v2": 18.77,
+      "pred_fm": 24.14
+    },
+    {
+      "sid": "NLS201",
+      "true": 59.0,
+      "pred_v2": 31.47,
+      "pred_fm": 32.61
+    },
+    {
+      "sid": "NLS208",
+      "true": 22.0,
+      "pred_v2": 29.64,
+      "pred_fm": 30.4
+    },
+    {
+      "sid": "NLS209",
+      "true": 26.0,
+      "pred_v2": 23.2,
+      "pred_fm": 23.04
+    },
+    {
+      "sid": "NLS210",
+      "true": 26.0,
+      "pred_v2": 30.04,
+      "pred_fm": 27.68
+    },
+    {
+      "sid": "NLS211",
+      "true": 24.0,
+      "pred_v2": 20.18,
+      "pred_fm": 20.11
+    },
+    {
+      "sid": "WPD001",
+      "true": 13.0,
+      "pred_v2": 15.07,
+      "pred_fm": 11.8
+    },
+    {
+      "sid": "WPD002",
+      "true": 19.0,
+      "pred_v2": 10.44,
+      "pred_fm": 12.63
+    },
+    {
+      "sid": "WPD003",
+      "true": 30.0,
+      "pred_v2": 16.46,
+      "pred_fm": 16.65
+    },
+    {
+      "sid": "WPD004",
+      "true": 30.0,
+      "pred_v2": 11.59,
+      "pred_fm": 16.18
+    },
+    {
+      "sid": "WPD005",
+      "true": 15.0,
+      "pred_v2": 4.54,
+      "pred_fm": 11.05
+    },
+    {
+      "sid": "WPD006",
+      "true": 34.0,
+      "pred_v2": 22.07,
+      "pred_fm": 25.03
+    },
+    {
+      "sid": "WPD007",
+      "true": 12.0,
+      "pred_v2": 15.4,
+      "pred_fm": 13.35
+    },
+    {
+      "sid": "WPD008",
+      "true": 23.0,
+      "pred_v2": 11.42,
+      "pred_fm": 13.28
+    },
+    {
+      "sid": "WPD009",
+      "true": 19.0,
+      "pred_v2": 16.94,
+      "pred_fm": 24.03
+    },
+    {
+      "sid": "WPD010",
+      "true": 24.0,
+      "pred_v2": 12.94,
+      "pred_fm": 20.42
+    },
+    {
+      "sid": "WPD011",
+      "true": 26.0,
+      "pred_v2": 16.6,
+      "pred_fm": 20.9
+    },
+    {
+      "sid": "WPD012",
+      "true": 19.0,
+      "pred_v2": 14.79,
+      "pred_fm": 16.78
+    },
+    {
+      "sid": "WPD013",
+      "true": 0.0,
+      "pred_v2": 11.87,
+      "pred_fm": 10.96
+    },
+    {
+      "sid": "WPD014",
+      "true": 24.0,
+      "pred_v2": 6.99,
+      "pred_fm": 9.87
+    },
+    {
+      "sid": "WPD015",
+      "true": 22.0,
+      "pred_v2": 19.59,
+      "pred_fm": 21.81
+    },
+    {
+      "sid": "WPD016",
+      "true": 10.0,
+      "pred_v2": 18.96,
+      "pred_fm": 19.85
+    },
+    {
+      "sid": "WPD017",
+      "true": 27.0,
+      "pred_v2": 7.92,
+      "pred_fm": 7.62
+    },
+    {
+      "sid": "WPD018",
+      "true": 26.0,
+      "pred_v2": 4.53,
+      "pred_fm": 7.01
+    },
+    {
+      "sid": "WPD019",
+      "true": 25.0,
+      "pred_v2": 8.62,
+      "pred_fm": 10.55
+    },
+    {
+      "sid": "WPD020",
+      "true": 13.0,
+      "pred_v2": 21.58,
+      "pred_fm": 25.21
+    },
+    {
+      "sid": "WPD021",
+      "true": 25.0,
+      "pred_v2": 14.31,
+      "pred_fm": 17.45
+    },
+    {
+      "sid": "WPD022",
+      "true": 27.0,
+      "pred_v2": 20.02,
+      "pred_fm": 19.16
+    },
+    {
+      "sid": "WPD023",
+      "true": 13.0,
+      "pred_v2": 18.98,
+      "pred_fm": 20.58
+    },
+    {
+      "sid": "WPD024",
+      "true": 18.0,
+      "pred_v2": 15.45,
+      "pred_fm": 23.31
+    },
+    {
+      "sid": "WPD025",
+      "true": 30.0,
+      "pred_v2": 22.68,
+      "pred_fm": 27.51
+    },
+    {
+      "sid": "WPD026",
+      "true": 28.0,
+      "pred_v2": 23.45,
+      "pred_fm": 25.65
+    },
+    {
+      "sid": "WPD027",
+      "true": 26.0,
+      "pred_v2": 23.74,
+      "pred_fm": 28.69
+    },
+    {
+      "sid": "WPD029",
+      "true": 25.0,
+      "pred_v2": 23.6,
+      "pred_fm": 26.45
+    }
+  ],
+  "k_v2": 150,
+  "k_fused": 300,
+  "v2": {
+    "mae": 8.808,
+    "r": 0.412
+  },
+  "fm_stk": {
+    "mae": 8.147,
+    "r": 0.429,
+    "ci_95": [
+      6.95,
+      9.38
+    ]
+  },
+  "wilcoxon": {
+    "statistic": 1852.0,
+    "p": 0.0421
+  },
+  "fm_wins": 56,
+  "n_pd": 98,
+  "runtime_s": 5906.3
+}

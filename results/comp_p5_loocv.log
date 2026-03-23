@@ -1,0 +1,106 @@
+======================================================================
+COMPRESSION ABLATION — Anti-compression proposals x 3 targets
+Phases: [5]
+Targets: ['t1', 't2', 't3']
+Eval: loocv
+======================================================================
+Loading per-item scores from cache: /root/pd-imu/results/per_item_scores.json
+
+Data loaded:
+  PD subjects: 94
+  All subjects (PD+HC): 174
+  Features: 2520 (v2: 1752, FM: 768)
+  T1: range [0, 14], mean=4.1, std=2.8
+  T2: range [1, 20], mean=6.8, std=3.8
+  T3: range [6, 59], mean=25.2, std=10.2
+
+────────────────────────────────────────────────────────────
+Running P5_T1 (loocv)...
+  Target: T1, range [0, 24]
+────────────────────────────────────────────────────────────
+    [10/94] CCC=0.870 MAE=0.825 (9326s elapsed, ~78335s remaining)
+    [20/94] CCC=0.822 MAE=1.198 (13293s elapsed, ~49184s remaining)
+    [30/94] CCC=0.841 MAE=1.136 (13404s elapsed, ~28596s remaining)
+    [40/94] CCC=0.838 MAE=1.061 (13512s elapsed, ~18242s remaining)
+    [50/94] CCC=0.835 MAE=0.968 (13618s elapsed, ~11984s remaining)
+    [60/94] CCC=0.856 MAE=0.982 (13727s elapsed, ~7779s remaining)
+    [70/94] CCC=0.852 MAE=0.983 (13836s elapsed, ~4744s remaining)
+    [80/94] CCC=0.870 MAE=0.992 (13938s elapsed, ~2439s remaining)
+    [90/94] CCC=0.866 MAE=0.967 (14041s elapsed, ~624s remaining)
+
+  Results for P5_T1:
+    CCC       = 0.868
+    cal_slope = 0.689
+    MAE       = 0.986
+    r         = 0.899
+    RMSE      = 1.290
+    Quartile biases:
+      Q1 (<2): n=15, bias=+1.906, mae=1.906
+      Q2 (2-4): n=30, bias=+0.039, mae=0.560
+      Q3 (4-5): n=16, bias=-0.755, mae=0.789
+      Q4 (>=5): n=33, bias=-0.709, mae=1.052
+  Saved: /root/pd-imu/results/compression_P5_TT1.json
+
+────────────────────────────────────────────────────────────
+Running P5_T2 (loocv)...
+  Target: T2, range [0, 32]
+────────────────────────────────────────────────────────────
+    [10/94] CCC=0.837 MAE=1.197 (109s elapsed, ~913s remaining)
+    [20/94] CCC=0.846 MAE=1.277 (214s elapsed, ~791s remaining)
+    [30/94] CCC=0.854 MAE=1.217 (316s elapsed, ~674s remaining)
+    [40/94] CCC=0.849 MAE=1.238 (427s elapsed, ~576s remaining)
+    [50/94] CCC=0.830 MAE=1.253 (531s elapsed, ~467s remaining)
+    [60/94] CCC=0.851 MAE=1.272 (636s elapsed, ~361s remaining)
+    [70/94] CCC=0.842 MAE=1.320 (746s elapsed, ~256s remaining)
+    [80/94] CCC=0.856 MAE=1.305 (852s elapsed, ~149s remaining)
+    [90/94] CCC=0.857 MAE=1.282 (952s elapsed, ~42s remaining)
+
+  Results for P5_T2:
+    CCC       = 0.852
+    cal_slope = 0.699
+    MAE       = 1.334
+    r         = 0.873
+    RMSE      = 1.856
+    Quartile biases:
+      Q1 (<4): n=15, bias=+2.683, mae=2.683
+      Q2 (4-6): n=25, bias=+0.172, mae=0.610
+      Q3 (6-9): n=30, bias=-0.688, mae=1.230
+      Q4 (>=9): n=24, bias=-0.795, mae=1.376
+  Saved: /root/pd-imu/results/compression_P5_TT2.json
+
+────────────────────────────────────────────────────────────
+Running P5_T3 (loocv)...
+  Target: T3, range [0, 59]
+────────────────────────────────────────────────────────────
+    [10/94] CCC=0.761 MAE=4.951 (116s elapsed, ~974s remaining)
+    [20/94] CCC=0.783 MAE=4.741 (239s elapsed, ~883s remaining)
+    [30/94] CCC=0.779 MAE=4.700 (354s elapsed, ~756s remaining)
+    [40/94] CCC=0.801 MAE=4.477 (468s elapsed, ~632s remaining)
+    [50/94] CCC=0.762 MAE=4.495 (574s elapsed, ~505s remaining)
+    [60/94] CCC=0.712 MAE=5.063 (679s elapsed, ~385s remaining)
+    [70/94] CCC=0.748 MAE=4.801 (786s elapsed, ~269s remaining)
+    [80/94] CCC=0.767 MAE=4.627 (888s elapsed, ~155s remaining)
+    [90/94] CCC=0.756 MAE=4.673 (996s elapsed, ~44s remaining)
+
+  Results for P5_T3:
+    CCC       = 0.776
+    cal_slope = 0.576
+    MAE       = 4.646
+    r         = 0.827
+    RMSE      = 5.879
+    Quartile biases:
+      Q1 (<18): n=23, bias=+7.388, mae=7.388
+      Q2 (18-25): n=22, bias=+0.254, mae=3.245
+      Q3 (25-32): n=25, bias=-2.945, mae=3.601
+      Q4 (>=32): n=24, bias=-3.690, mae=4.389
+  Saved: /root/pd-imu/results/compression_P5_TT3.json
+
+==========================================================================================
+Proposal     Target Eval         CCC   Slope     MAE       r     Time
+------------------------------------------------------------------------------------------
+P5_ranking   T1     loocv      0.868   0.689   0.986   0.899 14080.9s
+P5_ranking   T2     loocv      0.852   0.699   1.334   0.873   988.9s
+P5_ranking   T3     loocv      0.776   0.576   4.646   0.827  1035.0s
+==========================================================================================
+
+All results saved to: /root/pd-imu/results/compression_ablation_all.json

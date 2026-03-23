@@ -1,0 +1,10 @@
+
+============================================================
+PHASE 6: Grand Combination
+============================================================
+
+  [E6.1] Residual + severity-weighted (v2+FM)...
+    Total: MAE=7.715, CCC=0.394, cal_slope=0.256
+    Obs:   MAE=4.208, CCC=0.378
+
+  [E6.2] Residual + LGB+XGB stack (v2+FM)...

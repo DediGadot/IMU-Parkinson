@@ -51,6 +51,7 @@ MCID = 3.25
 OBS_ITEMS = [9, 10, 11, 12, 13, 14]  # directly observable
 PARTIAL_ITEMS = [5, 6, 7, 8, 15, 16, 17]
 UNOBS_ITEMS = [1, 2, 3, 4, 18]
+LOOCV_PROGRESS_EVERY = 10
 
 # Target configuration (set by --target flag in main)
 _TARGET_COL = "updrs3"
@@ -548,11 +549,19 @@ def fm_features_task_aware(embeddings, rec_sids, rec_tasks, target_sids, mode):
 def feature_select(X, y, names, k=150):
     """XGBoost importance-based feature selection."""
     from xgboost import XGBRegressor
-    sel = XGBRegressor(
+    params = dict(
         n_estimators=300, max_depth=4, learning_rate=0.05,
         reg_lambda=2.0, random_state=42, objective="reg:absoluteerror",
         verbosity=0
     )
+    try:
+        import torch
+        if torch.cuda.is_available():
+            params["device"] = "cuda"
+            params["tree_method"] = "hist"
+    except ImportError:
+        pass
+    sel = XGBRegressor(**params)
     sel.fit(X, y)
     idx = np.argsort(sel.feature_importances_)[::-1][:k]
     return idx, [names[i] for i in idx]
@@ -678,7 +687,8 @@ def run_stack(Xd, yd, Xt, fnames, k=150, objective="mae",
 
 def run_loocv(feat_df, pd_sids, target_col="updrs3", feature_cols=None,
               k=150, use_stack=False, residual_mode=False,
-              demo_cols=None, objective="mae", sample_weight_fn=None):
+              demo_cols=None, objective="mae", sample_weight_fn=None,
+              progress_label=None):
     """PD-only leave-one-out cross-validation.
 
     Args:
@@ -707,6 +717,7 @@ def run_loocv(feat_df, pd_sids, target_col="updrs3", feature_cols=None,
     y_pred_all = []
     sids_all = []
 
+    t0 = time.time()
     for i, test_sid in enumerate(pd_sids):
         train_mask = df["sid"] != test_sid
         test_mask = df["sid"] == test_sid
@@ -751,6 +762,14 @@ def run_loocv(feat_df, pd_sids, target_col="updrs3", feature_cols=None,
         y_true_all.append(yt[0])
         y_pred_all.append(pred[0])
         sids_all.append(test_sid)
+
+        fold_idx = i + 1
+        if progress_label and (fold_idx % LOOCV_PROGRESS_EVERY == 0 or fold_idx == len(pd_sids)):
+            elapsed = time.time() - t0
+            rate = fold_idx / max(elapsed, 0.1)
+            eta_min = (len(pd_sids) - fold_idx) / max(rate, 0.1) / 60
+            print(f"    [{progress_label}] LOOCV {fold_idx}/{len(pd_sids)} "
+                  f"({elapsed/60:.1f}m elapsed, ETA {eta_min:.1f}m)")
 
     return np.array(y_true_all), np.array(y_pred_all), sids_all
 
@@ -988,10 +1007,15 @@ def phase1():
     # ── E1.0: Baseline control (v2 + FM, no Euler, no FreeAcc) ──
     print("\n  [E1.0] Baseline control (v2+FM)...")
     t0 = time.time()
-    yt, yp, sids = run_loocv(baseline_df, pd_sids, "updrs3", all_baseline_cols, k=300)
+    yt, yp, sids = run_loocv(
+        baseline_df, pd_sids, "updrs3", all_baseline_cols, k=300,
+        progress_label="E1.0 total"
+    )
     m_total = full_metrics(yt, yp, "total")
-    yt_obs, yp_obs, _ = run_loocv(baseline_df, pd_sids, "obs_subscore",
-                                    all_baseline_cols, k=300)
+    yt_obs, yp_obs, _ = run_loocv(
+        baseline_df, pd_sids, "obs_subscore", all_baseline_cols, k=300,
+        progress_label="E1.0 obs"
+    )
     m_obs = full_metrics(yt_obs, yp_obs, "obs")
     results["experiments"]["E1.0_baseline"] = {
         **m_total, **m_obs,
@@ -1071,10 +1095,15 @@ def phase1():
 
     print(f"\n  [E1.1] +Euler LOOCV (total + obs)...")
     t0 = time.time()
-    yt, yp, _ = run_loocv(euler_df, pd_sids, "updrs3", euler_all_cols, k=350)
+    yt, yp, _ = run_loocv(
+        euler_df, pd_sids, "updrs3", euler_all_cols, k=350,
+        progress_label="E1.1 total"
+    )
     m_total = full_metrics(yt, yp, "total")
-    yt_obs, yp_obs, _ = run_loocv(euler_df, pd_sids, "obs_subscore",
-                                    euler_all_cols, k=350)
+    yt_obs, yp_obs, _ = run_loocv(
+        euler_df, pd_sids, "obs_subscore", euler_all_cols, k=350,
+        progress_label="E1.1 obs"
+    )
     m_obs = full_metrics(yt_obs, yp_obs, "obs")
     results["experiments"]["E1.1_euler"] = {
         **m_total, **m_obs,
@@ -1108,10 +1137,15 @@ def phase1():
 
     print(f"\n  [E1.2] +FreeAcc LOOCV...")
     t0 = time.time()
-    yt, yp, _ = run_loocv(freeacc_df, pd_sids, "updrs3", freeacc_all_cols, k=350)
+    yt, yp, _ = run_loocv(
+        freeacc_df, pd_sids, "updrs3", freeacc_all_cols, k=350,
+        progress_label="E1.2 total"
+    )
     m_total = full_metrics(yt, yp, "total")
-    yt_obs, yp_obs, _ = run_loocv(freeacc_df, pd_sids, "obs_subscore",
-                                    freeacc_all_cols, k=350)
+    yt_obs, yp_obs, _ = run_loocv(
+        freeacc_df, pd_sids, "obs_subscore", freeacc_all_cols, k=350,
+        progress_label="E1.2 obs"
+    )
     m_obs = full_metrics(yt_obs, yp_obs, "obs")
     results["experiments"]["E1.2_freeacc"] = {
         **m_total, **m_obs,
@@ -1144,10 +1178,15 @@ def phase1():
 
     print(f"\n  [E1.3] +Euler+FreeAcc LOOCV...")
     t0 = time.time()
-    yt, yp, _ = run_loocv(both_df, pd_sids, "updrs3", both_all_cols, k=400)
+    yt, yp, _ = run_loocv(
+        both_df, pd_sids, "updrs3", both_all_cols, k=400,
+        progress_label="E1.3 total"
+    )
     m_total = full_metrics(yt, yp, "total")
-    yt_obs, yp_obs, _ = run_loocv(both_df, pd_sids, "obs_subscore",
-                                    both_all_cols, k=400)
+    yt_obs, yp_obs, _ = run_loocv(
+        both_df, pd_sids, "obs_subscore", both_all_cols, k=400,
+        progress_label="E1.3 obs"
+    )
     m_obs = full_metrics(yt_obs, yp_obs, "obs")
     results["experiments"]["E1.3_euler_freeacc"] = {
         **m_total, **m_obs,
@@ -1610,9 +1649,15 @@ def phase8():
         all_cols = v2_cols + fm_cols
 
         t0 = time.time()
-        yt, yp, _ = run_loocv(merged, pd_sids, "updrs3", all_cols, k=k)
+        yt, yp, _ = run_loocv(
+            merged, pd_sids, "updrs3", all_cols, k=k,
+            progress_label=f"{exp_name} total"
+        )
         m_total = full_metrics(yt, yp, "total")
-        yt_obs, yp_obs, _ = run_loocv(merged, pd_sids, "obs_subscore", all_cols, k=k)
+        yt_obs, yp_obs, _ = run_loocv(
+            merged, pd_sids, "obs_subscore", all_cols, k=k,
+            progress_label=f"{exp_name} obs"
+        )
         m_obs = full_metrics(yt_obs, yp_obs, "obs")
         results["experiments"][exp_name] = {
             **m_total,

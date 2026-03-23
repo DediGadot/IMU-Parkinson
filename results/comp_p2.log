@@ -1,0 +1,23 @@
+======================================================================
+COMPRESSION ABLATION — Anti-compression proposals x 3 targets
+Phases: [2]
+Targets: ['t1', 't2', 't3']
+Eval: 5split
+======================================================================
+Loading per-item scores from cache: /root/pd-imu/results/per_item_scores.json
+
+Data loaded:
+  PD subjects: 94
+  All subjects (PD+HC): 174
+  Features: 2520 (v2: 1752, FM: 768)
+  T1: range [0, 14], mean=4.1, std=2.8
+  T2: range [1, 20], mean=6.8, std=3.8
+  T3: range [6, 59], mean=25.2, std=10.2
+
+────────────────────────────────────────────────────────────
+Running P2_T1 (5split)...
+  Target: T1, range [0, 24]
+────────────────────────────────────────────────────────────
+  Split 1/5: CCC=0.712 slope=0.506 MAE=1.111
+  Split 2/5: CCC=0.486 slope=0.316 MAE=1.630
+  Split 3/5: CCC=0.668 slope=0.627 MAE=1.403

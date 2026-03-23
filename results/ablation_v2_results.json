@@ -1,0 +1,1206 @@
+[
+  {
+    "experiment": "E0_baseline",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 9.826,
+    "std_mae": 0.479,
+    "ens_mae": 9.638,
+    "ens_r": 0.673,
+    "individual_mae": [
+      10.345,
+      9.232,
+      10.105,
+      10.185,
+      9.262
+    ],
+    "individual_r": [
+      "0.536",
+      "0.672",
+      "0.586",
+      "0.545",
+      "0.689"
+    ],
+    "top_features": [
+      [
+        "R_Ankle_ro_std",
+        0.024
+      ],
+      [
+        "R_LatShank_am_se",
+        0.0117
+      ],
+      [
+        "L_LatShank_ay_se",
+        0.0112
+      ],
+      [
+        "R_DorsalFoot_gm_jerk",
+        0.0105
+      ],
+      [
+        "L_DorsalFoot_ax_iqr",
+        0.0101
+      ],
+      [
+        "R_MidLatThigh_ro_zcr",
+        0.01
+      ],
+      [
+        "Xiphoid_gm_trem",
+        0.0096
+      ],
+      [
+        "R_Ankle_az_dom",
+        0.009
+      ],
+      [
+        "L_DorsalFoot_gm_iqr",
+        0.0086
+      ],
+      [
+        "R_Ankle_az_loco_r",
+        0.0086
+      ],
+      [
+        "R_LatShank_az_loco",
+        0.008
+      ],
+      [
+        "L_LatShank_ay_skew",
+        0.0077
+      ],
+      [
+        "L_DorsalFoot_g_stride_t",
+        0.0076
+      ],
+      [
+        "R_Ankle_ro_kurt",
+        0.0076
+      ],
+      [
+        "R_DorsalFoot_am_loco",
+        0.0073
+      ]
+    ]
+  },
+  {
+    "experiment": "E1_task_preserving",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 9.578,
+    "std_mae": 0.484,
+    "ens_mae": 9.477,
+    "ens_r": 0.715,
+    "individual_mae": [
+      9.439,
+      9.21,
+      10.155,
+      10.127,
+      8.96
+    ],
+    "individual_r": [
+      "0.688",
+      "0.695",
+      "0.63",
+      "0.605",
+      "0.744"
+    ],
+    "top_features": [
+      [
+        "L_LatShank_az_trem_r",
+        0.0167
+      ],
+      [
+        "L_Wrist_ay_kurt",
+        0.0115
+      ],
+      [
+        "L_Wrist_ay_trem_r",
+        0.0094
+      ],
+      [
+        "R_Wrist_ay_loco_r",
+        0.0091
+      ],
+      [
+        "r_tug_LowerBack_ax_jerk",
+        0.0088
+      ],
+      [
+        "Xiphoid_ya_jerk",
+        0.0086
+      ],
+      [
+        "L_LatShank_ay_loco_r",
+        0.0085
+      ],
+      [
+        "L_Wrist_am_high_r",
+        0.0082
+      ],
+      [
+        "L_DorsalFoot_am_iqr",
+        0.0081
+      ],
+      [
+        "d_tug_LowerBack_ax_rms",
+        0.0081
+      ],
+      [
+        "LowerBack_g_stride_reg",
+        0.0079
+      ],
+      [
+        "L_LatShank_az_iqr",
+        0.0079
+      ],
+      [
+        "R_LatShank_az_trem_r",
+        0.0079
+      ],
+      [
+        "L_MidLatThigh_ax_high",
+        0.0078
+      ],
+      [
+        "L_Ankle_pi_jerk",
+        0.0077
+      ]
+    ]
+  },
+  {
+    "experiment": "E2_events",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 9.636,
+    "std_mae": 0.341,
+    "ens_mae": 9.505,
+    "ens_r": 0.694,
+    "individual_mae": [
+      9.208,
+      9.442,
+      9.733,
+      10.226,
+      9.57
+    ],
+    "individual_r": [
+      "0.686",
+      "0.695",
+      "0.65",
+      "0.596",
+      "0.645"
+    ],
+    "top_features": [
+      [
+        "Xiphoid_az_jerk",
+        0.0184
+      ],
+      [
+        "r_hp_LowerBack_fi",
+        0.0128
+      ],
+      [
+        "R_Wrist_ax_rms",
+        0.0125
+      ],
+      [
+        "R_MidLatThigh_ya_jerk",
+        0.0104
+      ],
+      [
+        "L_Wrist_ay_trem_r",
+        0.01
+      ],
+      [
+        "LowerBack_ax_trem",
+        0.0093
+      ],
+      [
+        "R_LatShank_ay_high_r",
+        0.0093
+      ],
+      [
+        "Xiphoid_gm_high",
+        0.0086
+      ],
+      [
+        "LowerBack_g_stride_reg",
+        0.0084
+      ],
+      [
+        "L_Wrist_am_high_r",
+        0.0083
+      ],
+      [
+        "r_tg_LowerBack_ro_rms",
+        0.0078
+      ],
+      [
+        "R_DorsalFoot_ya_std",
+        0.0076
+      ],
+      [
+        "R_LatShank_pi_zcr",
+        0.0074
+      ],
+      [
+        "R_MidLatThigh_az_se",
+        0.0074
+      ],
+      [
+        "R_LatShank_az_se",
+        0.0073
+      ]
+    ]
+  },
+  {
+    "experiment": "E3_contact",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 9.439,
+    "std_mae": 0.272,
+    "ens_mae": 9.435,
+    "ens_r": 0.726,
+    "individual_mae": [
+      9.278,
+      9.942,
+      9.154,
+      9.475,
+      9.346
+    ],
+    "individual_r": [
+      "0.683",
+      "0.646",
+      "0.703",
+      "0.677",
+      "0.705"
+    ],
+    "top_features": [
+      [
+        "LowerBack_ax_dom",
+        0.0119
+      ],
+      [
+        "L_Wrist_az_iqr",
+        0.0108
+      ],
+      [
+        "L_Wrist_ro_iqr",
+        0.0101
+      ],
+      [
+        "r_tg_R_Wrist_ax_jerk",
+        0.0089
+      ],
+      [
+        "Xiphoid_gm_trem",
+        0.0085
+      ],
+      [
+        "R_MidLatThigh_ro_skew",
+        0.0085
+      ],
+      [
+        "R_DorsalFoot_ay_trem",
+        0.0084
+      ],
+      [
+        "L_LatShank_ay_se",
+        0.0084
+      ],
+      [
+        "r_tug_R_Wrist_ax_jerk",
+        0.0083
+      ],
+      [
+        "L_LatShank_ay_loco_r",
+        0.008
+      ],
+      [
+        "r_hp_LowerBack_g_stride_reg",
+        0.0077
+      ],
+      [
+        "L_MidLatThigh_az_rms",
+        0.0073
+      ],
+      [
+        "L_LatShank_ax_high_r",
+        0.0072
+      ],
+      [
+        "LowerBack_ay_loco_r",
+        0.0072
+      ],
+      [
+        "fc_R_st_cv",
+        0.0071
+      ]
+    ]
+  },
+  {
+    "experiment": "E4_kinematics",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 9.34,
+    "std_mae": 0.31,
+    "ens_mae": 9.22,
+    "ens_r": 0.741,
+    "individual_mae": [
+      9.488,
+      9.718,
+      9.069,
+      9.533,
+      8.889
+    ],
+    "individual_r": [
+      "0.688",
+      "0.625",
+      "0.703",
+      "0.664",
+      "0.776"
+    ],
+    "top_features": [
+      [
+        "L_LatShank_ay_loco_r",
+        0.0136
+      ],
+      [
+        "R_Ankle_am_se",
+        0.0109
+      ],
+      [
+        "LowerBack_ay_loco",
+        0.0099
+      ],
+      [
+        "R_MidLatThigh_az_se",
+        0.0098
+      ],
+      [
+        "L_Wrist_am_se",
+        0.0096
+      ],
+      [
+        "R_DorsalFoot_gm_trem",
+        0.0096
+      ],
+      [
+        "LowerBack_gm_rms",
+        0.009
+      ],
+      [
+        "L_MidLatThigh_az_kurt",
+        0.0089
+      ],
+      [
+        "R_LatShank_am_se",
+        0.0088
+      ],
+      [
+        "R_Wrist_ax_jerk",
+        0.0079
+      ],
+      [
+        "R_Wrist_gm_loco",
+        0.0079
+      ],
+      [
+        "L_DorsalFoot_az_iqr",
+        0.0079
+      ],
+      [
+        "Forehead_ro_jerk",
+        0.0078
+      ],
+      [
+        "R_DorsalFoot_gm_loco_r",
+        0.0077
+      ],
+      [
+        "L_LatShank_ya_zcr",
+        0.0077
+      ]
+    ]
+  },
+  {
+    "experiment": "E5_turns",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 9.262,
+    "std_mae": 0.129,
+    "ens_mae": 9.087,
+    "ens_r": 0.745,
+    "individual_mae": [
+      9.195,
+      9.178,
+      9.459,
+      9.365,
+      9.112
+    ],
+    "individual_r": [
+      "0.707",
+      "0.682",
+      "0.654",
+      "0.654",
+      "0.731"
+    ],
+    "top_features": [
+      [
+        "fc_R_st_sd",
+        0.0258
+      ],
+      [
+        "R_MidLatThigh_az_range",
+        0.0116
+      ],
+      [
+        "L_Ankle_ay_high",
+        0.0113
+      ],
+      [
+        "L_LatShank_ax_loco_r",
+        0.0107
+      ],
+      [
+        "d_tug_LowerBack_ax_rms",
+        0.0091
+      ],
+      [
+        "R_Wrist_am_high_r",
+        0.0091
+      ],
+      [
+        "r_hp_LowerBack_ya_rms",
+        0.009
+      ],
+      [
+        "L_LatShank_ax_high_r",
+        0.0082
+      ],
+      [
+        "R_MidLatThigh_az_se",
+        0.008
+      ],
+      [
+        "trn_dur_m",
+        0.0079
+      ],
+      [
+        "R_LatShank_am_se",
+        0.0077
+      ],
+      [
+        "R_Wrist_gm_std",
+        0.0076
+      ],
+      [
+        "L_Wrist_az_high",
+        0.0075
+      ],
+      [
+        "asy_Wrist_m",
+        0.0074
+      ],
+      [
+        "L_DorsalFoot_gm_std",
+        0.007
+      ]
+    ]
+  },
+  {
+    "experiment": "E6_transitions",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 9.336,
+    "std_mae": 0.534,
+    "ens_mae": 9.146,
+    "ens_r": 0.693,
+    "individual_mae": [
+      8.718,
+      9.546,
+      10.244,
+      9.241,
+      8.931
+    ],
+    "individual_r": [
+      "0.702",
+      "0.632",
+      "0.575",
+      "0.657",
+      "0.677"
+    ],
+    "top_features": [
+      [
+        "R_Ankle_fi",
+        0.0245
+      ],
+      [
+        "r_hp_LowerBack_g_stride_t",
+        0.0094
+      ],
+      [
+        "LowerBack_ax_trem_r",
+        0.009
+      ],
+      [
+        "L_DorsalFoot_am_iqr",
+        0.009
+      ],
+      [
+        "R_Ankle_az_dom",
+        0.0089
+      ],
+      [
+        "R_Ankle_ya_skew",
+        0.0086
+      ],
+      [
+        "L_Ankle_pi_jerk",
+        0.0084
+      ],
+      [
+        "L_Wrist_gm_zcr",
+        0.0082
+      ],
+      [
+        "L_Wrist_ay_loco_r",
+        0.0082
+      ],
+      [
+        "R_MidLatThigh_ax_range",
+        0.0078
+      ],
+      [
+        "R_MidLatThigh_gm_jerk",
+        0.0077
+      ],
+      [
+        "R_MidLatThigh_ya_jerk",
+        0.0077
+      ],
+      [
+        "LowerBack_ay_high_r",
+        0.0076
+      ],
+      [
+        "L_DorsalFoot_g_step_reg",
+        0.0073
+      ],
+      [
+        "L_Wrist_am_se",
+        0.0073
+      ]
+    ]
+  },
+  {
+    "experiment": "E7_distributions",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 9.288,
+    "std_mae": 0.48,
+    "ens_mae": 9.168,
+    "ens_r": 0.734,
+    "individual_mae": [
+      8.507,
+      9.065,
+      9.932,
+      9.395,
+      9.54
+    ],
+    "individual_r": [
+      "0.713",
+      "0.716",
+      "0.634",
+      "0.673",
+      "0.695"
+    ],
+    "top_features": [
+      [
+        "L_LatShank_ay_se",
+        0.011
+      ],
+      [
+        "L_Wrist_am_se",
+        0.0107
+      ],
+      [
+        "fc_L_stance_m",
+        0.01
+      ],
+      [
+        "R_LatShank_gm_high_r",
+        0.0091
+      ],
+      [
+        "L_LatShank_gm_se",
+        0.0087
+      ],
+      [
+        "r_hp_LowerBack_g_stride_reg",
+        0.0087
+      ],
+      [
+        "LowerBack_ax_jerk",
+        0.0086
+      ],
+      [
+        "L_LatShank_ay_loco_r",
+        0.0085
+      ],
+      [
+        "dv_L_DorsalFoot_ro_rms_rng",
+        0.0081
+      ],
+      [
+        "fc_R_st_cv",
+        0.0078
+      ],
+      [
+        "R_Ankle_ay_kurt",
+        0.0078
+      ],
+      [
+        "R_MidLatThigh_gm_high_r",
+        0.0077
+      ],
+      [
+        "R_Ankle_am_range",
+        0.0075
+      ],
+      [
+        "R_DorsalFoot_ya_std",
+        0.0073
+      ],
+      [
+        "dv_L_Ankle_ax_rms_cv",
+        0.0073
+      ]
+    ]
+  },
+  {
+    "experiment": "E8_clinical",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 8.726,
+    "std_mae": 0.107,
+    "ens_mae": 8.566,
+    "ens_r": 0.802,
+    "individual_mae": [
+      8.754,
+      8.672,
+      8.626,
+      8.921,
+      8.655
+    ],
+    "individual_r": [
+      "0.75",
+      "0.763",
+      "0.731",
+      "0.752",
+      "0.793"
+    ],
+    "top_features": [
+      [
+        "L_Ankle_gm_iqr",
+        0.0155
+      ],
+      [
+        "R_Ankle_gm_trem",
+        0.0145
+      ],
+      [
+        "LowerBack_ax_skew",
+        0.0109
+      ],
+      [
+        "L_LatShank_ay_loco_r",
+        0.0109
+      ],
+      [
+        "L_MidLatThigh_am_se",
+        0.0102
+      ],
+      [
+        "R_Wrist_ay_se",
+        0.0097
+      ],
+      [
+        "L_LatShank_az_iqr",
+        0.0088
+      ],
+      [
+        "L_Wrist_ro_jerk",
+        0.0086
+      ],
+      [
+        "R_LatShank_az_se",
+        0.0085
+      ],
+      [
+        "r_hp_LowerBack_g_stride_reg",
+        0.0084
+      ],
+      [
+        "dv_L_DorsalFoot_fi_rng",
+        0.0084
+      ],
+      [
+        "L_MidLatThigh_ay_iqr",
+        0.0081
+      ],
+      [
+        "L_Wrist_az_trem_r",
+        0.0078
+      ],
+      [
+        "R_MidLatThigh_ya_iqr",
+        0.0076
+      ],
+      [
+        "d_tg_LowerBack_ya_jerk",
+        0.0075
+      ]
+    ]
+  },
+  {
+    "experiment": "E9_walkway_oracle",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 8.523,
+    "std_mae": 0.434,
+    "ens_mae": 8.47,
+    "ens_r": 0.819,
+    "individual_mae": [
+      8.861,
+      8.618,
+      8.337,
+      9.014,
+      7.787
+    ],
+    "individual_r": [
+      "0.735",
+      "0.822",
+      "0.77",
+      "0.74",
+      "0.861"
+    ],
+    "top_features": [
+      [
+        "R_DorsalFoot_az_trem",
+        0.016
+      ],
+      [
+        "R_DorsalFoot_ay_skew",
+        0.0153
+      ],
+      [
+        "L_LatShank_ay_loco_r",
+        0.0113
+      ],
+      [
+        "L_LatShank_az_iqr",
+        0.011
+      ],
+      [
+        "L_LatShank_gm_kurt",
+        0.0108
+      ],
+      [
+        "L_LatShank_ay_se",
+        0.0096
+      ],
+      [
+        "R_LatShank_am_iqr",
+        0.0093
+      ],
+      [
+        "LowerBack_ax_rms",
+        0.0091
+      ],
+      [
+        "R_MidLatThigh_az_loco_r",
+        0.0088
+      ],
+      [
+        "cv_yrs",
+        0.0088
+      ],
+      [
+        "L_MidLatThigh_ax_high",
+        0.0088
+      ],
+      [
+        "Xiphoid_ro_rms",
+        0.0086
+      ],
+      [
+        "R_Wrist_ax_rms",
+        0.0078
+      ],
+      [
+        "LowerBack_am_trem_r",
+        0.0074
+      ],
+      [
+        "L_DorsalFoot_ax_rms",
+        0.0074
+      ]
+    ]
+  },
+  {
+    "experiment": "E10_distillation",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 8.336,
+    "std_mae": 0.585,
+    "ens_mae": 8.25,
+    "ens_r": 0.818,
+    "individual_mae": [
+      9.356,
+      8.255,
+      7.751,
+      8.52,
+      7.797
+    ],
+    "individual_r": [
+      "0.718",
+      "0.804",
+      "0.805",
+      "0.743",
+      "0.822"
+    ],
+    "top_features": [
+      [
+        "cv_yrs",
+        0.0127
+      ],
+      [
+        "L_MidLatThigh_ro_range",
+        0.0106
+      ],
+      [
+        "R_MidLatThigh_az_range",
+        0.0105
+      ],
+      [
+        "R_Ankle_ax_skew",
+        0.0102
+      ],
+      [
+        "L_Wrist_gm_skew",
+        0.0097
+      ],
+      [
+        "L_LatShank_am_se",
+        0.0095
+      ],
+      [
+        "R_LatShank_gm_trem",
+        0.0093
+      ],
+      [
+        "R_LatShank_ay_loco",
+        0.009
+      ],
+      [
+        "R_LatShank_am_trem_r",
+        0.0088
+      ],
+      [
+        "L_LatShank_ay_loco_r",
+        0.0087
+      ],
+      [
+        "R_DorsalFoot_ya_range",
+        0.0084
+      ],
+      [
+        "L_Ankle_pi_jerk",
+        0.008
+      ],
+      [
+        "L_MidLatThigh_ay_se",
+        0.008
+      ],
+      [
+        "L_LatShank_ay_range",
+        0.008
+      ],
+      [
+        "R_Ankle_ay_range",
+        0.008
+      ]
+    ]
+  },
+  {
+    "experiment": "E11_insole",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 8.368,
+    "std_mae": 0.422,
+    "ens_mae": 8.211,
+    "ens_r": 0.825,
+    "individual_mae": [
+      8.676,
+      8.208,
+      9.02,
+      8.081,
+      7.855
+    ],
+    "individual_r": [
+      "0.755",
+      "0.807",
+      "0.734",
+      "0.748",
+      "0.848"
+    ],
+    "top_features": [
+      [
+        "cv_yrs",
+        0.0117
+      ],
+      [
+        "L_MidLatThigh_ay_iqr",
+        0.0111
+      ],
+      [
+        "R_LatShank_az_se",
+        0.0106
+      ],
+      [
+        "R_DorsalFoot_az_trem",
+        0.0103
+      ],
+      [
+        "L_LatShank_ay_loco_r",
+        0.0099
+      ],
+      [
+        "d_tg_LowerBack_ax_rms",
+        0.0092
+      ],
+      [
+        "dst_wk_stance_%.1",
+        0.0086
+      ],
+      [
+        "R_DorsalFoot_az_dom",
+        0.0086
+      ],
+      [
+        "L_Wrist_ay_range",
+        0.0085
+      ],
+      [
+        "L_Wrist_am_se",
+        0.0083
+      ],
+      [
+        "L_LatShank_ay_loco",
+        0.0083
+      ],
+      [
+        "Xiphoid_az_kurt",
+        0.0082
+      ],
+      [
+        "R_Ankle_gm_range",
+        0.0079
+      ],
+      [
+        "L_Wrist_ay_se",
+        0.0079
+      ],
+      [
+        "R_MidLatThigh_ya_jerk",
+        0.0078
+      ]
+    ]
+  },
+  {
+    "experiment": "E12_fused",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 8.339,
+    "std_mae": 0.584,
+    "ens_mae": 8.174,
+    "ens_r": 0.815,
+    "individual_mae": [
+      8.43,
+      8.033,
+      8.826,
+      9.017,
+      7.386
+    ],
+    "individual_r": [
+      "0.743",
+      "0.827",
+      "0.736",
+      "0.694",
+      "0.833"
+    ],
+    "top_features": [
+      [
+        "R_Wrist_ay_se",
+        0.013
+      ],
+      [
+        "cv_yrs",
+        0.012
+      ],
+      [
+        "R_DorsalFoot_ay_rms",
+        0.0119
+      ],
+      [
+        "R_DorsalFoot_g_stride_reg",
+        0.0107
+      ],
+      [
+        "R_Wrist_gm_std",
+        0.0102
+      ],
+      [
+        "L_LatShank_ay_loco_r",
+        0.0101
+      ],
+      [
+        "ins_R_ht",
+        0.01
+      ],
+      [
+        "ix_1_4",
+        0.0093
+      ],
+      [
+        "R_DorsalFoot_az_loco_r",
+        0.0092
+      ],
+      [
+        "R_LatShank_am_iqr",
+        0.009
+      ],
+      [
+        "R_LatShank_az_se",
+        0.0085
+      ],
+      [
+        "Forehead_gm_jerk",
+        0.0082
+      ],
+      [
+        "R_LatShank_am_rms",
+        0.0079
+      ],
+      [
+        "d_tg_LowerBack_ay_rms",
+        0.0074
+      ],
+      [
+        "L_Wrist_am_skew",
+        0.0073
+      ]
+    ]
+  },
+  {
+    "experiment": "E13_ceiling",
+    "n_features": 200,
+    "n_dev": 142,
+    "n_test": 36,
+    "mean_mae": 6.822,
+    "std_mae": 0.363,
+    "ens_mae": 6.631,
+    "ens_r": 0.85,
+    "individual_mae": [
+      6.585,
+      6.686,
+      7.359,
+      7.116,
+      6.366
+    ],
+    "individual_r": [
+      "0.854",
+      "0.84",
+      "0.808",
+      "0.795",
+      "0.861"
+    ],
+    "top_features": [
+      [
+        "L_Wrist_gm_loco_r",
+        0.0189
+      ],
+      [
+        "ix_1_5",
+        0.0175
+      ],
+      [
+        "hy_x_cv_yrs",
+        0.0121
+      ],
+      [
+        "R_DorsalFoot_ay_loco",
+        0.0108
+      ],
+      [
+        "R_DorsalFoot_g_stride_reg",
+        0.0091
+      ],
+      [
+        "R_LatShank_pi_range",
+        0.0091
+      ],
+      [
+        "L_LatShank_ay_se",
+        0.0084
+      ],
+      [
+        "Xiphoid_gm_iqr",
+        0.0083
+      ],
+      [
+        "ix_1_4",
+        0.0083
+      ],
+      [
+        "L_LatShank_ya_iqr",
+        0.0082
+      ],
+      [
+        "LowerBack_ax_loco_r",
+        0.008
+      ],
+      [
+        "Xiphoid_gm_rms",
+        0.0079
+      ],
+      [
+        "R_DorsalFoot_az_dom",
+        0.0078
+      ],
+      [
+        "R_Wrist_ax_iqr",
+        0.0076
+      ],
+      [
+        "R_MidLatThigh_pi_zcr",
+        0.0076
+      ]
+    ]
+  }
+]
