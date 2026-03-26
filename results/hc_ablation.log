@@ -1,0 +1,87 @@
+
+======================================================================
+C3: HC ABLATION — SSL WITH vs WITHOUT HC
+======================================================================
+
+Data loaded:
+  PD subjects: 94
+  All subjects (PD+HC): 174
+  Features: 2520 (v2: 1752, FM: 768)
+  T1: range [0, 14], mean=4.1, std=2.8
+  T2: range [1, 20], mean=6.8, std=3.8
+  T3: range [6, 59], mean=25.2, std=10.2
+
+==================================================
+Target: T1
+==================================================
+
+--- P0: Baseline (no ranking) ---
+  Split 1/5: CCC=0.675
+  Split 2/5: CCC=0.325
+  Split 3/5: CCC=0.680
+  Split 4/5: CCC=0.789
+  Split 5/5: CCC=0.731
+  P0 baseline: CCC=0.673 MAE=1.380
+
+--- P5-no-HC: SSL with PD-only ranking (no HC) ---
+  Ranker uses 0 HC (subset) + 94 PD
+  Split 1/5: CCC=0.789 slope=0.637 MAE=1.133
+  Split 2/5: CCC=0.886 slope=0.752 MAE=0.858
+  Split 3/5: CCC=0.837 slope=0.776 MAE=1.013
+  Split 4/5: CCC=0.871 slope=0.821 MAE=0.980
+  Split 5/5: CCC=0.872 slope=0.731 MAE=1.080
+  P5-no-HC: CCC=0.857 MAE=1.013
+
+--- P5-with-HC: SSL with full HC ---
+  Ranker uses 80 HC (all) + 94 PD
+  Split 1/5: CCC=0.880 slope=0.786 MAE=0.848
+  Split 2/5: CCC=0.837 slope=0.641 MAE=0.956
+  Split 3/5: CCC=0.802 slope=0.770 MAE=1.138
+  Split 4/5: CCC=0.888 slope=0.751 MAE=0.919
+  Split 5/5: CCC=0.863 slope=0.666 MAE=1.071
+  P5-with-HC: CCC=0.858 MAE=0.986
+
+==================================================
+Target: T3
+==================================================
+
+--- P0: Baseline (no ranking) ---
+  Split 1/5: CCC=0.212
+  Split 2/5: CCC=0.167
+  Split 3/5: CCC=0.217
+  Split 4/5: CCC=0.185
+  Split 5/5: CCC=0.286
+  P0 baseline: CCC=0.209 MAE=8.032
+
+--- P5-no-HC: SSL with PD-only ranking (no HC) ---
+  Ranker uses 0 HC (subset) + 94 PD
+  Split 1/5: CCC=0.805 slope=0.610 MAE=4.223
+  Split 2/5: CCC=0.742 slope=0.512 MAE=5.534
+  Split 3/5: CCC=0.746 slope=0.496 MAE=5.025
+  Split 4/5: CCC=0.900 slope=0.720 MAE=3.179
+  Split 5/5: CCC=0.739 slope=0.544 MAE=4.991
+  P5-no-HC: CCC=0.789 MAE=4.591
+
+--- P5-with-HC: SSL with full HC ---
+  Ranker uses 80 HC (all) + 94 PD
+  Split 1/5: CCC=0.785 slope=0.572 MAE=4.858
+  Split 2/5: CCC=0.672 slope=0.444 MAE=5.854
+  Split 3/5: CCC=0.753 slope=0.541 MAE=5.496
+  Split 4/5: CCC=0.870 slope=0.650 MAE=3.597
+  Split 5/5: CCC=0.736 slope=0.543 MAE=5.034
+  P5-with-HC: CCC=0.763 MAE=4.968
+
+======================================================================
+SUMMARY: HC Ablation
+======================================================================
+Method                      T1 CCC   T1 MAE   T3 CCC   T3 MAE
+----------------------------------------------------------------------
+P0 Baseline                  0.673    1.380    0.209    8.032
+P5 SSL (no HC)               0.857    1.013    0.789    4.591
+P5 SSL (with HC)             0.858    0.986    0.763    4.968
+======================================================================
+
+Saved: /root/pd-imu/results/reviewer_hc_ablation.json
+
+
+Total runtime: 237s (4.0m)

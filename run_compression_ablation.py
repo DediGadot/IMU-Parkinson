@@ -112,25 +112,10 @@ DEFAULT_LGB_PARAMS = {
 
 
 # ═══════════════════════════════════════════════════════════════════════
-# METRICS (reused from autoresearch_ccc_eval.py + run_obs_bias_ablation.py)
+# METRICS
 # ═══════════════════════════════════════════════════════════════════════
 
-def lins_ccc(y_true, y_pred):
-    """Lin's concordance correlation coefficient."""
-    y_true = np.asarray(y_true, dtype=np.float64)
-    y_pred = np.asarray(y_pred, dtype=np.float64)
-    mu_t, mu_p = np.mean(y_true), np.mean(y_pred)
-    var_t, var_p = np.var(y_true), np.var(y_pred)
-    cov = np.mean((y_true - mu_t) * (y_pred - mu_p))
-    denom = var_t + var_p + (mu_t - mu_p) ** 2
-    return float(2 * cov / denom) if denom > 1e-12 else 0.0
-
-
-def cal_slope(y_true, y_pred):
-    """Calibration slope (linear regression of pred on true)."""
-    if np.std(y_true) < 1e-8 or len(y_true) < 3:
-        return 0.0
-    return float(np.polyfit(y_true, y_pred, 1)[0])
+from eval_utils import lins_ccc, cal_slope
 
 
 def full_metrics(y_true, y_pred, target_key):

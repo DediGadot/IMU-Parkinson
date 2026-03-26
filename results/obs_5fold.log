@@ -1,0 +1,77 @@
+
+======================================================================
+C1: 3-LEVEL OBSERVABILITY DECOMPOSITION (5-FOLD CV)
+======================================================================
+
+Data loaded:
+  PD subjects: 94
+  All subjects (PD+HC): 174
+  Features: 2520 (v2: 1752, FM: 768)
+  T1: range [0, 14], mean=4.1, std=2.8
+  T2: range [1, 20], mean=6.8, std=3.8
+  T3: range [6, 59], mean=25.2, std=10.2
+Observability scores available for 89/94 PD subjects
+
+==================================================
+Tier: direct (target: obs_direct_target)
+==================================================
+  Ranker uses 80 HC (all) + 94 PD
+  Split 1/5: CCC=0.791 slope=0.765 MAE=1.113
+  Split 2/5: CCC=0.773 slope=0.565 MAE=1.154
+  Split 3/5: CCC=0.889 slope=0.793 MAE=0.998
+  Split 4/5: CCC=0.803 slope=0.685 MAE=1.208
+  Split 5/5: CCC=0.868 slope=0.728 MAE=1.026
+
+  Baseline (no SSL) for direct:
+
+  direct SSL:      CCC=0.834 MAE=1.100 r=0.849
+  direct baseline: CCC=0.545 MAE=1.592 r=0.623
+
+==================================================
+Tier: partial (target: obs_partial_target)
+==================================================
+  Ranker uses 80 HC (all) + 94 PD
+  Split 1/5: CCC=0.531 slope=0.318 MAE=2.747
+  Split 2/5: CCC=0.761 slope=0.520 MAE=2.727
+  Split 3/5: CCC=0.731 slope=0.482 MAE=2.796
+  Split 4/5: CCC=0.719 slope=0.465 MAE=2.508
+  Split 5/5: CCC=0.828 slope=0.578 MAE=2.171
+
+  Baseline (no SSL) for partial:
+
+  partial SSL:      CCC=0.730 MAE=2.590 r=0.849
+  partial baseline: CCC=0.055 MAE=4.411 r=0.126
+
+==================================================
+Tier: unobs (target: obs_unobs_target)
+==================================================
+  Ranker uses 80 HC (all) + 94 PD
+  Split 1/5: CCC=0.739 slope=0.506 MAE=2.182
+  Split 2/5: CCC=0.850 slope=0.704 MAE=1.706
+  Split 3/5: CCC=0.696 slope=0.551 MAE=2.335
+  Split 4/5: CCC=0.827 slope=0.596 MAE=1.973
+  Split 5/5: CCC=0.619 slope=0.375 MAE=2.290
+
+  Baseline (no SSL) for unobs:
+
+  unobs SSL:      CCC=0.759 MAE=2.097 r=0.823
+  unobs baseline: CCC=0.176 MAE=3.494 r=0.364
+
+======================================================================
+SUMMARY: 3-Level Observability (5-fold CV)
+======================================================================
+Tier         Method           CCC     MAE       r   slope
+----------------------------------------------------------------------
+direct       SSL            0.834   1.100   0.849   0.703
+direct       Baseline       0.545   1.592   0.623   0.368
+partial      SSL            0.730   2.590   0.849   0.483
+partial      Baseline       0.055   4.411   0.126   0.029
+unobs        SSL            0.759   2.097   0.823   0.550
+unobs        Baseline       0.176   3.494   0.364   0.094
+======================================================================
+
+Saved: /root/pd-imu/results/reviewer_obs_5fold.json
+
+
+Total runtime: 484s (8.1m)
+

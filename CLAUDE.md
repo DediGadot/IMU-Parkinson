@@ -199,6 +199,7 @@ Current slave: `root@142.170.89.112:37397`, PyTorch cu128.
 ```
 data_split.py           # Clinical parsing, windowing, split creation (ONLY shared data module)
 project_paths.py        # Centralized artifact paths with env overrides (WEARGAIT_DATA_DIR, etc.)
+eval_utils.py           # Shared metrics (lins_ccc, cal_slope), feature selection, bootstrap CIs
 updrs_columns.py        # Robust UPDRS subitem column resolution across naming variants
 ```
 

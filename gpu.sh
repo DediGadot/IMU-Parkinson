@@ -16,8 +16,8 @@
 set -euo pipefail
 
 # === SLAVE CONFIG (change these two lines to swap servers) ===
-REMOTE="${GPU_REMOTE:-root@142.170.89.112}"
-PORT="${GPU_PORT:-37397}"
+REMOTE="${GPU_REMOTE:-root@212.93.107.107}"
+PORT="${GPU_PORT:-41013}"
 # =============================================================
 
 REMOTE_DIR="/root/pd-imu"

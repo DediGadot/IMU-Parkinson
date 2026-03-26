@@ -88,27 +88,7 @@ PAIRED_SENSORS = [
 
 # ─── Metrics ──────────────────────────────────────────────────────────────────
 
-def lin_ccc(y_true, y_pred):
-    """Lin's concordance correlation coefficient."""
-    yt, yp = np.asarray(y_true, dtype=float), np.asarray(y_pred, dtype=float)
-    mask = np.isfinite(yt) & np.isfinite(yp)
-    yt, yp = yt[mask], yp[mask]
-    if len(yt) < 3:
-        return 0.0
-    my, mp = yt.mean(), yp.mean()
-    sy, sp = yt.var(), yp.var()
-    sxy = np.mean((yt - my) * (yp - mp))
-    denom = sy + sp + (my - mp) ** 2
-    return float(2 * sxy / denom) if denom > 0 else 0.0
-
-
-def calibration_slope_intercept(y_true, y_pred):
-    """Regression of predicted on true (slope=1, intercept=0 ideal)."""
-    yt, yp = np.asarray(y_true), np.asarray(y_pred)
-    if len(yt) < 3:
-        return 0.0, 0.0
-    slope, intercept = np.polyfit(yt, yp, 1)
-    return float(slope), float(intercept)
+from eval_utils import lins_ccc, calibration_slope_intercept
 
 
 def full_metrics(y_true, y_pred, prefix=""):
@@ -118,7 +98,7 @@ def full_metrics(y_true, y_pred, prefix=""):
     rmse = np.sqrt(mean_squared_error(yt, yp))
     r, r_p = pearsonr(yt, yp) if len(yt) > 2 else (0.0, 1.0)
     rho, rho_p = spearmanr(yt, yp) if len(yt) > 2 else (0.0, 1.0)
-    ccc = lin_ccc(yt, yp)
+    ccc = lins_ccc(yt, yp)
     r2 = r2_score(yt, yp) if len(yt) > 2 else 0.0
     cal_s, cal_i = calibration_slope_intercept(yt, yp)
     p = prefix + "_" if prefix else ""

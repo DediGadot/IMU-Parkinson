@@ -95,50 +95,7 @@ ensure_dir(RESULTS_DIR)
 # STATISTICAL UTILITIES
 # ═══════════════════════════════════════════════════════════════════════
 
-def lins_ccc(y_true, y_pred):
-    """Lin's concordance correlation coefficient."""
-    y_true, y_pred = np.asarray(y_true, dtype=np.float64), np.asarray(y_pred, dtype=np.float64)
-    mu_t, mu_p = np.mean(y_true), np.mean(y_pred)
-    var_t, var_p = np.var(y_true), np.var(y_pred)
-    cov = np.mean((y_true - mu_t) * (y_pred - mu_p))
-    denom = var_t + var_p + (mu_t - mu_p)**2
-    if denom < 1e-12:
-        return 0.0
-    return float(2 * cov / denom)
-
-
-def calibration_slope_intercept(y_true, y_pred):
-    """Calibration: regress predicted on true. Ideal: slope=1, intercept=0."""
-    if len(y_true) < 3:
-        return 1.0, 0.0
-    slope, intercept, _, _, _ = sp_stats.linregress(y_true, y_pred)
-    return float(slope), float(intercept)
-
-
-def subject_paired_bootstrap(errors_a, errors_b, n_boot=10000, seed=42):
-    """Subject-level paired bootstrap for MAE difference.
-    Returns: mean_diff, ci_lo, ci_hi, p_value (two-sided)."""
-    errors_a, errors_b = np.asarray(errors_a), np.asarray(errors_b)
-    rng = np.random.RandomState(seed)
-    n = len(errors_a)
-    diffs = np.empty(n_boot)
-    for b in range(n_boot):
-        idx = rng.choice(n, n, replace=True)
-        diffs[b] = np.mean(errors_a[idx]) - np.mean(errors_b[idx])
-    mean_diff = float(np.mean(diffs))
-    ci_lo, ci_hi = float(np.percentile(diffs, 2.5)), float(np.percentile(diffs, 97.5))
-    if mean_diff < 0:
-        p_val = float(np.mean(diffs >= 0))
-    else:
-        p_val = float(np.mean(diffs <= 0))
-    p_val = min(2 * p_val, 1.0)
-    return mean_diff, ci_lo, ci_hi, p_val
-
-
-def cohens_d(errors_a, errors_b):
-    """Cohen's d effect size for paired samples."""
-    diff = np.asarray(errors_a) - np.asarray(errors_b)
-    return float(np.mean(diff) / (np.std(diff, ddof=1) + 1e-12))
+from eval_utils import lins_ccc, calibration_slope_intercept, subject_paired_bootstrap, cohens_d
 
 
 def compute_full_metrics(y_true, y_pred):

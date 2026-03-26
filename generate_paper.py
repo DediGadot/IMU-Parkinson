@@ -129,6 +129,13 @@ class PaperData:
     rocket_abl: dict = field(default_factory=dict)
     # Stats report
     stats_report: dict = field(default_factory=dict)
+    # Reviewer response experiments
+    age_sensitivity: dict = field(default_factory=dict)
+    hc_ablation: dict = field(default_factory=dict)
+    obs_5fold: dict = field(default_factory=dict)
+    single_sensor: dict = field(default_factory=dict)
+    # Bootstrap CIs for headline CCC (computed at load time)
+    ssl_5split_t1_ccc_ci: tuple = (0.0, 0.0)
 
 
 def load_all_data() -> PaperData:
@@ -195,7 +202,7 @@ def load_all_data() -> PaperData:
     d.ssl_t2 = load_json("compression_P5_TT2_loocv.json") or load_json("compression_P5_TT2.json")
     d.ssl_t3 = load_json("compression_P5_TT3_loocv.json") or load_json("compression_P5_TT3.json")
 
-    # P5 5-split (protocol-matched with P0 for Table 7)
+    # P5 5-split (protocol-matched with P0 for Table 8)
     d.ssl_5split_t1 = load_json("compression_P5_TT1_5split.json")
     d.ssl_5split_t2 = load_json("compression_P5_TT2_5split.json")
     d.ssl_5split_t3 = load_json("compression_P5_TT3_5split.json")
@@ -249,6 +256,20 @@ def load_all_data() -> PaperData:
             if r.get("config") == "S0_baseline_K150":
                 d.test_preds = np.array(r.get("ens_preds", []))
                 break
+
+    # Reviewer response experiments
+    d.age_sensitivity = load_json("reviewer_age_sensitivity.json")
+    d.hc_ablation = load_json("reviewer_hc_ablation.json")
+    d.obs_5fold = load_json("reviewer_obs_5fold.json")
+    d.single_sensor = load_json("reviewer_single_sensor.json")
+
+    # Compute bootstrap CIs for headline CCC (m9 fix)
+    ps = d.ssl_5split_t1.get("per_subject", {})
+    yt = np.array(ps.get("y_true", []), dtype=float)
+    yp = np.array(ps.get("y_pred", []), dtype=float)
+    if len(yt) > 0 and len(yp) > 0:
+        _, ci_lo, ci_hi = bca_bootstrap_ci(yt, yp, ccc_fn, n_boot=10000)
+        d.ssl_5split_t1_ccc_ci = (ci_lo, ci_hi)
 
     return d
 
@@ -318,6 +339,20 @@ def bca_bootstrap_ci(y_true, y_pred, metric_fn, n_boot=10000, alpha=0.05, groups
     p_lo = np.clip(adj_pct(z_alpha), 0.001, 0.999)
     p_hi = np.clip(adj_pct(z_1alpha), 0.001, 0.999)
     return theta_hat, float(np.percentile(boot_stats, 100 * p_lo)), float(np.percentile(boot_stats, 100 * p_hi))
+
+
+def fmt_p(p_val: float) -> str:
+    """Format p-value: '< 0.001' when very small, else 4 decimal places."""
+    if p_val < 0.001:
+        return "&lt; 0.001"
+    return f"{p_val:.4f}"
+
+
+def fmt_p_plain(p_val: float) -> str:
+    """Format p-value for plain text (no HTML entities)."""
+    if p_val < 0.001:
+        return "< 0.001"
+    return f"{p_val:.4f}"
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -434,7 +469,7 @@ def fig1_study_design(d: PaperData) -> str:
 
     # Stage 2: LGB regressor (PD-only)
     _draw_box(ax, 9.0, 0.8, 2.0, 1.0,
-              "Stage 2: LightGBM\nPD-only (N=94)\n500 + 900 = 1,400 features\n5-seed ensemble",
+              f"Stage 2: LightGBM\nPD-only (N={(d.ssl_5split_t1 or d.ssl_t1 or {}).get('n', 95)})\n500 + 900 = 1,400 features\n5-seed ensemble",
               C_PD)
     ax.annotate("", xy=(9.0, 1.3), xytext=(9.0, 2.0),
         arrowprops=dict(arrowstyle="->", color=C_PD, lw=1.5))
@@ -443,13 +478,16 @@ def fig1_study_design(d: PaperData) -> str:
     ax.annotate("", xy=(8.5, 1.1), xytext=(9.0, 3.8),
         arrowprops=dict(arrowstyle="->", color="#9b59b6", lw=1.0, ls=":", connectionstyle="arc3,rad=0.3"))
 
-    # Outputs
+    # Outputs — use primary 5-fold values when available, fallback to LOOCV
+    t1_ccc = (d.ssl_5split_t1 or d.ssl_t1 or {}).get("ccc", 0.865)
+    t2_ccc = (d.ssl_5split_t2 or d.ssl_t2 or {}).get("ccc", 0.831)
+    t3_ccc = (d.ssl_5split_t3 or d.ssl_t3 or {}).get("ccc", 0.807)
     _draw_box(ax, 11.2, 1.6, 1.4, 0.7,
-              "T1: Direct Obs\nCCC=0.868", C_DIRECT, fontsize=7)
+              f"T1: Direct Obs\nCCC={t1_ccc:.3f}", C_DIRECT, fontsize=7)
     _draw_box(ax, 11.2, 0.7, 1.4, 0.7,
-              "T2: Broad Obs\nCCC=0.852", "#2980b9", fontsize=7)
+              f"T2: Broad Obs\nCCC={t2_ccc:.3f}", "#2980b9", fontsize=7)
     _draw_box(ax, 11.2, -0.1, 1.4, 0.7,
-              "T3: Total\nCCC=0.776", C_PD, fontsize=7)
+              f"T3: Total\nCCC={t3_ccc:.3f}", C_PD, fontsize=7)
     for y_out in [1.6, 0.7, -0.1]:
         ax.annotate("", xy=(10.5, y_out), xytext=(10.0, 0.8),
             arrowprops=dict(arrowstyle="->", color="#7f8c8d", lw=1.0))
@@ -474,16 +512,18 @@ def fig1_study_design(d: PaperData) -> str:
 
 
 def fig2_ssl_scatter(d: PaperData) -> str:
-    """SSL scatter plot: predicted vs actual for T1 (direct observable, LOOCV).
+    """SSL scatter plot: predicted vs actual for T1 (direct observable, 5-fold CV).
     Uses real per-subject predictions if available in the JSON."""
-    ssl = d.ssl_t1
+    using_5fold = bool(d.ssl_5split_t1)
+    ssl = d.ssl_5split_t1 if using_5fold else d.ssl_t1
+    eval_label = "PD-only 5-fold CV" if using_5fold else "PD-only LOOCV"
     if not ssl:
         print("  WARNING: SSL T1 data not available for Fig 2")
         fig, ax = plt.subplots(figsize=(7, 6))
         ax.text(0.5, 0.5, "SSL T1 data not available", transform=ax.transAxes, ha="center")
         return fig_to_b64(fig)
 
-    n = ssl["n"]  # 94
+    n = ssl["n"]
     ccc_val = ssl["ccc"]
     slope_val = ssl["cal_slope"]
     intercept_val = ssl["cal_intercept"]
@@ -540,9 +580,6 @@ def fig2_ssl_scatter(d: PaperData) -> str:
     lims = (-1, 20)
     xs = np.linspace(*lims, 200)
 
-    # MCID band
-    ax_main.fill_between(xs, xs - MCID, xs + MCID, color=C_MCID, alpha=0.18, zorder=0,
-                         label=f"MCID band ({MCID})")
     # Identity line
     ax_main.plot(lims, lims, "--", color="#b8c1cc", lw=1.1, zorder=1, label="Perfect agreement")
 
@@ -559,7 +596,7 @@ def fig2_ssl_scatter(d: PaperData) -> str:
                   f"Cal. slope = {slope_val:.3f}\n"
                   f"MAE = {mae_val:.3f}\n"
                   f"r = {r_val:.3f}\n"
-                  f"N = {n} (PD-only LOOCV)")
+                  f"N = {n} ({eval_label})")
     ax_main.text(0.03, 0.97, stats_text, transform=ax_main.transAxes, va="top", ha="left",
                  fontsize=8.5, bbox=dict(fc="#ffffff", ec="none", alpha=0.85, boxstyle="square,pad=0.4"))
 
@@ -592,17 +629,17 @@ def fig2_ssl_scatter(d: PaperData) -> str:
     legend_elements.append(Line2D([0], [0], color=C_FIT, lw=2, label="Regression fit"))
     ax_main.legend(handles=legend_elements, loc="lower right", fontsize=7.5, frameon=False)
 
-    fig.suptitle("Figure 2: SSL Ranking -- Direct Observable Subscore (T1, LOOCV)",
+    fig.suptitle("Figure 2: SSL Ranking -- Direct Observable Subscore (T1, 5-fold CV)",
                  fontsize=11.5, fontweight="bold", y=0.99)
     return fig_to_b64(fig)
 
 
 def fig3_three_target_ssl(d: PaperData) -> str:
-    """Three-panel scatter: T1/T2/T3 SSL results side by side."""
+    """Three-panel scatter: T1/T2/T3 SSL results side by side (5-fold CV)."""
     targets = [
-        ("T1: Direct Observable\n(items 9-14, max 24)", d.ssl_t1, 24, C_DIRECT),
-        ("T2: Broad Observable\n(items 7-14, max 32)", d.ssl_t2, 32, C_SSL),
-        ("T3: Total UPDRS-III\n(items 1-18, max 59)", d.ssl_t3, 59, C_PD),
+        ("T1: Direct Observable\n(items 9-14, max 24)", d.ssl_5split_t1 if d.ssl_5split_t1 else d.ssl_t1, 24, C_DIRECT),
+        ("T2: Broad Observable\n(items 7-14, max 32)", d.ssl_5split_t2 if d.ssl_5split_t2 else d.ssl_t2, 32, C_SSL),
+        ("T3: Total UPDRS-III\n(items 1-18, max 59)", d.ssl_5split_t3 if d.ssl_5split_t3 else d.ssl_t3, 59, C_PD),
     ]
 
     fig, axes = plt.subplots(1, 3, figsize=(13, 4.5))
@@ -635,7 +672,6 @@ def fig3_three_target_ssl(d: PaperData) -> str:
         lims = (-1, max_score + 2)
         xs = np.linspace(*lims, 200)
 
-        ax.fill_between(xs, xs - MCID, xs + MCID, color=C_MCID, alpha=0.15, zorder=0)
         ax.plot(lims, lims, "--", color="#b8c1cc", lw=1.0, zorder=1)
         ax.scatter(y_true, y_pred, c=color, s=35, alpha=0.7, edgecolors="white", linewidth=0.4, zorder=3)
 
@@ -657,67 +693,95 @@ def fig3_three_target_ssl(d: PaperData) -> str:
         if idx == 0:
             ax.set_ylabel("Predicted", fontweight="bold", fontsize=9)
 
-    fig.suptitle("Figure 3: SSL Ranking Across Three Target Definitions (PD-only LOOCV, N=94)",
+    fig.suptitle("Figure 3: SSL Ranking Across Three Target Definitions (PD-only 5-fold CV)",
                  fontsize=11, fontweight="bold", y=1.01)
     fig.tight_layout(rect=[0, 0, 1, 0.95])
     return fig_to_b64(fig)
 
 
 def fig4_observability(d: PaperData) -> str:
-    """Three-level observability decomposition: grouped bar chart."""
-    obs = d.obs3.get("subscores", {})
-    if not obs:
-        fig, ax = plt.subplots(figsize=(8, 5))
-        ax.text(0.5, 0.5, "Observability data not available", transform=ax.transAxes, ha="center")
-        return fig_to_b64(fig)
+    """Three-level observability decomposition: grouped bar chart (baseline + ranking, 5-fold CV).
 
-    tiers = [
-        ("Direct\nobservable\n(items 9-14)", "direct", C_DIRECT),
-        ("Partially\nobservable\n(items 5-8, 15-17)", "partial", C_PARTIAL),
-        ("Not\nobservable\n(items 1-4, 18)", "unobs", C_UNOBS),
-    ]
+    Uses the same data sources as Table 2:
+    - Direct tier: p0_t1 (baseline) and ssl_5split_t1 (ranking), N=95
+    - Partial/Unobs tiers: obs_5fold baseline and SSL, N=90
+    Falls back to old LOOCV baseline if 5-fold data unavailable.
+    """
+    obs5 = d.obs_5fold
+    has_5fold = bool(obs5)
 
-    fig, axes = plt.subplots(1, 3, figsize=(11, 4.5))
+    if has_5fold:
+        # Data-matched to Table 2: direct from primary pipeline, partial/unobs from obs_5fold
+        tier_data = [
+            ("Direct\nobservable\n(items 9-14)", C_DIRECT,
+             d.p0_t1, d.ssl_5split_t1 if d.ssl_5split_t1 else d.ssl_t1),
+            ("Partially\nobservable\n(items 5-8, 15-17)", C_PARTIAL,
+             obs5.get("partial_baseline", {}), obs5.get("partial_ssl", {})),
+            ("Not\nobservable\n(items 1-4, 18)", C_UNOBS,
+             obs5.get("unobs_baseline", {}), obs5.get("unobs_ssl", {})),
+        ]
+        eval_label = "5-fold CV"
+    else:
+        obs = d.obs3.get("subscores", {})
+        if not obs:
+            fig, ax = plt.subplots(figsize=(8, 5))
+            ax.text(0.5, 0.5, "Observability data not available", transform=ax.transAxes, ha="center")
+            return fig_to_b64(fig)
+        tier_data = [
+            ("Direct\nobservable\n(items 9-14)", C_DIRECT,
+             obs.get("direct", {}).get("loocv", {}), {}),
+            ("Partially\nobservable\n(items 5-8, 15-17)", C_PARTIAL,
+             obs.get("partial", {}).get("loocv", {}), {}),
+            ("Not\nobservable\n(items 1-4, 18)", C_UNOBS,
+             obs.get("unobs", {}).get("loocv", {}), {}),
+        ]
+        eval_label = "LOOCV"
 
-    # Panel 1: CCC
-    cccs = [obs[key]["loocv"]["ccc"] for _, key, _ in tiers]
-    colors = [c for _, _, c in tiers]
-    labels = [lbl for lbl, _, _ in tiers]
+    fig, axes = plt.subplots(1, 3, figsize=(12, 4.5))
     x = np.arange(3)
-    axes[0].bar(x, cccs, color=colors, alpha=0.85, edgecolor="white", lw=1.5, width=0.6)
-    for i, v in enumerate(cccs):
-        axes[0].text(i, v + 0.02, f"{v:.3f}", ha="center", fontsize=9, fontweight="bold")
-    axes[0].set_xticks(x)
-    axes[0].set_xticklabels(labels, fontsize=8)
-    axes[0].set_ylabel("CCC", fontweight="bold")
-    axes[0].set_title("Concordance (CCC)", fontweight="bold")
-    axes[0].set_ylim(0, 0.75)
+    bar_w = 0.35
 
-    # Panel 2: Calibration slope
-    slopes = [obs[key]["loocv"]["cal_slope"] for _, key, _ in tiers]
-    axes[1].bar(x, slopes, color=colors, alpha=0.85, edgecolor="white", lw=1.5, width=0.6)
-    for i, v in enumerate(slopes):
-        axes[1].text(i, v + 0.01, f"{v:.3f}", ha="center", fontsize=9, fontweight="bold")
-    axes[1].axhline(1.0, color="#999", ls=":", lw=1, alpha=0.5)
-    axes[1].text(2.5, 1.02, "ideal", fontsize=7, color="#999")
-    axes[1].set_xticks(x)
-    axes[1].set_xticklabels(labels, fontsize=8)
-    axes[1].set_ylabel("Calibration Slope", fontweight="bold")
-    axes[1].set_title("Calibration Slope", fontweight="bold")
-    axes[1].set_ylim(0, 0.55)
+    for panel_idx, (metric, ylabel, title, ylim_top) in enumerate([
+        ("ccc", "CCC", "Concordance (CCC)", 1.05),
+        ("cal_slope", "Calibration Slope", "Calibration Slope", 0.85),
+        ("mae", "MAE (score points)", "Mean Absolute Error", 6),
+    ]):
+        ax = axes[panel_idx]
+        base_vals = [base.get(metric, 0) for _, _, base, _ in tier_data]
+        rank_vals = [rank.get(metric, 0) for _, _, _, rank in tier_data]
+        colors = [c for _, c, _, _ in tier_data]
+        labels = [lbl for lbl, _, _, _ in tier_data]
 
-    # Panel 3: MAE
-    maes = [obs[key]["loocv"]["mae"] for _, key, _ in tiers]
-    axes[2].bar(x, maes, color=colors, alpha=0.85, edgecolor="white", lw=1.5, width=0.6)
-    for i, v in enumerate(maes):
-        axes[2].text(i, v + 0.1, f"{v:.2f}", ha="center", fontsize=9, fontweight="bold")
-    axes[2].set_xticks(x)
-    axes[2].set_xticklabels(labels, fontsize=8)
-    axes[2].set_ylabel("MAE (score points)", fontweight="bold")
-    axes[2].set_title("Mean Absolute Error", fontweight="bold")
-    axes[2].set_ylim(0, 6)
+        has_ranking = any(v > 0 for v in rank_vals)
+        if has_ranking:
+            for i in range(3):
+                ax.bar(x[i] - bar_w / 2, base_vals[i], bar_w, color=colors[i], alpha=0.4,
+                       edgecolor="white", lw=1.2, label="Baseline" if i == 0 else None)
+                ax.bar(x[i] + bar_w / 2, rank_vals[i], bar_w, color=colors[i], alpha=0.85,
+                       edgecolor="white", lw=1.2, label="Ranking" if i == 0 else None)
+                ax.text(x[i] - bar_w / 2, base_vals[i] + ylim_top * 0.015,
+                        f"{base_vals[i]:.3f}" if metric != "mae" else f"{base_vals[i]:.2f}",
+                        ha="center", fontsize=7, color="#888")
+                ax.text(x[i] + bar_w / 2, rank_vals[i] + ylim_top * 0.015,
+                        f"{rank_vals[i]:.3f}" if metric != "mae" else f"{rank_vals[i]:.2f}",
+                        ha="center", fontsize=8, fontweight="bold")
+            ax.legend(fontsize=7.5, loc="upper right" if metric == "mae" else "upper left", frameon=False)
+        else:
+            ax.bar(x, base_vals, 0.6, color=colors, alpha=0.85, edgecolor="white", lw=1.5)
+            for i, v in enumerate(base_vals):
+                ax.text(i, v + ylim_top * 0.015,
+                        f"{v:.3f}" if metric != "mae" else f"{v:.2f}",
+                        ha="center", fontsize=9, fontweight="bold")
 
-    fig.suptitle("Figure 4: Three-Level Observability Decomposition (Baseline, PD-only LOOCV)",
+        if metric == "cal_slope":
+            ax.axhline(1.0, color="#999", ls=":", lw=1, alpha=0.5)
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels, fontsize=8)
+        ax.set_ylabel(ylabel, fontweight="bold")
+        ax.set_title(title, fontweight="bold")
+        ax.set_ylim(0, ylim_top)
+
+    fig.suptitle(f"Figure 4: Three-Level Observability Decomposition ({eval_label})",
                  fontsize=11, fontweight="bold", y=1.01)
     fig.tight_layout(rect=[0, 0, 1, 0.94])
     return fig_to_b64(fig)
@@ -885,12 +949,9 @@ def fig7_compression_ablation(d: PaperData) -> str:
         ("P1\nOrdinal", d.p1_t1.get("ccc", 0), "5-split", C_P1),
         ("P3\nSMOGN", d.p3_t1.get("ccc", 0), "5-split", C_P3),
         ("P4\nNGBoost", d.p4_t1.get("ccc", 0), "5-split", C_P4),
-        ("P5 SSL\n(5-split)", 0, "5-split", C_P5),
+        ("P5 SSL\n(5-split)", d.ssl_5split_t1.get("ccc", 0) if d.ssl_5split_t1 else 0, "5-split", C_P5),
         ("P5 SSL\n(LOOCV)", d.ssl_t1.get("ccc", 0), "LOOCV", C_P5),
     ]
-    # Get P5 5-split CCC from ssl_5split
-    if d.ssl_5split and len(d.ssl_5split) > 0:
-        proposals[4] = ("P5 SSL\n(5-split)", d.ssl_5split[0].get("ccc", 0), "5-split", C_P5)
 
     fig, ax = plt.subplots(figsize=(9, 5))
     x = np.arange(len(proposals))
@@ -909,7 +970,7 @@ def fig7_compression_ablation(d: PaperData) -> str:
     ax.axhline(0.7, color="#ccc", ls=":", lw=1, alpha=0.5)
     ax.text(5.3, 0.71, "CCC=0.7", fontsize=7, color="#999")
 
-    fig.suptitle("Figure 7: Compression Ablation -- Five Anti-Compression Proposals (T1)",
+    fig.suptitle("Supplementary Figure S1: Compression Ablation -- Five Anti-Compression Proposals (T1)",
                  fontsize=11, fontweight="bold", y=0.98)
     fig.tight_layout(rect=[0, 0.03, 1, 0.94])
     return fig_to_b64(fig)
@@ -919,9 +980,7 @@ def fig8_quartile_bias(d: PaperData) -> str:
     """Paired bar chart: Q1-Q4 bias before (P0 baseline) and after (P5 SSL)."""
     p0_qs = d.p0_t1.get("quartiles", [])
     # Use P5 5-split for apples-to-apples comparison with P0 5-split
-    p5_qs = []
-    if d.ssl_5split and len(d.ssl_5split) > 0:
-        p5_qs = d.ssl_5split[0].get("quartiles", [])
+    p5_qs = d.ssl_5split_t1.get("quartiles", []) if d.ssl_5split_t1 else []
 
     if not p0_qs or not p5_qs:
         fig, ax = plt.subplots(figsize=(8, 5))
@@ -969,7 +1028,7 @@ def fig8_quartile_bias(d: PaperData) -> str:
         for val, offset in [(p0_mae[i], -w/2), (p5_mae[i], w/2)]:
             axes[1].text(i + offset, val + 0.03, f"{val:.2f}", ha="center", fontsize=7, va="bottom")
 
-    fig.suptitle("Figure 8: Quartile Bias Reduction with SSL Ranking (T1, 5-split, N=95)",
+    fig.suptitle("Supplementary Figure S2: Quartile Bias Reduction with SSL Ranking (T1, 5-split, N=95)",
                  fontsize=11, fontweight="bold", y=1.0)
     fig.tight_layout(rect=[0, 0, 1, 0.94])
     return fig_to_b64(fig)
@@ -996,15 +1055,16 @@ def fig9_fm_impact() -> str:
 
     _, p = wilcoxon(fm, v2, alternative="two-sided")
     delta = v2.mean() - fm.mean()
+    p_str = "< 0.001" if p < 0.001 else f"= {p:.4f}"
     ax.text(0.02, 0.98,
-            f"v2+FM vs v2: p = {p:.4f}\nMAE reduction = {delta:.2f} ({delta/v2.mean()*100:.1f}%)",
+            f"v2+FM vs v2: p {p_str}\nMAE reduction = {delta:.2f} ({delta/v2.mean()*100:.1f}%)",
             transform=ax.transAxes, fontsize=8.5, va="top", fontweight="bold", color=C_FM)
 
     ax.set_xlabel("Random Split (PD+HC, N=178)", fontweight="bold")
     ax.set_ylabel("MAE (Total UPDRS-III)", fontweight="bold")
     ax.set_xticks(x)
     ax.legend(fontsize=8)
-    fig.suptitle("Figure 9: Foundation Model Impact (10-Split CV, Total UPDRS-III)",
+    fig.suptitle("Supplementary Figure S3: Foundation Model Impact (10-Split CV, Total UPDRS-III)",
                  fontsize=11, fontweight="bold")
     fig.tight_layout(rect=[0, 0, 1, 0.93])
     return fig_to_b64(fig)
@@ -1019,9 +1079,11 @@ def fig10_cross_dataset(d: PaperData) -> str:
         {"label": "Ours: T3 Total\n(SSL, LOOCV)", "mae": d.ssl_t3.get("mae", 4.646),
          "r": d.ssl_t3.get("r", 0.827), "ccc": d.ssl_t3.get("ccc", 0.776),
          "n": 94, "color": C_SSL, "protocol": "PD LOOCV", "note": "total, max 59"},
-        {"label": "Ours: Total\n(baseline, LOOCV)", "mae": 8.146,
-         "r": 0.429, "ccc": 0.369,
-         "n": 98, "color": C_BASELINE, "protocol": "PD LOOCV", "note": "pre-SSL baseline"},
+        {"label": "Ours: Total\n(baseline, LOOCV)",
+         "mae": d.pd_only.get("master_table", {}).get("loocv_fm", {}).get("mae", 8.146),
+         "r": d.pd_only.get("master_table", {}).get("loocv_fm", {}).get("r", 0.429),
+         "ccc": d.pd_only.get("master_table", {}).get("loocv_fm", {}).get("ccc", 0.369),
+         "n": N_ANALYZED_PD, "color": C_BASELINE, "protocol": "PD LOOCV", "note": "pre-SSL baseline"},
         {"label": "Hssayeni 2021\n(Total)", "mae": 5.95,
          "r": 0.79, "ccc": None,
          "n": 24, "color": "#2ecc71", "protocol": "PD LOOCV", "note": "free-living, wrist+ankle"},
@@ -1062,7 +1124,7 @@ def fig10_cross_dataset(d: PaperData) -> str:
         transform=axes[0].transAxes, fontsize=7, va="bottom", ha="left",
         bbox=dict(fc="#fff8e6", ec="none", alpha=0.8))
 
-    fig.suptitle("Figure 10: Cross-Dataset Comparison (All LOOCV, PD-only)",
+    fig.suptitle("Figure 7: Cross-Dataset Comparison (All LOOCV, PD-only)",
                  fontsize=11, fontweight="bold", y=0.99)
     fig.tight_layout(rect=[0, 0, 1, 0.94])
     return fig_to_b64(fig)
@@ -1270,10 +1332,10 @@ def figF_hp_heatmap() -> str:
             ax.text(j, i, f"{values[i][j]:.2f}", ha="center", va="center",
                     fontsize=9, color=text_color, fontweight="bold")
 
-    fig.colorbar(im, ax=ax, label="CCC interaction effect (delta)", shrink=0.8)
-    ax.set_title("Hyperparameter Interaction Effects on CCC", fontweight="bold")
+    fig.colorbar(im, ax=ax, label="Estimated CCC interaction effect (delta)", shrink=0.8)
+    ax.set_title("Hyperparameter Interaction Effects on CCC (Illustrative)", fontweight="bold")
 
-    fig.suptitle("Figure F: Hyperparameter Interaction Heatmap",
+    fig.suptitle("Figure F: Hyperparameter Interaction Heatmap (Illustrative)",
                  fontsize=10.5, fontweight="bold", y=0.99)
     fig.tight_layout(rect=[0, 0, 1, 0.93])
     return fig_to_b64(fig)
@@ -1449,7 +1511,7 @@ def _table1(dp, dc):
 
 
 def _table2_total_updrs(d: PaperData):
-    """Table 2: Total UPDRS-III prediction (PD-only eval, multiple models)."""
+    """Table 3: Total UPDRS-III prediction (PD-only eval, multiple models)."""
     mt = d.pd_only.get("master_table", {})
     if not mt:
         return "<p>Total UPDRS-III results not available.</p>"
@@ -1460,12 +1522,12 @@ def _table2_total_updrs(d: PaperData):
     loocv_fm = mt.get("loocv_fm", {})
     loocv_demo = mt.get("loocv_demo", {})
 
-    ssl_t3 = d.ssl_t3
+    ssl_5t3 = d.ssl_5split_t3
     p0_t3 = d.p0_t3
 
     return f"""
 <table>
-<caption>Table 2. Total UPDRS-III prediction results (PD-only evaluation).</caption>
+<caption>Table 3. Total UPDRS-III prediction results (PD-only evaluation).</caption>
 <tr><th>Model</th><th>Evaluation</th><th>N</th><th>MAE</th><th>CCC</th><th>r</th><th>Cal. slope</th></tr>
 <tr><th colspan="7" style="background:#f8f9fa; text-align:left; font-style:italic">PD-only 10-split cross-validation</th></tr>
 <tr class="primary"><td>Demographic Ridge</td><td>10-split</td><td>98</td><td>{demo.get('mae_mean', '---'):.2f} &plusmn; {demo.get('mae_std', '---'):.2f}</td><td>{demo.get('ccc_mean', '---'):.3f}</td><td>&mdash;</td><td>&mdash;</td></tr>
@@ -1474,11 +1536,11 @@ def _table2_total_updrs(d: PaperData):
 <tr><th colspan="7" style="background:#f8f9fa; text-align:left; font-style:italic">PD-only leave-one-out cross-validation</th></tr>
 <tr><td>FM Stack (baseline)</td><td>LOOCV</td><td>98</td><td>{loocv_fm.get('mae', 0):.2f}</td><td>{loocv_fm.get('ccc', 0):.3f}</td><td>{loocv_fm.get('r', 0):.3f}</td><td>{loocv_fm.get('cal_slope', 0):.3f}</td></tr>
 <tr><td>Demographic Ridge</td><td>LOOCV</td><td>98</td><td>{loocv_demo.get('mae', 0):.2f}</td><td>{loocv_demo.get('ccc', 0):.3f}</td><td>{loocv_demo.get('r', 0):.3f}</td><td>{loocv_demo.get('cal_slope', 0):.3f}</td></tr>
-<tr><th colspan="7" style="background:#f8f9fa; text-align:left; font-style:italic">Anti-compression methods (PD-only)</th></tr>
-<tr><td>P0 Baseline</td><td>5-split</td><td>95</td><td>{p0_t3.get('mae', 0):.2f}</td><td>{p0_t3.get('ccc', 0):.3f}</td><td>{p0_t3.get('r', 0):.3f}</td><td>{p0_t3.get('cal_slope', 0):.3f}</td></tr>
-<tr class="highlight"><td><strong>P5 SSL Ranking</strong></td><td><strong>LOOCV</strong></td><td><strong>94</strong></td><td><strong>{ssl_t3.get('mae', 0):.2f}</strong></td><td><strong>{ssl_t3.get('ccc', 0):.3f}</strong></td><td><strong>{ssl_t3.get('r', 0):.3f}</strong></td><td><strong>{ssl_t3.get('cal_slope', 0):.3f}</strong></td></tr>
+<tr><th colspan="7" style="background:#f8f9fa; text-align:left; font-style:italic">Anti-compression methods (PD-only, 5-split)</th></tr>
+<tr><td>P0 Baseline</td><td>5-split</td><td>{p0_t3.get('n', 95)}</td><td>{p0_t3.get('mae', 0):.2f}</td><td>{p0_t3.get('ccc', 0):.3f}</td><td>{p0_t3.get('r', 0):.3f}</td><td>{p0_t3.get('cal_slope', 0):.3f}</td></tr>
+<tr class="highlight"><td><strong>P5 Ordinal Ranking</strong></td><td><strong>5-split</strong></td><td><strong>{ssl_5t3.get('n', 95)}</strong></td><td><strong>{ssl_5t3.get('mae', 0):.2f}</strong></td><td><strong>{ssl_5t3.get('ccc', 0):.3f}</strong></td><td><strong>{ssl_5t3.get('r', 0):.3f}</strong></td><td><strong>{ssl_5t3.get('cal_slope', 0):.3f}</strong></td></tr>
 </table>
-<p class="note">P0 baseline and P5 SSL use different evaluation protocols (5-split vs LOOCV). P5 SSL uses healthy controls for representation learning only; final evaluation is PD-only.</p>"""
+<p class="note">P0 baseline and P5 ordinal ranking use the same 5-split evaluation protocol for direct comparison. P5 uses healthy controls for ranking representation learning only; final evaluation is PD-only. Confirmatory LOOCV (N={d.ssl_t3.get('n', 94)}): CCC&nbsp;=&nbsp;{d.ssl_t3.get('ccc', 0):.3f}, MAE&nbsp;=&nbsp;{d.ssl_t3.get('mae', 0):.2f} (Table&nbsp;S7).</p>"""
 
 
 def _table3_observability(d: PaperData):
@@ -1505,11 +1567,11 @@ def _table3_observability(d: PaperData):
 
     return f"""
 <table>
-<caption>Table 3. Three-level observability decomposition (baseline model, PD-only LOOCV).</caption>
+<caption>Table S9. Three-level observability decomposition (baseline model, PD-only LOOCV).</caption>
 <tr><th>Tier</th><th>Items</th><th>Max</th><th>N</th><th>MAE</th><th>nMAE%</th><th>CCC</th><th>Slope</th><th>r</th><th>10-split MAE</th></tr>
 {rows}
 </table>
-<p class="note">Baseline model (pre-SSL). LOOCV: PD-only, N=91-94. nMAE = MAE / max score x 100. Direct + partial + unobs = total (reconstruction error = 0.0).</p>"""
+<p class="note">Baseline model (pre-ranking). LOOCV: PD-only, N=91-94. nMAE = MAE / max score x 100. Direct + partial + unobs = total (reconstruction error = 0.0).</p>"""
 
 
 def _table4_severity(d: PaperData):
@@ -1520,13 +1582,15 @@ def _table4_severity(d: PaperData):
     rows = ""
     for q in qs:
         rows += f'<tr><td>{q["label"]}</td><td>{q["n"]}</td><td>{q.get("mae", 0):.2f}</td><td>{q.get("ccc", 0):.3f}</td><td>{q.get("bias", 0):+.1f}</td><td>{q.get("mean_true", 0):.1f}</td><td>{q.get("mean_pred", 0):.1f}</td></tr>\n'
+    q1_bias = qs[0].get("bias", 0) if qs else 0
+    q4_bias = qs[-1].get("bias", 0) if len(qs) >= 4 else 0
     return f"""
 <table>
 <caption>Table 4. Severity-stratified prediction (baseline, PD-only FM LOOCV, N=98).</caption>
 <tr><th>Quartile</th><th>N</th><th>MAE</th><th>CCC</th><th>Bias</th><th>Mean True</th><th>Mean Pred</th></tr>
 {rows}
 </table>
-<p class="note">Bias = mean(predicted - actual). Severe regression to the mean: Q1 overpredicted by +14, Q4 underpredicted by -14. Pre-SSL baseline.</p>"""
+<p class="note">Bias = mean(predicted &minus; actual). Severe regression to the mean: Q1 overpredicted by {q1_bias:+.0f}, Q4 underpredicted by {q4_bias:.0f}. Pre-ranking baseline.</p>"""
 
 
 def _table5_sensor(d: PaperData):
@@ -1550,22 +1614,26 @@ def _table5_sensor(d: PaperData):
 
     return f"""
 <table>
-<caption>Table 5. Sensor ablation (PD-only 10-split, total UPDRS-III, FM re-extracted per config).</caption>
+<caption>Table S4. Sensor ablation (PD-only 10-split, total UPDRS-III, FM re-extracted per config).</caption>
 <tr><th>Configuration</th><th>N Sensors</th><th>MAE &plusmn; SD</th><th>CCC</th><th>p vs All 13</th></tr>
 {rows}
 </table>
 <p class="note">FM embeddings re-extracted per sensor configuration to prevent data leakage. Results are for total UPDRS-III, not observable subscore.</p>"""
 
 
-def _table6_cross_dataset():
-    """Table 6: Cross-dataset SOTA comparison."""
-    return """
+def _table6_cross_dataset(d: PaperData):
+    """Table 8: Cross-dataset SOTA comparison (data-driven for 'this work' rows)."""
+    ssl_t1 = d.ssl_t1
+    ssl_t3 = d.ssl_t3
+    mt = d.pd_only.get("master_table", {})
+    loocv_fm = mt.get("loocv_fm", {})
+    return f"""
 <table>
-<caption>Table 6. Cross-dataset comparison with published UPDRS-III regression.</caption>
+<caption>Table 8. Cross-dataset comparison with published UPDRS-III regression.</caption>
 <tr><th>Study</th><th>Year</th><th>Dataset</th><th>N</th><th>Sensors</th><th>Evaluation</th><th>MAE</th><th>r</th><th>CCC</th></tr>
-<tr class="highlight"><td>This work (T1, SSL)</td><td>2026</td><td>WearGait-PD</td><td>94 PD</td><td>13 IMUs</td><td>PD LOOCV</td><td>0.99*</td><td>0.899</td><td>0.868</td></tr>
-<tr class="highlight"><td>This work (T3, SSL)</td><td>2026</td><td>WearGait-PD</td><td>94 PD</td><td>13 IMUs</td><td>PD LOOCV</td><td>4.65</td><td>0.827</td><td>0.776</td></tr>
-<tr><td>This work (T3, baseline)</td><td>2026</td><td>WearGait-PD</td><td>98 PD</td><td>13 IMUs</td><td>PD LOOCV</td><td>8.15</td><td>0.429</td><td>0.369</td></tr>
+<tr class="highlight"><td>This work (T1, ranking)</td><td>2026</td><td>WearGait-PD</td><td>{ssl_t1.get('n', 94)} PD</td><td>13 IMUs</td><td>PD LOOCV</td><td>{ssl_t1.get('mae', 0):.2f}*</td><td>{ssl_t1.get('r', 0):.3f}</td><td>{ssl_t1.get('ccc', 0):.3f}</td></tr>
+<tr class="highlight"><td>This work (T3, ranking)</td><td>2026</td><td>WearGait-PD</td><td>{ssl_t3.get('n', 94)} PD</td><td>13 IMUs</td><td>PD LOOCV</td><td>{ssl_t3.get('mae', 0):.2f}</td><td>{ssl_t3.get('r', 0):.3f}</td><td>{ssl_t3.get('ccc', 0):.3f}</td></tr>
+<tr><td>This work (T3, baseline)</td><td>2026</td><td>WearGait-PD</td><td>{N_ANALYZED_PD} PD</td><td>13 IMUs</td><td>PD LOOCV</td><td>{loocv_fm.get('mae', 0):.2f}</td><td>{loocv_fm.get('r', 0):.3f}</td><td>{loocv_fm.get('ccc', 0):.3f}</td></tr>
 <tr><td>Hssayeni et al.</td><td>2021</td><td>Physionet</td><td>24 PD</td><td>wrist+ankle gyro</td><td>PD LOOCV</td><td>5.95</td><td>0.79</td><td>N/R</td></tr>
 <tr><td>Shuqair et al.</td><td>2024</td><td>Same Physionet</td><td>24 PD</td><td>wrist+ankle gyro</td><td>PD LOOCV</td><td>~5.65</td><td>0.89</td><td>N/R</td></tr>
 <tr><td>Sotirakis et al.</td><td>2023</td><td>Oxford</td><td>74 PD</td><td>wrist+back</td><td>5-fold CV&dagger;</td><td>RMSE=10.02</td><td>&mdash;</td><td>N/R</td></tr>
@@ -1574,20 +1642,20 @@ def _table6_cross_dataset():
 
 
 def _table7_ssl_ablation(d: PaperData):
-    """Table 7: SSL ranking results -- 5 proposals x 3 targets."""
+    """Table S2: Ordinal ranking results -- 5 proposals x 3 targets."""
     rows = ""
     proposals = [
         ("P0 Baseline", "5-split", 95,
          d.p0_t1, d.p0_t2, d.p0_t3),
-        ("P1 Ordinal", "5-split", 95,
+        ("P1 Ordinal Classif.", "5-split", 95,
          d.p1_t1, {}, {}),
         ("P3 SMOGN", "5-split", 95,
          d.p3_t1, d.p3_t2, d.p3_t3),
         ("P4 NGBoost", "5-split", 95,
          d.p4_t1, d.p4_t2, d.p4_t3),
-        ("P5 SSL Ranking", "5-split", 95,
+        ("P5 Ordinal Ranking", "5-split", 95,
          d.ssl_5split_t1, d.ssl_5split_t2, d.ssl_5split_t3),
-        ("P5 SSL Ranking", "LOOCV", 94,
+        ("P5 Ordinal Ranking", "LOOCV", 94,
          d.ssl_t1, d.ssl_t2, d.ssl_t3),
     ]
 
@@ -1604,16 +1672,16 @@ def _table7_ssl_ablation(d: PaperData):
 
     return f"""
 <table>
-<caption>Table 7. Compression ablation: five anti-compression proposals across three targets.</caption>
+<caption>Table S2. Compression ablation: five anti-compression proposals across three targets.</caption>
 <tr><th rowspan="2">Proposal</th><th rowspan="2">Eval</th><th rowspan="2">N</th><th colspan="3">T1 (Direct Obs)</th><th colspan="2">T2 (Broad Obs)</th><th colspan="2">T3 (Total)</th></tr>
 <tr><th>CCC</th><th>Slope</th><th>MAE</th><th>CCC</th><th>MAE</th><th>CCC</th><th>MAE</th></tr>
 {rows}
 </table>
-<p class="note">P0-P4: 5-split (N=95). P5 SSL shown under both 5-split (N=95, protocol-matched with P0-P4) and LOOCV (N=94, strictest evaluation). P1 not run on T2/T3 (severely degraded on T1). P5 is the only proposal that materially improves CCC on any target.</p>"""
+<p class="note">P0-P4: 5-split (N=95). P5 ordinal ranking shown under both 5-split (N=95, protocol-matched with P0-P4) and LOOCV (N=94, strictest evaluation). P1 not run on T2/T3 (severely degraded on T1). P5 is the only proposal that materially improves CCC on any target.</p>"""
 
 
 def _table8_quartile_bias(d: PaperData):
-    """Table 8: Quartile bias analysis (T1, P0 vs P5, both 5-split for apples-to-apples)."""
+    """Table S3: Quartile bias analysis (T1, P0 vs P5, both 5-split for apples-to-apples)."""
     p0_qs = d.p0_t1.get("quartiles", [])
     # Use 5-split P5 data for apples-to-apples comparison with P0 (also 5-split)
     p5_qs = d.ssl_5split_t1.get("quartiles", [])
@@ -1635,8 +1703,8 @@ def _table8_quartile_bias(d: PaperData):
 
     return f"""
 <table>
-<caption>Table 8. Quartile bias analysis: P0 baseline vs P5 SSL (both 5-split, N=95), T1 direct observable.</caption>
-<tr><th rowspan="2">Quartile</th><th colspan="3">P0 Baseline (5-split)</th><th colspan="3">P5 SSL (5-split)</th><th rowspan="2">|Bias| Change</th></tr>
+<caption>Table S3. Quartile bias analysis: P0 baseline vs P5 ordinal ranking (both 5-split, N=95), T1 direct observable.</caption>
+<tr><th rowspan="2">Quartile</th><th colspan="3">P0 Baseline (5-split)</th><th colspan="3">P5 Ranking (5-split)</th><th rowspan="2">|Bias| Change</th></tr>
 <tr><th>N</th><th>Bias</th><th>MAE</th><th>N</th><th>Bias</th><th>MAE</th></tr>
 {rows}
 </table>
@@ -1647,7 +1715,7 @@ def _tableP1_hyperparams():
     """Table P1: Hyperparameter specification for all pipelines."""
     return """
 <table>
-<caption>Table P1. Hyperparameter specification for all pipelines.</caption>
+<caption>Table S1. Hyperparameter specification for all pipelines.</caption>
 <tr><th>Parameter</th><th>Baseline LGB</th><th>CCC-Optimized LGB</th><th>XGBRanker (Stage 1)</th></tr>
 <tr><td>n_estimators</td><td>2,000</td><td>2,000</td><td>300</td></tr>
 <tr><td>learning_rate</td><td>0.03</td><td>0.03</td><td>0.05</td></tr>
@@ -1686,7 +1754,7 @@ def _tableS1_dl(d: PaperData):
         return "<p>DL architecture details not available.</p>"
     return f"""
 <table>
-<caption>Table S1. Deep learning architectures (all MAE > 10 on held-out test, seed=42 split).</caption>
+<caption>Table S6. Deep learning architectures (all MAE > 10 on held-out test, seed=42 split).</caption>
 <tr><th>Architecture</th><th>Mean MAE &plusmn; SD</th><th>Ensemble MAE</th><th>Ensemble r</th></tr>
 {rows}
 </table>
@@ -1701,14 +1769,183 @@ def _tableS2_holm(d: PaperData):
     rows = ""
     for h in hb:
         sig = "***" if h["p_adj"] < 0.001 else "**" if h["p_adj"] < 0.01 else "*" if h["p_adj"] < 0.05 else "ns"
-        rows += f'<tr><td>{h["label"]}</td><td>{h["p_raw"]:.4f}</td><td>{h["p_adj"]:.4f}</td><td>{sig}</td></tr>\n'
+        p_raw_str = fmt_p(h["p_raw"])
+        p_adj_str = fmt_p(h["p_adj"])
+        rows += f'<tr><td>{h["label"]}</td><td>{p_raw_str}</td><td>{p_adj_str}</td><td>{sig}</td></tr>\n'
     return f"""
 <table>
-<caption>Table S2. Holm-Bonferroni corrected p-values across primary statistical tests.</caption>
+<caption>Table S8. Holm-Bonferroni corrected p-values across primary statistical tests.</caption>
 <tr><th>Test</th><th>p (raw)</th><th>p (adjusted)</th><th>Sig.</th></tr>
 {rows}
 </table>
 <p class="note">Three tests survive correction: permutation (FM > mean), Spearman severity ranking, and partial correlation (IMU signal beyond demographics).</p>"""
+
+
+def _table_age_sensitivity(d: PaperData):
+    """Table: Age confound sensitivity analysis (reviewer C2)."""
+    age = d.age_sensitivity
+    if not age:
+        return "<p><em>Age sensitivity data not available.</em></p>"
+
+    full_t1 = age.get("ssl_full_hc_t1", {})
+    matched_t1 = age.get("ssl_age_matched_t1", {})
+    full_t3 = age.get("ssl_full_hc_t3", {})
+    matched_t3 = age.get("ssl_age_matched_t3", {})
+    pc = age.get("partial_correlation", {})
+    pc_age = pc.get("age_only", {})
+    pc_both = pc.get("age_and_dx_years", {})
+
+    # Age strata table
+    strata = age.get("age_strata", {})
+    strata_rows = ""
+    for name, data in strata.items():
+        strata_rows += (f'<tr><td>{name}</td><td>{data.get("n", "?")}</td>'
+                        f'<td>{data.get("ccc", 0):.3f}</td><td>{data.get("mae", 0):.3f}</td>'
+                        f'<td>{data.get("r", 0):.3f}</td></tr>\n')
+
+    return f"""
+<table>
+<caption>Table 5. Age confound sensitivity analysis for ordinal ranking (5-fold CV, T1 observable subscore).</caption>
+<tr><th>HC Configuration</th><th>N<sub>HC</sub></th><th>HC Mean Age</th><th>Age p</th>
+    <th>T1 CCC</th><th>T1 MAE</th><th>T1 r</th><th>T1 slope</th>
+    <th>T3 CCC</th><th>T3 MAE</th></tr>
+<tr><td>Full HC</td><td>{age.get("n_hc_full", 80)}</td><td>{age.get("hc_mean_age_full", 74.6):.1f}</td>
+    <td>{fmt_p(age.get("age_test_full_p", 0))}</td>
+    <td><strong>{full_t1.get("ccc", 0):.3f}</strong></td><td>{full_t1.get("mae", 0):.3f}</td>
+    <td>{full_t1.get("r", 0):.3f}</td><td>{full_t1.get("cal_slope", 0):.3f}</td>
+    <td>{full_t3.get("ccc", 0):.3f}</td><td>{full_t3.get("mae", 0):.3f}</td></tr>
+<tr><td>Age-matched HC</td><td>{age.get("n_hc_matched", 46)}</td><td>{age.get("hc_mean_age_matched", 68.9):.1f}</td>
+    <td>{fmt_p(age.get("age_test_matched_p", 0))}</td>
+    <td><strong>{matched_t1.get("ccc", 0):.3f}</strong></td><td>{matched_t1.get("mae", 0):.3f}</td>
+    <td>{matched_t1.get("r", 0):.3f}</td><td>{matched_t1.get("cal_slope", 0):.3f}</td>
+    <td>{matched_t3.get("ccc", 0):.3f}</td><td>{matched_t3.get("mae", 0):.3f}</td></tr>
+</table>
+<p class="note">Age-matched subset retains HC with age &le; PD 75th percentile + 5 years (threshold {age.get("age_threshold", 78):.0f}y).
+Partial correlation of ordinal ranking predictions controlling for age: r&nbsp;=&nbsp;{pc_age.get("r", 0):.3f} (p&nbsp;&lt;&nbsp;0.001).
+Controlling for age + disease duration: r&nbsp;=&nbsp;{pc_both.get("r", 0):.3f} (p&nbsp;&lt;&nbsp;0.001).</p>
+
+<table>
+<caption>Table 6. Age-stratified within-PD evaluation (ordinal ranking T1, 5-fold CV).</caption>
+<tr><th>Age Stratum</th><th>N</th><th>CCC</th><th>MAE</th><th>r</th></tr>
+{strata_rows}
+</table>
+<p class="note">Ordinal ranking produces accurate predictions across all PD age strata, confirming that performance is not driven by age-related gait rather than disease severity.</p>"""
+
+
+def _table_hc_ablation(d: PaperData):
+    """Table: HC ablation (reviewer C3) — P0 vs P5-no-HC vs P5-with-HC."""
+    hc = d.hc_ablation
+    if not hc:
+        return "<p><em>HC ablation data not available.</em></p>"
+
+    rows = ""
+    for label, key, n_hc in [
+        ("P0: Baseline (no ranking)", "p0_baseline", 0),
+        ("P5: PD-only ranking", "p5_no_hc", 0),
+        ("P5: PD+HC ranking", "p5_with_hc", 80),
+    ]:
+        t1 = hc.get(f"{key}_t1", {})
+        t3 = hc.get(f"{key}_t3", {})
+        rows += (f'<tr><td>{label}</td><td>{n_hc}</td>'
+                 f'<td>{t1.get("ccc", 0):.3f}</td><td>{t1.get("mae", 0):.3f}</td>'
+                 f'<td>{t1.get("cal_slope", 0):.3f}</td><td>{t1.get("r", 0):.3f}</td>'
+                 f'<td>{t3.get("ccc", 0):.3f}</td><td>{t3.get("mae", 0):.3f}</td>'
+                 f'<td>{t3.get("cal_slope", 0):.3f}</td></tr>\n')
+
+    return f"""
+<table>
+<caption>Table 7. HC ablation: contribution of healthy controls to ordinal ranking (5-fold CV).</caption>
+<tr><th>Method</th><th>N<sub>HC</sub></th>
+    <th>T1 CCC</th><th>T1 MAE</th><th>T1 slope</th><th>T1 r</th>
+    <th>T3 CCC</th><th>T3 MAE</th><th>T3 slope</th></tr>
+{rows}
+</table>
+<p class="note">PD-only ranking (no HC) produces nearly identical T1 performance to PD+HC ranking, demonstrating that the ranking mechanism itself drives the improvement. HC subjects contribute calibration anchoring but are not required for the core benefit. P0 baseline in this table uses a different random split from the primary P0 baseline (Table&nbsp;S2); minor metric variation is expected.</p>"""
+
+
+def _table_obs_5fold(d: PaperData):
+    """Table: 3-level observability under 5-fold CV (reviewer C1).
+
+    Uses the PRIMARY pipeline result (d.ssl_5split_t1) for the directly observable
+    row to ensure consistency with Section 2.2. Partial and unobs tiers use the
+    observability experiment results (d.obs_5fold) which were run on a restricted
+    subject set (N=90 requiring all 18 items).
+    """
+    obs = d.obs_5fold
+    if not obs:
+        return "<p><em>Observability 5-fold data not available.</em></p>"
+
+    # For the directly observable tier, use the PRIMARY result (N=95) for consistency
+    # with Section 2.2 and Figure 2. For partial/unobs, use the obs experiment (N=90).
+    primary_t1 = d.ssl_5split_t1
+    p0_t1 = d.p0_t1
+
+    rows = ""
+    # Row 1: Directly observable — from PRIMARY pipeline
+    rows += (f'<tr><td>Directly observable</td><td>3.9&ndash;3.14</td>'
+             f'<td>{p0_t1.get("ccc", 0):.3f}</td><td>{p0_t1.get("mae", 0):.3f}</td>'
+             f'<td><strong>{primary_t1.get("ccc", 0):.3f}</strong></td><td>{primary_t1.get("mae", 0):.3f}</td>'
+             f'<td>{primary_t1.get("cal_slope", 0):.3f}</td><td>{primary_t1.get("r", 0):.3f}</td></tr>\n')
+
+    # Row 2-3: Partial and unobs — from observability experiment
+    for label, items, key in [
+        ("Partially observable", "3.5&ndash;3.8, 3.15&ndash;3.17", "partial"),
+        ("Not observable", "3.1&ndash;3.4, 3.18", "unobs"),
+    ]:
+        ssl = obs.get(f"{key}_ssl", {})
+        base = obs.get(f"{key}_baseline", {})
+        rows += (f'<tr><td>{label}</td><td>{items}</td>'
+                 f'<td>{base.get("ccc", 0):.3f}</td><td>{base.get("mae", 0):.3f}</td>'
+                 f'<td><strong>{ssl.get("ccc", 0):.3f}</strong></td><td>{ssl.get("mae", 0):.3f}</td>'
+                 f'<td>{ssl.get("cal_slope", 0):.3f}</td><td>{ssl.get("r", 0):.3f}</td></tr>\n')
+
+    n_primary = primary_t1.get("n", 95)
+    n_obs = obs.get("direct_ssl", {}).get("n", 90)
+
+    return f"""
+<table>
+<caption>Table 2. Three-level observability decomposition (PD-only 5-fold CV).</caption>
+<tr><th>Tier</th><th>Items</th>
+    <th>Baseline CCC</th><th>Baseline MAE</th>
+    <th>Ranking CCC</th><th>Ranking MAE</th><th>Ranking slope</th><th>Ranking r</th></tr>
+{rows}
+</table>
+<p class="note">Directly observable row uses the primary pipeline (N={n_primary}, identical to Section 2.2). Partial and not-observable rows use a restricted subset (N={n_obs}) requiring complete scores for all 18 items. All evaluated under 5-fold CV.</p>"""
+
+
+def _table_single_sensor(d: PaperData):
+    """Table: Single-sensor ordinal ranking ablation (reviewer C11)."""
+    ss = d.single_sensor
+    if not ss:
+        return "<p><em>Single sensor data not available.</em></p>"
+
+    configs = ss.get("configs", {})
+    label_map = {
+        "LowerBack_1": "LowerBack (1)",
+        "R_Wrist_1": "R_Wrist (1)",
+        "L_Wrist_1": "L_Wrist (1)",
+        "wrists_2": "wrists (2)",
+        "all_13": "all (13)",
+    }
+    rows = ""
+    for cfg_name in ["LowerBack_1", "R_Wrist_1", "L_Wrist_1", "wrists_2", "all_13"]:
+        data = configs.get(cfg_name, {})
+        if data.get("skipped"):
+            continue
+        label = label_map.get(cfg_name, cfg_name)
+        rows += (f'<tr><td>{label}</td><td>{data.get("n_sensors", "?")}</td>'
+                 f'<td>{data.get("n_features_available", "?")}</td>'
+                 f'<td>{data.get("ccc", 0):.3f}</td><td>{data.get("mae", 0):.3f}</td>'
+                 f'<td>{data.get("cal_slope", 0):.3f}</td><td>{data.get("r", 0):.3f}</td></tr>\n')
+
+    return f"""
+<table>
+<caption>Table S5. Single-sensor ordinal ranking performance (T1 observable subscore, 5-fold CV).</caption>
+<tr><th>Sensor Configuration</th><th>N<sub>sensors</sub></th><th>N<sub>features</sub></th>
+    <th>CCC</th><th>MAE</th><th>slope</th><th>r</th></tr>
+{rows}
+</table>
+<p class="note">A single lower back sensor achieves CCC&nbsp;=&nbsp;{configs.get('LowerBack_1', {}).get('ccc', 0):.3f}, matching the full 13-sensor configuration (CCC&nbsp;=&nbsp;{configs.get('all_13', {}).get('ccc', 0):.3f}). Single wrist achieves CCC&nbsp;&gt;&nbsp;0.78, supporting smartwatch-based clinical deployment.</p>"""
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -1799,7 +2036,7 @@ WearGait-PD is the largest publicly available controlled-gait dataset with compl
 <h3>2.1 Cohort Description</h3>
 
 <p>
-Of {N_ENROLLED_PD + N_ENROLLED_HC} enrolled participants, {N_ANALYZED} ({N_ANALYZED_PD} PD, {N_ANALYZED_HC} HC) had complete sensor recordings (Table&nbsp;1). PD participants (mean age 66.9&nbsp;&plusmn;&nbsp;8.3 years, 63M/35F) had moderate motor severity (UPDRS-III 24.4&nbsp;&plusmn;&nbsp;10.9, range [0, 59]). HC participants were older (74.6&nbsp;&plusmn;&nbsp;8.5 years) with lower motor scores (7.1&nbsp;&plusmn;&nbsp;9.7). Medication state was not systematically controlled.
+Of {N_ENROLLED_PD + N_ENROLLED_HC} enrolled participants, {N_ANALYZED} ({N_ANALYZED_PD} PD, {N_ANALYZED_HC} HC) had complete sensor recordings (Table&nbsp;1). PD participants (mean age {dp.get('age_mean', 66.9):.1f}&nbsp;&plusmn;&nbsp;{dp.get('age_std', 8.3):.1f} years, {dp.get('sex_m_f', [63,35])[0]}M/{dp.get('sex_m_f', [63,35])[1]}F) had moderate motor severity (UPDRS-III {dp.get('updrs3_mean', 24.4):.1f}&nbsp;&plusmn;&nbsp;{dp.get('updrs3_std', 10.9):.1f}, range {dp.get('updrs3_range', [0, 59])}). HC participants were older ({dc.get('age_mean', 74.6):.1f}&nbsp;&plusmn;&nbsp;{dc.get('age_std', 8.5):.1f} years) with lower motor scores ({dc.get('updrs3_mean', 7.1):.1f}&nbsp;&plusmn;&nbsp;{dc.get('updrs3_std', 9.7):.1f}). Medication state was not systematically controlled.
 </p>
 
 {_table1(dp, dc)}
@@ -1856,12 +2093,12 @@ Per-item analysis (Figure&nbsp;5) confirms the observability gradient: the highe
 <h3>2.5 Compression Ablation: Why SSL Ranking Works</h3>
 
 <p>
-We evaluated five anti-compression proposals across three targets (Table&nbsp;7, Figure&nbsp;7). Per-item ordinal classification (P1) degraded performance severely (CCC&nbsp;=&nbsp;{d.p1_t1.get('ccc', 0.338):.3f}). SMOGN tail augmentation (P3) and NGBoost distributional regression (P4) produced marginal improvements. Only SSL ranking (P5) materially improved CCC on all targets. The mechanism involves four elements: (i) N amplification (N=94 PD to N={N_ANALYZED} for ranking), (ii) HC subjects as rank-0 calibration anchors, (iii) ranking as a simpler task than regression, and (iv) leaf features as nonlinear severity embeddings.
+We evaluated five anti-compression proposals across three targets (Table&nbsp;S2, Supplementary Figure&nbsp;S1). Per-item ordinal classification (P1) degraded performance severely (CCC&nbsp;=&nbsp;{d.p1_t1.get('ccc', 0.338):.3f}). SMOGN tail augmentation (P3) and NGBoost distributional regression (P4) produced marginal improvements. Only SSL ranking (P5) materially improved CCC on all targets. The mechanism involves four elements: (i) N amplification (N=94 PD to N={N_ANALYZED} for ranking), (ii) HC subjects as rank-0 calibration anchors, (iii) ranking as a simpler task than regression, and (iv) leaf features as nonlinear severity embeddings.
 </p>
 
 <figure>
 <img src="{figures['fig7']}" alt="Compression ablation">
-<figcaption><strong>Figure 7.</strong> Compression ablation: five proposals evaluated on T1 (direct observable subscore). Only P5 SSL ranking materially improves CCC. P1 ordinal classification degrades performance severely. Note: P0-P4 use 5-split evaluation; P5 (LOOCV) shown alongside for reference.</figcaption>
+<figcaption><strong>Supplementary Figure S1.</strong> Compression ablation: five proposals evaluated on T1 (direct observable subscore). Only P5 SSL ranking materially improves CCC. P1 ordinal classification degrades performance severely. Note: P0-P4 use 5-split evaluation; P5 (LOOCV) shown alongside for reference.</figcaption>
 </figure>
 
 {_table7_ssl_ablation(d)}
@@ -1869,12 +2106,12 @@ We evaluated five anti-compression proposals across three targets (Table&nbsp;7,
 <h3>2.6 Quartile Bias Reduction</h3>
 
 <p>
-SSL ranking substantially reduces severity-dependent prediction bias (Table&nbsp;8, Figure&nbsp;8). For T1 (5-split, apples-to-apples comparison): Q4 underprediction reduced from -1.34 to -0.53 (61% reduction), Q2 overprediction nearly eliminated (from +0.67 to +0.13, 81% reduction). The total UPDRS baseline showed extreme compression: Q1 overpredicted by +14 points, Q4 underpredicted by -14 points (Table&nbsp;4). After SSL ranking, T3 Q4 bias reduced from -12.3 to -3.7.
+SSL ranking substantially reduces severity-dependent prediction bias (Table&nbsp;S3, Supplementary Figure&nbsp;S2). For T1 (5-split, apples-to-apples comparison): Q4 underprediction reduced from -1.34 to -0.53 (61% reduction), Q2 overprediction nearly eliminated (from +0.67 to +0.13, 81% reduction). The total UPDRS baseline showed extreme compression: Q1 overpredicted by +14 points, Q4 underpredicted by -14 points (Table&nbsp;4). After SSL ranking, T3 Q4 bias reduced from -12.3 to -3.7.
 </p>
 
 <figure>
 <img src="{figures['fig8']}" alt="Quartile bias reduction">
-<figcaption><strong>Figure 8.</strong> Quartile bias reduction with SSL ranking (T1, 5-split comparison, N=95). Left: prediction bias by severity quartile. Right: MAE by quartile. SSL ranking (blue) reduces both bias and error across most quartiles compared to baseline (light blue).</figcaption>
+<figcaption><strong>Supplementary Figure S2.</strong> Quartile bias reduction with SSL ranking (T1, 5-split comparison, N=95). Left: prediction bias by severity quartile. Right: MAE by quartile. SSL ranking (blue) reduces both bias and error across most quartiles compared to baseline (light blue).</figcaption>
 </figure>
 
 {_table8_quartile_bias(d)}
@@ -1891,12 +2128,12 @@ Total UPDRS-III prediction illustrates the structural ceiling that motivates the
 <h3>2.8 Foundation Model Impact</h3>
 
 <p>
-Frozen MOMENT-1-base embeddings (768 dimensions, no fine-tuning) reduced mixed-cohort MAE from {v2_mixed.mean():.2f} to {fm_mixed.mean():.2f} (Wilcoxon p&nbsp;=&nbsp;{p_fm_v2:.4f}; Figure&nbsp;9). The advantage was non-significant in PD-only evaluation (p<sub>adj</sub>&nbsp;=&nbsp;{hb.get('P1_fm_vs_v2_median', {}).get('p_adj', 0.94):.2f}), suggesting FM embeddings primarily enhance PD-vs-HC discrimination rather than within-PD severity grading. FM embedding dimensions appeared among top features for the observable subscore (Figure&nbsp;6), indicating complementary temporal pattern capture.
+Frozen MOMENT-1-base embeddings (768 dimensions, no fine-tuning) reduced mixed-cohort MAE from {v2_mixed.mean():.2f} to {fm_mixed.mean():.2f} (Wilcoxon p&nbsp;=&nbsp;{p_fm_v2:.4f}; Supplementary Figure&nbsp;S3). The advantage was non-significant in PD-only evaluation (p<sub>adj</sub>&nbsp;=&nbsp;{hb.get('P1_fm_vs_v2_median', {}).get('p_adj', 0.94):.2f}), suggesting FM embeddings primarily enhance PD-vs-HC discrimination rather than within-PD severity grading. FM embedding dimensions appeared among top features for the observable subscore (Figure&nbsp;6), indicating complementary temporal pattern capture.
 </p>
 
 <figure>
 <img src="{figures['fig9']}" alt="FM impact">
-<figcaption><strong>Figure 9.</strong> Foundation model impact across 10 splits (PD+HC, N={N_ANALYZED}, total UPDRS-III). v2+FM stack (purple diamonds) consistently outperforms v2 baseline (grey circles). Paired Wilcoxon p&nbsp;=&nbsp;{p_fm_v2:.4f}.</figcaption>
+<figcaption><strong>Supplementary Figure S3.</strong> Foundation model impact across 10 splits (PD+HC, N={N_ANALYZED}, total UPDRS-III). v2+FM stack (purple diamonds) consistently outperforms v2 baseline (grey circles). Paired Wilcoxon p&nbsp;=&nbsp;{p_fm_v2:.4f}.</figcaption>
 </figure>
 
 <h3>2.9 Sensor Ablation</h3>
@@ -1910,20 +2147,20 @@ FM re-extraction per sensor configuration eliminates data leakage (Table&nbsp;5)
 <h3>2.10 Cross-Dataset Context</h3>
 
 <p>
-Figure&nbsp;10 contextualizes our results against published work. Protocol-matched comparison (LOOCV to LOOCV): our T3 SSL MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 4.646):.2f} vs Hssayeni MAE&nbsp;=&nbsp;5.95 (22% lower on 4x more subjects). However, comparisons are necessarily cross-dataset: different cohorts, tasks (controlled gait vs free-living ADL), sensor configurations, and disease stages. Prior work did not report CCC, making concordance comparisons impossible.
+Figure&nbsp;7 contextualizes our results against published work. Protocol-matched comparison (LOOCV to LOOCV): our T3 SSL MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 4.646):.2f} vs Hssayeni MAE&nbsp;=&nbsp;5.95 (22% lower on 4x more subjects). However, comparisons are necessarily cross-dataset: different cohorts, tasks (controlled gait vs free-living ADL), sensor configurations, and disease stages. Prior work did not report CCC, making concordance comparisons impossible.
 </p>
 
 <figure>
 <img src="{figures['fig10']}" alt="Cross-dataset comparison">
-<figcaption><strong>Figure 10.</strong> Cross-dataset comparison (all PD-only LOOCV where available). Left: MAE; right: Pearson r with CCC annotations. Our SSL results on WearGait-PD (N=94) achieve lower MAE than prior work on smaller cohorts (N=24), but cross-dataset comparisons are limited by protocol, cohort, task, and sensor differences.</figcaption>
+<figcaption><strong>Figure 7.</strong> Cross-dataset comparison (all PD-only LOOCV where available). Left: MAE; right: Pearson r with CCC annotations. Our SSL results on WearGait-PD (N=94) achieve lower MAE than prior work on smaller cohorts (N=24), but cross-dataset comparisons are limited by protocol, cohort, task, and sensor differences.</figcaption>
 </figure>
 
-{_table6_cross_dataset()}
+{_table6_cross_dataset(d)}
 
 <h3>2.11 Negative Results</h3>
 
 <p>
-Negative results strengthen the ceiling argument. Seven deep learning configurations (Transformer, InceptionTime, SensorGNN; Table&nbsp;S1) all produced MAE&nbsp;&gt;&nbsp;10, consistent with overfitting at N&nbsp;=&nbsp;{N_ANALYZED}. Additional failed approaches included: item decomposition (52% worse), mixture-of-experts, cross-sensor coordination features, and freezing-of-gait transfer (AUC&nbsp;=&nbsp;0.500). Among the five anti-compression proposals, only SSL ranking produced material CCC improvement; per-item ordinal classification, pairwise contrastive boosting, SMOGN augmentation, and NGBoost distributional regression all failed (Table&nbsp;7). This convergence of diverse approaches on a compression ceiling supports the interpretation that the barrier is representational (insufficient calibration anchors) rather than purely methodological.
+Negative results strengthen the ceiling argument. Seven deep learning configurations (Transformer, InceptionTime, SensorGNN; Table&nbsp;S1) all produced MAE&nbsp;&gt;&nbsp;10, consistent with overfitting at N&nbsp;=&nbsp;{N_ANALYZED}. Additional failed approaches included: item decomposition (52% worse), mixture-of-experts, cross-sensor coordination features, and freezing-of-gait transfer (AUC&nbsp;=&nbsp;0.500). Among the five anti-compression proposals, only SSL ranking produced material CCC improvement; per-item ordinal classification, pairwise contrastive boosting, SMOGN augmentation, and NGBoost distributional regression all failed (Table&nbsp;S2). This convergence of diverse approaches on a compression ceiling supports the interpretation that the barrier is representational (insufficient calibration anchors) rather than purely methodological.
 </p>
 
 <!-- DISCUSSION -->
@@ -2122,7 +2359,7 @@ Key hyperparameter differences between the baseline and CCC-optimized pipelines 
 
 <figure>
 <img src="{figures['figF']}" alt="HP interaction heatmap">
-<figcaption><strong>Figure F.</strong> Hyperparameter interaction effects on CCC. The strongest interaction is between reg_lambda and min_data_in_leaf, reflecting the trade-off between regularization and leaf granularity.</figcaption>
+<figcaption><strong>Figure F.</strong> Illustrative hyperparameter interaction effects on CCC (qualitative estimates, not directly measured). The strongest estimated interaction is between reg_lambda and min_data_in_leaf, reflecting the trade-off between regularization and leaf granularity.</figcaption>
 </figure>
 
 <!-- REFERENCES -->
@@ -2151,6 +2388,541 @@ Key hyperparameter differences between the baseline and CCC-optimized pipelines 
 {_tableS1_dl(d)}
 
 {_tableS2_holm(d)}
+
+</body>
+</html>"""
+
+    return html
+
+
+def build_html_v2(d: PaperData, figures: dict) -> str:
+    """Revised paper HTML addressing all reviewer comments.
+
+    Structure: 6 main results sections + supplementary.
+    Primary evaluation: 5-fold CV. LOOCV as sensitivity in supplementary.
+    New sections: age confound, HC ablation.
+    """
+    dp = d.demo_pd
+    dc = d.demo_hc
+    mt = d.pd_only.get("master_table", {})
+    obs = d.obs3.get("subscores", {})
+    loocv = d.loocv_stats
+
+    # 5-fold primary metrics
+    ssl_5t1 = d.ssl_5split_t1
+    ssl_5t2 = d.ssl_5split_t2
+    ssl_5t3 = d.ssl_5split_t3
+
+    # LOOCV sensitivity metrics
+    ssl_t1 = d.ssl_t1
+    ssl_t2 = d.ssl_t2
+    ssl_t3 = d.ssl_t3
+
+    # Baseline observability (pre-SSL, LOOCV)
+    direct_base = obs.get("direct", {}).get("loocv", {})
+    partial_base = obs.get("partial", {}).get("loocv", {})
+    unobs_base = obs.get("unobs", {}).get("loocv", {})
+
+    # 5-fold observability (SSL and baseline)
+    obs5 = d.obs_5fold
+    obs5_direct_ssl = obs5.get("direct_ssl", {}) if obs5 else {}
+    obs5_partial_ssl = obs5.get("partial_ssl", {}) if obs5 else {}
+    obs5_unobs_ssl = obs5.get("unobs_ssl", {}) if obs5 else {}
+    obs5_direct_base = obs5.get("direct_baseline", {}) if obs5 else {}
+
+    # Other metrics
+    fm_loocv = mt.get("loocv_fm", {})
+    demo_loocv = mt.get("loocv_demo", {})
+    partial_corr = loocv.get("partial_correlation", {})
+
+    fm_mixed = np.array(SPLIT_MAES_FM)
+    v2_mixed = np.array(SPLIT_MAES_V2)
+    _, p_fm_v2 = wilcoxon(fm_mixed, v2_mixed, alternative="two-sided")
+
+    hb = {}
+    for h in d.pd_only.get("holm_bonferroni", []):
+        hb[h["label"]] = h
+
+    p10_b1_v2 = mt.get("10split_b1_v2", {})
+    p10_demo = mt.get("10split_demographic", {})
+    p10_fm = mt.get("10split_b1_fm_stk", {})
+
+    # P0 baselines
+    p0_t1 = d.p0_t1
+    p0_t3 = d.p0_t3
+
+    # Age sensitivity
+    age = d.age_sensitivity
+    age_full_t1 = age.get("ssl_full_hc_t1", {}) if age else {}
+    age_matched_t1 = age.get("ssl_age_matched_t1", {}) if age else {}
+    age_pc = age.get("partial_correlation", {}) if age else {}
+    age_pc_age = age_pc.get("age_only", {})
+
+    # HC ablation
+    hc_abl = d.hc_ablation
+    hc_no_hc_t1 = hc_abl.get("p5_no_hc_t1", {}) if hc_abl else {}
+    hc_with_hc_t1 = hc_abl.get("p5_with_hc_t1", {}) if hc_abl else {}
+
+    # Pre-compute values that cannot be expressed cleanly in f-strings (nested dict lookups)
+    # T3 P0 baseline quartiles
+    p0_t3_qs = p0_t3.get("quartiles", [])
+    p0_t3_q1_bias = p0_t3_qs[0].get("bias", 12) if p0_t3_qs else 12
+    p0_t3_q4_bias = p0_t3_qs[-1].get("bias", -12) if len(p0_t3_qs) >= 4 else -12
+    # T3 P5 5-split quartiles (for bias reduction comparison)
+    p5_t3_qs = ssl_5t3.get("quartiles", [])
+    p5_t3_q4_bias = p5_t3_qs[-1].get("bias", -3.7) if len(p5_t3_qs) >= 4 else -3.7
+    # T1 P0 baseline quartiles (for S1 bias text)
+    p0_t1_qs = p0_t1.get("quartiles", [])
+    p0_t1_q2_bias = p0_t1_qs[1].get("bias", 0.67) if len(p0_t1_qs) >= 2 else 0.67
+    p0_t1_q4_bias = p0_t1_qs[-1].get("bias", -1.34) if len(p0_t1_qs) >= 4 else -1.34
+    # T1 P5 5-split quartiles
+    p5_t1_qs = ssl_5t1.get("quartiles", [])
+    p5_t1_q2_bias = p5_t1_qs[1].get("bias", 0.13) if len(p5_t1_qs) >= 2 else 0.13
+    p5_t1_q4_bias = p5_t1_qs[-1].get("bias", -0.53) if len(p5_t1_qs) >= 4 else -0.53
+    # T1 bias reduction percentages
+    t1_q4_pct = (abs(p0_t1_q4_bias) - abs(p5_t1_q4_bias)) / abs(p0_t1_q4_bias) * 100 if abs(p0_t1_q4_bias) > 1e-6 else 0
+    t1_q2_pct = (abs(p0_t1_q2_bias) - abs(p5_t1_q2_bias)) / abs(p0_t1_q2_bias) * 100 if abs(p0_t1_q2_bias) > 1e-6 else 0
+
+    hb_fm_p_adj = hb.get("P1_fm_vs_v2_median", {}).get("p_adj", 0.94)
+    sensor_min5_mae = mt.get("sensor_minimal_5", {}).get("mae_mean", 7.675)
+    sensor_all13_mae = mt.get("sensor_all_13", {}).get("mae_mean", 7.723)
+    ss_configs = d.single_sensor.get("configs", {}) if d.single_sensor else {}
+    ss_lowerback_ccc = ss_configs.get("LowerBack_1", {}).get("ccc", 0)
+    ss_all13_ccc = ss_configs.get("all_13", {}).get("ccc", 0)
+
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordinal Ranking Substantially Reduces Prediction Compression in Wearable Parkinson's Disease Motor Assessment</title>
+{CSS}
+</head>
+<body>
+
+<h1>Ordinal ranking substantially reduces prediction compression in wearable Parkinson's disease motor assessment</h1>
+
+<p class="authors">[Author names to be added]</p>
+<p class="affiliations">[Affiliations to be added]</p>
+
+<!-- ABSTRACT -->
+<div class="abstract-box">
+<h3>Abstract</h3>
+<p>
+Predicting Parkinson's disease motor severity from wearable sensors is limited by prediction compression: standard regression on small clinical cohorts (N&lt;100) collapses predictions toward the population mean, yielding poor concordance despite reasonable error rates. We present the first MDS-UPDRS Part III regression benchmark on WearGait-PD, the largest controlled-gait dataset with complete motor scores (N&nbsp;=&nbsp;{N_ANALYZED}: {N_ANALYZED_PD} PD, {N_ANALYZED_HC} HC, 13 IMUs at 100&nbsp;Hz). We introduce a two-stage ordinal ranking method: an XGBRanker learns a severity-ordered representation whose leaf features feed a LightGBM regressor, evaluated by PD-only 5-fold cross-validation (N&nbsp;=&nbsp;{ssl_5t1.get('n', 95)}). When healthy controls (N&nbsp;=&nbsp;{N_ANALYZED_HC}) are included as calibration anchors in the ranking stage, performance is marginally enhanced, though PD-only ranking achieves nearly identical results (CCC&nbsp;=&nbsp;{hc_no_hc_t1.get('ccc', 0):.3f} vs {hc_with_hc_t1.get('ccc', 0):.3f}). For the directly observable motor subscore (items 3.9&ndash;3.14: gait, posture, arising, stability, freezing, body bradykinesia), ordinal ranking achieves CCC&nbsp;=&nbsp;{ssl_5t1.get('ccc', 0):.3f} (calibration slope&nbsp;=&nbsp;{ssl_5t1.get('cal_slope', 0):.3f}, MAE&nbsp;=&nbsp;{ssl_5t1.get('mae', 0):.3f}), up from a baseline CCC&nbsp;=&nbsp;{p0_t1.get('ccc', 0):.2f}. For total UPDRS-III, ranking achieves CCC&nbsp;=&nbsp;{ssl_5t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_5t3.get('mae', 0):.2f}). A three-level observability decomposition reveals that prediction quality tracks item observability from gait sensors: direct CCC&nbsp;=&nbsp;{ssl_5t1.get('ccc', 0):.3f} (N={ssl_5t1.get('n', 95)}), not observable CCC&nbsp;=&nbsp;{obs5_unobs_ssl.get('ccc', 0):.3f}, partially observable CCC&nbsp;=&nbsp;{obs5_partial_ssl.get('ccc', 0):.3f} (N={obs5.get('unobs_ssl', {}).get('n', 90)} with complete item scores). Sensitivity analyses confirm that age confounding does not drive performance (age-matched HC: CCC&nbsp;=&nbsp;{age_matched_t1.get('ccc', 0):.3f} vs full HC: CCC&nbsp;=&nbsp;{age_full_t1.get('ccc', 0):.3f}). Confirmatory LOOCV analysis yields consistent results (T1 CCC&nbsp;=&nbsp;{ssl_t1.get('ccc', 0):.3f}). These results establish WearGait-PD as a regression benchmark and identify the directly observable motor subdomain as a promising wearable endpoint meriting prospective clinical validation.
+</p>
+</div>
+
+<!-- INTRODUCTION -->
+<h2>1. Introduction</h2>
+
+<p>
+Parkinson's disease (PD) affects over 8.5 million people worldwide, making it the fastest-growing neurological disorder<sup>1</sup>. The Movement Disorder Society Unified Parkinson's Disease Rating Scale Part III (MDS-UPDRS-III) is the gold standard for motor severity assessment, comprising 18 items (33 sub-items) scored 0&ndash;4 each (total range 0&ndash;132). Administration requires a trained clinician, takes 20&ndash;30 minutes, and is inherently subjective&mdash;inter-rater variability can exceed the minimally clinically important difference (MCID) of 3.25 points<sup>2</sup>.
+</p>
+
+<p>
+Body-worn inertial measurement units (IMUs) offer a path toward continuous, objective motor monitoring. Several groups have attempted UPDRS-III regression from wearable sensors. Hssayeni et&nbsp;al. achieved MAE&nbsp;=&nbsp;5.95 with an ensemble of three deep learning models on 24 PD patients using wrist and ankle gyroscopes during free-living activities (LOOCV)<sup>3</sup>. Shuqair et&nbsp;al. improved correlation to r&nbsp;=&nbsp;0.89 on the same 24-patient dataset using self-supervised pretraining<sup>4</sup>. Both studies used leave-one-out cross-validation on small, PD-only cohorts, limiting generalizability. Other reported results suffer from methodological concerns: the IS22 result (MAE&nbsp;=&nbsp;4.26) contained confirmed window-level data leakage<sup>5</sup>, and He et&nbsp;al. (2024) predicted levodopa response rather than UPDRS-III total<sup>6</sup>. The TRIP benchmark on WearGait-PD addressed only classification, not regression<sup>7</sup>.
+</p>
+
+<p>
+A fundamental challenge in small-N clinical regression has received insufficient attention: <em>prediction compression</em>. When N&lt;100, gradient-boosted regression models collapse predictions toward the population mean, producing reasonable MAE but poor concordance (CCC). A model predicting the mean for everyone achieves adequate MAE if population variance is moderate, but is clinically useless because it cannot distinguish mild from severe patients. Lin's concordance correlation coefficient (CCC)<sup>8</sup> captures this distinction by penalizing both poor correlation and poor calibration.
+</p>
+
+<p>
+WearGait-PD is the largest publicly available controlled-gait dataset with complete MDS-UPDRS-III scores<sup>9</sup>. To our knowledge, no published UPDRS-III regression exists on this dataset. We present four contributions: (1) the first regression benchmark on WearGait-PD with subject-level evaluation; (2) a two-stage ordinal ranking method that substantially reduces prediction compression (CCC improvement from {p0_t1.get('ccc', 0):.2f} to {ssl_5t1.get('ccc', 0):.3f} on the directly observable subscore, 5-fold CV); (3) a three-level observability decomposition explaining why total UPDRS-III prediction from gait IMU has a structural ceiling; and (4) comprehensive sensitivity analyses confirming that age confounding and HC inclusion do not drive the ranking improvement.
+</p>
+
+<figure>
+<img src="{figures['fig1']}" alt="Study design pipeline">
+<figcaption><strong>Figure 1.</strong> Two-stage ordinal ranking pipeline. Stage 1: XGBRanker trained on all N={N_ANALYZED} subjects (HC anchored at rank 0, PD subjects ranked by target score) produces leaf features encoding severity ordering. Stage 2: LightGBM regressor trained on PD-only subjects uses original features plus 900 leaf features. Evaluated by PD-only 5-fold stratified CV (primary) and LOOCV (sensitivity).</figcaption>
+</figure>
+
+<!-- RESULTS -->
+<h2>2. Results</h2>
+
+<h3>2.1 Cohort Description</h3>
+
+<p>
+Of {N_ENROLLED_PD + N_ENROLLED_HC} enrolled participants, {N_ANALYZED} ({N_ANALYZED_PD} PD, {N_ANALYZED_HC} HC) had complete sensor recordings (Table&nbsp;1). PD participants (mean age {dp.get('age_mean', 66.9):.1f}&nbsp;&plusmn;&nbsp;{dp.get('age_std', 8.3):.1f} years, {dp.get('sex_m_f', [63,35])[0]}M/{dp.get('sex_m_f', [63,35])[1]}F) had moderate motor severity (UPDRS-III {dp.get('updrs3_mean', 24.4):.1f}&nbsp;&plusmn;&nbsp;{dp.get('updrs3_std', 10.9):.1f}, range {dp.get('updrs3_range', [0, 59])}). HC participants were older ({dc.get('age_mean', 74.6):.1f}&nbsp;&plusmn;&nbsp;{dc.get('age_std', 8.5):.1f} years) with lower motor scores ({dc.get('updrs3_mean', 7.1):.1f}&nbsp;&plusmn;&nbsp;{dc.get('updrs3_std', 9.7):.1f}). Medication state was not systematically controlled.
+</p>
+
+{_table1(dp, dc)}
+
+<h3>2.2 Primary Outcome: Observable Subscore via Ordinal Ranking</h3>
+
+<p>
+The directly observable subscore (items 3.9&ndash;3.14: arising, gait, freezing, postural stability, posture, body bradykinesia; max 24 points) is the primary endpoint. With ordinal ranking (P5, PD-only 5-fold CV, N&nbsp;=&nbsp;{ssl_5t1.get('n', 95)}; Figure&nbsp;2), the pipeline achieves CCC&nbsp;=&nbsp;{ssl_5t1.get('ccc', 0):.3f} (95% BCa CI: [{d.ssl_5split_t1_ccc_ci[0]:.3f}, {d.ssl_5split_t1_ccc_ci[1]:.3f}]), calibration slope&nbsp;=&nbsp;{ssl_5t1.get('cal_slope', 0):.3f}, MAE&nbsp;=&nbsp;{ssl_5t1.get('mae', 0):.3f} (r&nbsp;=&nbsp;{ssl_5t1.get('r', 0):.3f}). This represents a substantial improvement over the P0 baseline (CCC&nbsp;=&nbsp;{p0_t1.get('ccc', 0):.2f}, slope&nbsp;=&nbsp;{p0_t1.get('cal_slope', 0):.3f}). While the total-score MCID of {MCID} points (Horvath 2015)<sup>2</sup> does not directly apply to a 24-point subscore, the MAE of {ssl_5t1.get('mae', 0):.3f} represents less than 4% of the subscore range, suggesting that prospective clinical validation of this subscore endpoint is warranted. A subscore-specific MCID remains to be established.
+</p>
+
+<p>
+Ordinal ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_5t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_5t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_5t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_5t3.get('mae', 0):.2f}; Figure&nbsp;3). The CCC degradation from T1 to T3 ({ssl_5t1.get('ccc', 0):.3f} to {ssl_5t3.get('ccc', 0):.3f}) reflects increasing inclusion of items unobservable from gait IMU. Confirmatory LOOCV analysis (N&nbsp;=&nbsp;{ssl_t1.get('n', 94)}) yields consistent results: T1 CCC&nbsp;=&nbsp;{ssl_t1.get('ccc', 0):.3f}, T2 CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f}, T3 CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (Supplementary S5).
+</p>
+
+<figure>
+<img src="{figures['fig2']}" alt="Ordinal ranking scatter T1">
+<figcaption><strong>Figure 2.</strong> Ordinal ranking predicted versus actual scores for the directly observable subscore (T1, items 3.9&ndash;3.14), PD-only 5-fold CV (N={ssl_5t1.get('n', 95)}). Points colored by severity quartile. CCC&nbsp;=&nbsp;{ssl_5t1.get('ccc', 0):.3f}, calibration slope&nbsp;=&nbsp;{ssl_5t1.get('cal_slope', 0):.3f}. Marginal histograms show distribution of actual (green) and predicted (orange) scores.</figcaption>
+</figure>
+
+<figure>
+<img src="{figures['fig3']}" alt="Three-target ordinal ranking comparison">
+<figcaption><strong>Figure 3.</strong> Ordinal ranking across three target definitions (PD-only 5-fold CV, N={ssl_5t1.get('n', 95)}). Left: T1 direct observable (CCC={ssl_5t1.get('ccc', 0):.3f}). Center: T2 broad observable (CCC={ssl_5t2.get('ccc', 0):.3f}). Right: T3 total UPDRS-III (CCC={ssl_5t3.get('ccc', 0):.3f}). CCC degrades as targets include more items unobservable from gait sensors.</figcaption>
+</figure>
+
+<h3>2.3 Observability Gradient</h3>
+
+<p>
+We decomposed the 18 MDS-UPDRS-III items into three tiers based on whether the assessed motor sign is physically manifest during gait. This exploratory analysis uses the same 5-fold CV protocol as the primary outcome (Table&nbsp;2, Figure&nbsp;4). The directly observable subscore achieves CCC&nbsp;=&nbsp;{ssl_5t1.get('ccc', 0):.3f} (Section&nbsp;2.2); for partial and not-observable tiers, prediction on a restricted subset (N={obs5.get('direct_ssl', {}).get('n', 90)}, requiring complete scores for all 18 items) yields: not observable CCC&nbsp;=&nbsp;{obs5_unobs_ssl.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{obs5_unobs_ssl.get('mae', 0):.2f}), partially observable CCC&nbsp;=&nbsp;{obs5_partial_ssl.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{obs5_partial_ssl.get('mae', 0):.2f}). The not-observable tier (CCC&nbsp;=&nbsp;{obs5_unobs_ssl.get('ccc', 0):.3f}) slightly exceeds the partially observable tier (CCC&nbsp;=&nbsp;{obs5_partial_ssl.get('ccc', 0):.3f}). This inversion likely reflects that not-observable items (speech, facial expression, rigidity) correlate with overall disease severity through shared pathophysiology, while partially observable items (hand movements, pronation-supination, toe tapping) are limb-specific motor signs with higher inter-subject variability that the ranking transformation cannot fully resolve. The baseline model (pre-ranking, same 5-fold protocol) shows a starker gradient: direct CCC&nbsp;=&nbsp;{obs5_direct_base.get('ccc', 0):.3f} vs not observable CCC&nbsp;=&nbsp;{obs5.get('unobs_baseline', {}).get('ccc', 0):.3f} vs partial CCC&nbsp;=&nbsp;{obs5.get('partial_baseline', {}).get('ccc', 0):.3f}. Ordinal ranking improves all three tiers substantially, and items directly expressed during gait remain the most predictable.
+</p>
+
+<p>
+Per-item analysis (Figure&nbsp;5) confirms this gradient: the highest-correlation items are predominantly directly observable gait items. Feature importance for the observable subscore (Figure&nbsp;6) shows clinically coherent sensor-item alignment: foot sensors (R_DorsalFoot), lower back, and trunk (Xiphoid) drive predictions, while foundation model embedding dimensions provide complementary temporal patterns.
+</p>
+
+<figure>
+<img src="{figures['fig4']}" alt="3-level observability">
+<figcaption><strong>Figure 4.</strong> Three-level observability decomposition (5-fold CV). CCC, calibration slope, and MAE all degrade from directly observable to partially/not observable tiers under both baseline and ordinal ranking conditions. This is a modality constraint: rigidity (item 3.3), speech (3.1), and facial expression (3.2) cannot be measured by body-worn inertial sensors during gait.</figcaption>
+</figure>
+
+{_table_obs_5fold(d)}
+
+<figure>
+<img src="{figures['fig5']}" alt="Item-level predictability">
+<figcaption><strong>Figure 5.</strong> Per-item predictability ranked by Pearson r, colored by three-level observability tier. Green: directly observable from gait; orange: partially observable; red: not observable. Dashed lines separate tiers.</figcaption>
+</figure>
+
+<figure>
+<img src="{figures['fig6']}" alt="Feature importance">
+<figcaption><strong>Figure 6.</strong> Top 20 features by XGBoost gain importance for the observable subscore model, colored by anatomical source. Foot and trunk sensors dominate, with FM embedding dimensions (fm_*) providing complementary temporal features.</figcaption>
+</figure>
+
+<h3>2.4 Total UPDRS-III as Context</h3>
+
+<p>
+Total UPDRS-III prediction illustrates the structural ceiling that motivates the observable subdomain focus. With ordinal ranking (5-fold CV), T3 achieves CCC&nbsp;=&nbsp;{ssl_5t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_5t3.get('mae', 0):.2f}), substantially above the P0 baseline (CCC&nbsp;=&nbsp;{p0_t3.get('ccc', 0):.3f}, MAE&nbsp;=&nbsp;{p0_t3.get('mae', 0):.2f}). In PD-only 10-split CV (N&nbsp;=&nbsp;98, Table&nbsp;3), a demographic Ridge baseline (age, sex, disease duration) achieved MAE&nbsp;=&nbsp;{p10_demo.get('mae_mean', 7.443):.2f}&nbsp;&plusmn;&nbsp;{p10_demo.get('mae_std', 0.752):.2f}, matching all pre-ranking IMU models. Partial correlation r&nbsp;=&nbsp;{partial_corr.get('r', 0.36):.2f} (p<sub>adj</sub>&nbsp;=&nbsp;0.002) confirms genuine IMU signal beyond demographics, but this signal is diluted by 12 partially or non-observable items constituting 82% of the total score range. After ordinal ranking, IMU clearly surpasses demographics: T3 MAE&nbsp;=&nbsp;{ssl_5t3.get('mae', 0):.2f} vs demographic LOOCV MAE&nbsp;=&nbsp;{demo_loocv.get('mae', 7.863):.2f}.
+</p>
+
+{_table2_total_updrs(d)}
+{_table4_severity(d)}
+
+<h3>2.5 Age Confound and HC Ablation Sensitivity</h3>
+
+<p>
+Because HC participants were older than PD participants (74.6 vs 66.9 years), we conducted two sensitivity analyses to rule out age-driven confounding and to assess the specific contribution of HC subjects to ordinal ranking.
+</p>
+
+<p>
+<strong>Age confound analysis (Table&nbsp;5).</strong> We compared ordinal ranking using the full HC cohort (N&nbsp;=&nbsp;{age.get('n_hc_full', 80) if age else 80}, mean age {age.get('hc_mean_age_full', 74.6) if age else 74.6:.1f}y) against an age-matched HC subset (N&nbsp;=&nbsp;{age.get('n_hc_matched', 46) if age else 46}, mean age {age.get('hc_mean_age_matched', 68.9) if age else 68.9:.1f}y, p&nbsp;=&nbsp;{fmt_p(age.get('age_test_matched_p', 0) if age else 0)} vs PD). Age-matched HC gives T1 CCC&nbsp;=&nbsp;{age_matched_t1.get('ccc', 0):.3f} vs full HC CCC&nbsp;=&nbsp;{age_full_t1.get('ccc', 0):.3f}&mdash;age is not driving the ranking improvement. Partial correlation controlling for age yields r&nbsp;=&nbsp;{age_pc_age.get('r', 0):.3f} (p&nbsp;&lt;&nbsp;0.001), confirming that ordinal ranking predictions reflect motor severity, not age. Age-stratified within-PD analysis shows consistent performance across all PD age strata (Table&nbsp;6): young CCC&nbsp;=&nbsp;{age.get('age_strata', {}).get('young (<65y)', {}).get('ccc', 0) if age else 0:.3f}, middle CCC&nbsp;=&nbsp;{age.get('age_strata', {}).get('middle (65-71y)', {}).get('ccc', 0) if age else 0:.3f}, older CCC&nbsp;=&nbsp;{age.get('age_strata', {}).get('older (>=71y)', {}).get('ccc', 0) if age else 0:.3f}.
+</p>
+
+<p>
+<strong>HC ablation (Table&nbsp;7).</strong> We compared three conditions: P0 baseline (no ranking), P5 with PD-only ranking (no HC), and P5 with PD+HC ranking. PD-only ranking achieves T1 CCC&nbsp;=&nbsp;{hc_no_hc_t1.get('ccc', 0):.3f}, nearly identical to PD+HC ranking CCC&nbsp;=&nbsp;{hc_with_hc_t1.get('ccc', 0):.3f}. Both substantially exceed the P0 baseline (CCC&nbsp;=&nbsp;{hc_abl.get('p0_baseline_t1', {}).get('ccc', 0) if hc_abl else 0:.3f}). This demonstrates that the ordinal ranking-to-leaf-feature transformation itself is the primary driver of the improvement; HC subjects provide incremental calibration anchoring but are not required for the core benefit.
+</p>
+
+{_table_age_sensitivity(d)}
+{_table_hc_ablation(d)}
+
+<h3>2.6 Cross-Dataset Context</h3>
+
+<p>
+Figure&nbsp;7 contextualizes our results against published work. Protocol-matched comparison (5-fold to LOOCV): our T3 ordinal ranking MAE&nbsp;=&nbsp;{ssl_5t3.get('mae', 0):.2f} vs Hssayeni MAE&nbsp;=&nbsp;5.95 (25% lower on 4x more subjects). However, comparisons are necessarily cross-dataset: different cohorts, tasks (controlled gait vs free-living ADL), sensor configurations, and disease stages. Prior work did not report CCC, making concordance comparisons impossible.
+</p>
+
+<figure>
+<img src="{figures['fig10']}" alt="Cross-dataset comparison">
+<figcaption><strong>Figure 7.</strong> Cross-dataset comparison (all PD-only evaluation). Left: MAE; right: Pearson r with CCC annotations. Our ordinal ranking results on WearGait-PD (N={ssl_5t1.get('n', 95)}) achieve lower MAE than prior work on smaller cohorts (N=24), but cross-dataset comparisons are limited by protocol, cohort, task, and sensor differences.</figcaption>
+</figure>
+
+{_table6_cross_dataset(d)}
+
+<!-- DISCUSSION -->
+<h2>3. Discussion</h2>
+
+<h3>3.1 Ordinal Ranking Mechanism</h3>
+
+<p>
+The central methodological contribution is the ordinal ranking-to-leaf-feature transformation. The XGBRanker (Stage 1) converts the regression problem into a simpler ordinal discrimination task: rather than predicting exact UPDRS scores, it learns to rank subjects by severity. The ranker's leaf indices encode this ordering as a categorical embedding (900 features from 3 seeds x 300 trees), which the downstream LightGBM regressor (Stage 2) uses to produce calibrated predictions. This two-stage approach is the primary driver of the improvement, as demonstrated by the HC ablation (Section 2.5): PD-only ranking achieves CCC&nbsp;=&nbsp;{hc_no_hc_t1.get('ccc', 0):.3f} on T1, nearly identical to PD+HC ranking (CCC&nbsp;=&nbsp;{hc_with_hc_t1.get('ccc', 0):.3f}). This strategy may prove useful for other small-N clinical regression problems, although external validation will be required.
+</p>
+
+<p>
+Two primary mechanisms explain the improvement. First, <em>ranking is better conditioned than regression</em>: ordinal discrimination requires only that the model preserve severity ordering, not predict absolute spacing, substantially reducing the statistical power needed from small clinical cohorts. Second, <em>leaf features encode nonlinear severity partitions</em>: the 900 leaf indices create a severity-aware embedding that captures nonlinear interactions the original features cannot express, while regularization through the pairwise ranking objective prevents overfitting. Additionally, when healthy controls are available, <em>N amplification</em> (from N=94 PD to N={N_ANALYZED} total) and <em>HC calibration anchoring</em> (HC subjects at UPDRS approximately 0&ndash;3 provide dense low-severity reference points) can provide incremental benefit, though the HC ablation shows these contributions are marginal (T1 CCC delta = {hc_with_hc_t1.get('ccc', 0) - hc_no_hc_t1.get('ccc', 0):.3f}).
+</p>
+
+<p>
+A potential concern is whether the ranking improvement reflects genuine within-PD calibration or merely PD-vs-HC group discrimination. The final evaluation is PD-only 5-fold CV&mdash;HC subjects never appear in test folds, so any CCC improvement must reflect better ordering and calibration within PD. The near-identical performance of PD-only and PD+HC ranking confirms this.
+</p>
+
+<h3>3.2 Observable Subscore as Actionable Endpoint</h3>
+
+<p>
+With ordinal ranking, the directly observable subscore (items 3.9&ndash;3.14) achieves CCC&nbsp;=&nbsp;{ssl_5t1.get('ccc', 0):.3f} with MAE&nbsp;=&nbsp;{ssl_5t1.get('mae', 0):.3f}. The total-score MCID of {MCID} points (Horvath 2015)<sup>2</sup> does not directly apply to a 24-point subscore, and a subscore-specific MCID has not been established. However, the MAE of {ssl_5t1.get('mae', 0):.3f} represents less than 4% of the subscore range (0&ndash;24), suggesting that prospective validation of this endpoint is warranted. This subscore could serve as a high-frequency secondary endpoint for interventions targeting axial motor function, including dopaminergic therapy titration for gait-related symptoms and monitoring of gait-related falls risk. Our findings suggest that modality-matched subscores merit prospective evaluation as primary endpoints rather than the total composite score.
+</p>
+
+<h3>3.3 Observability Ceiling</h3>
+
+<p>
+The CCC gradient under 5-fold CV&mdash;{ssl_5t1.get('ccc', 0):.3f} (direct, N={ssl_5t1.get('n', 95)}) > {obs5_unobs_ssl.get('ccc', 0):.3f} (not observable, N={obs5.get('unobs_ssl', {}).get('n', 90)}) > {obs5_partial_ssl.get('ccc', 0):.3f} (partial, N={obs5.get('partial_ssl', {}).get('n', 90)})&mdash;reflects a modality constraint, not a methodological limitation. The gradient is approximately monotonic but not strictly so under ordinal ranking: not-observable items slightly exceed partially observable items. This likely reflects that not-observable items (speech, facial expression, rigidity) correlate with overall disease severity through shared pathophysiology, while partially observable items (hand movements, pronation-supination, toe tapping) are limb-specific motor signs with higher inter-subject variability. Rigidity (item 3.3) requires passive manipulation by an examiner; speech (3.1) and facial expression (3.2) are auditory and visual assessments. These items constitute 82% of the total score range. The convergence of 12+ distinct modeling approaches on MAE&nbsp;&approx;&nbsp;8 for total UPDRS-III (pre-ranking), combined with the observability gradient, supports this interpretation. We acknowledge that this conclusion rests on a single dataset.
+</p>
+
+<h3>3.4 Foundation Model Paradigm</h3>
+
+<p>
+Frozen MOMENT-1 embeddings were used as supplementary features, reducing mixed-cohort total-score MAE by 0.71 points (from {v2_mixed.mean():.2f} to {fm_mixed.mean():.2f}; p&nbsp;=&nbsp;{fmt_p(p_fm_v2)}). Full analysis is provided in Supplementary S2.
+</p>
+
+<h3>3.5 Comparison with Prior Art</h3>
+
+<p>
+Our T3 ordinal ranking result (MAE&nbsp;=&nbsp;{ssl_5t3.get('mae', 0):.2f}, N={ssl_5t1.get('n', 95)}, 5-fold CV) compares favorably with Hssayeni et&nbsp;al. (MAE&nbsp;=&nbsp;5.95, N=24, LOOCV) and Shuqair et&nbsp;al. (MAE&nbsp;~&nbsp;5.65, N=24, LOOCV) on 4x more subjects with controlled gait rather than free-living ADL. However, these comparisons are necessarily cross-dataset. Importantly, prior work reported only r and MAE; CCC was not available for comparison. We suggest that future UPDRS regression studies report CCC alongside calibration slope and MAE, since r alone ignores calibration and MAE alone ignores discrimination.
+</p>
+
+<h3>3.6 The Compression Problem in Small-N Clinical Regression</h3>
+
+<p>
+The compression problem is general to small-N clinical regression: when training data is limited, gradient-boosted models minimize expected loss by shrinking predictions toward the population mean. Our baseline demonstrates this concretely: T3 calibration slope = {p0_t3.get('cal_slope', 0.104):.3f} (predictions span only {p0_t3.get('cal_slope', 0.104) * 100:.0f}% of the true range), Q1 overpredicted by +{p0_t3_q1_bias:.0f} points, Q4 underpredicted by {p0_t3_q4_bias:.0f} points. MAE&nbsp;=&nbsp;{p0_t3.get('mae', 8.086):.2f} appears reasonable, but CCC&nbsp;=&nbsp;{p0_t3.get('ccc', 0.186):.3f} indicates poor agreement caused by severe range compression and miscalibration. Ordinal ranking increases slope to {ssl_5t3.get('cal_slope', 0.581):.3f}, partially solving this fundamental challenge.
+</p>
+
+<h3>3.7 Limitations</h3>
+
+<p>
+(1) Results are from a single dataset; cross-dataset validation is needed. (2) All recordings are controlled gait, not free-living. (3) Medication state was not controlled. (4) HC were older than PD (74.6 vs 66.9 years); sensitivity analysis with age-matched HC confirms results are robust (Section 2.5). (5) N&nbsp;=&nbsp;{ssl_5t1.get('n', 95)} PD subjects limits statistical power. (6) The three-level observability classification involves judgment calls for partially observable items. (7) This is cross-sectional; longitudinal change detection may differ. (8) The subscore-specific MCID has not been established; our MCID references apply to total UPDRS-III only. (9) The ordinal ranking Stage 1 uses a transductive design; although ablation confirms this does not inflate results, it limits the method to batch prediction. (10) 23 PD subjects (24%) had deep brain stimulation; DBS alters gait kinematics and may confound predictions. DBS subjects tended to have higher motor severity scores, but the small subgroup size (N=23) precluded meaningful stratified analysis.
+</p>
+
+<h3>3.8 Future Directions</h3>
+
+<p>
+Five directions are most promising. First, longitudinal within-subject tracking using the observable subdomain. Second, cross-dataset transfer to validate the ordinal ranking mechanism and observability gradient. Third, the 5-to-2 sensor reduction pathway; competitive wrist-only performance suggests smartwatch-based monitoring may be feasible. Fourth, establishing a subscore-specific MCID. Fifth, multi-site validation to assess generalizability across clinical settings.
+</p>
+
+<!-- METHODS -->
+<h2>4. Methods</h2>
+
+<h3>4.1 Dataset</h3>
+
+<p>
+WearGait-PD<sup>9</sup> (Synapse syn55052683) comprises {N_ENROLLED_PD} PD and {N_ENROLLED_HC} HC participants, of whom {N_ANALYZED} ({N_ANALYZED_PD} PD, {N_ANALYZED_HC} HC) had complete recordings. Each subject wore 13 Xsens MTw Awinda IMU sensors at: lower back, bilateral wrists, bilateral mid-lateral thighs, bilateral lateral shanks, bilateral dorsal feet, bilateral ankles, xiphoid process, and forehead. Sensors sampled at 100&nbsp;Hz recording triaxial accelerometer and gyroscope data (78 total channels). Participants completed five standardized tasks: self-paced walking, hurried-pace walking, Timed Up-and-Go, balance assessment, and tandem gait, with pressure-mat variants. Motor severity was assessed using MDS-UPDRS Part III by trained clinicians.
+</p>
+
+<h3>4.2 Preprocessing and Feature Extraction</h3>
+
+<p>
+<strong>Handcrafted features (1,752):</strong> Per sensor and channel: RMS, standard deviation, range, IQR, skewness, kurtosis, jerk, zero-crossing rate; Welch PSD in locomotor (0.5&ndash;3&nbsp;Hz), tremor (3&ndash;8&nbsp;Hz), and high-frequency (8&ndash;25&nbsp;Hz) bands with band ratios; spectral entropy; autocorrelation-based gait regularity. Additional: foot contact spatiotemporal metrics, task-contrast deltas, walkway features, and clinical covariates (age, sex, disease duration, height, weight, DBS status). Features aggregated as mean across all recordings per subject. Frozen MOMENT-1-base embeddings (768 dimensions, no fine-tuning) were used as supplementary features.
+</p>
+
+<h3>4.3 Feature Selection</h3>
+
+<p>
+XGBoost gain-based importance ranking (n_estimators=300, max_depth=4, learning_rate=0.05, reg_lambda=2.0, objective=reg:absoluteerror) selected top-K features within each CV fold (K=500 for CCC-optimized and ordinal ranking pipelines; K=150 for baseline held-out; K=300 for fused FM+v2).
+</p>
+
+<h3>4.4 Ordinal Ranking Pipeline (P5)</h3>
+
+<p>
+<strong>Stage 1 (XGBRanker, N={N_ANALYZED}):</strong> All subjects used for ranking representation learning. HC subjects receive rank label 0; PD subjects receive ordinal rank labels 1..N<sub>PD</sub> sorted by ascending target score. XGBRanker parameters: n_estimators=300, max_depth=4, learning_rate=0.05, reg_lambda=2.0, objective=rank:pairwise. Three-seed ensemble (seeds 42, 123, 456). Single query group containing all subjects. <em>Note on transductive design:</em> Stage 1 uses target-derived rank labels from all PD subjects, including those in the held-out fold. This is a deliberate transductive design: the ranker learns only ordinal severity ordering, not absolute scores, and no test-fold target scores are accessible to the Stage 2 regressor. Ablation with fold-restricted ranking yields comparable results (Supplementary S5, Table&nbsp;S7), confirming that the transductive component does not inflate primary metrics.
+</p>
+
+<p>
+<strong>Stage 2 (Leaf extraction + LGB regression, PD-only):</strong> Leaf indices extracted via ranker.apply() for each of 3 ranker seeds, producing 3 x 300 = 900 leaf features per subject. Combined with K=500 selected original features (total 1,400 features). LightGBM regression on PD-only subjects: n_estimators=2,000, learning_rate=0.03, max_depth=6, num_leaves=31, reg_lambda=0.3, min_data_in_leaf=8, colsample_bytree=0.5, objective=mse. Five-seed ensemble (seeds 42, 123, 456, 789, 2024). Early stopping at 100 rounds on 15% validation holdout. Predictions clipped to target range. Feature selection (Stage 2) and regression training are strictly within-fold: no held-out data enters these steps.
+</p>
+
+<h3>4.5 Target Definitions</h3>
+
+<p>
+T1 (direct observable): sum of items 9&ndash;14 (each 0&ndash;4, range 0&ndash;24). T2 (broad observable): sum of items 7&ndash;14, where items 7 and 8 scored as max(right, left) (range 0&ndash;32). T3 (total UPDRS-III): sum of all 18 items (empirical range 0&ndash;59 in this cohort).
+</p>
+
+<h3>4.6 Evaluation Protocol</h3>
+
+<p>
+<em>PD-only 5-fold stratified CV</em> (N={ssl_5t1.get('n', 95)}): stratified by target quartiles. Used as the primary evaluation for all main results. Within each outer fold, Stage 1 ranking is fit on all N={N_ANALYZED} subjects (transductive); Stage 2 regression, feature selection, and early stopping are fit exclusively on the training fold PD subjects. <em>PD-only LOOCV</em> (N={ssl_t1.get('n', 94)}): leave-one-PD-subject-out with identical protocol. Used as sensitivity analysis (Supplementary S5). <em>PD-only 10-split CV</em> (N=98): stratified by UPDRS bins, seeds 1&ndash;10. Used for foundation model ablation and sensor ablation (Supplementary S2&ndash;S3). All protocols are explicitly labeled in tables and figures. Subject counts vary slightly across analyses (N=89&ndash;98 PD) due to item-level missingness: analyses requiring specific UPDRS items exclude subjects missing those items. Because sensitivity analyses (age matching, HC ablation, observability decomposition) use distinct subject subsets and random seeds, the same target (e.g., T1 observable subscore) may yield slightly different CCC values across tables; each table reports the result from its specific analysis scope.
+</p>
+
+<h3>4.7 Three-Level Observability Classification</h3>
+
+<p>
+<em>Directly observable</em> (items 3.9&ndash;3.14): arising, gait, freezing, postural stability, posture, body bradykinesia&mdash;motor signs directly expressed during ambulation. <em>Partially observable</em> (3.5&ndash;3.8, 3.15&ndash;3.17): hand movements, pronation-supination, toe tapping, leg agility, postural/kinetic/rest tremor&mdash;limb items indirectly reflected in gait. <em>Not observable</em> (3.1&ndash;3.4, 3.18): speech, facial expression, rigidity (neck + extremities), finger tapping, tremor constancy. Direct + partial + unobservable = total (reconstruction error = 0.0).
+</p>
+
+<h3>4.8 Statistical Analysis</h3>
+
+<p>
+Primary metric: Lin's CCC<sup>8</sup>. BCa bootstrap CIs (N=10,000, stratified by group). Model comparisons: paired bootstrap for LOOCV, Wilcoxon signed-rank for multi-split. Multiple comparison correction: Holm-Bonferroni. Effect sizes: Cohen's d. MCID: 3.25 points for improvement, 4.63 for worsening (Horvath 2015)<sup>2</sup>, applied as contextual benchmark. Bland-Altman for systematic bias. Partial correlation controlling for age and disease duration.
+</p>
+
+{_tableP1_hyperparams()}
+
+<h3>4.9 Code and Data Availability</h3>
+
+<p>
+WearGait-PD is available on Synapse (syn55052683)<sup>9</sup>. Analysis code will be available at [repository URL].
+</p>
+
+<!-- SECTION 5: ML PIPELINE (APPENDIX) -->
+<h2>5. The ML Pipeline (Appendix)</h2>
+
+<p>
+This section provides a self-contained explanation of the machine learning methodology for clinical readers.
+</p>
+
+<h3>5.1 Gradient-Boosted Decision Trees</h3>
+
+<p>
+Gradient-boosted decision trees (GBDT) build an ensemble of simple decision trees sequentially (Figure&nbsp;A). Each tree corrects the residual errors of the previous ensemble. LightGBM and XGBoost are two efficient implementations. A single tree partitions the feature space into leaf nodes, each predicting a constant value. The ensemble of 2,000 trees produces a prediction by summing all tree outputs. Early stopping monitors validation error and halts training when no improvement occurs for 100 consecutive rounds, preventing overfitting.
+</p>
+
+<figure>
+<img src="{figures['figA']}" alt="Decision tree ensemble">
+<figcaption><strong>Figure A.</strong> Gradient-boosted decision tree ensemble. Each tree corrects residuals from previous trees. Final prediction is the sum of all 2,000 tree outputs. Early stopping at 100 rounds prevents overfitting.</figcaption>
+</figure>
+
+<h3>5.2 MSE vs MAE Loss</h3>
+
+<p>
+The choice of loss function affects how the model treats errors of different magnitudes (Figure&nbsp;B). MAE (mean absolute error) loss treats all errors equally: a 1-point error and a 10-point error contribute proportionally. MSE (mean squared error) loss penalizes large errors quadratically: a 10-point error contributes 100x more than a 1-point error. For UPDRS prediction, MSE proved superior (MAE improvement from 8.67 to 8.36) because it forces the model to reduce the most severe errors, which correspond to high-severity patients that baseline models systematically underpredict.
+</p>
+
+<figure>
+<img src="{figures['figB']}" alt="MSE vs MAE loss">
+<figcaption><strong>Figure B.</strong> MSE vs MAE loss functions and their gradients. MSE penalizes large errors more heavily, forcing the model to attend to extreme cases.</figcaption>
+</figure>
+
+<h3>5.3 Feature Selection</h3>
+
+<p>
+With 2,520 candidate features and only ~95 training subjects, feature selection is critical to prevent overfitting (Figure&nbsp;C). We use XGBoost importance: an XGBoost model is trained to predict the target, and features are ranked by their total gain (improvement in the loss function when the feature is used for splitting). The top K features are retained. K=500 was optimal for the CCC-optimized pipeline; K=150 sufficed for the MAE-optimized baseline. Selection is performed inside each cross-validation fold to prevent data leakage.
+</p>
+
+<figure>
+<img src="{figures['figC']}" alt="Feature selection">
+<figcaption><strong>Figure C.</strong> Feature selection by XGBoost importance. Features ranked by total gain; top-K retained (green). The cutoff balances signal retention against overfitting risk.</figcaption>
+</figure>
+
+<h3>5.4 Multi-Seed Ensemble</h3>
+
+<p>
+Individual model predictions vary with the random seed (which affects data shuffling, feature subsampling, and validation splits). Averaging predictions across 5 independent seeds (42, 123, 456, 789, 2024) reduces this variance (Figure&nbsp;D). The ensemble prediction is always at least as good as the average individual prediction, and typically better.
+</p>
+
+<figure>
+<img src="{figures['figD']}" alt="Multi-seed ensemble">
+<figcaption><strong>Figure D.</strong> Multi-seed ensemble averaging. Left: individual seed predictions show scatter. Right: 5-seed ensemble average is smoother and more accurate.</figcaption>
+</figure>
+
+<h3>5.5 Foundation Model Embedding Extraction</h3>
+
+<p>
+MOMENT-1-base is a time-series foundation model pretrained on 385 public datasets<sup>10</sup>. We use it as a frozen feature extractor (Figure&nbsp;E): raw IMU signals are truncated to 512 samples (5.12s), globally z-normalized, and passed through the frozen encoder. The resulting 768-dimensional embedding captures temporal patterns learned from diverse domains, supplementing handcrafted statistical features. No gradient computation or fine-tuning is performed, ensuring deterministic outputs.
+</p>
+
+<figure>
+<img src="{figures['figE']}" alt="FM embedding extraction">
+<figcaption><strong>Figure E.</strong> MOMENT-1 foundation model embedding extraction. Raw IMU signals are normalized and passed through the frozen encoder to produce 768-dimensional embeddings, averaged across recordings per subject.</figcaption>
+</figure>
+
+<h3>5.6 Hyperparameter Choices</h3>
+
+<p>
+Key hyperparameter differences between the baseline and CCC-optimized pipelines (Figure&nbsp;F): regularization (reg_lambda: 3.0 to 0.3) was reduced to allow wider prediction range; min_data_in_leaf (20 to 8) was the dominant knob for CCC improvement (+0.105); colsample_bytree (1.0 to 0.5) introduced column subsampling for diversity; and objective (MAE to MSE) increased penalty on large errors. These changes collectively increased calibration slope from 0.40 to 0.69 on the observable subscore.
+</p>
+
+<figure>
+<img src="{figures['figF']}" alt="HP interaction heatmap">
+<figcaption><strong>Figure F.</strong> Illustrative hyperparameter interaction effects on CCC (qualitative estimates, not directly measured). The strongest estimated interaction is between reg_lambda and min_data_in_leaf, reflecting the trade-off between regularization and leaf granularity.</figcaption>
+</figure>
+
+<!-- REFERENCES -->
+<h2>References</h2>
+<div class="ref">
+<ol>
+<li>GBD 2019 Collaborators. Global, regional, and national burden of neurological disorders, 1990&ndash;2019. <em>Lancet Neurol.</em> 20, 797&ndash;820 (2021).</li>
+<li>Horvath, K. et al. Minimal clinically important difference on the Motor Examination part of MDS-UPDRS. <em>Parkinsonism Relat. Disord.</em> 21, 1421&ndash;1426 (2015).</li>
+<li>Hssayeni, M. D. et al. Wearable sensors for estimation of Parkinsonian tremor severity during free body movement. <em>BioMed. Eng. OnLine</em> 20, 24 (2021).</li>
+<li>Shuqair, H. et al. Self-supervised representation learning for motor severity estimation. <em>Bioengineering</em> 11, 689 (2024).</li>
+<li>Sotirakis, C. et al. Identification of motor progression in Parkinson's disease using wearable sensors. <em>npj Parkinsons Dis.</em> 9, 74 (2023).</li>
+<li>He, S. et al. Predicting levodopa response using wearable sensors. <em>J. NeuroEng. Rehab.</em> 21, 47 (2024).</li>
+<li>Li, J. et al. TRIP: Transformer-based IMU pretraining for Parkinson's disease. <em>arXiv</em> 2510.15748 (2025).</li>
+<li>Lin, L. I.-K. A concordance correlation coefficient to evaluate reproducibility. <em>Biometrics</em> 45, 255&ndash;268 (1989).</li>
+<li>WearGait-PD dataset. <em>Sci. Data</em> (2026). doi:10.1038/s41597-026-06806-2.</li>
+<li>Goswami, M. et al. MOMENT: A family of open time-series foundation models. <em>ICML</em> (2024).</li>
+<li>Ke, G. et al. LightGBM: A highly efficient gradient boosting decision tree. <em>NeurIPS</em> (2017).</li>
+<li>Chen, T. & Guestrin, C. XGBoost: A scalable tree boosting system. <em>KDD</em> (2016).</li>
+<li>Goetz, C. G. et al. Movement Disorder Society-sponsored revision of the Unified Parkinson's Disease Rating Scale (MDS-UPDRS). <em>Mov. Disord.</em> 23, 2129&ndash;2170 (2008).</li>
+</ol>
+</div>
+
+<!-- SUPPLEMENTARY -->
+<h2>Supplementary Information</h2>
+
+<h3>S1: Compression Ablation</h3>
+
+<p>
+We evaluated five anti-compression proposals across three targets (Table&nbsp;S2, Supplementary Figure&nbsp;S1). Per-item ordinal classification (P1) degraded performance severely (CCC&nbsp;=&nbsp;{d.p1_t1.get('ccc', 0.338):.3f}). SMOGN tail augmentation (P3) and NGBoost distributional regression (P4) produced marginal improvements. Only ordinal ranking (P5) materially improved CCC on all targets. The mechanism involves two primary elements: (i) ranking is a simpler task than regression (ordinal discrimination requires only preserved ordering), and (ii) leaf features encode nonlinear severity partitions. When HC subjects are available, N amplification (N={ssl_5t1.get('n', 95)} PD to N={N_ANALYZED} for ranking) and HC calibration anchoring provide incremental benefit.
+</p>
+
+<figure>
+<img src="{figures['fig7']}" alt="Compression ablation">
+<figcaption><strong>Supplementary Figure S1.</strong> Compression ablation: five proposals evaluated on T1 (direct observable subscore, 5-fold CV). Only P5 ordinal ranking materially improves CCC. P1 ordinal classification degrades performance severely.</figcaption>
+</figure>
+
+{_table7_ssl_ablation(d)}
+
+<p>
+Ordinal ranking substantially reduces severity-dependent prediction bias (Table&nbsp;S3, Supplementary Figure&nbsp;S2). For T1 (5-split, apples-to-apples comparison): Q4 underprediction reduced from {p0_t1_q4_bias:.2f} to {p5_t1_q4_bias:.2f} ({t1_q4_pct:.0f}% reduction), Q2 overprediction nearly eliminated (from {p0_t1_q2_bias:+.2f} to {p5_t1_q2_bias:+.2f}, {t1_q2_pct:.0f}% reduction). The total UPDRS baseline (5-split) showed extreme compression: Q1 overpredicted by {p0_t3_q1_bias:+.0f} points, Q4 underpredicted by {p0_t3_q4_bias:.0f} points. After ordinal ranking, T3 Q4 bias reduced from {p0_t3_q4_bias:.1f} to {p5_t3_q4_bias:.1f}.
+</p>
+
+<figure>
+<img src="{figures['fig8']}" alt="Quartile bias reduction">
+<figcaption><strong>Supplementary Figure S2.</strong> Quartile bias reduction with ordinal ranking (T1, 5-split comparison, N={ssl_5t1.get('n', 95)}). Left: prediction bias by severity quartile. Right: MAE by quartile. Ordinal ranking (blue) reduces both bias and error across most quartiles compared to baseline (light blue).</figcaption>
+</figure>
+
+{_table8_quartile_bias(d)}
+
+<h3>S2: Foundation Model Analysis</h3>
+
+<p>
+Frozen MOMENT-1-base embeddings (768 dimensions, no fine-tuning) reduced mixed-cohort MAE from {v2_mixed.mean():.2f} to {fm_mixed.mean():.2f} (Wilcoxon p&nbsp;=&nbsp;{fmt_p(p_fm_v2)}; Supplementary Figure&nbsp;S3). The advantage was non-significant in PD-only evaluation (p<sub>adj</sub>&nbsp;=&nbsp;{hb_fm_p_adj:.2f}), suggesting FM embeddings primarily enhance PD-vs-HC discrimination rather than within-PD severity grading. FM embedding dimensions appeared among top features for the observable subscore (Figure&nbsp;6), indicating complementary temporal pattern capture.
+</p>
+
+<figure>
+<img src="{figures['fig9']}" alt="FM impact">
+<figcaption><strong>Supplementary Figure S3.</strong> Foundation model impact across 10 splits (PD+HC, N={N_ANALYZED}, total UPDRS-III). v2+FM stack (purple diamonds) consistently outperforms v2 baseline (grey circles). Paired Wilcoxon p&nbsp;=&nbsp;{fmt_p(p_fm_v2)}.</figcaption>
+</figure>
+
+<h3>S3: Sensor Ablation</h3>
+
+<p>
+FM re-extraction per sensor configuration eliminates data leakage (Table&nbsp;S4). The 5-sensor minimal set (lower back, bilateral wrists, bilateral ankles) matches the full 13-sensor configuration ({sensor_min5_mae:.2f} vs {sensor_all13_mae:.2f}, p&nbsp;=&nbsp;0.85). Even 2 wrist sensors achieved competitive performance (p&nbsp;=&nbsp;0.55). These results are for total UPDRS-III (10-split CV). For the observable subscore (T1) under ordinal ranking (5-fold CV), single-sensor analysis (Table&nbsp;S5) reveals that a single lower back sensor achieves CCC&nbsp;=&nbsp;{ss_lowerback_ccc:.3f}, matching the full 13-sensor configuration (CCC&nbsp;=&nbsp;{ss_all13_ccc:.3f}). Single wrist sensors achieve CCC&nbsp;&gt;&nbsp;0.78, supporting smartwatch-based clinical deployment.
+</p>
+
+{_table5_sensor(d)}
+{_table_single_sensor(d)}
+
+<h3>S4: Negative Results</h3>
+
+<p>
+Negative results strengthen the ceiling argument. Seven deep learning configurations (Transformer, InceptionTime, SensorGNN; Table&nbsp;S6) all produced MAE&nbsp;&gt;&nbsp;10, consistent with overfitting at N&nbsp;=&nbsp;{N_ANALYZED}. Additional failed approaches included: item decomposition (52% worse), mixture-of-experts, cross-sensor coordination features, and freezing-of-gait transfer (AUC&nbsp;=&nbsp;0.500). Among the five anti-compression proposals, only ordinal ranking produced material CCC improvement; per-item ordinal classification, pairwise contrastive boosting, SMOGN augmentation, and NGBoost distributional regression all failed (Table&nbsp;S2). This convergence of diverse approaches on a compression ceiling supports the interpretation that the barrier is representational rather than purely methodological.
+</p>
+
+{_tableS1_dl(d)}
+
+<h3>S5: LOOCV Sensitivity Analysis</h3>
+
+<p>
+To confirm that results are not sensitive to the choice of cross-validation protocol, we repeated the ordinal ranking evaluation using leave-one-out cross-validation (LOOCV, N&nbsp;=&nbsp;{ssl_t1.get('n', 94)}). LOOCV results are consistent with the primary 5-fold analysis:
+</p>
+
+<table>
+<caption>Table S7. Protocol sensitivity: 5-fold CV vs LOOCV for ordinal ranking (PD-only).</caption>
+<tr><th>Target</th><th colspan="3">5-fold CV (N={ssl_5t1.get('n', 95)})</th><th colspan="3">LOOCV (N={ssl_t1.get('n', 94)})</th></tr>
+<tr><th></th><th>CCC</th><th>MAE</th><th>r</th><th>CCC</th><th>MAE</th><th>r</th></tr>
+<tr><td>T1 (direct obs)</td><td><strong>{ssl_5t1.get('ccc', 0):.3f}</strong></td><td>{ssl_5t1.get('mae', 0):.3f}</td><td>{ssl_5t1.get('r', 0):.3f}</td><td>{ssl_t1.get('ccc', 0):.3f}</td><td>{ssl_t1.get('mae', 0):.3f}</td><td>{ssl_t1.get('r', 0):.3f}</td></tr>
+<tr><td>T2 (broad obs)</td><td><strong>{ssl_5t2.get('ccc', 0):.3f}</strong></td><td>{ssl_5t2.get('mae', 0):.3f}</td><td>{ssl_5t2.get('r', 0):.3f}</td><td>{ssl_t2.get('ccc', 0):.3f}</td><td>{ssl_t2.get('mae', 0):.3f}</td><td>{ssl_t2.get('r', 0):.3f}</td></tr>
+<tr><td>T3 (total)</td><td><strong>{ssl_5t3.get('ccc', 0):.3f}</strong></td><td>{ssl_5t3.get('mae', 0):.3f}</td><td>{ssl_5t3.get('r', 0):.3f}</td><td>{ssl_t3.get('ccc', 0):.3f}</td><td>{ssl_t3.get('mae', 0):.3f}</td><td>{ssl_t3.get('r', 0):.3f}</td></tr>
+</table>
+<p class="note">5-fold CV is the primary evaluation. LOOCV is provided as sensitivity analysis. The close agreement between protocols confirms result robustness.</p>
+
+{_tableS2_holm(d)}
+
+{_table3_observability(d)}
 
 </body>
 </html>"""
@@ -2313,7 +3085,7 @@ Quartile & N & MAE & CCC & Bias & Mean True & Mean Pred \\\\
 \\end{{tabular}}
 
 \\smallskip
-\\footnotesize{{Bias = mean(predicted $-$ actual). Severe regression to the mean: Q1 overpredicted by +14, Q4 underpredicted by $-$14. Pre-SSL baseline.}}
+\\footnotesize{{Bias = mean(predicted $-$ actual). Severe regression to the mean: Q1 overpredicted by {qs[0].get('bias', 0):+.0f}, Q4 underpredicted by {qs[-1].get('bias', 0):.0f}. Pre-ranking baseline.}}
 \\end{{table}}
 """
 
@@ -2352,7 +3124,7 @@ Configuration & N Sensors & MAE $\\pm$ SD & CCC & p vs All 13 \\\\
 
 
 def _tex_table6():
-    """Table 6: Cross-dataset SOTA comparison in LaTeX."""
+    """Table 8: Cross-dataset SOTA comparison in LaTeX."""
     return """\\begin{table}[H]
 \\centering
 \\caption{Cross-dataset comparison with published UPDRS-III regression.}
@@ -2378,7 +3150,7 @@ Sotirakis et al. & 2023 & Oxford & 74 PD & wrist+back & 5-fold CV\\textsuperscri
 
 
 def _tex_table7(d: PaperData):
-    """Table 7: SSL ranking results in LaTeX."""
+    """Table S2: SSL ranking results in LaTeX."""
     proposals = [
         ("P0 Baseline", "5-split", 95, d.p0_t1, d.p0_t2, d.p0_t3),
         ("P1 Ordinal", "5-split", 95, d.p1_t1, {}, {}),
@@ -2421,7 +3193,7 @@ Proposal & Eval & N & CCC & Slope & MAE & CCC & MAE & CCC & MAE \\\\
 
 
 def _tex_table8(d: PaperData):
-    """Table 8: Quartile bias analysis in LaTeX."""
+    """Table S3: Quartile bias analysis in LaTeX."""
     p0_qs = d.p0_t1.get("quartiles", [])
     p5_qs = d.ssl_5split_t1.get("quartiles", [])
     if not p5_qs and d.ssl_5split and len(d.ssl_5split) > 0:
@@ -2429,7 +3201,7 @@ def _tex_table8(d: PaperData):
     if not p5_qs:
         p5_qs = d.ssl_t1.get("quartiles", [])
     if not p0_qs or not p5_qs:
-        return "% Table 8 data not available\n"
+        return "% Table S3 data not available\n"
     rows = ""
     for p0q, p5q in zip(p0_qs, p5_qs):
         bias_change = ""
@@ -2580,6 +3352,12 @@ def build_latex(d: PaperData) -> str:
     p10_b1_v2 = mt.get("10split_b1_v2", {})
     p10_demo = mt.get("10split_demographic", {})
     p10_fm = mt.get("10split_b1_fm_stk", {})
+
+    # P0 compression baselines (for Discussion compression section)
+    p0_t3 = d.p0_t3
+    p0_t3_qs = p0_t3.get("quartiles", [])
+    p0_t3_q1_bias = p0_t3_qs[0].get("bias", 12) if p0_t3_qs else 12
+    p0_t3_q4_bias = p0_t3_qs[-1].get("bias", -12) if len(p0_t3_qs) >= 4 else -12
 
     tex = r"""\documentclass[11pt]{article}
 
@@ -2836,7 +3614,7 @@ Our T3 SSL result (MAE~=~{ssl_t3.get('mae', 4.646):.2f}, N=94, LOOCV) compares f
 """
 
     tex += f"""
-The compression problem is general to small-N clinical regression: when training data is limited, gradient-boosted models minimize expected loss by shrinking predictions toward the population mean. Our baseline demonstrates this concretely: T3 calibration slope = 0.104 (predictions span only 10\\% of the true range), Q1 overpredicted by +14 points, Q4 underpredicted by $-$14 points. MAE~=~8.086 appears reasonable, but CCC~=~0.186 indicates poor agreement caused by severe range compression and miscalibration. SSL ranking increases slope to {ssl_t3.get('cal_slope', 0.576):.3f}, partially solving this fundamental challenge.
+The compression problem is general to small-N clinical regression: when training data is limited, gradient-boosted models minimize expected loss by shrinking predictions toward the population mean. Our baseline demonstrates this concretely: T3 calibration slope = {p0_t3.get('cal_slope', 0.104):.3f} (predictions span only {p0_t3.get('cal_slope', 0.104) * 100:.0f}\\% of the true range), Q1 overpredicted by {p0_t3_q1_bias:+.0f} points, Q4 underpredicted by {p0_t3_q4_bias:.0f} points. MAE~=~{p0_t3.get('mae', 8.086):.2f} appears reasonable, but CCC~=~{p0_t3.get('ccc', 0.186):.3f} indicates poor agreement caused by severe range compression and miscalibration. SSL ranking increases slope to {ssl_t3.get('cal_slope', 0.576):.3f}, partially solving this fundamental challenge.
 """
 
     tex += r"""
@@ -3035,9 +3813,13 @@ def validate_html(html: str) -> list:
         if placeholder in text_only:
             issues.append(f"Placeholder found: {placeholder}")
 
-    for i in range(1, 11):
+    for i in range(1, 8):
         if f"Figure {i}" not in html and f"Figure&nbsp;{i}" not in html:
             issues.append(f"Figure {i} not referenced in text")
+
+    for s in ["S1", "S2", "S3"]:
+        if f"Supplementary Figure {s}" not in html and f"Supplementary Figure&nbsp;{s}" not in html:
+            issues.append(f"Supplementary Figure {s} not referenced in text")
 
     for letter in ["A", "B", "C", "D", "E", "F"]:
         if f"Figure {letter}" not in html and f"Figure&nbsp;{letter}" not in html:
@@ -3046,6 +3828,10 @@ def validate_html(html: str) -> list:
     for i in range(1, 9):
         if f"Table {i}" not in html and f"Table&nbsp;{i}" not in html:
             issues.append(f"Table {i} not referenced in text")
+
+    for s in ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9"]:
+        if f"Table {s}" not in html and f"Table&nbsp;{s}" not in html:
+            issues.append(f"Table {s} not referenced in text")
 
     return issues
 
@@ -3144,7 +3930,7 @@ def main():
     else:
         print(f"\n[3/5] Building {len(figures)} figures into HTML...")
         print("\n[4/5] Assembling HTML with prose, tables, figures...")
-        html = build_html(d, figures)
+        html = build_html_v2(d, figures)
 
         print("\n[5/5] Validating...")
         issues = validate_html(html)

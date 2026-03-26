@@ -1,0 +1,30 @@
+
+======================================================================
+C11: SINGLE-SENSOR SENSITIVITY ANALYSIS
+======================================================================
+
+Data loaded:
+  PD subjects: 94
+  All subjects (PD+HC): 174
+  Features: 2520 (v2: 1752, FM: 768)
+  T1: range [0, 14], mean=4.1, std=2.8
+  T2: range [1, 20], mean=6.8, std=3.8
+  T3: range [6, 59], mean=25.2, std=10.2
+
+==================================================
+Config: R_Wrist_1 — sensors: ['R_Wrist']
+==================================================
+  Features available: 155 / 1752
+  Ranker uses 80 HC (all) + 94 PD
+  Split 1/5: CCC=0.729 slope=0.614 MAE=1.268
+  Split 2/5: CCC=0.827 slope=0.706 MAE=1.052
+  Split 3/5: CCC=0.682 slope=0.537 MAE=1.218
+  Split 4/5: CCC=0.818 slope=0.710 MAE=1.124
+  Split 5/5: CCC=0.816 slope=0.649 MAE=1.351
+  SSL T1: CCC=0.784 MAE=1.202 r=0.806
+
+==================================================
+Config: L_Wrist_1 — sensors: ['L_Wrist']
+==================================================
+  Features available: 137 / 1752
+  Ranker uses 80 HC (all) + 94 PD

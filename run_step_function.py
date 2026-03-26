@@ -101,20 +101,7 @@ DEFAULT_LGB_PARAMS = {
 # METRICS
 # ═══════════════════════════════════════════════════════════════════════
 
-def lins_ccc(y_true, y_pred):
-    y_true = np.asarray(y_true, dtype=np.float64)
-    y_pred = np.asarray(y_pred, dtype=np.float64)
-    mu_t, mu_p = np.mean(y_true), np.mean(y_pred)
-    var_t, var_p = np.var(y_true), np.var(y_pred)
-    cov = np.mean((y_true - mu_t) * (y_pred - mu_p))
-    denom = var_t + var_p + (mu_t - mu_p) ** 2
-    return float(2 * cov / denom) if denom > 1e-12 else 0.0
-
-
-def cal_slope(y_true, y_pred):
-    if np.std(y_true) < 1e-8 or len(y_true) < 3:
-        return 0.0
-    return float(np.polyfit(y_true, y_pred, 1)[0])
+from eval_utils import lins_ccc, cal_slope, feature_select
 
 
 def full_metrics(y_true, y_pred, target_key):
@@ -323,18 +310,6 @@ def load_features_and_targets():
 # ═══════════════════════════════════════════════════════════════════════
 # SHARED TRAINING COMPONENTS
 # ═══════════════════════════════════════════════════════════════════════
-
-def feature_select(X, y, names, k=500):
-    k = min(k, X.shape[1])
-    sel = XGBRegressor(
-        n_estimators=300, max_depth=4, learning_rate=0.05,
-        reg_lambda=2.0, random_state=42, n_jobs=N_CORES,
-        objective="reg:absoluteerror",
-    )
-    sel.fit(X, y)
-    idx = np.argsort(sel.feature_importances_)[::-1][:k]
-    return idx, [names[i] for i in idx]
-
 
 def train_lgb(Xd, yd, Xt, seed, params=None, sample_weight=None):
     p = dict(DEFAULT_LGB_PARAMS)

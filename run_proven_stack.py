@@ -82,14 +82,7 @@ def load_extended_covariates():
     return covariates
 
 
-def feature_select(X, y, names, k=150):
-    from xgboost import XGBRegressor
-    sel = XGBRegressor(n_estimators=300, max_depth=4, learning_rate=0.05,
-                        reg_lambda=2.0, random_state=42, n_jobs=N_CORES,
-                        objective="reg:absoluteerror")
-    sel.fit(X, y)
-    idx = np.argsort(sel.feature_importances_)[::-1][:k]
-    return idx, [names[i] for i in idx]
+from eval_utils import feature_select
 
 
 def train_lgbm(Xd, yd, Xt, seed=42):
