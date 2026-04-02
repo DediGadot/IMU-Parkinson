@@ -285,6 +285,44 @@ torch, torchvision, lightgbm, xgboost, momentfm, sktime (MiniRocket), tslearn
 - NGBoost Poisson distributional — CCC=0.671, no improvement over tuned LGB
 - Pairwise contrastive boosting — slow and mediocre (CCC~0.62)
 
+## Memento-Skills (GLM-5 Agent)
+
+Self-evolving agent framework at `~/memento/Memento-Skills/`. Uses GLM-5 via `api.z.ai`. Config: `~/memento_s/config.json`.
+
+**Setup:**
+```bash
+cd ~/memento/Memento-Skills && source .venv/bin/activate
+```
+
+**Commands:**
+```bash
+memento doctor                                    # verify environment
+memento agent                                     # interactive chat
+memento agent -m "prompt"                         # single-shot query
+memento agent -s <session_id>                     # resume session
+```
+
+**Built-in skills (9):** filesystem, web-search, pdf, docx, xlsx, pptx, image-analysis, skill-creator, uv-pip-install.
+
+**How it works:** Intent classification (DIRECT/AGENTIC) → skill retrieval → sandboxed execution via `uv` → reflection → skill rewrite. Skills are `SKILL.md` files in `~/memento_s/skills/`. The `skill-creator` meta-skill generates new skills from scratch with automated test gates.
+
+**Using with this codebase:**
+```bash
+# Read and analyze code
+memento agent -m "Read /home/fiod/medical/run_compression_ablation.py and explain the SSL ranking"
+
+# Create a custom skill for recurring tasks
+memento agent -m "Create a skill that reads results/*.json and summarizes experiment metrics"
+```
+
+**Key paths:**
+- Skills: `~/memento_s/skills/`
+- Database: `~/memento_s/db/memento_s.db`
+- Workspace: `~/memento_s/workspace/`
+- Config: `~/memento_s/config.json` (model=`anthropic/glm-5`, base_url=`https://api.z.ai/api/anthropic`)
+
+**Fix applied:** `litellm.modify_params = True` in `~/memento/Memento-Skills/middleware/llm/client.py` — required for tool-calling to work with the Anthropic provider adapter.
+
 ## Rules
 
 - **NEVER per-subject z-normalize for regression** — amplitude IS severity

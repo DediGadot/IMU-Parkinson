@@ -1,0 +1,24 @@
+Installing: ngboost
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+======================================================================
+COMPRESSION ABLATION — Anti-compression proposals x 3 targets
+Phases: [5]
+Targets: ['t1', 't2', 't3']
+Eval: 5split
+======================================================================
+Traceback (most recent call last):
+  File "/root/pd-imu/run_compression_ablation.py", line 1348, in <module>
+    main()
+  File "/root/pd-imu/run_compression_ablation.py", line 1277, in main
+    pd_merged, all_merged, feature_cols, subjects, item_scores = load_features_and_targets()
+  File "/root/pd-imu/run_compression_ablation.py", line 302, in load_features_and_targets
+    fm_df["sid"] = rec_sids
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/frame.py", line 4322, in __setitem__
+    self._set_item(key, value)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/frame.py", line 4535, in _set_item
+    value, refs = self._sanitize_column(value)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/frame.py", line 5288, in _sanitize_column
+    com.require_length_match(value, self.index)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/common.py", line 573, in require_length_match
+    raise ValueError(
+ValueError: Length of values (2532) does not match length of index (1417)

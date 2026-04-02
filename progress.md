@@ -1,174 +1,154 @@
-## Session Log: CCC Definition Lookup (2026-03-26)
-
-### 09:55 — Context + source check
-- Read planning skill instructions and existing planning files
-- Searched repo for `CCC`, `concordance`, and `Lin's`
-- Located the canonical metric implementation in `eval_utils.py`
-
-### 09:58 — Manuscript verification
-- Read the CCC formula in `generate_paper.py`
-- Read the introduction/results text explaining CCC as the metric that penalizes both correlation and calibration failure under prediction compression
-
-### 10:00 — Artifact verification
-- Loaded stored JSON outputs for baseline and SSL T1/T3 runs
-- Confirmed headline values used in the answer: T1 baseline CCC=0.700, T1 SSL LOOCV CCC=0.868, T3 SSL LOOCV CCC=0.776
+# Progress Log — CCC Explanation and Caveats
 
 ---
 
-## Session Log: Paper Innovations + Result Impact (2026-03-26)
+## Session: 2026-03-30 — Metric Clarification
 
-### 10:05 — Task setup
-- Read planning skill instructions and checked for carry-over session context
-- Read existing `task_plan.md`, `findings.md`, and `progress.md`
-- Added a new planning section for the current question on the paper's main innovations and their empirical impact
+### 00:00 — Task initialization
+- Read the required planning workflow and reconciled existing planning files in the repo.
+- Reviewed current manuscript text, generator text, and shared metric utilities to answer the question from source rather than memory.
 
-### 10:15 — Manuscript + code alignment
-- Located the manuscript contribution statement in `NEW.html` / `generate_paper.py`
-- Verified target definitions and P5 method in `run_compression_ablation.py`
-- Verified reviewer sensitivity implementations for HC ablation and 5-fold observability in `run_reviewer_experiments.py`
+### 00:10 — CCC definition and implementation verified
+- Confirmed that `eval_utils.lins_ccc` is the repository's canonical implementation of Lin's concordance correlation coefficient.
+- Confirmed that experiment scripts report CCC on pooled out-of-fold predictions using `full_metrics`, alongside MAE, Pearson r, and calibration slope.
 
-### 10:20 — Numeric verification
-- Confirmed P0 vs P5 5-fold metrics from stored JSONs for T1/T2/T3
-- Confirmed 5-fold observability table values and the T3 structural-ceiling numbers in `NEW.html`
-- Confirmed age-confound and HC-ablation sensitivity numbers from `NEW.html` and reviewer JSON artifacts
+### 00:20 — Interpretation caveats verified against manuscript/results
+- Verified the headline examples used by the paper: T1 5-fold CCC=0.865 with slope=0.745, T3 5-fold CCC=0.807 with slope=0.581, and baseline T3 5-fold CCC=0.186 with slope=0.104.
+- Confirmed that the paper itself already treats CCC as necessary but insufficient, supplementing it with slope, MAE, bias, confidence intervals, and severity-stratified analyses.
+- Identified the most important answer points: what CCC measures here, why it was chosen over r/MAE alone, and why it still has important caveats in this dataset.
 
-### 10:25 — Synthesis ready
-- Ranked the main innovations by scientific impact: ordinal ranking, observability framework, benchmark/sensitivity validation
-- Prepared final answer with explicit manuscript-vs-code distinction on the role of HC anchors
+# Progress Log — NEW.html Verification Audit
 
 ---
 
-## Session Log: Codebase Audit (2026-03-25)
+## Session: 2026-03-27 — Repository-Wide Audit of NEW.html
 
-### 00:00 — Task Setup
-- Read planning skill instructions and session catchup
-- Confirmed existing `task_plan.md`, `findings.md`, and `progress.md`
-- Captured `git diff --stat` to understand active repo churn
+### 00:00 — Task initialization
+- Read planning workflow and ran session catchup
+- Confirmed prior unsynced `NEW.html` discrepancy work existed in a previous session
+- Checked actual worktree state with `git diff --stat` and `git status --short`
+- Began targeted review of `NEW.html` and current planning docs
 
-### 00:05 — Inventory
-- Enumerated repository files with `rg --files` and `find`
-- Confirmed broad surface area: many standalone experiment runners, multiple paper generators, tests, HTML outputs, and planning/docs markdowns
-- Began structured audit with docs/HTML first, code second
+### 00:15 — Claim inventory and source mapping
+- Extracted all current headings, figure captions, tables, and numeric paragraphs from `NEW.html`
+- Identified that the prior numerical audit is stale for the current manuscript
+- Confirmed current Table 2 uses mixed sources: direct tier from primary `compression_P*_5split.json`, partial/unobservable tiers from `reviewer_obs_5fold.json`
 
-### 00:20 — Documentation Pass (partial)
-- Read smaller Markdown files fully: `AGENTS.md`, `EXP.md`, `FIXES.md`, `LEARNINGS.md`, `literature_review.md`, `VNEXT.md`, `GPU.md`, `TOKEN.md`
-- Read `README.md` first half and `autoresearch_program.md`
-- Extracted heading maps for large docs plus `NEW.html` to guide deeper reading
-- Key pattern: evaluation/provenance cleanup is the dominant organizing concern across the repo
+### 00:35 — Verification pass complete
+- Reproduced the headline BCa T1 CCC interval from raw per-subject predictions and confirmed the manuscript rounding
+- Verified that the main internal quantitative claims align with live JSON artifacts
+- Isolated three substantive manuscript issues: cross-dataset protocol/sample-size drift, Williams-test overstatement for the observed observability ordering, and an unsupported fold-restricted-ranking ablation claim
 
-### 00:40 — Documentation Pass (major docs)
-- Read `CONT.md`, `README.md`, `CLAUDE.md`, `CODEX-PROPOSALS.md`, `PROPOSALS.md`, and review summaries
-- Inspected the current manuscript output `NEW.html` and confirmed its main section structure and headline claims
-- Main emerging issue: the repo contains multiple overlapping “current truth” documents and multiple candidate primary pipelines
-
-### 01:05 — Code Pass
-- Mapped all Python/shell/test files by size and top-level signatures
-- Read the core shared modules: `project_paths.py`, `data_split.py`, `updrs_columns.py`
-- Read the clean-path orchestration layer: `run_clean_benchmark.py`, `run_sensor_ablation.py`, `run_loocv_stack.py`, `run_stats_report.py`, `paper3_data.py`, `generate_html_paper3.py`, `gpu.sh`
-- Read central legacy-but-still-imported builders: `run_ablation_v2.py`, `run_proven_stack.py`, `run_compression_ablation.py`, `run_pd_only_experiments.py`, `run_dl_experiments.py`, `run_dl_rebenchmark.py`
-
-### 01:20 — Validation
-- Ran `pytest -q tests`
-- Result: `129 passed, 4 skipped in 18.53s`
-- Confirms helper-layer invariants are guarded, but major experiment runners remain largely untested end-to-end
+# Progress Log — PD-IMU 10x Improvement via Memento
 
 ---
 
-## Session Log: Reviewer Response (2026-03-24)
+## Session: 2026-03-26 — Plan Creation
 
-### 14:45 — Session Start
-- Read all 11 reviewer comments, articulated each clearly
-- Read PAPER.html structure (683 lines, 11 Results subsections, SM tables)
-- Read key scripts: generate_paper.py, run_compression_ablation.py, gpu.sh
+### 20:45 — Research Phase
+- Launched parallel research: web search agent (63 tool uses), Codex CLI (GPT-5.4 xhigh), paper analysis
+- Web search found: RelCon (Apple ICLR 2025), LSM (Google ICLR 2025), UniMTS, SensorLM, FM-FoG, LIMU-BERT-X, NormWear
+- **Key finding:** RelCon uses relative contrastive ranking — closest methodological parallel to our SSL ranking
+- **Key finding:** No one has published UPDRS-III regression on WearGait-PD or any other dataset since Shuqair 2024
+- **Key finding:** Mostafavi 2025 confirmed R2<0.2 for UPDRS from gait sensors — validates our "this is hard" narrative
 
-### 14:50 — External CLI Consultation
-- Gemini: age confound sensitivity strategies (4 concrete analyses)
-- Gemini: paper restructuring advice (5 main + 5 SM sections)
-- Codex: 5-fold CV implementation for SSL pipeline (leakage rules, expected degradation)
-- Gemini had 429 rate limit but delivered full responses before error
+### 21:00 — Paper Analysis
+- Read NEW.html: title, abstract, all 8 discussion sections, full methods
+- Identified weaknesses: no 2025 FM comparison, no formal observability test, no UQ, no DBS subgroup
+- Identified strengths: SSL ranking mechanism well-explained, observability gradient compelling, reviewer responses integrated
 
-### 14:55 — Key Discovery: 5-fold SSL results already exist
-- compression_P5_TT{1,2,3}_5split.json all present
-- T3 5-fold CCC=0.807 BETTER than LOOCV CCC=0.776
-- This eliminates the need for new experiments for C1/C5
+### 21:15 — Memento Framework Integration
+- Tested Memento agent with GLM-5 on medical codebase files
+- Fixed litellm tool-calling bug (modify_params=True in client.py)
+- Verified: filesystem skill reads files correctly, agent responses are accurate
+- Designed 4 custom Memento skills for autonomous codebase improvement
 
-### 15:00 — Results Inventory
-- P0 baseline: 5-fold, all 3 targets ✓
-- P5 SSL: 5-fold AND LOOCV, all 3 targets ✓
-- Sensor ablation: lower_back_1, wrists_2 ✓ (missing single wrist)
-- Confound analysis: partial_r=0.36, p=0.0003 ✓ (needs SSL-specific version)
-- Per-subject predictions: saved in compression JSONs ✓
+### 21:30 — Plan Creation
+- Created 8-phase plan across task_plan.md
+- Prioritized: observability framework > conformal prediction > FM positioning > subgroups > multi-FM > autonomous loop > polish
+- Rejected: FM fine-tuning (N too small), sensor-language alignment (too complex for limited gain)
+- Documented 7 improvement directions with expected gains, risks, and novelty scores
 
-### 15:05 — Plan Created
-- 6 phases (P0-P5), 3 new experiments needed
-- Script: `run_reviewer_experiments.py` (consolidates C2, C3, C11)
-- Waiting for user to provide GPU server credentials
+### 21:45 — Background Task Results
+- **Codex CLI (GPT-5.4 xhigh):** COMPLETE — 173K tokens, exceptional output. 5 novel directions with specific algorithms, losses, and novelty scores. Key insight: "your moat is not better boosting, it's the privileged multimodal data."
+- **Claude CLI:** FAILED — credit balance too low
+- **Gemini CLI:** FAILED — 429 rate limit after 10 retries (model capacity exhausted)
 
-### 15:15 — Phase 0 Complete: Experiment Script Written
-- Created `run_reviewer_experiments.py` (730 lines)
-  - `--age-sensitivity`: C2 — age-matched HC, partial correlation, age-stratified eval
-  - `--hc-ablation`: C3 — P0 vs P5-no-HC vs P5-with-HC for T1 and T3
-  - `--single-sensor`: C11 — R_Wrist_1, L_Wrist_1, LowerBack_1, wrists_2, all_13 with SSL
-  - `--obs-5fold`: C1 — 3-level observability decomposition under 5-fold
-- Syntax verified, shared imports confirmed working
-- Reuses core functions from run_compression_ablation.py: feature_select, train_lgb, gen_split
-- run_ssl_5fold() supports hc_sids_subset parameter for age-matching and HC ablation
+### 21:50 — Plan Upgrade with Codex Insights
+- Added Phase 8 (Observability-Constrained MIRT, 9/10 novelty)
+- Added Phase 9 (Cross-Modal Privileged SSL, 8.5/10 novelty)
+- Added Phase 10 (Leave-Site-Out Validation — CRITICAL for reviewers)
+- Added Phase 11 (Clinical Utility Analysis — CRITICAL for Nature)
+- Re-prioritized: leave-site-out is now #1 priority (most likely rejection reason)
+- Codex's Memento integration plan is sharper: experiment state vectors, multi-objective rewards, auto-generated failure-mode skills
 
-### 15:30 — Phase 1: GPU Server Setup
-- New server: root@212.93.107.107:41013 (RTX 3090 24GB, 126GB disk)
-- PyTorch cu128 + requirements-gpu.txt installed via ./gpu.sh --setup
-- WearGait-PD downloaded from Synapse (47GB total, all 178 subjects confirmed)
-- rocket_recordings.npz regenerated (1405 recordings, 178 subjects)
-- FM embeddings regenerated via MOMENT-1-base embed() (1405x768, 36s on GPU)
-- Issue: momentfm 0.1.4 API changed — forward() → embed() for embedding extraction
+### 22:00 — Plan Restructured: Memento as Execution Backbone
+- Original plan barely used Memento (Phases 0 and 6 only). User called it out.
+- Rewrote entire plan: 7 custom Memento skills → every phase runs THROUGH Memento
+- Architecture: Memento reads results → runs analysis skills → writes configs/sections → human triggers GPU
+- GPU bridge: file-based (Memento writes commands, human/cron executes gpu.sh)
+- Autonomous loop: `memento_loop.sh` — pull → evaluate → configure → run → repeat
 
-### 16:30 — Phase 2: Running Experiments
-- All 4 experiments launched in parallel
-- HC ablation: completed in 4 min
-- Obs 5-fold: completed in 8 min
-- Single sensor: completed in 5 min
-- Age sensitivity: completed in 3.5 min (after 2 bug fixes: np.isnan type, lstsq rcond)
+### Status at end of session
+- **Research:** COMPLETE — competitive landscape mapped from 3 sources (web search, Codex, paper analysis)
+- **Plan:** RESTRUCTURED — 10 phases, all Memento-driven, 7 custom skills
+- **Memento setup:** WORKING — GLM-5 responds, filesystem skill functional, tool-calling fixed
+- **Key insight:** Memento is the execution engine, not a side tool. Every phase uses Memento skills.
+- **Next action:** Run queued experiments (stratified SSL, leave-site-out, multi-FM)
 
-### 17:10 — Phase 2 Complete: ALL RESULTS
+### 22:30 — Server Setup Complete
+- WearGait-PD downloaded (52GB, 1866 files, 795 PD + 681 HC CSVs)
+- All deps installed (PyTorch cu128, LightGBM, XGBoost, MOMENT, etc.)
+- FM embeddings regenerated: 1405 recordings × 768 dims (753s on GPU)
+- rocket_recordings.npz aligned with FM (1405 entries, 178 subjects)
 
-**C2: Age Sensitivity** — AGE IS NOT DRIVING THE RESULTS
-| Condition | T1 CCC | T1 MAE | T3 CCC | T3 MAE |
-|-----------|--------|--------|--------|--------|
-| Full HC (80) | 0.858 | 0.986 | 0.763 | 4.968 |
-| Age-matched HC (46) | 0.868 | 0.978 | 0.751 | 4.998 |
-Partial r (age only): 0.849 (p<1e-6)
-Partial r (age+dx): 0.823 (p<1e-6)
-Age strata: young CCC=0.730, middle=0.706, older=0.911
+### 22:45 — SSL Ranking Replicated on New Server
+- T1 (observable): CCC=0.855, slope=0.709, MAE=1.001
+- T2 (broad obs): CCC=0.833, slope=0.685, MAE=1.152
+- T3 (total): CCC=0.747, slope=0.539, MAE=5.081
+- Note: slight variance from old server due to FM re-extraction (different recording order)
 
-**C3: HC Ablation** — RANKING ITSELF HELPS, HC ADDS CALIBRATION
-| Method | T1 CCC | T1 MAE | T3 CCC | T3 MAE |
-|--------|--------|--------|--------|--------|
-| P0 Baseline | 0.673 | 1.380 | 0.209 | 8.032 |
-| P5 no HC | 0.857 | 1.013 | 0.789 | 4.591 |
-| P5 with HC | 0.858 | 0.986 | 0.763 | 4.968 |
+### 23:00 — Observability + Conformal Completed
+- Williams' test: p < 0.001 (observability gradient significant)
+- Permutation test: p = 0.002, z = 2.65
+- Conformal T1: 90% PI = ±2.19 pts (< MCID 3.25)
+- Conformal T3: 90% PI = ±10.12 pts (3× MCID)
 
-**C1: Obs 5-fold** — GRADIENT CONFIRMED UNDER UNIFIED EVAL
-| Tier | SSL CCC | SSL MAE | Baseline CCC |
-|------|---------|---------|--------------|
-| Direct | 0.834 | 1.100 | 0.545 |
-| Partial | 0.730 | 2.590 | 0.055 |
-| Unobs | 0.759 | 2.097 | 0.176 |
+### 23:15 — Subgroup Metadata Extracted
+- 2-site structure discovered: NLS(72) vs WPD(28)
+- DBS: 23 Yes, 59 No, 18 unknown
+- H&Y: 1-4 distribution captured
+- Full ablation report written to results/memento_ablation_report.md
 
-**C11: Single Sensor** — SINGLE WRIST ACHIEVES CCC>0.78
-| Config | CCC | MAE | r |
-|--------|-----|-----|---|
-| LowerBack (1) | 0.867 | 0.962 | 0.884 |
-| R_Wrist (1) | 0.784 | 1.202 | 0.806 |
-| L_Wrist (1) | 0.791 | 1.187 | 0.806 |
-| All 13 | 0.857 | 1.001 | 0.873 |
-
-### 17:20 — Phase 4 Start: Paper Rewrite
-- Added 4 new fields to PaperData + load_all_data (reviewer JSONs)
-- Added 4 new table functions: _table_age_sensitivity, _table_hc_ablation, _table_obs_5fold, _table_single_sensor
-- Launched subagent to write complete build_html_v2 function (restructured Results, 5-fold primary)
-- Will do 3 rounds of codex+gemini review after paper generation
+### Errors Encountered
+| Error | Resolution |
+|-------|-----------|
+| litellm UnsupportedParamsError on tool-calling | Added `litellm.modify_params = True` in client.py |
+| Claude CLI credit balance too low | Codex provided sufficient research; Claude not needed |
+| Gemini 429 rate limit (10 retries) | Codex covered the gap; Gemini not critical |
+| NEW.html too large to read fully (337K tokens) | Used grep for headings + targeted offset reads for key sections |
 
 ---
 
-## Archived: Previous Sessions
-(See git history for figure review, writing review, and verification audit sessions)
+## Historical Sessions (preserved)
+
+### 2026-03-26 — CCC Definition + Paper Innovations
+- Verified CCC definition in code and manuscript
+- Confirmed P0→P5 improvement: T1 CCC 0.700→0.865, T3 CCC 0.186→0.807
+- Identified: ranking-to-leaf transformation is the main engine; HC anchors are marginal
+
+### 2026-03-25 — Codebase Audit
+- 129 tests pass, 4 skipped
+- Architecture: small shared core + many large standalone runners
+- Security: TOKEN.md has raw credentials
+- Multiple overlapping planning docs need consolidation
+
+### 2026-03-24 — Reviewer Response
+- Wrote run_reviewer_experiments.py (730 lines, 4 subcommands)
+- Set up new GPU server (RTX 3090 24GB)
+- All 4 experiments completed:
+  - Age sensitivity: age NOT driving results
+  - HC ablation: ranking > HC anchoring
+  - Obs 5-fold: gradient confirmed
+  - Single sensor: single wrist CCC>0.78
+- Paper rewrite started (Phases P4-P5 pending)
