@@ -205,7 +205,9 @@ updrs_columns.py        # Robust UPDRS subitem column resolution across naming v
 
 **Primary experiment scripts:**
 ```
-run_compression_ablation.py # Anti-compression proposals × 3 targets: ordinal, pairwise, SMOGN, NGBoost, SSL ranking
+run_compression_ablation.py # Anti-compression proposals × 3 targets: ordinal, pairwise, SMOGN, NGBoost, SSL ranking (TRANSDUCTIVE Stage 1 — see leakage audit)
+run_inductive_ablation.py   # Leak-free Stage 1: refits XGBRanker per fold on training-fold subjects only. Three variants (transductive/inductive_pd_hc/inductive_pd) for the H1 ablation
+run_nested_temperature.py   # Leak-free temperature scaling: per-fold T from inner LOOCV on the OTHER N-1 subjects + per-fold mean centring (H2/H3 fix)
 run_pd_only_experiments.py  # 7-phase PD-only experiments (10-split, LOOCV, 3-level observability, held-out)
 run_calibration_ablation.py # Calibration-fix ablation (--target total|obs, residual modeling)
 run_rocket_ablation.py      # ROCKET + FM + coordination ablation (phases 0-9)
@@ -333,3 +335,6 @@ memento agent -m "Create a skill that reads results/*.json and summarizes experi
 - **NEVER reuse clean test split for model search** — this caused the original 6.89 contamination
 - **NEVER promote a sensitivity-check winner as new primary** — recreates contamination cycle
 - **ALWAYS verify SOTA claims from LLMs against actual papers** — multiple hallucinated citations found
+- **NEVER pre-compute target-derived structures (ranks, anchors, prototypes) outside the CV loop** — even if no "predicted" value is exposed, the rank/anchor signal IS a label leak; refit per fold on training-fold subjects only. Audit 2026-04-28 found this leak in run_compression_ablation.py:1015 cost ΔCCC=0.343 on T1 5-fold.
+- **NEVER tune a hyperparameter on the test-set vector and report metrics on the same vector** — slope/CCC/MAE optimisation targets pin the reported value to the optimum by construction. Use nested CV: tune on inner folds, evaluate on outer hold-out. Audit 2026-04-28 found this in run_calibration_v2.py:861 (T_grid optimised on the same N=94 LOOCV preds it then evaluated, slope pinned to 1.000).
+- **HC ablation does NOT defend against H1 transductive leakage** — it only tests HC anchor contribution. The "PD-only ranking ≈ PD+HC ranking" pattern in NEW2.html was not a leakage test. A true inductive ablation requires refitting the ranker on training-fold subjects only.

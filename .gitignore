@@ -30,6 +30,8 @@ results/results/
 *.key
 *.pem
 synapse_credentials.json
+TOKEN.md
+GPU.md
 
 # === OS / editor junk ===
 .DS_Store

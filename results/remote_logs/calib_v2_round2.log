@@ -1,0 +1,151 @@
+Experiments to run: ['E1', 'E4', 'E5']
+N_CORES: 11
+SEEDS: [42, 123, 456, 789, 2024]
+Loading per-item scores from cache: /root/pd-imu/results/per_item_scores.json
+
+Data loaded:
+  PD subjects: 94
+  All subjects (PD+HC): 174
+  Features: 2520 (v2: 1752, FM: 768)
+  T1: range [0, 14], mean=4.1, std=2.8
+  T2: range [1, 20], mean=6.8, std=3.8
+  T3: range [6, 59], mean=25.2, std=10.2
+
+######################################################################
+#  Running E1
+######################################################################
+
+============================================================
+  E1_ccc_loss — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.099 slope=0.150 MAE=2.832 (88s elapsed, ~741s remaining)
+    [20/94] CCC=0.099 slope=0.113 MAE=3.127 (172s elapsed, ~636s remaining)
+    [30/94] CCC=0.131 slope=0.160 MAE=3.175 (253s elapsed, ~540s remaining)
+    [40/94] CCC=0.132 slope=0.147 MAE=2.930 (340s elapsed, ~459s remaining)
+    [50/94] CCC=0.165 slope=0.180 MAE=2.608 (434s elapsed, ~382s remaining)
+    [60/94] CCC=0.273 slope=0.271 MAE=2.561 (537s elapsed, ~304s remaining)
+    [70/94] CCC=0.305 slope=0.289 MAE=2.387 (640s elapsed, ~219s remaining)
+    [80/94] CCC=0.333 slope=0.318 MAE=2.488 (740s elapsed, ~130s remaining)
+    [90/94] CCC=0.338 slope=0.322 MAE=2.351 (847s elapsed, ~38s remaining)
+
+  Saved: /root/pd-imu/results/calib_v2_E1.json
+  CCC=0.345  slope=0.322  std_ratio=0.516  MAE=2.461  r=0.624
+
+######################################################################
+#  Running E4
+######################################################################
+
+  E4: Trying lambda=0.1
+
+============================================================
+  E4_varp_lam0.1 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.813 slope=0.682 MAE=1.021 (86s elapsed, ~724s remaining)
+    [20/94] CCC=0.776 slope=0.619 MAE=1.359 (172s elapsed, ~637s remaining)
+    [30/94] CCC=0.808 slope=0.660 MAE=1.247 (253s elapsed, ~539s remaining)
+    [40/94] CCC=0.804 slope=0.645 MAE=1.203 (335s elapsed, ~452s remaining)
+    [50/94] CCC=0.817 slope=0.665 MAE=1.079 (425s elapsed, ~374s remaining)
+    [60/94] CCC=0.829 slope=0.651 MAE=1.115 (505s elapsed, ~286s remaining)
+    [70/94] CCC=0.835 slope=0.656 MAE=1.078 (585s elapsed, ~201s remaining)
+    [80/94] CCC=0.850 slope=0.678 MAE=1.070 (667s elapsed, ~117s remaining)
+    [90/94] CCC=0.850 slope=0.687 MAE=1.039 (751s elapsed, ~33s remaining)
+
+  E4: Trying lambda=0.5
+
+============================================================
+  E4_varp_lam0.5 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.818 slope=0.726 MAE=0.963 (82s elapsed, ~693s remaining)
+    [20/94] CCC=0.764 slope=0.626 MAE=1.344 (168s elapsed, ~622s remaining)
+    [30/94] CCC=0.781 slope=0.653 MAE=1.281 (249s elapsed, ~532s remaining)
+    [40/94] CCC=0.775 slope=0.631 MAE=1.273 (337s elapsed, ~454s remaining)
+    [50/94] CCC=0.791 slope=0.664 MAE=1.152 (423s elapsed, ~372s remaining)
+    [60/94] CCC=0.801 slope=0.643 MAE=1.208 (507s elapsed, ~287s remaining)
+    [70/94] CCC=0.815 slope=0.654 MAE=1.147 (589s elapsed, ~202s remaining)
+    [80/94] CCC=0.829 slope=0.669 MAE=1.157 (677s elapsed, ~118s remaining)
+    [90/94] CCC=0.828 slope=0.680 MAE=1.130 (762s elapsed, ~34s remaining)
+
+  E4: Trying lambda=1.0
+
+============================================================
+  E4_varp_lam1.0 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.423 slope=0.305 MAE=1.326 (82s elapsed, ~687s remaining)
+    [20/94] CCC=0.641 slope=0.516 MAE=1.599 (161s elapsed, ~596s remaining)
+    [30/94] CCC=0.672 slope=0.561 MAE=1.592 (247s elapsed, ~526s remaining)
+    [40/94] CCC=0.670 slope=0.538 MAE=1.529 (336s elapsed, ~454s remaining)
+    [50/94] CCC=0.693 slope=0.579 MAE=1.410 (424s elapsed, ~373s remaining)
+    [60/94] CCC=0.746 slope=0.606 MAE=1.420 (509s elapsed, ~288s remaining)
+    [70/94] CCC=0.764 slope=0.625 MAE=1.362 (594s elapsed, ~204s remaining)
+    [80/94] CCC=0.784 slope=0.650 MAE=1.372 (684s elapsed, ~120s remaining)
+    [90/94] CCC=0.780 slope=0.659 MAE=1.338 (769s elapsed, ~34s remaining)
+
+  E4: Trying lambda=2.0
+
+============================================================
+  E4_varp_lam2.0 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.469 slope=0.350 MAE=1.364 (82s elapsed, ~685s remaining)
+    [20/94] CCC=0.675 slope=0.552 MAE=1.568 (167s elapsed, ~617s remaining)
+    [30/94] CCC=0.680 slope=0.592 MAE=1.592 (256s elapsed, ~547s remaining)
+    [40/94] CCC=0.669 slope=0.559 MAE=1.538 (347s elapsed, ~468s remaining)
+    [50/94] CCC=0.690 slope=0.607 MAE=1.434 (433s elapsed, ~381s remaining)
+    [60/94] CCC=0.732 slope=0.614 MAE=1.456 (515s elapsed, ~292s remaining)
+    [70/94] CCC=0.747 slope=0.632 MAE=1.403 (597s elapsed, ~205s remaining)
+    [80/94] CCC=0.772 slope=0.658 MAE=1.396 (687s elapsed, ~120s remaining)
+    [90/94] CCC=0.768 slope=0.663 MAE=1.366 (771s elapsed, ~34s remaining)
+
+  E4: Trying lambda=5.0
+
+============================================================
+  E4_varp_lam5.0 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.438 slope=0.369 MAE=1.532 (80s elapsed, ~668s remaining)
+    [20/94] CCC=0.688 slope=0.613 MAE=1.627 (163s elapsed, ~601s remaining)
+    [30/94] CCC=0.708 slope=0.655 MAE=1.561 (247s elapsed, ~528s remaining)
+    [40/94] CCC=0.721 slope=0.636 MAE=1.460 (332s elapsed, ~449s remaining)
+    [50/94] CCC=0.732 slope=0.671 MAE=1.383 (421s elapsed, ~370s remaining)
+    [60/94] CCC=0.756 slope=0.661 MAE=1.444 (503s elapsed, ~285s remaining)
+    [70/94] CCC=0.775 slope=0.683 MAE=1.371 (581s elapsed, ~199s remaining)
+    [80/94] CCC=0.802 slope=0.715 MAE=1.340 (664s elapsed, ~116s remaining)
+    [90/94] CCC=0.791 slope=0.716 MAE=1.334 (750s elapsed, ~33s remaining)
+
+  E4 best: lambda=0.1, CCC=0.846
+
+  Saved: /root/pd-imu/results/calib_v2_E4.json
+  CCC=0.846  slope=0.671  std_ratio=0.763  MAE=1.078  r=0.880
+
+######################################################################
+#  Running E5
+######################################################################
+
+============================================================
+  E5_cqr — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.778 slope=0.958 MAE=1.204 (115s elapsed, ~969s remaining)
+    [20/94] CCC=0.787 slope=0.975 MAE=1.559 (235s elapsed, ~870s remaining)
+    [30/94] CCC=0.843 slope=1.040 MAE=1.251 (352s elapsed, ~751s remaining)
+    [40/94] CCC=0.827 slope=1.067 MAE=1.332 (467s elapsed, ~630s remaining)
+    [50/94] CCC=0.825 slope=1.099 MAE=1.262 (575s elapsed, ~506s remaining)
+    [60/94] CCC=0.853 slope=1.044 MAE=1.244 (691s elapsed, ~392s remaining)
+    [70/94] CCC=0.859 slope=1.028 MAE=1.196 (797s elapsed, ~273s remaining)
+    [80/94] CCC=0.868 slope=1.015 MAE=1.209 (908s elapsed, ~159s remaining)
+    [90/94] CCC=0.866 slope=1.026 MAE=1.182 (1019s elapsed, ~45s remaining)
+
+  Saved: /root/pd-imu/results/calib_v2_E5.json
+  CCC=0.863  slope=0.952  std_ratio=1.098  MAE=1.207  r=0.867
+
+==========================================================================================
+  CALIBRATION ABLATION SUMMARY — T1 (observable subscore, items 9-14)
+==========================================================================================
+Experiment                      CCC   slope   std_r    MAE      r    time
+------------------------------------------------------------------------------------------
+E1_ccc_loss                   0.345   0.322   0.516  2.461  0.624    886s
+E4_varp_lam0.1                0.846   0.671   0.763  1.078  0.880    785s
+E5_cqr                        0.863   0.952   1.098  1.207  0.867   1062s
+==========================================================================================
+
+  Best slope (CCC>=0.80): E5_cqr — slope=0.952, CCC=0.863
+  Best CCC:  E5_cqr — CCC=0.863, slope=0.952
+
+Combined summary saved: /root/pd-imu/results/calib_v2_all.json

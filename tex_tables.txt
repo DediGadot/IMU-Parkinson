@@ -1,0 +1,185 @@
+--- TEX Table 1 ---
+{lll}
+Age, years (mean $\pm$ SD)              & $66.9 \pm 8.3$           & $74.6 \pm 8.5$ \\
+Sex (M/F)                               & 63M / 35F                & 35M / 45F \\
+Height, cm (mean $\pm$ SD)              & $174.2 \pm 10.3$         & $168.1 \pm 17.5$ \\
+Weight, kg (mean $\pm$ SD)              & $78.0 \pm 17.2$          & $81.0 \pm 16.8$ \\
+UPDRS-III (mean $\pm$ SD)               & $24.4 \pm 10.9$          & $7.1 \pm 9.7$ \\
+UPDRS-III range                         & $[0.0, 59.0]$            & $[0.0, 43.0]$ \\
+H\&Y (mean $\pm$ SD)                    & $2.15 \pm 0.6$ ($N=95$)  & --- \\
+H\&Y distribution                       & 1: 9, 1.5: 1, 2: 58, 2.5: 12, 3: 12, 4: 3 & --- \\
+Years since diagnosis (mean $\pm$ SD)   & $7.6 \pm 5.9$ ($[0.0, 26.4]$) & --- \\
+DBS                                     & 23                       & --- \\
+--- TEX Table 2 ---
+{llrrrrrr}
+Directly observable    & 3.9--3.14            & 0.700 & 1.336 & \textbf{0.864} & 1.156 & 1.043 & 0.877 \\
+Partially observable   & 3.5--3.8, 3.15--3.17 & 0.055 & 4.411 & \textbf{0.730} & 2.590 & 0.483 & 0.849 \\
+Not observable         & 3.1--3.4, 3.18       & 0.176 & 3.494 & \textbf{0.759} & 2.097 & 0.550 & 0.823 \\
+--- TEX Table 3 ---
+{lllrrrr}
+Demographic Ridge     & 10-split & 98 & $7.44 \pm 0.75$ &  0.326 & --- & --- \\
+v2 Handcrafted LGB    & 10-split & 98 & $8.42 \pm 0.69$ & $-0.004$ & --- & --- \\
+v2+FM Stack           & 10-split & 98 & $8.57 \pm 0.96$ & $-0.019$ & --- & --- \\
+FM Stack (baseline)   & LOOCV    & 98 & 8.15            & 0.369 & 0.429 & 0.256 \\
+Demographic Ridge     & LOOCV    & 98 & 7.86            & 0.338 & 0.427 & 0.211 \\
+P0 Baseline           & 5-split  & 95 & 8.09            & 0.186 & 0.297 & 0.104 \\
+--- TEX Table 4 ---
+{lrrrrrr}
+Q1 ($<$12)   &  9 & 14.09 & 0.141 & $+14.1$ &  6.2 & 20.3 \\
+Q2 (12--20)  & 26 &  5.96 & 0.068 &  $+4.5$ & 15.6 & 20.1 \\
+Q3 (20--35)  & 46 &  5.94 & 0.152 &  $-4.0$ & 26.8 & 22.7 \\
+Q4 ($>$35)   & 17 & 14.30 & 0.138 & $-14.3$ & 41.2 & 26.9 \\
+--- TEX Table 5 ---
+{lrrrrrrrrr}
+Full HC         & 80 & 74.6 & $<0.001$ & \textbf{0.858} & 0.986 & 0.874 & 0.718 & 0.763 & 4.968 \\
+Age-matched HC  & 46 & 68.9 & 0.0905   & \textbf{0.868} & 0.978 & 0.880 & 0.744 & 0.751 & 4.998 \\
+--- TEX Table 6 ---
+{lrrrr}
+young ($<65$y)     & 31 & 0.730 & 0.925 & 0.781 \\
+middle (65--71y)   & 29 & 0.706 & 1.094 & 0.727 \\
+older ($\ge 71$y)  & 35 & 0.911 & 0.951 & 0.927 \\
+--- TEX Table 7 ---
+{lrrrrrrrr}
+P0: Baseline (no ranking) &  0 & 0.673 & 1.380 & 0.477 & 0.741 & 0.209 & 8.032 & 0.116 \\
+P5: PD-only ranking       &  0 & 0.857 & 1.013 & 0.746 & 0.867 & 0.789 & 4.591 & 0.572 \\
+P5: PD+HC ranking         & 80 & 0.858 & 0.986 & 0.718 & 0.874 & 0.763 & 4.968 & 0.544 \\
+--- TEX Table 8 ---
+{lrrrrrr}
+LwrBdy (9)    &  9 & 0.889 & $+0.027$ & 0.883 & 0.787 & 0.897 \\
+LB (1)        &  1 & 0.884 & $+0.022$ & 0.905 & 0.738 & 0.903 \\
+no-An (11)    & 11 & 0.883 & $+0.021$ & 0.904 & 0.749 & 0.897 \\
+no-Fh (12)    & 12 & 0.881 & $+0.019$ & 0.926 & 0.718 & 0.904 \\
+Ankles (2)    &  2 & 0.879 & $+0.017$ & 0.933 & 0.790 & 0.885 \\
+Min5          &  5 & 0.879 & $+0.017$ & 0.876 & 0.750 & 0.894 \\
+Ft+An (4)     &  4 & 0.878 & $+0.016$ & 0.949 & 0.778 & 0.885 \\
+no-Wr (11)    & 11 & 0.875 & $+0.013$ & 0.959 & 0.779 & 0.882 \\
+no-Ft (11)    & 11 & 0.873 & $+0.011$ & 0.901 & 0.721 & 0.893 \\
+no-LB (12)    & 12 & 0.872 & $+0.010$ & 0.910 & 0.712 & 0.895 \\
+All 13        & 13 & 0.862 & ref      & 1.014 & 0.734 & 0.875 \\
+no-Fh (12)    & 12 & 0.834 & $+0.047$ & 1.155 & 0.718 & 0.851 \\
+Min5          &  5 & 0.834 & $+0.047$ & 1.148 & 0.732 & 0.844 \\
+UprBdy (4)    &  4 & 0.833 & $+0.046$ & 1.213 & 0.721 & 0.845 \\
+LB+Wr (3)     &  3 & 0.829 & $+0.042$ & 1.180 & 0.685 & 0.848 \\
+no-Ft (11)    & 11 & 0.828 & $+0.041$ & 1.200 & 0.696 & 0.844 \\
+Extr (6)      &  6 & 0.827 & $+0.040$ & 1.167 & 0.682 & 0.852 \\
+LB (1)        &  1 & 0.825 & $+0.038$ & 1.220 & 0.700 & 0.845 \\
+no-Th (11)    & 11 & 0.821 & $+0.034$ & 1.177 & 0.713 & 0.838 \\
+no-Sh (11)    & 11 & 0.820 & $+0.033$ & 1.167 & 0.691 & 0.836 \\
+Ankles (2)    &  2 & 0.819 & $+0.032$ & 1.171 & 0.686 & 0.835 \\
+All 13        & 13 & 0.787 & ref      & 1.272 & 0.633 & 0.816 \\
+Wr+An (4)     &  4 & 0.806 & $+0.042$ & 4.528 & 0.596 & 0.862 \\
+Min5          &  5 & 0.778 & $+0.014$ & 4.924 & 0.560 & 0.846 \\
+no-Sh (11)    & 11 & 0.771 & $+0.007$ & 4.745 & 0.555 & 0.839 \\
+LB+Wr (3)     &  3 & 0.771 & $+0.007$ & 4.812 & 0.550 & 0.843 \\
+no-An (11)    & 11 & 0.768 & $+0.004$ & 4.890 & 0.548 & 0.841 \\
+Extr (6)      &  6 & 0.767 & $+0.003$ & 5.138 & 0.545 & 0.841 \\
+no-Xi (12)    & 12 & 0.766 & $+0.002$ & 4.776 & 0.539 & 0.846 \\
+UprBdy (4)    &  4 & 0.766 & $+0.002$ & 4.712 & 0.548 & 0.836 \\
+All 13        & 13 & 0.764 & $+0.000$ & 4.999 & 0.546 & 0.834 \\
+no-LB (12)    & 12 & 0.764 & $+0.000$ & 4.704 & 0.545 & 0.836 \\
+--- TEX Table 9 ---
+{lrrr}
+All 13       & $0.850 \pm 0.024$ & $0.815 \pm 0.029$ & $0.760 \pm 0.025$ \\
+LB (1)       & $0.863 \pm 0.016$ & $0.844 \pm 0.018$ & $0.721 \pm 0.033$ \\
+Min5         & $0.832 \pm 0.019$ & $0.828 \pm 0.028$ & $0.777 \pm 0.028$ \\
+Wr+An (4)    & $0.834 \pm 0.023$ & $0.844 \pm 0.033$ & $0.789 \pm 0.026$ \\
+--- TEX Table 10 ---
+{llrrl}
+LB (1)      & T1 & $+0.0128$ & 0.0003 & NON-INFERIOR \\
+LB (1)      & T2 & $+0.0285$ & 0.0000 & SUPERIOR ($p_{\mathrm{sup}}=0.0190$) \\
+LB (1)      & T3 & $-0.0392$ & 0.2679 & FAILS \\
+Min5        & T1 & $-0.0176$ & 0.0032 & NON-INFERIOR \\
+Min5        & T2 & $+0.0127$ & 0.0000 & NON-INFERIOR \\
+Min5        & T3 & $+0.0170$ & 0.0007 & NON-INFERIOR \\
+Wr+An (4)   & T1 & $-0.0159$ & 0.0016 & NON-INFERIOR \\
+Wr+An (4)   & T2 & $+0.0282$ & 0.0000 & SUPERIOR ($p_{\mathrm{sup}}=0.0095$) \\
+Wr+An (4)   & T3 & $+0.0297$ & 0.0000 & SUPERIOR ($p_{\mathrm{sup}}=0.0059$) \\
+--- TEX Table 11 ---
+{lcccccc}
+& \multicolumn{3}{c}{\textbf{T1 (Direct Observable)}} & \multicolumn{3}{c}{\textbf{T3 (Total UPDRS-III)}} \\
+All 13        & 0.857 & 0.862 & $+0.005$ & 0.770 & 0.764 & $-0.006$ \\
+LB (1)        & 0.884 & 0.884 & $+0.000$ & 0.699 & 0.720 & $+0.021$ \\
+Min5          & 0.864 & 0.879 & $+0.015$ & 0.779 & 0.778 & $-0.001$ \\
+Wr+An (4)     & 0.882 & 0.853 & $-0.029$ & 0.748 & 0.806 & $+0.058$ \\
+--- TEX Table 12 ---
+{llllllrrr}
+This work (T1, ranking) & 2026 & WearGait-PD    & 94 PD & 13 IMUs           & PD LOOCV         & $0.99^{*}$       & 0.899 & 0.868 \\
+This work (T3, ranking) & 2026 & WearGait-PD    & 94 PD & 13 IMUs           & PD LOOCV         & 4.65             & 0.827 & 0.776 \\
+This work (T3, baseline)& 2026 & WearGait-PD    & 98 PD & 13 IMUs           & PD LOOCV         & 8.15             & 0.429 & 0.369 \\
+Hssayeni et al.         & 2021 & Physionet      & 24 PD & wrist+ankle gyro  & PD LOOCV         & 5.95             & 0.79  & N/R   \\
+Shuqair et al.          & 2024 & Same Physionet & 24 PD & wrist+ankle gyro  & PD LOOCV         & $\sim$5.65       & 0.89  & N/R   \\
+Sotirakis et al.        & 2023 & Oxford         & 74 PD & wrist+back        & 5-fold CV$^{\dagger}$ & RMSE$=10.02$ & ---   & N/R   \\
+--- TEX Table 13 ---
+{llll}
+Feature $K$                & 150   & 500   & 500 \\
+Seeds                      & [42,123,456,789,2024] & [42,123,456,789,2024] & [42,123,456] \\
+--- TEX Table 14 ---
+{llrrrrrrrr}
+& & & \multicolumn{3}{c}{\textbf{T1 (Direct Obs)}} & \multicolumn{2}{c}{\textbf{T2 (Broad Obs)}} & \multicolumn{2}{c}{\textbf{T3 (Total)}} \\
+P0 Baseline           & 5-split & 95 & 0.700 & 0.508 & 1.336 & 0.554 & 1.85 & 0.186 & 8.09 \\
+P1 Ordinal Classif.   & 5-split & 95 & 0.338 & 0.184 & 1.594 & ---   & ---  & ---   & ---  \\
+P3 SMOGN              & 5-split & 95 & 0.665 & 0.528 & 1.491 & 0.603 & 1.85 & 0.195 & 8.38 \\
+P4 NGBoost            & 5-split & 95 & 0.671 & 0.484 & 1.387 & 0.595 & 1.75 & 0.187 & 8.20 \\
+P5 Ordinal Ranking    & 5-split & 95 & \textbf{0.865} & 0.745 & 0.953 & \textbf{0.831} & 1.16 & \textbf{0.807} & 4.46 \\
+P5 Ordinal Ranking    & LOOCV   & 94 & \textbf{0.868} & 0.689 & 0.986 & \textbf{0.852} & 1.33 & \textbf{0.776} & 4.65 \\
+--- TEX Table 15 ---
+{lrrrrrrr}
+& \multicolumn{3}{c}{\textbf{P0 Baseline (5-split)}} & \multicolumn{3}{c}{\textbf{P5 Ranking (5-split)}} & \\
+Q1 ($<$2)   & 16 & $+2.25$ & 2.25 & 16 & $+1.65$ & 1.65 & $-27\%$ \\
+Q2 (2--4)   & 31 & $+0.67$ & 0.87 & 31 & $+0.13$ & 0.64 & $-81\%$ \\
+Q3 (4--5)   & 19 & $-0.29$ & 0.94 & 19 & $-0.74$ & 0.84 & $+151\%$ \\
+Q4 ($\ge$5) & 29 & $-1.34$ & 1.60 & 29 & $-0.53$ & 0.98 & $-61\%$ \\
+--- TEX Table 16 ---
+{lrrrr}
+All 13 sensors                  & 13 & $7.72 \pm 0.78$ & 0.184 & ---   \\
+Minimal 5 (back+wrists+ankles)  &  5 & $7.67 \pm 0.84$ & 0.152 & 0.851 \\
+Back + wrists (3)               &  3 & $7.89 \pm 0.64$ & 0.113 & 0.202 \\
+Wrists only (2)                 &  2 & $7.80 \pm 0.63$ & 0.102 & 0.555 \\
+Lower back only (1)             &  1 & $8.12 \pm 0.76$ & 0.048 & 0.014 \\
+--- TEX Table 17 ---
+{lrrrrrr}
+LowerBack (1) &  1 &  318 & 0.867 & 0.962 & 0.726 & 0.884 \\
+R\_Wrist (1)  &  1 &  155 & 0.784 & 1.202 & 0.644 & 0.806 \\
+L\_Wrist (1)  &  1 &  137 & 0.791 & 1.187 & 0.662 & 0.806 \\
+wrists (2)    &  2 &  261 & 0.776 & 1.206 & 0.606 & 0.809 \\
+all (13)      & 13 & 1721 & 0.857 & 1.001 & 0.720 & 0.873 \\
+--- TEX Table 18 ---
+{lrrr}
+P1A: MAE$\rightarrow$Transformer 128d/4L + MIL        & $11.88 \pm 2.70$ & 10.85 & 0.590 \\
+P1B: Contrastive$\rightarrow$Transformer 128d/4L + MIL& $12.96 \pm 2.22$ & 11.70 & 0.349 \\
+P1C: Transformer 128d/4L + MIL (scratch)              & $11.96 \pm 2.54$ & 10.99 & 0.521 \\
+P3A: InceptionTime 3blk + MIL                         & $13.22 \pm 1.87$ & 11.87 & 0.470 \\
+P3B: InceptionTime 3blk + ordinal                     & $11.93 \pm 0.93$ & 10.46 & 0.436 \\
+P3C: InceptionTime 3blk h24 + MIL                     & $12.84 \pm 0.94$ & 12.01 & 0.443 \\
+P6A: SensorGNN 64d + MIL                              & $13.80 \pm 0.61$ & 13.68 & 0.454 \\
+--- TEX Table 19 ---
+{lrrrrl}
+E0: Baseline (5-seed LGB ensemble)       & 0.859 & 0.691 & 1.046 & 0.779 & Reference \\
+E1: CCC custom loss objective            & 0.345 & 0.322 & 2.461 & 0.516 & Failed --- gradient too noisy at $N=94$ \\
+E2: Quantile regression (median)         & 0.800 & 0.562 & 1.109 & 0.633 & Failed --- worse than baseline \\
+E3: Distance-weighted KNN ($K=3$)        & 0.872 & 0.951 & 1.228 & 1.080 & Good calibration \\
+E4: Variance penalty ($\lambda=0.1$)     & 0.846 & 0.671 & 1.078 & 0.763 & Marginal --- slope barely moved \\
+E5: Conformal quantile regression        & 0.863 & 0.952 & 1.207 & 1.098 & Good calibration \\
+E6: Ridge on PCA leaf features           & 0.467 & 0.523 & 1.947 & 1.105 & Failed --- linear head too weak \\
+--- TEX Table 20 ---
+{lrrrrrr}
+& \multicolumn{3}{c}{\textbf{5-fold CV ($N=95$)}} & \multicolumn{3}{c}{\textbf{LOOCV ($N=94$)}} \\
+T1 (direct obs) & \textbf{0.864} & 1.156 & 0.877 & 0.868 & 0.986 & 0.899 \\
+T2 (broad obs)  & \textbf{0.831} & 1.162 & 0.847 & 0.852 & 1.334 & 0.873 \\
+T3 (total)      & \textbf{0.807} & 4.464 & 0.877 & 0.776 & 4.646 & 0.827 \\
+--- TEX Table 21 ---
+{lrrl}
+P1\_fm\_vs\_v2\_median        & 0.4692   & 0.9384   & ns  \\
+P1\_fm\_vs\_demo\_median      & 0.2991   & 0.8973   & ns  \\
+P2\_permutation               & $<0.001$ & 0.0021   & **  \\
+P2\_fm\_vs\_demo\_bootstrap   & 0.5924   & 0.9384   & ns  \\
+P2\_partial\_corr             & $<0.001$ & 0.0021   & **  \\
+P3\_ordering\_test            & 0.1721   & 0.6884   & ns  \\
+P4\_spearman                  & $<0.001$ & $<0.001$ & *** \\
+P4\_partial\_corr             & $<0.001$ & 0.0021   & **  \\
+--- TEX Table 22 ---
+{llrrrrrrrr}
+Directly observable    & 3.9--3.14            & 24 & 94 & 1.77 & 7.4 & 0.560 & 0.401 & 0.667 & $1.72 \pm 0.33$ \\
+Partially observable   & 3.5--3.8, 3.15--3.17 & 68 & 94 & 4.89 & 7.2 & 0.120 & 0.082 & 0.169 & $3.99 \pm 0.65$ \\
+Not observable         & 3.1--3.4, 3.18       & 40 & 91 & 3.94 & 9.8 & 0.182 & 0.129 & 0.290 & $3.85 \pm 0.46$ \\
+Binary observable      & 3.7--3.14            & 40 & 94 & 3.13 & 7.8 & 0.464 & 0.315 & 0.608 & --- \\

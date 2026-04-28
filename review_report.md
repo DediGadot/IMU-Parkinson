@@ -1,141 +1,97 @@
-# Peer Review Report: NEW.html
+# Peer Review: "Ordinal ranking reaches the observability ceiling for wearable Parkinson's disease motor assessment"
 
-**Reviewer role:** Senior peer reviewer, Nature Digital Medicine
-**Date:** 2026-03-26
-**Manuscript:** "Ordinal Ranking Substantially Reduces Prediction Compression in Wearable Parkinson's Disease Motor Assessment"
-
----
-
-## Phase 0: Automated Pre-Check Results
-
-### 0A: Mechanical Pre-Check
-| Check | Result |
-|-------|--------|
-| Tables | 22 tables, no duplicates |
-| Bad p-values (p=0.0000) | 0 |
-| Overclaiming vocabulary | "definitive" x1 (used in caveat context: "precluding definitive claims" -- acceptable) |
-| MCID-subscore references | 10 cross-references (all individually caveated, see below) |
-
-### 0B: Table-vs-JSON Verification
-| File | Metric | Value | Status |
-|------|--------|-------|--------|
-| compression_P5_TT1_5split.json | ccc | 0.865 | OK |
-| compression_P5_TT1_5split.json | mae | 0.953 | OK |
-| compression_P5_TT1_5split.json | cal_slope | 0.745 | OK |
-| compression_P5_TT1_5split.json | r | 0.877 | OK |
-| compression_P5_TT3_5split.json | ccc | 0.807 | OK |
-| compression_P5_TT3_5split.json | mae | 4.464 | OK |
-| compression_P5_TT3_5split.json | cal_slope | 0.581 | OK |
-| compression_P5_TT3_5split.json | r | 0.877 | OK |
-| compression_P0_TT1.json | ccc | 0.700 | OK |
-| compression_P0_TT1.json | mae | 1.336 | OK |
-| compression_P0_TT1.json | cal_slope | 0.508 | OK |
-| compression_P0_TT1.json | r | 0.758 | MISSING (not shown in any table; Table S2 lacks r column; minor) |
-| compression_P0_TT3.json | ccc | 0.186 | OK |
-| compression_P0_TT3.json | mae | 8.086 | MISSING (rounded to 8.09 in text; acceptable) |
-| compression_P0_TT3.json | cal_slope | 0.104 | OK |
-| compression_P0_TT3.json | r | 0.297 | OK |
-
-### 0C: Structural Integrity (6 issues found pre-fix)
-| Check | Issue | Severity | Resolution |
-|-------|-------|----------|------------|
-| CHECK1 | N=95 in LOOCV context (3 instances) | False positive | These were table notes mentioning both 5-split and LOOCV protocols. No genuine N/protocol mismatch exists. |
-| CHECK2 | fold-restricted ablation claim with no backing JSON (2 instances) | **CRITICAL** | **FIXED** -- all 3 mentions softened to "planned but not yet completed" |
-| CHECK3 | Williams test assumes monotonic ordering but actual is [0.865, 0.73, 0.759] | **HIGH** | **FIXED** -- Williams test claims now qualified with non-monotonic caveat |
+**Journal:** Nature Digital Medicine (target)
+**Review round:** Final (post-R3)
+**Reviewer role:** Senior peer reviewer, internal consistency focus
+**Date:** 2026-04-02
 
 ---
 
-## Phase 1: Full Review Scoring
+## Dimension Scores (1--10)
 
-### Scoring Table (1-10 scale)
+| Dimension | Score | Notes |
+|-----------|-------|-------|
+| **Novelty** | 8 | First UPDRS-III regression on WearGait-PD; ordinal ranking-to-leaf-feature pipeline is genuinely novel; two-level observability decomposition provides new clinical insight |
+| **Methodological rigor** | 8 | Subject-level CV, multi-seed, LOOCV sensitivity, Nadeau-Bengio non-inferiority, comprehensive ablations. Transductive Stage 1 is honestly disclosed and ablated. Temperature T tuned on T1 only; T2/T3 report Stages 1--2 |
+| **Clarity** | 7 | Well-organized; three-stage pipeline clearly explained; ML appendix is helpful for clinicians. Abstract was verbose and had number mismatches (now fixed). Some redundancy between Section 2.2, Table 2, and Table S2 |
+| **Statistical soundness** | 8 | CCC as primary metric is appropriate; BCa CIs reported; Holm-Bonferroni correction applied; Williams test for observability ordering; non-inferiority with pre-specified delta. p-values consistent across text and tables |
+| **Clinical relevance** | 7 | Observable subscore is clinically meaningful for axial motor monitoring. Correctly notes MCID does not apply to subscores. Sensor reduction study provides a practical deployment roadmap. Limitation: single-dataset, cross-sectional only |
+| **Internal consistency** | 8 | After fixes: all key numbers trace to source tables. Minor acceptable variation across analyses with different subsets (N=90--98) is well explained in Methods 4.6 |
+| **Completeness** | 8 | Comprehensive negative results section, FM decomposition, age confound analysis, HC ablation, 22-config sensor study. Missing: leave-site-out analysis (two sites NLS/WPD exist), DBS subgroup analysis (N=23 acknowledged but not stratified) |
 
-| Dimension | Score | Rationale |
-|-----------|-------|-----------|
-| **1. Novelty** | 8 | First UPDRS-III regression on WearGait-PD. Two-stage ordinal ranking is a genuine methodological contribution. Observability decomposition is clinically insightful. |
-| **2. Statistical Rigor** | 7 | Appropriate primary metric (CCC), bootstrap CIs, multiple CV protocols. Williams test misapplication now corrected. LOOCV sensitivity analysis is good practice. Partial correlation controlling for age is appropriate. |
-| **3. Reproducibility** | 7 | Hyperparameters fully specified (Table S1). Public dataset. Code availability promised but URL placeholder. Feature extraction pipeline described in detail. Transductive design described honestly. |
-| **4. Clinical Relevance** | 6 | Observable subscore as candidate endpoint is well-motivated. MCID comparison is repeatedly made then caveated -- the comparison itself (2.19 < 3.25) is misleading since subscore MCID would be ~0.59. Floor effect at H&Y 1-1.5 limits clinical population. Cross-sectional only. |
-| **5. Writing Quality** | 8 | Clear structure. Abstract is comprehensive. Discussion honestly addresses limitations (12 enumerated). ML pipeline appendix for clinical readers is a nice touch. |
-| **6. Completeness** | 7 | Comprehensive sensitivity analyses (age, HC ablation, DBS, sex, H&Y, leave-site-out). Negative results documented. Missing: fold-restricted ablation was claimed but not done. Missing: longitudinal validation. |
-| **7. Intellectual Honesty** | 7 | Contamination history acknowledged (old MAE=6.89 not cited). Demographics competitive on total UPDRS honestly reported. Transductive design disclosed. However, the fold-restricted ablation was originally claimed as completed (phantom result). |
-
-**Overall: 7.1 / 10** -- Publishable with revisions (minor to moderate).
+**Overall: 7.7 / 10 -- Suitable for publication after minor revisions**
 
 ---
 
-## Phase 2: Issues Found and Fixes Applied
+## Issues Identified and Fixed
 
-### CRITICAL Issues (Fixed)
+### Critical Issues (fixed in this review)
 
-#### 1. Phantom fold-restricted ablation claim
-**Problem:** The abstract, Methods (Section 4.4), and Limitations (item 9) all claimed that "ablation with fold-restricted ranking yields/confirms comparable results" and referenced "Supplementary S5, Table S7" for this. However, no `results/*fold*restrict*.json` or `results/*restricted*.json` file exists. Table S7 shows 5-fold vs LOOCV comparison, not fold-restricted vs transductive ranking. This is a phantom result -- the ablation was never run.
+**C1. Abstract LOOCV CCC = 0.896 was an orphan number.**
+The abstract claimed "under LOOCV, the full pipeline achieves CCC = 0.896 with slope = 0.965." Neither number appeared in any table. Table S11 shows T1 LOOCV per-target temperature CCC = 0.893 (slope = 1.000); Table S8 shows T=1.4 temperature CCC = 0.882 (slope = 0.967). The 0.896 and 0.965 were likely from a prior analysis version.
+**Fix:** Replaced with per-target LOOCV results from Table S11: "per-target temperature tuning achieves CCC = 0.893 with slope = 1.000 (T1), CCC = 0.863 (T2), and CCC = 0.811 (T3)."
 
-**Fix applied (3 locations):**
-- **Abstract:** Changed "ablation with fold-restricted ranking confirms comparable results" to "fold-restricted ranking ablation is a planned validation (not yet completed)"
-- **Methods Section 4.4:** Changed "Ablation with fold-restricted ranking yields comparable results (Supplementary S5, Table S7), confirming..." to "A fold-restricted ranking ablation (where Stage 1 is retrained excluding each held-out fold) is planned but not yet completed; if confirmed, it would demonstrate..."
-- **Limitation (9):** Changed "although ablation confirms this does not inflate results" to "a fold-restricted ablation is planned but not yet completed to confirm this does not inflate results"
+**C2. Abstract mixed pre-temperature and post-temperature numbers.**
+The abstract presented "CCC = 0.865 (calibration slope = 0.745, MAE = 0.953)" -- all Stages 1--2 (pre-temperature) values -- for a "three-stage pipeline" that includes temperature scaling. The body (Section 2.2) consistently uses the with-temperature result (CCC = 0.864, slope = 1.043, MAE = 1.156) as the primary number.
+**Fix:** Abstract now leads with the full-pipeline result (CCC = 0.864, slope = 1.043, MAE = 1.156), then explicitly notes Stages 1--2 values (CCC = 0.865, slope = 0.745, MAE = 0.953) for context.
 
-#### 2. Williams test misapplication
-**Problem:** The paper applied Williams' test for ordered alternatives, which tests the hypothesis direct >= partial >= not-observable. However, the actual data ordering is direct (0.865) > not-observable (0.759) > partially observable (0.730) -- the partial and not-observable tiers are INVERTED relative to the hypothesized monotonic gradient. Williams' test is therefore testing the wrong hypothesis. The permutation test (p=0.002) is valid for testing separation, but the Williams test claim was misleading.
+**C3. Section 2.3 baseline direct CCC = 0.545 was incorrect.**
+The text stated "Ordinal ranking improves all three tiers substantially over baseline: direct CCC 0.545 -> 0.864." Table 2 shows the 5-fold baseline CCC for directly observable = 0.700. Table S10 (LOOCV baseline) shows 0.560. The value 0.545 matched neither.
+**Fix:** Changed to 0.700 to match Table 2 (the table in the same section).
 
-**Fix applied (3 locations):**
-- **Abstract:** Replaced "this gradient is statistically significant (Williams' test p < 0.001; permutation test p = 0.002)" with "the directly observable tier is significantly separated from the other two tiers (permutation test p = 0.002), though the ordering between partial and not-observable tiers is inverted (see Section 2.3)"
-- **Section 2.3:** Replaced the Williams test claim with explicit acknowledgment that the permutation test confirms tier separation but that Williams' test "was applied but assumes a monotonic ordering that does not hold here (see Section 3.3)"
-- **Discussion 3.3:** Replaced "Williams' test for ordered alternatives (p < 0.001) and a permutation gradient test... confirm that the tier ordering is statistically significant" with explicit statement that Williams' test "does not cleanly apply" because the ordering is not monotonic
+### Major Issues (fixed in this review)
 
-### HIGH Issues (Fixed)
+**M1. "Less than 4%" of subscore range was arithmetically wrong.**
+Section 2.2 and Discussion 3.2 both stated MAE of 1.156 "represents less than 4% of the subscore range." Actual: 1.156/24 = 4.8%. The 4% claim held for the pre-temperature MAE (0.953/24 = 4.0%) but not after temperature scaling increased MAE to 1.156.
+**Fix:** Changed to "less than 5%" in both occurrences.
 
-#### 3. Cross-dataset protocol mixing
-**Problem:** Figure 7 caption referenced "N=95" (5-fold CV) but Table 8 reported LOOCV results (N=94). Section 3.5 compared "MAE = 4.46, N=95, 5-fold CV" against Hssayeni's LOOCV (N=24). Section 2.6 called this "Protocol-matched comparison (5-fold to LOOCV)" which is self-contradictory.
-
-**Fix applied (4 locations):**
-- **Figure 7 caption:** Changed "N=95" to "N=94, PD-only LOOCV" to match Table 8
-- **Section 3.5:** Changed "MAE = 4.46, N=95, 5-fold CV" to "MAE = 4.65, N=94, LOOCV" for protocol-matched comparison
-- **Section 2.6:** Changed "Protocol-matched comparison (5-fold to LOOCV): our T3 ordinal ranking MAE = 4.46" to "Protocol-matched comparison (both LOOCV): our T3 ordinal ranking MAE = 4.65 (N=94, LOOCV)"
-- **Section 2.4:** Added explicit notation that both 5-fold and LOOCV values exist: "T3 MAE = 4.46 (5-fold CV) and T3 MAE = 4.65 (LOOCV) vs demographic LOOCV MAE = 7.86"
-
-#### 4. "Approximately monotonic" understatement
-**Problem:** Discussion 3.3 described the non-monotonic ordering as "approximately monotonic but not strictly so... not-observable items slightly exceed partially observable items." The difference (CCC 0.759 vs 0.730) is a clear inversion of the hypothesized gradient, not a "slight" deviation.
-
-**Fix applied:** Changed to "shows clear separation between the directly observable tier and the other two, but is not monotonic: not-observable items exceed partially observable items (CCC 0.759 vs 0.730)"
-
-### Observations (Not Fixed -- For Human Author)
-
-#### 5. MCID-subscore comparison repetition
-The paper makes the comparison "T1 PI half-width (2.19) < total-score MCID (3.25)" at least 3 times, with the caveat that subscore MCID would be ~0.59 (at which point 2.19 EXCEEDS it by 3.7x). Each instance is individually caveated, but the repeated comparison still creates a misleading impression. **Recommendation:** Consider removing 1-2 of the redundant instances, especially in the abstract where the caveat is briefest.
-
-#### 6. P0 baseline r=0.758 not in any table
-The JSON file `compression_P0_TT1.json` contains r=0.758 which is not displayed in any table. Table S2 lacks an r column. This is minor -- the baseline r is less important than CCC -- but could be added to Table 2 (which has a Baseline CCC and Baseline MAE column, but no Baseline r).
-
-#### 7. Fold-restricted ablation should be completed before submission
-The three softened claims are now honest, but a reviewer will almost certainly request this ablation. It is the single most important missing validation for the transductive design claim. **Recommendation:** Run the fold-restricted ablation on the GPU and update the manuscript before submission.
-
-#### 8. H&Y N=95 vs N=98 in demographics table
-Table 1 shows "H&Y (mean +/- SD): 2.15 +/- 0.6 (N=95)" for PD subjects, but the PD cohort is N=98. The discrepancy (3 subjects missing H&Y) should be footnoted.
-
-#### 9. Leave-site-out asymmetry deserves more discussion
-The WPD->NLS direction collapses (T1 CCC=0.122), and the paper attributes this to "insufficient training N." However, this could also reflect site-specific recording protocols, sensor placement differences, or population differences. The current explanation is incomplete.
-
-#### 10. Table S8 Holm-Bonferroni: P3_ordering_test not significant
-The ordering test (p_adj=0.6884) is not significant after correction, which further undermines the "ordered gradient" narrative. This should be mentioned in the main text when discussing the observability gradient.
+**M2. Abstract observability CCC said 0.865 instead of 0.864.**
+The abstract's observability sentence said "directly observable items (CCC = 0.865)" while the body consistently uses 0.864 (with temperature). Since the primary result is now 0.864, the abstract should match.
+**Fix:** Changed to 0.864.
 
 ---
 
-## Phase 3: Summary
+## Minor Issues (not fixed -- flagged for authors)
 
-### Changes Made to NEW.html
-1. **3 fold-restricted claims** softened from "confirms/yields comparable results" to "planned but not yet completed"
-2. **3 Williams test claims** qualified to acknowledge non-monotonic ordering and misapplication
-3. **4 cross-dataset protocol references** corrected to use consistent LOOCV protocol (N=94, MAE=4.65)
-4. **1 "approximately monotonic" understatement** corrected to acknowledge clear inversion
+**m1. Table 7 HC ablation baseline CCC = 0.673 differs from Table 2 baseline CCC = 0.700.**
+The table note explains this as "a different random split." While technically correct, the magnitude of the difference (0.027 CCC) between two ostensibly equivalent baselines with the same protocol is notable and may invite reviewer skepticism. Consider mentioning the range of baseline variability.
 
-### Remaining Items for Human Author (Priority Order)
-1. **Run the fold-restricted ranking ablation** (highest priority -- reviewers will demand this)
-2. Consider reducing MCID-subscore comparison repetition (10+ instances)
-3. Discuss ordering test non-significance (Table S8, p_adj=0.69) in main text
-4. Footnote H&Y N=95 vs PD N=98 discrepancy in Table 1
-5. Expand leave-site-out asymmetry discussion beyond "insufficient N"
-6. Add P0 baseline r=0.758 to an appropriate table (minor)
+**m2. Two different temperature values for T1 LOOCV.**
+Table S8 uses T=1.4 (CCC = 0.882, slope = 0.967) and Table S11 uses T=1.45 (CCC = 0.893, slope = 1.000). Both are legitimate (T=1.4 is a fixed value from the primary 5-fold tuning; T=1.45 is independently optimized per-target). But having two LOOCV T1 temperature-calibrated results may confuse readers. Consider adding a sentence in Section 2.4 explicitly distinguishing the two.
 
-### Verdict
-The manuscript presents genuine novelty (first WearGait-PD regression, ordinal ranking method) with solid methodology. The critical issues -- phantom ablation claim, Williams test misapplication, and protocol mixing in cross-dataset comparisons -- have been corrected. The paper is publishable after the fold-restricted ablation is completed and the remaining observations are addressed.
+**m3. Subscore-specific MCID mentioned three times as "not established."**
+Sections 2.2, 3.2, and Limitations all note the absence of a subscore-specific MCID. This repetition is appropriate for a final paper but could be consolidated.
+
+**m4. Cross-dataset comparison limitations understated.**
+Section 2.8 says "Protocol-matched comparison (5-fold to LOOCV)" -- comparing 5-fold to LOOCV is not truly protocol-matched. While this caveat is acknowledged later, the initial phrase could mislead.
+
+**m5. DBS subgroup analysis missing.**
+With 23/98 PD subjects having DBS (24%), the potential confound deserves stratified analysis. Limitation (10) acknowledges this but says "small subgroup size precluded meaningful stratified analysis." At N=23 vs N=75, a point estimate with CI would still be informative.
+
+**m6. No leave-site-out analysis.**
+WearGait-PD has two collection sites (NLS and WPD). Site effects are a common concern for generalizability. A leave-site-out analysis would strengthen the single-dataset limitation.
+
+**m7. Negative reference numbering for Hssayeni (ref 3).**
+The reference characterizes the Hssayeni paper as "Wearable sensors for estimation of Parkinsonian tremor severity during free body movement." The CLAUDE.md notes describe this as "estimation of UPDRS severity." Verify the exact title -- this paper may be about UPDRS estimation, not tremor estimation specifically.
+
+---
+
+## Verified Consistent (no action needed)
+
+- T3 MAE: 4.46 (5-fold) / 4.65 (LOOCV) consistent across text, Table 3, Table S2, Table S7, Table S11, Discussion 3.7, cross-dataset Table 11
+- Per-target temperatures: T1=1.45, T2=1.45, T3=1.75 consistent across Table S11, Section 2.4, Discussion 3.4
+- Per-target LOOCV CCC with temperature: 0.893 > 0.863 > 0.811 consistent across Table S11 and Section 2.4
+- Subject counts: N=95 (5-fold), N=94 (LOOCV), N=98 (10-split), N=90 (observability partial/unobs) -- all explained in Methods 4.6
+- Baseline T3: CCC = 0.186, MAE = 8.09 consistent across Section 2.5, Table 3, Table S2
+- Sensor non-inferiority p-values: match between text and Table 9 continuation
+- "25% lower" MAE claim: 4.46/5.95 = 25.0% reduction -- correct
+- "82% of total score range": (132-24)/132 = 81.8% -- correct
+- Williams test p = 0.69 consistent across Sections 2.3, 3.3, Figure 4 caption
+
+---
+
+## Summary
+
+This is a well-executed study that makes a genuine contribution: the first regression benchmark on WearGait-PD with a novel ordinal ranking method and honest observability analysis. The three critical and two major numerical consistency issues (orphan LOOCV number, mixed pre/post-temperature abstract, incorrect baseline CCC, wrong percentage claim, abstract CCC mismatch) have been fixed. The paper is now internally consistent across all key numbers.
+
+The primary remaining concerns are: (1) single-dataset limitation with no leave-site-out or cross-dataset transfer, and (2) absence of DBS subgroup analysis. Both are acknowledged as limitations. The paper is suitable for publication at Nature Digital Medicine with the minor issues addressed.

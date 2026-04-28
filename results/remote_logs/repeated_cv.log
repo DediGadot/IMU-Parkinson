@@ -1,0 +1,78 @@
+================================================================================
+REPEATED 10×5-FOLD CV — 4 key configs × 3 targets
+================================================================================
+  [cache] Loading FM for all_13 from /root/pd-imu/results/sensor_fm_cache/all_13_fm.npz
+  Config all_13: 1721 v2 + 768 FM = 2489 features, 94 PD, 174 all
+  [cache] Loading FM for lower_back_1 from /root/pd-imu/results/sensor_fm_cache/lower_back_1_fm.npz
+  Config lower_back_1: 304 v2 + 768 FM = 1072 features, 94 PD, 174 all
+  [cache] Loading FM for minimal_5 from /root/pd-imu/results/sensor_fm_cache/minimal_5_fm.npz
+  Config minimal_5: 818 v2 + 768 FM = 1586 features, 94 PD, 174 all
+  [cache] Loading FM for wrists_ankles_4 from /root/pd-imu/results/sensor_fm_cache/wrists_ankles_4_fm.npz
+  Config wrists_ankles_4: 533 v2 + 768 FM = 1301 features, 94 PD, 174 all
+  all_13 × T1: rep 5/10 mean CCC=0.846±0.029
+  all_13 × T1: rep 10/10 mean CCC=0.850±0.024
+  all_13 × T2: rep 5/10 mean CCC=0.816±0.036
+  all_13 × T2: rep 10/10 mean CCC=0.815±0.029
+  all_13 × T3: rep 5/10 mean CCC=0.748±0.027
+  all_13 × T3: rep 10/10 mean CCC=0.760±0.025
+  lower_back_1 × T1: rep 5/10 mean CCC=0.868±0.016
+  lower_back_1 × T1: rep 10/10 mean CCC=0.863±0.016
+  lower_back_1 × T2: rep 5/10 mean CCC=0.848±0.022
+  lower_back_1 × T2: rep 10/10 mean CCC=0.844±0.018
+  lower_back_1 × T3: rep 5/10 mean CCC=0.706±0.037
+  lower_back_1 × T3: rep 10/10 mean CCC=0.721±0.033
+  minimal_5 × T1: rep 5/10 mean CCC=0.834±0.020
+  minimal_5 × T1: rep 10/10 mean CCC=0.832±0.019
+  minimal_5 × T2: rep 5/10 mean CCC=0.831±0.033
+  minimal_5 × T2: rep 10/10 mean CCC=0.828±0.028
+  minimal_5 × T3: rep 5/10 mean CCC=0.773±0.022
+  minimal_5 × T3: rep 10/10 mean CCC=0.777±0.028
+  wrists_ankles_4 × T1: rep 5/10 mean CCC=0.838±0.022
+  wrists_ankles_4 × T1: rep 10/10 mean CCC=0.834±0.023
+  wrists_ankles_4 × T2: rep 5/10 mean CCC=0.849±0.035
+  wrists_ankles_4 × T2: rep 10/10 mean CCC=0.844±0.033
+  wrists_ankles_4 × T3: rep 5/10 mean CCC=0.778±0.028
+  wrists_ankles_4 × T3: rep 10/10 mean CCC=0.790±0.026
+
+==========================================================================================
+Config                 Target   Mean CCC    ±Std   Mean MAE    ±Std
+──────────────────────────────────────────────────────────────────────────────────────────
+  all_13               t1         0.8497 ±0.0239      0.962 ±0.087
+  all_13               t2         0.8154 ±0.0292      1.331 ±0.085
+  all_13               t3         0.7598 ±0.0252      4.969 ±0.324
+
+  lower_back_1         t1         0.8625 ±0.0163      0.962 ±0.076
+  lower_back_1         t2         0.8439 ±0.0183      1.299 ±0.053
+  lower_back_1         t3         0.7206 ±0.0333      5.388 ±0.230
+
+  minimal_5            t1         0.8321 ±0.0193      1.031 ±0.083
+  minimal_5            t2         0.8281 ±0.0279      1.332 ±0.092
+  minimal_5            t3         0.7768 ±0.0283      4.793 ±0.254
+
+  wrists_ankles_4      t1         0.8338 ±0.0227      1.028 ±0.086
+  wrists_ankles_4      t2         0.8436 ±0.0331      1.272 ±0.125
+  wrists_ankles_4      t3         0.7895 ±0.0258      4.675 ±0.258
+
+
+==========================================================================================
+PAIRED COMPARISONS vs all_13 (Nadeau-Bengio corrected resampled t-test)
+──────────────────────────────────────────────────────────────────────────────────────────
+
+  Target: T1 — all_13 mean CCC = 0.8497
+    lower_back_1         ΔCCC=+0.0128±0.0208 t=+1.04 p_sup=0.163 p_ni=0.0003 → NON-INF
+    minimal_5            ΔCCC=-0.0176±0.0155 t=-1.92 p_sup=0.956 p_ni=0.0032 → NON-INF
+    wrists_ankles_4      ΔCCC=-0.0159±0.0144 t=-1.86 p_sup=0.952 p_ni=0.0016 → NON-INF
+
+  Target: T2 — all_13 mean CCC = 0.8154
+    lower_back_1         ΔCCC=+0.0285±0.0198 t=+2.43 p_sup=0.019 p_ni=0.0000 → NON-INF
+    minimal_5            ΔCCC=+0.0127±0.0119 t=+1.81 p_sup=0.052 p_ni=0.0000 → NON-INF
+    wrists_ankles_4      ΔCCC=+0.0282±0.0167 t=+2.85 p_sup=0.010 p_ni=0.0000 → NON-INF
+
+  Target: T3 — all_13 mean CCC = 0.7598
+    lower_back_1         ΔCCC=-0.0392±0.0284 t=-2.34 p_sup=0.978 p_ni=0.2679 → ---
+    minimal_5            ΔCCC=+0.0170±0.0250 t=+1.15 p_sup=0.140 p_ni=0.0007 → NON-INF
+    wrists_ankles_4      ΔCCC=+0.0297±0.0159 t=+3.15 p_sup=0.006 p_ni=0.0000 → NON-INF
+
+==========================================================================================
+Total runtime: 66.5m
+Saved: /root/pd-imu/results/sensor_span_repeated_cv.json

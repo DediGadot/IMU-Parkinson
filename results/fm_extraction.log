@@ -1,0 +1,237 @@
+======================================================================
+PRE-EXTRACTING FM EMBEDDINGS FOR ALL SENSOR CONFIGS
+======================================================================
+  [cache] Using main FM cache for all_13
+  Extracting FM for no_LowerBack: 24 channels (sensors: ['R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 9.7s
+  Input: (1405, 24, 512)
+    FM: 320/1405 (14s, ETA=0.8m)
+    FM: 640/1405 (27s, ETA=0.5m)
+    FM: 960/1405 (40s, ETA=0.3m)
+    FM: 1280/1405 (54s, ETA=0.1m)
+    FM: 1405/1405 (59s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/no_LowerBack_fm.npz
+  Extraction time: 1.2m
+  Extracting FM for no_Wrists: 22 channels (sensors: ['LowerBack', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.2s
+  Input: (1405, 22, 512)
+    FM: 320/1405 (12s, ETA=0.7m)
+    FM: 640/1405 (25s, ETA=0.5m)
+    FM: 960/1405 (37s, ETA=0.3m)
+    FM: 1280/1405 (49s, ETA=0.1m)
+    FM: 1405/1405 (54s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/no_Wrists_fm.npz
+  Extraction time: 0.9m
+  Extracting FM for no_Feet: 22 channels (sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.2s
+  Input: (1405, 22, 512)
+    FM: 320/1405 (12s, ETA=0.7m)
+    FM: 640/1405 (25s, ETA=0.5m)
+    FM: 960/1405 (37s, ETA=0.3m)
+    FM: 1280/1405 (49s, ETA=0.1m)
+    FM: 1405/1405 (54s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/no_Feet_fm.npz
+  Extraction time: 0.9m
+  Extracting FM for no_Ankles: 22 channels (sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'Xiphoid', 'Forehead'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 22, 512)
+    FM: 320/1405 (12s, ETA=0.7m)
+    FM: 640/1405 (25s, ETA=0.5m)
+    FM: 960/1405 (37s, ETA=0.3m)
+    FM: 1280/1405 (49s, ETA=0.1m)
+    FM: 1405/1405 (54s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/no_Ankles_fm.npz
+  Extraction time: 0.9m
+  Extracting FM for no_Shanks: 22 channels (sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 22, 512)
+    FM: 320/1405 (12s, ETA=0.7m)
+    FM: 640/1405 (25s, ETA=0.5m)
+    FM: 960/1405 (37s, ETA=0.3m)
+    FM: 1280/1405 (49s, ETA=0.1m)
+    FM: 1405/1405 (54s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/no_Shanks_fm.npz
+  Extraction time: 0.9m
+  Extracting FM for no_Thighs: 22 channels (sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.2s
+  Input: (1405, 22, 512)
+    FM: 320/1405 (12s, ETA=0.7m)
+    FM: 640/1405 (25s, ETA=0.5m)
+    FM: 960/1405 (37s, ETA=0.3m)
+    FM: 1280/1405 (49s, ETA=0.1m)
+    FM: 1405/1405 (54s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/no_Thighs_fm.npz
+  Extraction time: 0.9m
+  Extracting FM for no_Xiphoid: 24 channels (sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Forehead'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 24, 512)
+    FM: 320/1405 (13s, ETA=0.8m)
+    FM: 640/1405 (27s, ETA=0.5m)
+    FM: 960/1405 (40s, ETA=0.3m)
+    FM: 1280/1405 (54s, ETA=0.1m)
+    FM: 1405/1405 (59s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/no_Xiphoid_fm.npz
+  Extraction time: 1.0m
+  Extracting FM for no_Forehead: 24 channels (sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 24, 512)
+    FM: 320/1405 (13s, ETA=0.8m)
+    FM: 640/1405 (27s, ETA=0.5m)
+    FM: 960/1405 (40s, ETA=0.3m)
+    FM: 1280/1405 (54s, ETA=0.1m)
+    FM: 1405/1405 (59s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/no_Forehead_fm.npz
+  Extraction time: 1.0m
+  Extracting FM for lower_back_1: 2 channels (sensors: ['LowerBack'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 2, 512)
+    FM: 320/1405 (1s, ETA=0.1m)
+    FM: 640/1405 (2s, ETA=0.0m)
+    FM: 960/1405 (3s, ETA=0.0m)
+    FM: 1280/1405 (4s, ETA=0.0m)
+    FM: 1405/1405 (5s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/lower_back_1_fm.npz
+  Extraction time: 0.1m
+  Extracting FM for wrists_2: 4 channels (sensors: ['R_Wrist', 'L_Wrist'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.2s
+  Input: (1405, 4, 512)
+    FM: 320/1405 (2s, ETA=0.1m)
+    FM: 640/1405 (4s, ETA=0.1m)
+    FM: 960/1405 (7s, ETA=0.1m)
+    FM: 1280/1405 (9s, ETA=0.0m)
+    FM: 1405/1405 (10s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/wrists_2_fm.npz
+  Extraction time: 0.2m
+  Extracting FM for ankles_2: 4 channels (sensors: ['R_Ankle', 'L_Ankle'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.2s
+  Input: (1405, 4, 512)
+    FM: 320/1405 (2s, ETA=0.1m)
+    FM: 640/1405 (4s, ETA=0.1m)
+    FM: 960/1405 (7s, ETA=0.1m)
+    FM: 1280/1405 (9s, ETA=0.0m)
+    FM: 1405/1405 (10s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/ankles_2_fm.npz
+  Extraction time: 0.2m
+  Extracting FM for back_wrists_3: 6 channels (sensors: ['LowerBack', 'R_Wrist', 'L_Wrist'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 6, 512)
+    FM: 320/1405 (3s, ETA=0.2m)
+    FM: 640/1405 (7s, ETA=0.1m)
+    FM: 960/1405 (10s, ETA=0.1m)
+    FM: 1280/1405 (13s, ETA=0.0m)
+    FM: 1405/1405 (15s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/back_wrists_3_fm.npz
+  Extraction time: 0.3m
+  Extracting FM for back_ankles_3: 6 channels (sensors: ['LowerBack', 'R_Ankle', 'L_Ankle'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.2s
+  Input: (1405, 6, 512)
+    FM: 320/1405 (3s, ETA=0.2m)
+    FM: 640/1405 (7s, ETA=0.1m)
+    FM: 960/1405 (10s, ETA=0.1m)
+    FM: 1280/1405 (13s, ETA=0.0m)
+    FM: 1405/1405 (15s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/back_ankles_3_fm.npz
+  Extraction time: 0.3m
+  Extracting FM for wrists_ankles_4: 8 channels (sensors: ['R_Wrist', 'L_Wrist', 'R_Ankle', 'L_Ankle'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.0s
+  Input: (1405, 8, 512)
+    FM: 320/1405 (4s, ETA=0.3m)
+    FM: 640/1405 (9s, ETA=0.2m)
+    FM: 960/1405 (13s, ETA=0.1m)
+    FM: 1280/1405 (18s, ETA=0.0m)
+    FM: 1405/1405 (19s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/wrists_ankles_4_fm.npz
+  Extraction time: 0.4m
+  Extracting FM for minimal_5: 10 channels (sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_Ankle', 'L_Ankle'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 10, 512)
+    FM: 320/1405 (5s, ETA=0.3m)
+    FM: 640/1405 (11s, ETA=0.2m)
+    FM: 960/1405 (17s, ETA=0.1m)
+    FM: 1280/1405 (22s, ETA=0.0m)
+    FM: 1405/1405 (24s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/minimal_5_fm.npz
+  Extraction time: 0.4m
+  Extracting FM for gait_7: 14 channels (sensors: ['LowerBack', 'R_Ankle', 'L_Ankle', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 14, 512)
+    FM: 320/1405 (8s, ETA=0.4m)
+    FM: 640/1405 (16s, ETA=0.3m)
+    FM: 960/1405 (24s, ETA=0.2m)
+    FM: 1280/1405 (31s, ETA=0.1m)
+    FM: 1405/1405 (34s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/gait_7_fm.npz
+  Extraction time: 0.6m
+  Extracting FM for lower_body_9: 18 channels (sensors: ['LowerBack', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 18, 512)
+    FM: 320/1405 (10s, ETA=0.6m)
+    FM: 640/1405 (20s, ETA=0.4m)
+    FM: 960/1405 (30s, ETA=0.2m)
+    FM: 1280/1405 (40s, ETA=0.1m)
+    FM: 1405/1405 (44s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/lower_body_9_fm.npz
+  Extraction time: 0.8m
+  Extracting FM for upper_body_4: 8 channels (sensors: ['R_Wrist', 'L_Wrist', 'Xiphoid', 'Forehead'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 8, 512)
+    FM: 320/1405 (4s, ETA=0.3m)
+    FM: 640/1405 (9s, ETA=0.2m)
+    FM: 960/1405 (13s, ETA=0.1m)
+    FM: 1280/1405 (18s, ETA=0.0m)
+    FM: 1405/1405 (20s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/upper_body_4_fm.npz
+  Extraction time: 0.4m
+  Extracting FM for feet_ankles_4: 8 channels (sensors: ['R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 8, 512)
+    FM: 320/1405 (4s, ETA=0.3m)
+    FM: 640/1405 (9s, ETA=0.2m)
+    FM: 960/1405 (13s, ETA=0.1m)
+    FM: 1280/1405 (18s, ETA=0.0m)
+    FM: 1405/1405 (19s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/feet_ankles_4_fm.npz
+  Extraction time: 0.4m
+  Extracting FM for back_feet_3: 6 channels (sensors: ['LowerBack', 'R_DorsalFoot', 'L_DorsalFoot'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 6, 512)
+    FM: 320/1405 (3s, ETA=0.2m)
+    FM: 640/1405 (7s, ETA=0.1m)
+    FM: 960/1405 (10s, ETA=0.1m)
+    FM: 1280/1405 (13s, ETA=0.0m)
+    FM: 1405/1405 (15s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/back_feet_3_fm.npz
+  Extraction time: 0.3m
+  Extracting FM for extremity_6: 12 channels (sensors: ['R_Wrist', 'L_Wrist', 'R_Ankle', 'L_Ankle', 'R_DorsalFoot', 'L_DorsalFoot'])
+  Loading MOMENT-1-base on cuda...
+  Model loaded in 2.1s
+  Input: (1405, 12, 512)
+    FM: 320/1405 (7s, ETA=0.4m)
+    FM: 640/1405 (13s, ETA=0.3m)
+    FM: 960/1405 (20s, ETA=0.2m)
+    FM: 1280/1405 (27s, ETA=0.0m)
+    FM: 1405/1405 (30s, ETA=0.0m)
+  FM embeddings: (1405, 768), cached to /root/pd-imu/results/sensor_fm_cache/extremity_6_fm.npz
+  Extraction time: 0.5m
+
+All FM caches built in 13.1m

@@ -16,8 +16,8 @@
 set -euo pipefail
 
 # === SLAVE CONFIG (change these two lines to swap servers) ===
-REMOTE="${GPU_REMOTE:-root@212.93.107.107}"
-PORT="${GPU_PORT:-41013}"
+REMOTE="${GPU_REMOTE:-root@142.171.48.138}"
+PORT="${GPU_PORT:-26843}"
 # =============================================================
 
 REMOTE_DIR="/root/pd-imu"
@@ -106,22 +106,23 @@ print(\"All imports OK\")
         ;;
     --push-cache)
         echo "=== Uploading cached artifacts to $REMOTE ==="
-        $SSH "mkdir -p $REMOTE_DIR/results"
+        $SSH "mkdir -p $REMOTE_DIR/results $REMOTE_DIR/results/sensor_fm_cache"
         rsync -avz --progress \
             -e "ssh -p $PORT" \
             results/fm_embeddings.npz \
-            results/fm_embeddings_all_13.npz \
-            results/fm_embeddings_minimal_5.npz \
-            results/fm_embeddings_wrists_2.npz \
-            results/fm_embeddings_wrists_back_3.npz \
-            results/fm_embeddings_lower_back_1.npz \
-            results/fm_embeddings_recording_norm.npz \
             results/rocket_recordings.npz \
             results/ablation_v3_features.csv \
-            results/coordination_features.csv \
+            results/per_item_scores.json \
             results/paper3_split.json \
             results/data_split.json \
-            "$REMOTE:$REMOTE_DIR/results/"
+            "$REMOTE:$REMOTE_DIR/results/" 2>/dev/null || true
+        # Push sensor FM cache if exists
+        if [ -d results/sensor_fm_cache ]; then
+            rsync -avz --progress \
+                -e "ssh -p $PORT" \
+                results/sensor_fm_cache/ \
+                "$REMOTE:$REMOTE_DIR/results/sensor_fm_cache/"
+        fi
         echo "done — cached artifacts uploaded"
         ;;
     "")

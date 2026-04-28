@@ -1,0 +1,825 @@
+======================================================================
+SENSOR SPAN STUDY — SSL RANKING
+Configs: 22, Targets: 3, Eval: 5split
+Total experiments: 66
+======================================================================
+
+══════════════════════════════════════════════════════════════════════
+Config: all_13 (13 sensors)
+Sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for all_13 from /root/pd-imu/results/sensor_fm_cache/all_13_fm.npz
+  Config all_13: 1721 v2 + 768 FM = 2489 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.897 MAE=0.865
+  Split 2/5: CCC=0.835 MAE=0.931
+  Split 3/5: CCC=0.805 MAE=1.096
+  Split 4/5: CCC=0.888 MAE=1.002
+  Split 5/5: CCC=0.857 MAE=1.175
+  Saved: /root/pd-imu/results/sensor_span_all_13_t1_5split.json
+  all_13 × T1: CCC=0.862 MAE=1.014 slope=0.734 r=0.875 (40s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.552 MAE=1.637
+  Split 2/5: CCC=0.873 MAE=0.850
+  Split 3/5: CCC=0.811 MAE=1.180
+  Split 4/5: CCC=0.831 MAE=1.215
+  Split 5/5: CCC=0.801 MAE=1.480
+  Saved: /root/pd-imu/results/sensor_span_all_13_t2_5split.json
+  all_13 × T2: CCC=0.787 MAE=1.272 slope=0.633 r=0.816 (33s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.826 MAE=4.613
+  Split 2/5: CCC=0.689 MAE=5.697
+  Split 3/5: CCC=0.736 MAE=5.723
+  Split 4/5: CCC=0.828 MAE=3.725
+  Split 5/5: CCC=0.746 MAE=5.238
+  Saved: /root/pd-imu/results/sensor_span_all_13_t3_5split.json
+  all_13 × T3: CCC=0.764 MAE=4.999 slope=0.546 r=0.834 (36s)
+
+══════════════════════════════════════════════════════════════════════
+Config: no_LowerBack (12 sensors)
+Sensors: ['R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for no_LowerBack from /root/pd-imu/results/sensor_fm_cache/no_LowerBack_fm.npz
+  Config no_LowerBack: 1436 v2 + 768 FM = 2204 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.875 MAE=0.804
+  Split 2/5: CCC=0.849 MAE=0.860
+  Split 3/5: CCC=0.887 MAE=0.801
+  Split 4/5: CCC=0.885 MAE=0.910
+  Split 5/5: CCC=0.860 MAE=1.177
+  Saved: /root/pd-imu/results/sensor_span_no_LowerBack_t1_5split.json
+  no_LowerBack × T1: CCC=0.872 MAE=0.910 slope=0.712 r=0.895 (35s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.580 MAE=1.346
+  Split 2/5: CCC=0.884 MAE=0.804
+  Split 3/5: CCC=0.816 MAE=1.225
+  Split 4/5: CCC=0.767 MAE=1.446
+  Split 5/5: CCC=0.781 MAE=1.434
+  Saved: /root/pd-imu/results/sensor_span_no_LowerBack_t2_5split.json
+  no_LowerBack × T2: CCC=0.776 MAE=1.251 slope=0.656 r=0.794 (33s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.788 MAE=4.215
+  Split 2/5: CCC=0.670 MAE=6.356
+  Split 3/5: CCC=0.737 MAE=5.044
+  Split 4/5: CCC=0.797 MAE=3.957
+  Split 5/5: CCC=0.830 MAE=3.948
+  Saved: /root/pd-imu/results/sensor_span_no_LowerBack_t3_5split.json
+  no_LowerBack × T3: CCC=0.764 MAE=4.704 slope=0.545 r=0.836 (35s)
+
+══════════════════════════════════════════════════════════════════════
+Config: no_Wrists (11 sensors)
+Sensors: ['LowerBack', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for no_Wrists from /root/pd-imu/results/sensor_fm_cache/no_Wrists_fm.npz
+  Config no_Wrists: 1493 v2 + 768 FM = 2261 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.886 MAE=0.866
+  Split 2/5: CCC=0.815 MAE=1.071
+  Split 3/5: CCC=0.842 MAE=0.991
+  Split 4/5: CCC=0.897 MAE=0.944
+  Split 5/5: CCC=0.900 MAE=0.922
+  Saved: /root/pd-imu/results/sensor_span_no_Wrists_t1_5split.json
+  no_Wrists × T1: CCC=0.875 MAE=0.959 slope=0.779 r=0.882 (35s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.750 MAE=1.082
+  Split 2/5: CCC=0.901 MAE=0.870
+  Split 3/5: CCC=0.756 MAE=1.428
+  Split 4/5: CCC=0.892 MAE=0.975
+  Split 5/5: CCC=0.731 MAE=1.526
+  Saved: /root/pd-imu/results/sensor_span_no_Wrists_t2_5split.json
+  no_Wrists × T2: CCC=0.812 MAE=1.176 slope=0.664 r=0.837 (31s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.639 MAE=5.898
+  Split 2/5: CCC=0.662 MAE=6.335
+  Split 3/5: CCC=0.781 MAE=5.215
+  Split 4/5: CCC=0.705 MAE=5.396
+  Split 5/5: CCC=0.709 MAE=5.347
+  Saved: /root/pd-imu/results/sensor_span_no_Wrists_t3_5split.json
+  no_Wrists × T3: CCC=0.701 MAE=5.638 slope=0.482 r=0.788 (34s)
+
+══════════════════════════════════════════════════════════════════════
+Config: no_Feet (11 sensors)
+Sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for no_Feet from /root/pd-imu/results/sensor_fm_cache/no_Feet_fm.npz
+  Config no_Feet: 1471 v2 + 768 FM = 2239 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.889 MAE=0.787
+  Split 2/5: CCC=0.849 MAE=0.882
+  Split 3/5: CCC=0.814 MAE=0.994
+  Split 4/5: CCC=0.892 MAE=0.830
+  Split 5/5: CCC=0.890 MAE=1.014
+  Saved: /root/pd-imu/results/sensor_span_no_Feet_t1_5split.json
+  no_Feet × T1: CCC=0.873 MAE=0.901 slope=0.721 r=0.893 (34s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.751 MAE=1.219
+  Split 2/5: CCC=0.877 MAE=0.884
+  Split 3/5: CCC=0.826 MAE=1.267
+  Split 4/5: CCC=0.878 MAE=1.188
+  Split 5/5: CCC=0.783 MAE=1.443
+  Saved: /root/pd-imu/results/sensor_span_no_Feet_t2_5split.json
+  no_Feet × T2: CCC=0.828 MAE=1.200 slope=0.696 r=0.844 (32s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.804 MAE=4.679
+  Split 2/5: CCC=0.689 MAE=5.855
+  Split 3/5: CCC=0.673 MAE=5.910
+  Split 4/5: CCC=0.832 MAE=4.146
+  Split 5/5: CCC=0.830 MAE=4.044
+  Saved: /root/pd-imu/results/sensor_span_no_Feet_t3_5split.json
+  no_Feet × T3: CCC=0.763 MAE=4.927 slope=0.540 r=0.838 (36s)
+
+══════════════════════════════════════════════════════════════════════
+Config: no_Ankles (11 sensors)
+Sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'Xiphoid', 'Forehead']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for no_Ankles from /root/pd-imu/results/sensor_fm_cache/no_Ankles_fm.npz
+  Config no_Ankles: 1471 v2 + 768 FM = 2239 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.860 MAE=0.869
+  Split 2/5: CCC=0.846 MAE=0.941
+  Split 3/5: CCC=0.786 MAE=1.007
+  Split 4/5: CCC=0.935 MAE=0.711
+  Split 5/5: CCC=0.910 MAE=0.992
+  Saved: /root/pd-imu/results/sensor_span_no_Ankles_t1_5split.json
+  no_Ankles × T1: CCC=0.883 MAE=0.904 slope=0.749 r=0.897 (36s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.741 MAE=1.272
+  Split 2/5: CCC=0.930 MAE=0.688
+  Split 3/5: CCC=0.813 MAE=1.150
+  Split 4/5: CCC=0.768 MAE=1.575
+  Split 5/5: CCC=0.793 MAE=1.379
+  Saved: /root/pd-imu/results/sensor_span_no_Ankles_t2_5split.json
+  no_Ankles × T2: CCC=0.807 MAE=1.213 slope=0.669 r=0.830 (35s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.776 MAE=4.907
+  Split 2/5: CCC=0.624 MAE=6.492
+  Split 3/5: CCC=0.760 MAE=5.206
+  Split 4/5: CCC=0.835 MAE=4.376
+  Split 5/5: CCC=0.857 MAE=3.471
+  Saved: /root/pd-imu/results/sensor_span_no_Ankles_t3_5split.json
+  no_Ankles × T3: CCC=0.768 MAE=4.890 slope=0.548 r=0.841 (33s)
+
+══════════════════════════════════════════════════════════════════════
+Config: no_Shanks (11 sensors)
+Sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for no_Shanks from /root/pd-imu/results/sensor_fm_cache/no_Shanks_fm.npz
+  Config no_Shanks: 1503 v2 + 768 FM = 2271 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.854 MAE=0.967
+  Split 2/5: CCC=0.709 MAE=1.182
+  Split 3/5: CCC=0.825 MAE=0.959
+  Split 4/5: CCC=0.917 MAE=0.855
+  Split 5/5: CCC=0.874 MAE=1.018
+  Saved: /root/pd-imu/results/sensor_span_no_Shanks_t1_5split.json
+  no_Shanks × T1: CCC=0.852 MAE=0.996 slope=0.715 r=0.869 (35s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.676 MAE=1.256
+  Split 2/5: CCC=0.894 MAE=0.846
+  Split 3/5: CCC=0.828 MAE=1.207
+  Split 4/5: CCC=0.856 MAE=1.147
+  Split 5/5: CCC=0.796 MAE=1.378
+  Saved: /root/pd-imu/results/sensor_span_no_Shanks_t2_5split.json
+  no_Shanks × T2: CCC=0.820 MAE=1.167 slope=0.691 r=0.836 (32s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.846 MAE=4.139
+  Split 2/5: CCC=0.618 MAE=6.386
+  Split 3/5: CCC=0.784 MAE=4.811
+  Split 4/5: CCC=0.841 MAE=3.728
+  Split 5/5: CCC=0.776 MAE=4.663
+  Saved: /root/pd-imu/results/sensor_span_no_Shanks_t3_5split.json
+  no_Shanks × T3: CCC=0.771 MAE=4.745 slope=0.555 r=0.839 (35s)
+
+══════════════════════════════════════════════════════════════════════
+Config: no_Thighs (11 sensors)
+Sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for no_Thighs from /root/pd-imu/results/sensor_fm_cache/no_Thighs_fm.npz
+  Config no_Thighs: 1511 v2 + 768 FM = 2279 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.861 MAE=0.962
+  Split 2/5: CCC=0.829 MAE=1.110
+  Split 3/5: CCC=0.762 MAE=1.109
+  Split 4/5: CCC=0.890 MAE=0.907
+  Split 5/5: CCC=0.881 MAE=1.116
+  Saved: /root/pd-imu/results/sensor_span_no_Thighs_t1_5split.json
+  no_Thighs × T1: CCC=0.856 MAE=1.041 slope=0.739 r=0.868 (38s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.724 MAE=1.213
+  Split 2/5: CCC=0.876 MAE=0.874
+  Split 3/5: CCC=0.866 MAE=1.134
+  Split 4/5: CCC=0.826 MAE=1.168
+  Split 5/5: CCC=0.780 MAE=1.497
+  Saved: /root/pd-imu/results/sensor_span_no_Thighs_t2_5split.json
+  no_Thighs × T2: CCC=0.821 MAE=1.177 slope=0.713 r=0.838 (34s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.743 MAE=5.887
+  Split 2/5: CCC=0.612 MAE=6.254
+  Split 3/5: CCC=0.739 MAE=5.371
+  Split 4/5: CCC=0.834 MAE=4.355
+  Split 5/5: CCC=0.788 MAE=4.767
+  Saved: /root/pd-imu/results/sensor_span_no_Thighs_t3_5split.json
+  no_Thighs × T3: CCC=0.741 MAE=5.327 slope=0.515 r=0.826 (36s)
+
+══════════════════════════════════════════════════════════════════════
+Config: no_Xiphoid (12 sensors)
+Sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Forehead']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for no_Xiphoid from /root/pd-imu/results/sensor_fm_cache/no_Xiphoid_fm.npz
+  Config no_Xiphoid: 1616 v2 + 768 FM = 2384 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.851 MAE=0.939
+  Split 2/5: CCC=0.741 MAE=1.196
+  Split 3/5: CCC=0.829 MAE=0.973
+  Split 4/5: CCC=0.918 MAE=0.798
+  Split 5/5: CCC=0.863 MAE=1.143
+  Saved: /root/pd-imu/results/sensor_span_no_Xiphoid_t1_5split.json
+  no_Xiphoid × T1: CCC=0.851 MAE=1.010 slope=0.710 r=0.868 (40s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.708 MAE=1.329
+  Split 2/5: CCC=0.911 MAE=0.748
+  Split 3/5: CCC=0.833 MAE=1.103
+  Split 4/5: CCC=0.730 MAE=1.529
+  Split 5/5: CCC=0.762 MAE=1.431
+  Saved: /root/pd-imu/results/sensor_span_no_Xiphoid_t2_5split.json
+  no_Xiphoid × T2: CCC=0.787 MAE=1.228 slope=0.613 r=0.823 (37s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.797 MAE=4.793
+  Split 2/5: CCC=0.682 MAE=5.868
+  Split 3/5: CCC=0.782 MAE=4.596
+  Split 4/5: CCC=0.812 MAE=3.905
+  Split 5/5: CCC=0.765 MAE=4.718
+  Saved: /root/pd-imu/results/sensor_span_no_Xiphoid_t3_5split.json
+  no_Xiphoid × T3: CCC=0.766 MAE=4.776 slope=0.539 r=0.846 (37s)
+
+══════════════════════════════════════════════════════════════════════
+Config: no_Forehead (12 sensors)
+Sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for no_Forehead from /root/pd-imu/results/sensor_fm_cache/no_Forehead_fm.npz
+  Config no_Forehead: 1601 v2 + 768 FM = 2369 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.849 MAE=0.952
+  Split 2/5: CCC=0.851 MAE=0.945
+  Split 3/5: CCC=0.858 MAE=0.849
+  Split 4/5: CCC=0.911 MAE=0.865
+  Split 5/5: CCC=0.896 MAE=1.018
+  Saved: /root/pd-imu/results/sensor_span_no_Forehead_t1_5split.json
+  no_Forehead × T1: CCC=0.881 MAE=0.926 slope=0.718 r=0.904 (35s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.767 MAE=1.132
+  Split 2/5: CCC=0.892 MAE=0.869
+  Split 3/5: CCC=0.846 MAE=1.193
+  Split 4/5: CCC=0.865 MAE=1.044
+  Split 5/5: CCC=0.783 MAE=1.535
+  Saved: /root/pd-imu/results/sensor_span_no_Forehead_t2_5split.json
+  no_Forehead × T2: CCC=0.834 MAE=1.155 slope=0.718 r=0.851 (35s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.789 MAE=5.020
+  Split 2/5: CCC=0.681 MAE=5.924
+  Split 3/5: CCC=0.770 MAE=4.813
+  Split 4/5: CCC=0.823 MAE=4.361
+  Split 5/5: CCC=0.723 MAE=5.032
+  Saved: /root/pd-imu/results/sensor_span_no_Forehead_t3_5split.json
+  no_Forehead × T3: CCC=0.756 MAE=5.030 slope=0.526 r=0.841 (36s)
+
+══════════════════════════════════════════════════════════════════════
+Config: lower_back_1 (1 sensors)
+Sensors: ['LowerBack']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for lower_back_1 from /root/pd-imu/results/sensor_fm_cache/lower_back_1_fm.npz
+  Config lower_back_1: 304 v2 + 768 FM = 1072 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.915 MAE=0.738
+  Split 2/5: CCC=0.782 MAE=1.044
+  Split 3/5: CCC=0.893 MAE=0.781
+  Split 4/5: CCC=0.890 MAE=0.991
+  Split 5/5: CCC=0.905 MAE=0.973
+  Saved: /root/pd-imu/results/sensor_span_lower_back_1_t1_5split.json
+  lower_back_1 × T1: CCC=0.884 MAE=0.905 slope=0.738 r=0.903 (22s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.707 MAE=1.193
+  Split 2/5: CCC=0.847 MAE=1.114
+  Split 3/5: CCC=0.867 MAE=1.114
+  Split 4/5: CCC=0.775 MAE=1.558
+  Split 5/5: CCC=0.864 MAE=1.121
+  Saved: /root/pd-imu/results/sensor_span_lower_back_1_t2_5split.json
+  lower_back_1 × T2: CCC=0.825 MAE=1.220 slope=0.700 r=0.845 (23s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.761 MAE=5.764
+  Split 2/5: CCC=0.708 MAE=5.564
+  Split 3/5: CCC=0.709 MAE=5.613
+  Split 4/5: CCC=0.744 MAE=5.386
+  Split 5/5: CCC=0.660 MAE=5.753
+  Saved: /root/pd-imu/results/sensor_span_lower_back_1_t3_5split.json
+  lower_back_1 × T3: CCC=0.720 MAE=5.616 slope=0.497 r=0.808 (28s)
+
+══════════════════════════════════════════════════════════════════════
+Config: wrists_2 (2 sensors)
+Sensors: ['R_Wrist', 'L_Wrist']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for wrists_2 from /root/pd-imu/results/sensor_fm_cache/wrists_2_fm.npz
+  Config wrists_2: 247 v2 + 768 FM = 1015 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.847 MAE=1.015
+  Split 2/5: CCC=0.863 MAE=0.953
+  Split 3/5: CCC=0.690 MAE=1.238
+  Split 4/5: CCC=0.756 MAE=1.160
+  Split 5/5: CCC=0.772 MAE=1.379
+  Saved: /root/pd-imu/results/sensor_span_wrists_2_t1_5split.json
+  wrists_2 × T1: CCC=0.791 MAE=1.149 slope=0.609 r=0.829 (24s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.652 MAE=1.484
+  Split 2/5: CCC=0.919 MAE=0.683
+  Split 3/5: CCC=0.810 MAE=1.167
+  Split 4/5: CCC=0.847 MAE=1.272
+  Split 5/5: CCC=0.719 MAE=1.666
+  Saved: /root/pd-imu/results/sensor_span_wrists_2_t2_5split.json
+  wrists_2 × T2: CCC=0.794 MAE=1.254 slope=0.700 r=0.812 (25s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.851 MAE=4.066
+  Split 2/5: CCC=0.535 MAE=6.777
+  Split 3/5: CCC=0.768 MAE=5.190
+  Split 4/5: CCC=0.761 MAE=4.610
+  Split 5/5: CCC=0.740 MAE=4.810
+  Saved: /root/pd-imu/results/sensor_span_wrists_2_t3_5split.json
+  wrists_2 × T3: CCC=0.729 MAE=5.091 slope=0.506 r=0.814 (22s)
+
+══════════════════════════════════════════════════════════════════════
+Config: ankles_2 (2 sensors)
+Sensors: ['R_Ankle', 'L_Ankle']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for ankles_2 from /root/pd-imu/results/sensor_fm_cache/ankles_2_fm.npz
+  Config ankles_2: 305 v2 + 768 FM = 1073 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.879 MAE=0.933
+  Split 2/5: CCC=0.881 MAE=0.839
+  Split 3/5: CCC=0.883 MAE=0.825
+  Split 4/5: CCC=0.882 MAE=0.982
+  Split 5/5: CCC=0.870 MAE=1.088
+  Saved: /root/pd-imu/results/sensor_span_ankles_2_t1_5split.json
+  ankles_2 × T1: CCC=0.879 MAE=0.933 slope=0.790 r=0.885 (25s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.673 MAE=1.310
+  Split 2/5: CCC=0.900 MAE=0.837
+  Split 3/5: CCC=0.858 MAE=1.166
+  Split 4/5: CCC=0.840 MAE=1.068
+  Split 5/5: CCC=0.788 MAE=1.472
+  Saved: /root/pd-imu/results/sensor_span_ankles_2_t2_5split.json
+  ankles_2 × T2: CCC=0.819 MAE=1.171 slope=0.686 r=0.835 (24s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.828 MAE=4.840
+  Split 2/5: CCC=0.608 MAE=7.019
+  Split 3/5: CCC=0.710 MAE=5.552
+  Split 4/5: CCC=0.714 MAE=5.575
+  Split 5/5: CCC=0.821 MAE=4.365
+  Saved: /root/pd-imu/results/sensor_span_ankles_2_t3_5split.json
+  ankles_2 × T3: CCC=0.736 MAE=5.470 slope=0.517 r=0.812 (26s)
+
+══════════════════════════════════════════════════════════════════════
+Config: back_wrists_3 (3 sensors)
+Sensors: ['LowerBack', 'R_Wrist', 'L_Wrist']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for back_wrists_3 from /root/pd-imu/results/sensor_fm_cache/back_wrists_3_fm.npz
+  Config back_wrists_3: 532 v2 + 768 FM = 1300 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.884 MAE=0.833
+  Split 2/5: CCC=0.784 MAE=1.113
+  Split 3/5: CCC=0.814 MAE=0.953
+  Split 4/5: CCC=0.891 MAE=0.882
+  Split 5/5: CCC=0.874 MAE=1.143
+  Saved: /root/pd-imu/results/sensor_span_back_wrists_3_t1_5split.json
+  back_wrists_3 × T1: CCC=0.858 MAE=0.985 slope=0.730 r=0.872 (31s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.768 MAE=1.140
+  Split 2/5: CCC=0.792 MAE=1.138
+  Split 3/5: CCC=0.861 MAE=1.173
+  Split 4/5: CCC=0.848 MAE=1.171
+  Split 5/5: CCC=0.828 MAE=1.276
+  Saved: /root/pd-imu/results/sensor_span_back_wrists_3_t2_5split.json
+  back_wrists_3 × T2: CCC=0.829 MAE=1.180 slope=0.685 r=0.848 (28s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.693 MAE=5.411
+  Split 2/5: CCC=0.672 MAE=6.216
+  Split 3/5: CCC=0.732 MAE=5.396
+  Split 4/5: CCC=0.887 MAE=3.377
+  Split 5/5: CCC=0.884 MAE=3.660
+  Saved: /root/pd-imu/results/sensor_span_back_wrists_3_t3_5split.json
+  back_wrists_3 × T3: CCC=0.771 MAE=4.812 slope=0.550 r=0.843 (29s)
+
+══════════════════════════════════════════════════════════════════════
+Config: back_ankles_3 (3 sensors)
+Sensors: ['LowerBack', 'R_Ankle', 'L_Ankle']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for back_ankles_3 from /root/pd-imu/results/sensor_fm_cache/back_ankles_3_fm.npz
+  Config back_ankles_3: 590 v2 + 768 FM = 1358 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.909 MAE=0.843
+  Split 2/5: CCC=0.696 MAE=1.319
+  Split 3/5: CCC=0.874 MAE=0.766
+  Split 4/5: CCC=0.877 MAE=0.984
+  Split 5/5: CCC=0.892 MAE=0.974
+  Saved: /root/pd-imu/results/sensor_span_back_ankles_3_t1_5split.json
+  back_ankles_3 × T1: CCC=0.863 MAE=0.977 slope=0.751 r=0.873 (32s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.664 MAE=1.463
+  Split 2/5: CCC=0.884 MAE=0.894
+  Split 3/5: CCC=0.820 MAE=1.364
+  Split 4/5: CCC=0.870 MAE=1.003
+  Split 5/5: CCC=0.791 MAE=1.553
+  Saved: /root/pd-imu/results/sensor_span_back_ankles_3_t2_5split.json
+  back_ankles_3 × T2: CCC=0.812 MAE=1.255 slope=0.690 r=0.827 (29s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.736 MAE=5.391
+  Split 2/5: CCC=0.644 MAE=6.507
+  Split 3/5: CCC=0.799 MAE=5.133
+  Split 4/5: CCC=0.754 MAE=5.296
+  Split 5/5: CCC=0.817 MAE=4.146
+  Saved: /root/pd-imu/results/sensor_span_back_ankles_3_t3_5split.json
+  back_ankles_3 × T3: CCC=0.749 MAE=5.295 slope=0.517 r=0.840 (34s)
+
+══════════════════════════════════════════════════════════════════════
+Config: wrists_ankles_4 (4 sensors)
+Sensors: ['R_Wrist', 'L_Wrist', 'R_Ankle', 'L_Ankle']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for wrists_ankles_4 from /root/pd-imu/results/sensor_fm_cache/wrists_ankles_4_fm.npz
+  Config wrists_ankles_4: 533 v2 + 768 FM = 1301 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.868 MAE=0.902
+  Split 2/5: CCC=0.796 MAE=1.159
+  Split 3/5: CCC=0.822 MAE=1.014
+  Split 4/5: CCC=0.879 MAE=0.945
+  Split 5/5: CCC=0.869 MAE=1.015
+  Saved: /root/pd-imu/results/sensor_span_wrists_ankles_4_t1_5split.json
+  wrists_ankles_4 × T1: CCC=0.853 MAE=1.007 slope=0.730 r=0.865 (36s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.715 MAE=1.110
+  Split 2/5: CCC=0.871 MAE=0.973
+  Split 3/5: CCC=0.812 MAE=1.261
+  Split 4/5: CCC=0.799 MAE=1.222
+  Split 5/5: CCC=0.779 MAE=1.489
+  Saved: /root/pd-imu/results/sensor_span_wrists_ankles_4_t2_5split.json
+  wrists_ankles_4 × T2: CCC=0.800 MAE=1.211 slope=0.674 r=0.815 (30s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.883 MAE=3.873
+  Split 2/5: CCC=0.692 MAE=5.792
+  Split 3/5: CCC=0.784 MAE=4.696
+  Split 4/5: CCC=0.822 MAE=4.111
+  Split 5/5: CCC=0.851 MAE=4.169
+  Saved: /root/pd-imu/results/sensor_span_wrists_ankles_4_t3_5split.json
+  wrists_ankles_4 × T3: CCC=0.806 MAE=4.528 slope=0.596 r=0.862 (30s)
+
+══════════════════════════════════════════════════════════════════════
+Config: minimal_5 (5 sensors)
+Sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_Ankle', 'L_Ankle']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for minimal_5 from /root/pd-imu/results/sensor_fm_cache/minimal_5_fm.npz
+  Config minimal_5: 818 v2 + 768 FM = 1586 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.890 MAE=0.838
+  Split 2/5: CCC=0.833 MAE=0.885
+  Split 3/5: CCC=0.844 MAE=0.907
+  Split 4/5: CCC=0.907 MAE=0.753
+  Split 5/5: CCC=0.890 MAE=0.995
+  Saved: /root/pd-imu/results/sensor_span_minimal_5_t1_5split.json
+  minimal_5 × T1: CCC=0.879 MAE=0.876 slope=0.750 r=0.894 (32s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.701 MAE=1.127
+  Split 2/5: CCC=0.886 MAE=0.960
+  Split 3/5: CCC=0.837 MAE=1.211
+  Split 4/5: CCC=0.910 MAE=0.978
+  Split 5/5: CCC=0.788 MAE=1.466
+  Saved: /root/pd-imu/results/sensor_span_minimal_5_t2_5split.json
+  minimal_5 × T2: CCC=0.834 MAE=1.148 slope=0.732 r=0.844 (30s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.793 MAE=4.940
+  Split 2/5: CCC=0.700 MAE=5.965
+  Split 3/5: CCC=0.749 MAE=5.567
+  Split 4/5: CCC=0.825 MAE=4.120
+  Split 5/5: CCC=0.841 MAE=4.026
+  Saved: /root/pd-imu/results/sensor_span_minimal_5_t3_5split.json
+  minimal_5 × T3: CCC=0.778 MAE=4.924 slope=0.560 r=0.846 (31s)
+
+══════════════════════════════════════════════════════════════════════
+Config: gait_7 (7 sensors)
+Sensors: ['LowerBack', 'R_Ankle', 'L_Ankle', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for gait_7 from /root/pd-imu/results/sensor_fm_cache/gait_7_fm.npz
+  Config gait_7: 1058 v2 + 768 FM = 1826 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.787 MAE=1.156
+  Split 2/5: CCC=0.768 MAE=1.133
+  Split 3/5: CCC=0.860 MAE=0.811
+  Split 4/5: CCC=0.903 MAE=0.885
+  Split 5/5: CCC=0.919 MAE=0.945
+  Saved: /root/pd-imu/results/sensor_span_gait_7_t1_5split.json
+  gait_7 × T1: CCC=0.866 MAE=0.986 slope=0.746 r=0.878 (34s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.689 MAE=1.348
+  Split 2/5: CCC=0.841 MAE=1.030
+  Split 3/5: CCC=0.825 MAE=1.098
+  Split 4/5: CCC=0.858 MAE=1.199
+  Split 5/5: CCC=0.765 MAE=1.418
+  Saved: /root/pd-imu/results/sensor_span_gait_7_t2_5split.json
+  gait_7 × T2: CCC=0.805 MAE=1.219 slope=0.661 r=0.834 (32s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.767 MAE=5.024
+  Split 2/5: CCC=0.672 MAE=6.001
+  Split 3/5: CCC=0.806 MAE=4.771
+  Split 4/5: CCC=0.832 MAE=4.392
+  Split 5/5: CCC=0.738 MAE=4.747
+  Saved: /root/pd-imu/results/sensor_span_gait_7_t3_5split.json
+  gait_7 × T3: CCC=0.763 MAE=4.987 slope=0.543 r=0.835 (41s)
+
+══════════════════════════════════════════════════════════════════════
+Config: lower_body_9 (9 sensors)
+Sensors: ['LowerBack', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for lower_body_9 from /root/pd-imu/results/sensor_fm_cache/lower_body_9_fm.npz
+  Config lower_body_9: 1268 v2 + 768 FM = 2036 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.894 MAE=0.747
+  Split 2/5: CCC=0.819 MAE=1.063
+  Split 3/5: CCC=0.898 MAE=0.803
+  Split 4/5: CCC=0.915 MAE=0.837
+  Split 5/5: CCC=0.897 MAE=0.967
+  Saved: /root/pd-imu/results/sensor_span_lower_body_9_t1_5split.json
+  lower_body_9 × T1: CCC=0.889 MAE=0.883 slope=0.787 r=0.897 (45s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.675 MAE=1.473
+  Split 2/5: CCC=0.888 MAE=0.893
+  Split 3/5: CCC=0.772 MAE=1.310
+  Split 4/5: CCC=0.781 MAE=1.581
+  Split 5/5: CCC=0.801 MAE=1.500
+  Saved: /root/pd-imu/results/sensor_span_lower_body_9_t2_5split.json
+  lower_body_9 × T2: CCC=0.788 MAE=1.351 slope=0.701 r=0.797 (38s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.744 MAE=5.164
+  Split 2/5: CCC=0.693 MAE=5.788
+  Split 3/5: CCC=0.751 MAE=4.937
+  Split 4/5: CCC=0.684 MAE=5.621
+  Split 5/5: CCC=0.742 MAE=5.055
+  Saved: /root/pd-imu/results/sensor_span_lower_body_9_t3_5split.json
+  lower_body_9 × T3: CCC=0.724 MAE=5.313 slope=0.492 r=0.822 (44s)
+
+══════════════════════════════════════════════════════════════════════
+Config: upper_body_4 (4 sensors)
+Sensors: ['R_Wrist', 'L_Wrist', 'Xiphoid', 'Forehead']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for upper_body_4 from /root/pd-imu/results/sensor_fm_cache/upper_body_4_fm.npz
+  Config upper_body_4: 472 v2 + 768 FM = 1240 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.840 MAE=0.911
+  Split 2/5: CCC=0.716 MAE=1.267
+  Split 3/5: CCC=0.792 MAE=1.081
+  Split 4/5: CCC=0.842 MAE=1.001
+  Split 5/5: CCC=0.822 MAE=1.285
+  Saved: /root/pd-imu/results/sensor_span_upper_body_4_t1_5split.json
+  upper_body_4 × T1: CCC=0.810 MAE=1.109 slope=0.622 r=0.850 (33s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.813 MAE=1.114
+  Split 2/5: CCC=0.885 MAE=0.843
+  Split 3/5: CCC=0.820 MAE=1.247
+  Split 4/5: CCC=0.856 MAE=1.325
+  Split 5/5: CCC=0.781 MAE=1.535
+  Saved: /root/pd-imu/results/sensor_span_upper_body_4_t2_5split.json
+  upper_body_4 × T2: CCC=0.833 MAE=1.213 slope=0.721 r=0.845 (34s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.770 MAE=4.840
+  Split 2/5: CCC=0.687 MAE=5.869
+  Split 3/5: CCC=0.707 MAE=4.985
+  Split 4/5: CCC=0.859 MAE=3.630
+  Split 5/5: CCC=0.817 MAE=4.235
+  Saved: /root/pd-imu/results/sensor_span_upper_body_4_t3_5split.json
+  upper_body_4 × T3: CCC=0.766 MAE=4.712 slope=0.548 r=0.836 (36s)
+
+══════════════════════════════════════════════════════════════════════
+Config: feet_ankles_4 (4 sensors)
+Sensors: ['R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for feet_ankles_4 from /root/pd-imu/results/sensor_fm_cache/feet_ankles_4_fm.npz
+  Config feet_ankles_4: 555 v2 + 768 FM = 1323 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.866 MAE=1.020
+  Split 2/5: CCC=0.820 MAE=0.898
+  Split 3/5: CCC=0.892 MAE=0.843
+  Split 4/5: CCC=0.879 MAE=1.031
+  Split 5/5: CCC=0.899 MAE=0.955
+  Saved: /root/pd-imu/results/sensor_span_feet_ankles_4_t1_5split.json
+  feet_ankles_4 × T1: CCC=0.878 MAE=0.949 slope=0.778 r=0.885 (37s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.670 MAE=1.265
+  Split 2/5: CCC=0.846 MAE=0.909
+  Split 3/5: CCC=0.808 MAE=1.230
+  Split 4/5: CCC=0.815 MAE=1.357
+  Split 5/5: CCC=0.846 MAE=1.375
+  Saved: /root/pd-imu/results/sensor_span_feet_ankles_4_t2_5split.json
+  feet_ankles_4 × T2: CCC=0.806 MAE=1.227 slope=0.687 r=0.820 (28s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.745 MAE=5.263
+  Split 2/5: CCC=0.591 MAE=6.608
+  Split 3/5: CCC=0.695 MAE=5.763
+  Split 4/5: CCC=0.825 MAE=3.931
+  Split 5/5: CCC=0.699 MAE=5.633
+  Saved: /root/pd-imu/results/sensor_span_feet_ankles_4_t3_5split.json
+  feet_ankles_4 × T3: CCC=0.711 MAE=5.440 slope=0.492 r=0.795 (30s)
+
+══════════════════════════════════════════════════════════════════════
+Config: back_feet_3 (3 sensors)
+Sensors: ['LowerBack', 'R_DorsalFoot', 'L_DorsalFoot']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for back_feet_3 from /root/pd-imu/results/sensor_fm_cache/back_feet_3_fm.npz
+  Config back_feet_3: 576 v2 + 768 FM = 1344 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.785 MAE=1.126
+  Split 2/5: CCC=0.825 MAE=1.056
+  Split 3/5: CCC=0.869 MAE=0.832
+  Split 4/5: CCC=0.903 MAE=0.930
+  Split 5/5: CCC=0.878 MAE=1.107
+  Saved: /root/pd-imu/results/sensor_span_back_feet_3_t1_5split.json
+  back_feet_3 × T1: CCC=0.861 MAE=1.010 slope=0.743 r=0.873 (33s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.676 MAE=1.148
+  Split 2/5: CCC=0.900 MAE=0.838
+  Split 3/5: CCC=0.859 MAE=1.008
+  Split 4/5: CCC=0.841 MAE=1.223
+  Split 5/5: CCC=0.768 MAE=1.451
+  Saved: /root/pd-imu/results/sensor_span_back_feet_3_t2_5split.json
+  back_feet_3 × T2: CCC=0.815 MAE=1.134 slope=0.686 r=0.836 (25s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.748 MAE=5.654
+  Split 2/5: CCC=0.714 MAE=5.729
+  Split 3/5: CCC=0.747 MAE=5.225
+  Split 4/5: CCC=0.699 MAE=5.642
+  Split 5/5: CCC=0.683 MAE=5.482
+  Saved: /root/pd-imu/results/sensor_span_back_feet_3_t3_5split.json
+  back_feet_3 × T3: CCC=0.721 MAE=5.546 slope=0.493 r=0.814 (27s)
+
+══════════════════════════════════════════════════════════════════════
+Config: extremity_6 (6 sensors)
+Sensors: ['R_Wrist', 'L_Wrist', 'R_Ankle', 'L_Ankle', 'R_DorsalFoot', 'L_DorsalFoot']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for extremity_6 from /root/pd-imu/results/sensor_fm_cache/extremity_6_fm.npz
+  Config extremity_6: 783 v2 + 768 FM = 1551 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Split 1/5: CCC=0.794 MAE=1.071
+  Split 2/5: CCC=0.839 MAE=0.966
+  Split 3/5: CCC=0.854 MAE=0.890
+  Split 4/5: CCC=0.867 MAE=1.082
+  Split 5/5: CCC=0.873 MAE=1.008
+  Saved: /root/pd-imu/results/sensor_span_extremity_6_t1_5split.json
+  extremity_6 × T1: CCC=0.853 MAE=1.003 slope=0.708 r=0.872 (30s)
+
+  ── Target: T2 ──
+  Split 1/5: CCC=0.781 MAE=0.967
+  Split 2/5: CCC=0.901 MAE=0.896
+  Split 3/5: CCC=0.881 MAE=1.124
+  Split 4/5: CCC=0.799 MAE=1.271
+  Split 5/5: CCC=0.752 MAE=1.579
+  Saved: /root/pd-imu/results/sensor_span_extremity_6_t2_5split.json
+  extremity_6 × T2: CCC=0.827 MAE=1.167 slope=0.682 r=0.852 (29s)
+
+  ── Target: T3 ──
+  Split 1/5: CCC=0.784 MAE=5.287
+  Split 2/5: CCC=0.724 MAE=5.938
+  Split 3/5: CCC=0.728 MAE=5.435
+  Split 4/5: CCC=0.874 MAE=3.755
+  Split 5/5: CCC=0.713 MAE=5.274
+  Saved: /root/pd-imu/results/sensor_span_extremity_6_t3_5split.json
+  extremity_6 × T3: CCC=0.767 MAE=5.138 slope=0.545 r=0.841 (34s)
+
+==========================================================================================
+Config               Target #Sen  #Feat     CCC   Slope     MAE       r    Time
+──────────────────────────────────────────────────────────────────────────────────────────
+all_13               t1       13   2489   0.862   0.734   1.014   0.875     40s
+all_13               t2       13   2489   0.787   0.633   1.272   0.816     33s
+all_13               t3       13   2489   0.764   0.546   4.999   0.834     36s
+no_LowerBack         t1       12   2204   0.872   0.712   0.910   0.895     35s
+no_LowerBack         t2       12   2204   0.776   0.656   1.251   0.794     33s
+no_LowerBack         t3       12   2204   0.764   0.545   4.704   0.836     35s
+no_Wrists            t1       11   2261   0.875   0.779   0.959   0.882     35s
+no_Wrists            t2       11   2261   0.812   0.664   1.176   0.837     31s
+no_Wrists            t3       11   2261   0.701   0.482   5.638   0.788     34s
+no_Feet              t1       11   2239   0.873   0.721   0.901   0.893     34s
+no_Feet              t2       11   2239   0.828   0.696   1.200   0.844     32s
+no_Feet              t3       11   2239   0.763   0.540   4.927   0.838     36s
+no_Ankles            t1       11   2239   0.883   0.749   0.904   0.897     36s
+no_Ankles            t2       11   2239   0.807   0.669   1.213   0.830     35s
+no_Ankles            t3       11   2239   0.768   0.548   4.890   0.841     33s
+no_Shanks            t1       11   2271   0.852   0.715   0.996   0.869     35s
+no_Shanks            t2       11   2271   0.820   0.691   1.167   0.836     32s
+no_Shanks            t3       11   2271   0.771   0.555   4.745   0.839     35s
+no_Thighs            t1       11   2279   0.856   0.739   1.041   0.868     38s
+no_Thighs            t2       11   2279   0.821   0.713   1.177   0.838     34s
+no_Thighs            t3       11   2279   0.741   0.515   5.327   0.826     36s
+no_Xiphoid           t1       12   2384   0.851   0.710   1.010   0.868     40s
+no_Xiphoid           t2       12   2384   0.787   0.613   1.228   0.823     37s
+no_Xiphoid           t3       12   2384   0.766   0.539   4.776   0.846     37s
+no_Forehead          t1       12   2369   0.881   0.718   0.926   0.904     35s
+no_Forehead          t2       12   2369   0.834   0.718   1.155   0.851     35s
+no_Forehead          t3       12   2369   0.756   0.526   5.030   0.841     36s
+lower_back_1         t1        1   1072   0.884   0.738   0.905   0.903     22s
+lower_back_1         t2        1   1072   0.825   0.700   1.220   0.845     23s
+lower_back_1         t3        1   1072   0.720   0.497   5.616   0.808     28s
+wrists_2             t1        2   1015   0.791   0.609   1.149   0.829     24s
+wrists_2             t2        2   1015   0.794   0.700   1.254   0.812     25s
+wrists_2             t3        2   1015   0.729   0.506   5.091   0.814     22s
+ankles_2             t1        2   1073   0.879   0.790   0.933   0.885     25s
+ankles_2             t2        2   1073   0.819   0.686   1.171   0.835     24s
+ankles_2             t3        2   1073   0.736   0.517   5.470   0.812     26s
+back_wrists_3        t1        3   1300   0.858   0.730   0.985   0.872     31s
+back_wrists_3        t2        3   1300   0.829   0.685   1.180   0.848     28s
+back_wrists_3        t3        3   1300   0.771   0.550   4.812   0.843     29s
+back_ankles_3        t1        3   1358   0.863   0.751   0.977   0.873     32s
+back_ankles_3        t2        3   1358   0.812   0.690   1.255   0.827     29s
+back_ankles_3        t3        3   1358   0.749   0.517   5.295   0.840     34s
+wrists_ankles_4      t1        4   1301   0.853   0.730   1.007   0.865     36s
+wrists_ankles_4      t2        4   1301   0.800   0.674   1.211   0.815     30s
+wrists_ankles_4      t3        4   1301   0.806   0.596   4.528   0.862     30s
+minimal_5            t1        5   1586   0.879   0.750   0.876   0.894     32s
+minimal_5            t2        5   1586   0.834   0.732   1.148   0.844     30s
+minimal_5            t3        5   1586   0.778   0.560   4.924   0.846     31s
+gait_7               t1        7   1826   0.866   0.746   0.986   0.878     34s
+gait_7               t2        7   1826   0.805   0.661   1.219   0.834     32s
+gait_7               t3        7   1826   0.763   0.543   4.987   0.835     41s
+lower_body_9         t1        9   2036   0.889   0.787   0.883   0.897     45s
+lower_body_9         t2        9   2036   0.788   0.701   1.351   0.797     38s
+lower_body_9         t3        9   2036   0.724   0.492   5.313   0.822     44s
+upper_body_4         t1        4   1240   0.810   0.622   1.109   0.850     33s
+upper_body_4         t2        4   1240   0.833   0.721   1.213   0.845     34s
+upper_body_4         t3        4   1240   0.766   0.548   4.712   0.836     36s
+feet_ankles_4        t1        4   1323   0.878   0.778   0.949   0.885     37s
+feet_ankles_4        t2        4   1323   0.806   0.687   1.227   0.820     28s
+feet_ankles_4        t3        4   1323   0.711   0.492   5.440   0.795     30s
+back_feet_3          t1        3   1344   0.861   0.743   1.010   0.873     33s
+back_feet_3          t2        3   1344   0.815   0.686   1.134   0.836     25s
+back_feet_3          t3        3   1344   0.721   0.493   5.546   0.814     27s
+extremity_6          t1        6   1551   0.853   0.708   1.003   0.872     30s
+extremity_6          t2        6   1551   0.827   0.682   1.167   0.852     29s
+extremity_6          t3        6   1551   0.767   0.545   5.138   0.841     34s
+==========================================================================================
+Total runtime: 35.9m

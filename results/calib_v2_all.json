@@ -1,0 +1,120 @@
+{
+  "E1": {
+    "mae": 2.461,
+    "rmse": 3.116,
+    "r": 0.624,
+    "ccc": 0.345,
+    "cal_slope": 0.322,
+    "cal_intercept": 0.597,
+    "std_ratio": 0.516,
+    "quartiles": [
+      {
+        "label": "Q1 (<2)",
+        "n": 15,
+        "bias": 0.639,
+        "mae": 0.973
+      },
+      {
+        "label": "Q2 (2-4)",
+        "n": 30,
+        "bias": -1.425,
+        "mae": 1.458
+      },
+      {
+        "label": "Q3 (4-5)",
+        "n": 16,
+        "bias": -2.659,
+        "mae": 2.659
+      },
+      {
+        "label": "Q4 (>=5)",
+        "n": 33,
+        "bias": -3.934,
+        "mae": 3.954
+      }
+    ],
+    "n": 94,
+    "eval_mode": "loocv",
+    "experiment": "E1_ccc_loss",
+    "runtime_s": 886.2
+  },
+  "E4": {
+    "mae": 1.078,
+    "rmse": 1.392,
+    "r": 0.88,
+    "ccc": 0.846,
+    "cal_slope": 0.671,
+    "cal_intercept": 1.137,
+    "std_ratio": 0.763,
+    "quartiles": [
+      {
+        "label": "Q1 (<2)",
+        "n": 15,
+        "bias": 1.709,
+        "mae": 1.709
+      },
+      {
+        "label": "Q2 (2-4)",
+        "n": 30,
+        "bias": -0.036,
+        "mae": 0.613
+      },
+      {
+        "label": "Q3 (4-5)",
+        "n": 16,
+        "bias": -1.082,
+        "mae": 1.217
+      },
+      {
+        "label": "Q4 (>=5)",
+        "n": 33,
+        "bias": -0.825,
+        "mae": 1.145
+      }
+    ],
+    "n": 94,
+    "eval_mode": "loocv",
+    "experiment": "E4_varp_lam0.1",
+    "runtime_s": 784.8,
+    "best_lambda": 0.1
+  },
+  "E5": {
+    "mae": 1.207,
+    "rmse": 1.549,
+    "r": 0.867,
+    "ccc": 0.863,
+    "cal_slope": 0.952,
+    "cal_intercept": 0.306,
+    "std_ratio": 1.098,
+    "quartiles": [
+      {
+        "label": "Q1 (<2)",
+        "n": 15,
+        "bias": 1.094,
+        "mae": 1.131
+      },
+      {
+        "label": "Q2 (2-4)",
+        "n": 30,
+        "bias": -0.347,
+        "mae": 0.889
+      },
+      {
+        "label": "Q3 (4-5)",
+        "n": 16,
+        "bias": -0.987,
+        "mae": 1.401
+      },
+      {
+        "label": "Q4 (>=5)",
+        "n": 33,
+        "bias": 0.604,
+        "mae": 1.437
+      }
+    ],
+    "n": 94,
+    "eval_mode": "loocv",
+    "experiment": "E5_cqr",
+    "runtime_s": 1062.2
+  }
+}

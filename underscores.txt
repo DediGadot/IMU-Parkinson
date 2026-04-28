@@ -1,0 +1,29 @@
+73: \includegraphics[width=\linewidth]{00_figure_1.png}
+116: \includegraphics[width=0.85\linewidth]{01_figure_2.png}
+123: \includegraphics[width=\linewidth]{02_figure_3.png}
+138: \includegraphics[width=\linewidth]{03_figure_4.png}
+164: \includegraphics[width=\linewidth]{04_figure_5.png}
+171: \includegraphics[width=\linewidth]{05_figure_6.png}
+187: Total UPDRS-III prediction illustrates the structural ceiling that motivates the observable subdomain focus. With ordinal ranking (Stages~1--2, 5-fold CV), T3 achieves $\mathrm{CCC}=0.807$ ($\mathrm{MAE}=4.46$), substantially above the P0 baseline ($\mathrm{CCC}=0.186$, $\mathrm{MAE}=8.09$). In PD-only 10-split CV ($N=98$, Table~\ref{tab:total}), a demographic Ridge baseline (age, sex, disease duration) achieved $\mathrm{MAE}=7.44\pm0.75$, matching all pre-ranking IMU models. Partial correlation $r=0.36$ ($p_{\mathrm{adj}}=0.002$) confirms genuine IMU signal beyond demographics, but this signal is diluted by 12 partially or non-observable items constituting 82\% of the total score range. After ordinal ranking, IMU clearly surpasses demographics: T3 $\mathrm{MAE}=4.46$ vs demographic LOOCV $\mathrm{MAE}=7.86$.
+252: \textbf{HC Config} & $N_{\mathrm{HC}}$ & \textbf{HC Age} & \textbf{Age $p$} & \textbf{T1 CCC} & \textbf{T1 MAE} & \textbf{T1 $r$} & \textbf{T1 slope} & \textbf{T3 CCC} & \textbf{T3 MAE} \\
+286: \textbf{Method} & $N_{\mathrm{HC}}$ & \textbf{T1 CCC} & \textbf{T1 MAE} & \textbf{T1 slope} & \textbf{T1 $r$} & \textbf{T3 CCC} & \textbf{T3 MAE} & \textbf{T3 slope} \\
+309: \includegraphics[width=\linewidth]{06_figure_7.png}
+316: \includegraphics[width=\linewidth]{07_figure_8.png}
+323: \includegraphics[width=\linewidth]{08_figure_9.png}
+409: LB (1)      & T2 & $+0.0285$ & 0.0000 & SUPERIOR ($p_{\mathrm{sup}}=0.0190$) \\
+415: Wr+An (4)   & T2 & $+0.0282$ & 0.0000 & SUPERIOR ($p_{\mathrm{sup}}=0.0095$) \\
+416: Wr+An (4)   & T3 & $+0.0297$ & 0.0000 & SUPERIOR ($p_{\mathrm{sup}}=0.0059$) \\
+450: \includegraphics[width=\linewidth]{09_figure_10.png}
+615: \includegraphics[width=0.9\linewidth]{10_figure_a.png}
+626: \includegraphics[width=0.9\linewidth]{11_figure_b.png}
+637: \includegraphics[width=0.9\linewidth]{12_figure_c.png}
+648: \includegraphics[width=0.9\linewidth]{13_figure_d.png}
+659: \includegraphics[width=0.9\linewidth]{14_figure_e.png}
+670: \includegraphics[width=0.9\linewidth]{15_figure_f.png}
+705: \includegraphics[width=0.9\linewidth]{16_supplementary_figure_s1.png}
+738: \includegraphics[width=0.9\linewidth]{17_supplementary_figure_s2.png}
+767: Frozen MOMENT-1-base embeddings (768 dimensions, no fine-tuning) reduced mixed-cohort MAE from 8.49 to 7.77 (Wilcoxon $p=0.0039$; Supplementary Figure~\ref{fig:s3fm}). The advantage was non-significant in PD-only evaluation ($p_{\mathrm{adj}}=0.94$), suggesting FM embeddings primarily enhance PD-vs-HC discrimination rather than within-PD severity grading. FM embedding dimensions appeared among top features for the observable subscore (Figure~\ref{fig:featimp}), indicating complementary temporal pattern capture.
+771: \includegraphics[width=0.9\linewidth]{18_supplementary_figure_s3.png}
+805: \textbf{Sensor Configuration} & $N_{\mathrm{sensors}}$ & $N_{\mathrm{features}}$ & \textbf{CCC} & \textbf{MAE} & \textbf{slope} & \textbf{$r$} \\
+876: \includegraphics[width=0.9\linewidth]{19_supplementary_figure_s4.png}
+883: \includegraphics[width=0.9\linewidth]{20_supplementary_figure_s5.png}

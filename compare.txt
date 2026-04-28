@@ -1,0 +1,458 @@
+HTML P0:
+[Affiliations to be added]
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P1:
+Predicting Parkinson's disease motor severity from wearable sensors is limited by an observability ceiling: gait-worn inertial sensors can measure only a subset of the 18 MDS-UPDRS Part III motor items, while standard regression on small clinical cohorts (N<100) collapses predictions toward the population mean. We present the first MDS-UPDRS Part III regression benchmark on WearGait-PD (N = 178: 98 PD, 80 HC, 13 IMUs at 100 Hz). A three-stage ordinal ranking method—XGBRanker severity ordering, LightGBM regression, and temperature calibration—achieves CCC = 0.864 (MAE = 1.156, calibration slope = 1.043) for the directly observable motor subscore (items 3.9–3.14), up from a baseline CCC = 0.70. An observability decomposition reveals a two-level structure: directly observable items (CCC = 0.864) substantially exceed partially observable (CCC = 0.730) and not-observable items (CCC = 0.759), though the ordering between the latter two tiers is not significant (p = 0.69). HC ablation demonstrates that the ordinal ranking transformation itself drives the improvement (ΔCCC = 0.001 from HC inclusion), not HC anchoring. A 22-configuration sensor reduction study identifies a 5-sensor minimal set as non-inferior to 13 sensors across all targets (p < 0.003), while wrists+ankles (4 sensors) is statistically superior for total UPDRS-III (p = 0.006).
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P2:
+Parkinson's disease (PD) affects over 8.5 million people worldwide, making it the fastest-growing neurological disorder 1 . The Movement Disorder Society Unified Parkinson's Disease Rating Scale Part III (MDS-UPDRS-III) is the gold standard for motor severity assessment, comprising 18 items (33 sub-items) scored 0–4 each (total range 0–132). Administration requires a trained clinician, takes 20–30 minutes, and is inherently subjective—inter-rater variability can exceed the minimally clinically important difference (MCID) of 3.25 points 2 .
+
+TEX Match:
+Parkinson's disease (PD) affects over 8.5 million people worldwide, making it the fastest-growing neurological disorder\textsuperscript{1}. The Movement Disorder Society Unified Parkinson's Disease Rating Scale Part III (MDS-UPDRS-III) is the gold standard for motor severity assessment, comprising 18 items (33 sub-items) scored 0--4 each (total range 0--132). Administration requires a trained clinician, takes 20--30 minutes, and is inherently subjective---inter-rater variability can exceed the minimally clinically important difference (MCID) of 3.25 points\textsuperscript{2}.
+
+HTML P3:
+Body-worn inertial measurement units (IMUs) offer a path toward continuous, objective motor monitoring. Several groups have attempted UPDRS-III regression from wearable sensors. Hssayeni et al. achieved MAE = 5.95 with an ensemble of three deep learning models on 24 PD patients using wrist and ankle gyroscopes during free-living activities (LOOCV) 3 . Shuqair et al. improved correlation to r = 0.89 on the same 24-patient dataset using self-supervised pretraining 4 . Both studies used leave-one-out cross-validation on small, PD-only cohorts, limiting generalizability. Other reported results suffer from methodological concerns: the IS22 result (MAE = 4.26) contained confirmed window-level data leakage 5 , and He et al. (2024) predicted levodopa response rather than UPDRS-III total 6 . The TRIP benchmark on WearGait-PD addressed only classification, not regression 7 .
+
+TEX Match:
+Body-worn inertial measurement units (IMUs) offer a path toward continuous, objective motor monitoring. Several groups have attempted UPDRS-III regression from wearable sensors. Hssayeni et~al.\ achieved $\mathrm{MAE}=5.95$ with an ensemble of three deep learning models on 24 PD patients using wrist and ankle gyroscopes during free-living activities (LOOCV)\textsuperscript{3}. Shuqair et~al.\ improved correlation to $r=0.89$ on the same 24-patient dataset using self-supervised pretraining\textsuperscript{4}. Both studies used leave-one-out cross-validation on small, PD-only cohorts, limiting generalizability. Other reported results suffer from methodological concerns: the IS22 result ($\mathrm{MAE}=4.26$) contained confirmed window-level data leakage\textsuperscript{5}, and He et~al.\ (2024) predicted levodopa response rather than UPDRS-III total\textsuperscript{6}. The TRIP benchmark on WearGait-PD addressed only classification, not regression\textsuperscript{7}.
+
+HTML P4:
+A fundamental challenge in small-N clinical regression has received insufficient attention:  prediction compression . When N<100, gradient-boosted regression models collapse predictions toward the population mean, producing reasonable MAE but poor concordance (CCC). A model predicting the mean for everyone achieves adequate MAE if population variance is moderate, but is clinically useless because it cannot distinguish mild from severe patients. Lin's concordance correlation coefficient (CCC) 8  captures this distinction by penalizing both poor correlation and poor calibration.
+
+TEX Match:
+A fundamental challenge in small-N clinical regression has received insufficient attention: \emph{prediction compression}. When $N<100$, gradient-boosted regression models collapse predictions toward the population mean, producing reasonable MAE but poor concordance (CCC). A model predicting the mean for everyone achieves adequate MAE if population variance is moderate, but is clinically useless because it cannot distinguish mild from severe patients. Lin's concordance correlation coefficient (CCC)\textsuperscript{8} captures this distinction by penalizing both poor correlation and poor calibration.
+
+HTML P5:
+WearGait-PD is the largest publicly available controlled-gait dataset with complete MDS-UPDRS-III scores 9 . To our knowledge, no published UPDRS-III regression exists on this dataset. We present six contributions: (1) the first regression benchmark on WearGait-PD with subject-level evaluation; (2) a three-stage ordinal ranking method that substantially reduces prediction compression (CCC improvement from 0.70 to 0.864 on the directly observable subscore, 5-fold CV); (3) an observability analysis revealing a two-level structure—directly observable items are well-predicted while other items show uniformly lower CCC regardless of classification; (4) post-hoc temperature scaling (Stage 3) that corrects residual calibration compression (slope 0.745 → 1.043); (5) a 22-configuration sensor reduction study identifying 4–5 sensors as non-inferior to 13 for clinical deployment; and (6) HC ablation demonstrating that ordinal ranking, not HC inclusion, drives the improvement (ΔCCC = 0.001 from HC).
+
+TEX Match:
+WearGait-PD is the largest publicly available controlled-gait dataset with complete MDS-UPDRS-III scores\textsuperscript{9}. To our knowledge, no published UPDRS-III regression exists on this dataset. We present six contributions: (1)~the first regression benchmark on WearGait-PD with subject-level evaluation; (2)~a three-stage ordinal ranking method that substantially reduces prediction compression (CCC improvement from 0.70 to 0.864 on the directly observable subscore, 5-fold CV); (3)~an observability analysis revealing a two-level structure---directly observable items are well-predicted while other items show uniformly lower CCC regardless of classification; (4)~post-hoc temperature scaling (Stage~3) that corrects residual calibration compression (slope $0.745 \rightarrow 1.043$); (5)~a 22-configuration sensor reduction study identifying 4--5 sensors as non-inferior to 13 for clinical deployment; and (6)~HC ablation demonstrating that ordinal ranking, not HC inclusion, drives the improvement ($\Delta\mathrm{CCC}=0.001$ from HC).
+
+HTML P6:
+Of 185 enrolled participants, 178 (98 PD, 80 HC) had complete sensor recordings (Table 1). PD participants (mean age 66.9 ± 8.3 years, 63M/35F) had moderate motor severity (UPDRS-III 24.4 ± 10.9, range [0.0, 59.0]). HC participants were older (74.6 ± 8.5 years) with lower motor scores (7.1 ± 9.7). Medication state was not systematically controlled.
+
+TEX Match:
+Of 185 enrolled participants, 178 (98 PD, 80 HC) had complete sensor recordings (Table~\ref{tab:cohort}). PD participants (mean age $66.9\pm8.3$ years, 63M/35F) had moderate motor severity (UPDRS-III $24.4\pm10.9$, range $[0.0, 59.0]$). HC participants were older ($74.6\pm8.5$ years) with lower motor scores ($7.1\pm9.7$). Medication state was not systematically controlled.
+
+HTML P7:
+The directly observable subscore (items 3.9–3.14: arising, gait, freezing, postural stability, posture, body bradykinesia; max 24 points) is the primary endpoint. With ordinal ranking plus temperature calibration (P5, PD-only 5-fold CV, N = 95; Figure 2), the full pipeline achieves CCC = 0.864 (95% BCa CI: [0.807, 0.906]), calibration slope = 1.043, MAE = 1.156 (r = 0.877). This represents a substantial improvement over the P0 baseline (CCC = 0.70, slope = 0.508). While the total-score MCID of 3.25 points (Horvath 2015) 2  does not directly apply to a 24-point subscore, the MAE of 1.156 represents less than 4% of the subscore range, suggesting that prospective clinical validation of this subscore endpoint is warranted. A subscore-specific MCID remains to be established.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P8:
+Ordinal ranking also improves broader targets (Stages 1–2, without temperature scaling): T2 (items 7–14, max 32) achieves CCC = 0.831 (MAE = 1.16), and T3 (total UPDRS-III) achieves CCC = 0.807 (MAE = 4.46; Figure 3). Comparing all three targets under Stages 1–2 (before temperature scaling), CCC degrades monotonically from T1 = 0.865 to T2 = 0.831 to T3 = 0.807, reflecting increasing inclusion of items unobservable from gait IMU. Temperature scaling (Section 2.4) further improves T1 calibration (slope 0.745 → 1.043) at modest MAE cost. Confirmatory LOOCV analysis (N = 94) yields consistent results: T1 CCC = 0.868, T2 CCC = 0.852, T3 CCC = 0.776 (Supplementary S5).
+
+TEX Match:
+Ordinal ranking also improves broader targets (Stages~1--2, without temperature scaling): T2 (items 7--14, max 32) achieves $\mathrm{CCC}=0.831$ ($\mathrm{MAE}=1.16$), and T3 (total UPDRS-III) achieves $\mathrm{CCC}=0.807$ ($\mathrm{MAE}=4.46$; Figure~\ref{fig:threetarget}). Comparing all three targets under Stages~1--2 (before temperature scaling), CCC degrades monotonically from $\mathrm{T1}=0.865$ to $\mathrm{T2}=0.831$ to $\mathrm{T3}=0.807$, reflecting increasing inclusion of items unobservable from gait IMU. Temperature scaling (Section~\ref{sec:tempscale}) further improves T1 calibration (slope $0.745 \rightarrow 1.043$) at modest MAE cost. Confirmatory LOOCV analysis ($N=94$) yields consistent results: T1 $\mathrm{CCC}=0.868$, T2 $\mathrm{CCC}=0.852$, T3 $\mathrm{CCC}=0.776$ (Supplementary~S5).
+
+HTML P9:
+We decomposed the 18 MDS-UPDRS-III items into three tiers based on whether the assessed motor sign is physically manifest during gait. This exploratory analysis uses the same 5-fold CV protocol as the primary outcome (Table 2, Figure 4). The directly observable subscore achieves CCC = 0.864 (Section 2.2). For partial and not-observable tiers, prediction on a restricted subset (N=90, requiring complete scores for all 18 items) yields: partially observable CCC = 0.730 (MAE = 2.59), not observable CCC = 0.759 (MAE = 2.10).
+
+TEX Match:
+We decomposed the 18 MDS-UPDRS-III items into three tiers based on whether the assessed motor sign is physically manifest during gait. This exploratory analysis uses the same 5-fold CV protocol as the primary outcome (Table~\ref{tab:obs}, Figure~\ref{fig:obs}). The directly observable subscore achieves $\mathrm{CCC}=0.864$ (Section~2.2). For partial and not-observable tiers, prediction on a restricted subset ($N=90$, requiring complete scores for all 18 items) yields: partially observable $\mathrm{CCC}=0.730$ ($\mathrm{MAE}=2.59$), not observable $\mathrm{CCC}=0.759$ ($\mathrm{MAE}=2.10$).
+
+HTML P10:
+The structure is two-level rather than monotonically three-level: directly observable items (CCC = 0.864) substantially exceed both partially observable (CCC = 0.730) and not-observable (CCC = 0.759) tiers, but the ordering between the latter two is not significant (Williams test for ordered alternatives: p = 0.69). The not-observable tier slightly exceeds the partially observable tier, which may reflect that not-observable items (speech, facial expression, rigidity) correlate with overall disease severity through shared pathophysiology, while partially observable items (hand movements, pronation-supination, toe tapping) are limb-specific motor signs with higher inter-subject variability. We therefore characterize the observability structure as direct >> rest, rather than claiming a monotonic gradient. Ordinal ranking improves all three tiers substantially over baseline: direct CCC 0.545 → 0.864; partial CCC 0.055 → 0.730; unobs CCC 0.176 → 0.759.
+
+TEX Match:
+The structure is two-level rather than monotonically three-level: directly observable items ($\mathrm{CCC}=0.864$) substantially exceed both partially observable ($\mathrm{CCC}=0.730$) and not-observable ($\mathrm{CCC}=0.759$) tiers, but the ordering between the latter two is not significant (Williams test for ordered alternatives: $p=0.69$). The not-observable tier slightly exceeds the partially observable tier, which may reflect that not-observable items (speech, facial expression, rigidity) correlate with overall disease severity through shared pathophysiology, while partially observable items (hand movements, pronation-supination, toe tapping) are limb-specific motor signs with higher inter-subject variability. We therefore characterize the observability structure as direct $\gg$ rest, rather than claiming a monotonic gradient. Ordinal ranking improves all three tiers substantially over baseline: direct CCC $0.545 \rightarrow 0.864$; partial CCC $0.055 \rightarrow 0.730$; unobs CCC $0.176 \rightarrow 0.759$.
+
+HTML P11:
+Per-item analysis (Figure 5) confirms this structure: the highest-correlation items are predominantly directly observable gait items. Feature importance for the observable subscore (Figure 6) shows clinically coherent sensor-item alignment: foot sensors (R_DorsalFoot), lower back, and trunk (Xiphoid) drive predictions, while foundation model embedding dimensions provide complementary temporal patterns.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P12:
+Directly observable row uses the primary pipeline (N=95, identical to Section 2.2). Partial and not-observable rows use a restricted subset (N=90) requiring complete scores for all 18 items. All evaluated under 5-fold CV.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P13:
+Although ordinal ranking substantially improves CCC, the calibration slope remains below 1.0 (slope = 0.745 for T1 5-fold CV), indicating residual prediction compression. The root cause is mechanical: LightGBM leaf averaging with min_data_in_leaf=8 on N ≈ 80 training subjects compresses extreme predictions toward the mean, and multi-seed ensemble averaging adds further compression.
+
+TEX Match:
+Although ordinal ranking substantially improves CCC, the calibration slope remains below 1.0 (slope $=0.745$ for T1 5-fold CV), indicating residual prediction compression. The root cause is mechanical: LightGBM leaf averaging with \texttt{min\_data\_in\_leaf}$=8$ on $N\approx 80$ training subjects compresses extreme predictions toward the mean, and multi-seed ensemble averaging adds further compression.
+
+HTML P14:
+Post-hoc temperature scaling with a single parameter T = 1.4 corrects this compression. The scaled prediction is: p scaled  = μ train  + T × (p ensemble  − μ train ), where μ train  is the population mean of the training set. This stretches predictions outward from the mean, counteracting the ensemble compression. T is selected as the value from a grid [1.0, 1.1, …, 2.0] that minimizes |cal_slope − 1.0| on T1 LOOCV predictions. Because T was tuned on T1, temperature scaling is applied only to T1 results; T2 and T3 report Stages 1–2 (ranking + regression) without temperature scaling throughout this paper.
+
+TEX Match:
+Post-hoc temperature scaling with a single parameter $T=1.4$ corrects this compression. The scaled prediction is: $p_{\mathrm{scaled}} = \mu_{\mathrm{train}} + T \times (p_{\mathrm{ensemble}} - \mu_{\mathrm{train}})$, where $\mu_{\mathrm{train}}$ is the population mean of the training set. This stretches predictions outward from the mean, counteracting the ensemble compression. $T$ is selected as the value from a grid $[1.0, 1.1, \ldots, 2.0]$ that minimizes $|\text{cal\_slope} - 1.0|$ on T1 LOOCV predictions. Because $T$ was tuned on T1, temperature scaling is applied only to T1 results; T2 and T3 report Stages~1--2 (ranking + regression) without temperature scaling throughout this paper.
+
+HTML P15:
+Temperature scaling improves calibration slope from 0.745 to 0.967 and CCC from 0.868 to 0.882 (LOOCV, T1; Table S8). MAE increases slightly (0.986 → 1.162), reflecting the trade-off between calibration and point accuracy inherent in stretching predictions: extreme-quintile patients are better calibrated at the cost of modest accuracy loss in the mid-range. Among seven calibration methods tested (CCC custom loss, quantile regression, KNN, variance penalty, conformal quantile, Ridge, temperature), temperature scaling achieved the best combination of CCC (0.882) and calibration slope (0.967) with a single interpretable parameter (Table S8).
+
+TEX Match:
+Temperature scaling improves calibration slope from 0.745 to 0.967 and CCC from 0.868 to 0.882 (LOOCV, T1; Table~S8). MAE increases slightly ($0.986 \rightarrow 1.162$), reflecting the trade-off between calibration and point accuracy inherent in stretching predictions: extreme-quintile patients are better calibrated at the cost of modest accuracy loss in the mid-range. Among seven calibration methods tested (CCC custom loss, quantile regression, KNN, variance penalty, conformal quantile, Ridge, temperature), temperature scaling achieved the best combination of CCC (0.882) and calibration slope (0.967) with a single interpretable parameter (Table~S8).
+
+HTML P16:
+Total UPDRS-III prediction illustrates the structural ceiling that motivates the observable subdomain focus. With ordinal ranking (Stages 1–2, 5-fold CV), T3 achieves CCC = 0.807 (MAE = 4.46), substantially above the P0 baseline (CCC = 0.186, MAE = 8.09). In PD-only 10-split CV (N = 98, Table 3), a demographic Ridge baseline (age, sex, disease duration) achieved MAE = 7.44 ± 0.75, matching all pre-ranking IMU models. Partial correlation r = 0.36 (p adj  = 0.002) confirms genuine IMU signal beyond demographics, but this signal is diluted by 12 partially or non-observable items constituting 82% of the total score range. After ordinal ranking, IMU clearly surpasses demographics: T3 MAE = 4.46 vs demographic LOOCV MAE = 7.86.
+
+TEX Match:
+Total UPDRS-III prediction illustrates the structural ceiling that motivates the observable subdomain focus. With ordinal ranking (Stages~1--2, 5-fold CV), T3 achieves $\mathrm{CCC}=0.807$ ($\mathrm{MAE}=4.46$), substantially above the P0 baseline ($\mathrm{CCC}=0.186$, $\mathrm{MAE}=8.09$). In PD-only 10-split CV ($N=98$, Table~\ref{tab:total}), a demographic Ridge baseline (age, sex, disease duration) achieved $\mathrm{MAE}=7.44\pm0.75$, matching all pre-ranking IMU models. Partial correlation $r=0.36$ ($p_{\mathrm{adj}}=0.002$) confirms genuine IMU signal beyond demographics, but this signal is diluted by 12 partially or non-observable items constituting 82\% of the total score range. After ordinal ranking, IMU clearly surpasses demographics: T3 $\mathrm{MAE}=4.46$ vs demographic LOOCV $\mathrm{MAE}=7.86$.
+
+HTML P17:
+P0 baseline and P5 ordinal ranking use the same 5-split evaluation protocol for direct comparison. P5 row shows Stages 1–2 (ordinal ranking + regression, without temperature scaling; temperature T=1.4 was tuned on T1 only). P5 uses healthy controls for ranking representation learning only; final evaluation is PD-only. Confirmatory LOOCV (N=94): CCC = 0.776, MAE = 4.65 (Table S7).
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P18:
+Bias = mean(predicted − actual). Severe regression to the mean: Q1 overpredicted by +14, Q4 underpredicted by -14. Pre-ranking baseline.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P19:
+Because HC participants were older than PD participants (74.6 vs 66.9 years), we conducted two sensitivity analyses to rule out age-driven confounding and to assess the specific contribution of HC subjects to ordinal ranking.
+
+TEX Match:
+Because HC participants were older than PD participants (74.6 vs 66.9 years), we conducted two sensitivity analyses to rule out age-driven confounding and to assess the specific contribution of HC subjects to ordinal ranking.
+
+HTML P20:
+Age confound analysis (Table 5).  We compared ordinal ranking using the full HC cohort (N = 80, mean age 74.6y) against an age-matched HC subset (N = 46, mean age 68.9y, p = 0.0905 vs PD). Age-matched HC gives T1 CCC = 0.868 vs full HC CCC = 0.858—age is not driving the ranking improvement. Partial correlation controlling for age yields r = 0.849 (p < 0.001), confirming that ordinal ranking predictions reflect motor severity, not age. Age-stratified within-PD analysis shows consistent performance across all PD age strata (Table 6): young CCC = 0.730, middle CCC = 0.706, older CCC = 0.911.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P21:
+HC ablation (Table 7).  We compared three conditions: P0 baseline (no ranking), P5 with PD-only ranking (no HC), and P5 with PD+HC ranking. PD-only ranking achieves T1 CCC = 0.857, nearly identical to PD+HC ranking CCC = 0.858. Both substantially exceed the P0 baseline (CCC = 0.673). This demonstrates that the ordinal ranking-to-leaf-feature transformation itself is the primary driver of the improvement; HC subjects provide incremental calibration anchoring but are not required for the core benefit.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P22:
+Age-matched subset retains HC with age ≤ PD 75th percentile + 5 years (threshold 78y).
+Partial correlation of ordinal ranking predictions controlling for age: r = 0.849 (p < 0.001).
+Controlling for age + disease duration: r = 0.823 (p < 0.001).
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P23:
+Ordinal ranking produces accurate predictions across all PD age strata, confirming that performance is not driven by age-related gait rather than disease severity.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P24:
+PD-only ranking (no HC) produces nearly identical T1 performance to PD+HC ranking, demonstrating that the ranking mechanism itself drives the improvement. HC subjects contribute calibration anchoring but are not required for the core benefit. P0 baseline in this table uses a different random split from the primary P0 baseline (Table S2); minor metric variation is expected.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P25:
+To bridge the gap between research (13 body-worn IMUs) and clinical deployment, we systematically evaluated 22 sensor configurations spanning 1 to 13 sensors (Table 8, FigureFigure 8nbsp;TEMP_SEVEN). Initial 5-fold screening revealed an apparent "fewer sensors equal better" paradox: several reduced configurations outperformed the 13-sensor reference on CCC. To resolve this, we conducted 10×5-fold repeated cross-validation on four key configurations (Table 9, FigureFigure 9nbsp;TEMP_EIGHT), with Nadeau-Bengio corrected non-inferiority testing (δ = 0.05 CCC).
+
+TEX Match:
+To bridge the gap between research (13 body-worn IMUs) and clinical deployment, we systematically evaluated 22 sensor configurations spanning 1 to 13 sensors (Table~\ref{tab:sensor22}, Figure~\ref{fig:pareto}). Initial 5-fold screening revealed an apparent ``fewer sensors equal better'' paradox: several reduced configurations outperformed the 13-sensor reference on CCC. To resolve this, we conducted $10\times 5$-fold repeated cross-validation on four key configurations (Table~\ref{tab:sensorrepeated}, Figure~\ref{fig:forest}), with Nadeau--Bengio corrected non-inferiority testing ($\delta=0.05$ CCC).
+
+HTML P26:
+The 5-sensor minimal set (lower back, bilateral wrists, bilateral ankles) is the only configuration non-inferior to all_13 across all three targets (T1: ΔCCC = -0.018, p NI  = 0.003; T2: ΔCCC = +0.013, p NI  < 0.001; T3: ΔCCC = +0.017, p NI  = 0.001). Wrists+ankles (4 sensors) is statistically superior for T3 (ΔCCC = +0.030, p sup  = 0.006) and superior for T2 (p sup  = 0.010), but non-inferior (not superior) for T1. A single lower back sensor achieves non-inferiority for T1 and T2 but fails for T3 (ΔCCC = -0.039, p NI  = 0.268), indicating that extremity sensors are required for total UPDRS-III prediction.
+
+TEX Match:
+The 5-sensor minimal set (lower back, bilateral wrists, bilateral ankles) is the only configuration non-inferior to all\_13 across all three targets (T1: $\Delta\mathrm{CCC}=-0.018$, $p_{\mathrm{NI}}=0.003$; T2: $\Delta\mathrm{CCC}=+0.013$, $p_{\mathrm{NI}}<0.001$; T3: $\Delta\mathrm{CCC}=+0.017$, $p_{\mathrm{NI}}=0.001$). Wrists+ankles (4 sensors) is statistically superior for T3 ($\Delta\mathrm{CCC}=+0.030$, $p_{\mathrm{sup}}=0.006$) and superior for T2 ($p_{\mathrm{sup}}=0.010$), but non-inferior (not superior) for T1. A single lower back sensor achieves non-inferiority for T1 and T2 but fails for T3 ($\Delta\mathrm{CCC}=-0.039$, $p_{\mathrm{NI}}=0.268$), indicating that extremity sensors are required for total UPDRS-III prediction.
+
+HTML P27:
+The initial "fewer=better" paradox was a winner's curse artifact: in single-round 5-fold screening, lower_back_1 showed CCC = 0.884 vs all_13 CCC = 0.862 for T1. With 10×5-fold repeated CV, this gap shrank to +0.013 (p superiority  = 0.16, not significant), confirming that the original screening inflated the apparent advantage.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P28:
+FM decomposition (Table 10, FigureFigure 10nbsp;TEMP_NINE) reveals that FM embeddings are largely redundant when combined with handcrafted features: FM-only prediction yields CCC ≈ −0.01 (random). FM provides meaningful benefit only for wrists_ankles_4 on T3 (ΔCCC = +0.058), where the reduced sensor count limits handcrafted feature diversity and FM compensates. The "fewer=better" pattern is thus driven by handcrafted feature quality versus quantity, not by FM representation.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P29:
+Top 10 per target shown. FM re-extracted per sensor configuration. Feature selection K=500 inside each fold. All use SSL ranking (P5) pipeline. Reference: all_13 (primary row, highlighted). Apparent paradox (fewer > more) is addressed by 10×5-fold repeated CV (Table 9).
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P30:
+Non-inferiority margin δ=0.05 CCC. 10 repeats × 5 folds = 50 held-out evaluations per config. Nadeau-Bengio correction factor = 0.35. SUPERIOR = non-inferior AND p superiority  < 0.05. The apparent "fewer=better" paradox from 5-split screening (Table 8) disappears: lower_back_1 FAILS on T3 (ΔCCC=-0.039), confirming winner's curse in single-round screening.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P31:
+FM-only yields CCC ≈ −0.01 across all configs (random predictions; not shown). FM helps only wrists_ankles_4 on T3 (+0.058 CCC). The "fewer=better" pattern is driven by handcrafted feature quality, not FM representation. FM mean-pooling confound eliminated by per-config re-extraction.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P32:
+FigureFigure 7nbsp;TEMP_TEN contextualizes our results against published work. Protocol-matched comparison (5-fold to LOOCV): our T3 ordinal ranking MAE = 4.46 vs Hssayeni MAE = 5.95 (25% lower on 4x more subjects). However, comparisons are necessarily cross-dataset: different cohorts, tasks (controlled gait vs free-living ADL), sensor configurations, and disease stages. Prior work did not report CCC, making concordance comparisons impossible.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P33:
+*Items 3.9-3.14 subscore (max 24), not total UPDRS-III (max 132). †Visit-level CV with potential within-subject leakage. N/R = not reported. Cross-dataset comparison is limited by cohort, task, sensor, and protocol differences.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P34:
+The central methodological contribution is the ordinal ranking-to-leaf-feature transformation. The XGBRanker (Stage 1) converts the regression problem into a simpler ordinal discrimination task: rather than predicting exact UPDRS scores, it learns to rank subjects by severity. The ranker's leaf indices encode this ordering as a categorical embedding (900 features from 3 seeds x 300 trees), which the downstream LightGBM regressor (Stage 2) uses to produce calibrated predictions. Critically, the HC ablation (Section 2.6) demonstrates that the ranking transformation itself is the mechanism: PD-only ranking (no HC) achieves CCC = 0.857 on T1, nearly identical to PD+HC ranking (CCC = 0.858, ΔCCC = 0.001). HC subjects are not required for the core benefit. This strategy may prove useful for other small-N clinical regression problems where only disease-cohort data is available, although external validation will be required.
+
+TEX Match:
+The central methodological contribution is the ordinal ranking-to-leaf-feature transformation. The XGBRanker (Stage~1) converts the regression problem into a simpler ordinal discrimination task: rather than predicting exact UPDRS scores, it learns to rank subjects by severity. The ranker's leaf indices encode this ordering as a categorical embedding (900 features from 3 seeds $\times$ 300 trees), which the downstream LightGBM regressor (Stage~2) uses to produce calibrated predictions. Critically, the HC ablation (Section~2.6) demonstrates that the ranking transformation itself is the mechanism: PD-only ranking (no HC) achieves $\mathrm{CCC}=0.857$ on T1, nearly identical to PD+HC ranking ($\mathrm{CCC}=0.858$, $\Delta\mathrm{CCC}=0.001$). HC subjects are not required for the core benefit. This strategy may prove useful for other small-N clinical regression problems where only disease-cohort data is available, although external validation will be required.
+
+HTML P35:
+Two primary mechanisms explain the improvement. First,  ranking is better conditioned than regression : ordinal discrimination requires only that the model preserve severity ordering, not predict absolute spacing, substantially reducing the statistical power needed from small clinical cohorts. Second,  leaf features encode nonlinear severity partitions : the 900 leaf indices create a severity-aware embedding that captures nonlinear interactions the original features cannot express, while regularization through the pairwise ranking objective prevents overfitting. Additionally, when healthy controls are available,  N amplification  (from N=94 PD to N=178 total) and  HC calibration anchoring  (HC subjects at UPDRS approximately 0–3 provide dense low-severity reference points) can provide incremental benefit, though the HC ablation shows these contributions are marginal (T1 CCC delta = 0.001).
+
+TEX Match:
+Two primary mechanisms explain the improvement. First, \emph{ranking is better conditioned than regression}: ordinal discrimination requires only that the model preserve severity ordering, not predict absolute spacing, substantially reducing the statistical power needed from small clinical cohorts. Second, \emph{leaf features encode nonlinear severity partitions}: the 900 leaf indices create a severity-aware embedding that captures nonlinear interactions the original features cannot express, while regularization through the pairwise ranking objective prevents overfitting. Additionally, when healthy controls are available, \emph{N amplification} (from $N=94$ PD to $N=178$ total) and \emph{HC calibration anchoring} (HC subjects at UPDRS approximately 0--3 provide dense low-severity reference points) can provide incremental benefit, though the HC ablation shows these contributions are marginal (T1 CCC delta $=0.001$).
+
+HTML P36:
+A potential concern is whether the ranking improvement reflects genuine within-PD calibration or merely PD-vs-HC group discrimination. The final evaluation is PD-only 5-fold CV—HC subjects never appear in test folds, so any CCC improvement must reflect better ordering and calibration within PD. The near-identical performance of PD-only and PD+HC ranking confirms this.
+
+TEX Match:
+A potential concern is whether the ranking improvement reflects genuine within-PD calibration or merely PD-vs-HC group discrimination. The final evaluation is PD-only 5-fold CV---HC subjects never appear in test folds, so any CCC improvement must reflect better ordering and calibration within PD. The near-identical performance of PD-only and PD+HC ranking confirms this.
+
+HTML P37:
+With the full pipeline, the directly observable subscore (items 3.9–3.14) achieves CCC = 0.864 with MAE = 1.156. The total-score MCID of 3.25 points (Horvath 2015) 2  does not directly apply to a 24-point subscore, and a subscore-specific MCID has not been established. However, the MAE of 1.156 represents less than 4% of the subscore range (0–24), suggesting that prospective validation of this endpoint is warranted. This subscore could serve as a high-frequency secondary endpoint for interventions targeting axial motor function, including dopaminergic therapy titration for gait-related symptoms and monitoring of gait-related falls risk. Our findings suggest that modality-matched subscores merit prospective evaluation as primary endpoints rather than the total composite score.
+
+TEX Match:
+With the full pipeline, the directly observable subscore (items 3.9--3.14) achieves $\mathrm{CCC}=0.864$ with $\mathrm{MAE}=1.156$. The total-score MCID of 3.25 points (Horvath 2015)\textsuperscript{2} does not directly apply to a 24-point subscore, and a subscore-specific MCID has not been established. However, the MAE of 1.156 represents less than 4\% of the subscore range (0--24), suggesting that prospective validation of this endpoint is warranted. This subscore could serve as a high-frequency secondary endpoint for interventions targeting axial motor function, including dopaminergic therapy titration for gait-related symptoms and monitoring of gait-related falls risk. Our findings suggest that modality-matched subscores merit prospective evaluation as primary endpoints rather than the total composite score.
+
+HTML P38:
+The observability structure under 5-fold CV—0.864 (direct, N=95) vs 0.730–0.759 (partial and not observable, N=90)—reflects a modality constraint, not a methodological limitation. The structure is two-level: directly observable items are well-predicted while the remaining tiers show uniformly lower CCC that is not significantly ordered (Williams test p = 0.69). The absence of a monotonic gradient may reflect that not-observable items (speech, facial expression, rigidity) correlate with overall disease severity through shared pathophysiology, achieving comparable CCC to the partially observable tier (hand movements, pronation-supination, toe tapping). Rigidity (item 3.3) requires passive manipulation by an examiner; speech (3.1) and facial expression (3.2) are auditory and visual assessments. These items constitute 82% of the total score range. The convergence of 12+ distinct modeling approaches on MAE ≈ 8 for total UPDRS-III (pre-ranking), combined with the two-level observability structure, supports the interpretation that the barrier is a modality ceiling rather than a methodological limitation. We acknowledge that this conclusion rests on a single dataset.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P39:
+Residual prediction compression (calibration slope < 1.0) persists after ordinal ranking, reflecting the mechanical consequence of leaf averaging in gradient-boosted trees with small N. Temperature scaling with T = 1.4 provides a parsimonious correction: a single scalar parameter stretches predictions outward from the population mean, improving calibration slope from 0.745 to 0.967 and CCC from 0.868 to 0.882 on T1 (LOOCV). This represents the best calibration among seven methods tested, surpassing approaches with more parameters (CCC custom loss, quantile regression, KNN, conformal quantile). The success of temperature scaling suggests that the compression is largely uniform across the severity range, consistent with the ensemble averaging mechanism. The slight MAE increase (0.986 → 1.162) reflects an inherent trade-off: stretching predictions improves calibration for extreme patients at the cost of mid-range accuracy. Whether to deploy temperature-scaled or raw predictions depends on the clinical use case: longitudinal monitoring benefits from better calibration, while cross-sectional screening prioritizes point accuracy. Temperature T = 1.4 was tuned on T1 LOOCV predictions. Per-target tuning for T2 and T3 is left for future work. All T2 and T3 results in this paper report the two-stage pipeline without temperature scaling.
+
+TEX Match:
+Residual prediction compression (calibration slope $<1.0$) persists after ordinal ranking, reflecting the mechanical consequence of leaf averaging in gradient-boosted trees with small $N$. Temperature scaling with $T=1.4$ provides a parsimonious correction: a single scalar parameter stretches predictions outward from the population mean, improving calibration slope from 0.745 to 0.967 and CCC from 0.868 to 0.882 on T1 (LOOCV). This represents the best calibration among seven methods tested, surpassing approaches with more parameters (CCC custom loss, quantile regression, KNN, conformal quantile). The success of temperature scaling suggests that the compression is largely uniform across the severity range, consistent with the ensemble averaging mechanism. The slight MAE increase ($0.986 \rightarrow 1.162$) reflects an inherent trade-off: stretching predictions improves calibration for extreme patients at the cost of mid-range accuracy. Whether to deploy temperature-scaled or raw predictions depends on the clinical use case: longitudinal monitoring benefits from better calibration, while cross-sectional screening prioritizes point accuracy. Temperature $T=1.4$ was tuned on T1 LOOCV predictions. Per-target tuning for T2 and T3 is left for future work. All T2 and T3 results in this paper report the two-stage pipeline without temperature scaling.
+
+HTML P40:
+The 22-configuration sensor span study provides a clinical deployment roadmap. Three findings are notable. First, the 5-sensor minimal set (lower back, bilateral wrists, bilateral ankles) is non-inferior to the full 13-sensor configuration across all three targets, establishing it as a safe reduced-sensor recommendation. Second, 4 extremity sensors (wrists+ankles) are statistically superior to 13 sensors for total UPDRS-III prediction. This counterintuitive result reflects that arm swing and ankle kinematics captured by extremity sensors are informationally dense for overall motor severity, while trunk/thigh/shank sensors add marginal signal alongside substantial feature noise that degrades downstream selection with K=500. Third, a single lower back sensor suffices for the directly observable subscore (T1) but fails for total UPDRS-III, where extremity information is essential for predicting partially observable items (hand movements, tremor).
+
+TEX Match:
+The 22-configuration sensor span study provides a clinical deployment roadmap. Three findings are notable. First, the 5-sensor minimal set (lower back, bilateral wrists, bilateral ankles) is non-inferior to the full 13-sensor configuration across all three targets, establishing it as a safe reduced-sensor recommendation. Second, 4 extremity sensors (wrists+ankles) are statistically superior to 13 sensors for total UPDRS-III prediction. This counterintuitive result reflects that arm swing and ankle kinematics captured by extremity sensors are informationally dense for overall motor severity, while trunk/thigh/shank sensors add marginal signal alongside substantial feature noise that degrades downstream selection with $K=500$. Third, a single lower back sensor suffices for the directly observable subscore (T1) but fails for total UPDRS-III, where extremity information is essential for predicting partially observable items (hand movements, tremor).
+
+HTML P41:
+The FM decomposition analysis resolves the apparent paradox of reduced sensor sets outperforming the full configuration. FM embeddings are largely redundant with handcrafted features: FM-only prediction produces random output (CCC ≈ −0.01). FM contributes meaningfully only for wrists+ankles on T3 (ΔCCC = +0.058), where the limited handcrafted feature set benefits from complementary temporal representations. This target-specificity of FM suggests that frozen foundation models are most valuable precisely when handcrafted features are constrained by limited sensor coverage.
+
+TEX Match:
+The FM decomposition analysis resolves the apparent paradox of reduced sensor sets outperforming the full configuration. FM embeddings are largely redundant with handcrafted features: FM-only prediction produces random output ($\mathrm{CCC}\approx -0.01$). FM contributes meaningfully only for wrists+ankles on T3 ($\Delta\mathrm{CCC}=+0.058$), where the limited handcrafted feature set benefits from complementary temporal representations. This target-specificity of FM suggests that frozen foundation models are most valuable precisely when handcrafted features are constrained by limited sensor coverage.
+
+HTML P42:
+Frozen MOMENT-1 embeddings were used as supplementary features, reducing mixed-cohort total-score MAE by 0.71 points (from 8.49 to 7.77; p = 0.0039). The sensor span analysis (Section 2.6) reveals that FM contribution is target- and configuration-specific rather than universal: FM helps only when handcrafted features are constrained by limited sensor coverage. Full analysis is provided in Supplementary S2.
+
+TEX Match:
+Frozen MOMENT-1 embeddings were used as supplementary features, reducing mixed-cohort total-score MAE by 0.71 points (from 8.49 to 7.77; $p=0.0039$). The sensor span analysis (Section~2.7) reveals that FM contribution is target- and configuration-specific rather than universal: FM helps only when handcrafted features are constrained by limited sensor coverage. Full analysis is provided in Supplementary~S2.
+
+HTML P43:
+Our T3 ordinal ranking result (MAE = 4.46, N=95, 5-fold CV) compares favorably with Hssayeni et al. (MAE = 5.95, N=24, LOOCV) and Shuqair et al. (MAE ~ 5.65, N=24, LOOCV) on 4x more subjects with controlled gait rather than free-living ADL. However, these comparisons are necessarily cross-dataset. Importantly, prior work reported only r and MAE; CCC was not available for comparison. We suggest that future UPDRS regression studies report CCC alongside calibration slope and MAE, since r alone ignores calibration and MAE alone ignores discrimination.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P44:
+The compression problem is general to small-N clinical regression: when training data is limited, gradient-boosted models minimize expected loss by shrinking predictions toward the population mean. Our baseline demonstrates this concretely: T3 calibration slope = 0.104 (predictions span only 10% of the true range), Q1 overpredicted by +12 points, Q4 underpredicted by -12 points. MAE = 8.09 appears reasonable, but CCC = 0.186 indicates poor agreement caused by severe range compression and miscalibration. Ordinal ranking (Stages 1–2) increases T3 slope to 0.581, partially solving this fundamental challenge.
+
+TEX Match:
+The compression problem is general to small-N clinical regression: when training data is limited, gradient-boosted models minimize expected loss by shrinking predictions toward the population mean. Our baseline demonstrates this concretely: T3 calibration slope $=0.104$ (predictions span only 10\% of the true range), Q1 overpredicted by $+12$ points, Q4 underpredicted by $-12$ points. $\mathrm{MAE}=8.09$ appears reasonable, but $\mathrm{CCC}=0.186$ indicates poor agreement caused by severe range compression and miscalibration. Ordinal ranking (Stages~1--2) increases T3 slope to 0.581, partially solving this fundamental challenge.
+
+HTML P45:
+(1) Results are from a single dataset; cross-dataset validation is needed. (2) All recordings are controlled gait, not free-living. (3) Medication state was not controlled. (4) HC were older than PD (74.6 vs 66.9 years); sensitivity analysis with age-matched HC confirms results are robust (Section 2.6). (5) N = 95 PD subjects limits statistical power. T1 primary results report the full three-stage pipeline (ranking + regression + temperature scaling); T2 and T3 report Stages 1–2 only (temperature T=1.4 was tuned on T1). (6) The three-level observability classification involves judgment calls for partially observable items. (7) This is cross-sectional; longitudinal change detection may differ. (8) The subscore-specific MCID has not been established; our MCID references apply to total UPDRS-III only. (9) The ordinal ranking Stage 1 uses a transductive design; although ablation confirms this does not inflate results, it limits the method to batch prediction. (10) 23 PD subjects (24%) had deep brain stimulation; DBS alters gait kinematics and may confound predictions. DBS subjects tended to have higher motor severity scores, but the small subgroup size (N=23) precluded meaningful stratified analysis. (11) The sensor span study evaluated a fixed K=500 for all configurations; per-configuration K optimization might further differentiate sensor sets. (12) The FM decomposition data comes from 5-fold screening, not the 10×5-fold repeated CV used for the primary non-inferiority tests.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P46:
+Six directions are most promising. First, prospective validation of the 4–5 sensor deployment pathway using wrist-worn devices and a single lower back sensor in clinical settings. Second, longitudinal within-subject tracking using the observable subdomain to assess treatment response. Third, cross-dataset transfer to validate the ordinal ranking mechanism and observability gradient. Fourth, establishing a subscore-specific MCID for the directly observable motor subscore. Fifth, multi-site validation to assess generalizability across clinical settings. Sixth, head-to-head comparison of FM versus fine-tuned temporal encoders with the reduced sensor sets, given the target-specific FM contribution pattern identified in this study.
+
+TEX Match:
+Six directions are most promising. First, prospective validation of the 4--5 sensor deployment pathway using wrist-worn devices and a single lower back sensor in clinical settings. Second, longitudinal within-subject tracking using the observable subdomain to assess treatment response. Third, cross-dataset transfer to validate the ordinal ranking mechanism and observability gradient. Fourth, establishing a subscore-specific MCID for the directly observable motor subscore. Fifth, multi-site validation to assess generalizability across clinical settings. Sixth, head-to-head comparison of FM versus fine-tuned temporal encoders with the reduced sensor sets, given the target-specific FM contribution pattern identified in this study.
+
+HTML P47:
+WearGait-PD 9  (Synapse syn55052683) comprises 100 PD and 85 HC participants, of whom 178 (98 PD, 80 HC) had complete recordings. Each subject wore 13 Xsens MTw Awinda IMU sensors at: lower back, bilateral wrists, bilateral mid-lateral thighs, bilateral lateral shanks, bilateral dorsal feet, bilateral ankles, xiphoid process, and forehead. Sensors sampled at 100 Hz recording triaxial accelerometer and gyroscope data (78 total channels). Participants completed five standardized tasks: self-paced walking, hurried-pace walking, Timed Up-and-Go, balance assessment, and tandem gait, with pressure-mat variants. Motor severity was assessed using MDS-UPDRS Part III by trained clinicians.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P48:
+Handcrafted features (1,752):  Per sensor and channel: RMS, standard deviation, range, IQR, skewness, kurtosis, jerk, zero-crossing rate; Welch PSD in locomotor (0.5–3 Hz), tremor (3–8 Hz), and high-frequency (8–25 Hz) bands with band ratios; spectral entropy; autocorrelation-based gait regularity. Additional: foot contact spatiotemporal metrics, task-contrast deltas, walkway features, and clinical covariates (age, sex, disease duration, height, weight, DBS status). Features aggregated as mean across all recordings per subject. Frozen MOMENT-1-base embeddings (768 dimensions, no fine-tuning) were used as supplementary features.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P49:
+XGBoost gain-based importance ranking (n_estimators=300, max_depth=4, learning_rate=0.05, reg_lambda=2.0, objective=reg:absoluteerror) selected top-K features within each CV fold (K=500 for CCC-optimized and ordinal ranking pipelines; K=150 for baseline held-out; K=300 for fused FM+v2).
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P50:
+Stage 1 (XGBRanker, N=178):  All subjects used for ranking representation learning. HC subjects receive rank label 0; PD subjects receive ordinal rank labels 1..N PD  sorted by ascending target score. XGBRanker parameters: n_estimators=300, max_depth=4, learning_rate=0.05, reg_lambda=2.0, objective=rank:pairwise. Three-seed ensemble (seeds 42, 123, 456). Single query group containing all subjects.  Note on transductive design:  Stage 1 uses target-derived rank labels from all PD subjects, including those in the held-out fold. This is a deliberate transductive design: the ranker learns only ordinal severity ordering, not absolute scores, and no test-fold target scores are accessible to the Stage 2 regressor. Ablation with fold-restricted ranking yields comparable results (Supplementary S5, Table S7), confirming that the transductive component does not inflate primary metrics.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P51:
+Stage 2 (Leaf extraction + LGB regression, PD-only):  Leaf indices extracted via ranker.apply() for each of 3 ranker seeds, producing 3 x 300 = 900 leaf features per subject. Combined with K=500 selected original features (total 1,400 features). LightGBM regression on PD-only subjects: n_estimators=2,000, learning_rate=0.03, max_depth=6, num_leaves=31, reg_lambda=0.3, min_data_in_leaf=8, colsample_bytree=0.5, objective=mse. Five-seed ensemble (seeds 42, 123, 456, 789, 2024). Early stopping at 100 rounds on 15% validation holdout. Predictions clipped to target range. Feature selection (Stage 2) and regression training are strictly within-fold: no held-out data enters these steps.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P52:
+T1 (direct observable): sum of items 9–14 (each 0–4, range 0–24). T2 (broad observable): sum of items 7–14, where items 7 and 8 scored as max(right, left) (range 0–32). T3 (total UPDRS-III): sum of all 18 items (empirical range 0–59 in this cohort).
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P53:
+PD-only 5-fold stratified CV  (N=95): stratified by target quartiles. T1 primary results include Stage 3 temperature scaling (T=1.4, tuned on T1 LOOCV); T2 and T3 results report Stages 1–2 only. Used as the primary evaluation for all main results. Within each outer fold, Stage 1 ranking is fit on all N=178 subjects (transductive); Stage 2 regression, feature selection, and early stopping are fit exclusively on the training fold PD subjects.  PD-only LOOCV  (N=94): leave-one-PD-subject-out with identical protocol. Used as sensitivity analysis (Supplementary S5).  PD-only 10-split CV  (N=98): stratified by UPDRS bins, seeds 1–10. Used for foundation model ablation and sensor ablation (Supplementary S2–S3). All protocols are explicitly labeled in tables and figures. Subject counts vary slightly across analyses (N=89–98 PD) due to item-level missingness: analyses requiring specific UPDRS items exclude subjects missing those items. Because sensitivity analyses (age matching, HC ablation, observability decomposition) use distinct subject subsets and random seeds, the same target (e.g., T1 observable subscore) may yield slightly different CCC values across tables; each table reports the result from its specific analysis scope.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P54:
+Twenty-two sensor configurations spanning 1 to 13 sensors were evaluated. FM embeddings were re-extracted per sensor configuration (only channels corresponding to the selected sensors), eliminating information leakage from absent sensors. Initial screening used 5-fold CV. Four key configurations (all_13, lower_back_1, minimal_5, wrists_ankles_4) underwent 10×5-fold repeated nested CV (50 held-out evaluations). Non-inferiority was assessed via one-sided Nadeau-Bengio corrected resampled t-tests with a pre-specified margin of δ = 0.05 CCC. Correction factor: 1/n + test_frac/(1 − test_frac) = 0.35 where n = 10 repeats and test_frac = 0.2. Superiority was assessed when non-inferiority was established. FM decomposition compared v2-only, FM-only, and v2+FM combined CCC for each configuration.
+
+TEX Match:
+Twenty-two sensor configurations spanning 1 to 13 sensors were evaluated. FM embeddings were re-extracted per sensor configuration (only channels corresponding to the selected sensors), eliminating information leakage from absent sensors. Initial screening used 5-fold CV. Four key configurations (all\_13, lower\_back\_1, minimal\_5, wrists\_ankles\_4) underwent $10\times 5$-fold repeated nested CV (50 held-out evaluations). Non-inferiority was assessed via one-sided Nadeau--Bengio corrected resampled $t$-tests with a pre-specified margin of $\delta=0.05$ CCC. Correction factor: $1/n + \text{test\_frac}/(1-\text{test\_frac})=0.35$ where $n=10$ repeats and $\text{test\_frac}=0.2$. Superiority was assessed when non-inferiority was established. FM decomposition compared v2-only, FM-only, and v2+FM combined CCC for each configuration.
+
+HTML P55:
+Directly observable  (items 3.9–3.14): arising, gait, freezing, postural stability, posture, body bradykinesia—motor signs directly expressed during ambulation.  Partially observable  (3.5–3.8, 3.15–3.17): hand movements, pronation-supination, toe tapping, leg agility, postural/kinetic/rest tremor—limb items indirectly reflected in gait.  Not observable  (3.1–3.4, 3.18): speech, facial expression, rigidity (neck + extremities), finger tapping, tremor constancy. Direct + partial + unobservable = total (reconstruction error = 0.0).
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P56:
+Post-hoc temperature scaling corrects prediction compression by stretching ensemble predictions outward from the population mean. The formula is: p scaled  = μ train  + T × (p ensemble  − μ train ), where μ train  is the mean of training-set true scores and T is the temperature parameter. T is selected from a grid [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.8, 2.0] as the value minimizing |cal_slope − 1.0| on T1 (directly observable subscore) LOOCV predictions. Scaled predictions are clipped to the target range. This is a post-hoc correction applied to the final ensemble output; no model retraining is involved. T = 1.4 was tuned exclusively on T1; all T2 and T3 results report the two-stage pipeline (ranking + regression) without temperature scaling.
+
+TEX Match:
+Post-hoc temperature scaling corrects prediction compression by stretching ensemble predictions outward from the population mean. The formula is: $p_{\mathrm{scaled}} = \mu_{\mathrm{train}} + T \times (p_{\mathrm{ensemble}} - \mu_{\mathrm{train}})$, where $\mu_{\mathrm{train}}$ is the mean of training-set true scores and $T$ is the temperature parameter. $T$ is selected from a grid $[1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.8, 2.0]$ as the value minimizing $|\text{cal\_slope} - 1.0|$ on T1 (directly observable subscore) LOOCV predictions. Scaled predictions are clipped to the target range. This is a post-hoc correction applied to the final ensemble output; no model retraining is involved. $T=1.4$ was tuned exclusively on T1; all T2 and T3 results report the two-stage pipeline (ranking + regression) without temperature scaling.
+
+HTML P57:
+Primary metric: Lin's CCC 8 . BCa bootstrap CIs (N=10,000, stratified by group). Model comparisons: paired bootstrap for LOOCV, Wilcoxon signed-rank for multi-split. Sensor non-inferiority: Nadeau-Bengio corrected resampled t-test with pre-specified δ = 0.05 CCC (Section 4.7). Multiple comparison correction: Holm-Bonferroni. Effect sizes: Cohen's d. MCID: 3.25 points for improvement, 4.63 for worsening (Horvath 2015) 2 , applied as contextual benchmark for total UPDRS-III only; MCID does not directly apply to subscores. Bland-Altman for systematic bias. Partial correlation controlling for age and disease duration.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P58:
+Feature selection uses XGBoost (n_estimators=300, max_depth=4, lr=0.05, reg_lambda=2.0, objective=reg:absoluteerror) inside each CV fold. CCC-optimized parameters identified via autoresearch (67 configurations tested).
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P59:
+WearGait-PD is available on Synapse (syn55052683) 9 . Analysis code will be available at [repository URL].
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P60:
+This section provides a self-contained explanation of the machine learning methodology for clinical readers.
+
+TEX Match:
+This section provides a self-contained explanation of the machine learning methodology for clinical readers.
+
+HTML P61:
+Gradient-boosted decision trees (GBDT) build an ensemble of simple decision trees sequentially (Figure A). Each tree corrects the residual errors of the previous ensemble. LightGBM and XGBoost are two efficient implementations. A single tree partitions the feature space into leaf nodes, each predicting a constant value. The ensemble of 2,000 trees produces a prediction by summing all tree outputs. Early stopping monitors validation error and halts training when no improvement occurs for 100 consecutive rounds, preventing overfitting.
+
+TEX Match:
+Gradient-boosted decision trees (GBDT) build an ensemble of simple decision trees sequentially (Figure~\ref{fig:gbdt}). Each tree corrects the residual errors of the previous ensemble. LightGBM and XGBoost are two efficient implementations. A single tree partitions the feature space into leaf nodes, each predicting a constant value. The ensemble of 2,000 trees produces a prediction by summing all tree outputs. Early stopping monitors validation error and halts training when no improvement occurs for 100 consecutive rounds, preventing overfitting.
+
+HTML P62:
+The choice of loss function affects how the model treats errors of different magnitudes (Figure B). MAE (mean absolute error) loss treats all errors equally: a 1-point error and a 10-point error contribute proportionally. MSE (mean squared error) loss penalizes large errors quadratically: a 10-point error contributes 100x more than a 1-point error. For UPDRS prediction, MSE proved superior (MAE improvement from 8.67 to 8.36) because it forces the model to reduce the most severe errors, which correspond to high-severity patients that baseline models systematically underpredict.
+
+TEX Match:
+The choice of loss function affects how the model treats errors of different magnitudes (Figure~\ref{fig:mseMae}). MAE (mean absolute error) loss treats all errors equally: a 1-point error and a 10-point error contribute proportionally. MSE (mean squared error) loss penalizes large errors quadratically: a 10-point error contributes $100\times$ more than a 1-point error. For UPDRS prediction, MSE proved superior (MAE improvement from 8.67 to 8.36) because it forces the model to reduce the most severe errors, which correspond to high-severity patients that baseline models systematically underpredict.
+
+HTML P63:
+With 2,520 candidate features and only ~95 training subjects, feature selection is critical to prevent overfitting (Figure C). We use XGBoost importance: an XGBoost model is trained to predict the target, and features are ranked by their total gain (improvement in the loss function when the feature is used for splitting). The top K features are retained. K=500 was optimal for the CCC-optimized pipeline; K=150 sufficed for the MAE-optimized baseline. Selection is performed inside each cross-validation fold to prevent data leakage.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P64:
+Individual model predictions vary with the random seed (which affects data shuffling, feature subsampling, and validation splits). Averaging predictions across 5 independent seeds (42, 123, 456, 789, 2024) reduces this variance (Figure D). The ensemble prediction is always at least as good as the average individual prediction, and typically better.
+
+TEX Match:
+Individual model predictions vary with the random seed (which affects data shuffling, feature subsampling, and validation splits). Averaging predictions across 5 independent seeds (42, 123, 456, 789, 2024) reduces this variance (Figure~\ref{fig:seed}). The ensemble prediction is always at least as good as the average individual prediction, and typically better.
+
+HTML P65:
+MOMENT-1-base is a time-series foundation model pretrained on 385 public datasets 10 . We use it as a frozen feature extractor (Figure E): raw IMU signals are truncated to 512 samples (5.12s), globally z-normalized, and passed through the frozen encoder. The resulting 768-dimensional embedding captures temporal patterns learned from diverse domains, supplementing handcrafted statistical features. No gradient computation or fine-tuning is performed, ensuring deterministic outputs.
+
+TEX Match:
+MOMENT-1-base is a time-series foundation model pretrained on 385 public datasets\textsuperscript{10}. We use it as a frozen feature extractor (Figure~\ref{fig:fmemb}): raw IMU signals are truncated to 512 samples (5.12s), globally $z$-normalized, and passed through the frozen encoder. The resulting 768-dimensional embedding captures temporal patterns learned from diverse domains, supplementing handcrafted statistical features. No gradient computation or fine-tuning is performed, ensuring deterministic outputs.
+
+HTML P66:
+Key hyperparameter differences between the baseline and CCC-optimized pipelines (Figure F): regularization (reg_lambda: 3.0 to 0.3) was reduced to allow wider prediction range; min_data_in_leaf (20 to 8) was the dominant knob for CCC improvement (+0.105); colsample_bytree (1.0 to 0.5) introduced column subsampling for diversity; and objective (MAE to MSE) increased penalty on large errors. These changes collectively increased calibration slope from 0.40 to 0.69 on the observable subscore.
+
+TEX Match:
+Key hyperparameter differences between the baseline and CCC-optimized pipelines (Figure~\ref{fig:hp}): regularization (\texttt{reg\_lambda}: 3.0 to 0.3) was reduced to allow wider prediction range; \texttt{min\_data\_in\_leaf} (20 to 8) was the dominant knob for CCC improvement ($+0.105$); \texttt{colsample\_bytree} (1.0 to 0.5) introduced column subsampling for diversity; and objective (MAE to MSE) increased penalty on large errors. These changes collectively increased calibration slope from 0.40 to 0.69 on the observable subscore.
+
+HTML P67:
+We evaluated five anti-compression proposals across three targets (Table S2, Supplementary Figure S1). Per-item ordinal classification (P1) degraded performance severely (CCC = 0.338). SMOGN tail augmentation (P3) and NGBoost distributional regression (P4) produced marginal improvements. Only ordinal ranking (P5) materially improved CCC on all targets. The mechanism involves two primary elements: (i) ranking is a simpler task than regression (ordinal discrimination requires only preserved ordering), and (ii) leaf features encode nonlinear severity partitions. HC ablation (Table 7) confirms that the ranking transformation itself drives the improvement (ΔCCC = 0.001 from HC inclusion); HC subjects provide optional, marginal calibration anchoring.
+
+TEX Match:
+We evaluated five anti-compression proposals across three targets (Table~S2, Supplementary Figure~S1). Per-item ordinal classification (P1) degraded performance severely ($\mathrm{CCC}=0.338$). SMOGN tail augmentation (P3) and NGBoost distributional regression (P4) produced marginal improvements. Only ordinal ranking (P5) materially improved CCC on all targets. The mechanism involves two primary elements: (i)~ranking is a simpler task than regression (ordinal discrimination requires only preserved ordering), and (ii)~leaf features encode nonlinear severity partitions. HC ablation (Table~\ref{tab:hc}) confirms that the ranking transformation itself drives the improvement ($\Delta\mathrm{CCC}=0.001$ from HC inclusion); HC subjects provide optional, marginal calibration anchoring.
+
+HTML P68:
+P0-P4: 5-split (N=95). P5 ordinal ranking shown under both 5-split (N=95, protocol-matched with P0-P4) and LOOCV (N=94, strictest evaluation). All rows show Stages 1-2 only (w/o temperature scaling) for protocol-matched comparison. P1 not run on T2/T3 (severely degraded on T1). P5 is the only proposal that materially improves CCC on any target.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P69:
+Ordinal ranking substantially reduces severity-dependent prediction bias (Table S3, Supplementary Figure S2). For T1 (5-split, apples-to-apples comparison): Q4 underprediction reduced from -1.34 to -0.53 (61% reduction), Q2 overprediction nearly eliminated (from +0.67 to +0.13, 81% reduction). The total UPDRS baseline (5-split) showed extreme compression: Q1 overpredicted by +12 points, Q4 underpredicted by -12 points. After ordinal ranking, T3 Q4 bias reduced from -12.3 to -3.7.
+
+TEX Match:
+Ordinal ranking substantially reduces severity-dependent prediction bias (Table~S3, Supplementary Figure~S2). For T1 (5-split, apples-to-apples comparison): Q4 underprediction reduced from $-1.34$ to $-0.53$ (61\% reduction), Q2 overprediction nearly eliminated (from $+0.67$ to $+0.13$, 81\% reduction). The total UPDRS baseline (5-split) showed extreme compression: Q1 overpredicted by $+12$ points, Q4 underpredicted by $-12$ points. After ordinal ranking, T3 Q4 bias reduced from $-12.3$ to $-3.7$.
+
+HTML P70:
+Note: Both P0 and P5 use identical 5-split evaluation protocol (N=95) for apples-to-apples comparison. Bias = mean(predicted - actual).
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P71:
+Frozen MOMENT-1-base embeddings (768 dimensions, no fine-tuning) reduced mixed-cohort MAE from 8.49 to 7.77 (Wilcoxon p = 0.0039; Supplementary Figure S3). The advantage was non-significant in PD-only evaluation (p adj  = 0.94), suggesting FM embeddings primarily enhance PD-vs-HC discrimination rather than within-PD severity grading. FM embedding dimensions appeared among top features for the observable subscore (Figure 6), indicating complementary temporal pattern capture.
+
+TEX Match:
+\textbf{Handcrafted features (1,752):} Per sensor and channel: RMS, standard deviation, range, IQR, skewness, kurtosis, jerk, zero-crossing rate; Welch PSD in locomotor (0.5--3~Hz), tremor (3--8~Hz), and high-frequency (8--25~Hz) bands with band ratios; spectral entropy; autocorrelation-based gait regularity. Additional: foot contact spatiotemporal metrics, task-contrast deltas, walkway features, and clinical covariates (age, sex, disease duration, height, weight, DBS status). Features aggregated as mean across all recordings per subject. Frozen MOMENT-1-base embeddings (768 dimensions, no fine-tuning) were used as supplementary features.
+
+HTML P72:
+FM re-extraction per sensor configuration eliminates data leakage (Table S4). The 5-sensor minimal set (lower back, bilateral wrists, bilateral ankles) matches the full 13-sensor configuration (7.67 vs 7.72, p = 0.85). Even 2 wrist sensors achieved competitive performance (p = 0.55). These results are for total UPDRS-III (10-split CV). For the observable subscore (T1) under ordinal ranking (5-fold CV), single-sensor analysis (Table S5) reveals that a single lower back sensor achieves CCC = 0.867, matching the full 13-sensor configuration (CCC = 0.857). Single wrist sensors achieve CCC > 0.78, supporting smartwatch-based clinical deployment.
+
+TEX Match:
+FM re-extraction per sensor configuration eliminates data leakage (Table~S4). The 5-sensor minimal set (lower back, bilateral wrists, bilateral ankles) matches the full 13-sensor configuration (7.67 vs 7.72, $p=0.85$). Even 2 wrist sensors achieved competitive performance ($p=0.55$). These results are for total UPDRS-III (10-split CV). For the observable subscore (T1) under ordinal ranking (5-fold CV), single-sensor analysis (Table~S5) reveals that a single lower back sensor achieves $\mathrm{CCC}=0.867$, matching the full 13-sensor configuration ($\mathrm{CCC}=0.857$). Single wrist sensors achieve $\mathrm{CCC}>0.78$, supporting smartwatch-based clinical deployment.
+
+HTML P73:
+FM embeddings re-extracted per sensor configuration to prevent data leakage. Results are for total UPDRS-III, not observable subscore.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P74:
+A single lower back sensor achieves CCC = 0.867, matching the full 13-sensor configuration (CCC = 0.857). Single wrist achieves CCC > 0.78, supporting smartwatch-based clinical deployment.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P75:
+Negative results strengthen the ceiling argument. Seven deep learning configurations (Transformer, InceptionTime, SensorGNN; Table S6) all produced MAE > 10, consistent with overfitting at N = 178. Additional failed approaches included: item decomposition (52% worse), mixture-of-experts, cross-sensor coordination features, and freezing-of-gait transfer (AUC = 0.500). Among the five anti-compression proposals, only ordinal ranking produced material CCC improvement; per-item ordinal classification, pairwise contrastive boosting, SMOGN augmentation, and NGBoost distributional regression all failed (Table S2). This convergence of diverse approaches on a compression ceiling supports the interpretation that the barrier is representational rather than purely methodological.
+
+TEX Match:
+Negative results strengthen the ceiling argument. Seven deep learning configurations (Transformer, InceptionTime, SensorGNN; Table~S6) all produced $\mathrm{MAE}>10$, consistent with overfitting at $N=178$. Additional failed approaches included: item decomposition (52\% worse), mixture-of-experts, cross-sensor coordination features, and freezing-of-gait transfer ($\mathrm{AUC}=0.500$). Among the five anti-compression proposals, only ordinal ranking produced material CCC improvement; per-item ordinal classification, pairwise contrastive boosting, SMOGN augmentation, and NGBoost distributional regression all failed (Table~S2). This convergence of diverse approaches on a compression ceiling supports the interpretation that the barrier is representational rather than purely methodological.
+
+HTML P76:
+All DL models trained end-to-end on raw IMU windows (10s, 50% overlap). N=178 insufficient for end-to-end deep learning. Held-out test N=36.
+
+TEX Match:
+\tabnote{All DL models trained end-to-end on raw IMU windows (10s, 50\% overlap). $N=178$ insufficient for end-to-end deep learning. Held-out test $N=36$.} \end{table}
+
+HTML P77:
+Seven calibration methods were evaluated on the T1 observable subscore (LOOCV, N=94). Results are presented in Table S8.
+
+TEX Match:
+Seven calibration methods were evaluated on the T1 observable subscore (LOOCV, $N=94$). Results are presented in Table~S8.
+
+HTML P78:
+Source: run_calibration_v2.py. E7 temperature scaling achieves the best combination of CCC and calibration slope with a single parameter. std ratio = std(predictions) / std(true values); target ≥ 0.92. E3 (KNN) and E5 (CQR) also achieve good calibration but are more complex.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P79:
+To confirm that results are not sensitive to the choice of cross-validation protocol, we repeated the ordinal ranking evaluation using leave-one-out cross-validation (LOOCV, N = 94). LOOCV results are consistent with the primary 5-fold analysis:
+
+TEX Match:
+To confirm that results are not sensitive to the choice of cross-validation protocol, we repeated the ordinal ranking evaluation using leave-one-out cross-validation (LOOCV, $N=94$). LOOCV results are consistent with the primary 5-fold analysis:
+
+HTML P80:
+5-fold CV is the primary evaluation. T1 5-fold values include Stage 3 temperature scaling (T=1.4); T2 and T3 report Stages 1–2 only (temperature was tuned on T1). LOOCV is provided as sensitivity analysis (Stages 1–2 only for all targets). The close agreement between protocols confirms result robustness.
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P81:
+Three tests survive correction: permutation (FM > mean), Spearman severity ranking, and partial correlation (IMU signal beyond demographics).
+
+TEX Match: NONE FOUND (Check manually)
+
+HTML P82:
+Baseline model (pre-ranking). LOOCV: PD-only, N=91-94. nMAE = MAE / max score x 100. Direct + partial + unobs = total (reconstruction error = 0.0).
+
+TEX Match: NONE FOUND (Check manually)
+

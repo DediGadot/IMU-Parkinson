@@ -1,0 +1,29 @@
+======================================================================
+SENSOR SPAN STUDY — SSL RANKING
+Configs: 22, Targets: 3, Eval: loocv
+Total experiments: 66
+======================================================================
+
+══════════════════════════════════════════════════════════════════════
+Config: all_13 (13 sensors)
+Sensors: ['LowerBack', 'R_Wrist', 'L_Wrist', 'R_MidLatThigh', 'L_MidLatThigh', 'R_LatShank', 'L_LatShank', 'R_DorsalFoot', 'L_DorsalFoot', 'R_Ankle', 'L_Ankle', 'Xiphoid', 'Forehead']
+══════════════════════════════════════════════════════════════════════
+  [cache] Loading FM for all_13 from /root/pd-imu/results/sensor_fm_cache/all_13_fm.npz
+  Config all_13: 1721 v2 + 768 FM = 2489 features, 94 PD, 174 all
+
+  ── Target: T1 ──
+  Ranker: 80 HC + 94 PD = 174 total
+    [10/94] CCC=0.809 MAE=0.963 (104s, ~871s remaining)
+    [20/94] CCC=0.741 MAE=1.315 (201s, ~743s remaining)
+    [30/94] CCC=0.796 MAE=1.149 (304s, ~648s remaining)
+    [40/94] CCC=0.804 MAE=1.092 (407s, ~549s remaining)
+    [50/94] CCC=0.807 MAE=1.045 (510s, ~449s remaining)
+    [60/94] CCC=0.849 MAE=1.050 (607s, ~344s remaining)
+    [70/94] CCC=0.847 MAE=1.052 (709s, ~243s remaining)
+    [80/94] CCC=0.863 MAE=1.064 (811s, ~142s remaining)
+    [90/94] CCC=0.861 MAE=1.031 (918s, ~41s remaining)
+  Saved: /root/pd-imu/results/sensor_span_all_13_t1_loocv.json
+  all_13 × T1: CCC=0.859 MAE=1.054 slope=0.689 r=0.887 (958s)
+
+  ── Target: T2 ──
+  Ranker: 80 HC + 94 PD = 174 total

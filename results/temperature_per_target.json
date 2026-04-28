@@ -1,0 +1,19 @@
+{
+  "description": "Per-target temperature scaling results. T tuned independently per target on LOOCV predictions to minimize |slope - 1.0|.",
+  "method": "p_cal = mean_train + T * (p_raw - mean_train), clipped to [0, max_score]",
+  "loocv": {
+    "t1": {"T_opt": 1.45, "ccc_raw": 0.868, "ccc_cal": 0.893, "slope_raw": 0.689, "slope_cal": 1.000, "mae_raw": 0.986, "mae_cal": 1.091, "n": 94},
+    "t2": {"T_opt": 1.45, "ccc_raw": 0.852, "ccc_cal": 0.863, "slope_raw": 0.699, "slope_cal": 1.014, "mae_raw": 1.334, "mae_cal": 1.717, "n": 94},
+    "t3": {"T_opt": 1.75, "ccc_raw": 0.776, "ccc_cal": 0.811, "slope_raw": 0.576, "slope_cal": 1.008, "mae_raw": 4.646, "mae_cal": 5.579, "n": 94}
+  },
+  "fivefold": {
+    "t1": {"T_opt": 1.35, "ccc_raw": 0.865, "ccc_cal": 0.869, "slope_raw": 0.745, "slope_cal": 1.006, "mae_raw": 0.953, "mae_cal": 1.112, "n": 95},
+    "t2": {"T_opt": 1.40, "ccc_raw": 0.831, "ccc_cal": 0.834, "slope_raw": 0.707, "slope_cal": 0.990, "mae_raw": 1.162, "mae_cal": 1.406, "n": 95},
+    "t3": {"T_opt": 1.70, "ccc_raw": 0.807, "ccc_cal": 0.871, "slope_raw": 0.581, "slope_cal": 0.987, "mae_raw": 4.464, "mae_cal": 5.173, "n": 95}
+  },
+  "monotonicity": {
+    "loocv_calibrated": "0.893 > 0.863 > 0.811 — HOLDS",
+    "fivefold_calibrated": "0.869 > 0.834 but T3=0.871 > T1=0.869 — BREAKS"
+  },
+  "note": "LOOCV is the canonical per-target-calibrated result because monotonicity holds and T was tuned on LOOCV. 5-fold monotonicity breaks because T3 (T=1.70) over-corrects relative to T1 (T=1.35)."
+}

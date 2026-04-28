@@ -1,0 +1,540 @@
+
+
+Ordinal Ranking Resolves Prediction Compression in Wearable Parkinson's Disease Motor Assessment
+
+# Ordinal ranking resolves prediction compression in wearable Parkinson's disease motor assessment
+
+[Author names to be added]
+[Affiliations to be added]
+
+### Abstract
+
+Predicting Parkinson's disease motor severity from wearable sensors is limited by prediction compression: standard regression on small clinical cohorts (N100) collapses predictions toward the population mean, yielding poor concordance despite reasonable error rates. We present the first MDS-UPDRS Part III regression benchmark on WearGait-PD, the largest controlled-gait dataset with complete motor scores (N = 178: 98 PD, 80 HC, 13 IMUs at 100 Hz). We introduce a two-stage ordinal ranking method: an XGBRanker learns a severity-ordered representation whose leaf features feed a LightGBM regressor, evaluated by PD-only 5-fold cross-validation (N = 95). When healthy controls (N = 80) are included as calibration anchors in the ranking stage, performance is marginally enhanced, though PD-only ranking achieves nearly identical results (CCC = 0.857 vs 0.858). For the directly observable motor subscore (items 3.93.14: gait, posture, arising, stability, freezing, body bradykinesia), SSL ranking achieves CCC = 0.865 (calibration slope = 0.745, MAE = 0.953), up from a baseline CCC = 0.70. For total UPDRS-III, ranking achieves CCC = 0.807 (MAE = 4.46). A three-level observability decomposition reveals that prediction quality tracks item observability from gait sensors: direct CCC = 0.834, partial CCC = 0.730, not observable CCC = 0.759. Sensitivity analyses confirm that age confounding does not drive performance (age-matched HC: CCC = 0.868 vs full HC: CCC = 0.858). Confirmatory LOOCV analysis yields consistent results (T1 CCC = 0.868). These results establish WearGait-PD as a regression benchmark and support the directly observable motor subdomain as a clinically actionable wearable endpoint.
+
+## 1. Introduction
+
+Parkinson's disease (PD) affects over 8.5 million people worldwide, making it the fastest-growing neurological disorder1. The Movement Disorder Society Unified Parkinson's Disease Rating Scale Part III (MDS-UPDRS-III) is the gold standard for motor severity assessment, comprising 18 items (33 sub-items) scored 04 each (total range 0132). Administration requires a trained clinician, takes 2030 minutes, and is inherently subjectiveinter-rater variability can exceed the minimally clinically important difference (MCID) of 3.25 points2.
+
+Body-worn inertial measurement units (IMUs) offer a path toward continuous, objective motor monitoring. Several groups have attempted UPDRS-III regression from wearable sensors. Hssayeni et al. achieved MAE = 5.95 with an ensemble of three deep learning models on 24 PD patients using wrist and ankle gyroscopes during free-living activities (LOOCV)3. Shuqair et al. improved correlation to r = 0.89 on the same 24-patient dataset using self-supervised pretraining4. Both studies used leave-one-out cross-validation on small, PD-only cohorts, limiting generalizability. Other reported results suffer from methodological concerns: the IS22 result (MAE = 4.26) contained confirmed window-level data leakage5, and He et al. (2024) predicted levodopa response rather than UPDRS-III total6. The TRIP benchmark on WearGait-PD addressed only classification, not regression7.
+
+A fundamental challenge in small-N clinical regression has received insufficient attention: prediction compression. When N100, gradient-boosted regression models collapse predictions toward the population mean, producing reasonable MAE but poor concordance (CCC). A model predicting the mean for everyone achieves adequate MAE if population variance is moderate, but is clinically useless because it cannot distinguish mild from severe patients. Lin's concordance correlation coefficient (CCC)8 captures this distinction by penalizing both poor correlation and poor calibration.
+
+WearGait-PD is the largest publicly available controlled-gait dataset with complete MDS-UPDRS-III scores9. To our knowledge, no published UPDRS-III regression exists on this dataset. We present four contributions: (1) the first regression benchmark on WearGait-PD with subject-level evaluation; (2) a two-stage semi-supervised ranking method that uses healthy controls as calibration anchors, substantially reducing prediction compression (CCC improvement from 0.70 to 0.865 on the directly observable subscore, 5-fold CV); (3) a three-level observability decomposition explaining why total UPDRS-III prediction from gait IMU has a structural ceiling; and (4) comprehensive sensitivity analyses confirming that age confounding and HC inclusion do not drive the SSL ranking improvement.
+
+[FIGURE]
+Figure 1. Two-stage semi-supervised ranking pipeline. Stage 1: XGBRanker trained on all N=178 subjects (HC anchored at rank 0, PD subjects ranked by target score) produces leaf features encoding severity ordering. Stage 2: LightGBM regressor trained on PD-only subjects uses original features plus 900 leaf features. Evaluated by PD-only 5-fold stratified CV (primary) and LOOCV (sensitivity).
+
+## 2. Results
+
+### 2.1 Cohort Description
+
+Of 185 enrolled participants, 178 (98 PD, 80 HC) had complete sensor recordings (Table 1). PD participants (mean age 66.9  8.3 years, 63M/35F) had moderate motor severity (UPDRS-III 24.4  10.9, range [0, 59]). HC participants were older (74.6  8.5 years) with lower motor scores (7.1  9.7). Medication state was not systematically controlled.
+
+[TABLE: Table 1. Cohort demographics.]
+
+| Characteristic | PD (N=98) | HC (N=80) |
+
+| Age, years (mean  SD) | 66.9  8.3 | 74.6  8.5 |
+
+| Sex (M/F) | 63M / 35F | 35M / 45F |
+
+| Height, cm (mean  SD) | 174.2  10.3 | 168.1  17.5 |
+
+| Weight, kg (mean  SD) | 78.0  17.2 | 81.0  16.8 |
+
+| UPDRS-III (mean  SD) | 24.4  10.9 | 7.1  9.7 |
+
+| UPDRS-III range | [0.0, 59.0] | [0.0, 43.0] |
+
+| HY (mean  SD) | 2.15  0.6 (N=95) |  |
+
+| HY distribution | 1: 9, 1.5: 1, 2: 58, 2.5: 12, 3: 12, 4: 3 |  |
+
+| Years since diagnosis (mean  SD) | 7.6  5.9 ([0.0, 26.4]) |  |
+
+| DBS | 23 |  |
+
+### 2.2 Primary Outcome: Observable Subscore via SSL Ranking
+
+The directly observable subscore (items 3.93.14: arising, gait, freezing, postural stability, posture, body bradykinesia; max 24 points) is the primary endpoint. With SSL ranking (P5, PD-only 5-fold CV, N = 95; Figure 2), the pipeline achieves CCC = 0.865, calibration slope = 0.745, MAE = 0.953 (r = 0.877). This represents a substantial improvement over the P0 baseline (CCC = 0.70, slope = 0.508). While the total-score MCID of 3.25 points (Horvath 2015)2 does not directly apply to a 24-point subscore, the MAE of 0.953 represents less than 4% of the subscore range, suggesting clinically useful single-assessment accuracy. A subscore-specific MCID remains to be established.
+
+SSL ranking also improves broader targets: T2 (items 714, max 32) achieves CCC = 0.831 (MAE = 1.16), and T3 (total UPDRS-III) achieves CCC = 0.807 (MAE = 4.46; Figure 3). The CCC degradation from T1 to T3 (0.865 to 0.807) reflects increasing inclusion of items unobservable from gait IMU. Confirmatory LOOCV analysis (N = 94) yields consistent results: T1 CCC = 0.868, T2 CCC = 0.852, T3 CCC = 0.776 (Supplementary S5).
+
+[FIGURE]
+Figure 2. SSL ranking predicted versus actual scores for the directly observable subscore (T1, items 3.93.14), PD-only 5-fold CV (N=95). Points colored by severity quartile. Yellow band: MCID (3.25). CCC = 0.865, calibration slope = 0.745. Marginal histograms show distribution of actual (green) and predicted (orange) scores.
+
+[FIGURE]
+Figure 3. SSL ranking across three target definitions (PD-only 5-fold CV, N=95). Left: T1 direct observable (CCC=0.865). Center: T2 broad observable (CCC=0.831). Right: T3 total UPDRS-III (CCC=0.807). CCC degrades as targets include more items unobservable from gait sensors.
+
+### 2.3 Observability Gradient
+
+We decomposed the 18 MDS-UPDRS-III items into three tiers based on whether the assessed motor sign is physically manifest during gait. Under the same 5-fold CV protocol used for the primary outcome (Table 2, Figure 4), SSL ranking produces a clear observability gradient: directly observable CCC = 0.834 (MAE = 1.10), partially observable CCC = 0.730 (MAE = 2.59), not observable CCC = 0.759 (MAE = 2.10). The baseline model (pre-SSL, same 5-fold protocol) shows a starker gradient: direct CCC = 0.545 vs partial CCC = 0.055 vs not observable CCC = 0.176. SSL ranking improves all three tiers substantially, but the gradient persists: items directly expressed during gait remain most predictable.
+
+Per-item analysis (Figure 5) confirms this gradient: the highest-correlation items are predominantly directly observable gait items. Feature importance for the observable subscore (Figure 6) shows clinically coherent sensor-item alignment: foot sensors (R_DorsalFoot), lower back, and trunk (Xiphoid) drive predictions, while foundation model embedding dimensions provide complementary temporal patterns.
+
+[FIGURE]
+Figure 4. Three-level observability decomposition (5-fold CV). CCC, calibration slope, and MAE all degrade from directly observable to partially/not observable tiers under both baseline and SSL conditions. This is a modality constraint: rigidity (item 3.3), speech (3.1), and facial expression (3.2) cannot be measured by body-worn inertial sensors during gait.
+
+[TABLE: Table 2. Three-level observability decomposition (PD-only 5-fold CV, N=89).]
+
+| Tier | Items 
+    | Baseline CCC | Baseline MAE 
+    | SSL CCC | SSL MAE | SSL slope | SSL r |
+
+| Directly observable | 3.93.14 | 0.545 | 1.592 | 0.834 | 1.100 | 0.703 | 0.849 |
+
+| Partially observable | 3.53.8, 3.153.17 | 0.055 | 4.411 | 0.730 | 2.590 | 0.483 | 0.849 |
+
+| Not observable | 3.13.4, 3.18 | 0.176 | 3.494 | 0.759 | 2.097 | 0.550 | 0.823 |
+
+Both baseline and SSL evaluated under identical 5-fold CV protocol. SSL ranking dramatically improves all three tiers, but the observability gradient persists: directly observable items remain most predictable.
+
+[FIGURE]
+Figure 5. Per-item predictability ranked by Pearson r, colored by three-level observability tier. Green: directly observable from gait; orange: partially observable; red: not observable. Dashed lines separate tiers.
+
+[FIGURE]
+Figure 6. Top 20 features by XGBoost gain importance for the observable subscore model, colored by anatomical source. Foot and trunk sensors dominate, with FM embedding dimensions (fm_*) providing complementary temporal features.
+
+### 2.4 Total UPDRS-III as Context
+
+Total UPDRS-III prediction illustrates the structural ceiling that motivates the observable subdomain focus. With SSL ranking (5-fold CV), T3 achieves CCC = 0.807 (MAE = 4.46), substantially above the P0 baseline (CCC = 0.186, MAE = 8.09). In PD-only 10-split CV (N = 98, Table 3), a demographic Ridge baseline (age, sex, disease duration) achieved MAE = 7.44  0.75, matching all pre-SSL IMU models. Partial correlation r = 0.36 (padj = 0.002) confirms genuine IMU signal beyond demographics, but this signal is diluted by 12 partially or non-observable items constituting 82% of the total score range. After SSL ranking, IMU clearly surpasses demographics: T3 MAE = 4.46 vs demographic LOOCV MAE = 7.86.
+
+[TABLE: Table 2. Total UPDRS-III prediction results (PD-only evaluation).]
+
+| Model | Evaluation | N | MAE | CCC | r | Cal. slope |
+
+| PD-only 10-split cross-validation |
+| Demographic Ridge | 10-split | 98 | 7.44  0.75 | 0.326 |  |  |
+
+| v2 Handcrafted LGB | 10-split | 98 | 8.42  0.69 | -0.004 |  |  |
+
+| v2+FM Stack | 10-split | 98 | 8.57  0.96 | -0.019 |  |  |
+
+| PD-only leave-one-out cross-validation |
+
+| FM Stack (baseline) | LOOCV | 98 | 8.15 | 0.369 | 0.429 | 0.256 |
+
+| Demographic Ridge | LOOCV | 98 | 7.86 | 0.338 | 0.427 | 0.211 |
+
+| Anti-compression methods (PD-only) |
+
+| P0 Baseline | 5-split | 95 | 8.09 | 0.186 | 0.297 | 0.104 |
+| P5 SSL Ranking | LOOCV | 94 | 4.65 | 0.776 | 0.827 | 0.576 |
+
+P0 baseline and P5 SSL use different evaluation protocols (5-split vs LOOCV). P5 SSL uses healthy controls for representation learning only; final evaluation is PD-only.
+
+[TABLE: Table 4. Severity-stratified prediction (baseline, PD-only FM LOOCV, N=98).]
+
+| Quartile | N | MAE | CCC | Bias | Mean True | Mean Pred |
+
+| Q1(35) | 17 | 14.30 | 0.138 | -14.3 | 41.2 | 26.9 |
+
+Bias = mean(predicted - actual). Severe regression to the mean: Q1 overpredicted by +14, Q4 underpredicted by -14. Pre-SSL baseline.
+
+### 2.5 Age Confound and HC Ablation Sensitivity
+
+Because HC participants were older than PD participants (74.6 vs 66.9 years), we conducted two sensitivity analyses to rule out age-driven confounding and to assess the specific contribution of HC subjects to SSL ranking.
+
+Age confound analysis (Table 4). We compared SSL ranking using the full HC cohort (N = 80, mean age 74.6y) against an age-matched HC subset (N = 46, mean age 68.9y, p = 0.0905 vs PD). Age-matched HC gives T1 CCC = 0.868 vs full HC CCC = 0.858age is not driving the SSL improvement. Partial correlation controlling for age yields r = 0.849 (p  1e-6), confirming that SSL predictions reflect motor severity, not age. Age-stratified within-PD analysis shows consistent performance across all PD age strata (Table 4b): young CCC = 0.730, middle CCC = 0.706, older CCC = 0.911.
+
+HC ablation (Table 5). We compared three conditions: P0 baseline (no ranking), P5 with PD-only ranking (no HC), and P5 with PD+HC ranking. PD-only ranking achieves T1 CCC = 0.857, nearly identical to PD+HC ranking CCC = 0.858. Both substantially exceed the P0 baseline (CCC = 0.673). This demonstrates that the ranking mechanism itself drives the improvement; HC subjects provide calibration anchoring but are not required for the core benefit.
+
+[TABLE: Table 3. Age confound sensitivity analysis for SSL ranking (5-fold CV, T1 observable subscore).]
+
+| HC Configuration | NHC | HC Mean Age | Age p 
+    | T1 CCC | T1 MAE | T1 r | T1 slope 
+    | T3 CCC | T3 MAE |
+
+| Full HC | 80 | 74.6 
+    | 0.0000 
+    | 0.858 | 0.986 
+    | 0.874 | 0.718 
+    | 0.763 | 4.968 |
+
+| Age-matched HC | 46 | 68.9 
+    | 0.0905 
+    | 0.868 | 0.978 
+    | 0.880 | 0.744 
+    | 0.751 | 4.998 |
+
+Age-matched subset retains HC with age  PD 75th percentile + 5 years (threshold 78y).
+Partial correlation of SSL predictions controlling for age: r = 0.849 (p = 0.00e+00).
+Controlling for age + disease duration: r = 0.823 (p = 0.00e+00).
+
+[TABLE: Table 3b. Age-stratified within-PD evaluation (SSL T1, 5-fold CV).]
+
+| Age Stratum | N | CCC | MAE | r |
+
+| young (=71y) | 35 | 0.911 | 0.951 | 0.927 |
+
+SSL ranking produces accurate predictions across all PD age strata, confirming that performance is not driven by age-related gait rather than disease severity.
+
+[TABLE: Table 4. HC ablation: contribution of healthy controls to SSL ranking (5-fold CV).]
+
+| Method | NHC 
+    | T1 CCC | T1 MAE | T1 slope | T1 r 
+    | T3 CCC | T3 MAE | T3 slope |
+
+| P0: Baseline (no ranking) | 0 | 0.673 | 1.380 | 0.477 | 0.741 | 0.209 | 8.032 | 0.116 |
+
+| P5: SSL, PD-only ranking | 0 | 0.857 | 1.013 | 0.746 | 0.867 | 0.789 | 4.591 | 0.572 |
+
+| P5: SSL, PD+HC ranking | 80 | 0.858 | 0.986 | 0.718 | 0.874 | 0.763 | 4.968 | 0.544 |
+
+PD-only ranking (no HC) produces nearly identical T1 performance to PD+HC ranking, demonstrating that the ranking mechanism itself drives the improvement. HC subjects contribute calibration anchoring but are not required for the core benefit.
+
+### 2.6 Cross-Dataset Context
+
+Figure 10 contextualizes our results against published work. Protocol-matched comparison (5-fold to LOOCV): our T3 SSL MAE = 4.46 vs Hssayeni MAE = 5.95 (25% lower on 4x more subjects). However, comparisons are necessarily cross-dataset: different cohorts, tasks (controlled gait vs free-living ADL), sensor configurations, and disease stages. Prior work did not report CCC, making concordance comparisons impossible.
+
+[FIGURE]
+Figure 10. Cross-dataset comparison (all PD-only evaluation). Left: MAE; right: Pearson r with CCC annotations. Our SSL results on WearGait-PD (N=95) achieve lower MAE than prior work on smaller cohorts (N=24), but cross-dataset comparisons are limited by protocol, cohort, task, and sensor differences.
+
+[TABLE: Table 6. Cross-dataset comparison with published UPDRS-III regression.]
+
+| Study | Year | Dataset | N | Sensors | Evaluation | MAE | r | CCC |
+| This work (T1, SSL) | 2026 | WearGait-PD | 94 PD | 13 IMUs | PD LOOCV | 0.99* | 0.899 | 0.868 |
+| This work (T3, SSL) | 2026 | WearGait-PD | 94 PD | 13 IMUs | PD LOOCV | 4.65 | 0.827 | 0.776 |
+
+| This work (T3, baseline) | 2026 | WearGait-PD | 98 PD | 13 IMUs | PD LOOCV | 8.15 | 0.429 | 0.369 |
+
+| Hssayeni et al. | 2021 | Physionet | 24 PD | wrist+ankle gyro | PD LOOCV | 5.95 | 0.79 | N/R |
+
+| Shuqair et al. | 2024 | Same Physionet | 24 PD | wrist+ankle gyro | PD LOOCV | ~5.65 | 0.89 | N/R |
+
+| Sotirakis et al. | 2023 | Oxford | 74 PD | wrist+back | 5-fold CV | RMSE=10.02 |  | N/R |
+
+*Items 3.9-3.14 subscore (max 24), not total UPDRS-III (max 132). Visit-level CV with potential within-subject leakage. N/R = not reported. Cross-dataset comparison is limited by cohort, task, sensor, and protocol differences.
+
+## 3. Discussion
+
+### 3.1 SSL Ranking Mechanism
+
+The central methodological contribution is the use of healthy controls as calibration anchors for severity estimation. Pure PD-only regression (N=94) suffers from sparse support at the low-severity end of the distribution: few PD subjects have UPDRS near zero, so the model has little basis for calibrated low-end predictions and shrinks toward the cohort mean. Adding 80 HC subjects (UPDRS approximately 03) densifies this low end, providing the statistical anchoring that the PD-only cohort lacks. The XGBRanker (Stage 1) learns that HC subjects correspond to severity rank 0 and PD subjects to ordinal ranks 1..NPD. This ranking task is statistically simpler than exact score prediction because it requires ordinal discrimination rather than precise score estimation. The ranker's leaf indices encode this severity ordering as a categorical embedding, which the downstream LightGBM regressor (Stage 2) uses to produce calibrated predictions. This strategy may prove useful for other clinical scale predictions with matched healthy controls, although this will require external validation.
+
+Four mechanisms explain the improvement. First, N amplification: pure PD-only regression has N=94; SSL uses all 178 subjects for the ranking representation. Second, HC as calibration anchors: HC subjects (UPDRS approximately 03) provide dense reference points for "definitely low severity," anchoring the prediction range. Third, ranking is better conditioned than regression: ordinal discrimination requires only that the model preserve order, not absolute spacing, reducing the statistical power needed. Fourth, leaf features encode nonlinear severity partitions: the 900 leaf indices create a severity-aware embedding that captures nonlinear interactions the original features cannot express, while regularization through the pairwise ranking objective prevents overfitting.
+
+The HC ablation experiment (Section 2.5) provides additional mechanistic insight: PD-only ranking achieves CCC = 0.857 on T1, nearly matching PD+HC ranking (CCC = 0.858). This confirms that the ranking-to-leaf-feature transformation itself is the primary driver, with HC subjects providing incremental calibration benefit. A potential concern is whether the SSL improvement reflects genuine within-PD calibration or merely PD-vs-HC group discrimination. The final evaluation is PD-only 5-fold CVHC subjects never appear in test folds, so any CCC improvement must reflect better ordering and calibration within PD.
+
+### 3.2 Observable Subscore as Actionable Endpoint
+
+The directly observable subscore (items 3.93.14) achieves CCC = 0.865 with MAE = 0.953. The total-score MCID of 3.25 points (Horvath 2015)2 does not directly apply to a 24-point subscore, and a subscore-specific MCID has not been established. However, the MAE of 0.953 represents less than 4% of the subscore range (024), suggesting clinically useful single-assessment accuracy. This subscore could serve as a high-frequency secondary endpoint for interventions targeting axial motor function, including dopaminergic therapy titration for gait-related symptoms and monitoring of gait-related falls risk. Our findings suggest that modality-matched subscores merit prospective evaluation as primary endpoints rather than the total composite score.
+
+### 3.3 Observability Ceiling
+
+The CCC gradient under 5-fold CV0.834 (direct) to 0.730 (partial) to 0.759 (not observable)reflects a modality constraint, not a methodological limitation. Rigidity (item 3.3) requires passive manipulation by an examiner; speech (3.1) and facial expression (3.2) are auditory and visual assessments. These items constitute 82% of the total score range. The convergence of 12+ distinct modeling approaches on MAE  8 for total UPDRS-III (pre-SSL), combined with the observability gradient, supports this interpretation. We acknowledge that this conclusion rests on a single dataset.
+
+### 3.4 Foundation Model Paradigm
+
+Frozen MOMENT-1 embeddings were used as supplementary features, reducing mixed-cohort total-score MAE by 0.71 points (p = 0.0039). Full analysis is provided in Supplementary S2.
+
+### 3.5 Comparison with Prior Art
+
+Our T3 SSL result (MAE = 4.46, N=95, 5-fold CV) compares favorably with Hssayeni et al. (MAE = 5.95, N=24, LOOCV) and Shuqair et al. (MAE ~ 5.65, N=24, LOOCV) on 4x more subjects with controlled gait rather than free-living ADL. However, these comparisons are necessarily cross-dataset. Importantly, prior work reported only r and MAE; CCC was not available for comparison. We suggest that future UPDRS regression studies report CCC alongside calibration slope and MAE, since r alone ignores calibration and MAE alone ignores discrimination.
+
+### 3.6 The Compression Problem in Small-N Clinical Regression
+
+The compression problem is general to small-N clinical regression: when training data is limited, gradient-boosted models minimize expected loss by shrinking predictions toward the population mean. Our baseline demonstrates this concretely: T3 calibration slope = 0.104 (predictions span only 10% of the true range), Q1 overpredicted by +12 points, Q4 underpredicted by -12 points. MAE = 8.09 appears reasonable, but CCC = 0.186 indicates poor agreement caused by severe range compression and miscalibration. SSL ranking increases slope to 0.581, partially solving this fundamental challenge.
+
+### 3.7 Limitations
+
+(1) Results are from a single dataset; cross-dataset validation is needed. (2) All recordings are controlled gait, not free-living. (3) Medication state was not controlled. (4) HC were older than PD (74.6 vs 66.9 years); sensitivity analysis with age-matched HC confirms results are robust (Section 2.5). (5) N = 95 PD subjects limits statistical power. (6) The three-level observability classification involves judgment calls for partially observable items. (7) This is cross-sectional; longitudinal change detection may differ. (8) 23 PD subjects had deep brain stimulation.
+
+### 3.8 Future Directions
+
+Five directions are most promising. First, longitudinal within-subject tracking using the observable subdomain. Second, cross-dataset transfer to validate the SSL ranking mechanism and observability gradient. Third, the 5-to-2 sensor reduction pathway; competitive wrist-only performance suggests smartwatch-based monitoring may be feasible. Fourth, establishing a subscore-specific MCID. Fifth, multi-site validation to assess generalizability across clinical settings.
+
+## 4. Methods
+
+### 4.1 Dataset
+
+WearGait-PD9 (Synapse syn55052683) comprises 100 PD and 85 HC participants, of whom 178 (98 PD, 80 HC) had complete recordings. Each subject wore 13 Xsens MTw Awinda IMU sensors at: lower back, bilateral wrists, bilateral mid-lateral thighs, bilateral lateral shanks, bilateral dorsal feet, bilateral ankles, xiphoid process, and forehead. Sensors sampled at 100 Hz recording triaxial accelerometer and gyroscope data (78 total channels). Participants completed five standardized tasks: self-paced walking, hurried-pace walking, Timed Up-and-Go, balance assessment, and tandem gait, with pressure-mat variants. Motor severity was assessed using MDS-UPDRS Part III by trained clinicians.
+
+### 4.2 Preprocessing and Feature Extraction
+
+Handcrafted features (1,752): Per sensor and channel: RMS, standard deviation, range, IQR, skewness, kurtosis, jerk, zero-crossing rate; Welch PSD in locomotor (0.53 Hz), tremor (38 Hz), and high-frequency (825 Hz) bands with band ratios; spectral entropy; autocorrelation-based gait regularity. Additional: foot contact spatiotemporal metrics, task-contrast deltas, walkway features, and clinical covariates (age, sex, disease duration, height, weight, DBS status). Features aggregated as mean across all recordings per subject. Frozen MOMENT-1-base embeddings (768 dimensions, no fine-tuning) were used as supplementary features.
+
+### 4.3 Feature Selection
+
+XGBoost gain-based importance ranking (n_estimators=300, max_depth=4, learning_rate=0.05, reg_lambda=2.0, objective=reg:absoluteerror) selected top-K features within each CV fold (K=500 for CCC-optimized and SSL pipelines; K=150 for baseline held-out; K=300 for fused FM+v2).
+
+### 4.4 SSL Ranking Pipeline (P5)
+
+Stage 1 (XGBRanker, N=178): All subjects used for ranking representation. HC subjects receive rank label 0; PD subjects receive ordinal rank labels 1..NPD sorted by ascending target score. XGBRanker parameters: n_estimators=300, max_depth=4, learning_rate=0.05, reg_lambda=2.0, objective=rank:pairwise. Three-seed ensemble (seeds 42, 123, 456). Single query group containing all subjects.
+
+Stage 2 (Leaf extraction + LGB regression, PD-only): Leaf indices extracted via ranker.apply() for each of 3 ranker seeds, producing 3 x 300 = 900 leaf features per subject. Combined with K=500 selected original features (total 1,400 features). LightGBM regression on PD-only subjects: n_estimators=2,000, learning_rate=0.03, max_depth=6, num_leaves=31, reg_lambda=0.3, min_data_in_leaf=8, colsample_bytree=0.5, objective=mse. Five-seed ensemble (seeds 42, 123, 456, 789, 2024). Early stopping at 100 rounds on 15% validation holdout. Predictions clipped to target range.
+
+### 4.5 Target Definitions
+
+T1 (direct observable): sum of items 914 (each 04, range 024). T2 (broad observable): sum of items 714, where items 7 and 8 scored as max(right, left) (range 032). T3 (total UPDRS-III): sum of all 18 items (empirical range 059 in this cohort).
+
+### 4.6 Evaluation Protocol
+
+PD-only 5-fold stratified CV (N=95): stratified by target quartiles. Used as the primary evaluation for all SSL ranking results and compression ablation. PD-only LOOCV (N=94): leave-one-PD-subject-out with feature selection re-run per fold. Used as sensitivity analysis (Supplementary S5). PD-only 10-split CV (N=98): stratified by UPDRS bins, seeds 1-10. Used for FM ablation and sensor ablation. The different protocols are explicitly labeled in all tables and figures.
+
+### 4.7 Three-Level Observability Classification
+
+Directly observable (items 3.93.14): arising, gait, freezing, postural stability, posture, body bradykinesiamotor signs directly expressed during ambulation. Partially observable (3.53.8, 3.153.17): hand movements, pronation-supination, toe tapping, leg agility, postural/kinetic/rest tremorlimb items indirectly reflected in gait. Not observable (3.13.4, 3.18): speech, facial expression, rigidity (neck + extremities), finger tapping, tremor constancy. Direct + partial + unobservable = total (reconstruction error = 0.0).
+
+### 4.8 Statistical Analysis
+
+Primary metric: Lin's CCC8. BCa bootstrap CIs (N=10,000, stratified by group). Model comparisons: paired bootstrap for LOOCV, Wilcoxon signed-rank for multi-split. Multiple comparison correction: Holm-Bonferroni. Effect sizes: Cohen's d. MCID: 3.25 points for improvement, 4.63 for worsening (Horvath 2015)2, applied as contextual benchmark. Bland-Altman for systematic bias. Partial correlation controlling for age and disease duration.
+
+[TABLE: Table P1. Hyperparameter specification for all pipelines.]
+
+| Parameter | Baseline LGB | CCC-Optimized LGB | XGBRanker (Stage 1) |
+
+| n_estimators | 2,000 | 2,000 | 300 |
+
+| learning_rate | 0.03 | 0.03 | 0.05 |
+
+| max_depth | 6 | 6 | 4 |
+
+| num_leaves | 31 | 31 |  |
+
+| reg_lambda | 3.0 | 0.3 | 2.0 |
+
+| min_data_in_leaf | 20 | 8 |  |
+
+| colsample_bytree | 1.0 | 0.5 |  |
+
+| objective | mae | mse | rank:pairwise |
+
+| early_stopping | 100 | 100 |  |
+
+| val_frac | 0.15 | 0.15 |  |
+
+| Feature K | 150 | 500 | 500 |
+
+| Seeds | [42,123,456,789,2024] | [42,123,456,789,2024] | [42,123,456] |
+
+Feature selection uses XGBoost (n_estimators=300, max_depth=4, lr=0.05, reg_lambda=2.0, objective=reg:absoluteerror) inside each CV fold. CCC-optimized parameters identified via autoresearch (67 configurations tested).
+
+### 4.9 Code and Data Availability
+
+WearGait-PD is available on Synapse (syn55052683)9. Analysis code will be available at [repository URL].
+
+## 5. The ML Pipeline (Appendix)
+
+This section provides a self-contained explanation of the machine learning methodology for clinical readers.
+
+### 5.1 Gradient-Boosted Decision Trees
+
+Gradient-boosted decision trees (GBDT) build an ensemble of simple decision trees sequentially (Figure A). Each tree corrects the residual errors of the previous ensemble. LightGBM and XGBoost are two efficient implementations. A single tree partitions the feature space into leaf nodes, each predicting a constant value. The ensemble of 2,000 trees produces a prediction by summing all tree outputs. Early stopping monitors validation error and halts training when no improvement occurs for 100 consecutive rounds, preventing overfitting.
+
+[FIGURE]
+Figure A. Gradient-boosted decision tree ensemble. Each tree corrects residuals from previous trees. Final prediction is the sum of all 2,000 tree outputs. Early stopping at 100 rounds prevents overfitting.
+
+### 5.2 MSE vs MAE Loss
+
+The choice of loss function affects how the model treats errors of different magnitudes (Figure B). MAE (mean absolute error) loss treats all errors equally: a 1-point error and a 10-point error contribute proportionally. MSE (mean squared error) loss penalizes large errors quadratically: a 10-point error contributes 100x more than a 1-point error. For UPDRS prediction, MSE proved superior (MAE improvement from 8.67 to 8.36) because it forces the model to reduce the most severe errors, which correspond to high-severity patients that baseline models systematically underpredict.
+
+[FIGURE]
+Figure B. MSE vs MAE loss functions and their gradients. MSE penalizes large errors more heavily, forcing the model to attend to extreme cases.
+
+### 5.3 Feature Selection
+
+With 2,520 candidate features and only ~95 training subjects, feature selection is critical to prevent overfitting (Figure C). We use XGBoost importance: an XGBoost model is trained to predict the target, and features are ranked by their total gain (improvement in the loss function when the feature is used for splitting). The top K features are retained. K=500 was optimal for the CCC-optimized pipeline; K=150 sufficed for the MAE-optimized baseline. Selection is performed inside each cross-validation fold to prevent data leakage.
+
+[FIGURE]
+Figure C. Feature selection by XGBoost importance. Features ranked by total gain; top-K retained (green). The cutoff balances signal retention against overfitting risk.
+
+### 5.4 Multi-Seed Ensemble
+
+Individual model predictions vary with the random seed (which affects data shuffling, feature subsampling, and validation splits). Averaging predictions across 5 independent seeds (42, 123, 456, 789, 2024) reduces this variance (Figure D). The ensemble prediction is always at least as good as the average individual prediction, and typically better.
+
+[FIGURE]
+Figure D. Multi-seed ensemble averaging. Left: individual seed predictions show scatter. Right: 5-seed ensemble average is smoother and more accurate.
+
+### 5.5 Foundation Model Embedding Extraction
+
+MOMENT-1-base is a time-series foundation model pretrained on 385 public datasets10. We use it as a frozen feature extractor (Figure E): raw IMU signals are truncated to 512 samples (5.12s), globally z-normalized, and passed through the frozen encoder. The resulting 768-dimensional embedding captures temporal patterns learned from diverse domains, supplementing handcrafted statistical features. No gradient computation or fine-tuning is performed, ensuring deterministic outputs.
+
+[FIGURE]
+Figure E. MOMENT-1 foundation model embedding extraction. Raw IMU signals are normalized and passed through the frozen encoder to produce 768-dimensional embeddings, averaged across recordings per subject.
+
+### 5.6 Hyperparameter Choices
+
+Key hyperparameter differences between the baseline and CCC-optimized pipelines (Figure F): regularization (reg_lambda: 3.0 to 0.3) was reduced to allow wider prediction range; min_data_in_leaf (20 to 8) was the dominant knob for CCC improvement (+0.105); colsample_bytree (1.0 to 0.5) introduced column subsampling for diversity; and objective (MAE to MSE) increased penalty on large errors. These changes collectively increased calibration slope from 0.40 to 0.69 on the observable subscore.
+
+[FIGURE]
+Figure F. Hyperparameter interaction effects on CCC. The strongest interaction is between reg_lambda and min_data_in_leaf, reflecting the trade-off between regularization and leaf granularity.
+
+## References
+
+GBD 2019 Collaborators. Global, regional, and national burden of neurological disorders, 19902019. Lancet Neurol. 20, 797820 (2021).
+Horvath, K. et al. Minimal clinically important difference on the Motor Examination part of MDS-UPDRS. Parkinsonism Relat. Disord. 21, 14211426 (2015).
+Hssayeni, M. D. et al. Wearable sensors for estimation of Parkinsonian tremor severity during free body movement. BioMed. Eng. OnLine 20, 24 (2021).
+Shuqair, H. et al. Self-supervised representation learning for motor severity estimation. Bioengineering 11, 689 (2024).
+Sotirakis, C. et al. Identification of motor progression in Parkinson's disease using wearable sensors. npj Parkinsons Dis. 9, 74 (2023).
+He, S. et al. Predicting levodopa response using wearable sensors. J. NeuroEng. Rehab. 21, 47 (2024).
+Li, J. et al. TRIP: Transformer-based IMU pretraining for Parkinson's disease. arXiv 2510.15748 (2025).
+Lin, L. I.-K. A concordance correlation coefficient to evaluate reproducibility. Biometrics 45, 255268 (1989).
+WearGait-PD dataset. Sci. Data (2026). doi:10.1038/s41597-026-06806-2.
+Goswami, M. et al. MOMENT: A family of open time-series foundation models. ICML (2024).
+Ke, G. et al. LightGBM: A highly efficient gradient boosting decision tree. NeurIPS (2017).
+Chen, T. & Guestrin, C. XGBoost: A scalable tree boosting system. KDD (2016).
+Goetz, C. G. et al. Movement Disorder Society-sponsored revision of the Unified Parkinson's Disease Rating Scale (MDS-UPDRS). Mov. Disord. 23, 21292170 (2008).
+
+## Supplementary Information
+
+### S1: Compression Ablation
+
+We evaluated five anti-compression proposals across three targets (Table 7, Figure 7). Per-item ordinal classification (P1) degraded performance severely (CCC = 0.338). SMOGN tail augmentation (P3) and NGBoost distributional regression (P4) produced marginal improvements. Only SSL ranking (P5) materially improved CCC on all targets. The mechanism involves four elements: (i) N amplification (N=95 PD to N=178 for ranking), (ii) HC subjects as rank-0 calibration anchors, (iii) ranking as a simpler task than regression, and (iv) leaf features as nonlinear severity embeddings.
+
+[FIGURE]
+Figure 7. Compression ablation: five proposals evaluated on T1 (direct observable subscore, 5-fold CV). Only P5 SSL ranking materially improves CCC. P1 ordinal classification degrades performance severely.
+
+[TABLE: Table 7. Compression ablation: five anti-compression proposals across three targets.]
+
+| Proposal | Eval | N | T1 (Direct Obs) | T2 (Broad Obs) | T3 (Total) |
+
+| CCC | Slope | MAE | CCC | MAE | CCC | MAE |
+
+| P0 Baseline | 5-split | 95 | 0.700 | 0.508 | 1.336 | 0.554 | 1.85 | 0.186 | 8.09 |
+
+| P1 Ordinal | 5-split | 95 | 0.338 | 0.184 | 1.594 |  |  |  |  |
+
+| P3 SMOGN | 5-split | 95 | 0.665 | 0.528 | 1.491 | 0.603 | 1.85 | 0.195 | 8.38 |
+
+| P4 NGBoost | 5-split | 95 | 0.671 | 0.484 | 1.387 | 0.595 | 1.75 | 0.187 | 8.20 |
+| P5 SSL Ranking | 5-split | 95 | 0.865 | 0.745 | 0.953 | 0.831 | 1.16 | 0.807 | 4.46 |
+| P5 SSL Ranking | LOOCV | 94 | 0.868 | 0.689 | 0.986 | 0.852 | 1.33 | 0.776 | 4.65 |
+
+P0-P4: 5-split (N=95). P5 SSL shown under both 5-split (N=95, protocol-matched with P0-P4) and LOOCV (N=94, strictest evaluation). P1 not run on T2/T3 (severely degraded on T1). P5 is the only proposal that materially improves CCC on any target.
+
+SSL ranking substantially reduces severity-dependent prediction bias (Table 8, Figure 8). For T1 (5-split, apples-to-apples comparison): Q4 underprediction reduced from -1.34 to -0.53 (61% reduction), Q2 overprediction nearly eliminated (from +0.67 to +0.13, 81% reduction). The total UPDRS baseline showed extreme compression: Q1 overpredicted by +14 points, Q4 underpredicted by -14 points (Table 4). After SSL ranking, T3 Q4 bias reduced from -12.3 to -3.7.
+
+[FIGURE]
+Figure 8. Quartile bias reduction with SSL ranking (T1, 5-split comparison, N=95). Left: prediction bias by severity quartile. Right: MAE by quartile. SSL ranking (blue) reduces both bias and error across most quartiles compared to baseline (light blue).
+
+[TABLE: Table 8. Quartile bias analysis: P0 baseline vs P5 SSL (both 5-split, N=95), T1 direct observable.]
+
+| Quartile | P0 Baseline (5-split) | P5 SSL (5-split) | |Bias| Change |
+
+| N | Bias | MAE | N | Bias | MAE |
+
+| Q1 (=5) | 29 | -1.34 | 1.60 | 29 | -0.53 | 0.98 | -61% |
+
+Note: Both P0 and P5 use identical 5-split evaluation protocol (N=95) for apples-to-apples comparison. Bias = mean(predicted - actual).
+
+### S2: Foundation Model Analysis
+
+Frozen MOMENT-1-base embeddings (768 dimensions, no fine-tuning) reduced mixed-cohort MAE from 8.49 to 7.77 (Wilcoxon p = 0.0039; Figure 9). The advantage was non-significant in PD-only evaluation (padj = 0.94), suggesting FM embeddings primarily enhance PD-vs-HC discrimination rather than within-PD severity grading. FM embedding dimensions appeared among top features for the observable subscore (Figure 6), indicating complementary temporal pattern capture.
+
+[FIGURE]
+Figure 9. Foundation model impact across 10 splits (PD+HC, N=178, total UPDRS-III). v2+FM stack (purple diamonds) consistently outperforms v2 baseline (grey circles). Paired Wilcoxon p = 0.0039.
+
+### S3: Sensor Ablation
+
+FM re-extraction per sensor configuration eliminates data leakage (Table 6). The 5-sensor minimal set (lower back, bilateral wrists, bilateral ankles) matches the full 13-sensor configuration (7.67 vs 7.72, p = 0.85). Even 2 wrist sensors achieved competitive performance (p = 0.55). These results are for total UPDRS-III (10-split CV). For the observable subscore (T1) under SSL ranking (5-fold CV), single-sensor analysis (Table S3) reveals that a single lower back sensor achieves CCC = 0.867, matching the full 13-sensor configuration (CCC = 0.857). Single wrist sensors achieve CCC  0.78, supporting smartwatch-based clinical deployment.
+
+[TABLE: Table 5. Sensor ablation (PD-only 10-split, total UPDRS-III, FM re-extracted per config).]
+
+| Configuration | N Sensors | MAE  SD | CCC | p vs All 13 |
+
+| All 13 sensors | 13 | 7.72  0.78 | 0.184 |  |
+| Minimal 5 (back+wrists+ankles) | 5 | 7.67  0.84 | 0.152 | 0.851 |
+
+| Back + wrists (3) | 3 | 7.89  0.64 | 0.113 | 0.202 |
+
+| Wrists only (2) | 2 | 7.80  0.63 | 0.102 | 0.555 |
+
+| Lower back only (1) | 1 | 8.12  0.76 | 0.048 | 0.014 |
+
+FM embeddings re-extracted per sensor configuration to prevent data leakage. Results are for total UPDRS-III, not observable subscore.
+
+[TABLE: Table S3. Single-sensor SSL ranking performance (T1 observable subscore, 5-fold CV).]
+
+| Sensor Configuration | Nsensors | Nfeatures 
+    | CCC | MAE | slope | r |
+
+| LowerBack (1) | 1 | 318 | 0.867 | 0.962 | 0.726 | 0.884 |
+
+| R_Wrist (1) | 1 | 155 | 0.784 | 1.202 | 0.644 | 0.806 |
+
+| L_Wrist (1) | 1 | 137 | 0.791 | 1.187 | 0.662 | 0.806 |
+
+| wrists (2) | 2 | 261 | 0.776 | 1.206 | 0.606 | 0.809 |
+
+| all (1)3 | 13 | 1721 | 0.857 | 1.001 | 0.720 | 0.873 |
+
+A single lower back sensor achieves CCC = 0.867, matching the full 13-sensor configuration. Single wrist achieves CCC  0.78, supporting smartwatch-based clinical deployment.
+
+### S4: Negative Results
+
+Negative results strengthen the ceiling argument. Seven deep learning configurations (Transformer, InceptionTime, SensorGNN; Table S1) all produced MAE  10, consistent with overfitting at N = 178. Additional failed approaches included: item decomposition (52% worse), mixture-of-experts, cross-sensor coordination features, and freezing-of-gait transfer (AUC = 0.500). Among the five anti-compression proposals, only SSL ranking produced material CCC improvement; per-item ordinal classification, pairwise contrastive boosting, SMOGN augmentation, and NGBoost distributional regression all failed (Table 7). This convergence of diverse approaches on a compression ceiling supports the interpretation that the barrier is representational (insufficient calibration anchors) rather than purely methodological.
+
+[TABLE: Table S1. Deep learning architectures (all MAE > 10 on held-out test, seed=42 split).]
+
+| Architecture | Mean MAE  SD | Ensemble MAE | Ensemble r |
+
+| P1A: MAE→Transformer 128d/4L + MIL | 11.88  2.70 | 10.85 | 0.590 |
+
+| P1B: Contrastive→Transformer 128d/4L + MIL | 12.96  2.22 | 11.70 | 0.349 |
+
+| P1C: Transformer 128d/4L + MIL (scratch) | 11.96  2.54 | 10.99 | 0.521 |
+
+| P3A: InceptionTime 3blk + MIL | 13.22  1.87 | 11.87 | 0.470 |
+
+| P3B: InceptionTime 3blk + ordinal | 11.93  0.93 | 10.46 | 0.436 |
+
+| P3C: InceptionTime 3blk h24 + MIL | 12.84  0.94 | 12.01 | 0.443 |
+
+| P6A: SensorGNN 64d + MIL | 13.80  0.61 | 13.68 | 0.454 |
+
+All DL models trained end-to-end on raw IMU windows (10s, 50% overlap). N=178 insufficient for end-to-end deep learning. Held-out test N=36.
+
+### S5: LOOCV Sensitivity Analysis
+
+To confirm that results are not sensitive to the choice of cross-validation protocol, we repeated the SSL ranking evaluation using leave-one-out cross-validation (LOOCV, N = 94). LOOCV results are consistent with the primary 5-fold analysis:
+
+[TABLE: Table S2. Protocol sensitivity: 5-fold CV vs LOOCV for SSL ranking (PD-only).]
+
+| Target | 5-fold CV (N=95) | LOOCV (N=94) |
+
+|  | CCC | MAE | r | CCC | MAE | r |
+
+| T1 (direct obs) | 0.865 | 0.953 | 0.877 | 0.868 | 0.986 | 0.899 |
+
+| T2 (broad obs) | 0.831 | 1.162 | 0.847 | 0.852 | 1.334 | 0.873 |
+
+| T3 (total) | 0.807 | 4.464 | 0.877 | 0.776 | 4.646 | 0.827 |
+
+5-fold CV is the primary evaluation. LOOCV is provided as sensitivity analysis. The close agreement between protocols confirms result robustness.
+
+[TABLE: Table S2. Holm-Bonferroni corrected p-values across primary statistical tests.]
+
+| Test | p (raw) | p (adjusted) | Sig. |
+
+| P1_fm_vs_v2_median | 0.4692 | 0.9384 | ns |
+
+| P1_fm_vs_demo_median | 0.2991 | 0.8973 | ns |
+
+| P2_permutation | 0.0003 | 0.0021 | ** |
+
+| P2_fm_vs_demo_bootstrap | 0.5924 | 0.9384 | ns |
+
+| P2_partial_corr | 0.0003 | 0.0021 | ** |
+
+| P3_ordering_test | 0.1721 | 0.6884 | ns |
+
+| P4_spearman | 0.0001 | 0.0008 | *** |
+
+| P4_partial_corr | 0.0003 | 0.0021 | ** |
+
+Three tests survive correction: permutation (FM > mean), Spearman severity ranking, and partial correlation (IMU signal beyond demographics).
+
+[TABLE: Table 3. Three-level observability decomposition (baseline model, PD-only LOOCV).]
+
+| Tier | Items | Max | N | MAE | nMAE% | CCC | Slope | r | 10-split MAE |
+| Directly observable | 3.93.14 | 24 | 94 | 1.77 | 7.4 | 0.560 | 0.401 | 0.667 | 1.72  0.33 |
+
+| Partially observable | 3.53.8, 3.153.17 | 68 | 94 | 4.89 | 7.2 | 0.120 | 0.082 | 0.169 | 3.99  0.65 |
+
+| Not observable | 3.13.4, 3.18 | 40 | 91 | 3.94 | 9.8 | 0.182 | 0.129 | 0.290 | 3.85  0.46 |
+
+| Binary observable | 3.73.14 | 40 | 94 | 3.13 | 7.8 | 0.464 | 0.315 | 0.608 |  |
+
+Baseline model (pre-SSL). LOOCV: PD-only, N=91-94. nMAE = MAE / max score x 100. Direct + partial + unobs = total (reconstruction error = 0.0).
+

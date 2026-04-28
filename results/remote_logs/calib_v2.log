@@ -1,0 +1,301 @@
+Experiments to run: ['E3', 'E6', 'E7', 'E2', 'E1', 'E4', 'E5']
+N_CORES: 11
+SEEDS: [42, 123, 456, 789, 2024]
+Loading per-item scores from cache: /root/pd-imu/results/per_item_scores.json
+
+Data loaded:
+  PD subjects: 94
+  All subjects (PD+HC): 174
+  Features: 2520 (v2: 1752, FM: 768)
+  T1: range [0, 14], mean=4.1, std=2.8
+  T2: range [1, 20], mean=6.8, std=3.8
+  T3: range [6, 59], mean=25.2, std=10.2
+
+######################################################################
+#  Running E3
+######################################################################
+
+  E3: Trying K=3
+
+============================================================
+  E3_knn_k3 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.818 slope=1.382 MAE=1.310 (66s elapsed, ~551s remaining)
+    [20/94] CCC=0.872 slope=1.036 MAE=1.155 (133s elapsed, ~491s remaining)
+    [30/94] CCC=0.877 slope=1.042 MAE=1.165 (201s elapsed, ~429s remaining)
+    [40/94] CCC=0.872 slope=1.013 MAE=1.169 (265s elapsed, ~358s remaining)
+    [50/94] CCC=0.867 slope=0.989 MAE=1.090 (329s elapsed, ~290s remaining)
+    [60/94] CCC=0.893 slope=0.956 MAE=1.037 (394s elapsed, ~223s remaining)
+    [70/94] CCC=0.876 slope=0.916 MAE=1.100 (466s elapsed, ~160s remaining)
+    [80/94] CCC=0.876 slope=0.960 MAE=1.181 (545s elapsed, ~95s remaining)
+    [90/94] CCC=0.862 slope=0.968 MAE=1.202 (620s elapsed, ~28s remaining)
+
+  E3: Trying K=5
+
+============================================================
+  E3_knn_k5 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.810 slope=1.316 MAE=1.402 (78s elapsed, ~655s remaining)
+    [20/94] CCC=0.848 slope=1.011 MAE=1.296 (149s elapsed, ~550s remaining)
+    [30/94] CCC=0.872 slope=1.023 MAE=1.185 (212s elapsed, ~453s remaining)
+    [40/94] CCC=0.873 slope=0.980 MAE=1.160 (276s elapsed, ~372s remaining)
+    [50/94] CCC=0.866 slope=0.957 MAE=1.106 (340s elapsed, ~299s remaining)
+    [60/94] CCC=0.896 slope=0.946 MAE=1.029 (403s elapsed, ~228s remaining)
+    [70/94] CCC=0.877 slope=0.888 MAE=1.085 (467s elapsed, ~160s remaining)
+    [80/94] CCC=0.877 slope=0.926 MAE=1.147 (532s elapsed, ~93s remaining)
+    [90/94] CCC=0.859 slope=0.931 MAE=1.186 (595s elapsed, ~26s remaining)
+
+  E3: Trying K=7
+
+============================================================
+  E3_knn_k7 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.852 slope=1.208 MAE=1.106 (64s elapsed, ~538s remaining)
+    [20/94] CCC=0.868 slope=0.962 MAE=1.167 (129s elapsed, ~475s remaining)
+    [30/94] CCC=0.886 slope=0.974 MAE=1.071 (192s elapsed, ~410s remaining)
+    [40/94] CCC=0.876 slope=0.928 MAE=1.103 (256s elapsed, ~346s remaining)
+    [50/94] CCC=0.868 slope=0.902 MAE=1.075 (319s elapsed, ~281s remaining)
+    [60/94] CCC=0.896 slope=0.894 MAE=1.007 (383s elapsed, ~217s remaining)
+    [70/94] CCC=0.881 slope=0.854 MAE=1.067 (447s elapsed, ~153s remaining)
+    [80/94] CCC=0.881 slope=0.893 MAE=1.121 (509s elapsed, ~89s remaining)
+    [90/94] CCC=0.866 slope=0.896 MAE=1.155 (572s elapsed, ~25s remaining)
+
+  E3: Trying K=11
+
+============================================================
+  E3_knn_k11 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.869 slope=1.013 MAE=0.851 (64s elapsed, ~535s remaining)
+    [20/94] CCC=0.866 slope=0.845 MAE=1.103 (127s elapsed, ~470s remaining)
+    [30/94] CCC=0.888 slope=0.881 MAE=0.990 (191s elapsed, ~408s remaining)
+    [40/94] CCC=0.877 slope=0.855 MAE=1.024 (255s elapsed, ~345s remaining)
+    [50/94] CCC=0.862 slope=0.826 MAE=1.027 (318s elapsed, ~280s remaining)
+    [60/94] CCC=0.882 slope=0.803 MAE=1.016 (381s elapsed, ~216s remaining)
+    [70/94] CCC=0.865 slope=0.774 MAE=1.078 (444s elapsed, ~152s remaining)
+    [80/94] CCC=0.873 slope=0.807 MAE=1.104 (509s elapsed, ~89s remaining)
+    [90/94] CCC=0.859 slope=0.813 MAE=1.127 (573s elapsed, ~25s remaining)
+
+  E3 best: K=3, CCC=0.872
+
+  Saved: /root/pd-imu/results/calib_v2_E3.json
+  CCC=0.872  slope=0.951  std_ratio=1.080  MAE=1.228  r=0.880
+
+######################################################################
+#  Running E6
+######################################################################
+
+  E6: Trying alpha=0.01
+
+============================================================
+  E6_ridge_a0.01 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.436 slope=0.355 MAE=1.658 (64s elapsed, ~535s remaining)
+    [20/94] CCC=0.471 slope=0.333 MAE=1.763 (128s elapsed, ~474s remaining)
+    [30/94] CCC=0.157 slope=0.264 MAE=2.539 (191s elapsed, ~408s remaining)
+    [40/94] CCC=0.157 slope=0.231 MAE=2.387 (255s elapsed, ~344s remaining)
+    [50/94] CCC=0.170 slope=0.240 MAE=2.240 (319s elapsed, ~280s remaining)
+    [60/94] CCC=0.355 slope=0.463 MAE=2.114 (382s elapsed, ~217s remaining)
+    [70/94] CCC=0.341 slope=0.422 MAE=2.132 (445s elapsed, ~152s remaining)
+    [80/94] CCC=0.431 slope=0.529 MAE=2.067 (507s elapsed, ~89s remaining)
+    [90/94] CCC=0.448 slope=0.550 MAE=1.913 (569s elapsed, ~25s remaining)
+
+  E6: Trying alpha=0.1
+
+============================================================
+  E6_ridge_a0.1 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.437 slope=0.356 MAE=1.655 (64s elapsed, ~534s remaining)
+    [20/94] CCC=0.459 slope=0.320 MAE=1.787 (128s elapsed, ~474s remaining)
+    [30/94] CCC=0.153 slope=0.256 MAE=2.555 (192s elapsed, ~409s remaining)
+    [40/94] CCC=0.153 slope=0.224 MAE=2.399 (257s elapsed, ~346s remaining)
+    [50/94] CCC=0.166 slope=0.234 MAE=2.249 (321s elapsed, ~282s remaining)
+    [60/94] CCC=0.352 slope=0.459 MAE=2.122 (384s elapsed, ~218s remaining)
+    [70/94] CCC=0.339 slope=0.419 MAE=2.138 (448s elapsed, ~154s remaining)
+    [80/94] CCC=0.429 slope=0.526 MAE=2.073 (512s elapsed, ~90s remaining)
+    [90/94] CCC=0.446 slope=0.548 MAE=1.918 (575s elapsed, ~26s remaining)
+
+  E6: Trying alpha=1.0
+
+============================================================
+  E6_ridge_a1.0 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.438 slope=0.357 MAE=1.653 (63s elapsed, ~527s remaining)
+    [20/94] CCC=0.464 slope=0.326 MAE=1.775 (126s elapsed, ~467s remaining)
+    [30/94] CCC=0.155 slope=0.260 MAE=2.547 (189s elapsed, ~403s remaining)
+    [40/94] CCC=0.155 slope=0.227 MAE=2.393 (252s elapsed, ~341s remaining)
+    [50/94] CCC=0.168 slope=0.236 MAE=2.244 (317s elapsed, ~279s remaining)
+    [60/94] CCC=0.353 slope=0.461 MAE=2.118 (379s elapsed, ~215s remaining)
+    [70/94] CCC=0.340 slope=0.421 MAE=2.136 (442s elapsed, ~152s remaining)
+    [80/94] CCC=0.430 slope=0.527 MAE=2.070 (506s elapsed, ~89s remaining)
+    [90/94] CCC=0.447 slope=0.548 MAE=1.916 (569s elapsed, ~25s remaining)
+
+  E6: Trying alpha=10.0
+
+============================================================
+  E6_ridge_a10.0 — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.437 slope=0.355 MAE=1.655 (64s elapsed, ~535s remaining)
+    [20/94] CCC=0.457 slope=0.318 MAE=1.793 (128s elapsed, ~473s remaining)
+    [30/94] CCC=0.152 slope=0.255 MAE=2.560 (191s elapsed, ~407s remaining)
+    [40/94] CCC=0.152 slope=0.223 MAE=2.403 (254s elapsed, ~343s remaining)
+    [50/94] CCC=0.165 slope=0.232 MAE=2.252 (317s elapsed, ~279s remaining)
+    [60/94] CCC=0.352 slope=0.458 MAE=2.124 (381s elapsed, ~216s remaining)
+    [70/94] CCC=0.338 slope=0.418 MAE=2.140 (444s elapsed, ~152s remaining)
+    [80/94] CCC=0.429 slope=0.525 MAE=2.075 (508s elapsed, ~89s remaining)
+    [90/94] CCC=0.446 slope=0.547 MAE=1.920 (572s elapsed, ~25s remaining)
+
+  E6 best: alpha=0.01, CCC=0.467
+
+  Saved: /root/pd-imu/results/calib_v2_E6.json
+  CCC=0.467  slope=0.523  std_ratio=1.105  MAE=1.947  r=0.473
+
+######################################################################
+#  Running E7
+######################################################################
+
+  E7: Running baseline E0 to get raw predictions...
+
+============================================================
+  E7_raw — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.873 slope=0.827 MAE=0.799 (91s elapsed, ~768s remaining)
+    [20/94] CCC=0.804 slope=0.665 MAE=1.224 (180s elapsed, ~667s remaining)
+    [30/94] CCC=0.831 slope=0.694 MAE=1.138 (267s elapsed, ~570s remaining)
+    [40/94] CCC=0.827 slope=0.678 MAE=1.116 (352s elapsed, ~475s remaining)
+    [50/94] CCC=0.836 slope=0.687 MAE=1.018 (440s elapsed, ~387s remaining)
+    [60/94] CCC=0.840 slope=0.663 MAE=1.062 (531s elapsed, ~301s remaining)
+    [70/94] CCC=0.841 slope=0.667 MAE=1.054 (618s elapsed, ~212s remaining)
+    [80/94] CCC=0.859 slope=0.697 MAE=1.047 (708s elapsed, ~124s remaining)
+    [90/94] CCC=0.859 slope=0.706 MAE=1.008 (795s elapsed, ~35s remaining)
+
+  E7 Temperature sweep:
+    T=1.0: slope=0.691 CCC=0.859 MAE=1.046 |slope-1|=0.309
+    T=1.1: slope=0.760 CCC=0.875 MAE=1.033 |slope-1|=0.240
+    T=1.2: slope=0.829 CCC=0.883 MAE=1.048 |slope-1|=0.171
+    T=1.3: slope=0.898 CCC=0.885 MAE=1.095 |slope-1|=0.102
+    T=1.4: slope=0.967 CCC=0.882 MAE=1.162 |slope-1|=0.033
+    T=1.5: slope=1.036 CCC=0.875 MAE=1.254 |slope-1|=0.036
+    T=1.6: slope=1.105 CCC=0.864 MAE=1.359 |slope-1|=0.105
+    T=1.8: slope=1.241 CCC=0.838 MAE=1.592 |slope-1|=0.241
+    T=2.0: slope=1.370 CCC=0.808 MAE=1.843 |slope-1|=0.370
+
+  E7 best: T=1.4, slope=0.967, CCC=0.882
+
+  Saved: /root/pd-imu/results/calib_v2_E7.json
+  CCC=0.882  slope=0.967  std_ratio=1.090  MAE=1.162  r=0.887
+
+######################################################################
+#  Running E2
+######################################################################
+
+============================================================
+  E2_quantile_median — LOOCV on T1 (N=94)
+============================================================
+    [10/94] CCC=0.722 slope=0.496 MAE=1.003 (95s elapsed, ~798s remaining)
+    [20/94] CCC=0.713 slope=0.495 MAE=1.338 (190s elapsed, ~704s remaining)
+    [30/94] CCC=0.773 slope=0.553 MAE=1.185 (287s elapsed, ~613s remaining)
+    [40/94] CCC=0.785 slope=0.564 MAE=1.123 (384s elapsed, ~518s remaining)
+    [50/94] CCC=0.790 slope=0.574 MAE=1.049 (479s elapsed, ~422s remaining)
+    [60/94] CCC=0.800 slope=0.567 MAE=1.085 (574s elapsed, ~325s remaining)
+    [70/94] CCC=0.804 slope=0.571 MAE=1.072 (670s elapsed, ~230s remaining)
+    [80/94] CCC=0.810 slope=0.572 MAE=1.092 (765s elapsed, ~134s remaining)
+    [90/94] CCC=0.812 slope=0.581 MAE=1.053 (857s elapsed, ~38s remaining)
+
+  Saved: /root/pd-imu/results/calib_v2_E2.json
+  CCC=0.800  slope=0.562  std_ratio=0.633  MAE=1.109  r=0.887
+
+######################################################################
+#  Running E1
+######################################################################
+
+============================================================
+  E1_ccc_loss — LOOCV on T1 (N=94)
+============================================================
+Traceback (most recent call last):
+  File "/root/pd-imu/run_calibration_v2.py", line 1030, in <module>
+    main()
+  File "/root/pd-imu/run_calibration_v2.py", line 1000, in main
+    metrics = run_fn(pd_merged, all_merged, feature_cols)
+  File "/root/pd-imu/run_calibration_v2.py", line 641, in run_e1
+    return ssl_loocv(pd_merged, all_merged, feature_cols, "t1", predict_fn, label="E1_ccc_loss")
+  File "/root/pd-imu/run_calibration_v2.py", line 545, in ssl_loocv
+    ep = predict_fn(Xd_combined, yd, Xt_combined, clip_lo, clip_hi,
+  File "/root/pd-imu/run_calibration_v2.py", line 637, in predict_fn
+    p = train_lgb(Xd_combined, yd, Xt_combined, s, fobj=fobj)
+  File "/root/pd-imu/run_calibration_v2.py", line 364, in train_lgb
+    model = lgb.train(
+TypeError: train() got an unexpected keyword argument 'fobj'
+Experiments to run: ['E1', 'E4', 'E5']
+N_CORES: 11
+SEEDS: [42, 123, 456, 789, 2024]
+Loading per-item scores from cache: /root/pd-imu/results/per_item_scores.json
+
+Data loaded:
+  PD subjects: 94
+  All subjects (PD+HC): 174
+  Features: 2520 (v2: 1752, FM: 768)
+  T1: range [0, 14], mean=4.1, std=2.8
+  T2: range [1, 20], mean=6.8, std=3.8
+  T3: range [6, 59], mean=25.2, std=10.2
+
+######################################################################
+#  Running E1
+######################################################################
+
+============================================================
+  E1_ccc_loss — LOOCV on T1 (N=94)
+============================================================
+Traceback (most recent call last):
+  File "/root/pd-imu/run_calibration_v2.py", line 1030, in <module>
+    main()
+  File "/root/pd-imu/run_calibration_v2.py", line 1000, in main
+    metrics = run_fn(pd_merged, all_merged, feature_cols)
+  File "/root/pd-imu/run_calibration_v2.py", line 641, in run_e1
+    return ssl_loocv(pd_merged, all_merged, feature_cols, "t1", predict_fn, label="E1_ccc_loss")
+  File "/root/pd-imu/run_calibration_v2.py", line 545, in ssl_loocv
+    ep = predict_fn(Xd_combined, yd, Xt_combined, clip_lo, clip_hi,
+  File "/root/pd-imu/run_calibration_v2.py", line 637, in predict_fn
+    p = train_lgb(Xd_combined, yd, Xt_combined, s, fobj=fobj)
+  File "/root/pd-imu/run_calibration_v2.py", line 364, in train_lgb
+    model = lgb.train(
+TypeError: train() got an unexpected keyword argument 'fobj'
+Experiments to run: ['E1', 'E4', 'E5']
+N_CORES: 11
+SEEDS: [42, 123, 456, 789, 2024]
+Loading per-item scores from cache: /root/pd-imu/results/per_item_scores.json
+
+Data loaded:
+  PD subjects: 94
+  All subjects (PD+HC): 174
+  Features: 2520 (v2: 1752, FM: 768)
+  T1: range [0, 14], mean=4.1, std=2.8
+  T2: range [1, 20], mean=6.8, std=3.8
+  T3: range [6, 59], mean=25.2, std=10.2
+
+######################################################################
+#  Running E1
+######################################################################
+
+============================================================
+  E1_ccc_loss — LOOCV on T1 (N=94)
+============================================================
+Traceback (most recent call last):
+  File "/root/pd-imu/run_calibration_v2.py", line 1032, in <module>
+    main()
+  File "/root/pd-imu/run_calibration_v2.py", line 1002, in main
+    metrics = run_fn(pd_merged, all_merged, feature_cols)
+  File "/root/pd-imu/run_calibration_v2.py", line 643, in run_e1
+    return ssl_loocv(pd_merged, all_merged, feature_cols, "t1", predict_fn, label="E1_ccc_loss")
+  File "/root/pd-imu/run_calibration_v2.py", line 547, in ssl_loocv
+    ep = predict_fn(Xd_combined, yd, Xt_combined, clip_lo, clip_hi,
+  File "/root/pd-imu/run_calibration_v2.py", line 639, in predict_fn
+    p = train_lgb(Xd_combined, yd, Xt_combined, s, fobj=fobj)
+  File "/root/pd-imu/run_calibration_v2.py", line 367, in train_lgb
+    model = lgb.train(
+  File "/usr/local/lib/python3.10/dist-packages/lightgbm/engine.py", line 332, in train
+    cb(
+  File "/usr/local/lib/python3.10/dist-packages/lightgbm/callback.py", line 404, in __call__
+    self._init(env)
+  File "/usr/local/lib/python3.10/dist-packages/lightgbm/callback.py", line 328, in _init
+    raise ValueError("For early stopping, at least one dataset and eval metric is required for evaluation")
+ValueError: For early stopping, at least one dataset and eval metric is required for evaluation

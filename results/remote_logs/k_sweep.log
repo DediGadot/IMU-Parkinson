@@ -1,0 +1,260 @@
+================================================================================
+K-SWEEP: Testing if fixed K=500 is a confound
+Configs: ['all_13', 'lower_back_1', 'minimal_5', 'wrists_ankles_4']
+K values: [100, 200, 300, 500, 800]
+================================================================================
+  [cache] Loading FM for all_13 from /root/pd-imu/results/sensor_fm_cache/all_13_fm.npz
+  Config all_13: 1721 v2 + 768 FM = 2489 features, 94 PD, 174 all
+
+  all_13 × T1 × K=100 (effective=100/2489)
+    CCC=0.848 MAE=1.002 (K=100, 4% of features)
+
+  all_13 × T1 × K=200 (effective=200/2489)
+    CCC=0.856 MAE=0.969 (K=200, 8% of features)
+
+  all_13 × T1 × K=300 (effective=300/2489)
+    CCC=0.853 MAE=1.004 (K=300, 12% of features)
+
+  all_13 × T1 × K=500 (effective=500/2489)
+    CCC=0.862 MAE=1.014 (K=500, 20% of features)
+
+  all_13 × T1 × K=800 (effective=800/2489)
+    CCC=0.855 MAE=0.949 (K=800, 32% of features)
+
+  all_13 × T2 × K=100 (effective=100/2489)
+    CCC=0.774 MAE=1.272 (K=100, 4% of features)
+
+  all_13 × T2 × K=200 (effective=200/2489)
+    CCC=0.787 MAE=1.391 (K=200, 8% of features)
+
+  all_13 × T2 × K=300 (effective=300/2489)
+    CCC=0.796 MAE=1.244 (K=300, 12% of features)
+
+  all_13 × T2 × K=500 (effective=500/2489)
+    CCC=0.787 MAE=1.272 (K=500, 20% of features)
+
+  all_13 × T2 × K=800 (effective=800/2489)
+    CCC=0.791 MAE=1.273 (K=800, 32% of features)
+
+  all_13 × T3 × K=100 (effective=100/2489)
+    CCC=0.740 MAE=5.149 (K=100, 4% of features)
+
+  all_13 × T3 × K=200 (effective=200/2489)
+    CCC=0.777 MAE=4.761 (K=200, 8% of features)
+
+  all_13 × T3 × K=300 (effective=300/2489)
+    CCC=0.793 MAE=4.560 (K=300, 12% of features)
+
+  all_13 × T3 × K=500 (effective=500/2489)
+    CCC=0.764 MAE=4.999 (K=500, 20% of features)
+
+  all_13 × T3 × K=800 (effective=800/2489)
+    CCC=0.761 MAE=4.962 (K=800, 32% of features)
+  [cache] Loading FM for lower_back_1 from /root/pd-imu/results/sensor_fm_cache/lower_back_1_fm.npz
+  Config lower_back_1: 304 v2 + 768 FM = 1072 features, 94 PD, 174 all
+
+  lower_back_1 × T1 × K=100 (effective=100/1072)
+    CCC=0.835 MAE=1.074 (K=100, 9% of features)
+
+  lower_back_1 × T1 × K=200 (effective=200/1072)
+    CCC=0.841 MAE=1.039 (K=200, 19% of features)
+
+  lower_back_1 × T1 × K=300 (effective=300/1072)
+    CCC=0.869 MAE=0.977 (K=300, 28% of features)
+
+  lower_back_1 × T1 × K=500 (effective=500/1072)
+    CCC=0.884 MAE=0.905 (K=500, 47% of features)
+
+  lower_back_1 × T1 × K=800 (effective=800/1072)
+    CCC=0.884 MAE=0.905 (K=800, 75% of features)
+
+  lower_back_1 × T2 × K=100 (effective=100/1072)
+    CCC=0.822 MAE=1.243 (K=100, 9% of features)
+
+  lower_back_1 × T2 × K=200 (effective=200/1072)
+    CCC=0.845 MAE=1.137 (K=200, 19% of features)
+
+  lower_back_1 × T2 × K=300 (effective=300/1072)
+    CCC=0.810 MAE=1.213 (K=300, 28% of features)
+
+  lower_back_1 × T2 × K=500 (effective=500/1072)
+    CCC=0.825 MAE=1.220 (K=500, 47% of features)
+
+  lower_back_1 × T2 × K=800 (effective=800/1072)
+    CCC=0.825 MAE=1.220 (K=800, 75% of features)
+
+  lower_back_1 × T3 × K=100 (effective=100/1072)
+    CCC=0.710 MAE=5.736 (K=100, 9% of features)
+
+  lower_back_1 × T3 × K=200 (effective=200/1072)
+    CCC=0.727 MAE=5.434 (K=200, 19% of features)
+
+  lower_back_1 × T3 × K=300 (effective=300/1072)
+    CCC=0.699 MAE=5.952 (K=300, 28% of features)
+
+  lower_back_1 × T3 × K=500 (effective=500/1072)
+    CCC=0.720 MAE=5.616 (K=500, 47% of features)
+
+  lower_back_1 × T3 × K=800 (effective=800/1072)
+    CCC=0.720 MAE=5.616 (K=800, 75% of features)
+  [cache] Loading FM for minimal_5 from /root/pd-imu/results/sensor_fm_cache/minimal_5_fm.npz
+  Config minimal_5: 818 v2 + 768 FM = 1586 features, 94 PD, 174 all
+
+  minimal_5 × T1 × K=100 (effective=100/1586)
+    CCC=0.864 MAE=0.969 (K=100, 6% of features)
+
+  minimal_5 × T1 × K=200 (effective=200/1586)
+    CCC=0.850 MAE=1.016 (K=200, 13% of features)
+
+  minimal_5 × T1 × K=300 (effective=300/1586)
+    CCC=0.880 MAE=0.899 (K=300, 19% of features)
+
+  minimal_5 × T1 × K=500 (effective=500/1586)
+    CCC=0.879 MAE=0.876 (K=500, 32% of features)
+
+  minimal_5 × T1 × K=800 (effective=800/1586)
+    CCC=0.875 MAE=0.917 (K=800, 50% of features)
+
+  minimal_5 × T2 × K=100 (effective=100/1586)
+    CCC=0.817 MAE=1.266 (K=100, 6% of features)
+
+  minimal_5 × T2 × K=200 (effective=200/1586)
+    CCC=0.816 MAE=1.204 (K=200, 13% of features)
+
+  minimal_5 × T2 × K=300 (effective=300/1586)
+    CCC=0.826 MAE=1.190 (K=300, 19% of features)
+
+  minimal_5 × T2 × K=500 (effective=500/1586)
+    CCC=0.834 MAE=1.148 (K=500, 32% of features)
+
+  minimal_5 × T2 × K=800 (effective=800/1586)
+    CCC=0.829 MAE=1.175 (K=800, 50% of features)
+
+  minimal_5 × T3 × K=100 (effective=100/1586)
+    CCC=0.781 MAE=4.824 (K=100, 6% of features)
+
+  minimal_5 × T3 × K=200 (effective=200/1586)
+    CCC=0.783 MAE=4.938 (K=200, 13% of features)
+
+  minimal_5 × T3 × K=300 (effective=300/1586)
+    CCC=0.767 MAE=5.000 (K=300, 19% of features)
+
+  minimal_5 × T3 × K=500 (effective=500/1586)
+    CCC=0.778 MAE=4.924 (K=500, 32% of features)
+
+  minimal_5 × T3 × K=800 (effective=800/1586)
+    CCC=0.786 MAE=4.863 (K=800, 50% of features)
+  [cache] Loading FM for wrists_ankles_4 from /root/pd-imu/results/sensor_fm_cache/wrists_ankles_4_fm.npz
+  Config wrists_ankles_4: 533 v2 + 768 FM = 1301 features, 94 PD, 174 all
+
+  wrists_ankles_4 × T1 × K=100 (effective=100/1301)
+    CCC=0.842 MAE=1.022 (K=100, 8% of features)
+
+  wrists_ankles_4 × T1 × K=200 (effective=200/1301)
+    CCC=0.864 MAE=1.008 (K=200, 15% of features)
+
+  wrists_ankles_4 × T1 × K=300 (effective=300/1301)
+    CCC=0.853 MAE=1.056 (K=300, 23% of features)
+
+  wrists_ankles_4 × T1 × K=500 (effective=500/1301)
+    CCC=0.853 MAE=1.007 (K=500, 38% of features)
+
+  wrists_ankles_4 × T1 × K=800 (effective=800/1301)
+    CCC=0.863 MAE=0.996 (K=800, 62% of features)
+
+  wrists_ankles_4 × T2 × K=100 (effective=100/1301)
+    CCC=0.791 MAE=1.350 (K=100, 8% of features)
+
+  wrists_ankles_4 × T2 × K=200 (effective=200/1301)
+    CCC=0.785 MAE=1.314 (K=200, 15% of features)
+
+  wrists_ankles_4 × T2 × K=300 (effective=300/1301)
+    CCC=0.804 MAE=1.225 (K=300, 23% of features)
+
+  wrists_ankles_4 × T2 × K=500 (effective=500/1301)
+    CCC=0.800 MAE=1.211 (K=500, 38% of features)
+
+  wrists_ankles_4 × T2 × K=800 (effective=800/1301)
+    CCC=0.829 MAE=1.093 (K=800, 62% of features)
+
+  wrists_ankles_4 × T3 × K=100 (effective=100/1301)
+    CCC=0.780 MAE=4.785 (K=100, 8% of features)
+
+  wrists_ankles_4 × T3 × K=200 (effective=200/1301)
+    CCC=0.774 MAE=4.818 (K=200, 15% of features)
+
+  wrists_ankles_4 × T3 × K=300 (effective=300/1301)
+    CCC=0.782 MAE=4.802 (K=300, 23% of features)
+
+  wrists_ankles_4 × T3 × K=500 (effective=500/1301)
+    CCC=0.806 MAE=4.528 (K=500, 38% of features)
+
+  wrists_ankles_4 × T3 × K=800 (effective=800/1301)
+    CCC=0.775 MAE=4.712 (K=800, 62% of features)
+
+====================================================================================================
+Config               Target     K    K%     CCC     MAE
+────────────────────────────────────────────────────────────────────────────────────────────────────
+all_13               t1       100    4%   0.848   1.002
+all_13               t1       200    8%   0.856   0.969
+all_13               t1       300   12%   0.853   1.004
+all_13               t1       500   20%   0.862   1.014
+all_13               t1       800   32%   0.855   0.949
+all_13               t2       100    4%   0.774   1.272
+all_13               t2       200    8%   0.787   1.391
+all_13               t2       300   12%   0.796   1.244
+all_13               t2       500   20%   0.787   1.272
+all_13               t2       800   32%   0.791   1.273
+all_13               t3       100    4%   0.740   5.149
+all_13               t3       200    8%   0.777   4.761
+all_13               t3       300   12%   0.793   4.560
+all_13               t3       500   20%   0.764   4.999
+all_13               t3       800   32%   0.761   4.962
+lower_back_1         t1       100    9%   0.835   1.074
+lower_back_1         t1       200   19%   0.841   1.039
+lower_back_1         t1       300   28%   0.869   0.977
+lower_back_1         t1       500   47%   0.884   0.905
+lower_back_1         t1       800   75%   0.884   0.905
+lower_back_1         t2       100    9%   0.822   1.243
+lower_back_1         t2       200   19%   0.845   1.137
+lower_back_1         t2       300   28%   0.810   1.213
+lower_back_1         t2       500   47%   0.825   1.220
+lower_back_1         t2       800   75%   0.825   1.220
+lower_back_1         t3       100    9%   0.710   5.736
+lower_back_1         t3       200   19%   0.727   5.434
+lower_back_1         t3       300   28%   0.699   5.952
+lower_back_1         t3       500   47%   0.720   5.616
+lower_back_1         t3       800   75%   0.720   5.616
+minimal_5            t1       100    6%   0.864   0.969
+minimal_5            t1       200   13%   0.850   1.016
+minimal_5            t1       300   19%   0.880   0.899
+minimal_5            t1       500   32%   0.879   0.876
+minimal_5            t1       800   50%   0.875   0.917
+minimal_5            t2       100    6%   0.817   1.266
+minimal_5            t2       200   13%   0.816   1.204
+minimal_5            t2       300   19%   0.826   1.190
+minimal_5            t2       500   32%   0.834   1.148
+minimal_5            t2       800   50%   0.829   1.175
+minimal_5            t3       100    6%   0.781   4.824
+minimal_5            t3       200   13%   0.783   4.938
+minimal_5            t3       300   19%   0.767   5.000
+minimal_5            t3       500   32%   0.778   4.924
+minimal_5            t3       800   50%   0.786   4.863
+wrists_ankles_4      t1       100    8%   0.842   1.022
+wrists_ankles_4      t1       200   15%   0.864   1.008
+wrists_ankles_4      t1       300   23%   0.853   1.056
+wrists_ankles_4      t1       500   38%   0.853   1.007
+wrists_ankles_4      t1       800   62%   0.863   0.996
+wrists_ankles_4      t2       100    8%   0.791   1.350
+wrists_ankles_4      t2       200   15%   0.785   1.314
+wrists_ankles_4      t2       300   23%   0.804   1.225
+wrists_ankles_4      t2       500   38%   0.800   1.211
+wrists_ankles_4      t2       800   62%   0.829   1.093
+wrists_ankles_4      t3       100    8%   0.780   4.785
+wrists_ankles_4      t3       200   15%   0.774   4.818
+wrists_ankles_4      t3       300   23%   0.782   4.802
+wrists_ankles_4      t3       500   38%   0.806   4.528
+wrists_ankles_4      t3       800   62%   0.775   4.712
+====================================================================================================
+Total: 48.9m
+Saved: /root/pd-imu/results/sensor_span_k_sweep.json

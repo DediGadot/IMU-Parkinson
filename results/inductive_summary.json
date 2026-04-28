@@ -1,0 +1,24 @@
+{
+  "summary": [
+    {
+      "variant": "transductive",
+      "target": "t3",
+      "eval": "loocv",
+      "ccc": 0.7569,
+      "cal_slope": 0.5599,
+      "mae": 4.6782,
+      "n": 94,
+      "runtime_s": 2648.5
+    },
+    {
+      "variant": "transductive",
+      "target": "t3",
+      "eval": "5split",
+      "ccc": 0.7061,
+      "cal_slope": 0.5046,
+      "mae": 5.3757,
+      "n": 95,
+      "runtime_s": 91.6
+    }
+  ]
+}

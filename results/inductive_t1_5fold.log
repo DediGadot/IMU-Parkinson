@@ -1,0 +1,49 @@
+Variants: ['transductive', 'inductive_pd', 'inductive_pd_hc']
+Targets:  ['t1']
+Evals:    ['5split']
+Loading per-item scores from cache: /home/fiod/medical/results/per_item_scores.json
+
+Data loaded:
+  PD subjects: 94 (94 total in all_merged)
+  HC subjects: 80
+  All subjects: 174
+  Features: 2520 (v2: 1752, FM: 768)
+
+======================================================================
+Running transductive | t1 | 5split
+======================================================================
+  Split 1/5 [transductive t1]: CCC=0.864 slope=1.071 MAE=1.118
+  Split 2/5 [transductive t1]: CCC=0.842 slope=1.290 MAE=1.100
+  Split 3/5 [transductive t1]: CCC=0.842 slope=1.189 MAE=1.076
+  Split 4/5 [transductive t1]: CCC=0.903 slope=1.124 MAE=0.906
+  Split 5/5 [transductive t1]: CCC=0.943 slope=1.119 MAE=0.647
+  Saved -> /home/fiod/medical/results/inductive_transductive_t1_5split.json
+
+======================================================================
+Running inductive_pd | t1 | 5split
+======================================================================
+  Split 1/5 [inductive_pd t1]: CCC=0.633 slope=1.223 MAE=1.655
+  Split 2/5 [inductive_pd t1]: CCC=0.614 slope=1.535 MAE=1.646
+  Split 3/5 [inductive_pd t1]: CCC=0.609 slope=0.927 MAE=1.708
+  Split 4/5 [inductive_pd t1]: CCC=0.766 slope=1.498 MAE=1.422
+  Split 5/5 [inductive_pd t1]: CCC=0.728 slope=1.265 MAE=1.434
+  Saved -> /home/fiod/medical/results/inductive_inductive_pd_t1_5split.json
+
+======================================================================
+Running inductive_pd_hc | t1 | 5split
+======================================================================
+  Split 1/5 [inductive_pd_hc t1]: CCC=0.432 slope=1.247 MAE=1.725
+  Split 2/5 [inductive_pd_hc t1]: CCC=0.414 slope=1.049 MAE=1.935
+  Split 3/5 [inductive_pd_hc t1]: CCC=0.548 slope=0.863 MAE=1.880
+  Split 4/5 [inductive_pd_hc t1]: CCC=0.624 slope=1.663 MAE=1.642
+  Split 5/5 [inductive_pd_hc t1]: CCC=0.673 slope=1.720 MAE=1.286
+  Saved -> /home/fiod/medical/results/inductive_inductive_pd_hc_t1_5split.json
+
+==========================================================================================
+Variant                Target Eval        N     CCC   Slope     MAE     Time
+------------------------------------------------------------------------------------------
+transductive           t1     5split     95   0.878   1.149   0.969   740.8s
+inductive_pd           t1     5split     95   0.668   1.219   1.573   550.6s
+inductive_pd_hc        t1     5split     95   0.535   1.201   1.694   299.4s
+==========================================================================================
+  Saved -> /home/fiod/medical/results/inductive_summary.json

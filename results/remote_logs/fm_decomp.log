@@ -1,0 +1,15 @@
+================================================================================
+FM DECOMPOSITION: v2-only vs FM-only vs combined
+================================================================================
+  [cache] Loading FM for all_13 from /root/pd-imu/results/sensor_fm_cache/all_13_fm.npz
+  Config all_13: 1721 v2 + 768 FM = 2489 features, 94 PD, 174 all
+
+  all_13 × T1 × v2_only (1721 features)
+Traceback (most recent call last):
+  File "/root/pd-imu/run_sensor_span.py", line 1281, in <module>
+    main()
+  File "/root/pd-imu/run_sensor_span.py", line 1203, in main
+    run_fm_decomposition()
+  File "/root/pd-imu/run_sensor_span.py", line 1142, in run_fm_decomposition
+    metrics = _run_k_sweep_5split(
+TypeError: _run_k_sweep_5split() got an unexpected keyword argument 'k'

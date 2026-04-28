@@ -136,6 +136,11 @@ class PaperData:
     single_sensor: dict = field(default_factory=dict)
     # Bootstrap CIs for headline CCC (computed at load time)
     ssl_5split_t1_ccc_ci: tuple = (0.0, 0.0)
+    # Sensor span results
+    sensor_span_screening: dict = field(default_factory=dict)   # 22 configs x 3 targets, keyed by "{config}_{target}"
+    sensor_span_repeated_cv: dict = field(default_factory=dict)  # 10x5-fold repeated CV
+    sensor_span_k_sweep: dict = field(default_factory=dict)      # K-sweep confound test
+    sensor_span_fm_decomp: dict = field(default_factory=dict)    # FM decomposition
 
 
 def load_all_data() -> PaperData:
@@ -271,6 +276,24 @@ def load_all_data() -> PaperData:
         _, ci_lo, ci_hi = bca_bootstrap_ci(yt, yp, ccc_fn, n_boot=10000)
         d.ssl_5split_t1_ccc_ci = (ci_lo, ci_hi)
 
+    # Sensor span: load 22 configs x 3 targets from individual 5-split files
+    SENSOR_CONFIGS_LIST = [
+        "all_13", "no_LowerBack", "no_Wrists", "no_Feet", "no_Ankles",
+        "no_Shanks", "no_Thighs", "no_Xiphoid", "no_Forehead",
+        "lower_back_1", "wrists_2", "ankles_2", "back_wrists_3", "back_ankles_3",
+        "wrists_ankles_4", "minimal_5", "gait_7", "lower_body_9",
+        "upper_body_4", "feet_ankles_4", "back_feet_3", "extremity_6",
+    ]
+    for cfg in SENSOR_CONFIGS_LIST:
+        for tgt in ["t1", "t2", "t3"]:
+            fname = f"sensor_span_{cfg}_{tgt}_5split.json"
+            data = load_json(fname)
+            if data:
+                d.sensor_span_screening[f"{cfg}_{tgt}"] = data
+
+    d.sensor_span_repeated_cv = load_json("sensor_span_repeated_cv.json")
+    d.sensor_span_k_sweep = load_json("sensor_span_k_sweep.json")
+
     return d
 
 
@@ -391,6 +414,9 @@ _FIG_FILENAMES = {
     "fig8": "fig08_quartile_bias.png",
     "fig9": "fig09_fm_impact.png",
     "fig10": "fig10_cross_dataset.png",
+    "fig11": "fig11_sensor_pareto.png",
+    "fig12": "fig12_sensor_noninferiority.png",
+    "fig13": "fig13_fm_decomposition.png",
     "figA": "figA_gbdt.png",
     "figB": "figB_mse_mae.png",
     "figC": "figC_feature_selection.png",
@@ -1130,6 +1156,248 @@ def fig10_cross_dataset(d: PaperData) -> str:
     return fig_to_b64(fig)
 
 
+# ─── SENSOR SPAN FIGURES ─────────────────────────────────────────────────────
+
+SENSOR_COUNT = {
+    "all_13": 13, "no_LowerBack": 12, "no_Wrists": 11, "no_Feet": 11,
+    "no_Ankles": 11, "no_Shanks": 11, "no_Thighs": 11, "no_Xiphoid": 12,
+    "no_Forehead": 12, "lower_back_1": 1, "wrists_2": 2, "ankles_2": 2,
+    "back_wrists_3": 3, "back_ankles_3": 3, "wrists_ankles_4": 4,
+    "minimal_5": 5, "gait_7": 7, "lower_body_9": 9, "upper_body_4": 4,
+    "feet_ankles_4": 4, "back_feet_3": 3, "extremity_6": 6,
+}
+
+SENSOR_SHORT_LABELS = {
+    "all_13": "All 13", "lower_back_1": "LB (1)", "wrists_2": "Wrists (2)",
+    "ankles_2": "Ankles (2)", "back_wrists_3": "LB+Wr (3)",
+    "back_ankles_3": "LB+An (3)", "wrists_ankles_4": "Wr+An (4)",
+    "minimal_5": "Min5", "gait_7": "Gait7", "lower_body_9": "LwrBdy (9)",
+    "upper_body_4": "UprBdy (4)", "feet_ankles_4": "Ft+An (4)",
+    "back_feet_3": "LB+Ft (3)", "extremity_6": "Extr (6)",
+    "no_LowerBack": "no-LB (12)", "no_Wrists": "no-Wr (11)",
+    "no_Feet": "no-Ft (11)", "no_Ankles": "no-An (11)",
+    "no_Shanks": "no-Sh (11)", "no_Thighs": "no-Th (11)",
+    "no_Xiphoid": "no-Xi (12)", "no_Forehead": "no-Fh (12)",
+}
+
+
+def fig11_sensor_pareto(d: PaperData) -> str:
+    """Sensor reduction Pareto frontier: CCC vs sensor count for T1/T2/T3."""
+    screening = d.sensor_span_screening
+    if not screening:
+        fig, ax = plt.subplots(figsize=(8, 5))
+        ax.text(0.5, 0.5, "Sensor span screening data not available",
+                transform=ax.transAxes, ha="center")
+        return fig_to_b64(fig)
+
+    targets = [("t1", "T1: Direct Observable", C_DIRECT),
+               ("t2", "T2: Broad Observable", C_SSL),
+               ("t3", "T3: Total UPDRS-III", C_PD)]
+
+    fig, axes = plt.subplots(1, 3, figsize=(14, 4.5), sharey=True)
+
+    for idx, (tgt, title, color) in enumerate(targets):
+        ax = axes[idx]
+        configs_data = []
+        for cfg_name, n_sens in SENSOR_COUNT.items():
+            key = f"{cfg_name}_{tgt}"
+            if key in screening:
+                ccc_val = screening[key].get("ccc", 0)
+                configs_data.append((cfg_name, n_sens, ccc_val))
+
+        if not configs_data:
+            ax.text(0.5, 0.5, "No data", transform=ax.transAxes, ha="center")
+            ax.set_title(title, fontweight="bold", fontsize=9)
+            continue
+
+        # Sort by n_sensors for line
+        configs_data.sort(key=lambda x: x[1])
+        names = [c[0] for c in configs_data]
+        n_sensors = np.array([c[1] for c in configs_data])
+        cccs = np.array([c[2] for c in configs_data])
+
+        # Reference line for all_13
+        ref_key = f"all_13_{tgt}"
+        ref_ccc = screening.get(ref_key, {}).get("ccc", 0)
+        ax.axhline(ref_ccc, color="#999", ls="--", lw=1, alpha=0.6)
+        ax.text(13.3, ref_ccc, "all_13", fontsize=6.5, color="#999", va="center")
+
+        # Scatter
+        highlight = {"minimal_5", "wrists_ankles_4", "lower_back_1", "all_13"}
+        for name, ns, ccc in configs_data:
+            marker = "D" if name in highlight else "o"
+            size = 80 if name in highlight else 40
+            alpha = 1.0 if name in highlight else 0.5
+            ax.scatter(ns, ccc, c=color, s=size, marker=marker, alpha=alpha,
+                       edgecolors="white", linewidth=0.7, zorder=3)
+            if name in highlight:
+                label = SENSOR_SHORT_LABELS.get(name, name)
+                ax.annotate(label, (ns, ccc), textcoords="offset points",
+                            xytext=(8, -4), fontsize=6.5, color="#333")
+
+        ax.set_xlabel("Number of Sensors", fontweight="bold")
+        if idx == 0:
+            ax.set_ylabel("CCC (5-fold CV)", fontweight="bold")
+        ax.set_title(title, fontweight="bold", fontsize=9)
+        ax.set_xlim(0, 14)
+        ax.set_ylim(0.68, 0.92)
+        ax.set_xticks([1, 2, 3, 4, 5, 6, 7, 9, 11, 12, 13])
+
+    fig.suptitle("Figure 8: Sensor Reduction Pareto Frontier (SSL Ranking, 5-fold CV)",
+                 fontsize=11, fontweight="bold", y=1.01)
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
+    return fig_to_b64(fig)
+
+
+def fig12_sensor_noninferiority(d: PaperData) -> str:
+    """Sensor non-inferiority forest plot: ΔCCC with 95% CI for 3 key configs vs all_13."""
+    rcv = d.sensor_span_repeated_cv
+    if not rcv:
+        fig, ax = plt.subplots(figsize=(8, 5))
+        ax.text(0.5, 0.5, "Repeated CV data not available", transform=ax.transAxes, ha="center")
+        return fig_to_b64(fig)
+
+    configs_order = ["lower_back_1", "minimal_5", "wrists_ankles_4"]
+    targets = ["t1", "t2", "t3"]
+    target_labels = {"t1": "T1 (Direct Obs)", "t2": "T2 (Broad Obs)", "t3": "T3 (Total)"}
+    target_colors = {"t1": C_DIRECT, "t2": C_SSL, "t3": C_PD}
+    delta = rcv.get("delta", 0.05)
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    y_pos = 0
+    y_ticks = []
+    y_labels = []
+
+    for cfg in configs_order:
+        cfg_label = SENSOR_SHORT_LABELS.get(cfg, cfg)
+        for tgt in targets:
+            key = f"{cfg}_{tgt}"
+            paired = rcv.get("paired", {}).get(key, {})
+            if not paired:
+                continue
+
+            mean_diff = paired.get("mean_diff", 0)
+            std_diff = paired.get("std_diff", 0)
+            non_inf = paired.get("non_inferior", False)
+            p_ni = paired.get("p_non_inferiority", 1.0)
+            p_sup = paired.get("p_superiority", 1.0)
+
+            # Compute approximate 95% CI from repeated CV diffs
+            ref_cccs = np.array(rcv.get("configs", {}).get(f"all_13_{tgt}", {}).get("cccs", []))
+            cfg_cccs = np.array(rcv.get("configs", {}).get(f"{cfg}_{tgt}", {}).get("cccs", []))
+            if len(ref_cccs) > 0 and len(cfg_cccs) > 0 and len(ref_cccs) == len(cfg_cccs):
+                diffs = cfg_cccs - ref_cccs
+                ci_lo = np.percentile(diffs, 2.5)
+                ci_hi = np.percentile(diffs, 97.5)
+            else:
+                se = std_diff * np.sqrt(0.35)  # Nadeau-Bengio correction
+                ci_lo = mean_diff - 1.96 * se
+                ci_hi = mean_diff + 1.96 * se
+
+            color = target_colors[tgt]
+            marker = "D" if non_inf else "x"
+            msize = 8 if non_inf else 10
+
+            ax.errorbar(mean_diff, y_pos, xerr=[[mean_diff - ci_lo], [ci_hi - mean_diff]],
+                        fmt=marker, color=color, markersize=msize, capsize=4, lw=1.5, zorder=3)
+
+            verdict = "NON-INF" if non_inf else "FAILS"
+            if p_sup < 0.05:
+                verdict = "SUPERIOR"
+            ax.text(ci_hi + 0.005, y_pos, f"{verdict} (p={p_ni:.4f})",
+                    fontsize=6.5, va="center", color=color)
+
+            y_ticks.append(y_pos)
+            y_labels.append(f"{cfg_label} / {target_labels[tgt]}")
+            y_pos += 1
+
+        y_pos += 0.5  # gap between configs
+
+    # Non-inferiority margin
+    ax.axvline(-delta, color="#e74c3c", ls="--", lw=1.5, alpha=0.7)
+    ax.axvspan(-1, -delta, alpha=0.06, color="#e74c3c")
+    ax.text(-delta - 0.003, y_pos - 0.5, f"NI margin\n(δ={delta})",
+            fontsize=7, color="#e74c3c", ha="right", va="center")
+    ax.axvline(0, color="#999", ls=":", lw=1)
+
+    ax.set_yticks(y_ticks)
+    ax.set_yticklabels(y_labels, fontsize=8)
+    ax.set_xlabel("ΔCCC vs all_13 (10×5-fold repeated CV)", fontweight="bold")
+    ax.invert_yaxis()
+    ax.set_xlim(-0.12, 0.10)
+
+    # Legend
+    legend_elements = [
+        Line2D([0], [0], marker="D", color="w", markerfacecolor=C_DIRECT, markersize=7, label="T1"),
+        Line2D([0], [0], marker="D", color="w", markerfacecolor=C_SSL, markersize=7, label="T2"),
+        Line2D([0], [0], marker="D", color="w", markerfacecolor=C_PD, markersize=7, label="T3"),
+        Line2D([0], [0], color="#e74c3c", ls="--", lw=1.5, label=f"NI margin (δ={delta})"),
+    ]
+    ax.legend(handles=legend_elements, fontsize=7.5, loc="lower right", frameon=False)
+
+    fig.suptitle("Figure 9: Sensor Non-Inferiority (10×5-fold, Nadeau-Bengio Corrected)",
+                 fontsize=11, fontweight="bold", y=0.99)
+    fig.tight_layout(rect=[0, 0, 1, 0.94])
+    return fig_to_b64(fig)
+
+
+def fig13_fm_decomposition(d: PaperData) -> str:
+    """FM decomposition: grouped bars for v2-only vs combined CCC for 4 configs x T1/T3.
+
+    Uses FM decomposition data from results_summary (hardcoded from findings.md F10,
+    since no separate JSON exists for this analysis).
+    """
+    # Data from results_summary/context_summary FM decomposition section
+    # Sourced from findings.md F10 (verified against results_summary.md Section 11C)
+    fm_data = {
+        "all_13":          {"t1_v2": 0.857, "t1_comb": 0.862, "t3_v2": 0.770, "t3_comb": 0.764},
+        "lower_back_1":    {"t1_v2": 0.884, "t1_comb": 0.884, "t3_v2": 0.699, "t3_comb": 0.720},
+        "wrists_ankles_4": {"t1_v2": 0.882, "t1_comb": 0.853, "t3_v2": 0.748, "t3_comb": 0.806},
+        "minimal_5":       {"t1_v2": 0.864, "t1_comb": 0.879, "t3_v2": 0.779, "t3_comb": 0.778},
+    }
+
+    fig, axes = plt.subplots(1, 2, figsize=(11, 5))
+    configs = list(fm_data.keys())
+    x = np.arange(len(configs))
+    w = 0.35
+
+    for panel_idx, (tgt_key_v2, tgt_key_comb, title, ylim_lo) in enumerate([
+        ("t1_v2", "t1_comb", "T1: Direct Observable", 0.80),
+        ("t3_v2", "t3_comb", "T3: Total UPDRS-III", 0.65),
+    ]):
+        ax = axes[panel_idx]
+        v2_vals = [fm_data[c][tgt_key_v2] for c in configs]
+        comb_vals = [fm_data[c][tgt_key_comb] for c in configs]
+
+        bars_v2 = ax.bar(x - w/2, v2_vals, w, label="v2-only", color=C_V2, alpha=0.75,
+                         edgecolor="white", lw=1.2)
+        bars_comb = ax.bar(x + w/2, comb_vals, w, label="v2 + FM", color=C_FM, alpha=0.85,
+                           edgecolor="white", lw=1.2)
+
+        for i in range(len(configs)):
+            delta = comb_vals[i] - v2_vals[i]
+            sign = "+" if delta >= 0 else ""
+            ax.text(x[i] + w/2, comb_vals[i] + 0.005, f"{sign}{delta:.3f}",
+                    ha="center", fontsize=7, fontweight="bold",
+                    color=C_DIRECT if delta > 0.01 else ("#e74c3c" if delta < -0.01 else "#999"))
+            ax.text(x[i] - w/2, v2_vals[i] + 0.005, f"{v2_vals[i]:.3f}",
+                    ha="center", fontsize=7, color="#666")
+
+        labels = [SENSOR_SHORT_LABELS.get(c, c) for c in configs]
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels, fontsize=8.5)
+        ax.set_ylabel("CCC (5-fold CV)", fontweight="bold")
+        ax.set_title(title, fontweight="bold")
+        ax.set_ylim(ylim_lo, 0.92)
+        ax.legend(fontsize=8, loc="lower right", frameon=False)
+
+    fig.suptitle("Figure 10: FM Decomposition -- v2-only vs Combined (SSL Ranking, 5-fold CV)",
+                 fontsize=11, fontweight="bold", y=1.01)
+    fig.tight_layout(rect=[0, 0, 1, 0.94])
+    return fig_to_b64(fig)
+
+
 # ─── APPENDIX FIGURES ─────────────────────────────────────────────────────────
 
 def figA_decision_tree_ensemble() -> str:
@@ -1629,7 +1897,7 @@ def _table6_cross_dataset(d: PaperData):
     loocv_fm = mt.get("loocv_fm", {})
     return f"""
 <table>
-<caption>Table 8. Cross-dataset comparison with published UPDRS-III regression.</caption>
+<caption>Table 11. Cross-dataset comparison with published UPDRS-III regression.</caption>
 <tr><th>Study</th><th>Year</th><th>Dataset</th><th>N</th><th>Sensors</th><th>Evaluation</th><th>MAE</th><th>r</th><th>CCC</th></tr>
 <tr class="highlight"><td>This work (T1, ranking)</td><td>2026</td><td>WearGait-PD</td><td>{ssl_t1.get('n', 94)} PD</td><td>13 IMUs</td><td>PD LOOCV</td><td>{ssl_t1.get('mae', 0):.2f}*</td><td>{ssl_t1.get('r', 0):.3f}</td><td>{ssl_t1.get('ccc', 0):.3f}</td></tr>
 <tr class="highlight"><td>This work (T3, ranking)</td><td>2026</td><td>WearGait-PD</td><td>{ssl_t3.get('n', 94)} PD</td><td>13 IMUs</td><td>PD LOOCV</td><td>{ssl_t3.get('mae', 0):.2f}</td><td>{ssl_t3.get('r', 0):.3f}</td><td>{ssl_t3.get('ccc', 0):.3f}</td></tr>
@@ -1946,6 +2214,141 @@ def _table_single_sensor(d: PaperData):
 {rows}
 </table>
 <p class="note">A single lower back sensor achieves CCC&nbsp;=&nbsp;{configs.get('LowerBack_1', {}).get('ccc', 0):.3f}, matching the full 13-sensor configuration (CCC&nbsp;=&nbsp;{configs.get('all_13', {}).get('ccc', 0):.3f}). Single wrist achieves CCC&nbsp;&gt;&nbsp;0.78, supporting smartwatch-based clinical deployment.</p>"""
+
+
+def _table5_sensor_span_screening(d: PaperData) -> str:
+    """Table 5: Sensor span — 22-config screening (top configs per target, 5-fold CV)."""
+    screening = d.sensor_span_screening
+    if not screening:
+        return "<p>Sensor span screening data not available.</p>"
+
+    rows = ""
+    for tgt, tgt_label in [("t1", "T1 (Direct Obs)"), ("t2", "T2 (Broad Obs)"), ("t3", "T3 (Total)")]:
+        rows += f'<tr><th colspan="7" style="background:#f8f9fa; text-align:left; font-style:italic">{tgt_label}</th></tr>\n'
+        # Collect all configs for this target
+        cfg_data = []
+        for cfg_name, n_sens in SENSOR_COUNT.items():
+            key = f"{cfg_name}_{tgt}"
+            if key in screening:
+                cfg_data.append((cfg_name, n_sens, screening[key]))
+        # Sort by CCC descending
+        cfg_data.sort(key=lambda x: x[2].get("ccc", 0), reverse=True)
+        # Show top 10 + all_13 reference
+        shown = set()
+        for cfg_name, n_sens, data in cfg_data[:10]:
+            ccc = data.get("ccc", 0)
+            mae = data.get("mae", 0)
+            r_val = data.get("r", 0)
+            slope = data.get("cal_slope", 0)
+            ref_ccc = screening.get(f"all_13_{tgt}", {}).get("ccc", 0)
+            delta = ccc - ref_ccc
+            cls = ' class="highlight"' if cfg_name in ("minimal_5", "wrists_ankles_4", "lower_back_1") else ""
+            cls = ' class="primary"' if cfg_name == "all_13" else cls
+            rows += f'<tr{cls}><td>{SENSOR_SHORT_LABELS.get(cfg_name, cfg_name)}</td><td>{n_sens}</td><td>{ccc:.3f}</td><td>{delta:+.3f}</td><td>{mae:.3f}</td><td>{slope:.3f}</td><td>{r_val:.3f}</td></tr>\n'
+            shown.add(cfg_name)
+        # Ensure all_13 is shown if not in top 10
+        if "all_13" not in shown:
+            data = screening.get(f"all_13_{tgt}", {})
+            if data:
+                rows += f'<tr class="primary"><td>All 13</td><td>13</td><td>{data.get("ccc", 0):.3f}</td><td>ref</td><td>{data.get("mae", 0):.3f}</td><td>{data.get("cal_slope", 0):.3f}</td><td>{data.get("r", 0):.3f}</td></tr>\n'
+
+    return f"""
+<table>
+<caption>Table 8. Sensor span screening: 22 configurations ranked by CCC (SSL ranking, 5-fold CV, N=95).</caption>
+<tr><th>Configuration</th><th>N<sub>sensors</sub></th><th>CCC</th><th>&Delta; vs all_13</th><th>MAE</th><th>Slope</th><th>r</th></tr>
+{rows}
+</table>
+<p class="note">Top 10 per target shown. FM re-extracted per sensor configuration. Feature selection K=500 inside each fold. All use SSL ranking (P5) pipeline. Reference: all_13 (primary row, highlighted). Apparent paradox (fewer &gt; more) is addressed by 10&times;5-fold repeated CV (Table 9).</p>"""
+
+
+def _table5b_sensor_span_repeated_cv(d: PaperData) -> str:
+    """Table 5b: Sensor span — 10x5-fold repeated CV non-inferiority verdicts."""
+    rcv = d.sensor_span_repeated_cv
+    if not rcv:
+        return "<p>Repeated CV data not available.</p>"
+
+    configs_order = ["all_13", "lower_back_1", "minimal_5", "wrists_ankles_4"]
+    targets = ["t1", "t2", "t3"]
+    target_labels = {"t1": "T1", "t2": "T2", "t3": "T3"}
+    delta = rcv.get("delta", 0.05)
+
+    # Mean CCC table
+    rows_ccc = ""
+    for cfg in configs_order:
+        label = SENSOR_SHORT_LABELS.get(cfg, cfg)
+        cells = f"<td>{label}</td>"
+        for tgt in targets:
+            key = f"{cfg}_{tgt}"
+            cfg_data = rcv.get("configs", {}).get(key, {})
+            mean_ccc = cfg_data.get("mean_ccc", 0)
+            std_ccc = cfg_data.get("std_ccc", 0)
+            cells += f"<td>{mean_ccc:.3f} &plusmn; {std_ccc:.3f}</td>"
+        cls = ' class="primary"' if cfg == "all_13" else ""
+        rows_ccc += f"<tr{cls}>{cells}</tr>\n"
+
+    # Non-inferiority verdicts
+    rows_ni = ""
+    for cfg in ["lower_back_1", "minimal_5", "wrists_ankles_4"]:
+        label = SENSOR_SHORT_LABELS.get(cfg, cfg)
+        for tgt in targets:
+            key = f"{cfg}_{tgt}"
+            paired = rcv.get("paired", {}).get(key, {})
+            if not paired:
+                continue
+            mean_diff = paired.get("mean_diff", 0)
+            p_ni = paired.get("p_non_inferiority", 1.0)
+            p_sup = paired.get("p_superiority", 1.0)
+            non_inf = paired.get("non_inferior", False)
+            verdict = "NON-INFERIOR" if non_inf else "FAILS"
+            if p_sup < 0.05:
+                verdict = f"SUPERIOR (p<sub>sup</sub>={p_sup:.4f})"
+            cls = ' class="highlight"' if non_inf else ""
+            rows_ni += f'<tr{cls}><td>{label}</td><td>{target_labels[tgt]}</td><td>{mean_diff:+.4f}</td><td>{p_ni:.4f}</td><td>{verdict}</td></tr>\n'
+
+    return f"""
+<table>
+<caption>Table 9. Sensor span: mean CCC across 10&times;5-fold repeated CV (N=94 PD).</caption>
+<tr><th>Configuration</th><th>T1 CCC (mean &plusmn; SD)</th><th>T2 CCC (mean &plusmn; SD)</th><th>T3 CCC (mean &plusmn; SD)</th></tr>
+{rows_ccc}
+</table>
+
+<table>
+<caption>Table 9 (cont). Non-inferiority verdicts vs all_13 (Nadeau-Bengio corrected, &delta;={delta:.2f}).</caption>
+<tr><th>Config vs all_13</th><th>Target</th><th>&Delta;CCC</th><th>p<sub>NI</sub></th><th>Verdict</th></tr>
+{rows_ni}
+</table>
+<p class="note">Non-inferiority margin &delta;={delta:.2f} CCC. 10 repeats &times; 5 folds = 50 held-out evaluations per config. Nadeau-Bengio correction factor = 0.35. SUPERIOR = non-inferior AND p<sub>superiority</sub> &lt; 0.05. The apparent "fewer=better" paradox from 5-split screening (Table 8) disappears: lower_back_1 FAILS on T3 (&Delta;CCC=-0.039), confirming winner's curse in single-round screening.</p>"""
+
+
+def _table5c_fm_decomposition(d: PaperData) -> str:
+    """Table 5c: FM decomposition (v2-only vs combined CCC for 4 configs x T1/T3)."""
+    # Data from results_summary/context_summary (no separate JSON)
+    fm_data = {
+        "all_13":          {"t1_v2": 0.857, "t1_comb": 0.862, "t3_v2": 0.770, "t3_comb": 0.764},
+        "lower_back_1":    {"t1_v2": 0.884, "t1_comb": 0.884, "t3_v2": 0.699, "t3_comb": 0.720},
+        "wrists_ankles_4": {"t1_v2": 0.882, "t1_comb": 0.853, "t3_v2": 0.748, "t3_comb": 0.806},
+        "minimal_5":       {"t1_v2": 0.864, "t1_comb": 0.879, "t3_v2": 0.779, "t3_comb": 0.778},
+    }
+
+    rows = ""
+    for cfg in ["all_13", "lower_back_1", "minimal_5", "wrists_ankles_4"]:
+        label = SENSOR_SHORT_LABELS.get(cfg, cfg)
+        fd = fm_data[cfg]
+        t1_delta = fd["t1_comb"] - fd["t1_v2"]
+        t3_delta = fd["t3_comb"] - fd["t3_v2"]
+        cls = ' class="highlight"' if cfg == "wrists_ankles_4" else ""
+        rows += (f'<tr{cls}><td>{label}</td>'
+                 f'<td>{fd["t1_v2"]:.3f}</td><td>{fd["t1_comb"]:.3f}</td><td>{t1_delta:+.3f}</td>'
+                 f'<td>{fd["t3_v2"]:.3f}</td><td>{fd["t3_comb"]:.3f}</td><td>{t3_delta:+.3f}</td></tr>\n')
+
+    return f"""
+<table>
+<caption>Table 10. FM decomposition: v2-only vs v2+FM combined CCC (SSL ranking, 5-fold CV).</caption>
+<tr><th rowspan="2">Configuration</th><th colspan="3">T1 (Direct Observable)</th><th colspan="3">T3 (Total UPDRS-III)</th></tr>
+<tr><th>v2-only</th><th>Combined</th><th>&Delta;FM</th><th>v2-only</th><th>Combined</th><th>&Delta;FM</th></tr>
+{rows}
+</table>
+<p class="note">FM-only yields CCC &approx; &minus;0.01 across all configs (random predictions; not shown). FM helps only wrists_ankles_4 on T3 (+0.058 CCC). The "fewer=better" pattern is driven by handcrafted feature quality, not FM representation. FM mean-pooling confound eliminated by per-config re-extraction.</p>"""
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -2509,7 +2912,7 @@ def build_html_v2(d: PaperData, figures: dict) -> str:
 <div class="abstract-box">
 <h3>Abstract</h3>
 <p>
-Predicting Parkinson's disease motor severity from wearable sensors is limited by prediction compression: standard regression on small clinical cohorts (N&lt;100) collapses predictions toward the population mean, yielding poor concordance despite reasonable error rates. We present the first MDS-UPDRS Part III regression benchmark on WearGait-PD, the largest controlled-gait dataset with complete motor scores (N&nbsp;=&nbsp;{N_ANALYZED}: {N_ANALYZED_PD} PD, {N_ANALYZED_HC} HC, 13 IMUs at 100&nbsp;Hz). We introduce a two-stage ordinal ranking method: an XGBRanker learns a severity-ordered representation whose leaf features feed a LightGBM regressor, evaluated by PD-only 5-fold cross-validation (N&nbsp;=&nbsp;{ssl_5t1.get('n', 95)}). When healthy controls (N&nbsp;=&nbsp;{N_ANALYZED_HC}) are included as calibration anchors in the ranking stage, performance is marginally enhanced, though PD-only ranking achieves nearly identical results (CCC&nbsp;=&nbsp;{hc_no_hc_t1.get('ccc', 0):.3f} vs {hc_with_hc_t1.get('ccc', 0):.3f}). For the directly observable motor subscore (items 3.9&ndash;3.14: gait, posture, arising, stability, freezing, body bradykinesia), ordinal ranking achieves CCC&nbsp;=&nbsp;{ssl_5t1.get('ccc', 0):.3f} (calibration slope&nbsp;=&nbsp;{ssl_5t1.get('cal_slope', 0):.3f}, MAE&nbsp;=&nbsp;{ssl_5t1.get('mae', 0):.3f}), up from a baseline CCC&nbsp;=&nbsp;{p0_t1.get('ccc', 0):.2f}. For total UPDRS-III, ranking achieves CCC&nbsp;=&nbsp;{ssl_5t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_5t3.get('mae', 0):.2f}). A three-level observability decomposition reveals that prediction quality tracks item observability from gait sensors: direct CCC&nbsp;=&nbsp;{ssl_5t1.get('ccc', 0):.3f} (N={ssl_5t1.get('n', 95)}), not observable CCC&nbsp;=&nbsp;{obs5_unobs_ssl.get('ccc', 0):.3f}, partially observable CCC&nbsp;=&nbsp;{obs5_partial_ssl.get('ccc', 0):.3f} (N={obs5.get('unobs_ssl', {}).get('n', 90)} with complete item scores). Sensitivity analyses confirm that age confounding does not drive performance (age-matched HC: CCC&nbsp;=&nbsp;{age_matched_t1.get('ccc', 0):.3f} vs full HC: CCC&nbsp;=&nbsp;{age_full_t1.get('ccc', 0):.3f}). Confirmatory LOOCV analysis yields consistent results (T1 CCC&nbsp;=&nbsp;{ssl_t1.get('ccc', 0):.3f}). These results establish WearGait-PD as a regression benchmark and identify the directly observable motor subdomain as a promising wearable endpoint meriting prospective clinical validation.
+Predicting Parkinson's disease motor severity from wearable sensors is limited by an observability ceiling: gait-worn inertial sensors can measure only a subset of the 18 MDS-UPDRS Part III motor items, while standard regression on small clinical cohorts (N&lt;100) collapses predictions toward the population mean. We present the first MDS-UPDRS Part III regression benchmark on WearGait-PD (N&nbsp;=&nbsp;{N_ANALYZED}: {N_ANALYZED_PD} PD, {N_ANALYZED_HC} HC, 13 IMUs at 100&nbsp;Hz). A two-stage ordinal ranking method&mdash;XGBRanker severity ordering followed by LightGBM regression&mdash;achieves CCC&nbsp;=&nbsp;{ssl_5t1.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_5t1.get('mae', 0):.3f}) for the directly observable motor subscore (items 3.9&ndash;3.14), up from a baseline CCC&nbsp;=&nbsp;{p0_t1.get('ccc', 0):.2f}. A three-level observability decomposition reveals that prediction quality tracks item observability: direct CCC&nbsp;=&nbsp;{ssl_5t1.get('ccc', 0):.3f}, partially observable CCC&nbsp;=&nbsp;{obs5_partial_ssl.get('ccc', 0):.3f}, not observable CCC&nbsp;=&nbsp;{obs5_unobs_ssl.get('ccc', 0):.3f}. A 22-configuration sensor reduction study with 10&times;5-fold repeated cross-validation identifies a 5-sensor set (lower back, bilateral wrists, bilateral ankles) as non-inferior to the full 13-sensor configuration across all three targets, while wrists+ankles (4&nbsp;sensors) is statistically superior for total UPDRS-III (p&nbsp;=&nbsp;0.006). FM embeddings are target-specific: they contribute only to wrists+ankles on total UPDRS-III (&Delta;CCC&nbsp;=&nbsp;+0.058), while handcrafted features drive all other configurations. These results position the directly observable subscore as a clinically actionable wearable endpoint and provide a sensor deployment roadmap from 13 research sensors to 4&ndash;5 clinical sensors.
 </p>
 </div>
 
@@ -2529,7 +2932,7 @@ A fundamental challenge in small-N clinical regression has received insufficient
 </p>
 
 <p>
-WearGait-PD is the largest publicly available controlled-gait dataset with complete MDS-UPDRS-III scores<sup>9</sup>. To our knowledge, no published UPDRS-III regression exists on this dataset. We present four contributions: (1) the first regression benchmark on WearGait-PD with subject-level evaluation; (2) a two-stage ordinal ranking method that substantially reduces prediction compression (CCC improvement from {p0_t1.get('ccc', 0):.2f} to {ssl_5t1.get('ccc', 0):.3f} on the directly observable subscore, 5-fold CV); (3) a three-level observability decomposition explaining why total UPDRS-III prediction from gait IMU has a structural ceiling; and (4) comprehensive sensitivity analyses confirming that age confounding and HC inclusion do not drive the ranking improvement.
+WearGait-PD is the largest publicly available controlled-gait dataset with complete MDS-UPDRS-III scores<sup>9</sup>. To our knowledge, no published UPDRS-III regression exists on this dataset. We present five contributions: (1) the first regression benchmark on WearGait-PD with subject-level evaluation; (2) a two-stage ordinal ranking method that substantially reduces prediction compression (CCC improvement from {p0_t1.get('ccc', 0):.2f} to {ssl_5t1.get('ccc', 0):.3f} on the directly observable subscore, 5-fold CV); (3) a three-level observability decomposition explaining why total UPDRS-III prediction from gait IMU has a structural ceiling; (4) a 22-configuration sensor reduction study with 10&times;5-fold repeated cross-validation identifying 4&ndash;5 sensors as non-inferior to 13 for clinical deployment; and (5) comprehensive sensitivity analyses confirming that age confounding and HC inclusion do not drive the ranking improvement.
 </p>
 
 <figure>
@@ -2621,7 +3024,44 @@ Because HC participants were older than PD participants (74.6 vs 66.9 years), we
 {_table_age_sensitivity(d)}
 {_table_hc_ablation(d)}
 
-<h3>2.6 Cross-Dataset Context</h3>
+<h3>2.6 Sensor Reduction: Clinical Deployment Roadmap</h3>
+
+<p>
+To bridge the gap between research (13 body-worn IMUs) and clinical deployment, we systematically evaluated 22 sensor configurations spanning 1 to 13 sensors (Table&nbsp;8, Figure&nbsp;8). Initial 5-fold screening revealed an apparent "fewer sensors equal better" paradox: several reduced configurations outperformed the 13-sensor reference on CCC. To resolve this, we conducted 10&times;5-fold repeated cross-validation on four key configurations (Table&nbsp;9, Figure&nbsp;9), with Nadeau-Bengio corrected non-inferiority testing (&delta;&nbsp;=&nbsp;0.05 CCC).
+</p>
+
+<p>
+The 5-sensor minimal set (lower back, bilateral wrists, bilateral ankles) is the only configuration non-inferior to all_13 across all three targets (T1: &Delta;CCC&nbsp;=&nbsp;-0.018, p<sub>NI</sub>&nbsp;=&nbsp;0.003; T2: &Delta;CCC&nbsp;=&nbsp;+0.013, p<sub>NI</sub>&nbsp;&lt;&nbsp;0.001; T3: &Delta;CCC&nbsp;=&nbsp;+0.017, p<sub>NI</sub>&nbsp;=&nbsp;0.001). Wrists+ankles (4&nbsp;sensors) is statistically superior for T3 (&Delta;CCC&nbsp;=&nbsp;+0.030, p<sub>sup</sub>&nbsp;=&nbsp;0.006) and superior for T2 (p<sub>sup</sub>&nbsp;=&nbsp;0.010), but non-inferior (not superior) for T1. A single lower back sensor achieves non-inferiority for T1 and T2 but fails for T3 (&Delta;CCC&nbsp;=&nbsp;-0.039, p<sub>NI</sub>&nbsp;=&nbsp;0.268), indicating that extremity sensors are required for total UPDRS-III prediction.
+</p>
+
+<p>
+The initial "fewer=better" paradox was a winner's curse artifact: in single-round 5-fold screening, lower_back_1 showed CCC&nbsp;=&nbsp;0.884 vs all_13 CCC&nbsp;=&nbsp;0.862 for T1. With 10&times;5-fold repeated CV, this gap shrank to +0.013 (p<sub>superiority</sub>&nbsp;=&nbsp;0.16, not significant), confirming that the original screening inflated the apparent advantage.
+</p>
+
+<p>
+FM decomposition (Table&nbsp;10, Figure&nbsp;10) reveals that FM embeddings are largely redundant when combined with handcrafted features: FM-only prediction yields CCC&nbsp;&approx;&nbsp;&minus;0.01 (random). FM provides meaningful benefit only for wrists_ankles_4 on T3 (&Delta;CCC&nbsp;=&nbsp;+0.058), where the reduced sensor count limits handcrafted feature diversity and FM compensates. The "fewer=better" pattern is thus driven by handcrafted feature quality versus quantity, not by FM representation.
+</p>
+
+<figure>
+<img src="{figures['fig11']}" alt="Sensor Pareto frontier">
+<figcaption><strong>Figure 8.</strong> Sensor reduction Pareto frontier (SSL ranking, 5-fold CV, N=95). CCC vs sensor count for T1 (direct observable), T2 (broad observable), and T3 (total UPDRS-III). Diamond markers: key deployment-ready configurations. Dashed line: all_13 reference. Several reduced configurations match or exceed the 13-sensor reference, motivating formal non-inferiority testing (Figure&nbsp;9).</figcaption>
+</figure>
+
+<figure>
+<img src="{figures['fig12']}" alt="Sensor non-inferiority forest plot">
+<figcaption><strong>Figure 9.</strong> Sensor non-inferiority forest plot (10&times;5-fold repeated CV, Nadeau-Bengio corrected). &Delta;CCC with 95% CI for 3 key configurations vs all_13 across 3 targets. Red dashed line: non-inferiority margin (&delta;=0.05). Shaded region: inferior zone. minimal_5 is non-inferior across all 3 targets; wrists_ankles_4 is SUPERIOR for T2 and T3; lower_back_1 FAILS for T3.</figcaption>
+</figure>
+
+<figure>
+<img src="{figures['fig13']}" alt="FM decomposition">
+<figcaption><strong>Figure 10.</strong> FM decomposition: v2-only (grey) vs v2+FM combined (purple) CCC for 4 key configurations. Left: T1 (direct observable). Right: T3 (total UPDRS-III). FM effect labels show &Delta;CCC. FM contributes meaningfully only to wrists_ankles_4 on T3 (+0.058). All other configurations are driven by handcrafted features.</figcaption>
+</figure>
+
+{_table5_sensor_span_screening(d)}
+{_table5b_sensor_span_repeated_cv(d)}
+{_table5c_fm_decomposition(d)}
+
+<h3>2.7 Cross-Dataset Context</h3>
 
 <p>
 Figure&nbsp;7 contextualizes our results against published work. Protocol-matched comparison (5-fold to LOOCV): our T3 ordinal ranking MAE&nbsp;=&nbsp;{ssl_5t3.get('mae', 0):.2f} vs Hssayeni MAE&nbsp;=&nbsp;5.95 (25% lower on 4x more subjects). However, comparisons are necessarily cross-dataset: different cohorts, tasks (controlled gait vs free-living ADL), sensor configurations, and disease stages. Prior work did not report CCC, making concordance comparisons impossible.
@@ -2663,34 +3103,44 @@ With ordinal ranking, the directly observable subscore (items 3.9&ndash;3.14) ac
 The CCC gradient under 5-fold CV&mdash;{ssl_5t1.get('ccc', 0):.3f} (direct, N={ssl_5t1.get('n', 95)}) > {obs5_unobs_ssl.get('ccc', 0):.3f} (not observable, N={obs5.get('unobs_ssl', {}).get('n', 90)}) > {obs5_partial_ssl.get('ccc', 0):.3f} (partial, N={obs5.get('partial_ssl', {}).get('n', 90)})&mdash;reflects a modality constraint, not a methodological limitation. The gradient is approximately monotonic but not strictly so under ordinal ranking: not-observable items slightly exceed partially observable items. This likely reflects that not-observable items (speech, facial expression, rigidity) correlate with overall disease severity through shared pathophysiology, while partially observable items (hand movements, pronation-supination, toe tapping) are limb-specific motor signs with higher inter-subject variability. Rigidity (item 3.3) requires passive manipulation by an examiner; speech (3.1) and facial expression (3.2) are auditory and visual assessments. These items constitute 82% of the total score range. The convergence of 12+ distinct modeling approaches on MAE&nbsp;&approx;&nbsp;8 for total UPDRS-III (pre-ranking), combined with the observability gradient, supports this interpretation. We acknowledge that this conclusion rests on a single dataset.
 </p>
 
-<h3>3.4 Foundation Model Paradigm</h3>
+<h3>3.4 Sensor Deployment: From 13 to 4&ndash;5 Sensors</h3>
 
 <p>
-Frozen MOMENT-1 embeddings were used as supplementary features, reducing mixed-cohort total-score MAE by 0.71 points (from {v2_mixed.mean():.2f} to {fm_mixed.mean():.2f}; p&nbsp;=&nbsp;{fmt_p(p_fm_v2)}). Full analysis is provided in Supplementary S2.
+The 22-configuration sensor span study provides a clinical deployment roadmap. Three findings are notable. First, the 5-sensor minimal set (lower back, bilateral wrists, bilateral ankles) is non-inferior to the full 13-sensor configuration across all three targets, establishing it as a safe reduced-sensor recommendation. Second, 4 extremity sensors (wrists+ankles) are statistically superior to 13 sensors for total UPDRS-III prediction. This counterintuitive result reflects that arm swing and ankle kinematics captured by extremity sensors are informationally dense for overall motor severity, while trunk/thigh/shank sensors add marginal signal alongside substantial feature noise that degrades downstream selection with K=500. Third, a single lower back sensor suffices for the directly observable subscore (T1) but fails for total UPDRS-III, where extremity information is essential for predicting partially observable items (hand movements, tremor).
 </p>
 
-<h3>3.5 Comparison with Prior Art</h3>
+<p>
+The FM decomposition analysis resolves the apparent paradox of reduced sensor sets outperforming the full configuration. FM embeddings are largely redundant with handcrafted features: FM-only prediction produces random output (CCC&nbsp;&approx;&nbsp;&minus;0.01). FM contributes meaningfully only for wrists+ankles on T3 (&Delta;CCC&nbsp;=&nbsp;+0.058), where the limited handcrafted feature set benefits from complementary temporal representations. This target-specificity of FM suggests that frozen foundation models are most valuable precisely when handcrafted features are constrained by limited sensor coverage.
+</p>
+
+<h3>3.5 Foundation Model Paradigm</h3>
+
+<p>
+Frozen MOMENT-1 embeddings were used as supplementary features, reducing mixed-cohort total-score MAE by 0.71 points (from {v2_mixed.mean():.2f} to {fm_mixed.mean():.2f}; p&nbsp;=&nbsp;{fmt_p(p_fm_v2)}). The sensor span analysis (Section 2.6) reveals that FM contribution is target- and configuration-specific rather than universal: FM helps only when handcrafted features are constrained by limited sensor coverage. Full analysis is provided in Supplementary S2.
+</p>
+
+<h3>3.6 Comparison with Prior Art</h3>
 
 <p>
 Our T3 ordinal ranking result (MAE&nbsp;=&nbsp;{ssl_5t3.get('mae', 0):.2f}, N={ssl_5t1.get('n', 95)}, 5-fold CV) compares favorably with Hssayeni et&nbsp;al. (MAE&nbsp;=&nbsp;5.95, N=24, LOOCV) and Shuqair et&nbsp;al. (MAE&nbsp;~&nbsp;5.65, N=24, LOOCV) on 4x more subjects with controlled gait rather than free-living ADL. However, these comparisons are necessarily cross-dataset. Importantly, prior work reported only r and MAE; CCC was not available for comparison. We suggest that future UPDRS regression studies report CCC alongside calibration slope and MAE, since r alone ignores calibration and MAE alone ignores discrimination.
 </p>
 
-<h3>3.6 The Compression Problem in Small-N Clinical Regression</h3>
+<h3>3.7 The Compression Problem in Small-N Clinical Regression</h3>
 
 <p>
 The compression problem is general to small-N clinical regression: when training data is limited, gradient-boosted models minimize expected loss by shrinking predictions toward the population mean. Our baseline demonstrates this concretely: T3 calibration slope = {p0_t3.get('cal_slope', 0.104):.3f} (predictions span only {p0_t3.get('cal_slope', 0.104) * 100:.0f}% of the true range), Q1 overpredicted by +{p0_t3_q1_bias:.0f} points, Q4 underpredicted by {p0_t3_q4_bias:.0f} points. MAE&nbsp;=&nbsp;{p0_t3.get('mae', 8.086):.2f} appears reasonable, but CCC&nbsp;=&nbsp;{p0_t3.get('ccc', 0.186):.3f} indicates poor agreement caused by severe range compression and miscalibration. Ordinal ranking increases slope to {ssl_5t3.get('cal_slope', 0.581):.3f}, partially solving this fundamental challenge.
 </p>
 
-<h3>3.7 Limitations</h3>
+<h3>3.8 Limitations</h3>
 
 <p>
-(1) Results are from a single dataset; cross-dataset validation is needed. (2) All recordings are controlled gait, not free-living. (3) Medication state was not controlled. (4) HC were older than PD (74.6 vs 66.9 years); sensitivity analysis with age-matched HC confirms results are robust (Section 2.5). (5) N&nbsp;=&nbsp;{ssl_5t1.get('n', 95)} PD subjects limits statistical power. (6) The three-level observability classification involves judgment calls for partially observable items. (7) This is cross-sectional; longitudinal change detection may differ. (8) The subscore-specific MCID has not been established; our MCID references apply to total UPDRS-III only. (9) The ordinal ranking Stage 1 uses a transductive design; although ablation confirms this does not inflate results, it limits the method to batch prediction. (10) 23 PD subjects (24%) had deep brain stimulation; DBS alters gait kinematics and may confound predictions. DBS subjects tended to have higher motor severity scores, but the small subgroup size (N=23) precluded meaningful stratified analysis.
+(1) Results are from a single dataset; cross-dataset validation is needed. (2) All recordings are controlled gait, not free-living. (3) Medication state was not controlled. (4) HC were older than PD (74.6 vs 66.9 years); sensitivity analysis with age-matched HC confirms results are robust (Section 2.5). (5) N&nbsp;=&nbsp;{ssl_5t1.get('n', 95)} PD subjects limits statistical power. (6) The three-level observability classification involves judgment calls for partially observable items. (7) This is cross-sectional; longitudinal change detection may differ. (8) The subscore-specific MCID has not been established; our MCID references apply to total UPDRS-III only. (9) The ordinal ranking Stage 1 uses a transductive design; although ablation confirms this does not inflate results, it limits the method to batch prediction. (10) 23 PD subjects (24%) had deep brain stimulation; DBS alters gait kinematics and may confound predictions. DBS subjects tended to have higher motor severity scores, but the small subgroup size (N=23) precluded meaningful stratified analysis. (11) The sensor span study evaluated a fixed K=500 for all configurations; per-configuration K optimization might further differentiate sensor sets. (12) The FM decomposition data comes from 5-fold screening, not the 10&times;5-fold repeated CV used for the primary non-inferiority tests.
 </p>
 
-<h3>3.8 Future Directions</h3>
+<h3>3.9 Future Directions</h3>
 
 <p>
-Five directions are most promising. First, longitudinal within-subject tracking using the observable subdomain. Second, cross-dataset transfer to validate the ordinal ranking mechanism and observability gradient. Third, the 5-to-2 sensor reduction pathway; competitive wrist-only performance suggests smartwatch-based monitoring may be feasible. Fourth, establishing a subscore-specific MCID. Fifth, multi-site validation to assess generalizability across clinical settings.
+Six directions are most promising. First, prospective validation of the 4&ndash;5 sensor deployment pathway using wrist-worn devices and a single lower back sensor in clinical settings. Second, longitudinal within-subject tracking using the observable subdomain to assess treatment response. Third, cross-dataset transfer to validate the ordinal ranking mechanism and observability gradient. Fourth, establishing a subscore-specific MCID for the directly observable motor subscore. Fifth, multi-site validation to assess generalizability across clinical settings. Sixth, head-to-head comparison of FM versus fine-tuned temporal encoders with the reduced sensor sets, given the target-specific FM contribution pattern identified in this study.
 </p>
 
 <!-- METHODS -->
@@ -2732,25 +3182,32 @@ T1 (direct observable): sum of items 9&ndash;14 (each 0&ndash;4, range 0&ndash;2
 
 <h3>4.6 Evaluation Protocol</h3>
 
+
 <p>
 <em>PD-only 5-fold stratified CV</em> (N={ssl_5t1.get('n', 95)}): stratified by target quartiles. Used as the primary evaluation for all main results. Within each outer fold, Stage 1 ranking is fit on all N={N_ANALYZED} subjects (transductive); Stage 2 regression, feature selection, and early stopping are fit exclusively on the training fold PD subjects. <em>PD-only LOOCV</em> (N={ssl_t1.get('n', 94)}): leave-one-PD-subject-out with identical protocol. Used as sensitivity analysis (Supplementary S5). <em>PD-only 10-split CV</em> (N=98): stratified by UPDRS bins, seeds 1&ndash;10. Used for foundation model ablation and sensor ablation (Supplementary S2&ndash;S3). All protocols are explicitly labeled in tables and figures. Subject counts vary slightly across analyses (N=89&ndash;98 PD) due to item-level missingness: analyses requiring specific UPDRS items exclude subjects missing those items. Because sensitivity analyses (age matching, HC ablation, observability decomposition) use distinct subject subsets and random seeds, the same target (e.g., T1 observable subscore) may yield slightly different CCC values across tables; each table reports the result from its specific analysis scope.
 </p>
 
-<h3>4.7 Three-Level Observability Classification</h3>
+<h3>4.7 Sensor Span Study</h3>
+
+<p>
+Twenty-two sensor configurations spanning 1 to 13 sensors were evaluated. FM embeddings were re-extracted per sensor configuration (only channels corresponding to the selected sensors), eliminating information leakage from absent sensors. Initial screening used 5-fold CV. Four key configurations (all_13, lower_back_1, minimal_5, wrists_ankles_4) underwent 10&times;5-fold repeated nested CV (50 held-out evaluations). Non-inferiority was assessed via one-sided Nadeau-Bengio corrected resampled t-tests with a pre-specified margin of &delta;&nbsp;=&nbsp;0.05 CCC. Correction factor: 1/n + test_frac/(1 &minus; test_frac) = 0.35 where n&nbsp;=&nbsp;10 repeats and test_frac&nbsp;=&nbsp;0.2. Superiority was assessed when non-inferiority was established. FM decomposition compared v2-only, FM-only, and v2+FM combined CCC for each configuration.
+</p>
+
+<h3>4.8 Three-Level Observability Classification</h3>
 
 <p>
 <em>Directly observable</em> (items 3.9&ndash;3.14): arising, gait, freezing, postural stability, posture, body bradykinesia&mdash;motor signs directly expressed during ambulation. <em>Partially observable</em> (3.5&ndash;3.8, 3.15&ndash;3.17): hand movements, pronation-supination, toe tapping, leg agility, postural/kinetic/rest tremor&mdash;limb items indirectly reflected in gait. <em>Not observable</em> (3.1&ndash;3.4, 3.18): speech, facial expression, rigidity (neck + extremities), finger tapping, tremor constancy. Direct + partial + unobservable = total (reconstruction error = 0.0).
 </p>
 
-<h3>4.8 Statistical Analysis</h3>
+<h3>4.9 Statistical Analysis</h3>
 
 <p>
-Primary metric: Lin's CCC<sup>8</sup>. BCa bootstrap CIs (N=10,000, stratified by group). Model comparisons: paired bootstrap for LOOCV, Wilcoxon signed-rank for multi-split. Multiple comparison correction: Holm-Bonferroni. Effect sizes: Cohen's d. MCID: 3.25 points for improvement, 4.63 for worsening (Horvath 2015)<sup>2</sup>, applied as contextual benchmark. Bland-Altman for systematic bias. Partial correlation controlling for age and disease duration.
+Primary metric: Lin's CCC<sup>8</sup>. BCa bootstrap CIs (N=10,000, stratified by group). Model comparisons: paired bootstrap for LOOCV, Wilcoxon signed-rank for multi-split. Sensor non-inferiority: Nadeau-Bengio corrected resampled t-test with pre-specified &delta;&nbsp;=&nbsp;0.05 CCC (Section&nbsp;4.7). Multiple comparison correction: Holm-Bonferroni. Effect sizes: Cohen's d. MCID: 3.25 points for improvement, 4.63 for worsening (Horvath 2015)<sup>2</sup>, applied as contextual benchmark. Bland-Altman for systematic bias. Partial correlation controlling for age and disease duration.
 </p>
 
 {_tableP1_hyperparams()}
 
-<h3>4.9 Code and Data Availability</h3>
+<h3>4.10 Code and Data Availability</h3>
 
 <p>
 WearGait-PD is available on Synapse (syn55052683)<sup>9</sup>. Analysis code will be available at [repository URL].
@@ -3880,7 +4337,7 @@ def main():
         print(f"  SSL T3 (LOOCV): CCC={d.ssl_t3.get('ccc', 'N/A')}, MAE={d.ssl_t3.get('mae', 'N/A')}")
     print(f"  Demographics: {d.demo_pd.get('n', 'N/A')} PD, {d.demo_hc.get('n', 'N/A')} HC")
 
-    print("\n[2/5] Generating 10 main figures + 6 appendix figures...")
+    print("\n[2/5] Generating 13 main figures + 6 appendix figures...")
     figures = {}
 
     fig_generators = [
@@ -3894,6 +4351,9 @@ def main():
         ("fig8", "Quartile bias reduction", lambda: fig8_quartile_bias(d)),
         ("fig9", "FM impact (10-split)", lambda: fig9_fm_impact()),
         ("fig10", "Cross-dataset comparison", lambda: fig10_cross_dataset(d)),
+        ("fig11", "Sensor Pareto frontier", lambda: fig11_sensor_pareto(d)),
+        ("fig12", "Sensor non-inferiority", lambda: fig12_sensor_noninferiority(d)),
+        ("fig13", "FM decomposition", lambda: fig13_fm_decomposition(d)),
         ("figA", "Decision tree ensemble (appendix)", lambda: figA_decision_tree_ensemble()),
         ("figB", "MSE vs MAE loss (appendix)", lambda: figB_mse_vs_mae()),
         ("figC", "Feature selection (appendix)", lambda: figC_feature_selection()),
