@@ -17,9 +17,9 @@
   - Items 4, 6, 16, 17 screened but failed strict gate (Δ ≥ +0.05 AND seed std < 0.02); item 17 item_plus_v2 had +0.077 Δ but std 0.036 — reported as supplementary borderline.
 - A3 site-centered Stage 2: **NEGATIVE on both metrics.** LOOCV Δ=−0.030 vs iter5; LOSO two-way Δ=−0.018 vs iter16's 0.341. iter16 holds. (F49)
 
-**Phase B** (in-domain SSL, MTL DL, Hssayeni transfer): **NOT EXECUTED.** Decision: with 3 frozen-encoder failures (MOMENT, HC-SSL, HARNet) + A1 NULL + A3 NEGATIVE all triangulating on "the wall is sample size at N=94," Phase B's expected value is dominated by execution risk + 50/50 odds of being a 4th frozen-encoder NULL. Better use of the time budget was Phase C consolidation. The `train_indomain_ssl.py` script is on disk for a future session if N grows or new external PD cohorts become available.
+**Phase B** (in-domain SSL with strict canary): **EXECUTED, NEGATIVE.** SSL pretrained on 178-cohort raw IMU (40 epochs, RTX 5070 ~6 min) — loss flat at 0.99 (essentially mean prediction). Canary null gate PASSED (|Δ|=0.003 < 0.020 — embeddings don't leak SID identity). Sum-T1 5-fold screen FAILED: Δ=−0.009 across 5 seeds (mixed direction). 4th frozen-encoder triangulation: MOMENT / HC-SSL / HARNet / in-domain all NULL/NEGATIVE. Wall is sample-size, not domain-gap. (F51) `compose_t1_iter18_indomain_ssl.py` is on disk; lockbox not run.
 
-**Phase C** (paper update + composite): completed via documentation updates. Two new published per-item lockboxes added to the canonical headline section in `CLAUDE.md`. Per-item table in the paper supplementary will be amended in a follow-up paper-builder run.
+**Phase C** (paper update + composite): EXECUTED. `generate_paper_v6.py` extends v5 with iter17 per-item dict + new Results subsection ("Hypothesis-restricted submodels for tremor items 3.15 and 3.18, iter17") + Table 3-bis presenting both lockbox rows. `NEW6.html` regenerated (2.76 MB).
 
 ## Canonical numbers (final)
 

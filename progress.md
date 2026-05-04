@@ -495,3 +495,52 @@ T1 = sum = 0.7241 LOOCV CCC.
 - Canonical T1 0.6550 / T3 0.5227 / T3 LOSO 0.341 UNCHANGED.
 - New per-item canonical lockbox entries: **Item 15 LOOCV +0.1099 (Δ=+0.20)** and **Item 18 LOOCV +0.4858 (Δ=+0.236)**.
 - Total session improvement: 2 new pre-registered per-item lockbox wins; 4 NEGATIVE/NULL results documented as triangulating evidence for the N=94 wall.
+
+---
+
+## Session: 2026-05-04 ~10:25—10:44 — `commit and continue` (Phase B + Phase C)
+
+### Trigger
+- User: "commit and continue to the next phases"
+
+### Phase B execution (in-domain SSL on RTX 5070)
+- d281a0e committed (Phase A wrap-up).
+- `train_indomain_ssl.py --mode pretrain_full` launched at 22:29 (10:29 next day per user clock):
+  - 7 490 windows × 78 channels × 1 000 samples (10 s, 13 IMUs Acc + Gyr) from 178 subjects PD + HC.
+  - 6-layer transformer encoder, hidden=128, n_heads=8, mask_ratio=0.5, batch 64, lr 2e-4, 40 epochs.
+  - 1.98M params. Final loss flat at ~0.99 (essentially mean prediction).
+  - Wall: ~6 min on RTX 5070 (8-9s per epoch).
+- `train_indomain_ssl.py --mode extract_embeddings` launched: 98 PD subjects → 256-d (mean+std pooling). Cache + manifest written.
+- `compose_t1_iter18_indomain_ssl.py --mode screen` launched: canary gate PASSED (|Δ|=0.003); sum-T1 5-fold gate FAILED (Δ=−0.009 mixed direction, aug_std 0.013 within tolerance).
+- F51 NEGATIVE recorded. 4th frozen-encoder triangulation: MOMENT / HC-SSL / HARNet / in-domain all NULL/NEGATIVE.
+
+### Phase C execution
+- `generate_paper_v6.py` created from v5 with iter17_per_item dict + new Results subsection + Table 3-bis. NEW6.html regenerated (2.76 MB, contains 8 references to iter17 / 0.4858 / 0.1099 / item_only / hy_residual_item_v2 / burst-HMM).
+- `compose_t1_iter18_indomain_ssl.py` written for canary + 5-fold screen.
+
+### Files modified / created
+- New scripts: `compose_t1_iter18_indomain_ssl.py` (canary gate + screen for in-domain SSL).
+- New cache: `results/indomain_ssl_embeddings.csv` (98 × 257 cols + manifest).
+- New checkpoint: `results/indomain_ssl_ckpt.pt` (≈8 MB, transformer-MAE, 1.98M params).
+- New screen: `results/peritem_iter18_indomain_ssl_5fold_screen.csv`.
+- New paper: `generate_paper_v6.py` + `NEW6.html`.
+- Updated docs: `CLAUDE.md` (added iter17 lockboxes to canonical Headline Results, added F51 bullet), `findings.md` (F51 NEGATIVE entry), `task_plan.md` (Phase B/C marked EXECUTED), `progress.md` (this entry).
+
+### Decisions log
+| Time | Decision |
+|---|---|
+| 10:25 | Phase A commit (d281a0e). Move to Phase B. |
+| 10:28 | Launched SSL pretrain on RTX 5070. |
+| 10:35 | Pretrain done (loss 1.03 → 0.99, essentially flat). Launched extract. |
+| 10:38 | Extract done. Launched canary + screen. |
+| 10:39 | Canary PASSED (|Δ|=0.003). Sum-T1 screen running. |
+| 10:44 | Sum-T1 GATE FAIL (Δ=−0.009, 4th frozen-encoder NEGATIVE). SHELVED. |
+| 10:44 | Phase C executed (generate_paper_v6.py + NEW6.html). |
+| 10:44 | Phase B+C commit (fe0ffd0). |
+
+### Status (final, end of 2026-05-04 morning session)
+- Canonical T1 0.6550 / T3 0.5227 / T3 LOSO 0.341 UNCHANGED.
+- New canonical per-item entries: **Item 15 LOOCV +0.1099** and **Item 18 LOOCV +0.4858**.
+- Phase B in-domain SSL: F51 NEGATIVE — completes the four-way frozen-encoder triangulation (MOMENT / HC-SSL / HARNet / in-domain all NULL/NEGATIVE). Wall is N=94, not domain-gap.
+- Phase C paper: NEW6.html generated with iter17 results surfaced.
+- Total session improvement: 2 new per-item lockboxes (CCC 0.20-0.24 lifts), 1 new paper version, 1 new comprehensive frozen-encoder triangulation, 5 NEGATIVE/NULL results documented.

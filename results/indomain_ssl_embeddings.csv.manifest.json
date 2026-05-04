@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "produced_by": "train_indomain_ssl.py",
+  "script_sha256": "79d9cd109b84b46b4b6194796a2481b8eb70dd02747a4ff073081c9be3b98a63",
+  "iso_datetime": "2026-05-04T10:39:52.777795+00:00",
+  "data_sha256": "35bbc8dd9c6ae4a1d62240e66e827a8825d5a5f3af271b641f31120d9cd3594a",
+  "ckpt_sha256": "b56b50aad4c3508347de57a049c67044b81cb6f627a69847144f0a7f7ca90eca",
+  "n_subjects": 98,
+  "n_features": 256,
+  "labels_used": false,
+  "leakage_status": "in_domain_pretrain_full_with_canary_required",
+  "leakage_argument": "SSL pretraining on 178-cohort raw IMU windows used NO labels. The encoder is frozen at extraction time. The leakage risk is that the encoder's representation memorizes test-subject-specific raw-signal identity; this is verified at downstream fit time via the canary-feature null gate. WITHOUT the canary gate passing, this cache MUST NOT feed any inductive headline.",
+  "downstream_canary_gate_required": true
+}

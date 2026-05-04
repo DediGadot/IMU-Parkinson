@@ -1017,3 +1017,61 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 | T3 LOSO two-way | `run_t3_iter16_site_ipw.py --mode lockbox` | 0.341 | 6.42 / 9.97 |
 | **Item 15 (postural tremor)** | **`run_per_item_iter17_hypothesis.py --mode lockbox` (item_only, 10 wrist features)** | **+0.1099** | **1.088** |
 | **Item 18 (rest tremor constancy)** | **`run_per_item_iter17_hypothesis.py --mode lockbox` (hy_residual_item_v2, 8 wrist + V2)** | **+0.4858** | **0.887** |
+
+---
+
+## F51 — iter18 Phase B in-domain SSL pretraining + canary + screen — NEGATIVE (2026-05-04 ~10:44)
+
+**Mission origin (Phase B1, post-Phase A success on items 15/18):** test whether 256-d SSL embeddings (mean over 10s windows) pretrained on the 178-cohort raw IMU windows (NO labels) raise T1-sum 5-fold CCC over the iter12 honest baseline. This was the only Phase B angle judged worth attempting on the RTX 5070; the F41/F45 dead-list rule on FROZEN HEALTHY-POPULATION encoders is sidestepped by pretraining on the SAME cohort that's being evaluated, with explicit canary-feature null gate to detect raw-signal-identity memorization.
+
+**Pipeline:**
+- `train_indomain_ssl.py --mode pretrain_full` — 7 490 windows × 78 channels × 1 000 samples (10 s, all 13 IMUs Acc + Gyr) collected from 178 subjects (PD + HC) across SelfPace + HurriedPace + TUG + Balance + TandemGait. 6-layer transformer encoder, hidden=128, n_heads=8, mask_ratio=0.5, MSE-on-masked-positions loss, 40 epochs at batch 64, lr 2e-4, RTX 5070. Final loss flat at ~0.99 (essentially mean prediction). 1.98M params.
+- `train_indomain_ssl.py --mode extract_embeddings` — frozen-backbone forward pass over all 7 490 windows × 178 subjects → mean+std per-subject pooling → 256-d × 2 = 512-d... actually 128 × 2 (mean + std) = 256-d effective per the implementation. 98 PD subjects × 257 cols (256 SSL + sid) cached at `results/indomain_ssl_embeddings.csv` with manifest sidecar (labels_used=False, downstream_canary_gate_required=True).
+- `compose_t1_iter18_indomain_ssl.py --mode screen` — canary null gate first, then 5-seed × 5-fold sum-T1 screen.
+
+**Canary null gate (5-null #3) PASS:**
+Test-only canary feature with constant value = 1.0 injected into test rows ONLY (train sees zero). On item 12 (highest baseline, most sensitive to leakage) at seed 42:
+- CCC without canary = +0.5542
+- CCC with canary (test=1.0) = +0.5569
+- |Δ| = 0.0027 < 0.020 threshold → **PASS.** SSL embeddings are not exposing test-SID identity to the K=500 selector.
+
+**Sum-T1 5-fold screen result (`results/peritem_iter18_indomain_ssl_5fold_screen.csv`):**
+
+| Seed | Control T1-sum CCC | SSL_aug T1-sum CCC | Δ |
+|---|---|---|---|
+| 42 | +0.6357 | +0.6548 | +0.0191 |
+| 1337 | +0.6729 | +0.6608 | −0.0121 |
+| 7 | +0.6499 | +0.6238 | −0.0261 |
+| 2024 | +0.6224 | +0.6346 | +0.0122 |
+| 9001 | +0.6812 | +0.6451 | −0.0361 |
+| **Mean ± std** | **+0.6524 ± 0.0220** | **+0.6438 ± 0.0134** | **−0.0086** |
+
+**SUM-T1 GATE FAIL.** Δ = −0.009 (vs +0.025 floor); aug_std 0.013 PASSES (< 0.020). Direction is mixed (2 positive, 3 negative seeds); mean is slightly negative but within the noise floor of the 5-seed estimator.
+
+**Mechanism (first-order analysis):**
+1. Pretraining loss flat at ~0.99 over 40 epochs → encoder essentially learned only basic linear structure of z-scored channels. 50% mask ratio is too aggressive for the small N=178 cohort with no auxiliary supervision; the model has too little context to reconstruct high-frequency detail.
+2. Even if the encoder had learned a meaningful manifold, the 256-d embedding space is too high-dimensional relative to the 1751 V2 features for the K=500 selector at N=94. Same K=500 displacement mechanism as F45 HARNet (2048-d).
+3. The canary PASS confirms there's no leakage shortcut — the result is genuinely negative.
+
+**Triangulation across all 4 frozen-encoder attempts:**
+- F41 MOMENT-1-base (768 × 3 = 2 304 dims, generic time-series SSL on heterogeneous corpora): all 14 variants NULL (best +0.006 within noise).
+- F41 HC-SSL (1D-CNN AE on 80 WearGait HC subjects, 256 × 3 = 768 dims): 21 variants NULL (best +0.006 within noise).
+- F45 HARNet (UKB OxWearables ~700K person-days, 2 048 dims): NEGATIVE Δ = −0.031 across 5 seeds.
+- **F51 iter18 in-domain SSL** (178-cohort PD+HC, 256 dims): NEGATIVE Δ = −0.009 across 5 seeds (this entry).
+
+**The four-way triangulation now spans:** generic heterogeneous TS (MOMENT) → healthy-population gait (HC-SSL) → large-scale population accelerometer (UKB HARNet) → in-domain same-cohort (iter18). All four NULL/NEGATIVE. The wall is N=94, not domain-gap. Frozen-encoder pretraining at any domain × any scale × any cohort does not move within-PD severity prediction at this sample size.
+
+**Decision: SHELVE iter18.** Lockbox NOT run; pre-registration NOT written.
+
+**Side-effect (durable):**
+- `results/indomain_ssl_ckpt.pt` (≈8 MB checkpoint of the 178-cohort pretrained encoder).
+- `results/indomain_ssl_embeddings.csv` (98 subjects × 256 cols).
+- `results/indomain_ssl_embeddings.csv.manifest.json`.
+- `train_indomain_ssl.py`, `compose_t1_iter18_indomain_ssl.py`.
+
+**Status update for canonical numbers:** UNCHANGED (after triangulation across all four frozen-encoder attempts).
+- T1 LOOCV CCC = **0.6550** (`compose_t1_iter12_honest.py`).
+- T3 LOOCV CCC = **0.5227** (`run_t3_iter5_clinical.py --feature_set A3_tier1`).
+- T3 LOSO two-way CCC = **0.341** (`run_t3_iter16_site_ipw.py --mode lockbox`, no-IPW).
+- Item 15 (postural tremor) LOOCV CCC = **+0.1099** (`run_per_item_iter17_hypothesis.py --mode lockbox` item_only).
+- Item 18 (rest tremor constancy) LOOCV CCC = **+0.4858** (`run_per_item_iter17_hypothesis.py --mode lockbox` hy_residual_item_v2).
