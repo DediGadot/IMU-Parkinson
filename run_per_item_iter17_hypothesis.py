@@ -65,7 +65,10 @@ from run_per_item_v2 import load_data
 
 ITEM_CACHE = RESULTS_DIR / "item_specific_features.csv"
 ITEM_MANIFEST = RESULTS_DIR / "item_specific_features.csv.manifest.json"
-TARGET_ITEMS = [4, 6, 15, 16, 17, 18]
+# Items 4, 6, 15, 18 already screened in iter17 (2026-05-03); items 7, 8 new in
+# T3 push 2026-05-04 (iter19). Items 16, 17 retried in case extended cache shifts
+# behavior. Items 15 and 18 wins preserved in existing OOF .npy files (not re-run).
+TARGET_ITEMS = [7, 8, 16, 17]
 SEEDS = [42, 1337, 7, 2024, 9001]
 LOCKBOX_SEEDS = [42, 1337, 7]
 
@@ -74,6 +77,8 @@ LOCKBOX_SEEDS = [42, 1337, 7]
 BASELINE_CCC: dict[int, float] = {
     4: 0.08,
     6: -0.04,
+    7: 0.27,   # toe-tap surrogate; iter5 5-fold mean from CLAUDE.md per-item table
+    8: 0.26,   # leg-agility surrogate; iter5 5-fold mean
     15: -0.09,
     16: 0.08,
     17: 0.14,

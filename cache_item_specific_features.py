@@ -1,4 +1,4 @@
-"""Cache hypothesis-restricted features for items {4, 6, 17, 18, 15, 16}.
+"""Cache hypothesis-restricted features for items {4, 6, 7, 8, 15, 16, 17, 18}.
 
 Phase A2 of the 100x researcher CCC-push (2026-05-03 PM, see task_plan.md
 ACTIVE MISSION). The V2 feature set pools across the whole body and the whole
@@ -59,6 +59,28 @@ Per-item recipes (clinically grounded; sized at 12-32 features each):
       number of bursts; L–R asymmetry)
     - ~12 features (i18_*)
 
+  Item 7 (toe tap surrogate via foot Acc-Z during gait swing, 2026-05-04 add):
+    - Sensors: L_Foot, R_Foot
+    - Channels: Acc_Z (vertical at foot, captures heel strike + toe-off
+      asymmetries), FreeAcc_Z, Gyr_Y (sagittal pitch during stance/swing)
+    - Tasks: SelfPace + HurriedPace + their _mat variants
+    - Time window: full task; per-stride aggregation via Acc_Z peak detection
+    - Features: per-stride Acc_Z peak amplitude (mean, std, IQR), cadence
+      regularity (CV of inter-stride interval), per-stride peak Gyr_Y,
+      fatigability slope of stride amplitude, 1-3 Hz bandpower of Acc_Z,
+      L/R unsigned asymmetry of bandpower
+    - ~16 features (i7_*)
+
+  Item 8 (leg agility surrogate via shank Gyr_Y swing amplitude, 2026-05-04 add):
+    - Sensors: L_Shank, R_Shank (also called L_LowerLeg / R_LowerLeg)
+    - Channels: Gyr_Y (sagittal pitch — primary swing axis), Acc magnitude
+    - Tasks: SelfPace + HurriedPace + their _mat variants
+    - Features: per-swing peak Gyr_Y amplitude (mean, std, p95), fatigability
+      slope (Gyr_Y peak across stride index), Acc magnitude std, L/R unsigned
+      asymmetry of swing amplitude, cadence regularity, 0.5-2.5 Hz bandpower
+      of Gyr_Y
+    - ~12 features (i8_*)
+
 Total per subject ≈ 16 + 24 + 12 + 12 + 24 + 12 = 100 features.
 
 Aggregated per subject by mean across recordings (NaN-safe).
@@ -102,6 +124,8 @@ FS = 100  # Hz
 
 ITEM4_TASKS = {"SelfPace", "SelfPace_mat", "HurriedPace", "HurriedPace_mat"}
 ITEM6_TASKS = {"TUG", "TUG_mat"}
+ITEM7_TASKS = {"SelfPace", "SelfPace_mat", "HurriedPace", "HurriedPace_mat"}
+ITEM8_TASKS = {"SelfPace", "SelfPace_mat", "HurriedPace", "HurriedPace_mat"}
 ITEM15_TASKS = {"Balance", "Balance_mat"}
 ITEM16_TASKS = {"TandemGait", "TandemGait_mat"}
 ITEM17_TASKS = {"Balance", "Balance_mat"}
@@ -428,10 +452,136 @@ def _features_item18(df: pd.DataFrame, task: str) -> dict:
     return feats
 
 
+def _peak_amp_per_stride(x: np.ndarray, fs: int = FS) -> tuple[float, float, float, float]:
+    """Detect per-stride peaks of |x|; return (mean_peak, std_peak, p95_peak, fatigability_slope).
+    Stride detection: find peaks in |x| separated by at least 0.4 s (min stride period)
+    and at least 0.5σ above mean. Robust at N stride < 4.
+    """
+    n = x.size
+    if n < int(2 * fs):
+        return float("nan"), float("nan"), float("nan"), float("nan")
+    z = np.abs(x - np.nanmedian(x))
+    if not np.any(np.isfinite(z)):
+        return float("nan"), float("nan"), float("nan"), float("nan")
+    z = np.nan_to_num(z, nan=0.0)
+    thr = float(np.nanmean(z) + 0.5 * np.nanstd(z))
+    min_dist = int(0.4 * fs)
+    peaks: list[int] = []
+    last = -min_dist
+    i = 1
+    while i < n - 1:
+        if z[i] > thr and z[i] > z[i - 1] and z[i] >= z[i + 1] and (i - last) >= min_dist:
+            peaks.append(i)
+            last = i
+        i += 1
+    if len(peaks) < 3:
+        return float("nan"), float("nan"), float("nan"), float("nan")
+    amps = z[peaks]
+    mean_p = float(np.mean(amps))
+    std_p = float(np.std(amps))
+    p95_p = float(np.percentile(amps, 95))
+    if len(amps) >= 4:
+        xs = np.arange(len(amps), dtype=np.float64)
+        slope = float(np.polyfit(xs, amps, 1)[0])
+    else:
+        slope = float("nan")
+    return mean_p, std_p, p95_p, slope
+
+
+def _cadence_regularity(x: np.ndarray, fs: int = FS) -> float:
+    """CV of inter-peak intervals (proxy for cadence regularity). Lower = more regular."""
+    n = x.size
+    if n < int(2 * fs):
+        return float("nan")
+    z = np.abs(x - np.nanmedian(x))
+    z = np.nan_to_num(z, nan=0.0)
+    thr = float(np.nanmean(z) + 0.5 * np.nanstd(z))
+    min_dist = int(0.4 * fs)
+    peaks: list[int] = []
+    last = -min_dist
+    i = 1
+    while i < n - 1:
+        if z[i] > thr and z[i] > z[i - 1] and z[i] >= z[i + 1] and (i - last) >= min_dist:
+            peaks.append(i)
+            last = i
+        i += 1
+    if len(peaks) < 4:
+        return float("nan")
+    intervals = np.diff(peaks).astype(np.float64) / fs
+    if not np.all(np.isfinite(intervals)) or np.mean(intervals) <= 0:
+        return float("nan")
+    return float(np.std(intervals) / np.mean(intervals))
+
+
+def _features_item7(df: pd.DataFrame, task: str) -> dict:
+    """Toe tap surrogate via foot Acc-Z swing dynamics during gait."""
+    if task not in ITEM7_TASKS:
+        return {}
+    feats = {}
+    bp_lr = {}
+    amp_lr = {}
+    for sen in ("L_DorsalFoot", "R_DorsalFoot"):
+        az = _safe_get(df, f"{sen}_Acc_Z")
+        if az is not None and az.size >= int(2 * FS):
+            mean_p, std_p, p95_p, slope = _peak_amp_per_stride(az)
+            feats[f"i7_{sen}_acc_z_pk_mean"] = mean_p
+            feats[f"i7_{sen}_acc_z_pk_std"] = std_p
+            feats[f"i7_{sen}_acc_z_pk_p95"] = p95_p
+            feats[f"i7_{sen}_acc_z_pk_fat"] = slope
+            feats[f"i7_{sen}_acc_z_cadreg"] = _cadence_regularity(az)
+            feats[f"i7_{sen}_acc_z_bp_1_3hz"] = _bandpower(az, 1.0, 3.0)
+            bp_lr[sen] = feats[f"i7_{sen}_acc_z_bp_1_3hz"]
+            amp_lr[sen] = mean_p
+        gy = _safe_get(df, f"{sen}_Gyr_Y")
+        if gy is not None and gy.size >= int(2 * FS):
+            mean_g, std_g, _, _ = _peak_amp_per_stride(gy)
+            feats[f"i7_{sen}_gyr_y_pk_mean"] = mean_g
+            feats[f"i7_{sen}_gyr_y_pk_std"] = std_g
+    if "L_DorsalFoot" in bp_lr and "R_DorsalFoot" in bp_lr:
+        feats["i7_LR_asym_bp"] = float(abs(bp_lr["L_DorsalFoot"] - bp_lr["R_DorsalFoot"]))
+        feats["i7_LR_max_bp"] = float(max(bp_lr["L_DorsalFoot"], bp_lr["R_DorsalFoot"]))
+    if "L_DorsalFoot" in amp_lr and "R_DorsalFoot" in amp_lr and np.isfinite(amp_lr["L_DorsalFoot"]) and np.isfinite(amp_lr["R_DorsalFoot"]):
+        feats["i7_LR_asym_amp"] = float(abs(amp_lr["L_DorsalFoot"] - amp_lr["R_DorsalFoot"]))
+    return feats
+
+
+def _features_item8(df: pd.DataFrame, task: str) -> dict:
+    """Leg agility surrogate via shank Gyr-Y swing amplitude during gait."""
+    if task not in ITEM8_TASKS:
+        return {}
+    feats = {}
+    swing_lr = {}
+    for sen in ("L_LatShank", "R_LatShank"):
+        gy = _safe_get(df, f"{sen}_Gyr_Y")
+        if gy is None or gy.size < int(2 * FS):
+            continue
+        mean_p, std_p, p95_p, slope = _peak_amp_per_stride(gy)
+        feats[f"i8_{sen}_gyr_y_pk_mean"] = mean_p
+        feats[f"i8_{sen}_gyr_y_pk_std"] = std_p
+        feats[f"i8_{sen}_gyr_y_pk_p95"] = p95_p
+        feats[f"i8_{sen}_gyr_y_pk_fat"] = slope
+        feats[f"i8_{sen}_gyr_y_cadreg"] = _cadence_regularity(gy)
+        feats[f"i8_{sen}_gyr_y_bp_0p5_2p5hz"] = _bandpower(gy, 0.5, 2.5)
+        swing_lr[sen] = mean_p
+        ax = _safe_get(df, f"{sen}_Acc_X")
+        ay = _safe_get(df, f"{sen}_Acc_Y")
+        az = _safe_get(df, f"{sen}_Acc_Z")
+        if ax is not None and ay is not None and az is not None:
+            v = np.stack([ax, ay, az], axis=1)
+            mag = np.linalg.norm(v - v.mean(axis=0, keepdims=True), axis=1)
+            feats[f"i8_{sen}_acc_mag_std"] = float(np.nanstd(mag))
+    if "L_LatShank" in swing_lr and "R_LatShank" in swing_lr and np.isfinite(swing_lr["L_LatShank"]) and np.isfinite(swing_lr["R_LatShank"]):
+        feats["i8_LR_asym_swing"] = float(abs(swing_lr["L_LatShank"] - swing_lr["R_LatShank"]))
+        feats["i8_LR_max_swing"] = float(max(swing_lr["L_LatShank"], swing_lr["R_LatShank"]))
+    return feats
+
+
 def features_one_recording(df: pd.DataFrame, task: str) -> dict:
     feats = {}
     feats.update(_features_item4(df, task))
     feats.update(_features_item6(df, task))
+    feats.update(_features_item7(df, task))
+    feats.update(_features_item8(df, task))
     feats.update(_features_item15(df, task))
     feats.update(_features_item16(df, task))
     feats.update(_features_item17(df, task))
@@ -494,7 +644,7 @@ def smoke_check(df: pd.DataFrame) -> None:
             f"Too few item-specific features: {len(feat_cols)} (expected 80+)"
         )
     # per-prefix coverage
-    for prefix in ("i4_", "i6_", "i15_", "i16_", "i17_", "i18_"):
+    for prefix in ("i4_", "i6_", "i7_", "i8_", "i15_", "i16_", "i17_", "i18_"):
         cols = [c for c in feat_cols if c.startswith(prefix)]
         if not cols:
             raise RuntimeError(f"No features with prefix {prefix}")
@@ -560,6 +710,8 @@ def write_manifest(out_path: Path, n_subjects: int, n_features: int) -> None:
         "feature_blocks": {
             "i4_": "~16 feats — finger-tap surrogate via wrist arm-swing",
             "i6_": "~24 feats — pronation-supination via wrist Gyr/VelInc in turn windows",
+            "i7_": "~16 feats — toe-tap surrogate via foot Acc-Z swing dynamics",
+            "i8_": "~12 feats — leg-agility surrogate via shank Gyr-Y swing amplitude",
             "i15_": "~12 feats — postural tremor via wrist FreeAcc 4-7 Hz",
             "i16_": "~12 feats — kinetic tremor via wrist jerk 5-8 Hz",
             "i17_": "~24 feats — rest tremor amplitude via wrist Gyr 4-6 Hz",

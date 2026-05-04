@@ -1,11 +1,229 @@
-# Task Plan — Active mission (2026-05-03 PM) + historical archive
+# Task Plan — Active mission (2026-05-04) + historical archive
 
 > **CANONICAL NUMBERS LIVE IN `CLAUDE.md`. THIS FILE'S HEAD IS THE ACTIVE MISSION; BELOW IT IS A HISTORICAL ARCHIVE.**
 > **For the deployable canonical headlines, read `CLAUDE.md` § Headline Results.**
 
 ---
 
-# ACTIVE MISSION — 100x Researcher CCC-push (2026-05-03 PM) — COMPLETE
+# ACTIVE MISSION — Per-Item Gated T3 Push (2026-05-04) — COMPLETE (NEGATIVE RESULT)
+
+## Outcome (final, 2026-05-04 ~13:50)
+
+**Phase B 5-fold gate: FAIL.** Composite per-item gated T3 underperforms iter5 by Δ = −0.107 (composite +0.299 ± 0.020 vs iter5 +0.405 ± 0.036, both at N=94 5-fold). Phase C (LOOCV lockbox) SKIPPED per task plan stopping rule. New canonical T3 not produced.
+
+**5th data point on the N=94 sample-size wall** — see findings.md F53 for full anatomy. Joins F19 sensor-fusion / F44 FoG-summary / F45 HARNet / F48 unused-channels / F51 in-domain SSL on the dead-list of approaches that fail at this sample size. F53 distinct mechanism: variance compounding from summing 18 noisy per-item OOFs — direct iter5 regression captures cross-item shared variance in 9 features (H&Y + cv_yrs + cv_sex + cv_dbs Stage-1 Ridge) more efficiently than 18 separately-fit per-item models.
+
+**Canonical numbers (UNCHANGED from session start):**
+
+| Target | Pipeline | LOOCV CCC | LOOCV MAE |
+|---|---|---|---|
+| T1 (items 9-14) | `compose_t1_iter12_honest.py` | 0.6550 | 1.561 |
+| T3 (total) | `run_t3_iter5_clinical.py --feature_set A3_tier1` | 0.5227 | 7.525 |
+| T3 LOSO two-way | `run_t3_iter16_site_ipw.py --mode lockbox` | 0.341 | 6.42 / 9.97 |
+| Item 15 (postural tremor) | `run_per_item_iter17_hypothesis.py --mode lockbox` (item_only) | +0.1099 | 1.088 |
+| Item 18 (rest tremor constancy) | `run_per_item_iter17_hypothesis.py --mode lockbox` (hy_residual_item_v2) | +0.4858 | 0.887 |
+
+## Decisions log (final)
+
+- 13:48 — Phase A1 5-fold screen complete. Items {1, 2, 3} winners = v2_baseline for all three. LOOCV killed mid-flight (redundant — compose re-fits per item).
+- 13:36 — Phase A2 5-fold screen complete. Items {7, 8, 16, 17} all positive Δ vs published baseline (+0.013 to +0.099) but ALL fail strict std<0.02 gate (zero strict passers). Architecture map encodes iter17 5-fold winners as supplementary.
+- 13:50 — Phase B GATE FAIL. Composite +0.299 vs iter5 +0.405; Δ = −0.107 vs +0.025 floor. Mechanism: variance compounding (gemini's predicted Angle-1 #1).
+- 13:50 — Phase C SKIPPED per stopping rule.
+- 13:55 — Phase D: F53 anatomy in findings.md; no canonical update; paper framing reinforced as cautionary benchmark with 5th N=94 wall data point.
+
+## Lessons (durable for future sessions)
+
+1. **Per-item composition is BOUNDED at N=94 by variance compounding.** Summing 18 per-item OOFs with mean per-item CCC ~0.27 yields composite CCC ≈ 0.30 — the AVERAGE, not the sum or max. Direct T3 regression with 9-feature Stage-1 (H&Y + cv_yrs + cv_sex + cv_dbs) achieves +0.40 5-fold by capturing cross-item shared variance.
+
+2. **The per-item +0.05 / std<0.02 strict gate is hard to clear at N=94 even with positive signal.** Items 8, 16, 17 all had meaningful Δ (+0.05 to +0.10) but std > 0.02 — the borderline regime that gemini's haircut covered. At N=94, individual-item seed-to-seed variance is intrinsically ~0.04, so requiring std < 0.02 is half the noise floor. Sum-level gate (std target 0.020) is achievable but Δ requirement is stricter.
+
+3. **N=94 vs N=98 alignment matters.** iter5's published 0.5227 LOOCV is at N=98 (T3 cohort). Subsetting to N=94 (T1 cohort) drops iter5 to ~+0.40 5-fold. Any per-item composite operating on N=94 inherits this penalty before any added complexity.
+
+4. **The "free signal" item hypothesis was partially correct.** Items 16 (kinetic tremor) and 17 (rest tremor amp) had meaningful per-item Δ vs baseline (+0.10 / +0.08); items 7 (toe-tap) and 8 (leg-agility) were borderline. But these per-item gains do not aggregate into a T3 composite that beats direct regression at this N.
+
+5. **Sensor naming convention:** WearGait-PD raw CSV uses `L_DorsalFoot`/`R_DorsalFoot` (NOT `L_Foot`/`R_Foot`) and `L_LatShank`/`R_LatShank` (NOT `L_Shank`/`R_Shank`). Items 7 and 8 features required this correction.
+
+---
+
+# ARCHIVED PLAN — Per-Item Gated T3 Push (2026-05-04, planning)
+
+**Trigger:** user `/planning-with-files:plan` invocation: "act as the pd-imu-100x-researcher … break the T3 LOOCV CCC ceiling above the canonical 0.5227 (iter5 clinical-augmented hy_residual) WITHOUT data leakage and WITHOUT retrying anything on the dead list."
+
+**Single goal:** new canonical T3 LOOCV CCC > **0.5227** (iter5 baseline). Every other ambition is supporting infrastructure.
+
+**Hard reality:**
+- N=98 PD with total UPDRS-III; per-item OOFs cover N=94 (items 9-14) or up to 89 (some non-T1 items). Composite N is the inner-join across all items used.
+- Bound A (IMU-only oracle T3) = 0.351; iter5 broke it via clinical Stage 1. Further headroom comes from **(a) genuinely NEW external signal** or **(b) per-item decomposition exploiting free-signal items {1, 7, 8, 15, 16, 17, 18}**.
+- Item-15 (postural tremor) and item-18 (rest tremor constancy) iter17 hypothesis-restricted wins ARE NEW external signal (wrist 4-7 Hz tremor features that V2 averaged out). They're already in the per-item OOF inventory.
+- Composite-level cherry-picking is FORBIDDEN (iter11A retraction lesson). The per-item architecture map is pre-registered as a single JSON BEFORE composing the T3 sum.
+
+## CLI Triple-Consult Outcome (2026-05-04 ~12:33)
+
+- **Codex (gpt-5.5 xhigh):** bubblewrap sandbox refused namespaces (same failure as 2026-05-03 PM). Effectively no usable answer.
+- **Gemini (gemini-3.1-pro):** clean 4-angle ranking with predicted Δ + P(gate) + failure mode + recommendation. Saved at `/tmp/gemini_t3_consult.txt`.
+- **glmcode:** not installed locally.
+
+**Gemini's ranking (with the iter11A 50% haircut applied to deltas):**
+
+| Angle | Gemini Δ (5-fold) | P(gate) | Haircut realistic Δ | Recommendation |
+|---|---|---|---|---|
+| 3 — Hypothesis-restricted free items {1, 7, 8, 16, 17} | +0.095 [+0.065, +0.130] | 85% | +0.02 to +0.07 | **RUN (top yield)** |
+| 1 — Per-item gated T3 (sum 18 OOFs) | +0.075 [+0.040, +0.110] | 70% | +0.02 to +0.06 | **RUN** |
+| 4 — Cross-task ridge stack | +0.020 [−0.015, +0.045] | 15% | 0 to +0.02 | SHELVE |
+| 2 — Stage-1 Ridge interactions | −0.015 [−0.050, +0.010] | 5% | −0.02 to +0.01 | SHELVE (DOF death trap at N=98) |
+
+**Convergence:** Angles 1 and 3 share infrastructure. Angle 3's per-item improvements (items 7, 8, 16, 17) feed directly into Angle 1's composite. The plan collapses both into a single coherent mission. Angles 2 and 4 are SHELVED per gemini and the dead-list rule on N=98 over-parameterization.
+
+## Per-item OOF inventory (2026-05-04 ~12:33)
+
+Existing lockboxed `.oof.npy` files in `results/`:
+- Items {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17}: iter8 batch `20260430_143044` (best per-item variant: V2 / hy_residual / item_plus_v2 / lr_multitask / item_dedicated).
+- Item 7 also has `hy_residual_item_insole_20260430_202002` (insole-augmented variant).
+- Item 11: `bagged_cccv2_itemonly` + `item_dedicated`.
+- Item 12: `item_plus_v2_cccv2`.
+- Item 15: iter17 `item_only_20260503_221544` (canonical iter17 win, +0.1099 LOOCV).
+- Item 18: iter17 `hy_residual_item_v2_20260503_221544` (canonical iter17 win, +0.4858 LOOCV) + older `hy_residual_item` + `hy_residual_cccv2`.
+
+**Missing (require fresh OOF):** items {1, 2, 3} — the iter8 batch skipped them per the 2026-04-30 "items 1, 2, 3 confirmed unobservable; cap = hy_residual only" decision. Composite must handle these with a baseline OOF.
+
+## Phase plan (5 phases, gate-driven)
+
+### Phase 0 — Preflight (master, ~30 min)
+- `./gpu.sh --status`: confirm RTX 5070 idle, no in-flight jobs.
+- Re-verify the 21 per-item OOF files load cleanly with `np.load(...)` (length-N==94 or 98).
+- Check `results/per_item_scores.json` covers all 18 items × 178 subjects.
+- Syntax-check candidate scripts with `uv run python -m py_compile run_*.py compose_*.py`.
+
+### Phase A1 — Per-item OOF backfill for items {1, 2, 3} (parallel CPU, ~2h on remote)
+- Author **`run_peritem_t3_backfill.py`**: per-item LOOCV under three architectures {V2_baseline, hy_residual_item, item_plus_v2}; pick architecture per item by 5-fold mean (10 seeds for variance estimate). Pre-register the architecture choice for each of {1, 2, 3} in a single JSON before LOOCV.
+- Run via `./gpu.sh run_peritem_t3_backfill.py --mode lockbox`. Outputs: `lockbox_peritem_{1,2,3}_*_20260504_*.oof.npy`.
+- 5-null gate inheritance from `inductive_lib.py` (FoldImputer + per-fold standardisation + per-fold K=500 selector — bit-identical to iter5/iter12).
+- **Why include items 1-3 even though their CCC is near zero:** the composite needs a value for every item; using zero would bias the sum toward 0 (T3 = ground-truth sum across 18 items). The iter8 decision to "skip 1-3 with hy_residual cap" only applies to T1 (items 9-14 don't include them).
+
+### Phase A2 — Iter17-style hypothesis-restricted features for items {7, 8, 16, 17} (CPU, ~6-8h on remote)
+- **Extend `cache_item_specific_features.py`** with item-specific extractors:
+  - **Item 7 (toe tap):** Foot_L/R Acc_Z + Gyr_Y in SelfPace + Hurried; per-stride swing-peak amplitude + variance, cadence regularity, L/R unsigned asymmetry. ~16 features.
+  - **Item 8 (leg agility):** Shank_L/R Gyr_Y in SelfPace + Hurried; per-swing peak amplitude, fatigability slope (amplitude regression vs stride index), L/R asymm. ~12 features.
+  - **Item 16 (kinetic tremor):** Wrist_L/R Jerk = d(FreeAcc)/dt in Tandem deceleration phases; wavelet ridge 5-8 Hz energy + jerk spectral slope + tremor burst counts. ~16 features.
+  - **Item 17 (rest tremor amplitude):** Wrist_L/R + UpperArm_L/R Gyr+FreeAcc in first 5-8 s of Balance; 4-6 Hz bandpower per axis, peak frequency, 4-6/0-10 Hz tremor index, cross-axis coherence at 5 Hz. ~24 features.
+- **Re-run `run_per_item_iter17_hypothesis.py`** extended for items {7, 8, 16, 17}. 5-fold gate per item: Δ ≥ +0.05 / seed std < 0.02 across 5 seeds {42, 1337, 7, 2024, 9001}. Variants: `item_only`, `item_plus_v2`, `hy_residual_item_v2`.
+- Items that PASS the strict gate get a per-item LOOCV lockbox (3 seeds × LOOCV mean preds, pre-registered).
+- Items that FAIL keep their existing iter8 OOF in the composite assignment (no demotion).
+
+### Phase B — Composite formula pre-registration + 5-fold T3 gate (master, ~30 min)
+- **Author `compose_t3_iter19_peritem.py`**: deterministic per-item architecture map → load 18 OOFs → sum → T3_pred → 5-fold T3 CCC across 5 seeds.
+- **Pre-reg includes:** formula_sha256, created_at_utc, git_sha, per-item architecture map, baseline_iter5_oof_path, gate floor, hard rules.
+- **Composite formula (pre-registered BEFORE looking at the T3 sum):**
+  - Items 9-14: iter12 honest single-batch assignments (already pre-registered as `preregistration_t1_iter12_honest_20260503_053105`).
+  - Items 15, 18: iter17 wins (already pre-registered as `preregistration_peritem_iter17_20260503_221544`).
+  - Items 7, 8, 16, 17: iter17-extended winner from Phase A2 (or iter8 fallback if A2 fails the gate).
+  - Items 1, 2, 3: Phase A1 winner.
+  - Items 4, 5, 6: iter8 lockboxed variants (no Phase A2 work).
+- **Gate (sum-level, T3-honest at N≈89 effective):** T3 5-fold Δ ≥ +0.05 with composite seed std < 0.020 vs iter5's 5-fold mean ~0.503 reference.
+
+### Phase C — T3 LOOCV lockbox (gate-conditional, ~3h on remote)
+- ONE pre-registered LOOCV with 3-seed mean preds.
+- Headline = T3 LOOCV CCC + MAE + paired bootstrap CI of (composite − iter5) on the same N=98 with 5000 resamples.
+- Acceptance: composite CCC > iter5 CCC AND bootstrap fraction > 0 ≥ 95% AND headline composite formula matches the pre-registered SHA-256.
+
+### Phase D — Writeup (~1h)
+- **Positive (canonical update path):**
+  - Edit CLAUDE.md "Headline Results" + AGENTS.md "Current Truth" with new T3 canonical pipeline and CCC.
+  - Append F52 to findings.md with full anatomy: per-item Δ table, composite mechanism, paired bootstrap CI, 5-null gate inheritance proof.
+  - Regenerate paper via `uv run python generate_paper_v6.py` with new Table 3 row.
+  - Add MEMORY.md entry pointing to F52.
+- **Negative (N=94 wall path):**
+  - Append F52 to findings.md as "5th N=94 wall data point" — joins F19, F44, F45, F48, F51 in the triangulation series.
+  - No canonical change. Document why per-item decomposition saturated (variance compounding, items 1-6 carrying no signal, free-signal items already maxed via iter17).
+
+### Phase E — Commit + push (master, ~5 min)
+- Single coherent commit message summarizing the mission, gate outcome, and canonical change (or none).
+
+## Compute envelope
+
+| Phase | Wall | CPU | GPU |
+|---|---|---|---|
+| 0 | 30 min | 0 (master) | — |
+| A1 | ~2 h | 17 cores parallel LOOCV | — |
+| A2 | ~6-8 h | 17 cores parallel cache extract + screen + lockbox | optional for embedding-based variants (none planned) |
+| B | 30 min | minimal (load OOFs + sum) | — |
+| C | ~3 h | 11-worker ProcessPoolExecutor for LOOCV folds | — |
+| D | 1 h | local | — |
+| E | 5 min | local | — |
+| **Total** | **~13-16 h** wall on remote | 17 cores saturated A1+A2+C | RTX 5070 idle (no DL pretraining this mission) |
+
+## Decision points (gate-conditional)
+
+- **After A2, before B:** items {7, 8, 16, 17} gate outcome — count passers. If ≥1 passer, proceed to B. If 0 passers, B still runs with existing iter8 variants but expected delta drops from gemini's +0.075 to closer to iter11A retraction baseline (~+0.02). Decide whether to abort to negative writeup or push through Phase B for the formal +0.05 gate test.
+- **After B, before C:** sum-level 5-fold gate must clear Δ ≥ +0.05 / std < 0.02. If fails, skip C; go to Phase D negative writeup.
+- **After C:** lockbox CCC + paired bootstrap CI. If headline > iter5 + bootstrap CI excludes 0, canonical update; else negative writeup.
+
+## Server utilization strategy
+
+- Phase A1 + A2 run **in parallel on remote** (different scripts, different files, no contention). Master orchestrates via 2 simultaneous `./gpu.sh` background invocations.
+- Inside A2, item-specific cache extraction parallelized across 4 items × 2-4 cores each; iter17 screen parallelizes 4 items × 3 variants × 5 seeds × 5 folds across 17 cores.
+- Phase C LOOCV uses the 11-worker ProcessPoolExecutor pattern from iter6 (28 min/seed × 3 seeds = ~85 min).
+
+## Leakage discipline (per-phase checklist)
+
+- [ ] All per-fold transforms via `inductive_lib.py` (FoldImputer / FoldNormalizer / FoldSeverityBins / per-fold K=500 selector).
+- [ ] Item-specific cache scripts are label-free (no UPDRS in feature extraction); manifest sidecars with `labels_used=False`, `leakage_status=clean_by_construction`.
+- [ ] 5-null gate proven on Phase A1 architecture (scrambled-label, SID-shuffle, canary, library-exclusion, transductive sanity) — inherits from iter5 (already passed).
+- [ ] 5-null gate proven on Phase A2 hypothesis-restricted variants — inherits from iter17 Phase A2 (already passed for items 4, 6, 15, 16, 17, 18; new items 7, 8 inherit by architecture identity).
+- [ ] Composite formula pre-registered in a single JSON BEFORE the T3 sum is computed (formula_sha256 captured before opening any T3-sum code).
+- [ ] Lockbox LOOCV runs ONCE; the headline is whatever it returns; no re-running with different seeds.
+- [ ] Paired bootstrap CI vs iter5 OOF (5000 resamples) — sample = subject; aligned predictions on N=98.
+
+## Stopping rules
+
+1. Total wall-clock budget: **18 hours**. Stop at hour 16 for write-up.
+2. If Phase A1 produces unstable items 1-3 OOFs (5-fold std > 0.10 on any item), use V2_baseline for those items (no architecture choice needed; documented as "items 1-3 unobservable, capped at V2 baseline").
+3. If Phase A2 produces 0 gate passers, **still run Phase B** for the formal sum-level gate test — the negative result is paper-publishable as the 5th N=94 wall data point.
+4. If Phase B sum-level gate fails (Δ < +0.05 OR std > 0.020), skip Phase C entirely and go to Phase D negative writeup.
+
+## Risks
+
+| Risk | Probability | Impact | Mitigation |
+|---|---|---|---|
+| Per-item OOF length mismatch (some items have N=89, others N=94/98) | HIGH | HIGH | Phase 0 audit; align via SID-keyed inner join; document final composite N. |
+| Variance compounding from summing 18 noisy OOFs | MEDIUM | HIGH | Pre-register composite formula; use 3-seed mean preds at lockbox; report seed std. |
+| Phase A2 features fail K=500 absorption (5th time) | MEDIUM | MEDIUM | item_only and hy_residual_item_v2 variants explicitly bypass K=500 (proven by iter17 items 15/18). |
+| Items 1-3 have NaN UPDRS for some PD subjects | MEDIUM | MEDIUM | Per-fold filter of NaN train labels (iter17 fix). |
+| Composite gate fails sum-level Δ<+0.05 even with passers | MEDIUM | LOW | Negative writeup is paper-publishable. |
+| Codex/gemini consult disagrees with implementation choices mid-flight | LOW | LOW | Re-consult ONLY at gate decisions, not at every step. |
+
+## File discipline
+
+**New scripts:**
+- `run_peritem_t3_backfill.py` — Phase A1 (items 1, 2, 3).
+- `cache_item_specific_features.py` — extended (item 7, 8, 16, 17 extractors).
+- `run_per_item_iter17_hypothesis.py` — extended TARGET_ITEMS list.
+- `compose_t3_iter19_peritem.py` — Phase B + C.
+
+**Existing scripts (touch only as required):**
+- `inductive_lib.py` — fold-firewall library (no edits).
+- `run_t3_iter5_clinical.py` — comparator (read-only).
+- `run_per_item_v2.py` — `load_data` reused.
+
+All new scripts:
+- Self-contained imports (only `data_split`, `project_paths`, `updrs_columns`, `eval_utils`, `inductive_lib`, plus existing per-item helpers).
+- `--smoke_test` mode with `--max_subjects 20`.
+- Write JSON with `null_tests` block + manifest sidecar where applicable.
+
+## Success criteria
+
+| Tier | T3 LOOCV CCC | What it means |
+|---|---|---|
+| 0 (process win) | ≥ 0.5227 (matches iter5) | Composite reproduces; canonical hold; paper supplementary table |
+| 1 (target) | ≥ 0.55 | Composite delivers small but real lift; canonical update |
+| 2 (gemini's mid) | ≥ 0.58 | Items 7+8+16+17 each contribute +0.005-0.01; ANGLE-3 hypothesis confirmed |
+| 3 (gemini's max, unlikely) | ≥ 0.62 | Major per-item movement; transformative for the paper |
+
+Tier 0 is the floor — even pure failure-with-anatomy (5th N=94 wall data point) is publishable.
+
+---
+
+# ARCHIVED MISSION — 100x Researcher CCC-push (2026-05-03 PM) — COMPLETE
 
 ## Outcome (final, 2026-05-03 ~22:21)
 

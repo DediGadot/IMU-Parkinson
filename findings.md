@@ -1020,6 +1020,178 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 
 ---
 
+## F53 — Per-item gated T3 composite — Phase B 5-fold gate FAIL (2026-05-04 ~13:50)
+
+**Mission origin (`planning-with-files:plan` 2026-05-04, see F52 for the planning-only entry):** "break the T3 LOOCV CCC ceiling above the canonical 0.5227 (iter5 clinical-augmented hy_residual) WITHOUT data leakage and WITHOUT retrying anything on the dead list." Plan: collapse Angles 1 (per-item gated T3) + 3 (iter17-style hypothesis-restricted features for "free signal" items 1, 7, 8, 16, 17) into a single coherent mission. Angles 2 (Stage-1 Ridge interactions) and 4 (cross-task ridge stack) SHELVED per gemini's predicted DOF death trap and collinearity collapse.
+
+**Phase A1 — items {1, 2, 3} OOF backfill (5-fold screen):**
+
+`run_peritem_t3_backfill.py --mode screen` on master local (LightGBM 4.6.0). 3 architectures × 5 seeds × 5-fold:
+
+| Item | v2_baseline | hy_only_ridge | hy_residual_v2 | Winner |
+|---|---|---|---|---|
+| 1 (speech) | **+0.2058 ± 0.0474** | +0.0650 ± 0.0085 | +0.1585 ± 0.0337 | v2_baseline |
+| 2 (facial) | **+0.1700 ± 0.0577** | −0.0885 ± 0.0259 | +0.0899 ± 0.0611 | v2_baseline |
+| 3 (rigidity) | **+0.0697 ± 0.0317** | −0.0411 ± 0.0349 | +0.0121 ± 0.0502 | v2_baseline |
+
+Pre-registration: `results/preregistration_peritem_t3_backfill_20260504_133644.json`. v2_baseline wins for all 3 items — H&Y residualisation hurts because the hy_only Ridge is essentially predicting from H&Y stage which has weak per-item correlation for items 1-3, and the V2 IMU residual is noise. LOOCV step skipped after Phase B failure (compose re-fits per-item under the architecture map; existing OOFs would not be loaded).
+
+**Phase A2 — iter17-style hypothesis-restricted for items {7, 8, 16, 17}:**
+
+Extended `cache_item_specific_features.py` with new extractors:
+- Item 7 (toe-tap surrogate): L_DorsalFoot + R_DorsalFoot Acc-Z + Gyr-Y in SelfPace + Hurried; per-stride peak amplitude + cadence regularity + 1-3 Hz bandpower + L/R asymmetry. 16-19 features.
+- Item 8 (leg-agility surrogate): L_LatShank + R_LatShank Gyr-Y in SelfPace + Hurried; per-swing peak Gyr-Y + fatigability slope + Acc magnitude std + L/R asymmetry. 12-16 features.
+
+Initial sensor-name bug (used `L_Foot`/`L_Shank` instead of WearGait-PD's `L_DorsalFoot`/`L_LatShank`); fixed after empty-extraction pass on remote and re-run. Final cache: 100 PD subjects × 135 features (was 100; +35 for items 7+8). Manifest at `results/item_specific_features.csv.manifest.json` with `labels_used=False`, `leakage_status=clean_by_construction`.
+
+`run_per_item_iter17_hypothesis.py --mode screen` on remote (TARGET_ITEMS=[7, 8, 16, 17]; items 4, 6, 15, 18 reuse iter17 lockboxed wins). 3 variants × 5 seeds × 5-fold:
+
+| Item | item_only | item_plus_v2 | hy_residual_item_v2 | Best | Δ vs baseline | Strict gate (Δ≥+0.05 AND std<0.02) |
+|---|---|---|---|---|---|---|
+| 7 (toe-tap) | +0.027 ± 0.011 | +0.245 ± 0.036 | **+0.283 ± 0.031** | hy_residual_item_v2 | +0.013 | FAIL (Δ < +0.05; std 0.031 > 0.02) |
+| 8 (leg-agility) | +0.057 ± 0.047 | +0.166 ± 0.025 | **+0.314 ± 0.055** | hy_residual_item_v2 | +0.054 | FAIL (Δ ≥ +0.05; std 0.055 > 0.02) |
+| 16 (kinetic tremor) | +0.097 ± 0.026 | **+0.179 ± 0.052** | +0.093 ± 0.042 | item_plus_v2 | +0.099 | FAIL (Δ ≥ +0.05; std 0.052 > 0.02) |
+| 17 (rest tremor amp) | +0.095 ± 0.053 | **+0.217 ± 0.036** | +0.181 ± 0.044 | item_plus_v2 | +0.077 | FAIL (Δ ≥ +0.05; std 0.036 > 0.02) |
+
+**Zero strict passers.** Items 8, 16, 17 have meaningful Δ vs baseline (+0.05 to +0.10) but seed std > 0.02 — borderline regime that gemini's prior haircut covered. Per task plan, proceed to Phase B with iter17 5-fold winners encoded in the architecture map (NOT lockboxed individually).
+
+**Phase B — composite formula pre-registration + 5-fold T3 gate (FAILED):**
+
+`compose_t3_iter19_peritem.py --mode screen`. Architecture map (per-item, single-batch pre-registration `results/preregistration_t3_iter19_compose_20260504_134846.json`, formula_sha256 `5d2185f19c1abb58...`):
+
+```
+item  1 → v2_baseline                 (Phase A1 winner)
+item  2 → v2_baseline                 (Phase A1 winner)
+item  3 → v2_baseline                 (Phase A1 winner)
+item  4 → v2_baseline                 (iter8 lockboxed)
+item  5 → v2_baseline                 (iter8 lockboxed)
+item  6 → lr_multitask                (iter8 lockboxed)
+item  7 → iter17:hy_residual_item_v2  (Phase A2 5-fold winner)
+item  8 → iter17:hy_residual_item_v2  (Phase A2 5-fold winner)
+item  9 → hy_residual_item            (iter8 lockboxed)
+item 10 → item_plus_v2                (iter8 lockboxed)
+item 11 → item_dedicated              (iter8 lockboxed)
+item 12 → item_plus_v2                (iter8 lockboxed)
+item 13 → item_plus_v2                (iter8 lockboxed)
+item 14 → item_plus_v2                (iter8 lockboxed)
+item 15 → iter17:item_only            (iter17 lockboxed 2026-05-03)
+item 16 → iter17:item_plus_v2         (Phase A2 5-fold winner)
+item 17 → iter17:item_plus_v2         (Phase A2 5-fold winner)
+item 18 → iter17:hy_residual_item_v2  (iter17 lockboxed 2026-05-03)
+```
+
+Composite formula: T3_composite_pred = sum_i(per_item_pred_i) for i ∈ [1,18]; per-fold offset correction = mean(updrs3_train) − mean(composite_raw_train) added to test rows (intercept-only fold-local calibration to align scale of `sum_of_items` ≈ 23.76 to `updrs3` ≈ 25.17; mean offset ≈ +1.412 — matches CLAUDE.md gotcha "two T3 definitions differing by ~1.47/subj").
+
+**Phase B Gate Result (5-fold × 3 seeds, on the same N=94 T1 cohort):**
+
+| Pipeline | 5-fold CCC mean ± std | per-seed CCCs |
+|---|---|---|
+| Composite (per-item gated) vs `updrs3` | **+0.2988 ± 0.0200** | 0.275, 0.324, 0.297 |
+| iter5 `clinical_residual` vs `updrs3` (N=94 subset of N=98 cohort) | **+0.4053 ± 0.0364** | 0.391, 0.369, 0.455 |
+| **Δ (composite − iter5)** | **−0.1065** | (gate floor: Δ ≥ +0.025; std < 0.020) |
+| Composite vs `sum_items` (internal sanity) | +0.307 ± ~0.018 | 0.297, 0.330, 0.293 |
+
+**Phase B GATE: FAIL.** Δ = −0.107 vs +0.025 floor. Per task plan stopping rule, Phase C (LOOCV lockbox) SKIPPED entirely. Output JSON: `results/compose_t3_iter19_5fold_screen_20260504_134846.json`.
+
+**Mechanism (first-order analysis):**
+
+1. **Variance compounding (gemini's predicted Angle-1 failure mode #1):** the composite sums 18 per-item OOFs. Per-item 5-fold CCCs (under the assigned architecture) range from −0.04 to +0.61 with a mean ≈ 0.27 and median ≈ 0.20. Summing 18 noisy predictions does not yield additive correlation because each per-item prediction has high variance around its true value at N=94. The composite CCC (≈ +0.30) tracks the AVERAGE per-item CCC, NOT the maximum or any additive aggregation.
+
+2. **Direct iter5 captures cross-item shared variance efficiently.** Stage-1 Ridge on H&Y (6 ordinal-bin one-hot features) + cv_yrs + cv_sex + cv_dbs (3 clinical scalars) compresses the dominant severity dimension into 9 features. Stage-2 LGB on V2 residual (1751 features) fits the remaining IMU-explainable variance. The 9-feature Stage-1 captures cross-item correlations that the per-item composite has to rediscover via 18 separately-fit models, each with their own bias-variance tradeoff at N=94.
+
+3. **iter5 5-fold at N=94 is +0.405** (not the published LOOCV +0.5227 at N=98). Composite delta vs LOOCV-at-N=98 would be even worse (−0.22 if composite stayed at +0.30 at LOOCV).
+
+4. **The +0.05 / std<0.02 strict gate at the per-item level is calibrated for N=94 → N=98 single-item targets.** At sum-level on the composite, individual item std partially cancels, hence sum std (0.020) is half the per-item std (~0.04). The composite std hits the gate threshold but the Δ is hugely negative, so the gate fails on Δ.
+
+5. **The N=94 vs N=98 alignment penalty.** The composite operates on the T1 cohort (N=94), inner-joined across items. iter5's published 0.5227 is on N=98. iter5's reproduction at N=94 = +0.405, a 0.12 LOOCV-to-5fold drop combined with a 0.10+ N-sensitivity drop. The cohort subset hurts iter5 substantially — but composite never exceeds even the weakened iter5.
+
+**Triangulation with prior nulls:**
+
+This is the **5th data point** confirming the N=94 sample-size wall, joining:
+- F19 (sensor-fusion at N=94: stride-locked, joints, cross-sensor coherence, Mahalanobis-to-HC, late-fusion Ridge stack — all NULL)
+- F44 (FoG-summary scalars to V2 → K=500 absorption — NULL)
+- F45 (HARNet UKB ~700K person-days frozen embeddings → 2048-d K=500 displacement — NEGATIVE)
+- F48 (unused-channels Mag/VelInc/OriInc → K=500 absorption — NEGATIVE)
+- F51 (in-domain SSL on the same 178-cohort with canary-pass → flat reconstruction loss → NEGATIVE)
+
+**F53 distinct mechanism:** unlike F19/F44/F45/F48/F51 (all "feature additions to V2 → K=500 absorption"), F53 demonstrates that **per-item decomposition followed by summation is also bounded** at this N. The wall is not just feature-engineering or feature-channel — it's the fundamental statistical regime: at N=94 with 18 items, the variance of the sum-of-per-item-predictions exceeds the variance of a direct T3 regression that captures cross-item correlations in 9 features (H&Y + 3 clinical).
+
+**Decision: SHELVE iter19 composite.** Lockbox NOT run; pre-registration's pre-registered LOOCV did not fire. Items 7, 8, 16, 17 hypothesis-restricted features are documented as supplementary borderline (Δ ≥ +0.05 but std > 0.02; not lockbox-promotable per strict gate).
+
+**Side-effects (durable):**
+- `results/peritem_t3_backfill_5fold_screen.csv` (Phase A1 screen results)
+- `results/preregistration_peritem_t3_backfill_20260504_133644.json` (Phase A1 architecture pre-reg; LOOCV not run)
+- `results/peritem_iter17_hypothesis_5fold_screen.csv` (Phase A2 extended for items 7, 8, 16, 17)
+- `results/item_specific_features.csv` + `.manifest.json` (extended cache: 135 features, was 100)
+- `results/preregistration_t3_iter19_compose_20260504_134846.json` (Phase B pre-reg; lockbox not run)
+- `results/compose_t3_iter19_5fold_screen_20260504_134846.json` (Phase B gate result)
+- `cache_item_specific_features.py` (item 7 + 8 extractors added)
+- `compose_t3_iter19_peritem.py` (composer with offset-correction and 18-item sum)
+- `run_peritem_t3_backfill.py` (Phase A1 standalone backfill)
+
+**Status update for canonical numbers:** UNCHANGED.
+- T1 LOOCV CCC = **0.6550** (`compose_t1_iter12_honest.py`).
+- T3 LOOCV CCC = **0.5227** (`run_t3_iter5_clinical.py --feature_set A3_tier1`).
+- T3 LOSO two-way CCC = **0.341** (`run_t3_iter16_site_ipw.py --mode lockbox`, no-IPW).
+- Item 15 (postural tremor) LOOCV CCC = **+0.1099** (`run_per_item_iter17_hypothesis.py --mode lockbox` item_only).
+- Item 18 (rest tremor constancy) LOOCV CCC = **+0.4858** (`run_per_item_iter17_hypothesis.py --mode lockbox` hy_residual_item_v2).
+
+**Publishable methodological finding for the paper:** at N=94 with 18 UPDRS-III items, **per-item gated decomposition + summation underperforms direct T3 regression by ~10 CCC points at 5-fold** because (a) variance compounding overwhelms the per-item gains and (b) direct regression captures cross-item correlations more efficiently than the composite. This complements the four prior frozen-encoder negatives (F41 / F45 / F51) by showing that the wall affects PROBE STRATEGY (composition vs direct) too, not just FEATURE STRATEGY (encoder vs handcrafted). The cautionary-benchmark framing of the paper is reinforced.
+
+---
+
+## F52 — Per-item gated T3 push — planning-only entry (2026-05-04 ~12:33)
+
+**Mission origin (`planning-with-files:plan` 2026-05-04):** user invocation: "act as the pd-imu-100x-researcher … break the T3 LOOCV CCC ceiling above the canonical 0.5227 (iter5 clinical-augmented hy_residual) WITHOUT data leakage and WITHOUT retrying anything on the dead list." Plan captured fully in `task_plan.md` § "ACTIVE MISSION — Per-Item Gated T3 Push (2026-05-04, planning)". Empirical results to be appended as F53 (Phase A1+A2), F54 (Phase B), F55 (Phase C lockbox or negative-result writeup).
+
+**CLI consult outcome (triple-CLI):**
+- **Codex (gpt-5.5 xhigh):** bubblewrap sandbox refused namespaces (same failure as 2026-05-03 PM). Effectively no usable answer this session.
+- **Gemini (gemini-3.1-pro):** clean 4-angle ranking with predicted Δ + P(gate) + failure mode. Saved at `/tmp/gemini_t3_consult.txt`.
+- **glmcode:** not installed locally (`command not found`). Skipped per CLAUDE.md soft-failure rule.
+
+**Gemini's 4-angle ranking (with iter11A 50% haircut applied):**
+
+| Angle | Gemini Δ (5-fold CCC) | P(gate) | Haircut realistic Δ | Recommendation |
+|---|---|---|---|---|
+| 3 — Hypothesis-restricted free items {1, 7, 8, 16, 17} | +0.095 [+0.065, +0.130] | 85% | +0.02 to +0.07 | **RUN (top yield)** |
+| 1 — Per-item gated T3 (sum 18 OOFs) | +0.075 [+0.040, +0.110] | 70% | +0.02 to +0.06 | **RUN** |
+| 4 — Cross-task ridge stack | +0.020 [−0.015, +0.045] | 15% | 0 to +0.02 | SHELVE |
+| 2 — Stage-1 Ridge interactions | −0.015 [−0.050, +0.010] | 5% | −0.02 to +0.01 | SHELVE (DOF death trap at N=98) |
+
+**Convergence with prior findings:**
+- Angles 1 and 3 share infrastructure: angle-3 per-item improvements (items 7, 8, 16, 17) feed directly into angle-1's composite. Mission collapses both into a single coherent plan.
+- Angle 2 (Stage-1 interactions) gemini predicts NEGATIVE delta — the iter5 "less is more" rule held linearly because 6+3=9 Stage-1 features at N=98 are already at the safe edge of the bias-variance frontier; quadratic interactions would consume DoF without additive signal. SHELVED.
+- Angle 4 (cross-task ridge stack) gemini predicts collinearity collapse: per-task OOFs are highly inter-correlated, so a 5-vector ridge stack at N=98 will shrink toward unweighted average. Below the +0.05 floor. SHELVED.
+
+**Pre-existing per-item OOF inventory (verified 2026-05-04 via `ls results/lockbox_peritem_*.oof.npy`):**
+- Items {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17}: iter8 batch `20260430_143044` lockboxed.
+- Items 15 and 18: iter17 lockbox `20260503_221544` (`item_only` and `hy_residual_item_v2` respectively).
+- **Missing:** items {1, 2, 3} — iter8 skipped them per the 2026-04-30 "1, 2, 3 unobservable; cap = hy_residual" decision. Composite must populate these via Phase A1 backfill (V2_baseline / hy_residual / item_plus_v2 architecture screen).
+
+**Phase plan (5 phases, gate-driven; full detail in task_plan.md):**
+- Phase 0: preflight (~30 min, master).
+- Phase A1: per-item OOF backfill for items {1, 2, 3} (~2 h, remote 17-core).
+- Phase A2: iter17-style hypothesis-restricted features for items {7, 8, 16, 17}; per-item 5-fold gate Δ ≥ +0.05 / std < 0.02; lockbox passers (~6-8 h, remote).
+- Phase B: composite formula pre-registration → 5-fold T3 gate (Δ ≥ +0.05 / std < 0.02 vs iter5) (~30 min, master).
+- Phase C: T3 LOOCV lockbox (gate-conditional, ~3 h, remote).
+- Phase D: writeup — positive (canonical update + paper Table 3 row) or negative (5th N=94 wall data point) (~1 h).
+
+**Decision-gate guards:**
+- 5-null gate inheritance from `inductive_lib.py` (pre-passed by iter5/iter12/iter17).
+- 5-fold floor (Δ ≥ +0.05 / std < 0.020) per-item AND sum-level.
+- Composite formula pre-registered in JSON with `formula_sha256`, `created_at_utc`, `git_sha` BEFORE T3 sum is computed (the iter11A failure mode is the bright line).
+- LOOCV lockbox runs ONCE per pre-registered composite; headline is whatever it returns.
+- Paired bootstrap CI vs iter5 OOF on N=98 with 5000 resamples; acceptance requires fraction>0 ≥ 95%.
+
+**No empirical results in this entry.** Status update: canonical numbers UNCHANGED.
+- T1 LOOCV CCC = **0.6550** (`compose_t1_iter12_honest.py`).
+- T3 LOOCV CCC = **0.5227** (`run_t3_iter5_clinical.py --feature_set A3_tier1`).
+- T3 LOSO two-way CCC = **0.341** (`run_t3_iter16_site_ipw.py --mode lockbox`, no-IPW).
+- Item 15 (postural tremor) LOOCV CCC = **+0.1099** (`run_per_item_iter17_hypothesis.py --mode lockbox` item_only).
+- Item 18 (rest tremor constancy) LOOCV CCC = **+0.4858** (`run_per_item_iter17_hypothesis.py --mode lockbox` hy_residual_item_v2).
+
+---
+
 ## F51 — iter18 Phase B in-domain SSL pretraining + canary + screen — NEGATIVE (2026-05-04 ~10:44)
 
 **Mission origin (Phase B1, post-Phase A success on items 15/18):** test whether 256-d SSL embeddings (mean over 10s windows) pretrained on the 178-cohort raw IMU windows (NO labels) raise T1-sum 5-fold CCC over the iter12 honest baseline. This was the only Phase B angle judged worth attempting on the RTX 5070; the F41/F45 dead-list rule on FROZEN HEALTHY-POPULATION encoders is sidestepped by pretraining on the SAME cohort that's being evaluated, with explicit canary-feature null gate to detect raw-signal-identity memorization.

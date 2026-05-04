@@ -2,6 +2,83 @@
 
 ---
 
+## Session: 2026-05-04 12:25—12:35 — `/planning-with-files:plan` per-item gated T3 push (planning-only)
+
+### 12:25 — Skill spawned
+- User command: `/planning-with-files:plan act as the pd-imu-100x-researcher … break the T3 LOOCV CCC ceiling above 0.5227 WITHOUT data leakage and WITHOUT retrying anything on the dead list`.
+- Hard constraints: inductive firewall, 5-null gate, 5-fold +0.05/std<0.02 floor, pre-register composite formula before per-item LOOCV, theoretical Bound A = 0.351 (already broken by iter5 clinical Stage 1).
+- Forbidden retries (extended dead list): frozen MOMENT/HC-SSL/HARNet/in-domain SSL (4 nulls), sensor-fusion at N=94, L/R signed asymmetry, NN at N<200, HC anchors, post-hoc isotonic/Platt, IPW LOOCV, site-centered Stage 2, event-axial / unsigned-asymmetry IMU additions to iter5.
+- 4 angles to triple-consult: per-item gated T3 sum (Angle 1), Stage-1 Ridge interactions (Angle 2), iter17-style hypothesis-restricted for free items {1, 7, 8, 16, 17} (Angle 3), cross-task ridge stack (Angle 4).
+
+### 12:27 — Triple-CLI consult launched in parallel (background bash)
+- Codex (gpt-5.5 xhigh, `--full-auto`): bubblewrap sandbox refused namespaces (same failure as 2026-05-03 PM session). Effectively no usable advice. `/tmp/codex_t3_consult.txt`.
+- Gemini (gemini-3.1-pro, `-y`): clean 4-angle ranking with Δ + P(gate) + failure mode + recommendation. `/tmp/gemini_t3_consult.txt`.
+- glmcode: `command not found` locally. Skipped (per CLAUDE.md soft-failure rule).
+
+### 12:31 — Per-item OOF inventory verified
+- 21 lockboxed `.oof.npy` files in `results/`. Items {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17} from iter8 batch `20260430_143044`; items 15 and 18 from iter17 batch `20260503_221544`. Items {1, 2, 3} missing — composite needs Phase A1 backfill.
+
+### 12:32 — Plan converged to 5-phase gate-driven mission
+- Angle 3 (gemini's #1, P(gate)=85%) and Angle 1 (gemini's #2, P=70%) collapse into one coherent plan because they share per-item-OOF infrastructure.
+- Angle 2 SHELVED (gemini predicted negative delta; DOF death trap at N=98).
+- Angle 4 SHELVED (gemini predicted collinearity collapse).
+- 5 phases: 0 preflight → A1 items {1,2,3} backfill → A2 iter17-style for {7,8,16,17} → B composite pre-reg + 5-fold gate → C LOOCV lockbox (gate-conditional) → D writeup.
+
+### 12:34 — Planning files updated
+- `task_plan.md`: new ACTIVE MISSION block at top; prior 2026-05-03 PM mission demoted to ARCHIVED.
+- `findings.md`: F52 planning-only entry inserted before F51.
+- `progress.md`: this session block.
+- TaskCreate: 6 phase tasks created (#1-6).
+
+### 12:35 — Plan ready for ExitPlanMode
+- No empirical work. No remote jobs launched. No commit made.
+- Canonical numbers UNCHANGED: T1 0.6550 / T3 0.5227 / T3 LOSO 0.341 / item 15 +0.1099 / item 18 +0.4858.
+
+### 12:55 — User: "proceed until completing all phases"
+- Phase 0 preflight: GPU idle (RTX 5070 0 MiB used), 20 OOFs valid (17×N=94, 3×N=93), per_item_scores.json items 1-18 verified, syntax check pass.
+
+### 13:03 — Phase A1 launch (items {1, 2, 3} backfill)
+- Authored `run_peritem_t3_backfill.py` standalone (3 architectures: v2_baseline, hy_only_ridge, hy_residual_v2).
+- First attempts via `run_per_item_v2.run_one` hung locally (>30 min stuck). Killed and rewrote with explicit fold-loop.
+- 5-fold screen (5 seeds × 3 archs × 3 items): items {1, 2, 3} winners ALL = v2_baseline (CCC +0.21, +0.17, +0.07).
+- LOOCV started but killed mid-flight after Phase B failure (compose re-fits per-item; A1 OOF .npy not consumed).
+
+### 13:08 — Phase A2 cache extension (items {7, 8} new extractors)
+- First push: 100 features only — items 7+8 features didn't extract (sensor name bug: used `L_Foot`/`L_Shank` instead of WearGait-PD's `L_DorsalFoot`/`L_LatShank`).
+- Inspected raw CSV columns on remote, confirmed correct sensor names.
+- Fixed and re-ran. Final cache: 100 PD subjects × 135 features (+35 for items 7+8). Manifest re-written.
+
+### 13:25 — Phase A2 hypothesis screen
+- `run_per_item_iter17_hypothesis.py` extended TARGET_ITEMS=[7, 8, 16, 17].
+- 5-fold (5 seeds × 3 variants × 4 items) on remote (~5 min wall).
+- Best variants per item: 7 hy_residual_item_v2 (+0.283 ± 0.031), 8 hy_residual_item_v2 (+0.314 ± 0.055), 16 item_plus_v2 (+0.179 ± 0.052), 17 item_plus_v2 (+0.217 ± 0.036).
+- ALL fail strict std<0.02 gate; items 8, 16, 17 have Δ ≥ +0.05 but seed std too high. Zero passers under strict gate. Per task plan, proceed to Phase B with iter17 5-fold winners encoded.
+
+### 13:38 — Phase B compose author + first attempts
+- Authored `compose_t3_iter19_peritem.py`. Architecture map: 18 items × {iter8 / iter12 / iter17 / Phase A1 / Phase A2 winners}.
+- Per-fold offset correction: composite_pred += mean(updrs3_train) − mean(composite_raw_train). Aligns sum_of_items scale to canonical updrs3 (~+1.41 offset).
+- First run failed: argument-order bug in `_run_iter17_with_nan_handling` (passed variant in X_item position). Items 7, 8, 15, 16, 17, 18 silently failed in 0.0-0.1s.
+- Fix + retry: items 7, 8, 16, 17 take 4s each; iter17 variants now compute correctly.
+- Second run failed: variable rename `y_t3` → `y_updrs3` not propagated to mode_screen. Fixed.
+
+### 13:45 — Phase B compose third (final) run
+- Composite 5-fold × 3 seeds: vs updrs3 = +0.275, +0.324, +0.297 (mean +0.299 ± 0.020). vs sum_items = +0.297, +0.330, +0.293 (mean +0.307).
+- iter5 5-fold × 3 seeds at N=94 (T1 cohort subset): +0.391, +0.369, +0.455 (mean +0.405 ± 0.036). Note: iter5's published LOOCV at N=98 = +0.5227 — the N=94 5-fold subset weakens it substantially.
+- Δ = −0.1065 vs +0.025 floor. **GATE FAIL.**
+
+### 13:50 — Phase B FAIL → Phase C SKIPPED
+- Per task plan stopping rule: "If Phase B sum-level gate fails (Δ < +0.05 OR std > 0.020), skip Phase C entirely and go to Phase D negative writeup."
+- Composite std = 0.0200 (just at threshold); composite Δ = −0.107 (fails Δ ≥ +0.025 by ~0.13).
+- Variance compounding (gemini's predicted Angle-1 failure mode #1) materializes as expected.
+
+### 13:55 — Phase D writeup
+- F53 added to findings.md: full anatomy of the negative result, mechanism, triangulation with F19/F44/F45/F48/F51 as 5th N=94 wall data point.
+- Task plan ACTIVE MISSION block updated with outcome and lessons.
+- Canonical numbers UNCHANGED. No CLAUDE.md / AGENTS.md edits required (the dead list is implicit in F53 anatomy).
+- Tasks #1-6 marked completed (or in_progress for D).
+
+---
+
 ## Session: 2026-05-03 06:30—07:00 — `pd-imu-100x-researcher` skill, iter14 FoG-as-feature attempt
 
 ### 06:30 — Skill spawned

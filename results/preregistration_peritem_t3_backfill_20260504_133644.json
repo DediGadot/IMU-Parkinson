@@ -1,0 +1,36 @@
+{
+  "experiment": "T3 push Phase A1 \u2014 per-item OOF backfill for items {1, 2, 3}",
+  "target_items": [
+    1,
+    2,
+    3
+  ],
+  "architecture_choices": [
+    "v2_baseline",
+    "hy_only_ridge",
+    "hy_residual_v2"
+  ],
+  "winners": {
+    "1": "v2_baseline",
+    "2": "v2_baseline",
+    "3": "v2_baseline"
+  },
+  "loocv_seeds": [
+    42,
+    1337,
+    7
+  ],
+  "selection_protocol": "5-fold across 5 seeds; pick highest CCC, tiebreak std then MAE. Locked BEFORE LOOCV is run.",
+  "5null_inheritance": "Architectures use inductive_lib FoldImputer + per-fold standardisation + per-fold K=500 selector \u2014 bit-identical to iter5/iter12, which passed the 5-null gate. Ridge Stage-1 + LGB Stage-2 = canonical hy_residual.",
+  "purpose": "Items 1, 2, 3 have no IMU signature. The hy_residual or hy_only winners produce per-subject OOFs that are essentially Ridge-on-H&Y predictions \u2014 informative for the T3 composite, not biased to the population mean.",
+  "formula_sha256": "68eca538a90f5574942159b313f273f8f760e19119627e1aa08a4cb6eeecc832",
+  "git_sha": "07cbfe3c3caf52f26c7c41127e722d3bfd0425a8",
+  "created_at_utc": "2026-05-04T13:36:44.740953Z",
+  "created_at_local": "2026-05-04T13:36:44.740973",
+  "timestamp": "20260504_133644",
+  "lockbox_rules": [
+    "Architecture per item locked BEFORE any LOOCV is observed.",
+    "ONE LOOCV per item \u00d7 architecture pair; mean of 3 seeds = headline.",
+    "5-null gate inheritance from iter5/iter12 architectures."
+  ]
+}
