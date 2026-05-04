@@ -1,0 +1,28 @@
+
+=== T3 iter6 5-FOLD SCREEN (Stage1=A3_tier1, alpha=1.0, 3 seeds × 4 cache sets) ===
+Iter5 canonical LOOCV CCC = 0.5227 (apples-to-apples reference).
+  B0_v2_only                              5-fold CCC = 0.4675 ± 0.0385
+  Cache event_axial_features.csv: matched 98/98 subjects, 450 features
+  Cache event_axial_features.csv: matched 98/98 subjects, 450 features
+  Cache event_axial_features.csv: matched 98/98 subjects, 450 features
+  B1_v2_event_axial                       5-fold CCC = 0.4374 ± 0.0184
+  Cache unsigned_asymmetry_features.csv: matched 98/98 subjects, 1170 features
+  Cache unsigned_asymmetry_features.csv: matched 98/98 subjects, 1170 features
+  Cache unsigned_asymmetry_features.csv: matched 98/98 subjects, 1170 features
+  B2_v2_unsigned_asym                     5-fold CCC = 0.4750 ± 0.0594
+  Cache event_axial_features.csv: matched 98/98 subjects, 450 features
+  Cache unsigned_asymmetry_features.csv: matched 98/98 subjects, 1170 features
+  Cache event_axial_features.csv: matched 98/98 subjects, 450 features
+  Cache unsigned_asymmetry_features.csv: matched 98/98 subjects, 1170 features
+  Cache event_axial_features.csv: matched 98/98 subjects, 450 features
+  Cache unsigned_asymmetry_features.csv: matched 98/98 subjects, 1170 features
+  B3_v2_event_axial_unsigned_asym         5-fold CCC = 0.4687 ± 0.0477
+Wrote /home/fiod/medical/results/t3_iter6_imu_5fold_screen.csv
+
+Mean 5-fold CCC ranking:
+  B2_v2_unsigned_asym                     0.4750
+  B3_v2_event_axial_unsigned_asym         0.4687
+  B0_v2_only                              0.4675
+  B1_v2_event_axial                       0.4374
+
+Recommended lockbox cache_set: B2_v2_unsigned_asym

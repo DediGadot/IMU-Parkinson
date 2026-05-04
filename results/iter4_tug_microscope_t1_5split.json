@@ -1,0 +1,63 @@
+{
+  "variant": "tug_microscope",
+  "target": "t1",
+  "eval": "5split",
+  "n_subjects": 94,
+  "ccc_mean": 0.6205,
+  "ccc_std": 0.0187,
+  "ccc_per_seed": [
+    0.5943,
+    0.6305,
+    0.6368
+  ],
+  "mae_mean": 1.6684,
+  "slope_mean": 0.4704,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.5943,
+      "cal_slope": 0.4553,
+      "mae": 1.6638,
+      "r": 0.6261,
+      "pred_mean": 4.27,
+      "pred_std": 2.047,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "tug_microscope_seed42",
+      "seed": 42,
+      "wall_s": 24.8
+    },
+    {
+      "n": 94,
+      "ccc": 0.6305,
+      "cal_slope": 0.4777,
+      "mae": 1.6731,
+      "r": 0.6664,
+      "pred_mean": 4.005,
+      "pred_std": 2.018,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "tug_microscope_seed1337",
+      "seed": 1337,
+      "wall_s": 21.5
+    },
+    {
+      "n": 94,
+      "ccc": 0.6368,
+      "cal_slope": 0.4783,
+      "mae": 1.6682,
+      "r": 0.675,
+      "pred_mean": 4.084,
+      "pred_std": 1.995,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "tug_microscope_seed7",
+      "seed": 7,
+      "wall_s": 10.4
+    }
+  ],
+  "null_tests": {
+    "deferred_to": "b1_v2_only_control"
+  },
+  "wall_total_s": 57.1
+}

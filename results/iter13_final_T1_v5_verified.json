@@ -1,0 +1,41 @@
+{
+  "version": "v5_iter11_verified",
+  "T1_LOOCV_CCC": 0.7241,
+  "T1_MAE": 1.4216,
+  "T1_slope": 0.5655,
+  "T1_r": 0.7544,
+  "per_item_LOOCV": {
+    "9": {
+      "label": "iter8 hy_residual_item",
+      "ccc": 0.44861182612431894
+    },
+    "10": {
+      "label": "iter11 self_norm_hy_residual",
+      "ccc": 0.5656746735870538
+    },
+    "11": {
+      "label": "iter8 item_dedicated",
+      "ccc": 0.38259725885517726
+    },
+    "12": {
+      "label": "iter9 cccv2 item_plus_v2",
+      "ccc": 0.6823207839753584
+    },
+    "13": {
+      "label": "iter10 v2_plus_self_norm",
+      "ccc": 0.2706945802188895
+    },
+    "14": {
+      "label": "iter6 V2+TUG",
+      "ccc": 0.45368972747516806
+    }
+  },
+  "bootstrap_1000reps_strat_hy": {
+    "mean": 0.719770181810512,
+    "ci_2.5": 0.5976830258124392,
+    "ci_97.5": 0.8103430956833502,
+    "p_gt_0.69": 0.742,
+    "p_gt_0.70": 0.683,
+    "p_gt_0.72": 0.539
+  }
+}

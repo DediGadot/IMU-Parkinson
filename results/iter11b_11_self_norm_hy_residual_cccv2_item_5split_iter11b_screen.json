@@ -1,0 +1,57 @@
+{
+  "item": 11,
+  "variant": "self_norm_hy_residual_cccv2_item",
+  "eval": "5split",
+  "n_subjects": 94,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "ccc_mean": 0.13216666666666665,
+  "ccc_std": 0.10992167918820908,
+  "mae_mean": 0.42943333333333333,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.1692,
+      "cal_slope": 0.1209,
+      "mae": 0.4224,
+      "r": 0.1846,
+      "pred_mean": 0.209,
+      "pred_std": 0.404,
+      "true_mean": 0.213,
+      "true_std": 0.617,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.2444,
+      "cal_slope": 0.1864,
+      "mae": 0.4025,
+      "r": 0.2588,
+      "pred_mean": 0.264,
+      "pred_std": 0.444,
+      "true_mean": 0.213,
+      "true_std": 0.617,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": -0.0171,
+      "cal_slope": -0.0127,
+      "mae": 0.4634,
+      "r": -0.0182,
+      "pred_mean": 0.238,
+      "pred_std": 0.429,
+      "true_mean": 0.213,
+      "true_std": 0.617,
+      "label": ""
+    }
+  ],
+  "null_tests": {
+    "scrambled_label_ccc": -0.0931273231360042,
+    "canary_feature_ccc": 0.1691896409045068,
+    "sid_shuffle_selfnorm_ccc": 0.034532215365688276
+  }
+}

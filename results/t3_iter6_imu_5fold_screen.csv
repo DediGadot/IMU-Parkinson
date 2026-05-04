@@ -1,0 +1,13 @@
+cache_set,feature_set,alpha,seed,ccc,mae,r,wall_time_s
+B0_v2_only,A3_tier1,1.0,42,0.4785,7.98,0.4983,13.5
+B0_v2_only,A3_tier1,1.0,1337,0.4157,8.4,0.4377,13.4
+B0_v2_only,A3_tier1,1.0,7,0.5082,7.814,0.5283,13.3
+B1_v2_event_axial,A3_tier1,1.0,42,0.45,8.133,0.4688,16.0
+B1_v2_event_axial,A3_tier1,1.0,1337,0.4113,8.685,0.4284,15.4
+B1_v2_event_axial,A3_tier1,1.0,7,0.4508,8.391,0.4698,14.7
+B2_v2_unsigned_asym,A3_tier1,1.0,42,0.514,7.712,0.5325,25.0
+B2_v2_unsigned_asym,A3_tier1,1.0,1337,0.3911,8.519,0.4133,21.7
+B2_v2_unsigned_asym,A3_tier1,1.0,7,0.52,7.765,0.5368,19.8
+B3_v2_event_axial_unsigned_asym,A3_tier1,1.0,42,0.5195,7.539,0.544,27.9
+B3_v2_event_axial_unsigned_asym,A3_tier1,1.0,1337,0.4049,8.597,0.4237,23.8
+B3_v2_event_axial_unsigned_asym,A3_tier1,1.0,7,0.4816,7.915,0.5043,26.4

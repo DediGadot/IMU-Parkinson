@@ -1,0 +1,12 @@
+{
+  "n": 89,
+  "actual_T1_ccc": 0.5795264325783108,
+  "actual_T1_pearson_r": 0.6599218522808431,
+  "bound_A_oracle_T1_plus_meanR": 0.35088558377230566,
+  "bound_B_actual_T1pred_plus_meanR": 0.08881807280838276,
+  "bound_C_actual_T1pred_plus_linearR": 0.19318401112887054,
+  "bound_D_theoretical_perfect_T1_corr_to_T3": 0.6826529677800216,
+  "bound_E_inductive_shrinkage_T1_to_T3": 0.17134368119441712,
+  "T3_LOOCV_baseline_ccc": 0.217,
+  "rationale": "Bound D = pearson(T1, T3) = absolute upper bound for ANY model that perfectly predicts T1 alone. Bound A = oracle T1 (perfect prediction) + mean R = upper bound subject to using only T1. Bound B = current T1 prediction quality + mean R. Bound C = current T1 prediction + simple linear residual model. Bound E = inductive shrinkage map T1_pred \u2192 T3 (fold-local). Realistic max for our pipeline = bound E (this is what iter 2.2 will optimize)."
+}

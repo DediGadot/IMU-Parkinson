@@ -1,0 +1,17 @@
+Loading data...
+  Cache interaction_features_subj.csv: 94/94 subjects matched (700 cols)
+  Cache v2_self_normalized.csv: 94/94 subjects matched (1751 cols)
+  N=94 PD subjects
+  V2 shape: (94, 1751)
+  interactions shape: (94, 700)
+  self-norm shape: (94, 1751)
+Jobs: 2
+  [1/2] item=12 variant=v2_plus_self_norm ccc=0.6094 (8.7s)
+  [2/2] item=12 variant=v2_plus_interactions_plus_self_norm ccc=0.6058 (8.8s)
+
+Wrote /root/pd-imu/results/interaction_screen_5split_item12_5seed.csv and /root/pd-imu/results/interaction_screen_5split_item12_5seed.json
+
+Top entries by CCC (per-item):
+ item                             variant   eval  ccc_mean  ccc_std  mae_mean  scrambled_label_ccc  canary_feature_ccc  sid_shuffle_cache_ccc error
+   12                   v2_plus_self_norm 5split    0.6094 0.026110    0.5014            -0.134450            0.578224               0.555593      
+   12 v2_plus_interactions_plus_self_norm 5split    0.6058 0.038714    0.5076            -0.147405            0.565750               0.544511      

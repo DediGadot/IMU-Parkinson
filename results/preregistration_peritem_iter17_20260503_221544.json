@@ -1,0 +1,47 @@
+{
+  "timestamp": "20260503_221544",
+  "iso_datetime": "2026-05-03T22:15:44.346781",
+  "created_at_utc": "2026-05-03T22:15:44.346789Z",
+  "git_sha": "unknown",
+  "formula_sha256": "ba0f4ce2177e6d8c35f236ad380686a95066f2f90fec2ce38ae3c1b632e3c5e3",
+  "experiment": "Per-item iter17 \u2014 Hypothesis-restricted submodels, gated lockbox",
+  "rationale": "Phase A2 of 100x researcher CCC-push. The V2 feature pool dilutes the narrow clinical signal of items {4, 6, 15, 16, 17, 18}; this iteration tests whether tight hypothesis-restricted feature sets (~12-32 features per item, anchored on clinically relevant sensors/channels/windows) beat V2 alone. Lockbox is run ONLY on (item, variant) pairs that passed the screen gate (\u0394CCC \u2265 +0.05 vs published baseline AND seed_std < 0.02).",
+  "item_cache_path": "/root/pd-imu/results/item_specific_features.csv",
+  "item_cache_sha256": "c7385cf3a2187f825a9c10211080fcc60d58d43008a5fe6a13e5dd6635a15ae4",
+  "item_manifest_path": "/root/pd-imu/results/item_specific_features.csv.manifest.json",
+  "gated_pairs": [
+    {
+      "item": 15,
+      "variant": "item_only"
+    },
+    {
+      "item": 18,
+      "variant": "hy_residual_item_v2"
+    }
+  ],
+  "split_seed": 0,
+  "model_seed_list": [
+    42,
+    1337,
+    7
+  ],
+  "feature_seed_locked_to_model_seed": true,
+  "augmentation_seed": "n/a \u2014 deterministic feature concat",
+  "n_subjects": 94,
+  "eval_protocol": "LOOCV (n=94), 3 seeds, per-fold standardisation/imputation via inductive_lib; per-fold K=min(500, X.shape[1]) LGB-importance feature selection.",
+  "headline_metric": "Per-item CCC of mean-of-3-seed LOOCV preds vs item score (N=94)",
+  "comparator_baselines": {
+    "4": 0.08,
+    "6": -0.04,
+    "15": -0.09,
+    "16": 0.08,
+    "17": 0.14,
+    "18": 0.25
+  },
+  "lockbox_rules": [
+    "ONE config pre-registered per (item, variant) pair. ONE LOOCV evaluation per pair. Headline = result, no cherry-picking.",
+    "If LOOCV \u0394CCC vs baseline \u2264 +0.02, report as null result; do not select runner-up variant.",
+    "Bootstrap 95% CI of (iter17_lockbox_ccc - baseline) reported."
+  ],
+  "feature_safety_argument": "Item-specific features are deterministic signal-processing aggregates of raw IMU channels in the clinically-relevant time window for each item. UPDRS-III labels never enter cache_item_specific_features.py. Manifest verified leakage-clean by construction."
+}

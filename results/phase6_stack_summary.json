@@ -1,0 +1,10 @@
+{
+  "summary": [
+    {
+      "variant": "stack_lr_meta",
+      "target": "t3",
+      "ccc": 0.1618,
+      "mae": 8.3962
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "n": 89,
+  "ccc": 0.3273,
+  "cal_slope": 0.2218,
+  "mae": 7.9571,
+  "r": 0.3723,
+  "pred_mean": 25.037,
+  "pred_std": 6.132,
+  "true_mean": 25.315,
+  "true_std": 10.292,
+  "label": "iter4_t1_anchor_non_t1_residual_loocv_mean",
+  "variant": "iter4_t1_anchor_non_t1_residual",
+  "eval_mode": "loocv_repeated_mean",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 42,
+      "n": 89,
+      "ccc": 0.3273,
+      "cal_slope": 0.2218,
+      "mae": 7.9571,
+      "r": 0.3723,
+      "pred_mean": 25.037,
+      "pred_std": 6.132,
+      "true_mean": 25.315,
+      "true_std": 10.292,
+      "label": "iter4_t1_anchor_non_t1_residual_loocv_seed42"
+    }
+  ],
+  "leakage_status": "subject-level LOOCV; fold-local preprocessing/selection/models/calibration; clinical H&Y augmented if variant uses H&Y"
+}

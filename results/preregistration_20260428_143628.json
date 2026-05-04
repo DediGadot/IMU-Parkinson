@@ -1,0 +1,81 @@
+{
+  "timestamp_utc": "20260428_143628",
+  "purpose": "Lockbox pre-registration: 5-fold winner gets ONE LOOCV evaluation as headline",
+  "protocol": "Codex-robustified plan v2; 5-fold screening then single confirmatory LOOCV per target",
+  "tiebreaker_rule": "highest CCC; ties within 0.01 broken by simplicity (codex #1)",
+  "winner_t1": {
+    "label": "inductive_pd (training-fold PD-only ranker; no HC anchors)",
+    "screening_5fold_ccc": 0.6684,
+    "screening_5fold_slope": 0.4606,
+    "screening_5fold_mae": 1.5729,
+    "confirmation_loocv_ccc": 0.5884,
+    "confirmation_loocv_slope": 0.4044,
+    "confirmation_loocv_mae": 1.6967,
+    "why_winner": "Highest 5-fold CCC among 16 deployable variants; +0.014 over best non-ranker baseline (B6_shallow_imu CCC=0.654)"
+  },
+  "winner_t3": {
+    "label": "baseline_B1_v2_only (LightGBM on v2 handcrafted features only)",
+    "screening_5fold_ccc": 0.2073,
+    "screening_5fold_slope": 0.1151,
+    "screening_5fold_mae": 8.0296,
+    "why_winner": "Highest 5-fold CCC. T3 deployment ceiling is essentially noise \u2014 IMU-only models barely exceed MAE=8 baseline; demographics ridge gives CCC=0.04. T3 is not a meaningful clinical target from gait IMU alone."
+  },
+  "leaked_ceiling_t1": {
+    "label": "transductive (Stage-1 ranker uses test-fold rank label)",
+    "ccc_5fold": 0.878,
+    "ccc_loocv": 0.859,
+    "note": "NOT deployable. Excluded from winner selection. Shown in Table S12 only as the methodological upper bound that motivates the leakage audit."
+  },
+  "screening_summary": {
+    "t1_top_5": [
+      {
+        "label": "inductive_pd (no HC, fully inductive)",
+        "ccc": 0.668,
+        "simplicity": 7
+      },
+      {
+        "label": "demo_residual_demo_stacked",
+        "ccc": 0.657,
+        "simplicity": 7
+      },
+      {
+        "label": "B1_v2_only",
+        "ccc": 0.654,
+        "simplicity": 3
+      },
+      {
+        "label": "B6_shallow_imu",
+        "ccc": 0.654,
+        "simplicity": 2
+      },
+      {
+        "label": "demo_residual_demo_first",
+        "ccc": 0.653,
+        "simplicity": 6
+      }
+    ],
+    "t3_top_5": [
+      {
+        "label": "B1_v2_only",
+        "ccc": 0.207
+      },
+      {
+        "label": "B6_shallow_imu",
+        "ccc": 0.205
+      },
+      {
+        "label": "event_features_max",
+        "ccc": 0.201
+      },
+      {
+        "label": "event_features_mean_plus_max",
+        "ccc": 0.192
+      },
+      {
+        "label": "event_features_mean",
+        "ccc": 0.191
+      }
+    ],
+    "finding": "At N=94 PD, all complex pipelines (SSL ranking, demo stacking, event-aware aggregation, MTL) cluster within 0.02 CCC of the simplest LightGBM baseline. Method complexity does not extract additional signal in this small-sample regime."
+  }
+}

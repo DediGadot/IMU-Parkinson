@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "phase": 2,
+  "created_at": "2026-04-28T21:06:33.785Z",
+  "updated_at": "2026-04-29T00:28:55.503Z",
+  "engine": "tier_a",
+  "files_indexed": [
+    "run_baselines.py"
+  ],
+  "fingerprints": [],
+  "findings_snapshot": [],
+  "truncated": false
+}

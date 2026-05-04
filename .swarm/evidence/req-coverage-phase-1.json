@@ -1,0 +1,114 @@
+{
+  "success": true,
+  "phase": 1,
+  "totalRequirements": 15,
+  "coveredCount": 0,
+  "missingCount": 15,
+  "requirements": [
+    {
+      "id": "FR-001",
+      "obligation": "MUST",
+      "text": "The workflow preserve subject-level separation for every reported evaluation.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-002",
+      "obligation": "MUST",
+      "text": "The workflow fit every target-derived or distribution-derived operation using training subjects only within each evaluation fold.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-003",
+      "obligation": "MUST",
+      "text": "The workflow exclude held-out-subject labels, ranks, prototypes, anchors, fitted normalizers, fitted imputers, selected features, calibration parameters, and learned pooling weights from any training stage before the held-out subject is evaluated.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-004",
+      "obligation": "MUST",
+      "text": "The workflow use only the existing cohort data or publicly available external data sources.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-005",
+      "obligation": "MUST",
+      "text": "The workflow document the access status of every external data source as open public, controlled-access public, or unavailable.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-006",
+      "obligation": "MUST",
+      "text": "The workflow verify that any external data used for representation learning is disjoint from the target evaluation cohort.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-007",
+      "obligation": "MUST",
+      "text": "The workflow evaluate candidates against the current honest total-score baseline before any confirmatory run is selected.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-008",
+      "obligation": "MUST",
+      "text": "The workflow include null or sanity checks sufficient to detect label leakage, subject-identity leakage, cache-join leakage, and impossible test-only feature use.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-009",
+      "obligation": "MUST",
+      "text": "The workflow report total-score concordance, calibration slope, mean absolute error, Pearson correlation, prediction variance, and sample count for every candidate.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-010",
+      "obligation": "MUST",
+      "text": "The workflow preserve the lockbox discipline: screening results may select one candidate, but confirmatory results MUST NOT be repeatedly re-run to choose a better headline.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-011",
+      "obligation": "SHOULD",
+      "text": "The workflow prioritize candidates that add biologically plausible mobility signal not already exhausted by prior baseline, shallow aggregation, frozen representation, distillation, or stacking experiments.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-012",
+      "obligation": "SHOULD",
+      "text": "The workflow use available remote compute for heavy experiment execution and record whether the run completed successfully.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-013",
+      "obligation": "SHOULD",
+      "text": "The workflow fail fast on missing data, missing dependencies, failed leakage checks, or invalid evaluation setup rather than silently falling back to weaker behavior.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-014",
+      "obligation": "MUST",
+      "text": "The workflow NOT use clinical ground-truth severity variables as deployable input features; such variables MAY be used only as targets, validation labels, or explicitly labeled oracle ceilings.",
+      "status": "missing",
+      "filesSearched": []
+    },
+    {
+      "id": "FR-015",
+      "obligation": "MUST",
+      "text": "The workflow distinguish exploratory screening metrics from confirmatory headline metrics.",
+      "status": "missing",
+      "filesSearched": []
+    }
+  ]
+}

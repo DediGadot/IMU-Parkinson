@@ -1,0 +1,22 @@
+
+=== T3 iter5 5-FOLD SCREEN (alpha=1.0, 3 seeds × 7 feature sets) ===
+Published hy_residual LOOCV CCC = 0.4092 (apples-to-apples reference for 5-fold ≈ same).
+  A0_hy_only_repro           extras=(hy_only)                                 5-fold CCC = 0.3995 ± 0.0493
+  A1_hy_yrs                  extras=cv_yrs                                    5-fold CCC = 0.4621 ± 0.0225
+  A2_hy_yrs_sex              extras=cv_yrs+cv_sex                             5-fold CCC = 0.4673 ± 0.0603
+  A3_tier1                   extras=cv_yrs+cv_sex+cv_dbs                      5-fold CCC = 0.4675 ± 0.0385
+  A4_tier1_plus              extras=cv_yrs+cv_sex+cv_dbs+cv_age+ext_late_pd   5-fold CCC = 0.4447 ± 0.0202
+  A5_tier1_plus_site         extras=cv_yrs+cv_sex+cv_dbs+cv_age+ext_late_pd+site_nls  5-fold CCC = 0.4440 ± 0.0179
+  A6_yrs_dbs_only            extras=cv_yrs+cv_dbs                             5-fold CCC = 0.4275 ± 0.0515
+Wrote /home/fiod/medical/results/t3_iter5_clinical_5fold_screen.csv
+
+Mean 5-fold CCC ranking:
+  A3_tier1                   0.4675
+  A2_hy_yrs_sex              0.4673
+  A1_hy_yrs                  0.4621
+  A4_tier1_plus              0.4447
+  A5_tier1_plus_site         0.4440
+  A6_yrs_dbs_only            0.4275
+  A0_hy_only_repro           0.3995
+
+Recommended lockbox config: A3_tier1

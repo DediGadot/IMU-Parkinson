@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260501_065118",
+  "item": 11,
+  "variant": "self_norm_only",
+  "eval": "loocv",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "n_subjects": 94,
+  "rationale": "Iter 11 self-norm \u00d7 cccv2 \u00d7 hy_residual cross-product winner.",
+  "git_status": "iter11-self-norm-cross"
+}

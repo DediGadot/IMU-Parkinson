@@ -1,0 +1,14 @@
+{
+  "timestamp_utc": "20260430_214958",
+  "item": 12,
+  "variant": "coherence_plus_v2",
+  "n_subjects": 94,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "eval": "loocv",
+  "lockbox_threshold": 0.015,
+  "prior_best_5fold": 0.555
+}

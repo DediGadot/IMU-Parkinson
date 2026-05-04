@@ -1,0 +1,43 @@
+{
+  "timestamp": "20260503_101010",
+  "iso_datetime": "2026-05-03T10:10:10.235881",
+  "created_at_utc": "2026-05-03T10:10:10.235887Z",
+  "git_sha": "unknown",
+  "formula_sha256": "f42bd08072c15992bf6115f30c5b647425d50ba0c7ada9fd919de1d85cc28587",
+  "experiment": "T3 iter16 \u2014 Site-aware sample reweighting (IPW) on Stage 2 of clinical-augmented hy_residual",
+  "rationale": "Codex+gemini consult (2026-05-03) flagged site-aware DA as paper-integrity-relevant. T3 LOSO CCC \u2248 0 between sites NLS (70 PD) and WPD (28 PD) is a strong confounder for transportability claims. Both consults expected LOOCV neutral or slightly negative (codex \u22120.05 to +0.02; gemini \u22120.05 to +0.02) and LOSO improvement (gemini +0.20 to +0.30). This iteration tests sample-weight rebalancing (IPW = N/(2*N_site)) on the Stage 2 LGB only; Stage 1 Ridge is bit-identical to canonical iter5. The point of this experiment is paper rigor on transportability, not LOOCV CCC headline. We report BOTH metrics; LOSO is the headline transportability metric.",
+  "stage1_extras": [
+    "cv_yrs",
+    "cv_sex",
+    "cv_dbs"
+  ],
+  "alpha": 1.0,
+  "n_subjects": 98,
+  "n_NLS": 70,
+  "n_WPD": 28,
+  "split_seed": 0,
+  "model_seed_list": [
+    42,
+    1337,
+    7
+  ],
+  "feature_seed_locked_to_model_seed": true,
+  "augmentation_seed": "n/a \u2014 IPW is deterministic given site labels",
+  "eval_protocol": "(a) LOOCV (n=98), 3 seeds, mean preds: Stage 2 LGB receives per-fold IPW sample weights fit on outer-train-fold site labels only. (b) LOSO: NLS-train\u2192WPD-test and WPD-train\u2192NLS-test, 3 seeds, single direction each. Stage 1+Stage 2 architecture identical to iter5 except for the per-fold IPW sample weights on Stage 2.",
+  "headline_metric_loocv": "CCC of mean-of-3-seed LOOCV preds with IPW vs iter5 0.5227",
+  "headline_metric_loso": "Mean of NLS\u2192WPD and WPD\u2192NLS CCC across 3 seeds (IPW collapses to uniform within single-site LOSO; reported here as the canonical no-IPW LOSO baseline)",
+  "comparator_iter5_loocv": 0.5227,
+  "comparator_canonical_hy_residual_loocv": 0.4092,
+  "consult_priors": {
+    "codex_loocv_delta": "\u22120.05 to +0.02",
+    "gemini_loocv_delta": "\u22120.05 to +0.02",
+    "gemini_loso_ccc_target": "+0.20 to +0.30"
+  },
+  "lockbox_rules": [
+    "ONE config pre-registered. ONE LOOCV + ONE LOSO evaluation. Headline = result, no cherry-picking.",
+    "If LOOCV CCC \u2264 iter5 + 0.005 (within noise) AND LOSO two-way mean \u2264 0.10, report as null result.",
+    "If LOOCV drops by > 0.05, that is STILL publishable as 'site confound was carrying spurious LOOCV signal' \u2014 explicitly stated in rationale; do NOT abandon iter16 even on negative LOOCV.",
+    "Bootstrap 95% CI of (iter16_loocv - iter5_loocv) on the same 98 subjects must be reported even if straddles zero."
+  ],
+  "feature_safety_argument": "Per-fold IPW weights are computed strictly from outer-train-fold site labels (counts of NLS vs WPD in tr); no outer-test row contributes. Site labels are derived deterministically from SID prefix, not from any clinical or IMU data. No new features are introduced over iter5."
+}

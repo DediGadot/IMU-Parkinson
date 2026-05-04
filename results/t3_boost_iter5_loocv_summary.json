@@ -1,0 +1,33 @@
+{
+  "audit_version": "t3_boost_iter5_loocv_summary_v1",
+  "scope": "One-seed LOOCV follow-up for top 5-fold T3 boost variants on the 89-subject complete-item subset.",
+  "n_subjects": 89,
+  "results": [
+    {
+      "variant": "iter2_hy_residual_v2_selfnorm_ccc",
+      "seed": 42,
+      "eval_mode": "loocv",
+      "ccc": 0.3369,
+      "mae": 7.9428,
+      "r": 0.3638,
+      "cal_slope": 0.2451,
+      "source": "process log proc_d8ec43cf82a7; t3_boost_iter5_best_loocv.json before later iter4 overwrite"
+    },
+    {
+      "variant": "iter4_t1_anchor_non_t1_residual",
+      "seed": 42,
+      "eval_mode": "loocv",
+      "ccc": 0.3273,
+      "mae": 7.9571,
+      "r": 0.3723,
+      "cal_slope": 0.2218,
+      "source": "results/t3_boost_iter5_best_loocv.json"
+    }
+  ],
+  "comparison": {
+    "current_best_existing_lockbox": "results/iter3_hy_residual_t3_loocv.json",
+    "current_best_existing_lockbox_n": 98,
+    "current_best_existing_lockbox_ccc": 0.4092,
+    "conclusion": "Neither LOOCV follow-up beat the existing hy_residual lockbox result. Do not promote these as a new T3 headline."
+  }
+}

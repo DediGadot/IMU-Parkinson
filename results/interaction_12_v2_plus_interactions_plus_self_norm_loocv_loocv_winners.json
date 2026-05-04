@@ -1,0 +1,52 @@
+{
+  "item": 12,
+  "variant": "v2_plus_interactions_plus_self_norm",
+  "eval": "loocv",
+  "n_subjects": 94,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "ccc_mean": 0.6968333333333333,
+  "ccc_std": 0.007613292469242345,
+  "mae_mean": 0.4384333333333333,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.6915,
+      "cal_slope": 0.5278,
+      "mae": 0.4352,
+      "r": 0.7281,
+      "pred_mean": 0.533,
+      "pred_std": 0.69,
+      "true_mean": 0.564,
+      "true_std": 0.952,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.6914,
+      "cal_slope": 0.5173,
+      "mae": 0.4423,
+      "r": 0.7351,
+      "pred_mean": 0.534,
+      "pred_std": 0.67,
+      "true_mean": 0.564,
+      "true_std": 0.952,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.7076,
+      "cal_slope": 0.5403,
+      "mae": 0.4378,
+      "r": 0.7457,
+      "pred_mean": 0.52,
+      "pred_std": 0.689,
+      "true_mean": 0.564,
+      "true_std": 0.952,
+      "label": ""
+    }
+  ]
+}

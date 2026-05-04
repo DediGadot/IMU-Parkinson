@@ -1,0 +1,5 @@
+{
+  "error": "need at least one array to concatenate",
+  "variant": "ensemble_iter2_hy",
+  "tb": "Traceback (most recent call last):\n  File \"/root/pd-imu/run_t3_iter3.py\", line 370, in main\n    run_variant(name, n_seeds=args.seeds)\n  File \"/root/pd-imu/run_t3_iter3.py\", line 322, in run_variant\n    preds = fn(sids, X, fc, y_t3, hy, obs, seed=seed)\n  File \"/root/pd-imu/run_t3_iter3.py\", line 256, in variant_ensemble_iter2_hy\n    p3 = variant_item_stack_ridge(sids, X, y_t3, items_use, seed=seed)\n  File \"/root/pd-imu/run_t3_iter2.py\", line 276, in variant_item_stack_ridge\n    Z = np.column_stack([per_item_preds[k] for k in item_keys])\n  File \"/usr/local/lib/python3.10/dist-packages/numpy/lib/_shape_base_impl.py\", line 662, in column_stack\n    return _nx.concatenate(arrays, 1)\nValueError: need at least one array to concatenate\n"
+}

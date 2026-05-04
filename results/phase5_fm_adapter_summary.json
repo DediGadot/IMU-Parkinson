@@ -1,0 +1,76 @@
+{
+  "summary": [
+    {
+      "variant": "linear_probe",
+      "target": "t1",
+      "ccc": -0.0033,
+      "mae": 3.291
+    },
+    {
+      "variant": "linear_probe",
+      "target": "t2",
+      "ccc": -0.0055,
+      "mae": 5.4317
+    },
+    {
+      "variant": "linear_probe",
+      "target": "t3",
+      "ccc": 0.0026,
+      "mae": 22.1083
+    },
+    {
+      "variant": "mlp_2x256",
+      "target": "t1",
+      "ccc": 0.0005,
+      "mae": 2.838
+    },
+    {
+      "variant": "mlp_2x256",
+      "target": "t2",
+      "ccc": -0.0083,
+      "mae": 3.8938
+    },
+    {
+      "variant": "mlp_2x256",
+      "target": "t3",
+      "ccc": 0.0056,
+      "mae": 18.0933
+    },
+    {
+      "variant": "mlp_2x256_contr",
+      "target": "t1",
+      "ccc": 0.0005,
+      "mae": 2.8381
+    },
+    {
+      "variant": "mlp_2x256_contr",
+      "target": "t2",
+      "ccc": -0.0084,
+      "mae": 3.8976
+    },
+    {
+      "variant": "mlp_2x256_contr",
+      "target": "t3",
+      "ccc": 0.0056,
+      "mae": 18.0932
+    },
+    {
+      "variant": "mlp_2x256_contr_l1",
+      "target": "t1",
+      "ccc": 0.0012,
+      "mae": 2.8515
+    },
+    {
+      "variant": "mlp_2x256_contr_l1",
+      "target": "t2",
+      "ccc": -0.0077,
+      "mae": 3.9751
+    },
+    {
+      "variant": "mlp_2x256_contr_l1",
+      "target": "t3",
+      "ccc": 0.0053,
+      "mae": 18.1563
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "item": 9,
+  "variant": "interactions_only",
+  "eval": "5split",
+  "n_subjects": 94,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "ccc_mean": 0.2601333333333333,
+  "ccc_std": 0.029888050380638003,
+  "mae_mean": 0.3728,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.2387,
+      "cal_slope": 0.1598,
+      "mae": 0.3763,
+      "r": 0.2766,
+      "pred_mean": 0.301,
+      "pred_std": 0.282,
+      "true_mean": 0.266,
+      "true_std": 0.488,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.3024,
+      "cal_slope": 0.2054,
+      "mae": 0.3713,
+      "r": 0.3436,
+      "pred_mean": 0.282,
+      "pred_std": 0.292,
+      "true_mean": 0.266,
+      "true_std": 0.488,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.2393,
+      "cal_slope": 0.1619,
+      "mae": 0.3708,
+      "r": 0.2733,
+      "pred_mean": 0.29,
+      "pred_std": 0.289,
+      "true_mean": 0.266,
+      "true_std": 0.488,
+      "label": ""
+    }
+  ]
+}

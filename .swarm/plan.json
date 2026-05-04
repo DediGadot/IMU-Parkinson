@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "title": "Strict-Inductive T3 CCC Improvement",
+  "swarm": "default",
+  "current_phase": 1,
+  "phases": [
+    {
+      "id": 1,
+      "name": "Low-Risk Additive Variability Signal Implementation",
+      "status": "complete",
+      "tasks": [
+        {
+          "id": "1.1",
+          "phase": 1,
+          "status": "completed",
+          "size": "small",
+          "description": "Expose a fold-safe additive mobility-variability feature group from currently excluded cached feature families nl sv pa fq and hr without changing default B1 v2-only behavior, mapping FR-001 FR-002 FR-003 FR-011 FR-013 FR-014",
+          "depends": [],
+          "acceptance": "Default B0-B6 behavior remains unchanged; the additive group includes only nonclinical sensor-derived variability frequency asymmetry and harmonic-ratio families; missing required columns fail fast; ext and ix clinical/demographic interaction families remain excluded.",
+          "files_touched": []
+        },
+        {
+          "id": "1.2",
+          "phase": 1,
+          "status": "completed",
+          "size": "small",
+          "description": "Add a strict-inductive B7 v2-plus-variability screening variant to run_baselines.py for T3 total-score evaluation, mapping FR-001 FR-002 FR-003 FR-007 FR-009 FR-013 FR-014",
+          "depends": [
+            "1.1"
+          ],
+          "acceptance": "B7 is selectable by baseline id, reuses train-fold-only feature selection and LightGBM training, reports CCC calibration slope MAE Pearson r prediction variance and sample count, and does not alter B0-B6 outputs.",
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Screening Execution and Leakage Validation",
+      "status": "complete",
+      "tasks": [
+        {
+          "id": "2.1",
+          "phase": 2,
+          "status": "completed",
+          "size": "small",
+          "description": "Add B7 support to the existing null-gate validation path using the repository leakage-check helpers, mapping FR-001 FR-002 FR-003 FR-008 FR-013",
+          "depends": [
+            "1.2"
+          ],
+          "acceptance": "B7 null validation uses existing scrambled-label and canary-feature helpers where applicable, records unsupported checks explicitly, and fails fast on invalid evaluation setup.",
+          "files_touched": []
+        },
+        {
+          "id": "2.2",
+          "phase": 2,
+          "status": "completed",
+          "size": "small",
+          "description": "Run the B7 T3 5-fold screening experiment remotely and capture the exploratory result artifact, mapping FR-007 FR-009 FR-012 FR-015",
+          "depends": [
+            "1.2"
+          ],
+          "acceptance": "Remote run completes via the repository remote workflow, result JSON is produced under results/, no full local test suite is run, and the result is labeled exploratory screening.",
+          "files_touched": []
+        },
+        {
+          "id": "2.3",
+          "phase": 2,
+          "status": "completed",
+          "size": "small",
+          "description": "Run B7 leakage and null sanity validation remotely and decide whether B7 is screening-positive using SC-002 thresholds, mapping FR-007 FR-008 FR-009 FR-011 FR-015 SC-001 SC-002",
+          "depends": [
+            "2.1",
+            "2.2"
+          ],
+          "acceptance": "Decision compares CCC calibration slope MAE Pearson r prediction variance and sample count against B1_v2_only; B7 is positive only if CCC reaches at least 0.35 or improves by at least 0.08 absolute CCC with no leakage-check failure.",
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Confirmation Decision and Documentation",
+      "status": "complete",
+      "tasks": [
+        {
+          "id": "3.1",
+          "phase": 3,
+          "status": "completed",
+          "size": "small",
+          "description": "If B7 is screening-positive, create exactly one pre-registration record for confirmatory T3 LOOCV; otherwise record the negative result and close the variability-signal candidate, mapping FR-010 FR-015 SC-003 SC-004 SC-005",
+          "depends": [
+            "2.3"
+          ],
+          "acceptance": "Either one pre-registration artifact exists for a single confirmation run, or a negative-result note records why the candidate is closed without repeated tuning.",
+          "files_touched": []
+        }
+      ]
+    }
+  ],
+  "migration_status": "native",
+  "specMtime": "2026-04-28T17:49:47.136Z",
+  "specHash": "3c16d718667f9d8479fcaa55717e7e03845b7f9cb2998cd01e148e19c8148dec",
+  "execution_profile": {
+    "parallelization_enabled": false,
+    "max_concurrent_tasks": 1,
+    "council_parallel": false,
+    "locked": true
+  }
+}

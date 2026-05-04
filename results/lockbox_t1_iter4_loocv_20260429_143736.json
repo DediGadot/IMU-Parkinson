@@ -1,0 +1,61 @@
+{
+  "variant": "tug_microscope",
+  "target": "t1",
+  "eval": "loocv",
+  "preregistration_file": "preregistration_t1_iter4_20260429_143125.json",
+  "n_subjects": 94,
+  "ccc_mean": 0.6196,
+  "ccc_std": 0.0144,
+  "ccc_per_seed": [
+    0.6092,
+    0.64,
+    0.6097
+  ],
+  "mae_mean": 1.6516,
+  "slope_mean": 0.4589,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.6092,
+      "cal_slope": 0.4424,
+      "mae": 1.6609,
+      "r": 0.6581,
+      "pred_mean": 4.048,
+      "pred_std": 1.892,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "tug_microscope_loocv_seed42",
+      "seed": 42,
+      "wall_s": 119.6
+    },
+    {
+      "n": 94,
+      "ccc": 0.64,
+      "cal_slope": 0.4857,
+      "mae": 1.6389,
+      "r": 0.6751,
+      "pred_mean": 4.06,
+      "pred_std": 2.025,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "tug_microscope_loocv_seed1337",
+      "seed": 1337,
+      "wall_s": 115.2
+    },
+    {
+      "n": 94,
+      "ccc": 0.6097,
+      "cal_slope": 0.4487,
+      "mae": 1.655,
+      "r": 0.6532,
+      "pred_mean": 4.079,
+      "pred_std": 1.934,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "tug_microscope_loocv_seed7",
+      "seed": 7,
+      "wall_s": 113.7
+    }
+  ],
+  "wall_total_s": 348.5
+}

@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-04-29T00:56:00Z",
+  "candidate": "B7_v2_plus_variability",
+  "target": "t3",
+  "evaluation_mode": "5split_screening",
+  "baseline_metrics": {
+    "baseline_id": "B1_v2_only",
+    "n": 95,
+    "ccc": 0.2073,
+    "cal_slope": 0.1151,
+    "mae": 8.0296,
+    "r": 0.3467,
+    "pred_std": 3.575
+  },
+  "candidate_metrics": {
+    "baseline_id": "B7_v2_plus_variability",
+    "n": 95,
+    "ccc": 0.1899,
+    "cal_slope": 0.1039,
+    "mae": 8.1008,
+    "r": 0.3391,
+    "pred_std": 3.299
+  },
+  "deltas": {
+    "ccc": -0.0174,
+    "cal_slope": -0.0112,
+    "mae": 0.0712,
+    "r": -0.0076,
+    "pred_std": -0.276
+  },
+  "null_gate": {
+    "mean_scrambled_label_ccc": -0.0359,
+    "mean_canary_feature_ccc": 0.2055,
+    "subject_disjoint_passed": true,
+    "unsupported_checks": [
+      "subject_id_shuffle",
+      "library_exclusion",
+      "transductive_sanity"
+    ],
+    "canary_interpretation": "Existing helper reports model CCC after appending an unseen constant test feature; similar-to-model CCC indicates no apparent test-only canary exploitation, not null-performance."
+  },
+  "thresholds": {
+    "ccc_min": 0.35,
+    "absolute_ccc_improvement_min": 0.08
+  },
+  "screening_positive": false,
+  "recommendation": "close_candidate_no_loocv",
+  "rationale": "B7 failed SC-002: CCC 0.1899 is below B1_v2_only CCC 0.2073 by 0.0174 and does not reach CCC >= 0.35 or +0.08 absolute CCC improvement. No confirmatory LOOCV should be run for this candidate."
+}

@@ -1,0 +1,130 @@
+{
+  "track1_iter11b_swaps": {
+    "item11_self_norm_hy_residual_item": {
+      "per_item_loocv_ccc_new": 0.30333221899220864,
+      "per_item_loocv_ccc_v5": 0.38259725885517726,
+      "delta_per_item": -0.07926503986296862,
+      "t1_composite_ccc_with_swap": 0.7087,
+      "t1_composite_ccc_v5_baseline": 0.7241,
+      "delta_t1_composite": -0.01539999999999997,
+      "swap_recommended": false
+    }
+  },
+  "track3_bootstrap_ci_t1_v5": {
+    "n_reps": 1000,
+    "point_ccc": 0.7240671047067522,
+    "point_metrics": {
+      "n": 94,
+      "ccc": 0.7241,
+      "cal_slope": 0.5655,
+      "mae": 1.4216,
+      "r": 0.7544,
+      "pred_mean": 4.139,
+      "pred_std": 2.11,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": ""
+    },
+    "bs_ccc_mean": 0.7204865491570049,
+    "bs_ccc_std": 0.045663411910389605,
+    "ci95_lower": 0.6271819115376972,
+    "ci95_upper": 0.7994243752482612,
+    "ci99_lower": 0.5816025380213731,
+    "ci99_upper": 0.8190133286961048,
+    "stratify_by": "hy_bin",
+    "n_bins": 5,
+    "n_subjects": 94,
+    "paired_delta": {
+      "point_baseline_ccc": 0.6908214641167445,
+      "point_delta": 0.033245640590007675,
+      "bs_delta_mean": 0.03362327291014997,
+      "bs_delta_std": 0.01698557037270454,
+      "ci95_delta_lower": -0.00015261409950032275,
+      "ci95_delta_upper": 0.06598601408952919,
+      "p_one_sided_v5_gt_baseline": 0.026,
+      "n_reps_pos_delta": 974
+    }
+  },
+  "track4_t3_composite": {
+    "items_used": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "head_names": {
+      "1": "severity_proxy_ridge_hy",
+      "2": "severity_proxy_ridge_hy",
+      "3": "severity_proxy_ridge_hy",
+      "4": "v2_baseline",
+      "5": "v2_baseline",
+      "6": "lr_multitask",
+      "7": "item_plus_v2",
+      "8": "item_plus_v2",
+      "9": "hy_residual_item",
+      "11": "item_dedicated",
+      "14": "iter6_item14",
+      "15": "item_dedicated",
+      "16": "lr_multitask",
+      "17": "v2_baseline",
+      "10": "iter11_self_norm_hy_residual",
+      "12": "cccv2_item_plus_v2",
+      "13": "inter_v2_plus_self_norm",
+      "18": "hy_residual_cccv2"
+    },
+    "per_item_loocv_ccc": {
+      "1": 0.07801976701343019,
+      "2": -0.08133096821634017,
+      "3": -0.013919646443126932,
+      "4": 0.09430021061685884,
+      "5": 0.0829659141345931,
+      "6": -0.06757526331848016,
+      "7": 0.27662119070429936,
+      "8": 0.1730667138609722,
+      "9": 0.44861182612431894,
+      "10": 0.5656746735870538,
+      "11": 0.38259725885517726,
+      "12": 0.6823207839753584,
+      "13": 0.2706945802188895,
+      "14": 0.45368972747516806,
+      "15": 0.050632477796886885,
+      "16": 0.14937985628219871,
+      "17": 0.18051817511746857,
+      "18": 0.49006710339712545
+    },
+    "t3_composite_metrics": {
+      "n": 89,
+      "ccc": 0.3056,
+      "cal_slope": 0.1964,
+      "mae": 7.4387,
+      "r": 0.3678,
+      "pred_mean": 23.958,
+      "pred_std": 5.092,
+      "true_mean": 23.843,
+      "true_std": 9.538,
+      "label": "",
+      "n_valid": 89,
+      "n_total": 94
+    },
+    "canonical_t3_hy_residual": {
+      "ccc": 0.4092,
+      "mae": 8.07,
+      "ref": "preregistration_t3_20260429_052015.json"
+    }
+  },
+  "n_subjects": 94
+}

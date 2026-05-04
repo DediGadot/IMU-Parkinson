@@ -1,0 +1,40 @@
+{
+  "timestamp": "20260503_053105",
+  "iso_datetime": "2026-05-03T05:31:05.289387",
+  "experiment": "T1 iter12 \u2014 honest composite (no cherry-pick)",
+  "rationale": "iter11A's composite (CCC=0.7241) had ~+0.010 to +0.025 selection inflation per independent leakage review (multi-layer LOOCV-based variant swaps + borderline null gate on item 10's iter11 swap + non-pre-registered interaction screen used for item 13 v4 swap). iter12 uses ONLY the pre-registered iter8-batch lockboxes.",
+  "method": "Sum 6 per-item LOOCV OOF arrays from the 20260430_143044 batch; CCC vs sum-of-items-9-14.",
+  "selections": {
+    "9": "hy_residual_item",
+    "10": "item_plus_v2",
+    "11": "item_dedicated",
+    "12": "item_plus_v2",
+    "13": "item_plus_v2",
+    "14": "item_plus_v2"
+  },
+  "source_files": {
+    "9": "lockbox_peritem_9_hy_residual_item_20260430_143044.oof.npy",
+    "10": "lockbox_peritem_10_item_plus_v2_20260430_143044.oof.npy",
+    "11": "lockbox_peritem_11_item_dedicated_20260430_143044.oof.npy",
+    "12": "lockbox_peritem_12_item_plus_v2_20260430_143044.oof.npy",
+    "13": "lockbox_peritem_13_item_plus_v2_20260430_143044.oof.npy",
+    "14": "lockbox_peritem_14_item_plus_v2_20260430_143044.oof.npy"
+  },
+  "pre_reg_files": {
+    "9": "preregistration_peritem_9_20260430_143044.json",
+    "10": "preregistration_peritem_10_20260430_143044.json",
+    "11": "preregistration_peritem_11_20260430_143044.json",
+    "12": "preregistration_peritem_12_20260430_143044.json",
+    "13": "preregistration_peritem_13_20260430_143044.json",
+    "14": "preregistration_peritem_14_20260430_143044.json"
+  },
+  "n_subjects": 94,
+  "eval_protocol": "Single-shot composite computation. No swaps, no LOOCV-based variant comparison, no interaction screen, no iter11 self-norm-cross. The 6 per-item lockboxes were pre-registered together as one coherent event (timestamp 20260430_143044).",
+  "headline_metric": "CCC(sum_per_item_OOFs, sum_per_item_true) over N=94",
+  "comparator_iter11A_ccc_inflated": 0.7241,
+  "lockbox_rules": [
+    "ONE composite pre-registered. ONE evaluation. Headline = result, no cherry-picking.",
+    "No variant comparison; iter8 batch winners are fixed.",
+    "If composite CCC < iter11A by more than +0.025, that confirms the upper bound of the inflation estimate."
+  ]
+}

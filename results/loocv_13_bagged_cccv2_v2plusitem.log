@@ -1,0 +1,9 @@
+BAG_COUNT=4
+v3 run: items=[13] variants=['bagged_cccv2_v2plusitem'] eval=loocv seeds=[42, 1337, 7] workers=1
+  Per-item features matched for 94/94 subjects (1305 features)
+  MOMENT embeddings matched for 94/94 subjects (2304 features)
+  HC SSL embeddings matched for 94/94 subjects (768 features)
+  Item9 event MOMENT matched for 93/94 subjects (3840 features)
+  Item11 multiscale matched for 94/94 subjects (237 features)
+  Walkway+joint matched for 94/94 subjects (216 features)
+  N = 94 PD subjects, V2=1751 feats, peritem=1305 feats

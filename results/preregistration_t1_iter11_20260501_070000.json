@@ -1,0 +1,50 @@
+{
+  "timestamp": "20260501_070000",
+  "purpose": "Item 10 LOOCV swap into T1 hybrid composite (v5 with self-norm × hy_residual cross-product)",
+  "screening_protocol": {
+    "method": "5-fold × 3-seed across 6 items × 6 variants",
+    "winner_item10": "self_norm_hy_residual",
+    "winner_5fold_ccc": 0.5412,
+    "iter6_baseline_5fold_ccc": 0.4859,
+    "delta_5fold": 0.0553,
+    "null_gates_passed": true,
+    "null_details": {
+      "scrambled_label": 0.0987,
+      "canary_feature": 0.5326,
+      "sid_shuffle_selfnorm": 0.4620,
+      "criterion_pass": "delta_5fold>=0.015, |scram|<0.15, |canary-ccc|<0.05, sid_shuf<=ccc-0.05",
+      "scram_check": "0.0987 < 0.15 PASS",
+      "canary_check": "abs(0.5326-0.5412)=0.0086 < 0.05 PASS",
+      "sid_shuf_check": "0.4620 <= 0.4912 (ccc-0.05) PASS"
+    }
+  },
+  "lockbox": {
+    "item": 10,
+    "variant": "self_norm_hy_residual",
+    "eval": "loocv",
+    "seeds": [42, 1337, 7],
+    "n_subjects": 94
+  },
+  "result": {
+    "ccc_mean": 0.5601,
+    "ccc_std": 0.0084,
+    "mae_mean": 0.5087,
+    "v4_hybrid_item10_ccc": 0.4859,
+    "delta_loocv": 0.0742
+  },
+  "composite_t1_lift": {
+    "v3_hybrid_T1_loocv": 0.6908,
+    "v4_hybrid_T1_loocv": 0.7065,
+    "v5_iter11_hybrid_T1_loocv": 0.7241,
+    "delta_v4_to_v5": 0.0176,
+    "delta_v3_to_v5": 0.0333,
+    "method": "v4 + item 10 swap to iter11 self_norm_hy_residual"
+  },
+  "files": {
+    "loocv_oof": "lockbox_self_norm_cross_10_self_norm_hy_residual_20260501_064907.oof.npy",
+    "lockbox_json": "lockbox_self_norm_cross_10_self_norm_hy_residual_20260501_064907.json",
+    "composite_json": "peritem_composite_hybrid_v5_iter11.json",
+    "screen_csv": "self_norm_cross_5split_iter11_5split.csv",
+    "preregistration_lockbox": "preregistration_self_norm_cross_10_self_norm_hy_residual_20260501_064907.json"
+  }
+}

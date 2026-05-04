@@ -1,0 +1,63 @@
+{
+  "variant": "hierarchical_distal_axial",
+  "target": "t1",
+  "eval": "5split",
+  "n_subjects": 94,
+  "ccc_mean": 0.5659,
+  "ccc_std": 0.0197,
+  "ccc_per_seed": [
+    0.5937,
+    0.5505,
+    0.5535
+  ],
+  "mae_mean": 1.7543,
+  "slope_mean": 0.4094,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.5937,
+      "cal_slope": 0.4413,
+      "mae": 1.6829,
+      "r": 0.633,
+      "pred_mean": 4.175,
+      "pred_std": 1.963,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "hierarchical_distal_axial_seed42",
+      "seed": 42,
+      "wall_s": 19.0
+    },
+    {
+      "n": 94,
+      "ccc": 0.5505,
+      "cal_slope": 0.4044,
+      "mae": 1.8451,
+      "r": 0.5905,
+      "pred_mean": 4.144,
+      "pred_std": 1.928,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "hierarchical_distal_axial_seed1337",
+      "seed": 1337,
+      "wall_s": 8.3
+    },
+    {
+      "n": 94,
+      "ccc": 0.5535,
+      "cal_slope": 0.3825,
+      "mae": 1.7349,
+      "r": 0.6189,
+      "pred_mean": 4.119,
+      "pred_std": 1.74,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "hierarchical_distal_axial_seed7",
+      "seed": 7,
+      "wall_s": 17.9
+    }
+  ],
+  "null_tests": {
+    "deferred_to": "b1_v2_only_control"
+  },
+  "wall_total_s": 45.6
+}

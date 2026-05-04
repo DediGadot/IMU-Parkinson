@@ -1,0 +1,54 @@
+{
+  "item": 17,
+  "variant": "v2_baseline",
+  "eval": "loocv",
+  "n_subjects": 93,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "ccc_mean": 0.17743333333333333,
+  "ccc_std": 0.01760725860421081,
+  "mae_mean": 1.3160666666666667,
+  "per_seed": [
+    {
+      "n": 93,
+      "ccc": 0.1713,
+      "cal_slope": 0.114,
+      "mae": 1.3012,
+      "r": 0.1987,
+      "pred_mean": 1.316,
+      "pred_std": 1.026,
+      "true_mean": 1.247,
+      "true_std": 1.788,
+      "label": ""
+    },
+    {
+      "n": 93,
+      "ccc": 0.1596,
+      "cal_slope": 0.1067,
+      "mae": 1.3382,
+      "r": 0.1837,
+      "pred_mean": 1.242,
+      "pred_std": 1.039,
+      "true_mean": 1.247,
+      "true_std": 1.788,
+      "label": ""
+    },
+    {
+      "n": 93,
+      "ccc": 0.2014,
+      "cal_slope": 0.1361,
+      "mae": 1.3088,
+      "r": 0.2302,
+      "pred_mean": 1.327,
+      "pred_std": 1.057,
+      "true_mean": 1.247,
+      "true_std": 1.788,
+      "label": ""
+    }
+  ],
+  "wall_time_s": 304.0142569541931,
+  "pre_registration": "preregistration_peritem_17_20260430_143044.json"
+}

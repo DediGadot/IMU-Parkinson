@@ -1,0 +1,22 @@
+{
+  "timestamp": "20260502_204257",
+  "iso_datetime": "2026-05-02T20:42:57.294801",
+  "experiment": "T3 iter6 \u2014 IMU feature additions on top of iter5 architecture",
+  "cache_set": "B2_v2_unsigned_asym",
+  "stage2_extra_caches": [
+    "unsigned_asymmetry_features.csv"
+  ],
+  "feature_set_stage1": "A3_tier1",
+  "alpha": 1.0,
+  "n_subjects": 98,
+  "eval_protocol": "LOOCV (n=98), Stage-1 Ridge with intercept + per-fold standardisation. Stage-2 LGB on V2 + extra IMU caches (event-axial, unsigned-asymmetry). Per-fold K=500 LGB-importance selection inside each fold. 3-seed mean preds = headline.",
+  "headline_metric": "CCC of mean-of-3-seed predictions",
+  "lockbox_rules": [
+    "ONE config pre-registered. ONE LOOCV run. Headline = result, no cherry-picking.",
+    "Apples-to-apples baseline: iter5 LOOCV CCC = 0.5227 (same N=98).",
+    "Stage 1 + Stage 2 architecture identical to iter5 except for added Stage 2 features.",
+    "If LOOCV CCC <= iter5 + 0.005 (within noise), report as null result; do not select runner-up.",
+    "Bootstrap CI of (iter6 - iter5) on the same 98 subjects must straddle zero LESS than 30% to claim significance."
+  ],
+  "feature_safety_argument": "event_axial: extracted from raw IMU + GeneralEvent annotations recorded during the same gait session as the UPDRS-III rating. Same safety status as V2 (raw signal, no derivation from rated scores). unsigned_asymmetry: derived from existing V2 features by max/min L/R aggregation; no new external information."
+}

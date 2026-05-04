@@ -1,0 +1,56 @@
+Loading per-item canonical data (drives SID alignment for B_T1/B_18)...
+  Per-item features matched for 94/94 subjects (1305 features)
+  MOMENT embeddings matched for 94/94 subjects (2304 features)
+  HC SSL embeddings matched for 94/94 subjects (768 features)
+  Item9 event MOMENT matched for 93/94 subjects (3840 features)
+  Item11 multiscale matched for 94/94 subjects (237 features)
+  Walkway+joint matched for 94/94 subjects (216 features)
+  N per-item canonical = 94
+  B_hy: loaded 98 sid→pred from iter3_hy_residual_t3_loocv.json
+  T1 iter11A selections (with per-item OOF spot-check CCC vs d['items']):
+    item 9: lockbox_peritem_9_*_20260430_143044.oof.npy  → spot-CCC vs item-9 target = +0.4486
+    item 10: lockbox_self_norm_cross_10_self_norm_hy_residual_2*.oof.npy  → spot-CCC vs item-10 target = +0.5657
+    item 11: lockbox_peritem_11_*_20260430_143044.oof.npy  → spot-CCC vs item-11 target = +0.3826
+    item 12: lockbox_peritem_12_item_plus_v2_cccv2.oof.npy  → spot-CCC vs item-12 target = +0.6823
+    item 13: interaction_13_v2_plus_self_norm_loocv_loocv_winners.oof.npy  → spot-CCC vs item-13 target = +0.2707
+    item 14: lockbox_peritem_14_*_20260430_143044.oof.npy  → spot-CCC vs item-14 target = +0.3857
+  B_T1: composed 94 sid→pred from items [9, 10, 11, 12, 13, 14]
+  B_18: loaded 93 sid→pred from lockbox_peritem_18_hy_residual_cccv2.oof.npy
+  y_T3: loaded 98 sid→T3 from updrs3 column (canonical, matches hy_residual training target)
+  (For comparison: sum-of-items 1-18 would yield 89 sids; using updrs3 column for canonical apples-to-apples)
+
+INTERSECTION SID COUNT: 93
+
+Per-base CCC vs T3 on intersection (N=93):
+  B_hy: CCC=+0.3311  r=+0.3521  mean=25.48±7.18
+  B_T1: CCC=+0.0361  r=+0.4590  mean=4.15±2.13
+  B_18: CCC=+0.0022  r=+0.0794  mean=0.97±0.94
+  y_T3:  mean=25.24±10.22, range=[6,59]
+
+=== 5-FOLD SCREENING — direct stack (3 seeds × 5 configs) ===
+  REFERENCE: raw B_hy CCC on N=93 intersection = 0.3311
+  C0_hy_only            bases=B_hy                      5-fold CCC = 0.1998 ± 0.0042  Δ vs raw B_hy = -0.1312
+  C1_hy_T1              bases=B_hy+B_T1                 5-fold CCC = 0.2943 ± 0.0036  Δ vs raw B_hy = -0.0368
+  C2_hy_18              bases=B_hy+B_18                 5-fold CCC = 0.2256 ± 0.0095  Δ vs raw B_hy = -0.1054
+  C3_hy_T1_18           bases=B_hy+B_T1+B_18            5-fold CCC = 0.3609 ± 0.0125  Δ vs raw B_hy = +0.0299
+  C4_T1_18_no_hy        bases=B_T1+B_18                 5-fold CCC = 0.3589 ± 0.0104  Δ vs raw B_hy = +0.0279
+
+=== 5-FOLD SCREENING — residual augmentation (3 seeds × 3 configs) ===
+  Anchor on B_hy (pin coefficient=1, fit Ridge only on residual ~ augmenter bases)
+  R1_hy_anchor_T1       anchor=B_hy  aug=B_T1              5-fold CCC = 0.3158 ± 0.0043  Δ vs raw B_hy = -0.0152
+  R2_hy_anchor_18       anchor=B_hy  aug=B_18              5-fold CCC = 0.3586 ± 0.0056  Δ vs raw B_hy = +0.0275
+  R3_hy_anchor_T1_18    anchor=B_hy  aug=B_T1+B_18         5-fold CCC = 0.3567 ± 0.0183  Δ vs raw B_hy = +0.0257
+Wrote /home/fiod/medical/results/t3_iter4_stack_5fold_screen.csv
+
+=== 5-NULL GATE on R2_hy_anchor_18 (residual augment, B_18 only) ===
+  REAL                 CCC = 0.3508  (reference)
+  N1 scrambled-label   CCC = 0.3755  (max-|abs| over 3 seeds; per-seed = [0.3685, 0.3309, 0.3755]; expect ≈ 0)
+  N2 canary feature    CCC = 0.3384  (expect ≈ 0.3508, |Δ| < 0.05)
+  N3 permuted B_18     CCC = 0.3268  (expect drop towards raw B_hy ≈ 0.331)
+  N4 transductive      CCC = 0.3713  (expect HIGH; proves architecture can learn)
+Wrote /home/fiod/medical/results/t3_iter4_stack_5fold_nulls.json
+
+Null-gate verdict:
+  N1 (|scram| < 0.10): FAIL
+  N2 (|canary - real| < 0.05): PASS
+  N4 (transductive > real + 0.05): FAIL

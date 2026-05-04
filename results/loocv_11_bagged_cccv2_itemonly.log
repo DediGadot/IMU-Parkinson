@@ -1,0 +1,15 @@
+BAG_COUNT=4
+v3 run: items=[11] variants=['bagged_cccv2_itemonly'] eval=loocv seeds=[42, 1337, 7] workers=1
+  Per-item features matched for 94/94 subjects (1305 features)
+  MOMENT embeddings matched for 94/94 subjects (2304 features)
+  HC SSL embeddings matched for 94/94 subjects (768 features)
+  Item9 event MOMENT matched for 93/94 subjects (3840 features)
+  Item11 multiscale matched for 94/94 subjects (237 features)
+  Walkway+joint matched for 94/94 subjects (216 features)
+  N = 94 PD subjects, V2=1751 feats, peritem=1305 feats
+item=11 variant=bagged_cccv2_itemonly ccc=0.3147 (232s)
+   wrote lockbox_peritem_11_bagged_cccv2_itemonly.oof.npy and lockbox_peritem_11_bagged_cccv2_itemonly_cccv3bag4.json
+
+Wrote /root/pd-imu/results/peritem_cccv3bag4_loocv.csv
+   item                variant   eval  ccc_mean   ccc_std  mae_mean
+0    11  bagged_cccv2_itemonly  loocv    0.3147  0.066718    0.3633

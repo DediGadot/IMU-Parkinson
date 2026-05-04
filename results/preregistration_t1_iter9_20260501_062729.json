@@ -1,0 +1,48 @@
+{
+  "timestamp": "20260501_062729",
+  "purpose": "Item 13 LOOCV swap into T1 hybrid composite (v4 with self-normalisation)",
+  "screening_protocol": {
+    "method": "5-fold \u00d7 3-seed across 7 items \u00d7 4 variants",
+    "winner_item13": "v2_plus_self_norm",
+    "winner_5fold_ccc": 0.2395,
+    "v2_baseline_pearson_5fold_ccc": 0.219,
+    "delta_5fold": 0.0205,
+    "null_gates_passed": true,
+    "null_details": {
+      "scrambled_label": 0.1246,
+      "canary_feature": 0.2624,
+      "sid_shuffle_cache": 0.1144,
+      "criterion_pass": "delta>=0.015, |scram|<0.15, |canary-base|<0.05, sid_shuf<=base-0.05"
+    }
+  },
+  "lockbox": {
+    "item": 13,
+    "variant": "v2_plus_self_norm",
+    "eval": "loocv",
+    "seeds": [
+      42,
+      1337,
+      7
+    ],
+    "n_subjects": 94
+  },
+  "result": {
+    "ccc_mean": 0.2651,
+    "ccc_std": 0.0264,
+    "mae_mean": 0.5629,
+    "v3_hybrid_item13_ccc": 0.1197,
+    "delta_loocv": 0.1454
+  },
+  "composite_t1_lift": {
+    "v3_hybrid_T1_loocv": 0.6908,
+    "v4_hybrid_T1_loocv": 0.7065,
+    "delta": 0.0157,
+    "method": "v3 canonical with item 13 swapped to v2_plus_self_norm"
+  },
+  "files": {
+    "loocv_oof": "interaction_13_v2_plus_self_norm_loocv_loocv_winners.oof.npy",
+    "composite_json": "peritem_composite_hybrid_v4.json",
+    "screen_csv": "interaction_screen_5split_screen.csv",
+    "screen_loocv_csv": "interaction_screen_loocv_loocv_winners.csv"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "item": 11,
+  "variant": "bagged_cccv2_itemonly",
+  "eval": "loocv",
+  "n_subjects": 94,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "ccc_mean": 0.31470000000000004,
+  "ccc_std": 0.06671766382800484,
+  "mae_mean": 0.36329999999999996,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.2864,
+      "cal_slope": 0.2178,
+      "mae": 0.3604,
+      "r": 0.302,
+      "pred_mean": 0.232,
+      "pred_std": 0.445,
+      "true_mean": 0.213,
+      "true_std": 0.617,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.4068,
+      "cal_slope": 0.288,
+      "mae": 0.3337,
+      "r": 0.4467,
+      "pred_mean": 0.222,
+      "pred_std": 0.398,
+      "true_mean": 0.213,
+      "true_std": 0.617,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.2509,
+      "cal_slope": 0.1879,
+      "mae": 0.3958,
+      "r": 0.2681,
+      "pred_mean": 0.263,
+      "pred_std": 0.432,
+      "true_mean": 0.213,
+      "true_std": 0.617,
+      "label": ""
+    }
+  ]
+}

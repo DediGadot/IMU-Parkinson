@@ -1,0 +1,872 @@
+{
+  "n": 89,
+  "n_features": 1752,
+  "top_per_item": {
+    "1": [
+      {
+        "feature": "duration_s",
+        "rho": 0.3880272479395327
+      },
+      {
+        "feature": "n_samples",
+        "rho": 0.3880272479395327
+      },
+      {
+        "feature": "R_DorsalFoot_ay_loco_r",
+        "rho": -0.37758281843942726
+      },
+      {
+        "feature": "R_DorsalFoot_gm_iqr",
+        "rho": -0.3748357904065229
+      },
+      {
+        "feature": "Xiphoid_am_skew",
+        "rho": 0.37308074471883385
+      },
+      {
+        "feature": "R_DorsalFoot_pi_std",
+        "rho": -0.3719075348297809
+      },
+      {
+        "feature": "L_DorsalFoot_gm_iqr",
+        "rho": -0.3691414302133147
+      },
+      {
+        "feature": "R_DorsalFoot_ay_se",
+        "rho": 0.3674531525680922
+      },
+      {
+        "feature": "L_DorsalFoot_am_iqr",
+        "rho": -0.36140587557899
+      },
+      {
+        "feature": "dst_wk_cisp_time",
+        "rho": 0.35933606626253084
+      }
+    ],
+    "2": [
+      {
+        "feature": "Forehead_gm_loco",
+        "rho": -0.5094257120723662
+      },
+      {
+        "feature": "Forehead_gm_rms",
+        "rho": -0.49126115032697654
+      },
+      {
+        "feature": "Forehead_gm_std",
+        "rho": -0.4608535139250027
+      },
+      {
+        "feature": "L_LatShank_ya_jerk",
+        "rho": -0.44167536429954724
+      },
+      {
+        "feature": "Forehead_ro_jerk",
+        "rho": -0.437167565569781
+      },
+      {
+        "feature": "L_LatShank_ya_zcr",
+        "rho": -0.4092672255027068
+      },
+      {
+        "feature": "Forehead_gm_range",
+        "rho": -0.39914912894555876
+      },
+      {
+        "feature": "Forehead_gm_jerk",
+        "rho": -0.3967307438282087
+      },
+      {
+        "feature": "dv_L_Ankle_g_cadence_cv",
+        "rho": 0.3951125596688055
+      },
+      {
+        "feature": "L_LatShank_ya_range",
+        "rho": -0.3950058662077459
+      }
+    ],
+    "3": [
+      {
+        "feature": "LowerBack_ya_range",
+        "rho": -0.3833484716758065
+      },
+      {
+        "feature": "d_tg_R_Wrist_ax_jerk",
+        "rho": -0.3273076869539137
+      },
+      {
+        "feature": "Forehead_ay_se",
+        "rho": 0.32231599171238606
+      },
+      {
+        "feature": "L_Wrist_ay_kurt",
+        "rho": -0.3158576643638117
+      },
+      {
+        "feature": "r_tg_R_Wrist_ax_jerk",
+        "rho": -0.3131441511144062
+      },
+      {
+        "feature": "Forehead_ay_high_r",
+        "rho": 0.31252986753612655
+      },
+      {
+        "feature": "L_Wrist_ay_zcr",
+        "rho": 0.30496513351030635
+      },
+      {
+        "feature": "L_Wrist_ax_kurt",
+        "rho": -0.3040045323641704
+      },
+      {
+        "feature": "LowerBack_ya_std",
+        "rho": -0.29327496063367026
+      },
+      {
+        "feature": "dv_Forehead_ay_rms_cv",
+        "rho": 0.28953547760049836
+      }
+    ],
+    "4": [
+      {
+        "feature": "L_Wrist_am_loco_r",
+        "rho": -0.4109140408664087
+      },
+      {
+        "feature": "R_Ankle_am_high_r",
+        "rho": 0.408902104550672
+      },
+      {
+        "feature": "R_MidLatThigh_am_se",
+        "rho": 0.3928240333868196
+      },
+      {
+        "feature": "L_Wrist_gm_high_r",
+        "rho": 0.3867446760345072
+      },
+      {
+        "feature": "R_MidLatThigh_az_se",
+        "rho": 0.37250434756598133
+      },
+      {
+        "feature": "L_Wrist_am_se",
+        "rho": 0.3603020844562538
+      },
+      {
+        "feature": "L_Wrist_ay_loco_r",
+        "rho": -0.3523588553655531
+      },
+      {
+        "feature": "cv_yrs",
+        "rho": 0.343907735189932
+      },
+      {
+        "feature": "R_MidLatThigh_ax_range",
+        "rho": 0.34376240019831455
+      },
+      {
+        "feature": "L_Wrist_am_high_r",
+        "rho": 0.3339988477743284
+      }
+    ],
+    "5": [
+      {
+        "feature": "ins_L_cop_v",
+        "rho": -0.3819552387823247
+      },
+      {
+        "feature": "R_Ankle_am_high_r",
+        "rho": 0.37358786546456796
+      },
+      {
+        "feature": "R_Ankle_ax_skew",
+        "rho": 0.33119392389413055
+      },
+      {
+        "feature": "R_MidLatThigh_ay_high_r",
+        "rho": 0.3235861002212179
+      },
+      {
+        "feature": "LowerBack_az_loco_r",
+        "rho": -0.320612927751344
+      },
+      {
+        "feature": "Forehead_ro_rms",
+        "rho": 0.3193624463890147
+      },
+      {
+        "feature": "R_LatShank_am_trem_r",
+        "rho": 0.3138883111944822
+      },
+      {
+        "feature": "trn_dur_sd",
+        "rho": 0.30990950685979796
+      },
+      {
+        "feature": "L_DorsalFoot_gm_dom",
+        "rho": 0.30913211575555993
+      },
+      {
+        "feature": "L_MidLatThigh_ax_high_r",
+        "rho": 0.3087202378718484
+      }
+    ],
+    "6": [
+      {
+        "feature": "d_tug_R_Wrist_ax_jerk",
+        "rho": -0.3547216015689504
+      },
+      {
+        "feature": "Xiphoid_ya_skew",
+        "rho": -0.3389710460633323
+      },
+      {
+        "feature": "d_tg_R_Wrist_ax_jerk",
+        "rho": -0.3377821611573985
+      },
+      {
+        "feature": "r_tug_R_Wrist_ax_rms",
+        "rho": -0.3249387329765089
+      },
+      {
+        "feature": "L_LatShank_am_loco_r",
+        "rho": -0.32381059401467405
+      },
+      {
+        "feature": "r_tg_R_Wrist_ax_jerk",
+        "rho": -0.32343426861429536
+      },
+      {
+        "feature": "r_tug_R_Wrist_ax_jerk",
+        "rho": -0.3071662053316021
+      },
+      {
+        "feature": "d_tug_R_Wrist_ax_rms",
+        "rho": -0.3052570470884969
+      },
+      {
+        "feature": "L_Ankle_ax_zcr",
+        "rho": 0.29281280654025643
+      },
+      {
+        "feature": "R_LatShank_am_trem_r",
+        "rho": 0.29267395866803064
+      }
+    ],
+    "7": [
+      {
+        "feature": "k_L_fsa_m",
+        "rho": -0.4522560321002683
+      },
+      {
+        "feature": "ev_Turn_bouts",
+        "rho": 0.4493127834851674
+      },
+      {
+        "feature": "Forehead_ro_rms",
+        "rho": 0.4185670438394576
+      },
+      {
+        "feature": "trn_n",
+        "rho": 0.3985858526375703
+      },
+      {
+        "feature": "cv_yrs",
+        "rho": 0.3928014967668491
+      },
+      {
+        "feature": "LowerBack_gm_se",
+        "rho": 0.37787845467178655
+      },
+      {
+        "feature": "dv_L_Ankle_g_stride_reg_rng",
+        "rho": -0.3662427544629799
+      },
+      {
+        "feature": "ev_Turn_s",
+        "rho": 0.36507918444209914
+      },
+      {
+        "feature": "ev_Turn_n",
+        "rho": 0.36507918444209914
+      },
+      {
+        "feature": "r_tug_LowerBack_g_step_t",
+        "rho": -0.3638029035041108
+      }
+    ],
+    "8": [
+      {
+        "feature": "dv_L_Ankle_ro_rms_rng",
+        "rho": -0.44153614311091344
+      },
+      {
+        "feature": "dv_L_Ankle_ro_rms_cv",
+        "rho": -0.4084312945376002
+      },
+      {
+        "feature": "r_hp_LowerBack_g_step_reg",
+        "rho": -0.36817635937851145
+      },
+      {
+        "feature": "R_DorsalFoot_am_zcr",
+        "rho": 0.36257648387086333
+      },
+      {
+        "feature": "LowerBack_ay_loco_r",
+        "rho": -0.3600264914521786
+      },
+      {
+        "feature": "LowerBack_ay_high_r",
+        "rho": 0.3589902754516531
+      },
+      {
+        "feature": "Xiphoid_az_zcr",
+        "rho": -0.3579090065815394
+      },
+      {
+        "feature": "Xiphoid_gm_kurt",
+        "rho": -0.34671787377586294
+      },
+      {
+        "feature": "Forehead_ya_skew",
+        "rho": 0.34649260942792265
+      },
+      {
+        "feature": "dst_wk_ds_cop_path_eff.%.1",
+        "rho": -0.33842814577165825
+      }
+    ],
+    "9": [
+      {
+        "feature": "dv_Forehead_gm_rms_rng",
+        "rho": -0.4590077828116751
+      },
+      {
+        "feature": "dv_Forehead_az_rms_cv",
+        "rho": -0.456804241208841
+      },
+      {
+        "feature": "dv_Forehead_am_rms_cv",
+        "rho": -0.42151401909238634
+      },
+      {
+        "feature": "dv_L_LatShank_ay_rms_cv",
+        "rho": -0.4069169541599067
+      },
+      {
+        "feature": "R_LatShank_am_se",
+        "rho": 0.4058095906133048
+      },
+      {
+        "feature": "R_LatShank_gm_iqr",
+        "rho": -0.39710727910566546
+      },
+      {
+        "feature": "R_Wrist_ro_range",
+        "rho": 0.39409838219621185
+      },
+      {
+        "feature": "dv_L_DorsalFoot_az_rms_cv",
+        "rho": -0.3927784943325854
+      },
+      {
+        "feature": "dv_Forehead_gm_rms_cv",
+        "rho": -0.3925212280540819
+      },
+      {
+        "feature": "L_Ankle_g_stride_reg",
+        "rho": -0.38886357270318467
+      }
+    ],
+    "10": [
+      {
+        "feature": "fc_L_strd_cv",
+        "rho": 0.5555365385269122
+      },
+      {
+        "feature": "fc_L_nhs",
+        "rho": 0.5549212220968232
+      },
+      {
+        "feature": "Forehead_gm_se",
+        "rho": 0.5285495068968724
+      },
+      {
+        "feature": "fc_L_st_cv",
+        "rho": 0.5243787838267754
+      },
+      {
+        "feature": "Forehead_az_loco_r",
+        "rho": -0.5183397277976755
+      },
+      {
+        "feature": "ev_TurnToSit_grms",
+        "rho": -0.5104512108596638
+      },
+      {
+        "feature": "dst_wk_ds_cop_dist",
+        "rho": -0.5084507735500245
+      },
+      {
+        "feature": "L_MidLatThigh_az_se",
+        "rho": 0.5051481647841105
+      },
+      {
+        "feature": "Forehead_gm_trem_r",
+        "rho": 0.5030156231238346
+      },
+      {
+        "feature": "fc_R_strd_cv",
+        "rho": 0.49933557335610196
+      }
+    ],
+    "11": [
+      {
+        "feature": "fc_L_nhs",
+        "rho": 0.4323094711404416
+      },
+      {
+        "feature": "R_Ankle_pi_jerk",
+        "rho": -0.4078279698686298
+      },
+      {
+        "feature": "R_DorsalFoot_ay_loco",
+        "rho": -0.4001820627098133
+      },
+      {
+        "feature": "R_Ankle_pi_iqr",
+        "rho": -0.39847526310811743
+      },
+      {
+        "feature": "ev_TurnToSit_s",
+        "rho": 0.39718609393600035
+      },
+      {
+        "feature": "ev_TurnToSit_n",
+        "rho": 0.39718609393600035
+      },
+      {
+        "feature": "fc_R_nhs",
+        "rho": 0.39097663402225674
+      },
+      {
+        "feature": "R_DorsalFoot_ay_std",
+        "rho": -0.3870688462577597
+      },
+      {
+        "feature": "fc_R_st_cv",
+        "rho": 0.37401113548381004
+      },
+      {
+        "feature": "R_DorsalFoot_gm_jerk",
+        "rho": -0.37284551624362744
+      }
+    ],
+    "12": [
+      {
+        "feature": "dv_Forehead_az_rms_cv",
+        "rho": -0.5120875456739791
+      },
+      {
+        "feature": "dv_Forehead_am_rms_cv",
+        "rho": -0.5106445623242633
+      },
+      {
+        "feature": "L_Ankle_ya_kurt",
+        "rho": -0.5034094639903732
+      },
+      {
+        "feature": "L_MidLatThigh_az_se",
+        "rho": 0.44856600590851636
+      },
+      {
+        "feature": "Xiphoid_am_zcr",
+        "rho": 0.4449232297599331
+      },
+      {
+        "feature": "dv_Forehead_gm_rms_rng",
+        "rho": -0.4400090137367749
+      },
+      {
+        "feature": "dv_L_LatShank_am_rms_cv",
+        "rho": -0.43973656233508035
+      },
+      {
+        "feature": "ins_L_pk",
+        "rho": -0.43939947602601714
+      },
+      {
+        "feature": "Forehead_gm_loco_r",
+        "rho": 0.43737531685372716
+      },
+      {
+        "feature": "Forehead_az_loco_r",
+        "rho": -0.43689095880627005
+      }
+    ],
+    "13": [
+      {
+        "feature": "L_LatShank_am_kurt",
+        "rho": 0.3889644578477387
+      },
+      {
+        "feature": "fc_L_nhs",
+        "rho": 0.38564291226068875
+      },
+      {
+        "feature": "cv_age",
+        "rho": 0.38182064952830935
+      },
+      {
+        "feature": "L_Wrist_pi_rms",
+        "rho": 0.3759300007626876
+      },
+      {
+        "feature": "Forehead_az_trem_r",
+        "rho": 0.37319562847553306
+      },
+      {
+        "feature": "dst_wk_ds_cop_dist",
+        "rho": -0.3647430925203086
+      },
+      {
+        "feature": "L_Ankle_ay_se",
+        "rho": 0.3537871278832636
+      },
+      {
+        "feature": "L_LatShank_am_skew",
+        "rho": 0.35290954218299436
+      },
+      {
+        "feature": "L_Ankle_ay_high_r",
+        "rho": 0.3507479100370682
+      },
+      {
+        "feature": "Forehead_gm_trem_r",
+        "rho": 0.34889112345018275
+      }
+    ],
+    "14": [
+      {
+        "feature": "R_DorsalFoot_gm_loco",
+        "rho": -0.5656934994288902
+      },
+      {
+        "feature": "R_DorsalFoot_gm_std",
+        "rho": -0.5596161041575186
+      },
+      {
+        "feature": "R_DorsalFoot_gm_rms",
+        "rho": -0.5465524584306878
+      },
+      {
+        "feature": "R_DorsalFoot_gm_range",
+        "rho": -0.5253550178240454
+      },
+      {
+        "feature": "Forehead_gm_rms",
+        "rho": -0.523316978926395
+      },
+      {
+        "feature": "Forehead_gm_std",
+        "rho": -0.5209576275899259
+      },
+      {
+        "feature": "R_DorsalFoot_gm_trem",
+        "rho": -0.5016697009054063
+      },
+      {
+        "feature": "L_DorsalFoot_gm_std",
+        "rho": -0.48195029751733015
+      },
+      {
+        "feature": "R_Ankle_gm_std",
+        "rho": -0.4720263333355282
+      },
+      {
+        "feature": "R_LatShank_gm_rms",
+        "rho": -0.47172338160749916
+      }
+    ],
+    "15": [
+      {
+        "feature": "r_tg_LowerBack_fi",
+        "rho": 0.3483547933212036
+      },
+      {
+        "feature": "d_hp_LowerBack_az_rms",
+        "rho": 0.30879262389422224
+      },
+      {
+        "feature": "R_LatShank_ax_std",
+        "rho": 0.3023474195948724
+      },
+      {
+        "feature": "R_LatShank_ax_high",
+        "rho": 0.30152012471465733
+      },
+      {
+        "feature": "d_tg_LowerBack_fi",
+        "rho": 0.2996154225485808
+      },
+      {
+        "feature": "cv_age",
+        "rho": -0.29874428752272425
+      },
+      {
+        "feature": "Forehead_am_loco_r",
+        "rho": -0.2985187758469004
+      },
+      {
+        "feature": "r_hp_LowerBack_az_rms",
+        "rho": 0.29195813505263685
+      },
+      {
+        "feature": "r_hp_LowerBack_az_jerk",
+        "rho": 0.2795294724335921
+      },
+      {
+        "feature": "Forehead_az_trem_r",
+        "rho": -0.2761625746652751
+      }
+    ],
+    "16": [
+      {
+        "feature": "R_LatShank_am_zcr",
+        "rho": 0.4561857504138527
+      },
+      {
+        "feature": "L_LatShank_pi_jerk",
+        "rho": 0.45542768529713595
+      },
+      {
+        "feature": "R_Ankle_am_zcr",
+        "rho": 0.43709142788572897
+      },
+      {
+        "feature": "R_LatShank_ax_iqr",
+        "rho": 0.4363868732478392
+      },
+      {
+        "feature": "R_Ankle_ay_iqr",
+        "rho": 0.42344625578482775
+      },
+      {
+        "feature": "L_LatShank_am_zcr",
+        "rho": 0.41958458289614137
+      },
+      {
+        "feature": "LowerBack_ax_iqr",
+        "rho": 0.4182824945780162
+      },
+      {
+        "feature": "L_LatShank_gm_zcr",
+        "rho": 0.411379642809325
+      },
+      {
+        "feature": "L_LatShank_ax_iqr",
+        "rho": 0.4015337147051453
+      },
+      {
+        "feature": "L_MidLatThigh_gm_zcr",
+        "rho": 0.40044566830232836
+      }
+    ],
+    "17": [
+      {
+        "feature": "dv_L_DorsalFoot_ro_rms_rng",
+        "rho": 0.418106072538176
+      },
+      {
+        "feature": "R_Wrist_ay_loco_r",
+        "rho": -0.39836704114265237
+      },
+      {
+        "feature": "L_DorsalFoot_g_stride_reg",
+        "rho": 0.3756944367677029
+      },
+      {
+        "feature": "R_Wrist_ax_trem_r",
+        "rho": 0.3738583553207011
+      },
+      {
+        "feature": "Forehead_ay_loco_r",
+        "rho": -0.37303283820843475
+      },
+      {
+        "feature": "R_Wrist_az_dom",
+        "rho": 0.3654821558422159
+      },
+      {
+        "feature": "R_Wrist_ay_trem_r",
+        "rho": 0.36480518432284703
+      },
+      {
+        "feature": "dv_L_DorsalFoot_gm_rms_rng",
+        "rho": 0.36397966721058067
+      },
+      {
+        "feature": "R_Wrist_ax_loco_r",
+        "rho": -0.35671511662263705
+      },
+      {
+        "feature": "L_Wrist_ax_trem_r",
+        "rho": 0.35026691073460126
+      }
+    ],
+    "18": [
+      {
+        "feature": "dv_L_DorsalFoot_ro_rms_rng",
+        "rho": 0.4389159916232635
+      },
+      {
+        "feature": "dv_L_DorsalFoot_gm_rms_rng",
+        "rho": 0.42423475900821844
+      },
+      {
+        "feature": "L_DorsalFoot_g_stride_reg",
+        "rho": 0.4187554240862636
+      },
+      {
+        "feature": "Xiphoid_am_dom",
+        "rho": 0.4111878071854232
+      },
+      {
+        "feature": "dv_L_DorsalFoot_fi_rng",
+        "rho": 0.4084684321316696
+      },
+      {
+        "feature": "dv_Forehead_az_rms_cv",
+        "rho": 0.4005296228338309
+      },
+      {
+        "feature": "dv_L_DorsalFoot_az_rms_rng",
+        "rho": 0.397079579540845
+      },
+      {
+        "feature": "L_DorsalFoot_ro_jerk",
+        "rho": 0.39461261310016144
+      },
+      {
+        "feature": "R_Wrist_az_dom",
+        "rho": 0.38724235622021186
+      },
+      {
+        "feature": "dv_L_DorsalFoot_am_rms_rng",
+        "rho": 0.38494878215582984
+      }
+    ]
+  },
+  "summary_per_item": {
+    "1": {
+      "max_abs_rho": 0.3880272479395327,
+      "median_abs_rho": 0.10663019745273972,
+      "frac_above_0.2": 0.1797945205479452,
+      "frac_above_0.3": 0.02910958904109589
+    },
+    "2": {
+      "max_abs_rho": 0.5094257120723662,
+      "median_abs_rho": 0.13883931176462638,
+      "frac_above_0.2": 0.3087899543378995,
+      "frac_above_0.3": 0.05365296803652968
+    },
+    "3": {
+      "max_abs_rho": 0.3833484716758065,
+      "median_abs_rho": 0.06595984923534073,
+      "frac_above_0.2": 0.048515981735159815,
+      "frac_above_0.3": 0.0045662100456621
+    },
+    "4": {
+      "max_abs_rho": 0.4109140408664087,
+      "median_abs_rho": 0.08526777719074463,
+      "frac_above_0.2": 0.1141552511415525,
+      "frac_above_0.3": 0.017123287671232876
+    },
+    "5": {
+      "max_abs_rho": 0.3819552387823247,
+      "median_abs_rho": 0.08339748777996313,
+      "frac_above_0.2": 0.07648401826484018,
+      "frac_above_0.3": 0.007420091324200913
+    },
+    "6": {
+      "max_abs_rho": 0.3547216015689504,
+      "median_abs_rho": 0.06959315695719243,
+      "frac_above_0.2": 0.04509132420091324,
+      "frac_above_0.3": 0.0045662100456621
+    },
+    "7": {
+      "max_abs_rho": 0.4522560321002683,
+      "median_abs_rho": 0.09696719853698543,
+      "frac_above_0.2": 0.1404109589041096,
+      "frac_above_0.3": 0.021689497716894976
+    },
+    "8": {
+      "max_abs_rho": 0.44153614311091344,
+      "median_abs_rho": 0.09466959486540981,
+      "frac_above_0.2": 0.14098173515981735,
+      "frac_above_0.3": 0.016552511415525113
+    },
+    "9": {
+      "max_abs_rho": 0.4590077828116751,
+      "median_abs_rho": 0.12689379549924573,
+      "frac_above_0.2": 0.2545662100456621,
+      "frac_above_0.3": 0.06050228310502283
+    },
+    "10": {
+      "max_abs_rho": 0.5555365385269122,
+      "median_abs_rho": 0.14079327202595443,
+      "frac_above_0.2": 0.3384703196347032,
+      "frac_above_0.3": 0.13812785388127855
+    },
+    "11": {
+      "max_abs_rho": 0.4323094711404416,
+      "median_abs_rho": 0.10195005425739444,
+      "frac_above_0.2": 0.19121004566210045,
+      "frac_above_0.3": 0.045662100456621
+    },
+    "12": {
+      "max_abs_rho": 0.5120875456739791,
+      "median_abs_rho": 0.1337130934761152,
+      "frac_above_0.2": 0.3099315068493151,
+      "frac_above_0.3": 0.1050228310502283
+    },
+    "13": {
+      "max_abs_rho": 0.3889644578477387,
+      "median_abs_rho": 0.09950099636338511,
+      "frac_above_0.2": 0.1421232876712329,
+      "frac_above_0.3": 0.017123287671232876
+    },
+    "14": {
+      "max_abs_rho": 0.5656934994288902,
+      "median_abs_rho": 0.14993356430822197,
+      "frac_above_0.2": 0.3607305936073059,
+      "frac_above_0.3": 0.13812785388127855
+    },
+    "15": {
+      "max_abs_rho": 0.3483547933212036,
+      "median_abs_rho": 0.08530756974124494,
+      "frac_above_0.2": 0.06164383561643835,
+      "frac_above_0.3": 0.00228310502283105
+    },
+    "16": {
+      "max_abs_rho": 0.4561857504138527,
+      "median_abs_rho": 0.091119427029351,
+      "frac_above_0.2": 0.12271689497716895,
+      "frac_above_0.3": 0.0273972602739726
+    },
+    "17": {
+      "max_abs_rho": 0.418106072538176,
+      "median_abs_rho": 0.09189381321377962,
+      "frac_above_0.2": 0.14383561643835616,
+      "frac_above_0.3": 0.02682648401826484
+    },
+    "18": {
+      "max_abs_rho": 0.4389159916232635,
+      "median_abs_rho": 0.10148413638037361,
+      "frac_above_0.2": 0.18493150684931506,
+      "frac_above_0.3": 0.03824200913242009
+    }
+  }
+}

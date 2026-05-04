@@ -1,0 +1,30 @@
+{
+  "name": "item11_multiscale.csv",
+  "script": "cache_item11_multiscale.py",
+  "script_sha256": "aa80e893923535837e5cd22890637475b6bd30d54ffe27c8b9a6b52b9df7764e",
+  "git_sha": "ce4edc005446f7381cd5894eb082e4a8f91840dc",
+  "command": "python3 cache_item11_multiscale.py --workers 16 --csv_dir 'data/raw/weargait-pd/PD PARTICIPANTS/CSV files' --out results/item11_multiscale.csv",
+  "created_at_utc": "2026-04-30T20:05:00Z",
+  "data_sha256": "aa9bc129cfcd6ad1358e309925c5542135f0844c29bfd5dd7f1d826ac1232443",
+  "n_rows": 100,
+  "included_sids_hash": "all_pd_with_walking_recordings_v0",
+  "labels_used": false,
+  "label_columns": [],
+  "fold_scope": "global",
+  "cohort_statistics_used": false,
+  "normalization_scope": "none",
+  "constants_used": [
+    {"name": "FREEZE_THRESHOLD", "value": 2.0, "source": "Moore et al. 2008 — Freezing Index threshold; literature-derived, not data-derived"},
+    {"name": "WIN_SCALES", "value": [2.0, 4.0, 8.0], "source": "fixed multi-scale windows"},
+    {"name": "FS", "value": 100.0, "source": "WearGait-PD canonical sample rate"}
+  ],
+  "source_artifacts": [
+    {"path": "data/raw/weargait-pd/PD PARTICIPANTS/CSV files/*.csv", "scope": "all PD subjects with walking-task recordings"}
+  ],
+  "leakage_status": "clean_by_construction",
+  "leakage_rationale": "Feature extraction is a deterministic signal-processing pipeline (Welch PSD → bandpower ratio → sliding-window aggregation → wavelet packet entropy → stride detection). UPDRS-III labels never enter this script. The FREEZE_THRESHOLD=2.0 is a fixed literature constant (Moore et al. 2008), not tuned on this cohort. Therefore subject-level features can be used as inductive features in any downstream LGB without per-fold refit.",
+  "downstream_safe_for": ["screening", "lockbox_features", "external_transfer"],
+  "downstream_unsafe_for": [],
+  "audit_added_at_utc": "2026-05-03T06:50:00Z",
+  "audit_note": "Manifest backfilled per pd-imu-100x-researcher skill provenance requirement. No labels touched the cache; safe for inductive feature concatenation."
+}

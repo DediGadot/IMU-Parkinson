@@ -1,0 +1,89 @@
+{
+  "variant": "gated_extended_5item",
+  "target": "t1",
+  "eval": "5split",
+  "phase": "iter6_gated",
+  "n_subjects": 94,
+  "ccc_mean": 0.5687,
+  "ccc_std": 0.0333,
+  "ccc_per_seed": [
+    0.5437,
+    0.5467,
+    0.6157
+  ],
+  "mae_mean": 1.76,
+  "slope_mean": 0.4042,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.5437,
+      "cal_slope": 0.3809,
+      "mae": 1.8071,
+      "r": 0.6029,
+      "pred_mean": 5.122,
+      "pred_std": 1.836,
+      "true_mean": 5.255,
+      "true_std": 2.906,
+      "label": "gated_extended_5item_seed42",
+      "seed": 42,
+      "wall_s": 15.3,
+      "extended_items": [
+        10,
+        12,
+        14,
+        7,
+        8
+      ]
+    },
+    {
+      "n": 94,
+      "ccc": 0.5467,
+      "cal_slope": 0.384,
+      "mae": 1.7959,
+      "r": 0.6049,
+      "pred_mean": 5.13,
+      "pred_std": 1.845,
+      "true_mean": 5.255,
+      "true_std": 2.906,
+      "label": "gated_extended_5item_seed1337",
+      "seed": 1337,
+      "wall_s": 14.5,
+      "extended_items": [
+        10,
+        12,
+        14,
+        7,
+        8
+      ]
+    },
+    {
+      "n": 94,
+      "ccc": 0.6157,
+      "cal_slope": 0.4478,
+      "mae": 1.6769,
+      "r": 0.6642,
+      "pred_mean": 5.225,
+      "pred_std": 1.959,
+      "true_mean": 5.255,
+      "true_std": 2.906,
+      "label": "gated_extended_5item_seed7",
+      "seed": 7,
+      "wall_s": 26.5,
+      "extended_items": [
+        10,
+        12,
+        14,
+        7,
+        8
+      ]
+    }
+  ],
+  "wall_total_s": 56.6,
+  "extended_items": [
+    10,
+    12,
+    14,
+    7,
+    8
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "item": 12,
+  "variant": "item_plus_v2_cccv2",
+  "eval": "loocv",
+  "ccc_mean": 0.6823,
+  "ccc_std": 0.0,
+  "mae_mean": 0.4912
+}

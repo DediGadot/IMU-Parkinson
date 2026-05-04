@@ -1,0 +1,55 @@
+{
+  "name": "harnet_subj_embeddings.csv",
+  "script": "cache_harnet_embeddings.py",
+  "script_sha256": "e99f66c4ebf7e4f321b33db41b7e57ecaac44a851b26392ea3dbfb6a4be9db42",
+  "git_sha": "unknown",
+  "command": "cache_harnet_embeddings.py --csv_dir2 data/raw/wpd_pd_csv --batch_size 256",
+  "created_at_utc": "2026-05-03T07:50:06.418046Z",
+  "data_sha256": "df08c104b47fcd9c8f31bf1a1eee2230338d114c3d3bccb2d66f1e95def089f5",
+  "n_rows": 100,
+  "n_features": 2048,
+  "embedding_dim": 1024,
+  "aggregation": "mean \u2295 std across recordings -> 2*1024 = 2048 dims",
+  "labels_used": false,
+  "label_columns": [],
+  "fold_scope": "external",
+  "cohort_statistics_used": false,
+  "normalization_scope": "none (frozen pretrained encoder; raw 30Hz wrist Acc XYZ; no per-cohort scaling)",
+  "constants_used": [
+    {
+      "name": "FS_IN",
+      "value": 100.0
+    },
+    {
+      "name": "FS_OUT",
+      "value": 30.0
+    },
+    {
+      "name": "WIN_S",
+      "value": 30.0
+    },
+    {
+      "name": "STRIDE_S",
+      "value": 10.0
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "data/raw/wpd_pd_csv",
+      "scope": "PD walking-task CSVs (SelfPace, HurriedPace, TUG, TandemGait)"
+    },
+    {
+      "path": "torch.hub://OxWearables/ssl-wearables/harnet30",
+      "scope": "pretrained weights, ~700K person-days UKB"
+    }
+  ],
+  "leakage_status": "clean_by_construction",
+  "leakage_rationale": "Encoder was self-supervised pretrained on UK Biobank wrist accelerometer at scale (no overlap with WearGait-PD subjects). Encoder is frozen during embedding extraction. Per-window forward pass takes a 30s wrist Acc XYZ window only; no labels enter the extraction. Aggregation (mean+std across recordings per subject) uses no cohort statistics.",
+  "downstream_safe_for": [
+    "screening",
+    "lockbox_features"
+  ],
+  "downstream_unsafe_for": [],
+  "audit_added_at_utc": "2026-05-03T07:50:06.418082Z",
+  "audit_note": "Manifest written by cache_harnet_embeddings.py; verified leakage-clean by construction."
+}

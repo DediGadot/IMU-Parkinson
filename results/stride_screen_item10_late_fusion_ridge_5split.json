@@ -1,0 +1,50 @@
+{
+  "variant": "late_fusion_ridge",
+  "item": 10,
+  "ccc_mean": 0.462,
+  "ccc_std": 0.0537,
+  "ccc_per_seed": [
+    0.5004,
+    0.386,
+    0.4996
+  ],
+  "seed_metrics": [
+    {
+      "n": 94,
+      "ccc": 0.5004,
+      "cal_slope": 0.3215,
+      "mae": 0.4708,
+      "r": 0.6024,
+      "pred_mean": 1.046,
+      "pred_std": 0.404,
+      "true_mean": 1.043,
+      "true_std": 0.757,
+      "label": "late_fusion_ridge/seed42"
+    },
+    {
+      "n": 94,
+      "ccc": 0.386,
+      "cal_slope": 0.2555,
+      "mae": 0.5276,
+      "r": 0.449,
+      "pred_mean": 1.038,
+      "pred_std": 0.431,
+      "true_mean": 1.043,
+      "true_std": 0.757,
+      "label": "late_fusion_ridge/seed1337"
+    },
+    {
+      "n": 94,
+      "ccc": 0.4996,
+      "cal_slope": 0.3191,
+      "mae": 0.4837,
+      "r": 0.6062,
+      "pred_mean": 1.03,
+      "pred_std": 0.398,
+      "true_mean": 1.043,
+      "true_std": 0.757,
+      "label": "late_fusion_ridge/seed7"
+    }
+  ],
+  "n": 94
+}

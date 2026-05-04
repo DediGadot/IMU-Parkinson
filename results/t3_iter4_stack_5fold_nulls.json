@@ -1,0 +1,15 @@
+{
+  "config": "R2_hy_anchor_18",
+  "n": 93,
+  "real_5fold_ccc": 0.3508,
+  "real_5fold_mae": 7.973,
+  "null_scrambled_label_ccc_per_seed": [
+    0.3685,
+    0.3309,
+    0.3755
+  ],
+  "null_scrambled_label_ccc": 0.3755,
+  "null_canary_feature_ccc": 0.3384,
+  "null_permuted_B18_ccc": 0.3268,
+  "null_transductive_ccc": 0.3713
+}

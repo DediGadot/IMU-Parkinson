@@ -1,0 +1,16 @@
+{
+  "item": 4,
+  "variant": "v2_baseline",
+  "eval": "loocv",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "n_subjects": 94,
+  "timestamp_prereg": "20260430_143044",
+  "expected_loocv_range": [
+    -0.5,
+    1.0
+  ]
+}

@@ -1,0 +1,2 @@
+item,variant,eval,ccc_mean,ccc_std,mae_mean,scrambled_label_ccc,canary_feature_ccc,sid_shuffle_selfnorm_ccc,error
+11,self_norm_hy_residual_item,loocv,0.3004,0.00836938866743962,0.39020000000000005,,,,

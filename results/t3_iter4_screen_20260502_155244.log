@@ -1,0 +1,27 @@
+Loading per-item canonical data (drives SID alignment for B_T1/B_18)...
+  Per-item features matched for 94/94 subjects (1305 features)
+  MOMENT embeddings matched for 94/94 subjects (2304 features)
+  HC SSL embeddings matched for 94/94 subjects (768 features)
+  Item9 event MOMENT matched for 93/94 subjects (3840 features)
+  Item11 multiscale matched for 94/94 subjects (237 features)
+  Walkway+joint matched for 94/94 subjects (216 features)
+  N per-item canonical = 94
+  B_hy: loaded 98 sid→pred from iter3_hy_residual_t3_loocv.json
+Traceback (most recent call last):
+  File "/home/fiod/medical/run_t3_iter4_stack.py", line 493, in <module>
+    main()
+  File "/home/fiod/medical/run_t3_iter4_stack.py", line 484, in main
+    X, y_t3, sids, base_names = build_oof_matrix()
+                                ^^^^^^^^^^^^^^^^^^
+  File "/home/fiod/medical/run_t3_iter4_stack.py", line 207, in build_oof_matrix
+    t1_arr = _build_t1_iter11a_oof(d, n_pi)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fiod/medical/run_t3_iter4_stack.py", line 146, in _build_t1_iter11a_oof
+    arr = _load_npy_aligned_to_peritem(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fiod/medical/run_t3_iter4_stack.py", line 103, in _load_npy_aligned_to_peritem
+    path = _resolve_unique(pattern_or_name) if "*" in pattern_or_name else (RESULTS_DIR / pattern_or_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fiod/medical/run_t3_iter4_stack.py", line 90, in _resolve_unique
+    raise FileNotFoundError(f"Ambiguous pattern {pattern!r}: {matches}")
+FileNotFoundError: Ambiguous pattern 'lockbox_self_norm_cross_10_self_norm_hy_residual_*.oof.npy': ['/home/fiod/medical/results/lockbox_self_norm_cross_10_self_norm_hy_residual_20260501_064907.oof.npy', '/home/fiod/medical/results/lockbox_self_norm_cross_10_self_norm_hy_residual_cccv2_20260501_065356.oof.npy']

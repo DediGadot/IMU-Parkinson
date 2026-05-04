@@ -1,0 +1,52 @@
+{
+  "item": 18,
+  "variant": "v2_baseline_pearson",
+  "eval": "5split",
+  "n_subjects": 93,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "ccc_mean": 0.3129333333333333,
+  "ccc_std": 0.07009433326279348,
+  "mae_mean": 1.0102333333333333,
+  "per_seed": [
+    {
+      "n": 93,
+      "ccc": 0.2171,
+      "cal_slope": 0.1396,
+      "mae": 1.0692,
+      "r": 0.2615,
+      "pred_mean": 1.058,
+      "pred_std": 0.724,
+      "true_mean": 1.011,
+      "true_std": 1.356,
+      "label": ""
+    },
+    {
+      "n": 93,
+      "ccc": 0.3389,
+      "cal_slope": 0.2221,
+      "mae": 0.9758,
+      "r": 0.3988,
+      "pred_mean": 1.044,
+      "pred_std": 0.755,
+      "true_mean": 1.011,
+      "true_std": 1.356,
+      "label": ""
+    },
+    {
+      "n": 93,
+      "ccc": 0.3828,
+      "cal_slope": 0.2547,
+      "mae": 0.9857,
+      "r": 0.4442,
+      "pred_mean": 1.069,
+      "pred_std": 0.777,
+      "true_mean": 1.011,
+      "true_std": 1.356,
+      "label": ""
+    }
+  ]
+}

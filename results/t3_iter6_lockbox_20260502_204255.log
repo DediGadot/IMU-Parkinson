@@ -1,0 +1,45 @@
+PRE-REGISTRATION WRITTEN: /home/fiod/medical/results/preregistration_t3_iter6_20260502_204257.json
+
+=== T3 iter6 LOCKBOX LOOCV (B2_v2_unsigned_asym, alpha=1.0, extras=['unsigned_asymmetry_features.csv'], 3 seeds) ===
+  Cache unsigned_asymmetry_features.csv: matched 98/98 subjects, 1170 features
+  Stage1 features = 9, Stage2 features (post-concat) = 2922
+  [B2_v2_unsigned_asym seed=42] fold 10/98, elapsed 41.5s
+  [B2_v2_unsigned_asym seed=42] fold 20/98, elapsed 73.6s
+  [B2_v2_unsigned_asym seed=42] fold 30/98, elapsed 113.3s
+  [B2_v2_unsigned_asym seed=42] fold 40/98, elapsed 150.5s
+  [B2_v2_unsigned_asym seed=42] fold 50/98, elapsed 186.3s
+  [B2_v2_unsigned_asym seed=42] fold 60/98, elapsed 221.3s
+  [B2_v2_unsigned_asym seed=42] fold 70/98, elapsed 256.7s
+  [B2_v2_unsigned_asym seed=42] fold 80/98, elapsed 289.0s
+  [B2_v2_unsigned_asym seed=42] fold 90/98, elapsed 324.6s
+  seed 42: CCC=0.4880, MAE=7.838, r=0.510, time=353.7s
+  Cache unsigned_asymmetry_features.csv: matched 98/98 subjects, 1170 features
+  Stage1 features = 9, Stage2 features (post-concat) = 2922
+  [B2_v2_unsigned_asym seed=1337] fold 10/98, elapsed 41.0s
+  [B2_v2_unsigned_asym seed=1337] fold 20/98, elapsed 79.3s
+  [B2_v2_unsigned_asym seed=1337] fold 30/98, elapsed 109.9s
+  [B2_v2_unsigned_asym seed=1337] fold 40/98, elapsed 142.0s
+  [B2_v2_unsigned_asym seed=1337] fold 50/98, elapsed 172.3s
+  [B2_v2_unsigned_asym seed=1337] fold 60/98, elapsed 203.6s
+  [B2_v2_unsigned_asym seed=1337] fold 70/98, elapsed 238.1s
+  [B2_v2_unsigned_asym seed=1337] fold 80/98, elapsed 281.8s
+  [B2_v2_unsigned_asym seed=1337] fold 90/98, elapsed 333.2s
+  seed 1337: CCC=0.5156, MAE=7.466, r=0.547, time=400.6s
+  Cache unsigned_asymmetry_features.csv: matched 98/98 subjects, 1170 features
+  Stage1 features = 9, Stage2 features (post-concat) = 2922
+  [B2_v2_unsigned_asym seed=7] fold 10/98, elapsed 45.3s
+  [B2_v2_unsigned_asym seed=7] fold 20/98, elapsed 107.3s
+  [B2_v2_unsigned_asym seed=7] fold 30/98, elapsed 189.0s
+  [B2_v2_unsigned_asym seed=7] fold 40/98, elapsed 259.5s
+  [B2_v2_unsigned_asym seed=7] fold 50/98, elapsed 327.5s
+  [B2_v2_unsigned_asym seed=7] fold 60/98, elapsed 383.3s
+  [B2_v2_unsigned_asym seed=7] fold 70/98, elapsed 475.5s
+  [B2_v2_unsigned_asym seed=7] fold 80/98, elapsed 588.1s
+  [B2_v2_unsigned_asym seed=7] fold 90/98, elapsed 694.1s
+  seed 7: CCC=0.4818, MAE=7.785, r=0.508, time=813.4s
+
+=== HEADLINE (lockbox): CCC=0.5008, MAE=7.615, r=0.5302, slope=0.377 ===
+  Δ vs iter5 on same N=98: -0.0219
+  Bootstrap (n=2000): mean Δ=-0.0234, 95% CI=[-0.0751, +0.0248], frac > 0 = 0.18, frac > 0.01 = 0.085
+Wrote /home/fiod/medical/results/lockbox_t3_iter6_B2_v2_unsigned_asym_20260502_204257.json
+Wrote /home/fiod/medical/results/lockbox_t3_iter6_B2_v2_unsigned_asym_20260502_204257.oof.npy

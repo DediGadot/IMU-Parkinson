@@ -1,0 +1,53 @@
+{
+  "item": 10,
+  "variant": "self_norm_plus_v2",
+  "eval": "loocv",
+  "n_subjects": 94,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "ccc_mean": 0.5196666666666666,
+  "ccc_std": 0.021377610301954307,
+  "mae_mean": 0.5145666666666667,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.5227,
+      "cal_slope": 0.3904,
+      "mae": 0.5186,
+      "r": 0.5566,
+      "pred_mean": 1.01,
+      "pred_std": 0.531,
+      "true_mean": 1.043,
+      "true_std": 0.757,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.5442,
+      "cal_slope": 0.4009,
+      "mae": 0.5008,
+      "r": 0.5829,
+      "pred_mean": 1.026,
+      "pred_std": 0.52,
+      "true_mean": 1.043,
+      "true_std": 0.757,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.4921,
+      "cal_slope": 0.3554,
+      "mae": 0.5243,
+      "r": 0.5356,
+      "pred_mean": 0.994,
+      "pred_std": 0.502,
+      "true_mean": 1.043,
+      "true_std": 0.757,
+      "label": ""
+    }
+  ],
+  "preregistration_path": "/root/pd-imu/results/preregistration_self_norm_cross_10_self_norm_plus_v2_20260501_064933.json"
+}

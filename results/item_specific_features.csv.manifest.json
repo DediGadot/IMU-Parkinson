@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "produced_by": "cache_item_specific_features.py",
+  "script_sha256": "96401b4f8bd73bc50dd0930bb678b78ee409980d91970798a8eac4a343840e11",
+  "git_sha": "unknown",
+  "iso_datetime": "2026-05-03T22:04:54.602687+00:00",
+  "data_sha256": "c7385cf3a2187f825a9c10211080fcc60d58d43008a5fe6a13e5dd6635a15ae4",
+  "n_subjects": 100,
+  "n_features": 100,
+  "labels_used": false,
+  "leakage_status": "clean_by_construction",
+  "leakage_argument": "All features are deterministic signal-processing aggregates of raw IMU channels. UPDRS-III labels never enter this extraction. Per-subject mean across recordings is the only aggregation; no global statistics are fit. Per-item recipes operate ONLY on the sensors and time windows clinically relevant to that item, in order to reduce dimensionality below the K=500 selector absorption threshold (F44 lesson).",
+  "constants_locked": {
+    "fs_hz": 100,
+    "item4_bandpower_hz": [
+      1.5,
+      4.0
+    ],
+    "item6_bandpower_hz": [
+      0.5,
+      3.0
+    ],
+    "item6_turn_window_s": 2.0,
+    "item15_bandpower_hz": [
+      4.0,
+      7.0
+    ],
+    "item15_segment_s": 3.0,
+    "item16_jerk_bandpower_hz": [
+      5.0,
+      8.0
+    ],
+    "item16_segment_s": 3.0,
+    "item17_tremor_band_hz": [
+      4.0,
+      6.0
+    ],
+    "item17_segment_s": 5.0,
+    "item18_burst_window_s": 2.0,
+    "item18_burst_threshold_percentile": 90
+  },
+  "feature_blocks": {
+    "i4_": "~16 feats \u2014 finger-tap surrogate via wrist arm-swing",
+    "i6_": "~24 feats \u2014 pronation-supination via wrist Gyr/VelInc in turn windows",
+    "i15_": "~12 feats \u2014 postural tremor via wrist FreeAcc 4-7 Hz",
+    "i16_": "~12 feats \u2014 kinetic tremor via wrist jerk 5-8 Hz",
+    "i17_": "~24 feats \u2014 rest tremor amplitude via wrist Gyr 4-6 Hz",
+    "i18_": "~12 feats \u2014 rest tremor constancy via wrist burst metrics"
+  }
+}

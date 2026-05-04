@@ -1,0 +1,52 @@
+{
+  "item": 9,
+  "variant": "v2_plus_self_norm_k200",
+  "eval": "5split",
+  "n_subjects": 94,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "ccc_mean": 0.2353333333333333,
+  "ccc_std": 0.07168083580861918,
+  "mae_mean": 0.3677333333333333,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.2648,
+      "cal_slope": 0.1829,
+      "mae": 0.3574,
+      "r": 0.2973,
+      "pred_mean": 0.24,
+      "pred_std": 0.3,
+      "true_mean": 0.266,
+      "true_std": 0.488,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.1366,
+      "cal_slope": 0.0917,
+      "mae": 0.3938,
+      "r": 0.1566,
+      "pred_mean": 0.256,
+      "pred_std": 0.286,
+      "true_mean": 0.266,
+      "true_std": 0.488,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.3046,
+      "cal_slope": 0.2137,
+      "mae": 0.352,
+      "r": 0.3366,
+      "pred_mean": 0.264,
+      "pred_std": 0.31,
+      "true_mean": 0.266,
+      "true_std": 0.488,
+      "label": ""
+    }
+  ]
+}

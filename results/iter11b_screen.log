@@ -1,0 +1,36 @@
+Loading data...
+  Per-item features matched for 94/94 subjects (1305 features)
+  MOMENT embeddings matched for 94/94 subjects (2304 features)
+  HC SSL embeddings matched for 94/94 subjects (768 features)
+  Item9 event MOMENT matched for 93/94 subjects (3840 features)
+  Item11 multiscale matched for 94/94 subjects (237 features)
+  Walkway+joint matched for 94/94 subjects (216 features)
+  Cache v2_self_normalized.csv: 94/94 subjects matched (1751 cols)
+  N=94 PD subjects
+  V2 shape: (94, 1751)
+  self-norm shape: (94, 1751)
+  per-item shape: (94, 1305)
+Jobs: 9
+  [1/9] item=11 variant=self_norm_hy_residual_item ccc=0.1974 (9.6s)
+  [2/9] item=9 variant=self_norm_hy_residual_item ccc=0.2975 (9.9s)
+  [3/9] item=14 variant=self_norm_hy_residual_item ccc=0.2665 (10.8s)
+  [4/9] item=18 variant=self_norm_hy_residual_item ccc=0.4487 (17.2s)
+  [5/9] item=9 variant=self_norm_hy_residual_cccv2_item ccc=0.2951 (24.7s)
+  [6/9] item=11 variant=self_norm_hy_residual_cccv2_item ccc=0.1322 (25.4s)
+  [7/9] item=14 variant=self_norm_hy_residual_cccv2_item ccc=0.2046 (31.8s)
+  [8/9] item=18 variant=self_norm_hy_residual_cccv2_item ccc=0.4635 (34.4s)
+  [9/9] item=11 variant=self_norm_hurdle_fog ccc=0.1640 (56.9s)
+
+Wrote /root/pd-imu/results/iter11b_5split_iter11b_screen.csv and /root/pd-imu/results/iter11b_5split_iter11b_screen.json
+
+Top entries by CCC (per-item):
+ item                          variant   eval  ccc_mean  ccc_std  mae_mean  scrambled_label_ccc  canary_feature_ccc  sid_shuffle_selfnorm_ccc error
+    9       self_norm_hy_residual_item 5split  0.297500 0.024134  0.376800             0.010252            0.313262                  0.334738      
+    9 self_norm_hy_residual_cccv2_item 5split  0.295067 0.087826  0.360000            -0.007941            0.288172                  0.274851      
+   11       self_norm_hy_residual_item 5split  0.197367 0.050917  0.418767            -0.107115            0.184953                  0.124383      
+   11             self_norm_hurdle_fog 5split  0.164000 0.109856  0.307900            -0.101501            0.318986                 -0.048582      
+   11 self_norm_hy_residual_cccv2_item 5split  0.132167 0.109922  0.429433            -0.093127            0.169190                  0.034532      
+   14       self_norm_hy_residual_item 5split  0.266500 0.067338  0.592100            -0.023648            0.179166                  0.172229      
+   14 self_norm_hy_residual_cccv2_item 5split  0.204567 0.080212  0.633467            -0.083906            0.129344                  0.131799      
+   18 self_norm_hy_residual_cccv2_item 5split  0.463500 0.071867  0.946767            -0.105936            0.387044                  0.358846      
+   18       self_norm_hy_residual_item 5split  0.448667 0.075820  0.948533            -0.203552            0.345074                  0.285863      

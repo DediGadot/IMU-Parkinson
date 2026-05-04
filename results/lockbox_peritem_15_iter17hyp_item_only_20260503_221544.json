@@ -1,0 +1,24 @@
+{
+  "n": 94,
+  "ccc": 0.1099,
+  "cal_slope": 0.0772,
+  "mae": 1.0879,
+  "r": 0.1214,
+  "pred_mean": 0.767,
+  "pred_std": 1.225,
+  "true_mean": 0.713,
+  "true_std": 1.928,
+  "label": "peritem_15_iter17hyp",
+  "item": 15,
+  "variant": "item_only",
+  "n_subjects_valid": 94,
+  "seed_cccs": [
+    0.11604313258856447,
+    0.11143972213862073,
+    0.10051610420543584
+  ],
+  "seed_std": 0.0065,
+  "baseline_ccc": -0.09,
+  "delta_vs_baseline": 0.1999,
+  "is_lockbox_headline": true
+}

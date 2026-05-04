@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "scanned_at": "2026-04-28T17:17:32.771Z",
+  "files": [
+    {
+      "path": ".pytest_cache/README.md",
+      "title": "pytest cache directory #",
+      "summary": "This directory contains data from the pytest's cache plugin, which provides the `--lf` and `--ff` options, as well as the `cache` fixture. **Do not** commit this to version control. See [the docs](...",
+      "lines": 9,
+      "mtime": 1773129419909.065
+    },
+    {
+      "path": ".venv/lib/python3.12/site-packages/sklearn/externals/array_api_compat/README.md",
+      "title": "README.md",
+      "summary": "Update this directory using maint_tools/vendor_array_api_compat.sh",
+      "lines": 2,
+      "mtime": 1771190154157.2083
+    },
+    {
+      "path": ".venv/lib/python3.12/site-packages/sklearn/externals/array_api_extra/README.md",
+      "title": "README.md",
+      "summary": "Update this directory using maint_tools/vendor_array_api_extra.sh",
+      "lines": 2,
+      "mtime": 1771190154164.2083
+    },
+    {
+      "path": ".venv/lib64/python3.12/site-packages/sklearn/externals/array_api_compat/README.md",
+      "title": "README.md",
+      "summary": "Update this directory using maint_tools/vendor_array_api_compat.sh",
+      "lines": 2,
+      "mtime": 1771190154157.2083
+    },
+    {
+      "path": ".venv/lib64/python3.12/site-packages/sklearn/externals/array_api_extra/README.md",
+      "title": "README.md",
+      "summary": "Update this directory using maint_tools/vendor_array_api_extra.sh",
+      "lines": 2,
+      "mtime": 1771190154164.2083
+    },
+    {
+      "path": "AGENTS.md",
+      "title": "Repository Instructions",
+      "summary": "- This repo is a WearGait-PD Parkinson's motor-severity research codebase, organized as shared utilities plus many standalone `run_*.py` experiment scripts. - Read `CLAUDE.md`, `findings.md`, `prog...",
+      "lines": 56,
+      "mtime": 1777396651845.7014
+    },
+    {
+      "path": "CLAUDE.md",
+      "title": "CLAUDE.md",
+      "summary": "This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository. **First published UPDRS-III regression on WearGait-PD with strict inductive evaluation.** No o...",
+      "lines": 357,
+      "mtime": 1777394940468.8967
+    },
+    {
+      "path": "README.md",
+      "title": "Healthy-Control-Anchored Semi-Supervised Ranking Improves Calibration of Wearable Parkinson's Disease Motor Assessment",
+      "summary": "> **First UPDRS-III regression benchmark on WearGait-PD** — predicting Parkinson's motor severity from body-worn IMU sensors using healthy controls as calibration anchors. We introduce a two-stage ...",
+      "lines": 400,
+      "mtime": 1774269578088.712
+    }
+  ]
+}

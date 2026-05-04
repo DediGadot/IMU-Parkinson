@@ -1,0 +1,12 @@
+{
+  "summary": [
+    {
+      "baseline": "B7_v2_plus_variability",
+      "target": "t3",
+      "ccc": 0.1899,
+      "cal_slope": 0.1039,
+      "mae": 8.1008,
+      "runtime_s": 74.7
+    }
+  ]
+}

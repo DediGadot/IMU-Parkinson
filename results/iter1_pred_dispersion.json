@@ -1,0 +1,335 @@
+{
+  "n_files": 33,
+  "data": [
+    {
+      "file": "phase4_distill_student_v2_kd_a02_t3_5split.json",
+      "label": "student_v2_kd_a02",
+      "ccc": 0.065,
+      "mae": 8.4297,
+      "pred_std": 2.051,
+      "true_std": 10.769,
+      "ratio": 0.190454081158882,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "baseline_B4_demo_ridge_t3_5split.json",
+      "label": "B4_demo_ridge",
+      "ccc": 0.0364,
+      "mae": 8.8371,
+      "pred_std": 2.199,
+      "true_std": 10.769,
+      "ratio": 0.20419723279784566,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "event_features_mean_plus_max_t3_5split.json",
+      "label": "mean_plus_max",
+      "ccc": 0.1921,
+      "mae": 8.1479,
+      "pred_std": 3.337,
+      "true_std": 10.769,
+      "ratio": 0.309870925805553,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "baseline_B5_fm_linear_t3_5split.json",
+      "label": "B5_fm_linear",
+      "ccc": 0.0015,
+      "mae": 8.5027,
+      "pred_std": 0.475,
+      "true_std": 10.769,
+      "ratio": 0.04410808803045779,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "demo_residual_demo_first_t3_5split.json",
+      "label": "demo_first",
+      "ccc": 0.1591,
+      "mae": 8.5268,
+      "pred_std": 3.406,
+      "true_std": 10.769,
+      "ratio": 0.3162782059615563,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase5_fm_adapter_linear_probe_t3_5split.json",
+      "label": "linear_probe",
+      "ccc": 0.0026,
+      "mae": 22.1083,
+      "pred_std": 3.979,
+      "true_std": 10.769,
+      "ratio": 0.3694864889961928,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "demo_residual_demo_stacked_t3_5split.json",
+      "label": "demo_stacked",
+      "ccc": 0.1623,
+      "mae": 8.4174,
+      "pred_std": 3.437,
+      "true_std": 10.769,
+      "ratio": 0.31915683907512304,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase4_distill_student_v2_no_kd_t3_5split.json",
+      "label": "student_v2_no_kd",
+      "ccc": 0.2073,
+      "mae": 8.0296,
+      "pred_std": 3.575,
+      "true_std": 10.769,
+      "ratio": 0.3319713993871297,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "event_features_topk_mean_t3_5split.json",
+      "label": "topk_mean",
+      "ccc": 0.1617,
+      "mae": 8.2675,
+      "pred_std": 3.236,
+      "true_std": 10.769,
+      "ratio": 0.3004921534032872,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "event_features_mean_plus_std_t3_5split.json",
+      "label": "mean_plus_std",
+      "ccc": 0.1921,
+      "mae": 8.1479,
+      "pred_std": 3.337,
+      "true_std": 10.769,
+      "ratio": 0.309870925805553,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "event_features_mean_t3_5split.json",
+      "label": "mean",
+      "ccc": 0.1913,
+      "mae": 8.1431,
+      "pred_std": 3.318,
+      "true_std": 10.769,
+      "ratio": 0.3081066022843347,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "baseline_B0_null_mean_t3_5split.json",
+      "label": "B0_null_mean",
+      "ccc": -0.0009,
+      "mae": 8.4674,
+      "pred_std": 0.113,
+      "true_std": 10.769,
+      "ratio": 0.01049308199461417,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase5_fm_adapter_mlp_2x256_contr_l1_t3_5split.json",
+      "label": "mlp_2x256_contr_l1",
+      "ccc": 0.0053,
+      "mae": 18.1563,
+      "pred_std": 9.957,
+      "true_std": 10.769,
+      "ratio": 0.9245983842510912,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase6_stack_stack_avg_t3_5split.json",
+      "label": "stack_avg",
+      "ccc": 0.1185,
+      "mae": 8.2172,
+      "pred_std": 2.352,
+      "true_std": 10.769,
+      "ratio": 0.21840468010028785,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase4_distill_student_vfm_no_kd_t3_5split.json",
+      "label": "student_vfm_no_kd",
+      "ccc": 0.1765,
+      "mae": 8.2256,
+      "pred_std": 3.321,
+      "true_std": 10.769,
+      "ratio": 0.3083851796824218,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "baseline_B6_shallow_imu_t3_5split.json",
+      "label": "B6_shallow_imu",
+      "ccc": 0.2052,
+      "mae": 8.3981,
+      "pred_std": 4.038,
+      "true_std": 10.769,
+      "ratio": 0.37496517782523914,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "baseline_B2_fm_only_t3_5split.json",
+      "label": "B2_fm_only",
+      "ccc": -0.005,
+      "mae": 8.5205,
+      "pred_std": 0.867,
+      "true_std": 10.769,
+      "ratio": 0.08050886804717244,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "event_features_max_t3_5split.json",
+      "label": "max",
+      "ccc": 0.2009,
+      "mae": 8.1468,
+      "pred_std": 3.463,
+      "true_std": 10.769,
+      "ratio": 0.3215711765252113,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase4_distill_teacher_only_t3_5split.json",
+      "label": "teacher_only",
+      "ccc": 0.1675,
+      "mae": 8.1211,
+      "pred_std": 3.128,
+      "true_std": 10.769,
+      "ratio": 0.29046336707215153,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase5_fm_adapter_mlp_2x256_contr_t3_5split.json",
+      "label": "mlp_2x256_contr",
+      "ccc": 0.0056,
+      "mae": 18.0932,
+      "pred_std": 9.632,
+      "true_std": 10.769,
+      "ratio": 0.8944191661249884,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase4_distill_student_v2_kd_a05_t3_5split.json",
+      "label": "student_v2_kd_a05",
+      "ccc": 0.1199,
+      "mae": 8.2838,
+      "pred_std": 2.51,
+      "true_std": 10.769,
+      "ratio": 0.23307642306620854,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase6_stack_stack_lr_meta_t3_5split.json",
+      "label": "stack_lr_meta",
+      "ccc": 0.1618,
+      "mae": 8.3962,
+      "pred_std": 4.492,
+      "true_std": 10.769,
+      "ratio": 0.4171232240690872,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "baseline_B1_v2_only_t3_5split.json",
+      "label": "B1_v2_only",
+      "ccc": 0.2073,
+      "mae": 8.0296,
+      "pred_std": 3.575,
+      "true_std": 10.769,
+      "ratio": 0.3319713993871297,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "baseline_B3_v2_fm_t3_5split.json",
+      "label": "B3_v2_fm",
+      "ccc": 0.1765,
+      "mae": 8.2256,
+      "pred_std": 3.321,
+      "true_std": 10.769,
+      "ratio": 0.3083851796824218,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "baseline_B7_v2_plus_variability_t3_5split.json",
+      "label": "B7_v2_plus_variability",
+      "ccc": 0.1899,
+      "mae": 8.1008,
+      "pred_std": 3.299,
+      "true_std": 10.769,
+      "ratio": 0.3063422787631163,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase5_fm_adapter_mlp_2x256_t3_5split.json",
+      "label": "mlp_2x256",
+      "ccc": 0.0056,
+      "mae": 18.0933,
+      "pred_std": 9.632,
+      "true_std": 10.769,
+      "ratio": 0.8944191661249884,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase4_distill_student_vfm_kd_a05_t3_5split.json",
+      "label": "student_vfm_kd_a05",
+      "ccc": 0.1044,
+      "mae": 8.3903,
+      "pred_std": 2.457,
+      "true_std": 10.769,
+      "ratio": 0.22815488903333642,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "event_features_mean_max_std_t3_5split.json",
+      "label": "mean_max_std",
+      "ccc": 0.1735,
+      "mae": 8.1885,
+      "pred_std": 3.247,
+      "true_std": 10.769,
+      "ratio": 0.3015136038629399,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase6_stack_stack_lgb_meta_t3_5split.json",
+      "label": "stack_lgb_meta",
+      "ccc": 0.161,
+      "mae": 8.3893,
+      "pred_std": 4.437,
+      "true_std": 10.769,
+      "ratio": 0.41201597177082366,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase4_distill_student_vfm_kd_a02_t3_5split.json",
+      "label": "student_vfm_kd_a02",
+      "ccc": 0.0745,
+      "mae": 8.4331,
+      "pred_std": 2.031,
+      "true_std": 10.769,
+      "ratio": 0.18859689850496797,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "demo_residual_base_t3_5split.json",
+      "label": "base",
+      "ccc": 0.1765,
+      "mae": 8.2256,
+      "pred_std": 3.321,
+      "true_std": 10.769,
+      "ratio": 0.3083851796824218,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "phase6_stack_stack_concat_t3_5split.json",
+      "label": "stack_concat",
+      "ccc": 0.1675,
+      "mae": 8.1211,
+      "pred_std": 3.128,
+      "true_std": 10.769,
+      "ratio": 0.29046336707215153,
+      "eval_mode": "5split"
+    },
+    {
+      "file": "baseline_B1_v2_only_t3_loocv.json",
+      "label": "B1_v2_only_loocv",
+      "ccc": 0.2174,
+      "mae": 7.4329,
+      "pred_std": 3.923,
+      "true_std": 10.19,
+      "ratio": 0.38498527968596663,
+      "eval_mode": "loocv"
+    }
+  ]
+}

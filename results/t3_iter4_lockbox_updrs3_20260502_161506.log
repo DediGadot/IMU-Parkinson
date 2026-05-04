@@ -1,0 +1,38 @@
+Loading per-item canonical data (drives SID alignment for B_T1/B_18)...
+  Per-item features matched for 94/94 subjects (1305 features)
+  MOMENT embeddings matched for 94/94 subjects (2304 features)
+  HC SSL embeddings matched for 94/94 subjects (768 features)
+  Item9 event MOMENT matched for 93/94 subjects (3840 features)
+  Item11 multiscale matched for 94/94 subjects (237 features)
+  Walkway+joint matched for 94/94 subjects (216 features)
+  N per-item canonical = 94
+  B_hy: loaded 98 sid→pred from iter3_hy_residual_t3_loocv.json
+  T1 iter11A selections (with per-item OOF spot-check CCC vs d['items']):
+    item 9: lockbox_peritem_9_*_20260430_143044.oof.npy  → spot-CCC vs item-9 target = +0.4486
+    item 10: lockbox_self_norm_cross_10_self_norm_hy_residual_2*.oof.npy  → spot-CCC vs item-10 target = +0.5657
+    item 11: lockbox_peritem_11_*_20260430_143044.oof.npy  → spot-CCC vs item-11 target = +0.3826
+    item 12: lockbox_peritem_12_item_plus_v2_cccv2.oof.npy  → spot-CCC vs item-12 target = +0.6823
+    item 13: interaction_13_v2_plus_self_norm_loocv_loocv_winners.oof.npy  → spot-CCC vs item-13 target = +0.2707
+    item 14: lockbox_peritem_14_*_20260430_143044.oof.npy  → spot-CCC vs item-14 target = +0.3857
+  B_T1: composed 94 sid→pred from items [9, 10, 11, 12, 13, 14]
+  B_18: loaded 93 sid→pred from lockbox_peritem_18_hy_residual_cccv2.oof.npy
+  y_T3: loaded 98 sid→T3 from updrs3 column (canonical, matches hy_residual training target)
+  (For comparison: sum-of-items 1-18 would yield 89 sids; using updrs3 column for canonical apples-to-apples)
+
+INTERSECTION SID COUNT: 93
+
+Per-base CCC vs T3 on intersection (N=93):
+  B_hy: CCC=+0.3311  r=+0.3521  mean=25.48±7.18
+  B_T1: CCC=+0.0361  r=+0.4590  mean=4.15±2.13
+  B_18: CCC=+0.0022  r=+0.0794  mean=0.97±0.94
+  y_T3:  mean=25.24±10.22, range=[6,59]
+PRE-REGISTRATION WRITTEN: /home/fiod/medical/results/preregistration_t3_iter4_20260502_161528.json
+
+=== LOCKBOX LOOCV (R2_hy_anchor_18, method=residual_augment, N=93, bases=('B_hy', 'B_18')) ===
+  LOOCV done in 52.3s
+
+=== HEADLINE (lockbox): CCC=0.3473, MAE=7.995, r=0.3734, slope=0.254 ===
+  Δ vs raw B_hy on same N=93 intersection (0.3311): +0.0162
+  Δ vs published hy_residual N=98 (0.4092): -0.0619 (NOTE: cross-N comparison; intersection baseline is the apples-to-apples one)
+Wrote /home/fiod/medical/results/lockbox_t3_iter4_R2_hy_anchor_18_20260502_161528.json
+Wrote /home/fiod/medical/results/lockbox_t3_iter4_R2_hy_anchor_18_20260502_161528.oof.npy

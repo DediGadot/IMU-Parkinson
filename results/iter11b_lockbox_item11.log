@@ -1,0 +1,20 @@
+Loading data...
+  Per-item features matched for 94/94 subjects (1305 features)
+  MOMENT embeddings matched for 94/94 subjects (2304 features)
+  HC SSL embeddings matched for 94/94 subjects (768 features)
+  Item9 event MOMENT matched for 93/94 subjects (3840 features)
+  Item11 multiscale matched for 94/94 subjects (237 features)
+  Walkway+joint matched for 94/94 subjects (216 features)
+  Cache v2_self_normalized.csv: 94/94 subjects matched (1751 cols)
+  N=94 PD subjects
+  V2 shape: (94, 1751)
+  self-norm shape: (94, 1751)
+  per-item shape: (94, 1305)
+Jobs: 1
+  [1/1] item=11 variant=self_norm_hy_residual_item ccc=0.3004 (74.4s)
+
+Wrote /root/pd-imu/results/iter11b_loocv_iter11b_lockbox_item11.csv and /root/pd-imu/results/iter11b_loocv_iter11b_lockbox_item11.json
+
+Top entries by CCC (per-item):
+ item                    variant  eval  ccc_mean  ccc_std  mae_mean  scrambled_label_ccc  canary_feature_ccc  sid_shuffle_selfnorm_ccc error
+   11 self_norm_hy_residual_item loocv    0.3004 0.008369    0.3902                  NaN                 NaN                       NaN      

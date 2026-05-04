@@ -1,0 +1,188 @@
+{
+  "composites": {
+    "T1_hybrid_v3_baseline": {
+      "n": 94,
+      "ccc": 0.6908,
+      "cal_slope": 0.5186,
+      "mae": 1.4744,
+      "r": 0.7326,
+      "pred_mean": 4.149,
+      "pred_std": 1.993,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "",
+      "method": "iter8{9,11,13}, iter6{10,14}, cccv2{12}"
+    },
+    "T1_hybrid_v4_canonical": {
+      "n": 94,
+      "ccc": 0.7065,
+      "cal_slope": 0.531,
+      "mae": 1.4347,
+      "r": 0.7491,
+      "pred_mean": 4.178,
+      "pred_std": 1.995,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "",
+      "method": "v3 + item13 swap to inter v2_plus_self_norm (iter10C)",
+      "selections": {
+        "9": "iter8",
+        "10": "iter6",
+        "11": "iter8",
+        "12": "cccv2",
+        "13": "inter_v2_plus_self_norm",
+        "14": "iter6"
+      }
+    },
+    "T1_hybrid_v5_iter11": {
+      "n": 94,
+      "ccc": 0.7241,
+      "cal_slope": 0.5655,
+      "mae": 1.4216,
+      "r": 0.7544,
+      "pred_mean": 4.139,
+      "pred_std": 2.11,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "",
+      "method": "v4 + iter11 self-norm-cross swaps (\u2265+0.015 LOOCV, null-pass)",
+      "swaps": {
+        "10": {
+          "variant": "iter11_self_norm_hy_residual",
+          "loocv_ccc": 0.5656746735870538,
+          "v4_ccc": 0.48589385337187063,
+          "delta_loocv": 0.07978082021518318,
+          "screen_5fold_ccc": 0.5411999999999999,
+          "screen_5fold_delta": 0.05530614662812927,
+          "screen_nulls": {
+            "scram": 0.0987242325322438,
+            "canary": 0.5325883620736379,
+            "sid_shuf": 0.4619911145106643
+          },
+          "criterion": "delta_5fold>=0.015, |scram|<0.15, |canary-ccc|<0.05, sid_shuf<=ccc-0.05"
+        }
+      }
+    },
+    "T1_hybrid_v5_per_item_best_POSTHOC": {
+      "n": 94,
+      "ccc": 0.7293,
+      "cal_slope": 0.5628,
+      "mae": 1.3926,
+      "r": 0.7637,
+      "pred_mean": 4.061,
+      "pred_std": 2.075,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "",
+      "method": "post-hoc per-item LOOCV best (upper bound, NOT a deployment number)",
+      "selections": {
+        "9": "iter8 (CCC=0.4486)",
+        "10": "iter11_self_norm_hy_residual (CCC=0.5657)",
+        "11": "iter8 (CCC=0.3826)",
+        "12": "inter_v2_plus_interactions_plus_self_norm (CCC=0.7028)",
+        "13": "inter_v2_plus_self_norm (CCC=0.2707)",
+        "14": "iter6 (CCC=0.4537)"
+      }
+    }
+  },
+  "per_item_table": {
+    "9": {
+      "iter6": 0.4291808593885097,
+      "iter8": 0.44861182612431894,
+      "cccv2": NaN,
+      "inter_best": [
+        "",
+        NaN
+      ],
+      "iter11_best": [
+        "",
+        NaN
+      ]
+    },
+    "10": {
+      "iter6": 0.48589385337187063,
+      "iter8": 0.4821548126508255,
+      "cccv2": NaN,
+      "inter_best": [
+        "",
+        NaN
+      ],
+      "iter11_best": [
+        "self_norm_hy_residual",
+        0.5656746735870538
+      ]
+    },
+    "11": {
+      "iter6": 0.1739753683608721,
+      "iter8": 0.38259725885517726,
+      "cccv2": NaN,
+      "inter_best": [
+        "v2_plus_interactions_plus_self_norm",
+        0.1976235598396422
+      ],
+      "iter11_best": [
+        "self_norm_only",
+        0.14366883242287823
+      ]
+    },
+    "12": {
+      "iter6": 0.6167709844222752,
+      "iter8": 0.5974994297652818,
+      "cccv2": 0.6823207839753584,
+      "inter_best": [
+        "v2_plus_interactions_plus_self_norm",
+        0.7028068871126019
+      ],
+      "iter11_best": [
+        "",
+        NaN
+      ]
+    },
+    "13": {
+      "iter6": 0.10191202975675986,
+      "iter8": 0.11965660926457955,
+      "cccv2": NaN,
+      "inter_best": [
+        "v2_plus_self_norm",
+        0.2706945802188895
+      ],
+      "iter11_best": [
+        "",
+        NaN
+      ]
+    },
+    "14": {
+      "iter6": 0.45368972747516806,
+      "iter8": 0.3857054838824132,
+      "cccv2": NaN,
+      "inter_best": [
+        "",
+        NaN
+      ],
+      "iter11_best": [
+        "",
+        NaN
+      ]
+    },
+    "18": {
+      "iter6": NaN,
+      "iter8": NaN,
+      "cccv2": NaN,
+      "inter_best": [
+        "v2_plus_self_norm",
+        NaN
+      ],
+      "iter11_best": [
+        "",
+        NaN
+      ]
+    }
+  },
+  "iter11_per_item_loocv": {
+    "10_self_norm_hy_residual_cccv2": 0.5406354699564043,
+    "10_self_norm_hy_residual": 0.5656746735870538,
+    "10_self_norm_plus_v2": 0.5267712333876152,
+    "11_self_norm_only": 0.14366883242287823
+  },
+  "n_subjects": 94
+}

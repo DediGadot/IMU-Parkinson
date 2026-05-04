@@ -1,0 +1,24 @@
+{
+  "n": 93,
+  "ccc": 0.4858,
+  "cal_slope": 0.3238,
+  "mae": 0.887,
+  "r": 0.5615,
+  "pred_mean": 0.982,
+  "pred_std": 0.782,
+  "true_mean": 1.011,
+  "true_std": 1.356,
+  "label": "peritem_18_iter17hyp",
+  "item": 18,
+  "variant": "hy_residual_item_v2",
+  "n_subjects_valid": 93,
+  "seed_cccs": [
+    0.46598359309874,
+    0.507610309240752,
+    0.46298971519954024
+  ],
+  "seed_std": 0.0204,
+  "baseline_ccc": 0.25,
+  "delta_vs_baseline": 0.2358,
+  "is_lockbox_headline": true
+}

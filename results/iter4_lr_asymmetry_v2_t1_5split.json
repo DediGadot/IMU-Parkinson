@@ -1,0 +1,61 @@
+{
+  "variant": "lr_asymmetry_v2",
+  "target": "t1",
+  "eval": "5split",
+  "phase": "phase3_retry",
+  "n_subjects": 94,
+  "ccc_mean": 0.5646,
+  "ccc_std": 0.0104,
+  "ccc_per_seed": [
+    0.5499,
+    0.5708,
+    0.5731
+  ],
+  "mae_mean": 1.7598,
+  "slope_mean": 0.4103,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.5499,
+      "cal_slope": 0.3981,
+      "mae": 1.7934,
+      "r": 0.5986,
+      "pred_mean": 4.318,
+      "pred_std": 1.872,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "lr_asymmetry_v2_seed42",
+      "seed": 42,
+      "wall_s": 17.6
+    },
+    {
+      "n": 94,
+      "ccc": 0.5708,
+      "cal_slope": 0.4222,
+      "mae": 1.7671,
+      "r": 0.6112,
+      "pred_mean": 3.977,
+      "pred_std": 1.945,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "lr_asymmetry_v2_seed1337",
+      "seed": 1337,
+      "wall_s": 13.6
+    },
+    {
+      "n": 94,
+      "ccc": 0.5731,
+      "cal_slope": 0.4106,
+      "mae": 1.7188,
+      "r": 0.6249,
+      "pred_mean": 4.198,
+      "pred_std": 1.849,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "lr_asymmetry_v2_seed7",
+      "seed": 7,
+      "wall_s": 6.6
+    }
+  ],
+  "wall_total_s": 38.0
+}

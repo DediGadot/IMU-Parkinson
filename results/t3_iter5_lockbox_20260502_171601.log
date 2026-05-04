@@ -1,0 +1,39 @@
+PRE-REGISTRATION WRITTEN: /home/fiod/medical/results/preregistration_t3_iter5_20260502_171604.json
+
+=== T3 iter5 LOCKBOX LOOCV (A3_tier1, alpha=1.0, extras=['cv_yrs', 'cv_sex', 'cv_dbs'], 3 seeds) ===
+  [A3_tier1 seed=42] fold 10/98, elapsed 33.2s
+  [A3_tier1 seed=42] fold 20/98, elapsed 71.3s
+  [A3_tier1 seed=42] fold 30/98, elapsed 158.3s
+  [A3_tier1 seed=42] fold 40/98, elapsed 216.1s
+  [A3_tier1 seed=42] fold 50/98, elapsed 303.9s
+  [A3_tier1 seed=42] fold 60/98, elapsed 369.3s
+  [A3_tier1 seed=42] fold 70/98, elapsed 419.1s
+  [A3_tier1 seed=42] fold 80/98, elapsed 503.4s
+  [A3_tier1 seed=42] fold 90/98, elapsed 608.6s
+  seed 42: CCC=0.5217, MAE=7.430, r=0.545, time=706.6s
+  [A3_tier1 seed=1337] fold 10/98, elapsed 87.6s
+  [A3_tier1 seed=1337] fold 20/98, elapsed 154.3s
+  [A3_tier1 seed=1337] fold 30/98, elapsed 212.9s
+  [A3_tier1 seed=1337] fold 40/98, elapsed 250.4s
+  [A3_tier1 seed=1337] fold 50/98, elapsed 277.3s
+  [A3_tier1 seed=1337] fold 60/98, elapsed 312.2s
+  [A3_tier1 seed=1337] fold 70/98, elapsed 342.7s
+  [A3_tier1 seed=1337] fold 80/98, elapsed 373.0s
+  [A3_tier1 seed=1337] fold 90/98, elapsed 412.4s
+  seed 1337: CCC=0.5137, MAE=7.707, r=0.535, time=475.8s
+  [A3_tier1 seed=7] fold 10/98, elapsed 47.1s
+  [A3_tier1 seed=7] fold 20/98, elapsed 95.3s
+  [A3_tier1 seed=7] fold 30/98, elapsed 114.6s
+  [A3_tier1 seed=7] fold 40/98, elapsed 134.2s
+  [A3_tier1 seed=7] fold 50/98, elapsed 155.4s
+  [A3_tier1 seed=7] fold 60/98, elapsed 173.9s
+  [A3_tier1 seed=7] fold 70/98, elapsed 192.0s
+  [A3_tier1 seed=7] fold 80/98, elapsed 211.6s
+  [A3_tier1 seed=7] fold 90/98, elapsed 230.0s
+  seed 7: CCC=0.5134, MAE=7.605, r=0.536, time=247.1s
+
+=== HEADLINE (lockbox): CCC=0.5227, MAE=7.525, r=0.5485, slope=0.402 ===
+  Δ vs iter3 hy_residual on same N=98: +0.1135
+  Bootstrap (n=2000): mean Δ=+0.1135, 95% CI=[+0.0421, +0.1865], frac > 0 = 1.0, frac > 0.01 = 0.998
+Wrote /home/fiod/medical/results/lockbox_t3_iter5_A3_tier1_20260502_171604.json
+Wrote /home/fiod/medical/results/lockbox_t3_iter5_A3_tier1_20260502_171604.oof.npy

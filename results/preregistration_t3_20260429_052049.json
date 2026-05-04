@@ -1,0 +1,31 @@
+{
+  "timestamp": "20260429_052049",
+  "iso_datetime": "2026-04-29T05:20:49.648228",
+  "winner_variant": "hy_residual",
+  "rationale": "Iter 2+3 5-fold CCC ranking: hy_residual is the clear winner at CCC=0.402\u00b10.054, exceeding all other 19 variants. Tied band winners (within 0.05 CCC): obs_subscore_aux (0.310), per_item_sum (0.310), hy_only (0.299), site_mixed_effects (0.292), best_stack_full (0.291). hy_residual chosen by the lockbox tiebreaker: highest 5-fold CCC.",
+  "pipeline_spec": {
+    "stage_1": "Ridge(alpha=1.0) on H&Y features (1 linear + 5 one-hot bins) \u2192 T3",
+    "stage_2": "LightGBM on v2 handcrafted features \u2192 (T3 - Stage1_pred) residual",
+    "feature_selection": "Per-fold LightGBM importance, top K=500",
+    "imputation": "Per-fold median, NaN\u2192median",
+    "lgb_params": {
+      "n_estimators": 500,
+      "learning_rate": 0.05,
+      "num_leaves": 15,
+      "min_data_in_leaf": 10,
+      "reg_alpha": 0.1,
+      "reg_lambda": 0.3,
+      "feature_fraction": 0.8,
+      "bagging_fraction": 0.8,
+      "bagging_freq": 5
+    }
+  },
+  "eval_protocol": "LOOCV (n=89), 3-seed average, no per-fold tuning.",
+  "expected_loocv_range": "[0.30, 0.45] (5-fold was 0.402\u00b10.054)",
+  "headline_metric": "CCC of mean-of-3-seed predictions",
+  "lockbox_rules": [
+    "ONE pipeline pre-registered. ONE LOOCV run. Headline = result, no cherry-picking.",
+    "5-null gate already passed at 5-fold for the underlying components.",
+    "If LOOCV CCC < 0.20, report as null result; do not select runner-up."
+  ]
+}

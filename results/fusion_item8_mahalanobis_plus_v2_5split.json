@@ -1,0 +1,57 @@
+{
+  "item": 8,
+  "variant": "mahalanobis_plus_v2",
+  "eval": "5split",
+  "n_subjects": 94,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "ccc_mean": 0.2290333333333333,
+  "ccc_std": 0.02124340420512263,
+  "mae_mean": 0.7719,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.224,
+      "cal_slope": 0.1403,
+      "mae": 0.779,
+      "r": 0.2797,
+      "pred_mean": 0.989,
+      "pred_std": 0.474,
+      "true_mean": 0.957,
+      "true_std": 0.944,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.2572,
+      "cal_slope": 0.1676,
+      "mae": 0.7675,
+      "r": 0.3063,
+      "pred_mean": 0.899,
+      "pred_std": 0.517,
+      "true_mean": 0.957,
+      "true_std": 0.944,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.2059,
+      "cal_slope": 0.1296,
+      "mae": 0.7692,
+      "r": 0.2562,
+      "pred_mean": 0.906,
+      "pred_std": 0.478,
+      "true_mean": 0.957,
+      "true_std": 0.944,
+      "label": ""
+    }
+  ],
+  "null_tests": {
+    "scrambled_label_ccc": -0.03836349759706606,
+    "canary_feature_ccc": 0.15859668930489945,
+    "sid_shuffle_caches_ccc": 0.23748865113306328
+  }
+}

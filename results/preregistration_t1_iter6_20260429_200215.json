@@ -1,0 +1,45 @@
+{
+  "iter": "iter6_t1",
+  "variant_locked": "gated_per_item_t1_w_hy",
+  "architecture": {
+    "items_via_v2_plus_tug": [
+      10,
+      12,
+      14
+    ],
+    "items_via_hy_residual": [
+      9,
+      11,
+      13
+    ],
+    "stage1_ridge_alpha": 1.0,
+    "stage2_lgb_defaults": {
+      "n_estimators": 500,
+      "learning_rate": 0.05,
+      "num_leaves": 15,
+      "max_depth": -1,
+      "min_data_in_leaf": 10,
+      "reg_alpha": 0.1,
+      "reg_lambda": 0.3,
+      "feature_fraction": 0.8,
+      "bagging_fraction": 0.8,
+      "bagging_freq": 5,
+      "n_jobs": 4,
+      "verbosity": -1
+    },
+    "feature_selection_k": 500
+  },
+  "expected_loocv_range": [
+    0.6,
+    0.7
+  ],
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "n_folds_loocv": 89,
+  "screened_5fold_winner_ccc": 0.6638,
+  "timestamp_utc": "20260429_200215",
+  "rule": "Run LOOCV exactly once. Report regardless of result. No re-runs."
+}

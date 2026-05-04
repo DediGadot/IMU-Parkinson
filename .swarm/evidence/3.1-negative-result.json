@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-04-29T00:57:00Z",
+  "candidate": "B7_v2_plus_variability",
+  "status": "closed_negative_screening_result",
+  "confirmatory_loocv_preregistered": false,
+  "confirmatory_loocv_run": false,
+  "screening_decision_artifact": ".swarm/evidence/2.3-b7-screening-decision.json",
+  "screening_result_artifact": "results/results/baseline_B7_v2_plus_variability_t3_5split.json",
+  "null_gate_artifact": "results/results/baseline_B7_v2_plus_variability_t3_null_gate.json",
+  "decision_basis": {
+    "b1_t3_5split_ccc": 0.2073,
+    "b7_t3_5split_ccc": 0.1899,
+    "absolute_ccc_delta": -0.0174,
+    "screening_positive_thresholds": {
+      "ccc_min": 0.35,
+      "absolute_ccc_improvement_min": 0.08
+    }
+  },
+  "rationale": "B7_v2_plus_variability did not improve T3 screening CCC over B1_v2_only and did not meet SC-002 thresholds. The candidate is closed without confirmatory LOOCV to preserve lockbox discipline."
+}

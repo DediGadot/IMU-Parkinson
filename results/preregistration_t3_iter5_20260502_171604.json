@@ -1,0 +1,24 @@
+{
+  "timestamp": "20260502_171604",
+  "iso_datetime": "2026-05-02T17:16:04.210186",
+  "experiment": "T3 iter5 \u2014 Clinical-augmented Stage 1 of hy_residual",
+  "feature_set": "A3_tier1",
+  "stage1_extras": [
+    "cv_yrs",
+    "cv_sex",
+    "cv_dbs"
+  ],
+  "stage1_total_features": 9,
+  "alpha": 1.0,
+  "n_subjects": 98,
+  "eval_protocol": "LOOCV (n=98), Stage-1 Ridge with intercept + per-fold standardisation. Stage-2 LGB on V2 residual (per-fold median imputation, K=500 LGB-importance feature selection, identical params to canonical hy_residual). 3-seed mean preds = headline.",
+  "headline_metric": "CCC of mean-of-3-seed predictions",
+  "lockbox_rules": [
+    "ONE config pre-registered. ONE LOOCV run. Headline = result, no cherry-picking.",
+    "Apples-to-apples baseline: published hy_residual LOOCV CCC = 0.4092 (same N=98).",
+    "Stage 2 is BIT-IDENTICAL to canonical hy_residual (impute_fold + feature_select_fold + train_lgb).",
+    "If LOOCV CCC <= 0.4092 + 0.005 (within noise), report as null result; do not select runner-up.",
+    "Bootstrap CI of (iter5 CCC - iter3 CCC) on the same 98 subjects must straddle zero LESS than 30% to claim significance."
+  ],
+  "covariate_safety_argument": "All clinical extras are patient-level intake values (cv_yrs, cv_sex, cv_age, cv_dbs, ext_late_pd, site_nls). They are NOT derived from the UPDRS-III rating session; they are recorded at clinical visit BEFORE the gait IMU session. Same status as H&Y stage in the canonical pipeline."
+}

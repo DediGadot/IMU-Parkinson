@@ -1,0 +1,66 @@
+{
+  "best_variant": "iter2_hy_residual_v2_selfnorm_ccc",
+  "eval_mode": "5split",
+  "results": [
+    {
+      "seed": 42,
+      "mode": "normal",
+      "n": 89,
+      "ccc": 0.367,
+      "cal_slope": 0.264,
+      "mae": 7.9832,
+      "r": 0.3994,
+      "pred_mean": 25.761,
+      "pred_std": 6.803,
+      "true_mean": 25.315,
+      "true_std": 10.292,
+      "label": "iter2_hy_residual_v2_selfnorm_ccc_normal_seed42",
+      "passed": true
+    },
+    {
+      "seed": 42,
+      "mode": "scrambled_train_labels",
+      "n": 89,
+      "ccc": 0.0789,
+      "cal_slope": 0.0498,
+      "mae": 8.9698,
+      "r": 0.0975,
+      "pred_mean": 25.652,
+      "pred_std": 5.261,
+      "true_mean": 25.315,
+      "true_std": 10.292,
+      "label": "iter2_hy_residual_v2_selfnorm_ccc_scrambled_train_labels_seed42",
+      "passed": true
+    },
+    {
+      "seed": 42,
+      "mode": "feature_row_shuffle",
+      "n": 89,
+      "ccc": 0.2911,
+      "cal_slope": 0.1978,
+      "mae": 7.8446,
+      "r": 0.3301,
+      "pred_mean": 25.435,
+      "pred_std": 6.167,
+      "true_mean": 25.315,
+      "true_std": 10.292,
+      "label": "iter2_hy_residual_v2_selfnorm_ccc_feature_row_shuffle_seed42",
+      "passed": true
+    },
+    {
+      "seed": 42,
+      "mode": "test_only_canary",
+      "n": 89,
+      "ccc": 0.367,
+      "cal_slope": 0.264,
+      "mae": 7.9832,
+      "r": 0.3994,
+      "pred_mean": 25.761,
+      "pred_std": 6.803,
+      "true_mean": 25.315,
+      "true_std": 10.292,
+      "label": "iter2_hy_residual_v2_selfnorm_ccc_test_only_canary_seed42",
+      "passed": true
+    }
+  ]
+}

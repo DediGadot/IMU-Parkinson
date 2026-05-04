@@ -1,0 +1,36 @@
+{
+  "description": "DBS=0 vs DBS=1 stratified iter5 (T3) and iter12 (T1) LOOCV metrics, computed from per-subject predictions in lockbox JSONs cross-referenced against cv_dbs in ablation_v3_features.csv",
+  "computed_at": "2026-05-03",
+  "computed_by": "post-hoc stratification of pre-registered iter5/iter12 lockbox per-subject predictions; no model refitting",
+  "t3_iter5_clinical_imu": {
+    "dbs_0": {
+      "n": 75,
+      "true_mean": 23.12, "true_sd": 10.27,
+      "pred_mean": 23.66,
+      "ccc": 0.4987, "mae": 7.157, "slope": 0.710, "r": 0.523
+    },
+    "dbs_1": {
+      "n": 23,
+      "true_mean": 28.65, "true_sd": 11.73,
+      "pred_mean": 28.19,
+      "ccc": 0.4958, "mae": 8.724, "slope": 0.746, "r": 0.527
+    },
+    "joint_for_reference": {"n": 98, "ccc": 0.5227, "mae": 7.525, "slope": 0.402}
+  },
+  "t1_iter12_axial_truncal": {
+    "dbs_0": {
+      "n": 71,
+      "true_mean": 3.62, "true_sd": 2.53,
+      "pred_mean": 3.68,
+      "ccc": 0.6432, "mae": 1.473, "r": 0.689
+    },
+    "dbs_1": {
+      "n": 23,
+      "true_mean": 5.61, "true_sd": 3.12,
+      "pred_mean": 5.33,
+      "ccc": 0.5554, "mae": 1.834, "r": 0.616
+    },
+    "joint_for_reference": {"n": 94, "ccc": 0.6550, "mae": 1.561, "slope": 0.483}
+  },
+  "interpretation": "T3 iter5 CCC is essentially identical across DBS strata (0.499 vs 0.496) — the model performs comparably on DBS-implant vs non-DBS subjects in rank concordance terms. MAE is higher in DBS=1 (8.72 vs 7.16) primarily because DBS subjects have higher mean severity (28.65 vs 23.12 UPDRS-III). Within-stratum calibration slopes (0.71, 0.75) are markedly steeper than the joint slope (0.402): pooled slope is dragged down by between-group mean shift, a Simpson-paradox-like effect. T1 iter12 shows a modest CCC gap (0.643 vs 0.555) suggesting DBS subjects with higher axial+truncal severity are slightly harder to predict per-item; MAE difference is small (1.47 vs 1.83). The substantive conclusion: cv_dbs as a Stage-1 covariate produces comparable concordance across DBS strata for T3, but the calibration story is non-trivial and the joint slope of 0.40 reflects between-group mean shift more than within-group compression."
+}

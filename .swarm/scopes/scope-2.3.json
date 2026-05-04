@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "taskId": "2.3",
+  "declaredAt": 1777424320100,
+  "expiresAt": 1777510720100,
+  "files": [
+    "results/",
+    "results/b7_screening_decision.json"
+  ]
+}

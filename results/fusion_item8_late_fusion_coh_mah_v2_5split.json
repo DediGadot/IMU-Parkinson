@@ -1,0 +1,57 @@
+{
+  "item": 8,
+  "variant": "late_fusion_coh_mah_v2",
+  "eval": "5split",
+  "n_subjects": 94,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "ccc_mean": 0.1032,
+  "ccc_std": 0.011243071940829455,
+  "mae_mean": 0.7767,
+  "per_seed": [
+    {
+      "n": 94,
+      "ccc": 0.1048,
+      "cal_slope": 0.0582,
+      "mae": 0.793,
+      "r": 0.1756,
+      "pred_mean": 0.957,
+      "pred_std": 0.313,
+      "true_mean": 0.957,
+      "true_std": 0.944,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.1161,
+      "cal_slope": 0.0628,
+      "mae": 0.7807,
+      "r": 0.2205,
+      "pred_mean": 0.931,
+      "pred_std": 0.269,
+      "true_mean": 0.957,
+      "true_std": 0.944,
+      "label": ""
+    },
+    {
+      "n": 94,
+      "ccc": 0.0887,
+      "cal_slope": 0.0468,
+      "mae": 0.7564,
+      "r": 0.1978,
+      "pred_mean": 0.951,
+      "pred_std": 0.224,
+      "true_mean": 0.957,
+      "true_std": 0.944,
+      "label": ""
+    }
+  ],
+  "null_tests": {
+    "scrambled_label_ccc": -0.03485031192548227,
+    "canary_feature_ccc": 0.0950732060416316,
+    "sid_shuffle_caches_ccc": 0.1271056213609033
+  }
+}

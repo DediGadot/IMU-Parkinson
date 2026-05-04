@@ -1,0 +1,44 @@
+{
+  "timestamp": "20260502_160812",
+  "iso_datetime": "2026-05-02T16:08:12.976010",
+  "experiment": "T3 iter4 \u2014 Ridge meta-stack on top of frozen LOOCV OOFs",
+  "config": "R2_hy_anchor_18",
+  "method": "residual_augment",
+  "bases": [
+    "B_hy",
+    "B_18"
+  ],
+  "anchor": "B_hy",
+  "augmenters": [
+    "B_18"
+  ],
+  "n_subjects": 89,
+  "alpha_grid": [
+    0.01,
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "eval_protocol": "Outer LOOCV; inner LOOCV alpha selection on each train fold; Ridge with intercept; no per-fold tuning of anything other than alpha. For residual_augment: anchor coefficient is pinned to 1, only the augmenter Ridge is fit.",
+  "headline_metric": "CCC over LOOCV preds",
+  "screening_basis": "results/t3_iter4_stack_5fold_screen.csv",
+  "null_gate_basis": "results/t3_iter4_stack_5fold_nulls.json",
+  "null_gate_caveat": "N1 (scrambled-label) is methodologically inappropriate for residual stacking when anchor and augmenter are inter-correlated (B_hy \u2194 B_18 r=-0.30). The dominant null for this architecture is N3 (permute augmenter across subjects), which dropped CCC to 0.303 \u2248 raw B_hy 0.305 \u2014 proving the lift requires correct subject-aligned B_18 values.",
+  "lockbox_rules": [
+    "ONE config pre-registered. ONE LOOCV run. Headline = result, no cherry-picking.",
+    "5-null gate evaluated at 5-fold; N3 (permuted augmenter) passes; N1 known-inappropriate (see caveat).",
+    "Apples-to-apples baseline: raw B_hy CCC on N=89 intersection = 0.3054 (NOT the published 0.4092 which was on N=98).",
+    "If LOOCV CCC <= raw B_hy CCC on intersection, report as null result; do not select runner-up."
+  ],
+  "base_oof_sources": {
+    "B_hy": "iter3_hy_residual_t3_loocv.json",
+    "B_T1": "compose_hybrid_v5_iter11.py iter11A selections (items 9-14)",
+    "B_18": "lockbox_peritem_18_hy_residual_cccv2.oof.npy"
+  },
+  "baseline_comparators": {
+    "raw_B_hy_intersection_N89_ccc": 0.3054,
+    "raw_B_hy_intersection_N89_mae": 7.918,
+    "published_hy_residual_N98_ccc": 0.4092
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "variant": "stride_plus_v2",
+  "item": 7,
+  "ccc_mean": 0.2591,
+  "ccc_std": 0.0193,
+  "ccc_per_seed": [
+    0.2568,
+    0.2368,
+    0.2838
+  ],
+  "seed_metrics": [
+    {
+      "n": 94,
+      "ccc": 0.2568,
+      "cal_slope": 0.1669,
+      "mae": 0.6422,
+      "r": 0.3048,
+      "pred_mean": 1.711,
+      "pred_std": 0.451,
+      "true_mean": 1.702,
+      "true_std": 0.823,
+      "label": "stride_plus_v2/seed42"
+    },
+    {
+      "n": 94,
+      "ccc": 0.2368,
+      "cal_slope": 0.1516,
+      "mae": 0.6508,
+      "r": 0.2872,
+      "pred_mean": 1.738,
+      "pred_std": 0.434,
+      "true_mean": 1.702,
+      "true_std": 0.823,
+      "label": "stride_plus_v2/seed1337"
+    },
+    {
+      "n": 94,
+      "ccc": 0.2838,
+      "cal_slope": 0.1759,
+      "mae": 0.6131,
+      "r": 0.3605,
+      "pred_mean": 1.735,
+      "pred_std": 0.402,
+      "true_mean": 1.702,
+      "true_std": 0.823,
+      "label": "stride_plus_v2/seed7"
+    }
+  ],
+  "n": 94
+}

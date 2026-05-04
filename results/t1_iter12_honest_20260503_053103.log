@@ -1,0 +1,28 @@
+PRE-REGISTRATION WRITTEN: /home/fiod/medical/results/preregistration_t1_iter12_honest_20260503_053105.json
+
+Loading per-item canonical data (SID order from V2_FEATURES PD filter)...
+  Per-item features matched for 94/94 subjects (1305 features)
+  MOMENT embeddings matched for 94/94 subjects (2304 features)
+  HC SSL embeddings matched for 94/94 subjects (768 features)
+  Item9 event MOMENT matched for 93/94 subjects (3840 features)
+  Item11 multiscale matched for 94/94 subjects (237 features)
+  Walkway+joint matched for 94/94 subjects (216 features)
+  N = 94 PD subjects
+
+Loading 6 pre-registered iter8-batch OOFs:
+  Item 9 (hy_residual_item): per-item LOOCV CCC = +0.4486
+  Item 10 (item_plus_v2): per-item LOOCV CCC = +0.4822
+  Item 11 (item_dedicated): per-item LOOCV CCC = +0.3826
+  Item 12 (item_plus_v2): per-item LOOCV CCC = +0.5975
+  Item 13 (item_plus_v2): per-item LOOCV CCC = +0.1197
+  Item 14 (item_plus_v2): per-item LOOCV CCC = +0.3857
+
+Composite: N_valid = 94/94 subjects with valid summed T1
+
+=== HEADLINE (T1 iter12 honest, no cherry-pick): ===
+  CCC = 0.6550  MAE = 1.561  r = 0.7012  slope = 0.483
+  Bootstrap (n=2000): CCC mean = 0.6449, 95% CI = [0.5122, 0.7526]
+  Δ vs iter11A inflated 0.7241: -0.0691 (reviewer estimated −0.010 to −0.025 inflation correction)
+
+Wrote /home/fiod/medical/results/t1_iter12_honest_composite.json
+Wrote /home/fiod/medical/results/t1_iter12_honest_composite.oof.npy

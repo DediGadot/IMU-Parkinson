@@ -1,0 +1,8 @@
+{
+  "item": 18,
+  "variant": "hy_residual_cccv2",
+  "eval": "loocv",
+  "ccc_mean": 0.4901,
+  "ccc_std": 0.0,
+  "mae_mean": 0.8838
+}

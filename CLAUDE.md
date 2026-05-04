@@ -4,337 +4,176 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # PD-IMU
 
+> **Read order**
+> - **Operating quickly:** Commands → Architecture → Inductive Firewall → Gotchas.
+> - **Reproducing a number:** Headline Results → script name in Commands.
+> - **History, ablations, "what failed":** `findings.md` and `progress.md`. Don't cite older numbers from there as deployment results.
+> - **Leakage rules + agent brief:** `AGENTS.md` (source of truth if it disagrees with this file).
+> - **Paper context (SOTA, MCID, cross-dataset):** `paper.md` / `findings.md` / `review_report.md`.
+
 ## Objective
 
-**First published UPDRS-III regression on WearGait-PD.** No one has done this. We own the benchmark.
+**First published UPDRS-III regression on WearGait-PD with strict inductive evaluation.** Predict Parkinson's motor severity (MDS-UPDRS Part III, range 0–132) from body-worn IMUs during gait/balance tasks. Dataset: 178 subjects (98 PD + 80 HC), 13 IMUs at 100 Hz, full clinical UPDRS scores.
 
-Domain: predicting Parkinson's Disease motor severity (MDS-UPDRS Part III total score, range 0-132) from body-worn IMU sensors during gait/balance tasks. The dataset has 178 subjects (98 PD + 80 HC), 13 IMUs at 100Hz, and full clinical UPDRS scores.
+**Paper framing (post-2026-04-28 leakage audit):** A cautionary benchmark. The original SSL ranking "breakthrough" (T1 CCC=0.868, T3 CCC=0.776) was almost entirely transductive leakage. Honest inductive ceilings are dramatically lower. Paper leads with: (a) first WearGait-PD UPDRS-III regression with proper inductive eval, (b) anatomy of the leakage, (c) realistic deployment ceilings.
 
-**Paper's core contribution:** 3-level observability gradient. IMU predicts gait-observable items well (CCC=0.87), partially observable items poorly (CCC=0.12), unobservable items not at all (CCC=0.18). The SSL ranking method (using HC as calibration anchors) is the key methodological innovation.
+## Headline Results (canonical — cite these only)
 
-## SOTA Landscape
+Pre-registered lockbox protocol: 5-fold for screening, single LOOCV for headline, 3 seeds × 89 PD folds.
 
-No published UPDRS-III regression exists on WearGait-PD. Cross-dataset comparisons:
+| Target | Pipeline | LOOCV CCC | LOOCV MAE | Pre-registration |
+|---|---|---|---|---|
+| **T1 (items 9-14, axial+truncal)** | **`compose_t1_iter12_honest.py`** — single iter8 batch (20260430_143044) for all 6 items; no swaps | **0.6550** | 1.561 | `results/preregistration_t1_iter12_honest_*.json` |
+| **T3 (total UPDRS-III)** | **`run_t3_iter5_clinical.py`** — Stage 1 = Ridge on H&Y + cv_yrs + cv_sex + cv_dbs; Stage 2 = LGB on V2 residual | **0.5227** | 7.525 | `results/preregistration_t3_iter5_20260502_171604.json` |
+| T3 LOOCV-IPW (sensitivity, paper supplementary) | `run_t3_iter16_site_ipw.py --mode lockbox` — Stage 2 with per-fold inverse-propensity site weights | 0.4694 | 8.001 | `results/preregistration_t3_iter16_site_ipw_*.json` |
+| **T3 LOSO transportability (2026-05-03)** | `run_t3_iter16_site_ipw.py --mode lockbox` — leave-one-site-out, two-way mean of NLS→WPD (0.419) and WPD→NLS (0.263); IPW collapses to uniform within single-site training so this is the iter5 architecture under cohort shift | **0.341** | 6.42 / 9.97 | `results/preregistration_t3_iter16_site_ipw_*.json` |
+| **Item 15 (3.15 postural tremor) — NEW 2026-05-03 PM iter17** | `run_per_item_iter17_hypothesis.py --mode lockbox --gated_items 15 --gated_variants item_only` — 10 hypothesis-restricted wrist-tremor features (4-7 Hz Wrist FreeAcc bandpower in Balance pre/post pauses + L/R asymmetry) | **+0.1099** (Δ=+0.20 vs −0.09 baseline) | 1.088 | `results/preregistration_peritem_iter17_20260503_221544.json` |
+| **Item 18 (3.18 rest tremor constancy) — NEW 2026-05-03 PM iter17** | `run_per_item_iter17_hypothesis.py --mode lockbox --gated_items 18 --gated_variants hy_residual_item_v2` — Stage-1 Ridge(H&Y) + Stage-2 LGB on V2 ⊕ 8 wrist-burst features (4-6 Hz Wrist FreeAcc burst HMM-like proxy) | **+0.4858** (Δ=+0.236 vs +0.25 baseline) | 0.887 | `results/preregistration_peritem_iter17_20260503_221544.json` |
 
-**Hssayeni et al. 2021 (BioMed Eng OnLine)** — best reported MAE
-- 24 PD patients, wrist+ankle gyro, free-body ADL, ensemble of 3 DL models
-- LOOCV: **MAE=5.95, r=0.79**
-- Limitation: N=24 PD-only, LOOCV (not held-out test), free-body ADL (not controlled gait)
+**T1 iter11A (CCC=0.7241) is REPLACED by iter12.** Independent leakage scrutiny (2026-05-03) found multi-layer adaptive variant selection across iter6/iter8/cccv2/iter10/iter11 batches. Paired bootstrap of (iter11A − iter12) on N=94: mean inflation +0.070, 95% CI [+0.029, +0.113], 99.9% bootstrap > 0. Iter11A remains as supplementary "post-hoc per-item-best with full disclosure."
 
-**Shuqair et al. 2024 (Bioengineering)** — best reported correlation
-- Same 24 PD patients/dataset as Hssayeni, self-supervised CNN-LSTM
-- LOOCV: **r=0.89, MAE~5.65**
-- Limitation: same N=24 PD-only dataset, LOOCV, benefits from SSL on tiny data
+**T3 iter5 (2026-05-02) — clinical-augmented Stage 1 step-function win** (+0.114 LOOCV CCC vs prior 0.4092 baseline; bootstrap CI [+0.042, +0.187], frac > 0 = 1.0). Mechanism: cv_yrs (years since dx, r=0.32) carries clinical staging signal not in IMU; cv_sex and cv_dbs add small marginal info. All three are intake patient-state recorded BEFORE the gait session. Going wider hurts (A4 with cv_age + ext_late_pd, A5 with site).
 
-**Disqualified results:**
-- IS22 (Sotirakis 2022): MAE=4.26 — **confirmed window-level data leakage** (same group got RMSE=10.02 with subject-level CV in Sotirakis 2023)
-- Sotirakis 2023 (npj PD): RMSE=10.02 — 74 PD, 7 visits, 5-fold CV over visit-level rows leaks within-subject data across folds
-- He 2024 (JNER): predicts **levodopa response** (medication effect), NOT UPDRS-III total — GPT-5.4/Codex hallucinated this as a UPDRS regression paper; manually verified via web search 2026-03-08
-- Park 2025 (JNER): MAE=0.76 on z-normalized targets — meaningless raw-point units, subject leakage likely (2 visits, split over "samples")
+**T3 iter6 (2026-05-02) — IMU feature additions failed.** V2+unsigned-asymmetry (1170 max(L,R)/min(L,R) per L/R pair): LOOCV CCC=0.5008, Δ=−0.022 vs iter5, bootstrap CI [−0.075, +0.025]. V2+event-axial (450 features gated to TUG events) hurt at 5-fold by −0.030. **Rule formalized: at N=98 with V2 baseline, require 5-fold delta ≥+0.05 with seed std <0.02 before lockboxing any IMU feature addition.**
 
-**WearGait-PD prior art:** TRIP (arXiv 2025) is the only published use — classification only (80.07% IMU accuracy), no regression.
+**T3 iter16 (2026-05-03) — LOSO transportability discovery + IPW LOOCV honesty check.** IPW on Stage 2 hurt LOOCV by Δ=−0.053 (gemini's "−0.05 to +0.02" prior held); iter5 0.5227 stays canonical. **The surprise: LOSO two-way CCC = 0.341** (NLS→WPD = 0.419, WPD→NLS = 0.263), contradicting prior CLAUDE.md note "T3 LOSO ≈ 0" — that prior was from the older hy_residual-only architecture. The clinical Stage 1 (cv_yrs + cv_sex + cv_dbs) transports across sites because demographics/intake covariates aren't site-specific. First published WearGait-PD T3 transportability number; reported alongside LOOCV in the paper.
 
-**Sources (verified 2026-03-08):**
-- Hssayeni 2021: https://pubmed.ncbi.nlm.nih.gov/33789666/
-- Shuqair 2024: https://www.mdpi.com/2306-5354/11/7/689
-- Sotirakis 2023: https://www.nature.com/articles/s41531-023-00581-2
-- He 2024 (levodopa, NOT UPDRS): https://link.springer.com/article/10.1186/s12984-024-01452-4
-- WearGait-PD dataset: https://www.nature.com/articles/s41597-026-06806-2
-- TRIP 2025 (classification only): https://arxiv.org/html/2510.15748v1
+**T1 iter14 (2026-05-03) — FoG-summary scalar additions for items 9, 12 NULL.** Six FoG-summary cols (label-free `item11_multiscale.csv`) appended to V2 for items 9, 12: 5-fold gate FAIL (item 9 Δ=+0.001 / std=0.06; item 12 Δ=+0.007 / std=0.026). Mechanism: K=500 LGB-importance selector absorbs 6 scalars in ~2200-col incoming pool. Same dead-list pattern as F19 sensor-fusion at N=94. Pre-registration NOT written. Findings F44.
 
-## The Bar
+**T1 iter15 (2026-05-03) — UKB OxWearables HARNet 2048-d embedding additions for items 9, 10, 12, 14 NEGATIVE.** Frozen `harnet30.feature_extractor` (~700K UKB person-days SSL) embeddings appended to V2 for 4 items: T1-sum 5-fold gate FAIL with **Δ = −0.031 across all 5 seeds (every seed: control > harnet_aug)**. Triangulates with MOMENT (F41) and HC SSL (F41): **frozen healthy-population-pretrained encoders are orthogonal to within-PD severity at any embedding scale.** Plus K=500 displacement of useful V2 moments. Findings F45.
 
-| Tier | Overall MAE | PD-only MAE | What it means |
-|------|-------------|-------------|---------------|
-| **Publishable** | any | any | First WearGait-PD regression with proper eval is novel by itself |
-| **Cross-dataset SOTA** | < 7.0 | < 5.95 | Beats Hssayeni PD-only MAE on 7x subjects with held-out test |
-| **Clinical SOTA** | < 3.25 | < 3.25 | Within MCID (Horvath 2015) — errors below clinical noise |
+**T1 iter17 (2026-05-03 PM, 100x researcher push):**
+- **A1 unused-channels (Mag/VelInc/OriInc) — NEGATIVE.** 255 features from entirely-unused IMU channels concatenated to V2-augmented X failed both gates (T1-sum Δ=−0.043, item 11 collapsed −0.15). Same K=500 absorption mechanism as F19/F44/F45. Findings F48.
+- **A2 hypothesis-restricted item submodels — TWO PASSERS.** Items 15 (postural tremor) and 18 (rest tremor constancy) lockboxed with item-specific wrist-tremor features. Item 15 LOOCV +0.1099 (Δ=+0.20 vs −0.09 baseline, seed std 0.0065); item 18 LOOCV +0.4858 (Δ=+0.236 vs +0.25 baseline, seed std 0.020). Items {4, 6, 16, 17} screened but failed strict gate; reported as supplementary. Findings F50. **First successful iter at this N showing that small, clinically-anchored feature sets BYPASS K=500 absorption when the model bypasses V2 entirely (item_only) or uses H&Y residual decomposition.**
+- **A3 site-centered Stage 2 — NEGATIVE on both LOOCV and LOSO.** Per-fold per-site centering of V2 features in Stage 2 hurt LOOCV by Δ=−0.030 and LOSO two-way by Δ=−0.018 vs iter16's 0.341. Findings F49. iter16 0.341 LOSO holds.
 
-Reality check: total UPDRS-III has unobservable items (rigidity, speech, facial expression). Ceiling from gait IMU alone is likely MAE ~8-10 on clean evaluation. Observable axial subdomain (gait+posture+lower limb items) can reach MAE ~1.0 with SSL ranking.
+## Commands
 
-## Current Results (2026-03-15)
+```bash
+# Reproduce canonical headlines
+./gpu.sh compose_t1_iter12_honest.py                                       # T1: LOOCV CCC=0.6550
+./gpu.sh run_t3_iter5_clinical.py --mode lockbox --feature_set A3_tier1    # T3: LOOCV CCC=0.5227
+./gpu.sh run_t3_iter16_site_ipw.py --mode lockbox                          # T3 LOSO two-way CCC=0.341 (NEW transportability number)
 
-### Best: P5 SSL Ranking (PD-only LOOCV, N=94)
+# Remote GPU workflow (slave has torch, lightgbm, xgboost, momentfm; master does not)
+./gpu.sh <script.py> [args]    # rsync code + run on remote
+./gpu.sh --pull                # fetch results back to ./results/
+./gpu.sh --status              # GPU + running jobs
+./gpu.sh --push-cache          # upload local cache to remote
+./gpu.sh --log                 # tail latest log
+./gpu.sh --ssh                 # shell into remote
+./gpu.sh --setup               # provision a fresh slave
+./gpu.sh --nuke                # kill all python jobs on remote
 
-XGBRanker trained on ALL subjects (PD+HC, N=178) → leaf indices as features → LightGBM on PD-only. HC subjects serve as "known-zero" calibration anchors. Script: `run_compression_ablation.py --phase 5`.
+# Local environment (no torch/lightgbm — use uv for tests, paper-gen, syntax checks)
+uv sync                                                  # install deps
+uv run pytest tests/ -v                                  # all tests
+uv run pytest tests/test_inductive_leakage_fix.py -v     # leakage regression suite
+uv run pytest tests/test_inductive_lib.py -v             # fold-local helpers
+uv run python -m py_compile run_*.py compose_*.py        # syntax-check before any GPU push
+uv run python generate_paper_v4.py                       # current paper builder → NEW4.html
+```
 
-| Target | Items | CCC | slope | MAE | r |
-|--------|-------|-----|-------|-----|---|
-| **T1 (direct obs)** | 9-14 | **0.868** | 0.689 | 0.986 | 0.899 |
-| **T2 (broad obs)** | 7-14 | **0.852** | 0.699 | 1.334 | 0.873 |
-| **T3 (total UPDRS)** | all | **0.776** | 0.576 | 4.646 | 0.827 |
+**Swap GPU servers:** edit lines 19-20 of `gpu.sh` (or `export GPU_REMOTE=root@x.x.x.x GPU_PORT=NNNN`) and run `./gpu.sh --setup`. Current slave: `root@142.171.48.138:26843` (RTX 5070 12GB, PyTorch cu128).
 
-### 3-Level Observability Gradient (paper's core table)
+## Architecture
 
-| Subscore | Items | MAE | CCC | r |
-|----------|-------|-----|-----|---|
-| **Direct observable** | 9-14 | **1.77** | **0.56** | **0.667** |
-| Partially observable | 5-8, 15-17 | 4.89 | 0.12 | 0.169 |
-| Not observable | 1-4, 18 | 3.94 | 0.18 | 0.290 |
+**Pattern: shared modules + self-contained `run_*.py` experiment scripts + one fold-firewall library + per-item composers.**
 
-### Pre-SSL baselines (10-split CV, 2026-03-11)
+```
+data_split.py       ← shared: clinical parsing, windowing, split creation
+project_paths.py    ← shared: artifact paths, env overrides (WEARGAIT_*)
+updrs_columns.py    ← shared: UPDRS subitem column resolution
+eval_utils.py       ← shared: lins_ccc, cal_slope, feature selection, bootstrap CIs
+inductive_lib.py    ← shared: FoldImputer / FoldNormalizer / FoldSeverityBins / 5-null gate
+                      Single source of truth for the train/test firewall. Anything that "fits"
+                      on training-fold data must use these helpers.
 
-| Model | 10-split Mean ± Std | p vs v2 |
-|-------|--------------------|---------|
-| FM Stack (v2+MOMENT) | 7.775 ± 0.439 | 0.0039 |
-| v2 LGB baseline | 8.485 ± 0.497 | — |
+run_*.py            ← self-contained experiments (import the 5 modules above + std libs only)
+cache_*.py          ← feature-extraction one-shots (write to results/*.csv)
+compose_*.py        ← per-item OOF composers; produce hybrid composite predictions
+```
 
-### Clean held-out test (post-contamination audit, 2026-03-09)
+**Cross-import exceptions:** `run_clean_benchmark.py`, `run_ablation_v3.py`, `run_paper_supplements.py` import feature-extraction functions from `run_ablation_v2.py` and `run_proven_stack.py`. No other cross-imports between `run_*.py` files.
 
-Split: `results/paper3_split.json` — 142 dev + 36 test, seed=20260309. See CONT.md for full audit.
+**Execution model:** Code lives on MASTER. `gpu.sh` rsyncs to the remote GPU slave, runs there, `--pull` fetches results. Remote has the 52GB dataset at `data/raw/weargait-pd/`.
 
-| Model | MAE | r | Role |
-|-------|-----|---|------|
-| LGB baseline (S0_K150) | 9.47 | 0.605 | clean baseline |
-| Deployable stack (S6_K150) | 9.68 | 0.579 | pre-specified primary |
-| H&Y ceiling | 8.22 | 0.705 | upper bound with clinical staging |
+**Architectural patterns that won (the playbook):**
+- **Per-item gated architecture** — predict each item separately, sum to get T1. Each item picks its best architecture (V2 alone vs V2+TUG vs hy_residual vs self_norm vs CCC objective).
+- **H&Y residualization (Stage-1 Ridge → Stage-2 LGB)** — adds clinical signal not in IMU. Drives T3 (CCC 0.21 → 0.41 → 0.52 with extra clinical) and items 9, 10, 18.
+- **Self-normalization across homologous-metric sensor groups** — subtract subject's median across e.g. all Pitch_mean values. Removes idiosyncratic baseline (scoliosis, body habitus, mounting) while preserving inter-sensor differences. Cracks items 10 and 13; items 11, 14 don't benefit.
+- **Custom CCC objective for LightGBM (v2)** — needs `init_score=mean(y)` + Pearson feature selector + `hessian=1.0` scaling + post-hoc affine calibration. Without these fixes the CCC objective HURTS most items. Drives items 12 and 18.
+- **TUG phase-segmented features** — 6-phase segmentation around Lumbar Acc-mag spike. Boosts items 10, 12, 14, 7, 8 but HURTS items 9, 11, 13 (use hy_residual for those).
+- **Per-fold K=500 LGB importance feature selection** — must be inside CV; never global.
 
-**The old MAE=6.89 result was contaminated by adaptive test-set reuse (~2.8 MAE inflation). Do not cite it.**
+**T3 theoretical ceilings (derived 2026-04-29 iter 1.3):** Bound D (perfect-T1 → T3) = 0.683; Bound A (oracle T1 + mean R, realistic IMU-only max) = 0.351; Bound E (inductive shrinkage T1_pred → T3) = 0.171. hy_residual breaks Bound A by adding non-IMU clinical signal. Don't chase numbers > Bound A without external/clinical data.
 
 ## Data: WearGait-PD
 
 On remote at `data/raw/weargait-pd/` (52GB). Clean split: `results/paper3_split.json` (seed=20260309).
 
-**Per sensor (13 sensors, 22 channels each = 286 IMU channels):**
-
-| Channels | Count | Used | Priority |
-|----------|-------|------|----------|
-| Acc_XYZ, Gyr_XYZ | 78 | YES | — |
-| FreeAcc_E/N/U (gravity-removed, global frame) | 39 | NO | HIGH — clinical standard |
-| Roll/Pitch/Yaw (Euler angles) | 39 | NO | HIGH — trunk lean, arm swing |
-| Mag_XYZ, VelInc_XYZ, OriInc_q0123 | 130 | NO | LOW |
-
-**Additional modalities (already downloaded):**
-- Foot Contact events (binary heel-strike/toe-off) — ALL non-mat files
-- GeneralEvent annotations (Walk/Turn/Sitting/SitToStand) — ALL files
-- Walkway gait metrics (196 pre-computed params) — 135/178 subjects
-- Clinical covariates: Age, Sex, Height, Weight, Years since PD dx, Medications, DBS, H&Y, full UPDRS items
+**Per sensor (13 sensors × 22 channels = 286 IMU channels):** Acc_XYZ + Gyr_XYZ used; FreeAcc_E/N/U + Roll/Pitch/Yaw partially used (axial cache); Mag_XYZ + VelInc + OriInc unused.
 
 **Tasks:** SelfPace, HurriedPace, TUG, Balance, TandemGait + _mat/_matTURN variants.
 
-## Commands
+**Two collection sites** identifiable from SID prefix: NLS (70 PD) and WPD (28 PD). Asymmetric leave-site-out (NLS→WPD CCC=0.66; WPD→NLS CCC=0.12). Site is a **strong T3 confounder** (LOSO CCC ≈ 0).
 
-```bash
-# Environment (local — only matplotlib, numpy, pandas, scipy)
-uv sync                                    # install deps (local, for tests/paper gen)
+**T1 = items 9-14 = Schrag 2007 axial subscore (items 9-13) + body bradykinesia (3.14).** Items 1-18 in `per_item_scores.json` are standard MDS-UPDRS Part III items 3.1-3.18.
 
-# Run experiments (on GPU slave — has torch, lightgbm, xgboost, momentfm, etc.)
-./gpu.sh run_compression_ablation.py --phase 5  # deploy code + run on remote GPU
-./gpu.sh --pull                            # fetch results back to ./results/
-./gpu.sh --status                          # check GPU + running jobs
-./gpu.sh --push-cache                      # upload cached features to remote
+## Inductive Firewall (the architectural law)
 
-# Autoresearch (autonomous HP search loop)
-./gpu.sh autoresearch_eval.py --baseline   # compute MAE baseline (once)
-./gpu.sh autoresearch_eval.py              # run current config from autoresearch_config.py
-./gpu.sh autoresearch_ccc_eval.py --baseline  # compute CCC baseline (once)
-./gpu.sh autoresearch_ccc_eval.py          # run CCC-optimized config
+After the 2026-04-28 leakage audit, every new experiment script must:
 
-# Tests (local)
-uv run pytest tests/ -v                    # all tests
-uv run pytest tests/test_data_split.py -v  # single test file
+1. **Fit fold-local helpers only** — use `inductive_lib.py` (`FoldImputer`, `FoldNormalizer`, `FoldSeverityBins`). No global imputers, no cohort-wide z-scoring, no pre-computed ranks/anchors/prototypes touching test-fold data.
+2. **Pass the 5-null gate** before any reported number:
+   - **Scrambled-label sanity** — shuffle train PD targets; expect test CCC ≈ 0.
+   - **Subject-ID shuffle before cache join** — also CCC ≈ 0; catches leaks via cache join keys.
+   - **Canary feature** (injected only into test fold) — model must be unable to use it.
+   - **Library-exclusion assertion** (kNN/retrieval) — assert no test SID in retrieval pool.
+   - **Transductive sanity variant** — intentionally leak target; expect CCC ≈ 0.85; proves architecture CAN learn.
+3. **Lockbox protocol** — 5-fold for screening across many configs, single pre-registered LOOCV for headline. Never re-run LOOCV on multiple variants and pick the best — that's adaptive test-set reuse.
+4. **Composite-level cherry-picking** — The lockbox catches single-pipeline cherry-picking but NOT composite-level cherry-picking across multiple pre-registered lockboxes (the iter11A failure mode). Composer scripts must use single coherent batches OR pre-register the composite formula before any per-item LOOCV.
+5. **Report transductive AND inductive numbers side-by-side** — the gap is the leakage estimate.
 
-# Paper generation (local, reads from results/)
-uv run python generate_paper.py            # generate paper HTML → NEW.html
-uv run python paper3_data.py               # prepare paper data artifacts
-```
+### Concrete leakage-cause citations (grep patterns to avoid)
 
-## Architecture
+- **Pre-computed target-derived structures outside the CV loop:** `run_compression_ablation.py:1015` (XGBRanker fit on all 178; leaf indices encoded test-fold rank). Cost ΔCCC=0.343 on T1 5-fold.
+- **Hyperparameter tuned on the test vector and reported on the same vector:** `run_calibration_v2.py:861` (T_grid optimised on the same N=94 LOOCV preds it then evaluated; slope pinned to 1.000 by construction). Always nest CV.
 
-**Pattern: shared modules + self-contained experiment scripts.**
+## Companion docs / Ownership
 
-Three shared modules provide data/paths/UPDRS resolution — everything else is a standalone `run_*.py` script that does its own feature extraction, model training, and evaluation end-to-end:
-
-```
-data_split.py       ← shared: clinical parsing, windowing, split creation
-project_paths.py    ← shared: all artifact paths, env overrides (WEARGAIT_*)
-updrs_columns.py    ← shared: UPDRS subitem column name resolution
-
-run_*.py            ← self-contained experiments (import only the 3 above)
-```
-
-**Cross-import exceptions:** `run_clean_benchmark.py`, `run_ablation_v3.py`, and `run_paper_supplements.py` import feature extraction functions from `run_ablation_v2.py` and `run_proven_stack.py`. No other cross-imports between `run_*.py` files.
-
-**Execution model:** Code lives on this machine (MASTER). `gpu.sh` rsyncs to the remote GPU slave, runs there, and `--pull` fetches results back. The remote has the 52GB dataset at `data/raw/weargait-pd/`.
-
-**Feature extraction tiers:**
-
-| Tier | Approach | Dim | Best for |
-|------|----------|-----|----------|
-| v2 | Handcrafted (statistical + spectral) | ~1752 | Observable subscore |
-| ROCKET | MiniRocket (5000 temporal kernels) | 5000 | Hurts when added to FM |
-| FM | MOMENT-1-base (frozen 768-dim) | 768 | Total UPDRS |
-| SSL Ranking | XGBRanker leaf indices (PD+HC) | ~200 | All targets (breakthrough) |
-
-**Cached artifacts on remote** (reused across experiments):
-- `results/ablation_v3_features.csv` — pre-computed v2 handcrafted features
-- `results/fm_embeddings.npz` — MOMENT-1-base frozen embeddings (deterministic, no SIDs)
-- `results/rocket_recordings.npz` — recording-level SIDs (use this for SID lookup, not FM cache)
-- `results/velinc_features.csv`, `results/velinc_gated_features.csv` — VelInc channel features
-- `results/per_item_scores.json` — all 18 UPDRS items per subject
-- `results/obs_direct_subscores.json` — ground truth items 9-14
-
-## Infrastructure
-
-**This machine = MASTER** (code, git). **Remote = disposable GPU slave.**
-
-```bash
-./gpu.sh run_something.py       # deploy + run
-./gpu.sh --pull                  # fetch results
-./gpu.sh --push-cache            # upload cached features
-./gpu.sh --status                # GPU + jobs
-./gpu.sh --log                   # tail log
-./gpu.sh --ssh                   # shell in
-./gpu.sh --setup                 # provision new slave
-./gpu.sh --nuke                  # kill jobs
-```
-
-Swap servers: `export GPU_REMOTE=root@x.x.x.x GPU_PORT=22 && ./gpu.sh --setup`
-
-Current slave: `root@142.170.89.112:37397`, PyTorch cu128.
-
-## Files
-
-**Shared modules:**
-```
-data_split.py           # Clinical parsing, windowing, split creation (ONLY shared data module)
-project_paths.py        # Centralized artifact paths with env overrides (WEARGAIT_DATA_DIR, etc.)
-eval_utils.py           # Shared metrics (lins_ccc, cal_slope), feature selection, bootstrap CIs
-updrs_columns.py        # Robust UPDRS subitem column resolution across naming variants
-```
-
-**Primary experiment scripts:**
-```
-run_compression_ablation.py # Anti-compression proposals × 3 targets: ordinal, pairwise, SMOGN, NGBoost, SSL ranking (TRANSDUCTIVE Stage 1 — see leakage audit)
-run_inductive_ablation.py   # Leak-free Stage 1: refits XGBRanker per fold on training-fold subjects only. Three variants (transductive/inductive_pd_hc/inductive_pd) for the H1 ablation
-run_nested_temperature.py   # Leak-free temperature scaling: per-fold T from inner LOOCV on the OTHER N-1 subjects + per-fold mean centring (H2/H3 fix)
-run_pd_only_experiments.py  # 7-phase PD-only experiments (10-split, LOOCV, 3-level observability, held-out)
-run_calibration_ablation.py # Calibration-fix ablation (--target total|obs, residual modeling)
-run_rocket_ablation.py      # ROCKET + FM + coordination ablation (phases 0-9)
-run_obs_bias_ablation.py    # Walkway/task-specific/VelInc ablation for observable subscore
-run_clean_benchmark.py      # Clean eval on fresh split (primary for Paper3)
-run_proven_stack.py         # Stack variants (exploratory, test set NOT pristine)
-run_ablation_v2.py          # v2 feature extraction baseline (imported by other scripts)
-run_ablation_v3.py          # v3 ablation (5 phases)
-run_step_function.py        # Step-function analysis
-```
-
-**Autoresearch (autonomous HP search):**
-```
-autoresearch_config.py      # ONLY file the agent modifies — knobs for features, HP, ensemble strategy
-autoresearch_eval.py        # Fixed MAE evaluation harness — DO NOT MODIFY
-autoresearch_ccc_eval.py    # Fixed CCC evaluation harness with feature group selection — DO NOT MODIFY
-autoresearch_program.md     # Agent instructions for the autoresearch loop
-autoresearch_results.tsv    # Append-only log of MAE experiment outcomes
-autoresearch_ccc_results.tsv # Append-only log of CCC experiment outcomes
-```
-
-**Paper generation:**
-```
-generate_paper.py       # Main paper HTML generator (182 KB) → outputs NEW.html
-paper.tex               # LaTeX version of the manuscript
-paper_figures_v2.py     # Figure generation
-paper_refs.py           # Reference management
-paper3_data.py          # Paper data artifact preparation
-```
-
-**Supplementary experiment scripts:**
-```
-run_sensor_ablation.py  # Corrected sensor ablation (FM re-extracted per config, no leakage)
-run_loocv_stack.py      # Corrected nested LOOCV (feature selection inside loop)
-run_stats_report.py     # Corrected stats (uses actual stack, dynamic best model)
-run_dl_experiments.py   # DL experiments (all architectures failed, see What Failed)
-run_subdomain.py        # Subdomain analysis (corrected UPDRS resolution)
-run_subdomain_v3.py     # v3 subdomain prediction (obs vs unobs)
-run_shap_explain.py     # SHAP feature importance analysis
-run_transfer.py         # Cross-dataset transfer validation
-run_biomechanics.py     # Biomechanical feature extraction
-run_paper_supplements.py # Supplementary analyses for paper
-cache_extra_features.py # Caches VelInc, VelInc-gated, walkway features
-```
-
-**Infra:**
-```
-gpu.sh                  # Master/slave deploy, pull results, manage remote jobs
-synapse_download.py     # Download WearGait-PD from Synapse
-```
-
-**Remote-only dependencies** (installed via `gpu.sh --setup`, NOT in pyproject.toml):
-torch, torchvision, lightgbm, xgboost, momentfm, sktime (MiniRocket), tslearn
+- **`CLAUDE.md` (this file)** — architecture, commands, current canonical numbers.
+- **`AGENTS.md`** — leakage rules and agent-facing brief. **Source of truth if it disagrees with CLAUDE.md.**
+- **`findings.md`** — full ablation history, codex/gemini consultations, "what failed" anatomy, F0–F12 sections.
+- **`progress.md`** — append-only progress log with timestamps and errors.
+- **`task_plan.md`** — current execution plan.
+- **`SWARM_PLAN.md` / `SWARM_PLAN.json`** — current live swarm plan (when present). Pick up in-flight phases from here before starting new work.
+- **`paper.md`, `review_report.md`** — paper context (SOTA, MCID 3.25, Hssayeni cross-dataset).
+- **`~/.claude/projects/-home-fiod-medical/memory/MEMORY.md`** — auto-memory across sessions.
 
 ## Gotchas
 
-- **FM embedding aggregation:** `fm_embeddings.npz` has recording-level data with no SIDs. Must use `rocket_recordings.npz["sids"]` as the subject mapping to aggregate per-subject.
+- **FM embedding aggregation:** `fm_embeddings.npz` has recording-level data with no SIDs. Use `rocket_recordings.npz["sids"]` for subject mapping.
 - **Two split files:** `data_split.json` (old, seed=42, CONTAMINATED) vs `paper3_split.json` (clean, seed=20260309). Always use `paper3_split.json`.
-- **Feature selection inside folds:** XGB importance-based selection (K=500) must be computed per fold, not once on all data, to prevent leakage.
-- **LightGBM device='gpu' is 2.2x SLOWER than CPU** for N<200. Always use CPU.
-- **Demographics are competitive on total UPDRS:** Ridge on age/sex/dx_yrs beats IMU (7.44 vs 8.37). IMU signal is real but partial (r=0.36, p=0.0003 after partialing out demographics).
-- **SSL ranking uses HC for representation, NOT evaluation.** Final eval must always be PD-only.
+- **Feature selection inside folds:** XGB importance-based selection (K=500) must be per fold, not once globally.
+- **LightGBM `device='gpu'` is 2.2× SLOWER than CPU** for N<200. Always use CPU.
+- **Demographics ridge claim was wrong on T3:** older notes saying "demographics beats IMU on T3" do not reproduce. **B1_v2_only > B4_demo on T3.**
+- **HC anchors HURT inductively:** `inductive_pd > inductive_pd_hc`. Drop HC from any deployment pipeline. HC are diagnostic-only (transductive sanity / leakage tests).
+- **Use `generate_paper_v4.py`** — older versions emit pre-leakage transductive numbers.
+- **N=94 vs N=89 filter** shifts absolute CCC by ~0.06 but preserves ranking. Filter to T1 items only (94) vs all T3 items (89). Cite the filter when reporting.
+- **`updrs3` column vs `sum(items 1-18)`:** two T3 definitions exist in this repo, differing by ~1.47 per subject. Use `updrs3` from V2_FEATURES csv for canonical T3.
+- **Custom CCC LGB objective** silently HURTS without the v2 fixes (init_score, Pearson selector, hessian scaling, affine calibration).
+- **Remote-only deps:** torch, torchvision, lightgbm, xgboost, momentfm, sktime, tslearn — installed via `gpu.sh --setup`, NOT in `pyproject.toml`.
 
-## What Failed (DO NOT RETRY)
+## What Failed
 
-- All handcrafted feature groups (stride-var, asymmetry, nonlinear, frequency, interactions)
-- End-to-end DL (5 architectures), item decomposition (52% worse)
-- MoE/severity stratification, cross-sensor coordination, two-stage, HP sweeps
-- FoG transfer (AUC=0.500, only 14/182 FoG+)
-- Post-hoc calibration (isotonic/Platt/linear/polynomial) — predictions lack variance
-- Euler/FreeAcc channel expansion — marginal, not worth complexity
-- Severity-weighted + residual combination — no additive effect
-- Embedded demographics as features — tree model ignores them
-- Walkway metrics for obs subscore — redundant with v2 features
-- Task-specific ensemble for obs — worse than all-task pooling
-- Per-item ordinal + temperature sharpening — CCC=0.338, catastrophic
-- NGBoost Poisson distributional — CCC=0.671, no improvement over tuned LGB
-- Pairwise contrastive boosting — slow and mediocre (CCC~0.62)
-
-## Memento-Skills (GLM-5 Agent)
-
-Self-evolving agent framework at `~/memento/Memento-Skills/`. Uses GLM-5 via `api.z.ai`. Config: `~/memento_s/config.json`.
-
-**Setup:**
-```bash
-cd ~/memento/Memento-Skills && source .venv/bin/activate
-```
-
-**Commands:**
-```bash
-memento doctor                                    # verify environment
-memento agent                                     # interactive chat
-memento agent -m "prompt"                         # single-shot query
-memento agent -s <session_id>                     # resume session
-```
-
-**Built-in skills (9):** filesystem, web-search, pdf, docx, xlsx, pptx, image-analysis, skill-creator, uv-pip-install.
-
-**How it works:** Intent classification (DIRECT/AGENTIC) → skill retrieval → sandboxed execution via `uv` → reflection → skill rewrite. Skills are `SKILL.md` files in `~/memento_s/skills/`. The `skill-creator` meta-skill generates new skills from scratch with automated test gates.
-
-**Using with this codebase:**
-```bash
-# Read and analyze code
-memento agent -m "Read /home/fiod/medical/run_compression_ablation.py and explain the SSL ranking"
-
-# Create a custom skill for recurring tasks
-memento agent -m "Create a skill that reads results/*.json and summarizes experiment metrics"
-```
-
-**Key paths:**
-- Skills: `~/memento_s/skills/`
-- Database: `~/memento_s/db/memento_s.db`
-- Workspace: `~/memento_s/workspace/`
-- Config: `~/memento_s/config.json` (model=`anthropic/glm-5`, base_url=`https://api.z.ai/api/anthropic`)
-
-**Fix applied:** `litellm.modify_params = True` in `~/memento/Memento-Skills/middleware/llm/client.py` — required for tool-calling to work with the Anthropic provider adapter.
-
-## Rules
-
-- **NEVER per-subject z-normalize for regression** — amplitude IS severity
-- **NEVER amplitude-scale augmentation** — destroys severity signal
-- **ALWAYS subject-level splits** — window-level leaks
-- **ALWAYS multi-seed** (3-5 seeds) — single seed is noise at N=178
-- **ALWAYS report PD-only MAE alongside overall** — HC inflates metrics
-- **NEVER reuse clean test split for model search** — this caused the original 6.89 contamination
-- **NEVER promote a sensitivity-check winner as new primary** — recreates contamination cycle
-- **ALWAYS verify SOTA claims from LLMs against actual papers** — multiple hallucinated citations found
-- **NEVER pre-compute target-derived structures (ranks, anchors, prototypes) outside the CV loop** — even if no "predicted" value is exposed, the rank/anchor signal IS a label leak; refit per fold on training-fold subjects only. Audit 2026-04-28 found this leak in run_compression_ablation.py:1015 cost ΔCCC=0.343 on T1 5-fold.
-- **NEVER tune a hyperparameter on the test-set vector and report metrics on the same vector** — slope/CCC/MAE optimisation targets pin the reported value to the optimum by construction. Use nested CV: tune on inner folds, evaluate on outer hold-out. Audit 2026-04-28 found this in run_calibration_v2.py:861 (T_grid optimised on the same N=94 LOOCV preds it then evaluated, slope pinned to 1.000).
-- **HC ablation does NOT defend against H1 transductive leakage** — it only tests HC anchor contribution. The "PD-only ranking ≈ PD+HC ranking" pattern in NEW2.html was not a leakage test. A true inductive ablation requires refitting the ranker on training-fold subjects only.
+Full archive in `findings.md` (sections F0–F12) and the "What Failed" section there. Don't retry without reading it. High-level categories that are dead:
+- All handcrafted feature group expansions (stride-var, asymmetry, nonlinear, frequency, interactions) at this N.
+- 5 end-to-end DL architectures, item decomposition, MoE, severity stratification.
+- HC anchors / HC normative AE / HC-anchored rankers.
+- Frozen MOMENT FM as severity feature (captures group, not within-PD).
+- Privileged distillation, FM MLP adapter, 4-base-learner stacking.
+- Post-hoc isotonic/Platt/polynomial calibration; per-item ordinal + temperature; NGBoost; pairwise contrastive boosting.
+- TabPFN-2.5 (paywalled post-Nov 2025).
+- IMU feature additions at iter5 architecture (event-axial, unsigned-asymmetry — both hurt; the formalized 5-fold ≥+0.05 / seed-std <0.02 gate is the lesson).
+- Sensor-fusion at N=94 (stride-locked, joints_v2, cross-sensor coherence, Mahalanobis-to-HC, late-fusion Ridge stack — all fail 5-null gate or LOOCV +0.015 threshold).
