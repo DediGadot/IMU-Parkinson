@@ -5,7 +5,194 @@
 
 ---
 
-# ACTIVE MISSION — Per-Item Gated T3 Push (2026-05-04) — COMPLETE (NEGATIVE RESULT)
+# ACTIVE MISSION — iter21 Nested-CV Hybrid T3 Push (2026-05-04 PM) — COMPLETE (NEGATIVE RESULT, F56)
+
+## Outcome (final, 2026-05-04 ~15:30)
+
+**Phase B 5-fold gate: FAIL by wide margin.** Δ = **−0.1467** (hybrid +0.3389 ± 0.0429 vs iter5 +0.4856 ± 0.0300, both 3 seeds × 5 outer × 5 inner at N=98). Bootstrap (3-seed-mean, n=2000): Δ = −0.1336, 95% CI [−0.2542, −0.0197], frac>0 = 0.013. **Worse than F53's −0.107.** LOOCV lockbox SKIPPED per protocol stopping rule. New canonical T3 not produced.
+
+**Mechanism (gate-decision triple-CLI consult synthesis):**
+- Both codex and gemini converge: Ridge α=1.0 too weak for 19 collinear inner-OOF predictors at N≈78 outer-train; meta blew up (iter5 weight suppressed to +0.4 instead of natural +1.0; item 11 `item_dedicated` FoG inflated to +5×; suppressor weights on items 6/14/16). Per-fold meta-coef std > 1.0 for most items — meta is fitting covariance noise.
+- Gemini synthesis quote: "Theoretical Pearson lift ignores the curse of dimensionality. The +0.327 orthogonality probe proved POTENTIAL information exists, but extracting it via a 19-parameter meta-model on N=98 guarantees overfitting."
+- Codex synthesis quote: "F55 measured residual Pearson r between already-realized OOF vectors. That is not the same as estimating stable meta-weights inside outer-train data. At N~100, raw residual Pearson can be real but **non-harvestable**."
+
+**6th N≈100 wall data point.** Wall now affects all four probe-strategy classes:
+1. Feature engineering (F19, F44, F45, F48, F51): K=500 absorption.
+2. Composition (F53): variance compounding.
+3. Single-loop hybrid (F54): leakage masquerading as signal.
+4. Nested mixing (F56): meta-overfitting / curse of dimensionality.
+
+**Canonical numbers UNCHANGED from session start:**
+
+| Target | Pipeline | LOOCV CCC | LOOCV MAE |
+|---|---|---|---|
+| T1 (items 9-14) | `compose_t1_iter12_honest.py` | 0.6550 | 1.561 |
+| T3 (total) | `run_t3_iter5_clinical.py --feature_set A3_tier1` | 0.5227 | 7.525 |
+| T3 LOSO two-way | `run_t3_iter16_site_ipw.py --mode lockbox` | 0.341 | 6.42 / 9.97 |
+| Item 15 | iter17 lockbox (item_only) | +0.1099 | 1.088 |
+| Item 18 | iter17 lockbox (hy_residual_item_v2) | +0.4858 | 0.887 |
+
+## Decisions log (final)
+
+- 15:05 — Read CLAUDE.md / AGENTS.md / findings.md F53/F54/F55 / task_plan.md. Confirmed remote idle.
+- 15:13 — Triple-CLI consult at plan finalization: codex/gemini both predicted hybrid 5-fold ≈ 0.44 (range 0.37-0.50), gate "borderline-to-FAIL", failure mode = item-11/iter17 fold-unstable noise → seed std ≥ 0.020. Claude (opus) out of credit.
+- 15:21 — Wrote pre-registration `results/preregistration_t3_iter21_nested_20260504_152155.json` with formula_sha256 `3e6557bf4d9150a6...`.
+- 15:22 — Started `--mode run --cv 5fold` on remote (RTX 5070, 11 workers).
+- 15:28 — Run complete (6 min wall, 1710 model fits across 15 outer-fold jobs).
+- 15:30 — Gate FAIL, Δ = −0.147, bootstrap excludes zero. Triple-CLI gate-decision consult: both voices recommend NOT running LOOCV (would be post-hoc lockbox fishing). Synthesis = curse-of-dimensionality at k=19/N≈78 + Ridge α=1.0 under-regularization.
+- 15:35 — F56 anatomy in findings.md; CLAUDE.md / AGENTS.md / MEMORY.md updated; LOOCV protocol-stop honored.
+
+## Lessons (durable for future sessions)
+
+1. **Orthogonality is necessary but not sufficient for hybrid lift.** F55's +0.327 was real; iter21's gate-fail proves the implication "+0.113 lift available" was over-optimistic at N=98 with k=19 base predictors. Raw residual Pearson r between OOF vectors and target is a **descriptive global** statistic; it does not imply that a learned mixing weight α* can be **estimated stably** from finite training data.
+
+2. **Properly nested CV exposes inner-CV variance penalties that single-loop CV hides.** iter20 (single-loop) was leaky and likely showed positive Δ; iter21 (nested) reveals the honest negative. The cleaner methodology is REQUIRED for honest evaluation, even when (especially when?) it produces a more pessimistic result.
+
+3. **Ridge α=1.0 is too weak for k=19 collinear inner-OOF predictors at N≈78.** Future iterations need EITHER (a) heavier regularization (α≥10–100), (b) a 1- or 2-parameter convex mix (one OLS α* on `composite_residual` → `target_residual`), or (c) fewer base predictors (e.g., iter5 + 1 best-residual-feature). Each of these is a meaningfully different architecture and would need a fresh pre-registration; not chained from this failure.
+
+4. **Pre-reg `--write-prereg` / `--run` split with `formula_sha256` validation works as designed.** ONE immutable JSON; `--mode run --preregistration_file=path` validates the SHA on load and refuses to start if any architectural constant changed. F54 bug #3 (multiple pre-reg files per attempt) eliminated.
+
+5. **T3-native loader at N=98 with per-item NaN-allowed targets works correctly.** F54 bug #2 (T1 cohort filter silently dropping T3 to N=94) eliminated. The 4 missing-from-T1 SIDs (`NLS188`, `WPD013`, `NLS151`, `WPD017`) are now in the T3 cohort with per-item NaN handled fold-locally.
+
+6. **iter5 5-fold reproduction at N=98 (in the nested wrapper) = +0.486 ± 0.030**, meaningfully higher than the +0.405 reported at N=94 in F55. So iter5 5-fold AT N=98 is a TOUGHER comparator than F55 implied. The +0.518 theoretical Pearson upper bound at N=94 implied lift up to +0.113; against the higher N=98 iter5 baseline, lift would need to clear +0.025 → +0.51. With curse-of-dimensionality penalty, observed hybrid was +0.34.
+
+## CLI Triple-Consult Outcome (gate decision, 2026-05-04 ~15:30)
+
+- **Codex (gpt-5.5):** "Do NOT proceed to LOOCV. Running LOOCV would convert a failed screen into post-hoc lockbox fishing. The blow-up is small-N meta-variance + collinearity, not proof item 11 is useful. With 19 noisy inner-OOF predictors / 78 outer-train / α=1.0, Ridge is under-regularized; huge item-11 weight + negative suppressor weights = fitting covariance noise. F55 measured residual Pearson r between already-realized OOF vectors; that is NOT the same as estimating stable meta-weights inside outer-train data. Raw residual Pearson can be real but **non-harvestable** at N≈100."
+- **Gemini (gemini-3.1-pro):** "Absolutely do not proceed. Ridge α=1.0 provides completely inadequate regularization for a 19-dimensional space of highly correlated inner-OOF predictions at N=98. Item 11 (FoG) likely has erratic inner-CV predictions due to target sparsity; meta blindly compensates by inflating its weight and pushing intercept to +12. Theoretical Pearson lift ignores the curse of dimensionality. The +0.327 orthogonality probe proved POTENTIAL information exists but extracting it via a 19-parameter meta-model on N=98 guarantees overfitting."
+- **Synthesis (do not pick one):** Both voices converge — meta blew up from Ridge α=1.0 under-regularizing 19 collinear inner-OOF predictors at N≈78 outer-train. F55's +0.327 was a **descriptive global Pearson** of already-realized OOF vectors; iter21 attempted to **harvest** that as predictive lift via a learned meta and the curse of dimensionality killed it. Both at-finalization predictions were OVERESTIMATES (predicted ~0.44, actual 0.34) — the inner-CV variance penalty at N=98 with the per-item architectures involved was larger than expected.
+
+## Why iter21 (mission origin)
+
+- **F53 (iter19 negative):** raw-sum composite under iter19 architecture map underperformed iter5 by Δ=−0.107 5-fold at N=94. Variance compounding swamped any per-item gains.
+- **F54 (audit, 2026-05-04 14:25):** identified 4 bugs that any T3 hybrid attempt MUST fix:
+  1. Single-loop CV stacking is leaky — meta trains on OOFs whose base-fold overlaps meta-train rows.
+  2. `run_per_item_v2.load_data()` silently filters T3 cohort to N=94 (the T1 filter).
+  3. Multiple pre-reg files per attempt blur the iter11A bright line; no `--write-prereg` / `--run` split.
+  4. `sum_of_items` vs `updrs3` mismatch is subject-specific, not constant; intercept-only correction is wrong.
+- **F55 (orthogonality probe, 2026-05-04 14:30):** Pearson(composite − iter5, updrs3 − iter5) = **+0.327 ± 0.037** at N=94 5-fold. Theoretical hybrid Pearson upper bound +0.518; lift available over iter5 5-fold up to +0.113. Composite carries genuinely complementary signal — F53 failed because of aggregation choice (raw sum + intercept), not absence of signal.
+
+## Architecture (FROZEN before any code changes)
+
+### Per-item base map (FROZEN from iter19, no cherry-picking)
+
+| Items | Architecture | Source |
+|---|---|---|
+| 1, 2, 3 | `v2_baseline` | Phase A1 (iter19) |
+| 4, 5 | `v2_baseline` | iter8 lockboxed |
+| 6 | `lr_multitask` | iter8 lockboxed |
+| 7, 8 | `iter17:hy_residual_item_v2` | Phase A2 5-fold winner |
+| 9 | `hy_residual_item` | iter8 lockboxed |
+| 10, 12, 13, 14 | `item_plus_v2` | iter8 lockboxed |
+| 11 | `item_dedicated` | iter8 lockboxed |
+| 15 | `iter17:item_only` | iter17 lockboxed (2026-05-03) |
+| 16, 17 | `iter17:item_plus_v2` | Phase A2 5-fold winner |
+| 18 | `iter17:hy_residual_item_v2` | iter17 lockboxed (2026-05-03) |
+
+### Nested CV stacking (F54 bug #1 fix)
+
+For each outer fold (outer_train, outer_test):
+1. Inner 5-fold on outer_train ONLY.
+2. For each inner_fold: regenerate iter5 prediction + 18 per-item OOFs on inner_train, predict on inner_test.
+3. This produces a 19-feature inner-OOF matrix on outer_train.
+4. Fit Ridge meta-learner (α=1.0) on inner-OOFs → updrs3.
+5. Retrain base models (iter5 + 18 per-item) on FULL outer_train.
+6. Predict outer_test with retrained base models, then meta-learner on top.
+
+Outer CV: 5-fold (gate); LOOCV (headline if gate passes).
+
+### T3-native loader (F54 bug #2 fix)
+
+Build `load_data_t3()` keyed to canonical `updrs3` cohort (N=98). Per-item targets allowed NaN; fold-locally drop NaN-target rows from per-item training only. Stop driving T3 experiments through `run_per_item_v2.load_data()` (which inherits the T1 filter to N=94).
+
+### Pre-registration split (F54 bug #3 fix)
+
+`--write-prereg` writes ONE immutable JSON, prints path, exits. `--run --preregistration_file=<path>` requires the JSON to exist; refuses to start without it. No re-writing of pre-reg files on crashes.
+
+### updrs3 endpoint (F54 bug #4 fix)
+
+Hybrid endpoint is `updrs3` directly via the fold-local Ridge meta-learner. No intercept-only sum-of-items correction. Meta-learner mixes 19 base predictions to predict updrs3.
+
+## Gates (no exceptions)
+
+- **5-fold sum-level gate:** hybrid CCC ≥ iter5 5-fold + 0.025 AND hybrid std < 0.020 across 3 seeds. If FAIL by wide margin (Δ < 0), skip LOOCV; F56 negative.
+- **LOOCV lockbox:** ONE pre-registered run, 3-seed mean preds, paired bootstrap CI vs iter5 LOOCV OOF on the SAME N=98 with 5000 resamples. Canonical update requires `frac>0 ≥ 95%` AND `ccc > 0.5227`.
+- **Borderline:** if 5-fold Δ between 0 and +0.025, report diagnostic; skip LOOCV; do NOT iterate the formula to fit the gate.
+
+## Triple-CLI consult discipline
+
+At plan finalization AND at gate decision, run codex + gemini + glmcode in parallel asking:
+- (a) realistic 5-fold hybrid CCC at N=98 vs F55 theoretical bound +0.518
+- (b) dominant variance penalty from nested CV inner-fold smaller training
+- (c) one specific failure mode
+
+Synthesize all three; do NOT pick one.
+
+## CLI Triple-Consult Outcome (plan finalization, 2026-05-04 ~15:15)
+
+- **Codex (gpt-5.5 xhigh):** "Hybrid 5-fold CCC ≈ **0.44** (range 0.37-0.50). Treat +0.518 as optimistic ceiling, not expected. Inner-OOF noise + fixed α=1.0 + N=94→N=98 geometry consume most of the theoretical +0.113. Passing +0.025 gate is plausible but far from likely. Inner-OOF base predictions shrunk by 10-20% vs full-fold predictions; worse for fragile item-specific models. Meta-learner can overfit. Failure mode: item 11 `item_dedicated` and iter17 item-plus/hy-residual blocks inject fold-unstable noise. Seed std ≥ 0.020."
+- **Gemini (gemini-3.1-pro):** "Hybrid 5-fold CCC ≈ **+0.445** (range 0.405-0.475). Inner-CV training at N≈62 starves complex base estimators (`hy_residual_item`). Ridge α=1.0 is arbitrarily rigid for 19 highly collinear item predictions; over-shrinks orthogonal signals; captures only ~+0.040 of the +0.113 available. 10-15% variance attenuation in inner-OOFs vs outer-test predictions; covariance shift means meta under-utilizes base models when evaluated on stronger N≈78 outer-train predictions. Failure mode: heterogeneous base-capacity miscalibration — complex iter17 collapse at inner N≈62, meta down-weights, while rigid baselines (items 1-3) survive. Symptom: Ridge coefficients heavily skewed toward simple items; highly-orthogonal residual items get near-zero weights. Fail std<0.020 gate across seeds."
+- **Claude (opus 1M):** credit balance too low — substituted out.
+
+**Synthesis (do not pick one):**
+1. Both voices converge on realistic hybrid CCC ≈ **0.44** with range ~0.37-0.50 → gate **likely borderline-to-FAIL** but not impossible.
+2. Dominant variance penalty: 10-20% signal attenuation in inner-OOF predictions, worst for item_dedicated (item 11) and iter17:hy_residual variants (items 7, 8, 18). Inner training size at outer-5-fold of 98 = 78 train → 5-fold inner = ~62 effective train per inner fold.
+3. Ridge α=1.0 is fixed by the protocol but is plausibly suboptimal for 19 collinear predictors; we will report meta-coefficient diagnostics so a future iteration can revisit α.
+4. Most-feared symptom: hybrid mean near iter5 but seed std ≥ 0.020 across 3 seeds (variance compounding returning under a cleaner wrapper). The script must capture per-seed CCC + Ridge coefficient stability.
+5. Decision: PROCEED with iter21 as specified in the prompt. The nested CV is the only methodologically valid way to test the F55 orthogonality lift, and even a NEGATIVE result with anatomy is publishable (paper Table 3 supplementary row + F56 entry distinguishing "raw composition fails" from "nested mixing also fails").
+
+## Phase plan (gate-driven, ~16h compute budget)
+
+### Phase 0 — Preflight (master, ~10 min)
+- Read F53/F54/F55 + relevant scripts (DONE).
+- `./gpu.sh --status` — confirm RTX 5070 idle (DONE: idle).
+- Confirm canonical artifacts exist: `lockbox_t3_iter5_A3_tier1_*.oof.npy` (DONE), iter17 lockboxes (items 15, 18), iter8 batch 20260430_143044, A1 backfill winners.
+
+### Phase 1 — Triple-CLI consult on iter21 plan (parallel, ~5 min)
+- Run codex + gemini + glmcode simultaneously per CLAUDE.md launch syntax.
+- Synthesize predictions; record in this file under "CLI Consult Outcome (plan finalization)".
+
+### Phase 2 — Build T3-native loader + nested hybrid script (master, ~2h coding)
+- New module: `load_t3_native.py` — N=98 cohort, per-item targets allowed NaN, V2 + clinical + H&Y + item-specific cache.
+- New script: `run_t3_iter21_nested.py` — implements nested CV (outer 5-fold + outer LOOCV), reuses iter5/iter17/iter8 base architectures, Ridge(α=1.0) meta-learner.
+- Pre-reg split: `--mode write_prereg` → JSON; `--mode run --preregistration_file=...` → execution.
+- Local syntax check: `uv run python -m py_compile run_t3_iter21_nested.py`.
+
+### Phase 3 — Push code + 5-fold gate (remote, ~3-6h)
+- `./gpu.sh run_t3_iter21_nested.py --mode write_prereg --cv 5fold --seeds 42 1337 7` (writes ONE JSON, exits).
+- `./gpu.sh run_t3_iter21_nested.py --mode run --preregistration_file=results/preregistration_t3_iter21_nested_<ts>.json --cv 5fold` — 3 seeds × 5 outer × 5 inner × 19 base models = ~1425 model fits.
+- Parallelize via ProcessPoolExecutor (11 workers, iter6 pattern).
+- Compare hybrid 5-fold CCC vs iter5 5-fold CCC (recomputed on N=98 with same seeds in same script for apples-to-apples).
+
+### Phase 4 — Triple-CLI consult on gate decision (parallel, ~5 min)
+- Same triple consult to interpret gate result.
+- Synthesize.
+
+### Phase 5 — LOOCV lockbox if gate passes (remote, ~10-15h)
+- Pre-register LOOCV variant with new immutable JSON (separate `--cv loocv` pre-reg).
+- 3 seeds × 98 outer × 5 inner × 19 base models = ~27,930 model fits — must parallelize aggressively (split outer folds across workers).
+- 3-seed mean preds = headline.
+- Paired bootstrap CI (5000 resamples) of (iter21_ccc − iter5_ccc) on identical N=98 SIDs.
+
+### Phase 6 — Documentation + commit (~1-2h, hard stop hour 16)
+- Findings.md F56 anatomy: per-item Δ, hybrid α weights, mechanism.
+- Update CLAUDE.md / AGENTS.md / MEMORY.md if positive.
+- Single coherent commit.
+
+## Stopping rules
+
+- 5-fold Δ < 0 wide margin → skip LOOCV; F56 negative.
+- 5-fold Δ ∈ (0, +0.025) borderline → report diagnostic; skip LOOCV; do NOT tune formula.
+- 5-fold passes but LOOCV `frac>0 < 95%` OR `ccc ≤ 0.5227` → no canonical update; F56 with bootstrap details.
+- Hour 16 of compute budget: STOP, regardless of state, write up.
+
+## Dead list (do NOT retry)
+
+Frozen MOMENT/HC-SSL/HARNet/in-domain SSL (4 triangulated nulls F41/F45/F51). Sensor-fusion at N=94 (F19). L/R signed asymmetry. NN at N<200. HC anchors. Post-hoc isotonic/Platt/temperature on test vector. IPW LOOCV (iter16 −0.053). Site-centered Stage 2 (iter17 A3 −0.030). Event-axial / unsigned-asymmetry IMU additions to iter5 (iter6 both hurt). Per-item raw-sum composition (F53 superseded by iter21 nested mixing). Stage-1 Ridge interactions (gemini DOF death trap). Cross-task ridge stack on per-task OOFs (gemini collinearity collapse). iter20 single-loop hybrid (F54 stacking leakage).
+
+---
+
+# ARCHIVED MISSION — Per-Item Gated T3 Push (2026-05-04 AM) — COMPLETE (NEGATIVE RESULT)
 
 ## Outcome (final, 2026-05-04 ~13:50)
 

@@ -1,0 +1,43 @@
+
+Loaded pre-registration preregistration_t3_iter21_nested_20260504_152155.json
+  cv=5fold, seeds=[42, 1337, 7], n_inner_splits=5
+  formula_sha256 = 3e6557bf4d9150a6...
+
+Loading T3-native cohort (N=98)...
+  N = 98 PD subjects
+  updrs3: mean=24.42, std=10.88
+  per-item valid counts: {1: 95, 2: 95, 3: 92, 4: 95, 5: 95, 6: 95, 7: 95, 8: 95, 9: 95, 10: 95, 11: 95, 12: 95, 13: 95, 14: 94, 15: 95, 16: 95, 17: 94, 18: 94}
+
+=== run_nested: 15 (seed, outer_fold) jobs, n_workers=11 ===
+  per job: 1 (iter5) + 18 per-item × 5 inner + 1 outer-train retrain = ~114 model fits
+  total fits: ~1710
+  [1/15] seed=42 outer=1: inner=136.4s outer=39.6s
+  [2/15] seed=1337 outer=2: inner=138.4s outer=39.5s
+  [3/15] seed=42 outer=2: inner=140.2s outer=40.2s
+  [4/15] seed=42 outer=5: inner=139.9s outer=40.4s
+  [5/15] seed=1337 outer=4: inner=140.2s outer=40.8s
+  [6/15] seed=42 outer=3: inner=141.2s outer=40.6s
+  [7/15] seed=1337 outer=1: inner=142.1s outer=40.6s
+  [8/15] seed=1337 outer=3: inner=142.0s outer=41.3s
+  [9/15] seed=1337 outer=5: inner=143.7s outer=40.3s
+  [10/15] seed=7 outer=1: inner=143.4s outer=41.3s
+  [11/15] seed=42 outer=4: inner=143.9s outer=41.7s
+  [12/15] seed=7 outer=2: inner=133.0s outer=37.7s
+  [13/15] seed=7 outer=4: inner=138.6s outer=38.2s
+  [14/15] seed=7 outer=3: inner=141.1s outer=38.3s
+  [15/15] seed=7 outer=5: inner=139.5s outer=37.8s
+  TOTAL nested CV elapsed: 358s = 6.0min
+
+================================================================================
+=== 5-FOLD GATE (hybrid vs iter5) ===
+  hybrid 5-fold CCC = +0.3389 ± 0.0429
+  iter5  5-fold CCC = +0.4856 ± 0.0300
+  per-seed hybrid: ['+0.2786', '+0.3751', '+0.3631']
+  per-seed iter5:  ['+0.4850', '+0.4492', '+0.5227']
+  Δ (hybrid − iter5) = -0.1467
+  GATE: FAIL (Δ < 0; F56 negative)
+  hybrid 3-seed-mean CCC (informative) = +0.3717
+  iter5  3-seed-mean CCC (informative) = +0.5052
+  Paired bootstrap (n=2000, 3-seed-mean): Δ=-0.1336, 95% CI [-0.2542, -0.0197], frac>0=0.013
+
+Wrote iter21_5fold_gate_20260504_152155.json

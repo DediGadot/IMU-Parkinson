@@ -1020,6 +1020,113 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 
 ---
 
+## F56 — iter21 nested-CV hybrid — Phase B 5-fold gate FAIL (2026-05-04 ~15:30)
+
+**Mission origin:** F55 orthogonality probe (2026-05-04) showed pearson(composite − iter5, updrs3 − iter5) = +0.327 ± 0.037 at N=94 5-fold → theoretical hybrid Pearson upper bound +0.518; lift available up to +0.113 over iter5 5-fold. F54 audit identified 4 bugs that any hybrid attempt MUST fix:
+
+  1. iter20 single-loop CV stacking is leaky — meta trains on OOFs whose base-fold overlaps meta-train rows.
+  2. `run_per_item_v2.load_data()` silently filters T3 cohort to N=94 (the T1 filter).
+  3. Multiple pre-reg files per attempt blur the iter11A bright line.
+  4. `sum_of_items` vs `updrs3` mismatch is subject-specific, not a constant offset.
+
+iter21 fixes ALL FOUR in one coherent batch:
+
+  1. **Genuinely nested CV.** Outer 5-fold (gate); inside each outer fold, inner 5-fold on outer-train ONLY produces a 19-feature inner-OOF matrix; Ridge(α=1.0) meta-learner fits on inner-OOFs → updrs3; base models retrain on full outer-train; outer-test predicted by retrained base + meta. No leakage path.
+  2. **T3-native loader at N=98.** New `load_data_t3()` keyed to canonical `updrs3`; per-item targets allowed NaN; fold-locally drop NaN-target rows from per-item TRAINING only (never as TEST rows). Cohort ≠ T1 cohort.
+  3. **Pre-reg split.** `--mode write_prereg` writes ONE immutable JSON with `formula_sha256` of the whole architecture; `--mode run --preregistration_file=path` validates the SHA on load and refuses to start otherwise.
+  4. **updrs3 endpoint directly.** Hybrid endpoint = `updrs3` via the Ridge meta-learner. No `sum_of_items` intercept correction.
+
+### Triple-CLI consult (plan finalization, ~15:13)
+
+  - **Codex (gpt-5.5):** hybrid 5-fold ≈ 0.44 (range 0.37-0.50). Failure mode: item 11 `item_dedicated` and iter17 hy_residual blocks inject fold-unstable noise; seed std ≥ 0.020.
+  - **Gemini (gemini-3.1-pro):** hybrid 5-fold ≈ +0.445 (range 0.405-0.475). Inner-CV at N≈62 starves complex base estimators. Ridge α=1.0 over-shrinks orthogonal signals. Captures only ~+0.040 of the +0.113 available. Heterogeneous base-capacity miscalibration.
+  - **Claude (opus 1M):** out of credit, substituted out.
+  - **Synthesis:** gate likely borderline-to-FAIL; central tendency ≈ 0.44, std ≥ 0.020.
+
+### Phase B (5-fold gate) result — STRONGER NEGATIVE THAN PREDICTED
+
+`run_t3_iter21_nested.py --mode run --cv 5fold` on remote (RTX 5070, 11 workers, 6 min wall, 1710 model fits). 3 seeds × 5 outer × 5 inner; pre-reg `results/preregistration_t3_iter21_nested_20260504_152155.json` (formula_sha256 `3e6557bf4d9150a6...`).
+
+| Pipeline | 5-fold CCC mean ± std (3 seeds, N=98) | Per-seed CCCs |
+|---|---|---|
+| **iter5** (clinical_residual_kfold reproduced inside the same nested wrapper) | **+0.4856 ± 0.0300** | 0.485, 0.449, 0.523 |
+| **iter21 hybrid** (nested 5-fold + Ridge meta on 19 features) | **+0.3389 ± 0.0429** | 0.279, 0.375, 0.363 |
+| **Δ (hybrid − iter5)** | **−0.1467** | (gate floor: Δ ≥ +0.025; std < 0.020) |
+| **Bootstrap (3-seed-mean preds, n=2000)** | Δ=−0.1336, 95% CI [−0.2542, −0.0197], frac>0=**0.013** | |
+
+**Phase B GATE: FAIL by wide margin.** Δ = −0.147 ≪ +0.025 floor; bootstrap CI excludes zero on the negative side; frac>0 = 1.3%. Per protocol stopping rule (Δ < 0 wide margin → skip LOOCV; F56 negative). LOOCV lockbox NOT run.
+
+**Note:** iter5 5-fold at N=98 in the nested wrapper = +0.486 — meaningfully higher than the +0.405 reported at N=94 in F55, as expected (more training subjects per fold). The nested-CV iter5 reproduction matches the published 5-fold-equivalent ~0.50 within noise across 3 seeds (0.485, 0.449, 0.523), which approaches the LOOCV 0.5227. iter5 is a tougher comparator at N=98 than F55 implied.
+
+### Mechanism — meta-learner blow-up
+
+Per-fold Ridge(α=1.0) meta coefficients across 5 outer × 3 seeds (15 fold-fits):
+
+| Predictor | Mean weight (across 15 fits) | Per-fold std | Reasonable range |
+|---|---|---|---|
+| Ridge intercept | +12.20 | 8.25 | should be small once iter5 carries the bulk |
+| **iter5** | +0.40 | 0.12 | should be ≈ +1.0 if iter5 is the dominant signal |
+| **item 11** (item_dedicated FoG) | **+4.83** (mean of 3.04, 6.53, 4.92) | 1.82 | item is on 0–4 scale; +4.83 means meta is using each unit of item-11 prediction as +5 updrs3 |
+| item 1 | +2.59 | 2.93 | moderate inflation |
+| item 9 | +0.50 | 1.81 | unstable across seeds (+2.43 / +0.70 / −1.62) |
+| item 6 (lr_multitask) | −2.19 | 1.96 | consistently NEGATIVE (suppressor) |
+| item 16 (iter17:item_plus_v2) | −2.29 | 1.68 | consistently NEGATIVE (suppressor) |
+| item 14 (item_plus_v2) | −1.70 | 2.82 | mostly NEGATIVE |
+
+The Ridge solution is **not** the natural "use mostly iter5 with small per-item residual corrections." Instead it is a chaotic mix where: iter5's weight is suppressed (~+0.4 instead of ~+1.0), item-11 is INFLATED ~5× its raw scale, and several items act as NEGATIVE suppressors (items 6, 14, 16). Per-fold std on most items ≥ 1.0 — the meta-learner is **fitting covariance noise**, not signal.
+
+### Triple-CLI consult (gate decision, ~15:30)
+
+  - **Codex (gpt-5.5):** "Do NOT proceed to LOOCV. Running LOOCV would convert a failed screen into post-hoc lockbox fishing. The blow-up is small-N meta-variance + collinearity, not proof item 11 is useful. With 19 noisy inner-OOF predictors / 78 outer-train / α=1.0, Ridge is under-regularized; huge item-11 weight + negative suppressor weights = fitting covariance noise. F55 measured residual Pearson r between already-realized OOF vectors; that is NOT the same as estimating stable meta-weights inside outer-train data. Raw residual Pearson can be real but **non-harvestable** at N≈100."
+  - **Gemini (gemini-3.1-pro):** "Absolutely do not proceed. Ridge α=1.0 provides completely inadequate regularization for a 19-dimensional space of highly correlated inner-OOF predictions at N=98. Item 11 (FoG) likely has erratic inner-CV predictions due to target sparsity; meta blindly compensates by inflating its weight and pushing intercept to +12. Theoretical Pearson lift ignores the curse of dimensionality. The +0.327 orthogonality probe proved POTENTIAL information exists but extracting it via a 19-parameter meta-model on N=98 guarantees overfitting."
+  - **Synthesis (do not pick one):** Both voices converge — meta blew up from Ridge α=1.0 under-regularizing 19 collinear inner-OOF predictors at N≈78 outer-train. F55's +0.327 was a **descriptive global Pearson** of already-realized OOF vectors; iter21 attempted to **harvest** that as predictive lift via a learned meta and the curse of dimensionality killed it.
+
+### F55 orthogonality vs realizable lift — the methodological caveat
+
+The +0.327 orthogonality at N=94 5-fold was real (3 seeds: 0.327, 0.372, 0.282). It correctly indicated that the per-item composite carries information complementary to iter5. But the bound `√(r_iter5² + r_orth²·(1−r_iter5²)) = +0.518` assumes a **fixed**, **pre-known** mixing weight α* that achieves the orthogonal projection. iter21 had to **learn** α* from data inside outer-train; at N≈78 with 19 inner-OOF predictors and Ridge α=1.0, the learned α was wildly unstable and far from optimal. The methodological caveat (durable for the paper):
+
+  > Raw residual orthogonality measured between two OOF prediction vectors and a target is a **necessary but not sufficient** condition for predictive hybrid lift. Realizable lift requires (a) stable estimation of mixing weights from finite training data, which at N≈100 with k∼20 base predictors is **bound by the curse of dimensionality regardless of the orthogonality magnitude**.
+
+### F53 vs F56 — sharper anatomy
+
+F53 (raw-sum composite at N=94) failed by Δ = −0.107 due to **variance compounding** (sum of 18 noisy OOFs has CCC tracking the average, not max).
+
+F56 (nested mixing at N=98) failed by Δ = **−0.147** — *worse than F53* — due to **meta-learner overfitting** (Ridge α=1.0 chaotically allocates weight to noise-fitting per-item channels, suppressing the dominant iter5 signal). The cleaner methodology paradoxically performs WORSE because the leakage-free nested CV exposes the inner-CV variance starvation that single-loop iter20 hid via leakage.
+
+This is a **6th N=94/N=98 wall data point** — joining F19 sensor-fusion / F44 FoG-scalars / F45 HARNet / F48 unused-channels / F51 in-domain SSL / F53 per-item raw sum. The wall now affects all four classes of probe strategy:
+
+  - **Feature engineering** (F19, F44, F45, F48, F51): K=500 absorption.
+  - **Composition** (F53): variance compounding.
+  - **Nested mixing** (F56): meta-overfitting / curse of dimensionality.
+
+### Status
+
+- **Canonical numbers UNCHANGED.** T1 LOOCV CCC = **0.6550** (`compose_t1_iter12_honest.py`); T3 LOOCV CCC = **0.5227** (`run_t3_iter5_clinical.py --feature_set A3_tier1`); T3 LOSO two-way CCC = **0.341**; item 15 = **+0.1099**; item 18 = **+0.4858**.
+- iter21 lockbox NOT produced (LOOCV skipped per protocol).
+- iter20 single-loop hybrid + iter21 nested hybrid both demonstrated DEAD at N≈100 → the methodologically cleanest version (iter21) is the strongest negative result.
+
+### Side-effects
+
+- `run_t3_iter21_nested.py` (new, ~700 lines; nested CV hybrid implementation; F54 bug-fixes baked in).
+- `results/preregistration_t3_iter21_nested_20260504_152155.json` (immutable pre-reg, formula_sha256 `3e6557bf4d9150a6...`).
+- `results/iter21_5fold_gate_20260504_152155.json` + `.hybrid_oof.npy` + `.iter5_oof.npy` + `.sids.npy` (5-fold gate result).
+- `results/iter21_5fold_20260504_152208.log` (run log).
+- Pulled `results/item_specific_features.csv` from remote (now contains items 7+8 features added in iter19 Phase A2).
+
+### Lessons for the durable record
+
+1. **Orthogonality probe is a NECESSARY but NOT SUFFICIENT condition for hybrid lift.** F55's +0.327 was real; iter21's gate-fail proves the F55 implication "+0.113 lift available" was over-optimistic at N=98 with k=19 base predictors.
+
+2. **Properly nested CV exposes inner-CV variance penalties that single-loop CV hides.** iter20 (single-loop) was leaky and likely SHOWED a positive Δ; iter21 (nested) reveals the honest negative. The cleaner methodology is REQUIRED for honest evaluation, even when it produces a more pessimistic result.
+
+3. **Ridge α=1.0 is too weak for k=19 collinear inner-OOF predictors at N≈78.** The meta-learner picked up unstable per-item weights; iter5's natural "use mostly me" weight of ~1.0 was suppressed to ~0.4. Future iterations would need much heavier regularization (α≥10–100) or a 1- or 2-parameter convex mix (e.g., αt = optimum 1-parameter mix), not 19 free coefficients.
+
+4. **Going wider on the architecture map at N≈100 INCREASES the curse-of-dimensionality penalty.** Going narrower (e.g., direct iter5 + a SINGLE residual feature like the sum-of-iter17-tremor-items) might still have a chance. But that requires NEW pre-registration + fresh 5-null gate; not chained from this failure.
+
+5. **The +0.518 theoretical Pearson upper bound from F55 should be cited in the paper as "ceiling under perfect mixing", with the iter21 result as the realizable lower bound at N=98.** Both numbers are publishable as a methodological observation about the gap between orthogonality and harvestable lift.
+
+---
+
 ## F55 — Orthogonality diagnostic: composite carries complementary info to iter5 (2026-05-04 ~14:30)
 
 **Mission origin:** F53 owl review (2026-05-04) identified that the F53 negative result might mask real complementary information in the per-item composite. The audit (F54) correctly flagged that my full iter20 hybrid screen (variants B/C/D — OLS α / Ridge meta-stack / linear calibration) has stacking leakage in single-CV without nested OOF generation. The audit halted that screen mid-flight.
