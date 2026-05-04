@@ -1,0 +1,52 @@
+{
+  "experiment": "T3 push iter20 \u2014 hybrid iter5 + composite-residual + Ridge meta + calibration",
+  "origin": "F53 owl review (2026-05-04 14:00) \u2014 addresses variance compounding, shrinkage, H&Y double-count.",
+  "variants": [
+    "A \u2014 orthogonality probe (pearson(composite-iter5, updrs3-iter5))",
+    "B \u2014 OLS \u03b1-hybrid (per-fold convex mix iter5 + \u03b1*(composite-iter5))",
+    "C \u2014 Ridge meta-stack (per-fold Ridge on (iter5, composite) \u2192 updrs3)",
+    "D \u2014 calibrated composite (per-fold OLS slope+intercept, composite alone)"
+  ],
+  "architecture_map": {
+    "1": "v2_baseline",
+    "2": "v2_baseline",
+    "3": "v2_baseline",
+    "4": "v2_baseline",
+    "5": "v2_baseline",
+    "6": "lr_multitask",
+    "7": "iter17:hy_residual_item_v2",
+    "8": "iter17:hy_residual_item_v2",
+    "9": "hy_residual_item",
+    "10": "item_plus_v2",
+    "11": "item_dedicated",
+    "12": "item_plus_v2",
+    "13": "item_plus_v2",
+    "14": "item_plus_v2",
+    "15": "iter17:item_only",
+    "16": "iter17:item_plus_v2",
+    "17": "iter17:item_plus_v2",
+    "18": "iter17:hy_residual_item_v2"
+  },
+  "iter19_composite_formula_sha256_inherited": "5d2185f19c1abb58 (compose_t3_iter19 architecture map, single batch)",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "cv": "5fold (KFold shuffle=True)",
+  "n_subjects": "load_data() T1 cohort (N=94 PD)",
+  "5null_inheritance": "iter5 architecture pre-passed; per-item architectures inherited from iter19 (pre-passed via iter8/iter17/A1 backfill). Hybrid \u03b1 / Ridge meta / calibration are leakage-clean by per-fold fit on training rows only \u2014 no global fitting.",
+  "purpose": "Test whether per-item composite carries information complementary to iter5. If pearson(composite-iter5, updrs3-iter5) \u2248 0, the per-item composition is redundant. If > 0.1, mixing should improve CCC. The hybrid variants quantify the realizable gain under per-fold leakage-clean mixing.",
+  "formula_sha256": "dcfd03bd8dd0d314681dc55e3f6385c8970f3d569e9fae47cecdb746252367ba",
+  "git_sha": "4d0cc13e6bd284ff7471a37a058b5e95ce235f0d",
+  "created_at_utc": "2026-05-04T14:13:38.102927Z",
+  "created_at_local": "2026-05-04T14:13:38.102941",
+  "timestamp": "20260504_141338",
+  "lockbox_rules": [
+    "Architecture map locked BEFORE any hybrid CCC is computed (inherits iter19).",
+    "Variants A-D evaluated in one batch; reported regardless of outcome.",
+    "Hybrid 5-fold gate: \u0394 \u2265 +0.025 vs iter5 5-fold AND hybrid std < 0.020 across 3 seeds.",
+    "Lockbox LOOCV ONLY if a variant passes the 5-fold gate.",
+    "If no variant passes, F54 negative writeup; canonical numbers UNCHANGED."
+  ]
+}

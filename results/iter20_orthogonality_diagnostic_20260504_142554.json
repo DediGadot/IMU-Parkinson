@@ -1,0 +1,40 @@
+{
+  "diagnostic_only": true,
+  "post_F54_audit": true,
+  "ts": "20260504_142554",
+  "n_subjects": 94,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "iter5_5fold_ccc_per_seed": [
+    0.39124842624391504,
+    0.369447247270298,
+    0.4551833965731694
+  ],
+  "iter5_5fold_ccc_mean": 0.40529302336246076,
+  "iter5_pearson_r_per_seed": [
+    0.4083741364447996,
+    0.3952545063257861,
+    0.471213969696854
+  ],
+  "iter5_pearson_r_mean": 0.42494753748914654,
+  "composite_5fold_ccc_per_seed": [
+    0.2750906590212951,
+    0.32406504871222036,
+    0.2972105943518043
+  ],
+  "composite_5fold_ccc_mean": 0.29878876736177323,
+  "orthogonality_pearson_per_seed": [
+    0.32734314124025415,
+    0.37156805976507606,
+    0.28164069293816085
+  ],
+  "orthogonality_pearson_mean": 0.32685063131449704,
+  "orthogonality_pearson_std": 0.03671434552166105,
+  "hybrid_pearson_r_upper_bound": 0.5178031465141879,
+  "hybrid_ccc_upper_bound": 0.5178031465141879,
+  "verdict": "COMPLEMENTARY \u2014 composite carries information beyond iter5 (r = +0.327)",
+  "recommendation": "Worth attempting iter21 with proper nested-CV stacking and T3-native cohort (N=98)."
+}

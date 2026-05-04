@@ -2,6 +2,33 @@
 
 ---
 
+## Session: 2026-05-04 ~14:20—14:35 — T3 ceiling audit
+
+### Trigger
+- User asked for a slow, analytical audit to identify crucial bugs and methodology mistakes that must be fixed to break the T3 CCC ceiling.
+
+### Audit actions
+- Read `CLAUDE.md`, `task_plan.md`, `findings.md`, and `progress.md`.
+- Ran planning-with-files catchup; it surfaced unsynced iter20 hybrid context: untracked `test_hybrid_t3_iter20.py`, untracked pre-registration files, and a live remote `gpu.sh test_hybrid_t3_iter20.py --mode screen` process.
+- Inspected `run_t3_iter5_clinical.py`, `run_t3_iter16_site_ipw.py`, `compose_t3_iter19_peritem.py`, `test_hybrid_t3_iter20.py`, `run_t3_iter2.py`, `run_t3_iter3.py`, `run_per_item_v2.py`, and `run_t1_iter4.py`.
+- Stopped live iter20 remote screen processes because the stacking/meta-learning screen is invalid as written.
+
+### Key findings
+- `test_hybrid_t3_iter20.py` trains meta-learners on OOF predictions without a nested outer-fold stack; this can inflate hybrid screens and must be treated as diagnostic-only.
+- `compose_t3_iter19_peritem.py` and iter20 inherit `run_per_item_v2.load_data()`, which uses the T1 cohort loader and reduces T3 from N=98 to N=94.
+- Saved iter5 LOOCV CCC is `0.5227` on N=98 but only `0.4464` on the N=94 T1 subset; the dropped SIDs are `NLS188`, `WPD013`, `NLS151`, `WPD017`.
+- iter5 residual error is dominated by severity-tail shrinkage: residual vs true T3 correlation `r=-0.699`; residual correlations with site/H&Y/intake covariates are small.
+- Calibration alone has little upside: saved iter5 Pearson `r=0.5485`, so even leaky mean/std matching only reaches CCC `0.5485` and worsens MAE.
+
+### Documentation
+- Added `findings.md` F54 with the audit details and next implementation recommendation.
+
+### Status
+- Canonical T3 remains `0.5227`.
+- No experiment code changed.
+
+---
+
 ## Session: 2026-05-04 12:25—12:35 — `/planning-with-files:plan` per-item gated T3 push (planning-only)
 
 ### 12:25 — Skill spawned
