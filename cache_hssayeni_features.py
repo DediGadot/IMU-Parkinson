@@ -1,5 +1,5 @@
 """cache_hssayeni_features.py — Wrist-IMU feature cache for the
-Hssayeni MJFF Levodopa Response Trial dataset (Synapse syn23187119).
+Hssayeni MJFF Levodopa Response Trial dataset (Synapse syn20681023).
 
 Mission (iter26): bridge cross-dataset UPDRS-III regression.
 WearGait-PD predicts MDS-UPDRS Part-III from body-worn IMUs (canonical iter5
@@ -296,7 +296,7 @@ def _resolve_wrist_root(hssayeni_dir: Path) -> Path:
         return hssayeni_dir
     raise FileNotFoundError(
         f"Could not locate a wrist accelerometer subdirectory under {hssayeni_dir}. "
-        f"Tried: {WRIST_DEVICE_DIRS}. Synapse: syn23187119. "
+        f"Tried: {WRIST_DEVICE_DIRS}. Synapse: syn20681023. "
         f"See scripts/synapse_hssayeni_setup.md."
     )
 
@@ -383,7 +383,7 @@ def _ensure_data_or_fail(hssayeni_dir: Path) -> None:
         raise FileNotFoundError(
             f"Hssayeni data not found at {hssayeni_dir}. "
             f"See scripts/synapse_hssayeni_setup.md for DUA + download instructions. "
-            f"Synapse: syn23187119."
+            f"Synapse: syn20681023."
         )
 
 
@@ -580,7 +580,7 @@ def write_manifest(out_path: Path, summary: dict) -> None:
             {
                 "path": str(HSSAYENI_DIR),
                 "scope": (
-                    "Hssayeni MJFF Levodopa Response Trial Dataset, Synapse syn23187119; "
+                    "Hssayeni MJFF Levodopa Response Trial Dataset, Synapse syn20681023; "
                     "wrist accelerometer (Apple Watch / Pebble) + UPDRS-III clinical scores."
                 ),
             },

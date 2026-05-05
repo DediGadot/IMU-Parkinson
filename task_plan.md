@@ -5,7 +5,79 @@
 
 ---
 
-# ACTIVE MISSION — iter27 Multi-Angle Ceiling-Break Attack (2026-05-05 PM) — COMPLETE (NEGATIVE, F61, 9th wall data point)
+# ACTIVE MISSION — iter26 Hssayeni MJFF Acquisition (2026-05-05 PM) — BLOCKED at Synapse DUA gate (F62)
+
+## Outcome (final)
+
+User: "do iter26 hssayeni" — pursue the only untried angle remaining after F61 confirmed all 9 internal-engineering paths dead.
+
+**Verified Synapse access status:** all candidate IDs probed anonymously; `syn20681023` (MJFF Levodopa Response Study, the Hssayeni 2021 source) is the correct project but anonymous children listing returns 404 (DUA-gated). All other PD+UPDRS Synapse projects similarly gated. **No public alternative dataset has UPDRS-III + wrist IMU.**
+
+**Scaffolding completed and committed:**
+- `run_t3_iter26_hssayeni.py` (~250 lines) — orchestrator with probe/download/extract/write_prereg/run modes.
+- `cache_hssayeni_features.py` — feature extractor mirroring iter25b's 64-col wrist schema with manifest sidecar.
+- `scripts/synapse_hssayeni_setup.md` — 10-step DUA + download runbook.
+- All Synapse IDs corrected from initial wrong `syn23187119` to verified `syn20681023`.
+
+**Probe surfaces the gate cleanly** with actionable next steps:
+```
+AUTH FAIL: No valid authentication credentials provided.
+NEXT STEPS for the user:
+  1. Create Synapse account: https://www.synapse.org
+  2. Generate Personal Access Token: https://www.synapse.org/PersonalAccessTokens
+  3. Save to ~/.synapseConfig: [authentication] authtoken = <YOUR_PAT>
+  4. Re-run --mode probe.
+```
+
+**Architecture FROZEN** (awaits data):
+- Stage 1 Ridge α=1.0 on shared clinical {age, sex}; trained on union cohort
+- Stage 2 LGB on common wrist features (~64 cols mirroring iter25b schema, FreeAcc-style)
+- E1: WG-LOOCV joint-trained on WG+Hssayeni vs iter5 0.5227 paired-bootstrap
+- E2: Hssayeni-LOOCV first published cross-cohort UPDRS regression number
+
+**Codex prior:** E1 lift +0.01 to +0.05; P(break +0.025 gate) ~30-40%. "Paper-strengthening external-validity play, NOT highest-probability ceiling breaker."
+
+## Decisions log (final)
+
+- 14:30 — User: "do iter26 hssayeni." Investigation began.
+- 14:32 — Inspected remote `/root/pd-imu/data/raw/` — only `pads/`, `weargait-pd/`, `wpd_pd_csv/`. No Hssayeni data.
+- 14:33 — Verified `synapseclient` 4.12.0 installed on remote; no `.synapseConfig` cached anywhere.
+- 14:34 — Probed candidate Synapse IDs anonymously: `syn23187119` (initial guess) returned 404; `syn20681023` (MJFF Levodopa Response Study) verified as correct project.
+- 14:36 — Probed alternative datasets: `syn8717496` PDDB DREAM, `syn4993293` mPower, `syn21344932` BEAT-PD all DUA-gated. No public alternative.
+- 14:38 — Built `run_t3_iter26_hssayeni.py` orchestrator with 5 modes; corrected Synapse IDs in cache extractor + setup runbook (`syn23187119` → `syn20681023`).
+- 14:42 — Probe run on remote successful (auth-fail path), surfaced gate cleanly.
+- 14:45 — F62 documented; CLAUDE.md / AGENTS.md / MEMORY.md updated.
+
+## User action required to unblock
+
+1. **Synapse account** (https://www.synapse.org) — likely already exists from WearGait-PD download via `syn55105530`/`syn61370558` (F31). If not, create.
+2. **Apply for DUA on `syn20681023`** MJFF Levodopa Response Study — 1-3 day approval.
+3. **Generate Personal Access Token** at https://www.synapse.org/PersonalAccessTokens.
+4. **Place token in `~/.synapseConfig`** (master and/or remote `/root/.synapseConfig`):
+   ```
+   [authentication]
+   authtoken = <YOUR_PAT>
+   ```
+5. **Re-run** `./gpu.sh run_t3_iter26_hssayeni.py --mode probe` — should print "AUTH OK" + "DUA OK" + list of children.
+6. **Then:** `--mode download` → `--mode extract` → `--mode write_prereg` → `--mode run`.
+
+## If iter26 is deferred
+
+Honest pivot to paper-rigor work that needs no new data:
+- **Conformal prediction + abstention** on iter5 LOOCV OOF (`run_t3_conformal_abstention.py` already in repo).
+- **Manifest backfill** for ~23 cache files lacking sidecars (AGENTS.md "Open Angles").
+- **Statistical-rigor audit**: bootstrap CIs, multi-seed sensitivity, fold-stability across canonical numbers.
+
+## Status (final)
+
+- T1 LOOCV CCC = 0.6550 UNCHANGED.
+- T3 LOOCV CCC = 0.5227 UNCHANGED.
+- iter26 scaffolding complete; pre-reg deferred until data lands.
+- All 10 internal-engineering and external-zero-shot angles now confirmed exhausted (F19/F44/F45/F48/F51/F53/F56/F58/F59/F60/F60b/F61); iter26 is the LAST untried angle and is gated by user-side DUA application.
+
+---
+
+# ARCHIVED MISSION — iter27 Multi-Angle Ceiling-Break Attack (2026-05-05 PM) — COMPLETE (NEGATIVE, F61, 9th wall data point)
 
 ## Outcome (final)
 

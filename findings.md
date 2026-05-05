@@ -1020,6 +1020,99 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 
 ---
 
+## F62 — iter26 Hssayeni MJFF acquisition — BLOCKED at Synapse DUA gate (2026-05-05 PM)
+
+**Mission origin:** user requested iter26 Hssayeni after F61 confirmed all 9 internal-engineering angles dead. Per codex's earlier assessment, Hssayeni MJFF Levodopa Response Study is "the only public dataset with BOTH UPDRS-III + wrist IMU"; modest expected lift (+0.01 to +0.05); primary value is paper-rigor external-validity claim.
+
+### Verified Synapse access status
+
+Probed multiple candidate Synapse IDs for UPDRS-III + wrist IMU data, anonymously (no DUA, no auth):
+
+| Synapse ID | Project / Dataset | Anonymous read | DUA status |
+|---|---|---|---|
+| **syn20681023** | **MJFF Levodopa Response Study** | metadata only (children 404) | **DUA-gated** (verified) |
+| syn8717496 | Parkinsons Disease Digital Biomarker DREAM Challenge | metadata only | DUA-gated |
+| syn4993293 | mPower Public Researcher Portal | metadata only | DUA-gated |
+| syn5511429/34/39 | mPower demographics/UPDRS/walking tables | metadata only | DUA-gated |
+| syn21344932 | BEAT-PD challenge data | not logged in (403-style) | DUA-gated |
+| syn23187119 (initial guess) | — | 404 | does not exist |
+
+**Conclusion:** every public-listed PD dataset with UPDRS-III labels is gated. Anonymous SAGE-hosted access is metadata-only; downloading content requires a Personal Access Token bound to a Synapse account WITH a granted DUA on the specific project. The original Hssayeni 2021 paper used MJFF Levodopa Response data via Synapse `syn20681023`.
+
+### iter26 scaffolding completed
+
+- `run_t3_iter26_hssayeni.py` (~250 lines) — orchestrator with 5 modes (`probe`, `download`, `extract`, `write_prereg`, `run`).
+- `cache_hssayeni_features.py` (~400 lines) — feature extractor mirroring iter25b's 64-col wrist schema; tolerates 3 plausible on-disk layouts; ×9.81 g→m/s² conversion baked in; manifest sidecar with `labels_used=False`, `target_column=updrs3`, `leakage_status=clean_by_construction`.
+- `scripts/synapse_hssayeni_setup.md` (~13 KB) — 10-step DUA + download runbook with troubleshooting appendices.
+- All Synapse IDs corrected from initial wrong `syn23187119` to verified `syn20681023`.
+
+### Probe surfaces the gate cleanly
+
+`./gpu.sh run_t3_iter26_hssayeni.py --mode probe` returns:
+```
+AUTH FAIL: No valid authentication credentials provided.
+Tried profile: 'default', email: 'N/A'.
+Check your `.synapseConfig` or ensure the provided auth token is valid.
+
+NEXT STEPS for the user:
+  1. Create Synapse account: https://www.synapse.org
+  2. Generate Personal Access Token: https://www.synapse.org/PersonalAccessTokens
+  3. Save to ~/.synapseConfig:
+       [authentication]
+       authtoken = <YOUR_PAT>
+     OR export SYNAPSE_AUTH_TOKEN=<PAT> in your shell.
+  4. Re-run --mode probe.
+```
+
+### Architecture (FROZEN, awaits data)
+
+iter26 plans joint WG+Hssayeni training with:
+- **Stage 1** Ridge α=1.0 on shared clinical {age, sex} (only fields known to be in BOTH cohorts; H&Y / cv_yrs / cv_dbs are WG-only). Trained on union cohort.
+- **Stage 2** LGB on common wrist features (~64 cols mirroring iter25b's `wrist_am_*/wrist_a{x,y,z}_*` schema, FreeAcc-equivalent gravity-removed m/s²). Per-fold K=300 LGB-importance.
+- **Evaluation E1 (WG LOOCV):** hold out 1 WG subject, train on (97 WG + ALL Hssayeni); compare CCC vs iter5 0.5227 with paired bootstrap (5000 resamples).
+- **Evaluation E2 (Hssayeni LOOCV):** hold out 1 Hssayeni subject, train on (ALL WG + remaining Hssayeni); first published WG→Hssayeni bridge transportability number.
+
+### Realistic expectations (codex prior)
+
+- iter26 E1 lift: +0.01 to +0.05 LOOCV CCC over iter5 0.5227 (Pareto fit projection at N=98+30-40).
+- iter26 E2: TBD (baseline-free).
+- P(break +0.025 gate on E1): ~30-40% per codex.
+- Dominant failure mode: cohort heterogeneity (different task profile, different sensors) hurts WG-LOOCV via negative-transfer.
+
+### Status
+
+- **Canonical numbers UNCHANGED.** T3 LOOCV CCC = 0.5227.
+- iter26 scaffolding complete; pre-reg deferred until data lands.
+- **BLOCKED at Synapse DUA gate.** User action required:
+  1. Create Synapse account (https://www.synapse.org) — likely already exists since user used `syn55105530`/`syn61370558` for WearGait-PD download (F31).
+  2. Apply for DUA on `syn20681023` MJFF Levodopa Response Study — 1-3 day approval.
+  3. Generate Personal Access Token at https://www.synapse.org/PersonalAccessTokens.
+  4. Place token in `~/.synapseConfig` (master and/or remote).
+  5. Re-run `./gpu.sh run_t3_iter26_hssayeni.py --mode probe`.
+  6. If probe passes → proceed with `--mode download` → `--mode extract` → `--mode write_prereg` → `--mode run`.
+
+### Why DUA cannot be bypassed
+
+- All Synapse-hosted PD/UPDRS datasets are NIH-funded with patient privacy provisions.
+- Anonymous access returns metadata-only or 404; downloading content requires DUA + auth token bound to user identity.
+- No public alternative exists (PADS lacks UPDRS-III; Daphnet lacks UPDRS-III; no other public IMU+UPDRS dataset known).
+- The DUA application is automated via Synapse web UI but requires user identity confirmation — not autonomous.
+
+### Honest pivot if DUA is not pursued
+
+- Paper-rigor work that doesn't need external data:
+  - Conformal prediction + abstention on iter5 LOOCV OOF (`run_t3_conformal_abstention.py` already exists in repo as scaffolding).
+  - Manifest backfill for the ~23 cache files lacking sidecars (per AGENTS.md "Open Angles").
+  - Statistical-rigor section: bootstrap CIs, multi-seed sensitivity, fold-stability for ALL canonical numbers (T1/T3/LOSO/iter17 items).
+
+### Side-effects
+
+- New: `run_t3_iter26_hssayeni.py` (~250 lines orchestrator with probe/download/extract/write_prereg/run modes).
+- Updated: `cache_hssayeni_features.py` and `scripts/synapse_hssayeni_setup.md` — Synapse ID corrected from invalid `syn23187119` to verified `syn20681023`.
+- Probe output saved to remote `/root/pd-imu/run_t3_iter26_hssayeni.py` deployment.
+
+---
+
 ## F61 — iter27 tail-aware retrain — NEGATIVE (9th N≈98 wall data point, 2026-05-05 PM)
 
 **Mission origin:** user asked to "try to solve this from the right multiple angles, use agent team, use codex CLI, verify your work — break t1 and/or t3 ccc glass ceiling." Codex consult on 5 candidate angles (α Hssayeni / β Stage-3 calibration / γ deep model / δ joint cross-cohort / ε task-context profile) ranked **β > ε > α > γ > δ**, but recommended **wildcard W: tail-aware direct iter5 retraining** as more principled than post-hoc β. Empirical pre-check on β (nested-LOO calibration on iter5 LOOCV OOF) was **DEAD: linear/isotonic/poly2 all gave Δ ≈ −0.08 with bootstrap frac>0 = 0.000** — the F54 residual structure is regression-to-the-mean shrinkage that cannot be recovered post-hoc at N=98.

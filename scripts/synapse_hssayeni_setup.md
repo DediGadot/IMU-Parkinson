@@ -8,8 +8,8 @@
 > is matched** (the iter25b PADS comparison failed, AUROC=0.4975, because PADS
 > records mostly stationary upper-limb tasks while WearGait records gait/balance).
 >
-> **Synapse parent ID:** `syn23187119`
-> https://www.synapse.org/Synapse:syn23187119
+> **Synapse parent ID:** `syn20681023`
+> https://www.synapse.org/Synapse:syn20681023
 >
 > **Reference paper:** Hssayeni et al. 2021,
 > *Symptom Severity Estimation of Parkinson's Disease from Wrist Worn Sensor
@@ -17,15 +17,15 @@
 >
 > This file is a copy-paste runbook. Each command is verified against
 > the public synapseclient docs as of 2026-05. The actual file layout
-> inside `syn23187119` cannot be confirmed until the DUA is granted; the
+> inside `syn20681023` cannot be confirmed until the DUA is granted; the
 > exact entity IDs for the wrist accelerometer + UPDRS-III subset must
-> be discovered with `syn.getChildren("syn23187119")` after login.
+> be discovered with `syn.getChildren("syn20681023")` after login.
 
 ## TL;DR runbook
 
 ```bash
 # 1. Register at https://accounts.synapse.org/register/email (free)
-# 2. Apply for DUA at https://www.synapse.org/Synapse:syn23187119 (1-3 days)
+# 2. Apply for DUA at https://www.synapse.org/Synapse:syn20681023 (1-3 days)
 # 3. Once approved:
 uv pip install synapseclient
 python3 -c "import synapseclient; synapseclient.Synapse().login()"   # creates ~/.synapseConfig
@@ -52,11 +52,11 @@ The rest of this guide breaks each step out.
 
 ## Step 2 — Apply for the DUA
 
-The MJFF Levodopa Response Trial Dataset (`syn23187119`) is governed by a
+The MJFF Levodopa Response Trial Dataset (`syn20681023`) is governed by a
 Data Use Agreement (DUA) maintained by The Michael J. Fox Foundation.
 Approval is typically 1–3 business days.
 
-1. Open https://www.synapse.org/Synapse:syn23187119 while logged in.
+1. Open https://www.synapse.org/Synapse:syn20681023 while logged in.
 2. Click **Request Access**.
 3. Read the DUA terms. Confirm your IRB / institutional context. For an
    independent academic-style benchmark study, declare:
@@ -118,7 +118,7 @@ After this you should be able to run `syn.login()` with no args.
 import synapseclient
 syn = synapseclient.Synapse(); syn.login()
 
-PARENT = "syn23187119"
+PARENT = "syn20681023"
 
 def walk(parent_id, depth=0):
     children = list(syn.getChildren(parent_id))
@@ -194,7 +194,7 @@ Or via the CLI:
 
 ```bash
 mkdir -p /root/pd-imu/data/raw/hssayeni
-synapse get -r syn23187119 --downloadLocation /root/pd-imu/data/raw/hssayeni
+synapse get -r syn20681023 --downloadLocation /root/pd-imu/data/raw/hssayeni
 # (-r = recursive; will respect DUA scope)
 ```
 
@@ -303,7 +303,7 @@ def main() -> None:
     if not SUBSETS:
         raise SystemExit(
             "Edit scripts/sync_hssayeni.py: fill SUBSETS with the subset Synapse IDs "
-            "discovered via syn.getChildren('syn23187119') after DUA grant."
+            "discovered via syn.getChildren('syn20681023') after DUA grant."
         )
     syn = synapseclient.Synapse()
     syn.login()

@@ -2,6 +2,41 @@
 
 ---
 
+## Session: 2026-05-05 ~14:30—14:45 — iter26 Hssayeni MJFF acquisition (F62, BLOCKED at DUA gate)
+
+### Trigger
+User: "do iter26 hssayeni" — pursue the only untried angle remaining after F61.
+
+### Verified Synapse access
+- Remote synapseclient 4.12.0 installed; no `.synapseConfig` cached.
+- `syn23187119` (initial agent guess) returns 404 — wrong ID.
+- `syn20681023` (MJFF Levodopa Response Study, verified as Hssayeni 2021 source) exists but children listing returns 404 anonymously — DUA-gated.
+- All candidate alternatives (`syn8717496` PDDB DREAM, `syn4993293` mPower, `syn21344932` BEAT-PD) similarly DUA-gated.
+- **No public alternative for UPDRS-III + wrist IMU.**
+
+### Scaffolding complete
+- Built `run_t3_iter26_hssayeni.py` orchestrator (~250 lines, 5 modes: probe/download/extract/write_prereg/run).
+- Corrected Synapse IDs in `cache_hssayeni_features.py` and `scripts/synapse_hssayeni_setup.md` (`syn23187119` → `syn20681023`).
+- Probe run on remote succeeded (auth-fail path); surfaces gate cleanly with actionable next steps.
+
+### Architecture FROZEN (awaits data)
+- Stage 1 Ridge α=1.0 on shared {age, sex}; trained on union cohort
+- Stage 2 LGB on common wrist features (~64 cols, FreeAcc-style)
+- E1 WG-LOOCV vs iter5 0.5227 paired bootstrap; E2 Hssayeni-LOOCV first published cross-cohort UPDRS regression
+
+### Status
+- T1 LOOCV CCC = 0.6550 UNCHANGED.
+- T3 LOOCV CCC = 0.5227 UNCHANGED.
+- BLOCKED at user-side DUA application for `syn20681023` (1-3 day approval).
+- All 10 internal/external angles exhausted; iter26 is the LAST untried lever and requires user action.
+
+### Documentation
+- F62 in findings.md.
+- CLAUDE.md / AGENTS.md / MEMORY.md updated.
+- New memory: `feedback_iter26_hssayeni_dua_gated.md`.
+
+---
+
 ## Session: 2026-05-05 ~14:00—14:25 — iter27 multi-angle ceiling-break attack (F61, 9th wall data point)
 
 ### Trigger
