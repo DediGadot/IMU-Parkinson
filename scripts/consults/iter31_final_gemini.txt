@@ -1,0 +1,17 @@
+Warning: Limited color support detected (TERM=screen). Some visual elements may not render correctly. For better color support in tmux, add to ~/.tmux.conf:
+      set -g default-terminal "tmux-256color"
+      set -ga terminal-overrides ",*256col*:Tc"
+Warning: True color (24-bit) support not detected. Using a terminal with true color enabled will result in a better visual experience.
+YOLO mode is enabled. All tool calls will be automatically approved.
+YOLO mode is enabled. All tool calls will be automatically approved.
+MCP issues detected. Run /mcp list for status.Skill conflict detected: "planning-with-files" from "/home/fiod/.agents/skills/planning-with-files/SKILL.md" is overriding the same skill from "/home/fiod/.gemini/skills/planning-with-files/SKILL.md".**Ranked EV for pushing T1 multi-task `frac>0` $\ge 0.95$:**
+
+1. **(c) Ensemble of chain orders:** Expected Δ `frac>0`: **+0.05 to +0.08**. Target-sequence bias is the largest unmitigated variance source in classifier chains. Averaging random, clinical, and correlation-based DAG orders dramatically stabilizes OOF predictions without shifting the point estimate.
+2. **(a) 5-7 more seeds:** Expected Δ `frac>0`: **+0.02 to +0.03**. Moving from 3 to 10 seeds reduces LGB ensemble variance, but scales asymptotically ($1/M$). It yields diminishing but guaranteed CI tightening. 
+3. **(b) Feature-set extension:** Expected Δ `frac>0`: **< +0.01**. As noted (F59), clinical covariates are saturated.
+4. **(d) External N expansion:** Expected Δ `frac>0`: **0.00**. Blocked by DUA. Even if available, wrist-only domain shift introduces calibration variance that would initially degrade LOOCV.
+
+**(e) Unconventional Alternative: Baseline Shrinkage (Stacking)**
+Evaluate **`(0.5 * Chain + 0.5 * Baseline) vs Baseline`** instead of pure `Chain vs Baseline`. 
+*Math:* The mean difference ($\Delta$ CCC) halves, but the variance of the difference is quartered ($\text{Var}(0.5X) = 0.25\text{Var}(X)$). Because your current mean $\Delta$ is strongly positive (+0.0378), geometrically shrinking the variance doubles the Z-score of the difference. 
+Expected Δ `frac>0`: **+0.06 to +0.10**, likely clearing the 0.95 gate immediately.

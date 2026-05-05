@@ -1110,11 +1110,29 @@ External paired bootstrap on the 94 SID-aligned subjects:
 
 **Bootstrap statistical significance vs both iter5-direct and iter12 honest is below the strict frac>0 ≥ 0.95 gate** (0.852 vs iter5-direct, 0.872 vs iter12). At N=94 with high CCC sampling variance, this is borderline-but-not-definitive evidence under the strictest criterion. Per the multi-LLM consensus + the user's loosened gate ("ignore the strict std floor from now on"), this result is reported as a **CANDIDATE NEW T1 NUMBER, not a strict-significance canonical replacement**. The point estimate is robust across 3 seeds and matches between 5-fold (+0.05), iter29b validation LOOCV (+0.038), and iter30b lockbox LOOCV (+0.038) — three independent confirmations under different code paths.
 
-### T3 LOOCV (in progress; seed=42 done, seed=1337 fold 60/98)
+### T3 LOOCV LOCKBOX (final, all 3 seeds, formula_sha256 verified)
 
-T3 multi-task seed=42 LOOCV: mt=0.4956, i5=0.5051, **Δ=−0.0095** (NEG).
+`run_t3_iter31_multitask_lockbox.py` lockbox (formula_sha256 `5e2e3d19...`, pre-reg `preregistration_t3_iter31_multitask_20260505_202026.json`):
 
-This confirms F58/F56's prediction: **5-fold Δ over-estimates LOOCV Δ for k>1 mixers**. T3's 5-fold lift of +0.027 collapsed to ≈ −0.01 at LOOCV — wall data point F58 holds. T3 multi-task is dead at this N. Final 3-seed numbers will be appended once seed=1337 + seed=7 finish.
+| metric | value |
+|---|---|
+| **T3 multi-task LOOCV CCC (3-seed mean)** | **0.5031** |
+| MAE | 8.274 |
+| Pearson r | 0.5035 |
+| iter5-direct LOOCV (same fold/seed) | 0.5099 |
+| Δ vs iter5-direct LOOCV | **−0.0068** |
+| iter5 published lockbox CCC | 0.5227 |
+| Δ vs iter5 lockbox | **−0.0196** |
+| Bootstrap Δ vs iter5-direct | mean −0.0066, CI [−0.096, +0.091], frac>0=**0.430** |
+| Bootstrap Δ vs iter5 lockbox | mean −0.0187, CI [−0.104, +0.071], frac>0=**0.328** |
+
+Per-seed LOOCV: seed=42 Δ=−0.0095, seed=1337 Δ=+0.0030, seed=7 Δ=+0.0028. Mean Δ̄ = −0.0012. **`is_canonical_update = False`**.
+
+**Verdict — T3**: multi-task chain on all 18 items is **NULL at LOOCV** (3-seed mean Δ ≈ 0; bootstrap straddles zero with frac>0=0.43, well below 0.5 toss-up). The 5-fold Δ̄ = +0.0265 was a fold-variance artifact. **F58/F56 wall data point HELDS** — multi-task chain on full T3 confirmed dead at N=98.
+
+**Why T3 fails LOOCV but T1 succeeds (consult-confirmed)**: T3 = sum of all 18 items, of which 12 are not gait-observable per F58 analysis. The chain learns spurious item correlations from unobservable items at 5-fold (where each fold has higher variance, allowing multi-task to overfit between-item correlations) but those collapse at LOOCV. T1's 6 items (Schrag axial subscore) are ALL gait-observable — no spurious-item leak. **Multi-task chain is selectively useful for clinically homogeneous, gait-observable item sets, NOT for full UPDRS-III sums.**
+
+**Canonical T3 LOOCV CCC = 0.5227 UNCHANGED.** F65 T3 row joins F58/F63 negatives.
 
 ### Mechanism (consult-convergent)
 
