@@ -1,0 +1,30 @@
+
+=== iter27 5-FOLD STRATIFIED SCREEN (15 runs, workers=11) ===
+  feature_set=A3_tier1 alpha=1.0 enable_ccc=False
+  iter5 5-fold reference ≈ 0.40; canonical LOOCV=0.5227
+  done uniform              seed=1337 CCC=0.4451 MAE=7.975 q1=+10.03 q4=-9.37 (12.9s)
+  done inv_density          seed=7 CCC=0.4662 MAE=7.955 q1=+9.55 q4=-8.52 (13.0s)
+  done uniform              seed=7 CCC=0.4662 MAE=7.955 q1=+9.55 q4=-8.52 (13.0s)
+  done abs_z                seed=1337 CCC=0.4682 MAE=7.899 q1=+9.72 q4=-8.93 (13.0s)
+  done inv_density          seed=42 CCC=0.5016 MAE=7.808 q1=+9.41 q4=-8.49 (13.1s)
+  done uniform              seed=42 CCC=0.5016 MAE=7.808 q1=+9.41 q4=-8.49 (13.2s)
+  done tail_focused         seed=1337 CCC=0.4491 MAE=8.071 q1=+9.66 q4=-9.18 (13.2s)
+  done tail_focused         seed=42 CCC=0.5294 MAE=7.642 q1=+9.51 q4=-8.30 (13.3s)
+  done abs_z                seed=42 CCC=0.4868 MAE=8.018 q1=+9.97 q4=-8.68 (13.4s)
+  done inv_density          seed=1337 CCC=0.4451 MAE=7.975 q1=+10.03 q4=-9.37 (13.4s)
+  done abs_z                seed=7 CCC=0.4678 MAE=8.005 q1=+9.43 q4=-8.00 (13.5s)
+  done tail_focused         seed=7 CCC=0.4728 MAE=7.809 q1=+9.91 q4=-7.55 (11.7s)
+  done quartile_balanced    seed=42 CCC=0.5118 MAE=7.678 q1=+9.51 q4=-8.17 (12.2s)
+  done quartile_balanced    seed=7 CCC=0.4682 MAE=8.032 q1=+9.52 q4=-8.36 (12.1s)
+  done quartile_balanced    seed=1337 CCC=0.4473 MAE=7.948 q1=+9.81 q4=-9.56 (12.4s)
+
+Wrote /root/pd-imu/results/iter27_tailaware_5fold_screen_20260505_141705.csv
+
+=== iter27 SUMMARY (5-fold mean across seeds) ===
+                   ccc_mean  ccc_std  mae_mean  q1_res_mean  q4_res_mean  delta_vs_uniform
+weight_scheme                                                                             
+tail_focused         0.4838   0.0413    7.8407       9.6963      -8.3447            0.0128
+quartile_balanced    0.4758   0.0329    7.8860       9.6120      -8.6933            0.0048
+abs_z                0.4743   0.0109    7.9740       9.7060      -8.5323            0.0033
+inv_density          0.4710   0.0286    7.9127       9.6657      -8.7913            0.0000
+uniform              0.4710   0.0286    7.9127       9.6657      -8.7913            0.0000

@@ -5,7 +5,61 @@
 
 ---
 
-# ACTIVE MISSION — iter25b PADS Post-Debug Re-Run (2026-05-05 PM) — COMPLETE (NO TRANSFER STANDS, F60b)
+# ACTIVE MISSION — iter27 Multi-Angle Ceiling-Break Attack (2026-05-05 PM) — COMPLETE (NEGATIVE, F61, 9th wall data point)
+
+## Outcome (final)
+
+User: "try to solve this from the right multiple angles. use agent team. use codex cli. verify your work. break t1 and/or t3 ccc glass ceiling."
+
+**Codex consult on 5 angles + wildcard "tail-aware retraining."** Empirical pre-check on cheapest angle (β post-hoc calibration) ruled it out instantly: nested-LOO linear/isotonic/poly2 all gave Δ ≈ −0.08 with bootstrap frac>0=0. F54 residual structure (corr=−0.699) is **regression-to-the-mean shrinkage, not recoverable signal**.
+
+iter27 implemented codex's wildcard W via parallel agent team:
+- Agent A built `run_t3_iter27_tail_aware.py` (632 lines, 5 weight schemes + CCC objective option).
+- Agent B built `cache_hssayeni_features.py` + `scripts/synapse_hssayeni_setup.md` (preparatory scaffolding for iter26 Hssayeni bridge — awaiting Synapse DUA).
+
+Two screens executed (~30s each on remote, 11 workers, severity-stratified KFold):
+- **Weight-only screen:** best=tail_focused Δ=+0.0128 (driven by seed=42 outlier; per-seed 0.027/0.004/0.007). Std=0.041 fails. **5-fold gate FAIL.**
+- **CCC-objective screen:** all variants collapsed to CCC 0.31-0.41. Catastrophic. **5-fold gate FAIL.**
+
+**Q1/Q4 residuals barely moved across all 5 weight schemes.** The tail shrinkage is in LGB-tree-leaf-prediction-mean structure, not loss-weighting space.
+
+**LOOCV lockbox SKIPPED. Canonical numbers UNCHANGED.** T3 LOOCV CCC = 0.5227. T1 LOOCV CCC = 0.6550.
+
+## 9th N≈100 wall data point
+
+Wall now spans:
+1-8. Previous probe-strategy classes (F19/F44/F45/F48/F51/F53/F56/F58/F59/F60/F60b).
+9. **Tail-aware retraining (F61 iter27):** sample-weighted LGB AND CCC objective AND nested-LOO post-hoc calibration ALL fail.
+
+The internal CCC ceiling is now confirmed STRUCTURAL across 9+ independent attempts. The shrinkage is necessary at N=98; removing it costs Pearson r more than it gains MAE.
+
+## Decisions log (final)
+
+- 14:00 — User: multi-angle ceiling break. Wrote codex consult on 5 candidate angles. Codex returned ranking (β > ε > α > γ > δ) + wildcard W (tail-aware retraining).
+- 14:05 — Empirical β check on iter5 LOOCV OOF: nested-LOO calibration linear/isotonic/poly2 all DEAD (Δ ≈ −0.08, frac>0=0). β killed instantly.
+- 14:10 — Spawned 2-agent team (parallel): Agent A built run_t3_iter27_tail_aware.py with codex's W; Agent B built Hssayeni scaffolding for iter26.
+- 14:14 — Both agents shipped syntax-clean code in ~5-7 min each.
+- 14:16 — iter27 weight-only screen ran on remote (30s, 11 workers): best Δ=+0.013, fail.
+- 14:18 — iter27 CCC-objective screen: all variants collapsed catastrophically. Fail.
+- 14:25 — F61 documented; CLAUDE.md / AGENTS.md / MEMORY.md updated.
+
+## Lessons (durable)
+
+1. **F54 residual structure is descriptive, not actionable.** Two cheap independent angles (β post-hoc cal, W in-training weights) both fail. The shrinkage is regression-to-the-mean at N=98.
+2. **Sample-weighted LGB cannot reshape the residual structure** — Q1/Q4 residuals barely moved across 5 different weight schemes.
+3. **CCC objective at iter5 architecture level is a trap** — even with F50/F46 methodology (init_score, hessian, post-hoc affine), it hurts CCC by ~0.10 vs uniform.
+4. **The empirical pre-check pattern is high-value.** β was eliminated in 30 seconds of compute before building any infrastructure. Future angles should always test the cheapest empirical version first.
+5. **iter5's structural ceiling 0.5975 (F58 Pareto fit) confirmed by 9 independent failures.** No engineering-fixable angle remains internal to WG.
+
+## Next session pivot
+
+Only iter26 Hssayeni acquisition remains as the untried angle. Per codex: "paper-strengthening external-validity play, NOT highest-probability ceiling breaker." Modest expected lift (+0.01 to +0.05); primary value is paper-rigor external-validity claim.
+
+For continued internal-CCC pushing: STOP. The wall is structural across 9 wall data points. Best paper move is conformal + abstention on iter5 LOOCV OOF (no compute, paper-strong).
+
+---
+
+# ARCHIVED MISSION — iter25b PADS Post-Debug Re-Run (2026-05-05 PM) — COMPLETE (NO TRANSFER STANDS, F60b)
 
 ## Outcome (final)
 

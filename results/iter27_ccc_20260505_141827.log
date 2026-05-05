@@ -1,0 +1,30 @@
+
+=== iter27 5-FOLD STRATIFIED SCREEN (15 runs, workers=11) ===
+  feature_set=A3_tier1 alpha=1.0 enable_ccc=True
+  iter5 5-fold reference ≈ 0.40; canonical LOOCV=0.5227
+  done inv_density          seed=1337 CCC=0.3112 MAE=9.648 q1=+10.36 q4=-10.57 (12.2s)
+  done abs_z                seed=42 CCC=0.3946 MAE=8.704 q1=+11.64 q4=-8.21 (12.2s)
+  done inv_density          seed=42 CCC=0.3946 MAE=8.704 q1=+11.64 q4=-8.21 (12.3s)
+  done uniform              seed=42 CCC=0.3946 MAE=8.704 q1=+11.64 q4=-8.21 (12.3s)
+  done uniform              seed=7 CCC=0.4120 MAE=8.323 q1=+9.28 q4=-9.76 (12.4s)
+  done tail_focused         seed=42 CCC=0.3946 MAE=8.704 q1=+11.64 q4=-8.21 (12.4s)
+  done abs_z                seed=1337 CCC=0.3112 MAE=9.648 q1=+10.36 q4=-10.57 (12.4s)
+  done uniform              seed=1337 CCC=0.3112 MAE=9.648 q1=+10.36 q4=-10.57 (12.4s)
+  done tail_focused         seed=1337 CCC=0.3112 MAE=9.648 q1=+10.36 q4=-10.57 (12.6s)
+  done abs_z                seed=7 CCC=0.4120 MAE=8.323 q1=+9.28 q4=-9.76 (12.6s)
+  done inv_density          seed=7 CCC=0.4120 MAE=8.323 q1=+9.28 q4=-9.76 (12.6s)
+  done quartile_balanced    seed=42 CCC=0.3946 MAE=8.704 q1=+11.64 q4=-8.21 (10.9s)
+  done tail_focused         seed=7 CCC=0.4120 MAE=8.323 q1=+9.28 q4=-9.76 (11.3s)
+  done quartile_balanced    seed=1337 CCC=0.3112 MAE=9.648 q1=+10.36 q4=-10.57 (11.3s)
+  done quartile_balanced    seed=7 CCC=0.4120 MAE=8.323 q1=+9.28 q4=-9.76 (11.3s)
+
+Wrote /root/pd-imu/results/iter27_tailaware_5fold_screen_20260505_141855.csv
+
+=== iter27 SUMMARY (5-fold mean across seeds) ===
+                   ccc_mean  ccc_std  mae_mean  q1_res_mean  q4_res_mean  delta_vs_uniform
+weight_scheme                                                                             
+abs_z                0.3726   0.0539    8.8917      10.4257      -9.5103            0.0000
+inv_density          0.3726   0.0539    8.8917      10.4257      -9.5103            0.0000
+quartile_balanced    0.3726   0.0539    8.8917      10.4257      -9.5103            0.0000
+tail_focused         0.3726   0.0539    8.8917      10.4257      -9.5103            0.0000
+uniform              0.3726   0.0539    8.8917      10.4257      -9.5103            0.0000

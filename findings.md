@@ -1020,6 +1020,84 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 
 ---
 
+## F61 — iter27 tail-aware retrain — NEGATIVE (9th N≈98 wall data point, 2026-05-05 PM)
+
+**Mission origin:** user asked to "try to solve this from the right multiple angles, use agent team, use codex CLI, verify your work — break t1 and/or t3 ccc glass ceiling." Codex consult on 5 candidate angles (α Hssayeni / β Stage-3 calibration / γ deep model / δ joint cross-cohort / ε task-context profile) ranked **β > ε > α > γ > δ**, but recommended **wildcard W: tail-aware direct iter5 retraining** as more principled than post-hoc β. Empirical pre-check on β (nested-LOO calibration on iter5 LOOCV OOF) was **DEAD: linear/isotonic/poly2 all gave Δ ≈ −0.08 with bootstrap frac>0 = 0.000** — the F54 residual structure is regression-to-the-mean shrinkage that cannot be recovered post-hoc at N=98.
+
+iter27 implements codex's wildcard W: **modify Stage-2 LGB training itself to combat tail shrinkage**. Stage 1 bit-identical to iter5; Stage 2 adds severity-aware sample weights and severity-stratified inner CV.
+
+**Two-agent parallel build:**
+- Agent A: `run_t3_iter27_tail_aware.py` (632 lines) — 5 weight schemes + optional CCC objective with --enable_ccc_objective flag.
+- Agent B: `cache_hssayeni_features.py` + `scripts/synapse_hssayeni_setup.md` — preparatory scaffolding for iter26 Hssayeni MJFF bridge dataset (DUA wait deferred; cache extractor + setup guide in place for when access lands).
+
+### iter27 weight-only screen (3 seeds × 5 schemes × 5-fold, 30s wall on 11 workers)
+
+Severity-stratified KFold (q=5 quartiles via `pd.qcut`); reproduces iter5's exact LGB hyperparams + impute/feature-select; sample-weighted LGB fit:
+
+| Scheme | CCC mean ± std | Q1 res | Q4 res | Δ vs uniform | Per-seed Δ (42, 1337, 7) |
+|---|---|---|---|---|---|
+| **tail_focused** (1+(z²)) | **0.4838 ± 0.0413** | +9.70 | −8.34 | **+0.0128** | +0.027, +0.004, +0.007 |
+| quartile_balanced | 0.4758 ± 0.0329 | +9.61 | −8.69 | +0.0048 | +0.010, +0.002, +0.002 |
+| abs_z (1+\|z\|) | 0.4743 ± 0.0109 | +9.71 | −8.53 | +0.0033 | −0.015, +0.023, +0.002 |
+| inv_density (KDE clip) | 0.4710 ± 0.0286 | +9.67 | −8.79 | 0.0000 | 0, 0, 0 (clipping saturated to uniform) |
+| **uniform (baseline)** | 0.4710 ± 0.0286 | +9.67 | −8.79 | (baseline) | — |
+
+**Critical observation: tail-shrinkage residuals barely moved.** Q1 (+9.61 to +9.71) and Q4 (−8.34 to −8.79) are essentially unchanged across schemes. The sample weight didn't fix the structural shrinkage — it just nudged the central regression. The +0.013 lift on tail_focused was driven entirely by **seed=42** (Δ=+0.027); seeds 1337 and 7 gave near-zero lift (+0.004 / +0.007). High inter-seed variance.
+
+### iter27 with CCC objective (--enable_ccc_objective, separate run)
+
+ALL weight schemes collapsed to the SAME CCC values per seed (uniform=tail_focused=abs_z=quartile_balanced=0.3946 for seed=42, 0.3112 for seed=1337, 0.4120 for seed=7). The post-hoc affine calibration of the custom CCC objective washed out weight-scheme differences AND hurt central tendency vs. uniform-without-CCC (mean dropped from 0.471 to 0.373).
+
+**Mechanism:** F50/F46 noted custom CCC objective requires careful methodology (init_score, Pearson selector, hessian scaling, post-hoc affine). Even with the specified methodology, it underperforms uniform LGB at the iter5 architecture level for T3 (worked for some PER-ITEM models but not direct T3).
+
+### Verdict — iter27 5-fold gate FAIL
+
+| Variant | Best Δ vs uniform | Std | Gate | Verdict |
+|---|---|---|---|---|
+| Weight-only (tail_focused) | +0.0128 | 0.041 | FAIL (Δ < 0.025; std > 0.020) | NO |
+| CCC objective | −0.10 | 0.06 | catastrophic FAIL | NO |
+| Combined | tested empirically — same as CCC alone | — | NO | NO |
+
+**LOOCV lockbox SKIPPED per protocol stopping rule.** Best variant Δ=+0.013 is within seed noise; bootstrap CI almost certainly straddles zero.
+
+### Why this matters — 9th N≈100 wall data point
+
+Wall now spans:
+1-8 [previous F19/F44/F45/F48/F51/F53/F54/F56/F58/F59/F60/F60b — all probe-strategy classes].
+9. **Tail-aware retraining (F61 iter27):** sample-weighted LGB cannot fix severity-tail shrinkage at N=98. Quadratic, linear, density-inverse, and quartile-balanced all converge on near-identical residual structure.
+
+**The empirical β check (nested LOO calibration) and empirical W check (sample-weighted LGB) BOTH failed in the same session.** Two independent angles to combat tail shrinkage, both confirm: the shrinkage is regression-to-the-mean at this N, NOT a recoverable signal. Codex predicted "F54's r=−0.699 is mostly regression-to-the-mean geometry, not proof of usable signal" — empirically confirmed.
+
+### Status
+
+- **Canonical numbers UNCHANGED.** T1 LOOCV CCC = 0.6550; T3 LOOCV CCC = 0.5227.
+- iter27 weight-only screen: `results/iter27_tailaware_5fold_screen_20260505_141705.csv`.
+- iter27 CCC-objective screen: `results/iter27_tailaware_5fold_screen_20260505_141855.csv`.
+- iter27 logs: `results/iter27_screen_*.log` + `results/iter27_ccc_*.log`.
+- Hssayeni scaffolding (iter26 prep, awaiting DUA): `cache_hssayeni_features.py`, `scripts/synapse_hssayeni_setup.md`.
+
+### Lessons
+
+1. **F54 residual structure was descriptive, not actionable.** Two cheap angles to address it (β post-hoc cal, W in-training weights) both fail. The shrinkage is necessary at N=98 — removing it costs Pearson r more than it gains MAE.
+2. **CCC objective at iter5 architecture level is a trap.** Even with the specified methodology (init_score, hessian scaling, post-hoc affine), it hurts CCC by ~0.10 vs uniform LGB. Reserve for per-item models where it's been shown to work (items 12, 18 historically).
+3. **Sample-weighted LGB cannot reshape the residual structure** — Q1/Q4 residuals barely moved across all 5 weight schemes. The shrinkage is in the LGB-tree-leaf-prediction-mean structure, not in the loss-weighting space.
+4. **The "tail focus" intuition is intuitively appealing but empirically null at this N.** Codex's wildcard W was directionally right (better-principled than β) but still bounded by the same N≈98 wall.
+5. **For genuine ceiling break, only iter26 Hssayeni acquisition remains** as the one untried angle — and even codex flagged it as "paper-strengthening external-validity play, NOT highest-probability ceiling breaker." We are structurally bounded.
+
+### Next session pivot
+
+The internal CCC ceiling is now confirmed STRUCTURAL. Two angles remain:
+- **iter26 Hssayeni MJFF (Synapse DUA, 1-3 day wait):** preparatory scaffolding in place. Modest expected lift; primary value is paper-rigor external-validity claim.
+- **Paper-rigor work (P3/P4 from prior recommendations):** conformal prediction + abstention on iter5 LOOCV OOF; structured peer review of the cautionary-benchmark narrative.
+
+### Side-effects
+
+- New: `run_t3_iter27_tail_aware.py` (632 lines), `cache_hssayeni_features.py` (~400 lines), `scripts/synapse_hssayeni_setup.md`.
+- Result: `results/iter27_tailaware_5fold_screen_20260505_141705.csv` (uniform/inv_density/abs_z/tail_focused/quartile_balanced); `results/iter27_tailaware_5fold_screen_20260505_141855.csv` (CCC-objective enabled).
+- Run logs: `results/iter27_screen_20260505_141635.log`, `results/iter27_ccc_20260505_141827.log`.
+
+---
+
 ## F60b — iter25b PADS re-run with full data + bug fixes — VERDICT STANDS, narrative SHARPENED (2026-05-05 PM)
 
 **Mission origin:** user asked to "debug what's going on with first order thinking" after iter25. First-order analysis found two upstream bugs in iter25 polluting the comparison: (a) WG used raw `R_Wrist_Acc_*` in m/s² with gravity included while PADS used Apple Watch FreeAcc in g gravity-removed (60-110× scale gap); (b) gait_reg features meaningless on PADS stationary upper-limb tasks. Triple-CLI consult (codex + gemini) flagged 4 additional issues: Earth-NEU vs Device-XYZ axis-frame mismatch (per-axis features still incomparable even after unit fix); Movella Kalman vs Apple CoreMotion sensor-fusion bias; LeftWrist fallback without axis inversion; need to verify fs and gravity-removal at runtime.

@@ -2,6 +2,50 @@
 
 ---
 
+## Session: 2026-05-05 ~14:00—14:25 — iter27 multi-angle ceiling-break attack (F61, 9th wall data point)
+
+### Trigger
+User: "try to solve this from the right multiple angles. use agent team. use codex cli. verify your work. break t1 and/or t3 ccc glass ceiling."
+
+### Codex consult on 5 angles
+Codex ranked β > ε > α > γ > δ but recommended **wildcard W: tail-aware direct iter5 retraining** as more principled than post-hoc β.
+
+### Empirical pre-check on β (cheapest first)
+Nested-LOO calibration on `lockbox_t3_iter5_A3_tier1_*.oof.npy`:
+- Linear: Δ=−0.087
+- Isotonic: Δ=−0.078
+- Poly2: Δ=−0.109
+- All bootstrap frac>0 = 0.000
+
+β DEAD in 30 seconds. F54 residual structure is regression-to-the-mean shrinkage, not recoverable signal.
+
+### Agent team (parallel)
+- Agent A: `run_t3_iter27_tail_aware.py` (632 lines, 5 weight schemes + optional CCC objective).
+- Agent B: `cache_hssayeni_features.py` + `scripts/synapse_hssayeni_setup.md` (iter26 prep, DUA-deferred).
+
+### iter27 screens on remote
+- **Weight-only screen:** best tail_focused Δ=+0.0128 (driven by seed=42; std=0.041). 5-fold gate FAIL.
+- **CCC-objective screen:** all variants collapsed to CCC 0.31-0.41. Catastrophic. 5-fold gate FAIL.
+
+Q1/Q4 residuals barely moved across all 5 schemes — confirms shrinkage is in LGB-tree-leaf structure, not loss-weighting space.
+
+### Verdict
+**iter27 NEGATIVE; LOOCV SKIPPED; canonical numbers UNCHANGED.** 9th wall data point. The internal CCC ceiling is now confirmed STRUCTURAL across 9 independent attempts.
+
+### Documentation
+- F61 in findings.md.
+- CLAUDE.md / AGENTS.md / MEMORY.md updated with iter27 negative + 9th wall data point.
+- New memory: `feedback_iter27_tail_aware_dead.md`.
+- iter26 Hssayeni scaffolding in place (untouched, awaits user-driven Synapse DUA).
+
+### Status (final)
+- T1 LOOCV CCC = 0.6550 UNCHANGED.
+- T3 LOOCV CCC = 0.5227 UNCHANGED.
+- Compute used: ~3 min (consult + 2 screens).
+- Wall-clock: ~30 min from "multi-angle attack" to F61 commit.
+
+---
+
 ## Session: 2026-05-05 ~08:00—14:00 — iter25b PADS post-debug re-run (F60b)
 
 ### Trigger
