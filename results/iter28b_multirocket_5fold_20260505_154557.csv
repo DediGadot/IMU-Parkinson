@@ -1,0 +1,4 @@
+seed,variant,feature_set,stage2,n_rocket_features,ccc,mae,r,alpha_mean,alpha_median,wall_time_s
+42,rocket_only,A3_tier1,ridge,79968,0.2201,12.245,0.3044,100.0,100.0,5.2
+1337,rocket_only,A3_tier1,ridge,79968,0.1798,12.68,0.3068,100.0,100.0,5.1
+7,rocket_only,A3_tier1,ridge,79968,0.2971,10.649,0.3148,100.0,100.0,5.1

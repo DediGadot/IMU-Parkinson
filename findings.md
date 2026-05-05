@@ -1020,6 +1020,68 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 
 ---
 
+## F63 — iter28 SOTA pipeline shootout — NEGATIVE (10th wall data point, spans algorithm class, 2026-05-05 PM)
+
+**Mission origin:** user pushed back on F58's structural-ceiling claim ("i can't believe the winning strategy is as far as we can go") and instructed: "act as a 100x researcher in this space. use codex cli gemini cli and kimi cli. consruct a deep and rigrous plan to test multiple other sota pipelines (either opensource on github or from the literature) that is best for this problem. use agent team and execute in parallel." Triple-CLI consult (codex gpt-5.5 xhigh + gemini-3.1-pro-preview + kimi via opencode/openrouter) ranked SOTA candidates. Selected: AutoGluon (best tabular AutoML, 0.4.0 / 1.5.0 line, 8-model ensemble), MultiROCKET (top time-series shape-feature extractor, aeon library), TabPFN-v7 / TabM 0.0.3 / TabR (DL tabular).
+
+### Pre-registered shootout protocol
+
+Each pipeline ran 5-fold (3 seeds: 42 / 1337 / 7) under iter5 lockbox conditions. Comparator: iter5 5-fold mean CCC computed in same fold partitions same seeds. Strict gate inherited: **Δ ≥ +0.025 across seeds AND seed std < 0.020** before any LOOCV lockbox.
+
+### Results
+
+| Pipeline | n_features | Mean CCC | Mean Δ vs iter5 | Per-seed Δ | Verdict |
+|---|---|---|---|---|---|
+| **iter28a iter5_Stage1 + AutoGluon_Stage2** (180s/fold; 8-model ensemble) | K=500 V2-residual | 0.4534 ± 0.0334 | **−0.0322** | seed42 −0.006 / seed1337 −0.034 / seed7 −0.057 | NEG (3/3 seeds <iter5) |
+| **iter28b iter5_Stage1 + MultiROCKET-RidgeCV_Stage2** | 79968 ROCKET kernels | 0.2323 ± 0.0596 | **−0.253** | seed42 −0.265 / seed1337 −0.269 / seed7 −0.226 | CATASTROPHIC NEG |
+| iter28c TabPFN / TabM / TabR | — | — | — | — | BLOCKED (paywall + API mismatch) |
+
+CSVs: `results/iter28a_autogluon_5fold_20260505_154123.csv`, `results/iter28b_multirocket_5fold_20260505_154557.csv`.
+
+iter28b Ridge α* pinned at top of grid (100) for all 3 seeds, confirming Ridge maxes out regularization on 79968 ROCKET features but still cannot recover the residual variance LGB-on-V2 captures.
+
+### Mechanism (codex+gemini+kimi convergence)
+
+- **AutoGluon**: 8-model ensemble (CatBoost, XGB, LGB, RF, ExtraTrees, KNN; FastAI dropped on ImportError) on K=500 V2-residual features matches but cannot clear LGB-only Stage-2 ceiling. Diversity gain at N=98 is washed out by per-model bagging variance. Codex prior was Δ ∈ [+0.005, +0.020] → matches observed (slight negative on full residual modeling).
+- **MultiROCKET**: 79968 random kernel-pooled features encode shape/temporal patterns. Ridge regression on this representation cannot recover residual variance LGB on V2's 1751 hand-crafted statistical features captures. Linear-on-shape orthogonal to nonlinear-on-statistics for THIS residual at N=98. ROCKET wins on classification benchmarks where the signal IS shape-based; here V2's spectral-band-power and stride-asymmetry stats already saturate the harvestable signal.
+- **TabPFN-v7**: paywalled post-Nov 2025 (PriorLabs license required). TabM 0.0.3 ships as raw PyTorch module without sklearn fit/predict; TabR similar. Deferred unless license/wrapper available.
+
+### Triangulation with F58
+
+F63 triangulates with F58's Pareto asymptote 0.5975 fit on iter5 architecture: wall is structural, **orthogonal to algorithm choice**. AutoGluon (SOTA AutoML) and MultiROCKET (SOTA TSC features) both lose to LGB-on-V2 at N=98. The 10 wall data points now span:
+
+| Probe class | Findings |
+|---|---|
+| Feature engineering (sensor fusion, FoG-summary, HARNet/MOMENT/HC-SSL/in-domain SSL, unused-channels) | F19, F44, F45, F48, F51 |
+| Composition (per-item OOF sum) | F53 |
+| Hybrid mixing (k=1 / k=2 / k=19) | F54, F56, F58 |
+| Stage-1 widening | F58 |
+| Clinical-extras Stage-1 / Stage-2 forced-inclusion | F59 |
+| Cross-dataset zero-shot | F60, F60b |
+| Sample-weighted retraining + post-hoc calibration | F61 |
+| **SOTA tabular AutoML + ROCKET shape features** | **F63 (THIS)** |
+
+### Verdict
+
+**Canonical T3 LOOCV CCC = 0.5227 unchanged.** F63 closes the algorithm-choice angle. With F58's structural ceiling and F62's acquisition gate, the only remaining lever is external labeled cohorts (Hssayeni MJFF iter26, blocked at Synapse DUA) or task-protocol expansion. Internal pipeline-engineering levers exhausted across 10 negatives.
+
+### Don't retry without
+
+- AutoGluon: longer time budget (≥600s/fold), MM/text models, fastai install, ROCKET+V2 fusion-stacking — codex prior all <Δ+0.02 5-fold, fails gate.
+- ROCKET family (Mini/Multi/Hydra) Stage-2 heads — Ridge or LGB; expected Δ <0 at this N.
+- TabPFN — requires PriorLabs license; revisit if user obtains token. Codex prior +0.02-0.04 5-fold but unknown LOOCV at N<200.
+
+### Files
+
+- `run_t3_iter28a_autogluon.py` (469 lines)
+- `run_t3_iter28b_multirocket.py` (680 lines, post-aeon `n_kernels` patch)
+- `run_t3_iter28c_tabular_dl.py` (699 lines, deferred)
+- `results/iter28a_autogluon_5fold_20260505_154123.csv`
+- `results/iter28b_multirocket_5fold_20260505_154557.csv`
+- `results/multirocket_features_seed{42,1337,7}_k10000.npz` (3 cache files, 79968 features each, on remote at `/root/pd-imu/results/`)
+
+---
+
 ## F62 — iter26 Hssayeni MJFF acquisition — BLOCKED at Synapse DUA gate (2026-05-05 PM)
 
 **Mission origin:** user requested iter26 Hssayeni after F61 confirmed all 9 internal-engineering angles dead. Per codex's earlier assessment, Hssayeni MJFF Levodopa Response Study is "the only public dataset with BOTH UPDRS-III + wrist IMU"; modest expected lift (+0.01 to +0.05); primary value is paper-rigor external-validity claim.

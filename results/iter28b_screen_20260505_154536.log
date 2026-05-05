@@ -1,0 +1,14 @@
+
+=== iter28-B 5-FOLD SCREEN (3 seeds, num_kernels=10000, stage2=RidgeCV) ===
+
+  cache HIT: /root/pd-imu/results/multirocket_features_seed42_k10000.npz
+  seed=42 rocket_only: CCC=0.2201, MAE=12.245, alpha_med=100, time=5.2s
+  cache HIT: /root/pd-imu/results/multirocket_features_seed1337_k10000.npz
+  seed=1337 rocket_only: CCC=0.1798, MAE=12.680, alpha_med=100, time=5.1s
+  cache HIT: /root/pd-imu/results/multirocket_features_seed7_k10000.npz
+  seed=7 rocket_only: CCC=0.2971, MAE=10.649, alpha_med=100, time=5.1s
+
+Wrote /root/pd-imu/results/iter28b_multirocket_5fold_20260505_154557.csv
+
+Mean across seeds:
+  rocket_only                CCC = 0.2323 ± 0.0596

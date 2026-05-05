@@ -1,0 +1,24 @@
+
+=== iter28-B EXTRACT (seeds=[42, 1337, 7], num_kernels=10000) ===
+
+  backend=aeon.MultiRocket, num_kernels=10000, seed=42
+Loading 490 (sid,task) pairs from /root/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files...
+  loaded 485 recordings → (485, 26, 2000) in 33s
+  fitting aeon.MultiRocket on 485 recordings...
+  transform → (485, 79968) in 164s
+  cache WRITE: /root/pd-imu/results/multirocket_features_seed42_k10000.npz
+  seed=42: features shape = (98, 79968) → multirocket_features_seed42_k10000.npz
+  backend=aeon.MultiRocket, num_kernels=10000, seed=1337
+Loading 490 (sid,task) pairs from /root/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files...
+  loaded 485 recordings → (485, 26, 2000) in 29s
+  fitting aeon.MultiRocket on 485 recordings...
+  transform → (485, 79968) in 116s
+  cache WRITE: /root/pd-imu/results/multirocket_features_seed1337_k10000.npz
+  seed=1337: features shape = (98, 79968) → multirocket_features_seed1337_k10000.npz
+  backend=aeon.MultiRocket, num_kernels=10000, seed=7
+Loading 490 (sid,task) pairs from /root/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files...
+  loaded 485 recordings → (485, 26, 2000) in 34s
+  fitting aeon.MultiRocket on 485 recordings...
+  transform → (485, 79968) in 118s
+  cache WRITE: /root/pd-imu/results/multirocket_features_seed7_k10000.npz
+  seed=7: features shape = (98, 79968) → multirocket_features_seed7_k10000.npz
