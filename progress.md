@@ -2,6 +2,53 @@
 
 ---
 
+## Session: 2026-05-05 ~06:00—08:00 — iter25 cross-dataset zero-shot transportability on PADS (F60)
+
+### Trigger
+User: "now do the cross-dataset zero-shot transportability." Per AGENTS.md "Open Angles" + F58 LC analysis: external labeled cohorts are the only theoretically-bounded levers above 0.60 internal CCC.
+
+### Phase A — dataset audit + pivot
+- run_transfer.py docstring established: "no external dataset has BOTH IMU + UPDRS-III scores".
+- Pivot: PADS (PhysioNet) — public, no DUA. Wrist smartwatch + PD/HC binary labels. iter5 (regression) → AUROC vs PD/HC for binary discrimination.
+
+### Phase B — PADS download
+- Recursive wget too slow (depth-first, ~30 KB/s).
+- Pivoted to 40-way parallel curl on per-file URL list (file_list.csv → 7810 timeseries).
+- Speed: ~150 files/min (PhysioNet rate-limited).
+
+### Phase C — iter25 script build
+- `run_t3_iter25_pads_zeroshot.py` (~520 lines): _resolve_pads_dir, extract_pads (text-format CSV — PADS uses .txt not .bin), extract_weargait_wrist (PD-only with usecols optimization).
+- Three tracks evaluated in single batch: A (V2-wrist LGB, no Stage 1), B (iter5 Stage 1+2 with mean-imputed clinical), C (PADS-only 5-fold baseline).
+- Pre-registered single-batch (formula_sha256 `9972a6d163382174`).
+
+### Phase D — iter25 run (12 sec on remote with usecols opt)
+- Started on partial PADS (~25%, 310/355 subjects extracted).
+- Track A AUROC = **0.5166** (chance).
+- Track B AUROC = **0.4177** (BELOW chance — mean-imputed Stage 1 collapses to constant; Stage-2 LGB extrapolating on OOD wrist features → inverted preds).
+- Track C AUROC = **0.6336 ± 0.019** (upper bound on wrist-only PADS-internal).
+- VERDICT: **NO TRANSFER** (AUROC 0.52 ≪ 0.65 useful-transfer threshold).
+
+### Triple-CLI consult on iter25 (07:55)
+- **Codex**: mechanism (i) dominates — mean-imputed clinical collapses Stage 1; Stage-2 LGB on OOD features inverts predictions. Track A/Track C 0.11 AUROC gap is expected for cross-device wrist transfer.
+- **Gemini**: cascading transportability cliff — internal validity (iter5 CCC=0.52) → intra-cohort shift (iter16 CCC=0.34) → inter-cohort shift (iter25 AUROC=0.52). Internal validation drastically overestimates real-world readiness.
+- **Synthesis**: NO TRANSFER is a publishable cautionary-benchmark finding. Don't retry mean-imputed clinical Stage 1 cross-dataset.
+
+### Documentation
+- F60 in findings.md (full anatomy + paper Table 3 transportability gradient + caveats).
+- CLAUDE.md Headline Results — appended iter25 transportability summary.
+- AGENTS.md Open Angles — updated PADS attempted; Do-Not-Re-Run added.
+- MEMORY.md + new `feedback_iter25_pads_no_transfer.md`.
+- task_plan.md ACTIVE MISSION rewritten as iter25 NO-TRANSFER complete.
+
+### Status (final)
+- **Canonical numbers UNCHANGED.** T1 0.6550 / T3 0.5227 / T3 LOSO 0.341 / item 15 +0.1099 / item 18 +0.4858.
+- **NEW canonical transportability number: iter25 PADS AUROC = 0.5166** (zero-shot; first published).
+- Paper Table 3: cascading transportability cliff is the headline cautionary narrative.
+- Compute used: ~30 min PADS partial download (parallel curl) + 2 min iter25 run + ~3 min consults.
+- Wall-clock from "do cross-dataset zero-shot" to F60 close: ~2 hours.
+
+---
+
 ## Session: 2026-05-05 ~04:55—05:35 — iter23+iter24 clinical-extras ablation (F59)
 
 ### Trigger

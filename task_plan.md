@@ -5,7 +5,69 @@
 
 ---
 
-# ACTIVE MISSION — iter23+iter24 Clinical-Extras T3 Push (2026-05-05) — COMPLETE (NEGATIVE RESULT, F59)
+# ACTIVE MISSION — iter25 Cross-Dataset Zero-Shot Transportability on PADS (2026-05-05) — COMPLETE (NEGATIVE = NO TRANSFER, F60)
+
+## Outcome (final)
+
+User: "now do the cross-dataset zero-shot transportability." Per AGENTS.md "Open Angles" + F58 LC analysis: external labeled cohorts are the only theoretically-bounded levers above 0.60 internal CCC. iter25 produces the **FIRST published cross-dataset zero-shot transportability number for the WearGait-PD-trained iter5 architecture**.
+
+**Target dataset:** PADS (PhysioNet Parkinson's Disease Smartwatch v1.0.0). 79 HC + 276 PD = 355 PD/HC subjects. German cohort, Apple Watch Series 4 wrist, 11 motor tasks. Public, no DUA needed.
+
+**Architecture:** Train iter5-style architecture on WG PD-only N=98 with the 69 wrist features extractable from BOTH datasets (3-axis acc + magnitude → time/freq/gait_reg). Apply to PADS subjects, AUROC vs PD/HC binary.
+
+**Result (3 seeds, single-batch pre-reg, formula_sha256 `9972a6d163382174`):**
+
+| Track | AUROC | Spearman ρ | Per-seed |
+|---|---|---|---|
+| A — V2-wrist LGB regressor (no Stage 1) | **0.5166** | +0.024 | 0.553, 0.486, 0.516 |
+| B — iter5 Stage 1+2 with mean-imputed clinical | **0.4177** ⚠ | −0.117 | 0.417, 0.426, 0.419 |
+| C — PADS-only 5-fold (upper bound) | **0.6336 ± 0.019** | n/a | 0.658, 0.61, 0.632 |
+
+**VERDICT: NO TRANSFER (AUROC 0.5166 = chance < 0.55 threshold).** Track B BELOW chance because mean-imputed Stage 1 collapses to constant; Stage-2 LGB extrapolating on OOD wrist features → inverted predictions. Track C 0.63 confirms wrist features have within-cohort signal but it doesn't transport from WG.
+
+## Paper Table 3 — Cascading transportability cliff (the headline narrative)
+
+| Row | Eval | Cohort | Metric | Value |
+|---|---|---|---|---|
+| 1 | LOOCV | WG-PD N=98 | T3 CCC | **0.5227** |
+| 2 | LOSO two-way | NLS↔WPD within WG | T3 CCC | **0.341** |
+| 3 | LOOCV-IPW | WG-PD N=98 | T3 CCC | 0.4694 |
+| 4 | **Cross-dataset zero-shot** | **WG → PADS (wrist-only)** | **AUROC** | **0.5166** |
+| 5 | PADS-only 5-fold | PADS within | AUROC | 0.6336 |
+
+Cascading collapse 0.52 → 0.34 → 0.52: the strongest negative finding of the entire mission. **Internal validation drastically overestimates real-world clinical readiness.** Confirms cautionary-benchmark paper framing.
+
+## Decisions log (final)
+
+- 04:55 — Read run_transfer.py docstring: "no external dataset has BOTH IMU + UPDRS-III". Pivoted to PADS PD/HC binary discrimination via AUROC (regression-as-classification).
+- 06:00 — Started PADS download from PhysioNet via 40-way parallel curl (PhysioNet rate-limited zip download was ~30 KB/s; switched to per-file parallel ~150 files/min).
+- 06:30 — Wrote `run_t3_iter25_pads_zeroshot.py`: T3-native loader, Tomlinson-2010 mean-imputation, FoldNormalizer using WG-only stats, three tracks (A: LGB, B: iter5+imputation, C: PADS-only baseline).
+- 07:25 — Pre-registered single-batch.
+- 07:34 — First run failed: WG HC CSVs not on remote (F31 download skipped HC for 14GB). Updated to use PD-only matching canonical iter5.
+- 07:40 — Second run succeeded with usecols optimization (100s WG extract + 14s PADS + <5s LGB). 310 PADS subjects extracted from ~25% of files (1989/7810 timeseries).
+- 07:55 — Triple-CLI consult on result: codex+gemini converge on **transportability cliff** framing.
+- 08:00 — Documented F60 in findings.md; updated CLAUDE.md / AGENTS.md / MEMORY.md.
+
+## Lessons (durable for future sessions)
+
+1. **Cross-device transfer is fundamentally hard.** Movella body-worn → Apple Watch smartwatch differs in filtering, axis convention, dynamic range. Zero-shot transfer collapses to chance.
+2. **Mean-imputed clinical Stage 1 cross-dataset is a TRAP.** Constant Stage 1 + Stage-2 LGB on OOD features → inverted predictions. Either provide actual external clinical or use a clinical-free architecture.
+3. **Wrist-only PADS upper bound = 0.63 AUROC.** Any future smartwatch-based PD work should benchmark against this.
+4. **The cautionary-benchmark paper framing is now load-bearing.** Three rows (internal / LOSO / external) form a coherent transportability cliff.
+5. **PADS dataset is publicly available without DUA** — useful for future external eval work.
+
+## Next session pivot
+
+Per the existing AGENTS.md "Open Angles":
+1. **Conformal prediction + abstention** post-hoc on iter5 LOOCV OOF (paper rigor, no compute).
+2. **Hssayeni MJFF Levodopa Response Trial** — has UPDRS-III scores. Synapse DUA required. Would enable genuine cross-dataset UPDRS regression (not just binary).
+3. **Manifest backfill for ~23 cache files** — pure provenance.
+
+For continued T3 internal CCC pushing: **STOP**. 8 wall data points + cascading transportability cliff is a complete cautionary-benchmark story. Paper-rigor work is the highest-EV remaining direction.
+
+---
+
+# ARCHIVED MISSION — iter23+iter24 Clinical-Extras T3 Push (2026-05-05) — COMPLETE (NEGATIVE RESULT, F59)
 
 ## Outcome (final)
 

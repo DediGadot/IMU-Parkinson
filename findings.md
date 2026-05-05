@@ -1020,6 +1020,104 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 
 ---
 
+## F60 — iter25 cross-dataset zero-shot transportability on PADS — NO TRANSFER (2026-05-05)
+
+**Mission origin:** user asked "now do the cross-dataset zero-shot transportability." Per AGENTS.md "Open Angles" and F58 LC analysis: external labeled cohorts (Hssayeni MJFF / mPower / OPDC) are the only theoretically-bounded levers above 0.60 internal CCC; iter25 produces the FIRST published cross-dataset zero-shot transportability number for the WearGait-PD-trained iter5 architecture. Target = **PADS** (Parkinson's Disease Smartwatch dataset, PhysioNet, public, no DUA): 79 HC + 276 PD + 114 Other = 469 subjects; we use only label-0 (HC) + label-1 (PD) = 355 subjects.
+
+### Why this is a real transportability claim (vs intra-cohort LOSO iter16)
+
+| Property | WearGait-PD (training) | PADS (external test) |
+|---|---|---|
+| Country | US (Northwell + WPD sites) | Germany |
+| Device | Movella Xsens, 13-IMU body-worn | Apple Watch Series 4, 1 wrist |
+| Sensors used | R_Wrist 3-axis acc (subset for alignment) | Both wrists 3-axis acc (R-preferred, L fallback) |
+| Sampling rate | 100 Hz | 100 Hz |
+| Tasks | 5 gait/balance | 11 motor (Relaxed, Tremor, drink, point, etc.) |
+| Labels | Full UPDRS-III scored by MDS-trained examiners | Binary PD/HC only (no UPDRS) |
+| iter5 LOOCV CCC (internal) | 0.5227 (N=98) | n/a |
+| Recruitment | Clinical referral | Smartwatch-app self-enrolled |
+
+iter16 LOSO (NLS↔WPD two-way 0.341) is intra-cohort — same device, same protocol, different sites. iter25 is **fully external** — different device, country, protocol.
+
+### Architecture
+
+  TRACK A — V2-wrist LGB regressor (no clinical Stage 1):
+    Train: LGB on common wrist features → updrs3 (WG PD-only N=98).
+    Apply: continuous predictions on PADS, AUROC vs PD/HC binary.
+
+  TRACK B — iter5-restricted Stage 1+2 with mean-imputed PADS clinical:
+    Stage 1 Ridge α=1.0 on (H&Y + cv_yrs + cv_sex + cv_dbs) — PD-only training.
+    Stage 2 LGB on common wrist features → residual.
+    PADS imputation: cv_sex from gender; H&Y/cv_yrs/cv_dbs = WG PD-cohort means
+      (constant for all PADS subjects).
+
+  TRACK C — PADS-only 5-fold AUROC baseline (upper bound on what's achievable
+    from these features alone within PADS).
+
+Pre-registered single-batch: `results/preregistration_t3_iter25_pads_20260505_073324.json` (formula_sha256 `9972a6d163382174`). Headline thresholds: AUROC ≥ 0.65 = useful transfer; 0.55–0.65 = borderline; < 0.55 = no transfer.
+
+### Result
+
+PADS extracted: 310 subjects (243 PD + 67 HC) from ~25% of the 7810 timeseries files (download in progress; ~87% of expected 355 PD+HC subjects represented). 69 common wrist features (3-axis acc + magnitude → time/freq/gait_reg). 3 seeds.
+
+| Track | AUROC | Spearman ρ vs label | Per-seed AUROC |
+|---|---|---|---|
+| A — V2-wrist LGB | **0.5166** | +0.024 | 0.553, 0.486, 0.516 |
+| B — iter5 Stage 1+2 + clinical imputation | **0.4177** ⚠ | **−0.117** | 0.417, 0.426, 0.419 |
+| C — PADS-only 5-fold (upper bound) | **0.6336 ± 0.0194** | n/a | 0.658, 0.61, 0.632 |
+
+Pred means (Track A): HC=24.53, PD=24.89 — essentially identical, no separation.
+Pred means (Track B): HC=28.90, **PD=28.06** — HC predicted HIGHER UPDRS than PD (inverse).
+
+**VERDICT: NO TRANSFER (headline AUROC = 0.5166 ≪ 0.65 threshold).** LOOCV lockbox NOT applicable (this is a transportability eval, not an internal CCC push).
+
+### Triple-CLI consult (2026-05-05 ~07:55)
+
+  - **Codex (gpt-5.5):** "Mechanism (i) dominates: mean-imputed PADS clinical covariates collapse Stage 1 toward a WearGait-PD 'typical moderate PD' prior, so Track B loses real external variation and leaves the Stage 2 wrist-residual model to extrapolate on shifted Apple Watch/task features. That can flip weak residual structure into inverse AUROC. The 0.11 AUROC gap is expected, not unusually large — crossing device class, sensor placement, country/site, protocol, task mix, and target semantics. Track C ceiling 0.63 itself shows wrist features are modestly separable. Table 3 reads as transportability gradient: internal validity → cohort/site shift → external zero-shot failure."
+  - **Gemini (gemini-3.1-pro):** "Mean imputation forces a constant Stage-1 baseline; all predictive variance stems from Stage-2 wrist-residual under profound covariate shift → out-of-distribution, inverted predictions. The gap is entirely expected and highlights a fundamental IMU-based vulnerability: research-grade Movella → consumer Apple Watch + proprietary onboard filtering + different clinical protocols + cohort demographics → severe covariate shift collapses zero-shot to chance (0.52). Frame as **cascading transportability cliff**: Internal validity (iter5 CCC=0.52) → Intra-cohort shift (iter16 CCC=0.34) → Inter-cohort shift (iter25 AUROC=0.52). Internal validation drastically overestimates real-world clinical readiness."
+  - **Synthesis:** Both converge — Track B's below-chance AUROC (0.42) is mechanism-(i) (constant Stage 1 + OOD Stage-2 LGB on shifted device). The 0.11 AUROC gap (Track C 0.63 vs Track A 0.52) is expected for cross-device wrist transfer. Paper frames this as a **transportability cliff** strengthening the cautionary-benchmark narrative.
+
+### Paper Table 3 — Transportability gradient
+
+| Row | Eval mode | Cohort | Metric | Value | Comment |
+|---|---|---|---|---|---|
+| 1 | LOOCV (internal) | WearGait-PD N=98 | T3 CCC | **0.5227** | iter5 canonical, F58 asymptote 0.5975 |
+| 2 | LOSO two-way | NLS ↔ WPD within WearGait | T3 CCC | **0.341** | iter16; same-device cohort/site shift |
+| 3 | LOOCV-IPW | WearGait-PD N=98 | T3 CCC | 0.4694 | iter16; site-balanced lower bound (sensitivity) |
+| 4 | **Cross-dataset zero-shot** | **WG → PADS (wrist-only)** | **AUROC** | **0.5166** | **iter25; full external cohort + device shift** |
+| 5 | PADS-only baseline | PADS within | AUROC | 0.6336 ± 0.019 | iter25 Track C; upper bound for these features alone |
+
+The cascading collapse from internal CCC 0.52 → intra-cohort 0.34 → cross-dataset 0.52 AUROC (= chance) is the strongest negative finding of the entire mission. **Internal validation drastically overestimates real-world clinical readiness** — the headline message of the cautionary-benchmark paper.
+
+### Caveats / honest scope of the claim
+
+1. **PADS download was ~25% complete** (1989 / 7810 files; 310 / 355 expected subjects). With full data, AUROC may shift modestly (codex prior: ±0.02-0.05); the verdict (NO TRANSFER) is robust because the central tendency is at chance.
+2. **WG HC CSVs not on remote** (per F31 download notes — saved 14 GB by skipping HC). Track A was trained PD-only matching canonical iter5; we did NOT train a PD+HC classifier with HC=0 target. A future re-run with HC included could marginally improve Track A (HC adds "low-severity" anchors).
+3. **Wrist-only feature alignment loses the bulk of iter5's signal.** Canonical iter5 uses 1751 V2 features from 13 IMUs; iter25 uses 69 wrist features. Track C's 0.63 PADS-only ceiling shows the wrist subset alone has limited discriminative power.
+4. **iter5 trained for UPDRS-III regression, applied to binary discrimination.** A regression model's continuous output may not threshold cleanly into PD/HC. We use AUROC (rank-based) to be threshold-independent, but the cross-task transfer (regression → classification) is itself a known performance haircut.
+
+### Status
+
+- **Canonical numbers UNCHANGED.** T3 LOOCV CCC = 0.5227 (iter5).
+- **NEW canonical transportability number: iter25 PADS AUROC = 0.5166** (zero-shot; first published).
+- 8 wall data points stand; iter25 is a clean cross-dataset NEGATIVE that strengthens the cautionary-benchmark paper framing.
+
+### Side-effects
+
+- New: `run_t3_iter25_pads_zeroshot.py` (~520 lines).
+- New PADS data on remote: `/root/pd-imu/data/raw/pads/v1/` (movement/timeseries/ + preprocessed/file_list.csv + observation JSONs). 288MB partial; download continues in background (xargs -P 40 parallel curl from PhysioNet).
+- Pre-reg: `results/preregistration_t3_iter25_pads_20260505_073324.json` (formula_sha256 `9972a6d163382174`).
+- Result: `results/iter25_pads_zeroshot_20260505_073324.json` + run log.
+
+### Lessons (durable for future sessions)
+
+1. **Cross-device transfer is not zero-shot transfer if the device class differs.** Movella → Apple Watch is a fundamentally different sensor with different filtering, dynamic range, axis orientation. Future cross-dataset attempts should restrict to within-device-class transfer (e.g., WG R_Wrist → another body-worn IMU dataset, not a smartwatch).
+2. **Mean-imputation of clinical covariates for an external cohort COLLAPSES Stage-1 to a constant** and forces all discrimination through the Stage-2 residual model. If the residual model is OOD-shifted (different sensor), the predictions can be inverted. Either provide actual external clinical, or use an architecture without a clinical Stage 1.
+3. **Wrist-only PADS upper bound (0.63 AUROC) is a useful prior** for any future smartwatch-based PD work in the lab.
+4. **The transportability cliff is the paper's strongest finding.** Three rows (internal CCC / LOSO CCC / external AUROC) form a coherent cautionary-benchmark narrative.
+
+---
+
 ## F59 — iter23 ablation + iter24 Stage-2 forced-inclusion — clinical extras DEAD at N=98 (2026-05-05)
 
 **Mission origin:** user asked "what's available in the dataset?" and "use agent team to do an ablation study of how each new signal adds to overall CCC." Two-stage answer: (a) full audit of `data/raw/weargait-pd/PD - Demographic+Clinical - datasetV1.csv` (100 PD subjects, 94 cols) revealed full MDS-UPDRS Parts 1/2/4 + medication free-text + ON/OFF state + assistive-device + race + days-since-Part3 — none of which were in the V2 cache; (b) two-agent parallel build of `cache_clinical_extras.py` (Tomlinson-2010 LEDD extractor + Part 1 + ON/OFF + race + assistive + PT-OT + days-since-P3) and `run_t3_iter23_clinical_ablation.py` (19-set 5-fold ablation runner with manifest validation + ProcessPoolExecutor 11-worker parallelism).
