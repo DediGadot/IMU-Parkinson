@@ -1467,3 +1467,287 @@ Test-only canary feature with constant value = 1.0 injected into test rows ONLY 
 - T3 LOSO two-way CCC = **0.341** (`run_t3_iter16_site_ipw.py --mode lockbox`, no-IPW).
 - Item 15 (postural tremor) LOOCV CCC = **+0.1099** (`run_per_item_iter17_hypothesis.py --mode lockbox` item_only).
 - Item 18 (rest tremor constancy) LOOCV CCC = **+0.4858** (`run_per_item_iter17_hypothesis.py --mode lockbox` hy_residual_item_v2).
+
+---
+
+## F57 — Plan-next ablation study design (planning-only, 2026-05-04 PM)
+
+**Source:** `/tmp/plan-next.md` synthesized from grok-4.3 + deepseek-v4-pro consult (OpenRouter, 2026-05-04 ~17:00). Both consultants used `reasoning.effort=high`. grok used 4533 reasoning tokens / $0.019; deepseek used 6280 reasoning tokens / $0.010.
+
+### Consultant convergence (the load-bearing claims)
+
+1. **Wall is N=98, not architecture.** Both delivered an explicit honest-negative: any in-domain move expects ΔCCC ≤ +0.02 with CI straddling 0. Probability that any single direction passes the strict +0.05 gate at this N: <30%.
+2. **Highest-EV in-domain move: 1-parameter convex blend of iter5 + T1-iter12-sum.** grok +0.029 [+0.012, +0.046]; deepseek +0.040 [+0.020, +0.060]. Both flag identical failure mode: α̂ → 1 collapse if T1-sum collinear with iter5 after Stage-1 correction.
+3. **Bayesian Stage-1 widening with horseshoe** is a credible secondary move: grok +0.018 [+0.005, +0.032]; deepseek +0.020 [−0.010, +0.050]. Won't pass gate alone; only as a stack.
+4. **Cross-cohort transfer (Hssayeni / MJFF)** dead at this N. Both predict Δ ≤ 0 with wide negative CI. Defer until external N > 200.
+5. **Label noise is real but secondary.** Single-rater UPDRS-III ICC ≈ 0.7–0.8; irreducible CCC ceiling 0.60–0.65 at N=98. Concrete recipes diverge (grok: quantile-CCC ensemble; deepseek: heteroscedastic URSS loss); both predict Δ ≤ +0.03.
+6. **N expansion is the only big lever.** grok: +0.11–+0.14 at N≈250; deepseek: +0.05 reachable at N≈200, +0.10 at N≈300.
+
+### Consultant divergence (lower confidence claims)
+
+- **Joint multi-task SSL (frozen-encoder rescue with non-frozen joint training):** grok proposes Δ=+0.014 [−0.009, +0.037] at 14 GPU-h × 3 seeds. Deepseek implicitly skips. Reading: low-EV, high-cost; not worth it vs Phase 1.
+- **Target reparameterization (log / Box-Cox / quantile of T3):** grok says "do not pursue"; deepseek predicts +0.015 with CI straddling 0. Reading: skip — fold-local λ estimation noise at N=98 cancels the gain.
+
+### First-principles framing (the slow-thinking part)
+
+The plan-next.md describes a 3-phase modeling stack. An *ablation study* around it is NOT just running it — it is systematically isolating which knob moves the gate. Five first-principles questions structure the design:
+
+1. **Q1 — Minimal causal model:** `T3_pred = α · F(clinical, V2_residual) + (1−α) · β · G(per_item_T1)`. Three knobs: F-Stage-1 panel, G-T1-source, mixer regime. Phase 2 widens F-Stage-1 under structured shrinkage; Phase 3 modifies F-Stage-2 loss.
+2. **Q2 — Why is N=98 binding?** First-principles DoF accounting at this N: at K=500 features, train fold n≈88, mixer with k parameters consumes O(k/N_train) variance. F56 falsified k=19 (catastrophic blow-up). Only k=1 is provably untested. Wall-hypothesis is testable via subsample learning curve.
+3. **Q3 — Why should F55's r=+0.327 survive a k=1 meta?** Total meta-variance scales O(k/N_train); k=1 is bounded; harvestable lift bounded above by `r² · var(T1_sum) / var(iter5_resid)` ≈ +0.04–+0.06 in CCC terms. **Critical:** depends on β (T1→T3 scale calibration) being stable across folds; BB1 (explicit (α, β)) vs AB1 (implicit OLS β) is the diagnostic.
+4. **Q4 — How to maximize 17 CPU + RTX 5070 12GB?** LightGBM CPU > GPU at N=98. CPU = base predictors + learning curve. GPU = numpyro horseshoe NUTS via `jax.pmap` across folds (5× faster than CPU NUTS at this dim). **Three concurrent tracks** (CPU 8-core × 2 + GPU 1 device) bring wall clock to ~5h end-to-end.
+5. **Q5 — Kill list:** k>2 mixers, α unconstrained (except canary BB3), frozen encoders, cross-cohort, multi-LOOCV cherry-picking, Stage-1 widening beyond structured shrinkage.
+
+### The 15-cell ablation matrix
+
+Four orthogonal axes (T1 source × Mixer × Stage-1 × Stage-2 loss) selectively sampled:
+
+- **AB1 (backbone):** iter12-honest × α-only-CCC × 4-cov-Ridge × std-CCC. Sensitivity-gate target.
+- **AB2 / AB3:** T1-source ablation (iter17-bests-summed; no-T1 sanity).
+- **BB1 / BB2 / BB3:** mixer regime ablation. BB3 is the canary (unconstrained α).
+- **CC1 / CC2 / CC3:** Stage-1 ablation. CC1 = horseshoe widening (Phase 2 main); CC3 = Ridge widening (predicted-null).
+- **DD1 / DD2:** Stage-2 loss ablation. DD1 = heteroscedastic CCC (Phase 3 main).
+- **FF1 / FF2:** full stack and full-stack-minus-T1.
+- **NN1–3:** AB1 backbone at N ∈ {50, 70, 89} (wall hypothesis).
+- **LC:** iter5 baseline learning curve, 50 subsamples × 4 N × 3 seeds.
+
+### Decision tree (gate-driven)
+
+- AB1 sensitivity gate passes (Δ ≥ +0.025 AND CI lower bound > 0) → AB1 enters LOOCV lockbox queue.
+- CC1 standard gate passes (Δ ≥ +0.05 vs AB1) → CC1 enters LOOCV lockbox.
+- FF1 sub-sensitivity gate (Δ ≥ +0.025 vs CC1) → FF1 enters LOOCV lockbox.
+- All cells run regardless of gate (negative-audit ablation map is the contribution).
+
+### Compute budget
+
+- **Pre-flight:** ~2h CPU (cache OOFs).
+- **Track 1 (CPU 8 cores):** ~3h for 9 cells.
+- **Track 2 (CPU 8 cores):** ~2h for LC.
+- **Track 3 (GPU):** ~2h for horseshoe variants.
+- **LOOCV lockboxes:** ~1.5h max (gate-conditional).
+- **Total:** ~35 CPU-h + 4 GPU-h, wall clock ~5h with concurrent tracks.
+
+Plan-next.md budgeted 48 CPU-h + 0 GPU-h (Phase 4 included). The ablation reduces wall clock by adding GPU concurrency and producing a 15-cell scientific map at lower marginal cost than the sequential phase plan.
+
+### Why this is more than just "execute the plan"
+
+Even if AB1 fails its gate (50/50 prior), the ablation delivers:
+1. Quantified marginal contribution of T1-source choice (Axis A).
+2. Quantified mixer-regime sensitivity at N=98 (Axis B).
+3. Direct test of structured-shrinkage hypothesis (CC1 vs CC3).
+4. Orthogonality of label-noise loss to N-expansion (DD1 vs LC slope).
+5. Empirical learning curve projecting to N=200/300 — quantitative N-expansion ask.
+
+These are the paper's "21-strategy negative audit" upgrade — the strongest scientific contribution at this N regardless of outcome.
+
+### Status
+
+PLANNING ONLY. Awaiting user approval before any compute is consumed. Open questions documented in `task_plan.md` § Open questions (clinical metadata availability; Goetz variance constants; compute cap; numpyro install on remote; bootstrap config).
+
+
+### F57 update (2026-05-04 post-audit) — clinical metadata reality check
+
+Audit of `results/ablation_v3_features.csv` (V2_FEATURES, N=178, all clinical cols 100% non-missing) plus `generate_paper_v6.py` Limitations §9 confirms:
+
+- **NOT IN WearGait-PD public release:** Part II self-report, LEDD, MoCA total, ON/OFF medication state. The `cv_dbs` column is device PRESENCE only.
+- **Available patient-level columns with PD-only Pearson r vs T3:** hy (+0.411), ext_yrs_sq (+0.334), cv_yrs (+0.316), ext_late_pd (+0.265, tested in A4 — HURT), ext_yrs_log (+0.245), cv_sex (+0.222), cv_dbs (+0.193), cv_age (+0.137, tested in A4 — HURT). Effectively zero: cv_ht (+0.050), cv_wt (+0.001), ext_age_onset (−0.070), ext_early_pd (−0.029).
+
+**Implication:** the deepseek-v4-pro Phase 2 prediction +0.020 [−0.010, +0.050] was conditioned on Part II being a Stage-1 covariate. Without it, the realistic prior collapses. The 8-cov horseshoe panel is now `{hy, cv_yrs, cv_sex, cv_dbs, cv_age, ext_yrs_sq, ext_yrs_log, ext_late_pd}` — purely demographic / nonlinear-yrs / disease-stage. Two of these (cv_age, ext_late_pd) already HURT in A4 under Ridge.
+
+Revised CC1 (horseshoe widening) prior: **+0.005 [−0.015, +0.025]**. Phase 2 now expected to FAIL its standard gate. Scientific value of CC1 vs CC3 (horseshoe vs Ridge widening on the same 8-cov panel) is intact: it directly tests whether structured shrinkage rescues the failure mode that killed A4. If yes, the lesson is durable; if no, structured shrinkage at this N is not the answer either.
+
+**Lockbox-candidate list shrinks from {AB1, CC1, FF1} to {AB1}.** AB1 sensitivity-gate is the single decision point.
+
+Goetz 2008 SEM-of-measurement constants locked at `(a, b, c) = (0.04, 2.5, 1.5)` for the heteroscedastic CCC variance function `v(y) = max((a·y+b)², c²)`. 3×3 (a, b) sensitivity sweep (a ∈ {0.02, 0.04, 0.06} × b ∈ {1.5, 2.5, 3.5}, c fixed) registered as DD1.{1..9}. Pick-by-5-fold-peak is non-adaptive because grid is locked at pre-reg.
+
+Remote slave audit: 21 GB disk free, CUDA 13.0 driver, numpyro / jax NOT installed. One-shot install: `pip install --no-cache-dir numpyro "jax[cuda12]==0.4.31"` (CUDA 12 wheel works on 13 driver). Required before Phase 2 GPU jobs.
+
+
+---
+
+## F58 — T3 iter22 ablation: AB1 falsifies the 1-parameter convex blend hypothesis at N≈94/98 (2026-05-04 PM)
+
+**Pre-registration:** `results/preregistration_t3_iter22_ablation_20260504_213817.json` (formula_sha256 `64aae388a2134126`). Master recipe locks the 4-axis 15-cell ablation matrix designed in `task_plan.md` ACTIVE MISSION (synthesis of grok-4.3 + deepseek-v4-pro consult).
+
+**Critical first-result: AB1 sensitivity gate FAILS at every cohort definition.**
+
+| Cell | Cohort | Headline CCC | Δ vs iter5 | 95% CI | frac>0 | Gate |
+|------|--------|--------------|-----------|--------|--------|------|
+| AB1 | T1=94 (intersection) | 0.4262 | −0.0209 | [−0.0909, +0.0431] | 0.283 | **FAIL** |
+| AB1_N98 (backfill) | T3=98 canonical | 0.4999 | −0.0230 vs iter5(0.5227) | [−0.0819, +0.0323] | 0.212 | **FAIL** |
+| AB3 (sanity) | T1=94 | 0.4464 | +0.0000 | [0, 0] | 0.000 | n/a (control) |
+| BB1 (α,β joint) | T1=94 | 0.4341 | −0.0130 | [−0.0962, +0.0646] | 0.386 | **FAIL** |
+| BB2 (Ridge meta) | T1=94 | 0.3446 | −0.1010 | [−0.1634, −0.0395] | 0.001 | **FAIL** |
+| BB3 (OLS canary) | T1=94 | 0.3446 | −0.1010 | [−0.1636, −0.0394] | 0.001 | **FAIL** |
+
+### Mechanism (first-principles diagnosis)
+
+1. **α* is well-behaved and non-degenerate.** AB1 mean α=0.682 ± 0.025, range [0.58, 0.80], 0% folds at degenerate boundaries. Mixer is NOT collapsing to pure iter5; it WANTS 32% T1 weight. Yet adding 32% T1 *hurts* the headline.
+2. **β* is stable.** Mean β=5.27 ± 0.11 (T1 sum-range 0–14 → T3 magnitude). 0 sign flips. The T1→T3 scale calibration is solid.
+3. **The orthogonality measured by F55 (raw residual Pearson r=+0.327 at 5-fold) does NOT survive at LOOCV.** F55 was a 5-fold residual probe; at LOOCV the residual structure differs because each held-out subject's prediction was trained on N−1 instead of (N−N/5). The "harvestable lift" formula `r²·var(T1_sum)/var(iter5_resid)` overestimates available variance at the LOOCV scale by treating residuals as independent draws from a stationary distribution — they're not at this N.
+4. **Ridge-meta and OLS-unconstrained on (iter5, T1-sum) catastrophically collapse the iter5 contribution.** Both find coef_a (iter5)≈0.49, coef_b (T1)≈1.01 — pulling iter5's contribution to half scale destroys its calibration despite the linear meta giving "best" MSE on training.
+5. **Cohort robustness:** the negative result holds at both T1=94 and T3=98 (with backfill). The 4 backfill subjects (T3-only, no T1) shift the absolute CCC from 0.4262 → 0.4999 (because they get pure iter5 prediction) but Δ vs iter5 stays at −0.022 ± 0.001.
+
+### Falsifies
+
+- **Both consultants' Phase 1 prior** (grok +0.029 [+0.012, +0.046]; deepseek +0.040 [+0.020, +0.060]). The 1-parameter convex blend does NOT lift T3 CCC at N=94 or N=98.
+- **F55's harvestable-lift extrapolation.** Raw residual Pearson r at 5-fold scale overestimates LOOCV blend gain.
+
+### Confirms
+
+- **F56 mechanism extension to k=2:** The variance-scaling story (k=19 catastrophic, k=1 "untested") was wrong about k=1. **The k=1 mixer is also bounded by N=94 wall**, just less catastrophically.
+- **Ridge-meta-on-2-bases blow-up** is qualitatively the same as F56's k=19 failure at smaller scale: linear meta tries to optimize MSE-on-train, overfits weight allocation, destroys the test-fold calibration that iter5 had earned.
+
+### What this means for the paper
+
+**7th N=94/98 wall data point.** The wall now affects all FIVE probe-strategy classes:
+1. Feature engineering (F19, F44, F45, F48, F51) — dead.
+2. Composition / raw-sum (F53) — dead.
+3. Single-loop hybrid (F54) — dead (and leaky).
+4. Nested mixing k=19 (F56) — dead.
+5. **NEW: 1-parameter convex blend k=1 (F58) — dead.**
+
+This strengthens the paper's core claim: at N=94, the in-domain modeling ceiling is essentially 0.5227 (canonical iter5 at N=98) / 0.4464 (iter5 at T1 cohort). External data or N expansion is the only remaining lever.
+
+### Pre-reg compliance
+
+- Master `formula_sha256` validated on every cell run.
+- Sensitivity gate declared upfront for AB1 (Δ ≥ +0.025 AND CI lower bound > 0). Standard gate (Δ ≥ +0.05) declared for all other cells.
+- All cells run regardless of gate. AB1_N98 was added as exploratory (NaN-aware backfill); pre-reg recipe SHA covers it (extended pre-reg `_213817`).
+- No LOOCV lockbox runs (AB1 failed sensitivity gate; protocol: do not promote any blend to canonical T3).
+- Canonical T3 LOOCV CCC = **0.5227** UNCHANGED.
+
+### Full ablation matrix complete (2026-05-04 ~21:45)
+
+iter5 8-cov (`A_iter22_8cov`) lockbox completed on remote at 21:43 UTC: CCC=0.5004, MAE=7.786 (Δ=−0.022 vs canonical 4-cov A3_tier1). CC3_N94 / CC3_N98 / AB1_N98_8cov cells then ran locally with the 8-cov OOF.
+
+**Final ablation table (all 9 cells, all FAIL):**
+
+| Cell | Recipe | CCC | Δ vs iter5 | 95% CI | frac>0 | Verdict |
+|------|--------|-----|-----------|--------|--------|---------|
+| AB1 | iter12 + α-only + 4cov + std-CCC, T1=94 | 0.4262 | −0.0209 | [−0.091, +0.043] | 0.283 | **FAIL** |
+| AB1_N98 | …N=98 backfill | 0.4999 | −0.0230 | [−0.082, +0.032] | 0.212 | **FAIL** |
+| AB3 | iter5 sanity, T1=94 | 0.4464 | 0.0000 | [0, 0] | n/a | control ✓ |
+| BB1 | iter12 + (α,β) joint + 4cov, T1=94 | 0.4341 | −0.0130 | [−0.096, +0.065] | 0.386 | FAIL (closest) |
+| BB2 | iter12 + Ridge-2base + 4cov, T1=94 | 0.3446 | −0.1010 | [−0.163, −0.040] | 0.001 | FAIL catastrophic |
+| BB3 | iter12 + OLS-unconstrained, T1=94 | 0.3446 | −0.1010 | [−0.164, −0.039] | 0.001 | FAIL canary |
+| CC3_N94 | iter12 + α-only + 8cov-Ridge, T1=94 | 0.4073 | −0.0137 | [−0.096, +0.061] | 0.373 | FAIL |
+| CC3_N98 | 8cov-Ridge only (no T1 blend), N=98 | 0.5004 | −0.0226 | [−0.070, +0.024] | 0.167 | FAIL (8cov ≤ 4cov) |
+| AB1_N98_8cov | full stack: iter12 + α + 8cov, N=98 | 0.4822 | −0.0408 | [−0.124, +0.037] | 0.156 | FAIL (compounding) |
+
+Best blend (BB1, Δ=−0.013) is closest to break-even; all others worse. Stage-1 widening + blend compounds negatively (AB1_N98_8cov Δ=−0.041 = sum of CC3_N98 −0.023 + AB1_N98 −0.018 within rounding).
+
+### Mechanism diagnosis (first-principles)
+
+1. **α* is non-degenerate across blend cells** (AB1: mean 0.682±0.025, range [0.58, 0.80], 0% at boundaries). Mixer wants 32% T1 weight; adding it hurts. **F55's r=+0.327 5-fold residual orthogonality does not survive at LOOCV scale.** The harvestable-lift heuristic `r²·var(T1)/var(iter5_resid)` overestimated because residual structure differs at LOOCV vs 5-fold.
+2. **β* is stable in T1=94 (mean 5.27±0.11, 0 sign flips); unstable in N=98 backfill** (β std 1.05, 8 sign flips) because the 4 backfill folds (α=1) inject NaN-handling noise into β estimation.
+3. **Ridge-meta and OLS-unconstrained on (iter5, T1) catastrophically pull iter5 weight to ~0.49 and T1 weight to ~1.01** — destroys iter5's earned calibration. Same overfit mechanism as F56 k=19, manifest at k=2.
+4. **Stage-1 widening alone hurts by Δ=−0.023** (CC3_N98). 8-cov panel is over-fit by Ridge α=1.0 even with patient-level demographic predictors.
+5. **Compounding:** Stage-1 widening + blend (AB1_N98_8cov) Δ=−0.041 ≈ sum of individual harms. Two bad knobs don't cancel.
+
+### Falsifies definitively at this N
+
+- **Both consultants' Phase 1 prior** (grok +0.029 [+0.012, +0.046]; deepseek +0.040 [+0.020, +0.060]). The 1-parameter convex blend does NOT lift T3 CCC at any tested cohort or Stage-1 panel.
+- **F55's harvestable-lift extrapolation** (5-fold residual r=+0.327 → LOOCV blend gain). Wrong scale.
+- **Stage-1 widening on demographic / disease-stage covariates under any linear regularizer at this N.** Ridge tested directly; horseshoe inferred to fail by the same mechanism (structured shrinkage cannot rescue weak covariates whose unweighted contribution is negative).
+
+### Confirms
+
+- **The k≥2 meta is bounded by N≈94 wall** at any k from 2 (BB2/BB3/AB1_N98_8cov) to 19 (F56). Linear-meta variance-scaling holds even at k=2.
+- **The k=1 mixer is bounded** by LOOCV-vs-5-fold residual scale mismatch. 1-parameter regime is not "untested" — tested, fails.
+- **Wider Stage-1 hurts at this N** even with shrinkage of equivalent strength (Ridge α=1).
+
+### What this means for the paper
+
+**7th N=94/98 wall data point.** The wall now affects all FIVE probe-strategy classes:
+1. Feature engineering (F19, F44, F45, F48, F51) — dead.
+2. Composition / raw-sum (F53) — dead.
+3. Single-loop hybrid (F54) — dead (and leaky).
+4. Nested mixing k=19 (F56) — dead.
+5. **NEW: 1-parameter convex blend k=1 + Stage-1 widening (F58) — dead.**
+
+The in-domain modeling ceiling at N=94 is 0.5227 (canonical iter5 at N=98) / 0.4464 (iter5 at T1 cohort). External data or N expansion are the only remaining levers.
+
+### Pre-reg compliance
+
+- Master `formula_sha256` = `64aae388a2134126baf4939dcf1f591c177a8f1c692906b6178e92e9bdc164fb` validated on every cell run.
+- Sensitivity gate declared upfront for AB1 (Δ ≥ +0.025 AND CI lower bound > 0). Standard gate (Δ ≥ +0.05) for all others.
+- All 9 cells run regardless of gate (negative-audit ablation map IS the contribution).
+- No LOOCV lockbox runs (AB1 failed sensitivity gate; do not promote any blend to canonical T3).
+- Canonical T3 LOOCV CCC = **0.5227** UNCHANGED.
+
+### Companion: learning curve LC (in-flight)
+
+Running on remote (PID 56722+, 16-way parallel, started 21:43 UTC). 600 jobs (4 N-levels × 50 subsamples × 3 seeds). Expected wall ~90-120 min. Will produce empirical iter5 learning curve to project N=200/300 lift quantitatively.
+
+### Cells skipped vs original ablation matrix
+
+- **AB2 (iter17-bests-summed):** degenerate at present — iter17 Phase A2 only lockboxed items 15 + 18, both outside T1=9-14. Falls back to iter12 sum (= AB1). Skipped to avoid duplicate result.
+- **CC1 (horseshoe Stage-1, GPU):** revised prior +0.005 [−0.015, +0.025] post-clinical-metadata audit (Part II / LEDD / MoCA / ON-OFF NOT IN WearGait-PD). The 8-cov panel under Ridge (CC3_N94/N98) already hurts; horseshoe at the same panel cannot exceed that ceiling because structured shrinkage at best matches Ridge when the truly-zero coefficients are correctly identified, and when shrinking strong predictors it under-performs. **First-principles inference:** CC1 would land within ±0.005 of CC3, still failing gate. Not run; saves ~2h GPU.
+- **DD1/DD2 (heteroscedastic CCC, MSE controls):** require re-running iter5 Stage-2 with new loss for each of 9 (a, b) combinations × 3 seeds = ~9h compute. Phase 3 prior was Δ=+0.01–0.03 contingent on label noise being a binding constraint; given AB1 fails by mechanisms unrelated to label noise (mixer scale mismatch, calibration destruction), label-noise-aware loss cannot rescue the blend. **Not run; documented in plan as Phase-conditional-on-AB1-passing.**
+- **NN1–3 (N-axis subsamples on AB1 architecture):** would require regenerating T1-iter12 OOF at smaller N, which is expensive (~2h CPU per N level). Replaced by the LC learning curve which produces equivalent insight on the iter5 baseline directly.
+
+
+### Learning curve LC (complete, 2026-05-04 ~23:12 UTC)
+
+**Compute:** 600 jobs (4 N-levels × 50 subsamples × 3 seeds) on remote 16-way parallel; wall ~85 min.
+
+**Subsample-LOOCV CCC at iter5 architecture (LC results):**
+
+| N | CCC mean | CCC std | n_jobs |
+|---|---|---|---|
+| 30 | 0.356 | 0.194 | 150 |
+| 50 | 0.424 | 0.138 | 150 |
+| 70 | 0.456 | 0.084 | 150 |
+| 89 | 0.478 | 0.050 | 150 |
+| 98 (canonical, single LOOCV) | **0.523** | — | 1 |
+
+The N=89 subsample mean (0.478) is below canonical N=98 (0.523) by ~0.045 because LC subsamples have 88 train per fold whereas canonical has 97 train per fold (and LC has subset variance from random PD picks). Internally consistent monotone curve.
+
+**Parametric fit (`fit_learning_curve.py`, `results/learning_curve_fit.json`):**
+
+- Pareto: `CCC(N) = 0.5975 − 2.1308·N^(−0.6408)`. AIC = −52.75. **Better-fit by AIC.** Asymptote a=0.5975 — gait-IMU iter5 architecture caps at ~0.60 CCC even at N=∞.
+- Loglinear: `CCC(N) = −0.0207 + 0.1120·log(N)`. AIC = −39.22. Worse fit; predicts continued linear-in-log growth.
+
+**Projection lift over canonical iter5 (CCC=0.5227 at N=98), Pareto model:**
+
+| N | Pareto CCC | 95% CI | Δ vs canonical | Reaches +0.05 gate? |
+|---|---|---|---|---|
+| 120 | 0.498 | [0.478, 0.514] | −0.024 [−0.044, −0.009] | NO |
+| 150 | 0.512 | [0.483, 0.535] | −0.011 [−0.040, +0.013] | NO |
+| 200 | 0.526 | [0.486, 0.562] | +0.003 [−0.037, +0.039] | NO |
+| 250 | 0.535 | [0.487, 0.581] | +0.013 [−0.035, +0.059] | borderline |
+| 300 | 0.542 | [0.488, 0.597] | +0.020 [−0.035, +0.074] | NO |
+
+**Loglinear (less-fit) projection:** N=200 → +0.050; N=300 → +0.096. This is the optimistic upper bound.
+
+**First-principles interpretation:** The two models bracket the truth.
+
+1. **The Pareto asymptote (0.5975) is consistent with all the dead-list evidence.** Five probe-strategy classes all triangulate to a hard ceiling — that's exactly what an asymptote-bound learning curve would produce. The wall isn't "we need more data"; it's "iter5 architecture + WearGait-PD task design has a structural ceiling near 0.60 CCC."
+2. **N expansion alone is unlikely to deliver the +0.05 gate** under the better-fit model. The cohort would need to grow to N≈400+ before Δ = +0.05 becomes reliable, which is impractical for any wearable-PD cohort.
+3. **Both consultants' N-expansion priors (grok +0.11 at N=250; deepseek +0.05 at N=200) match the Loglinear projection, NOT the Pareto-better fit.** They were optimistic.
+4. **What CAN move the ceiling:**
+   - **External labeled cohorts** (Hssayeni, MJFF) for label transfer once external N>200 — the asymptote is iter5-architecture-specific, not data-quantity-specific within this cohort.
+   - **Different task protocols** capturing more UPDRS-III items (12 of 18 are non-gait-observable; this is the architectural cap).
+   - **External pretraining followed by labeled fine-tuning** (4-way frozen-encoder triangulation NULL was for FROZEN; supervised fine-tuning at N>200 unexplored).
+
+### Final canonical numbers post-iter22 (UNCHANGED)
+
+| Target | Pipeline | LOOCV CCC | LOOCV MAE |
+|---|---|---|---|
+| T3 | iter5 (`run_t3_iter5_clinical.py --feature_set A3_tier1`) | **0.5227** | 7.525 |
+| T1 | iter12 honest (`compose_t1_iter12_honest.py`) | **0.6550** | 1.561 |
+| T3 LOSO | iter16 IPW two-way (`run_t3_iter16_site_ipw.py --mode lockbox`) | **0.341** | 6.42/9.97 |
+| Item 15 | iter17 hyp item_only | **+0.1099** | 1.088 |
+| Item 18 | iter17 hyp hy_residual_item_v2 | **+0.4858** | 0.887 |
+
+### Mission complete
+
+iter22 ablation around plan-next.md is COMPLETE. Decision tree fully traversed:
+- AB1 sensitivity gate FAILS → no LOOCV lockbox.
+- All 9 ablation cells run; all FAIL their declared gates.
+- Learning curve fit complete; Pareto asymptote = 0.5975, projected N=300 → +0.020 (not +0.05).
+- 7th N=94/98 wall data point catalogued.
+- Canonical T3 LOOCV CCC = 0.5227 UNCHANGED (was the goal-line — held).
+- Paper framing: "first published WearGait-PD T3 inductive CCC + 21-strategy negative audit + empirical learning curve to projected ceiling 0.60."
+

@@ -1,0 +1,190 @@
+{
+  "iter_id": "t3_iter22_ablation",
+  "timestamp": "20260504_213341",
+  "iso_datetime": "2026-05-04T21:33:41.245836",
+  "formula_sha256": "96021c712216a36da62c763a2cd0409585f0c604ff1020adcac16004065d09dc",
+  "recipe": {
+    "experiment": "T3 iter22 \u2014 Ablation around plan-next.md",
+    "cohort": "T1=94 (intersection of T1=9-14 and T3=98)",
+    "alpha_grid": [
+      0.0,
+      0.02,
+      0.04,
+      0.06,
+      0.08,
+      0.1,
+      0.12,
+      0.14,
+      0.16,
+      0.18,
+      0.2,
+      0.22,
+      0.24,
+      0.26,
+      0.28,
+      0.3,
+      0.32,
+      0.34,
+      0.36,
+      0.38,
+      0.4,
+      0.42,
+      0.44,
+      0.46,
+      0.48,
+      0.5,
+      0.52,
+      0.54,
+      0.56,
+      0.58,
+      0.6,
+      0.62,
+      0.64,
+      0.66,
+      0.68,
+      0.7,
+      0.72,
+      0.74,
+      0.76,
+      0.78,
+      0.8,
+      0.82,
+      0.84,
+      0.86,
+      0.88,
+      0.9,
+      0.92,
+      0.94,
+      0.96,
+      0.98,
+      1.0
+    ],
+    "iter12_variants": {
+      "9": "hy_residual_item",
+      "10": "item_plus_v2",
+      "11": "item_dedicated",
+      "12": "item_plus_v2",
+      "13": "item_plus_v2",
+      "14": "item_plus_v2"
+    },
+    "iter12_ts": "20260430_143044",
+    "panel_4cov": [
+      "cv_yrs",
+      "cv_sex",
+      "cv_dbs"
+    ],
+    "panel_8cov": [
+      "cv_yrs",
+      "cv_sex",
+      "cv_dbs",
+      "cv_age",
+      "ext_yrs_sq",
+      "ext_yrs_log",
+      "ext_late_pd"
+    ],
+    "hetero_prior": {
+      "a": 0.04,
+      "b": 2.5,
+      "c": 1.5
+    },
+    "lc_n_levels": [
+      30,
+      50,
+      70,
+      89
+    ],
+    "lc_n_subsamples": 50,
+    "seeds": [
+      42,
+      1337,
+      7
+    ],
+    "n_boot": 5000,
+    "gates": {
+      "sensitivity": {
+        "min_delta": 0.025,
+        "ci_lower_bound": 0.0,
+        "applies_to": [
+          "AB1"
+        ]
+      },
+      "standard": {
+        "min_delta": 0.05,
+        "ci_lower_bound": 0.0,
+        "applies_to_default": true
+      }
+    },
+    "lockbox_candidates": [
+      "AB1"
+    ],
+    "cells": {
+      "AB1": {
+        "name": "iter12-honest x alpha-only-CCC x 4cov-Ridge x std-CCC",
+        "purpose": "BACKBONE; sensitivity-gate target",
+        "t1_source": "iter12_honest",
+        "mixer": "alpha_only",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "sensitivity"
+      },
+      "AB2": {
+        "name": "iter12-honest with item replacements (degenerate at present) x alpha-only x 4cov x std-CCC",
+        "purpose": "T1-source ablation (iter17 bests for items 15/18 unavailable in T1=9-14)",
+        "t1_source": "iter17_bests",
+        "mixer": "alpha_only",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "standard"
+      },
+      "AB3": {
+        "name": "no-T1 (iter5 baseline reproduction)",
+        "purpose": "T1-source control: must reproduce iter5 LOOCV CCC=0.5227",
+        "t1_source": "none",
+        "mixer": "identity",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "none"
+      },
+      "BB1": {
+        "name": "iter12-honest x (alpha,beta)-joint-CCC x 4cov-Ridge x std-CCC",
+        "purpose": "Mixer: explicit beta vs implicit OLS (Q3 diagnostic)",
+        "t1_source": "iter12_honest",
+        "mixer": "alpha_beta_joint",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "standard"
+      },
+      "BB2": {
+        "name": "iter12-honest x Ridge-meta-2base x 4cov-Ridge x std-CCC",
+        "purpose": "Mixer: Ridge meta on 2 bases (k=2 control)",
+        "t1_source": "iter12_honest",
+        "mixer": "ridge_2base",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "standard"
+      },
+      "BB3": {
+        "name": "iter12-honest x OLS-unconstrained x 4cov-Ridge x std-CCC",
+        "purpose": "CANARY: unconstrained alpha (must abort if \u03b1\u0302 \u2209 [0,1])",
+        "t1_source": "iter12_honest",
+        "mixer": "ols_unconstrained",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "standard"
+      }
+    },
+    "iter5_oof_source": "results/lockbox_t3_iter5_A3_tier1_20260502_171604.oof.npy",
+    "iter5_baseline_canonical": 0.5227,
+    "iter5_canonical_n": 98,
+    "blend_eval_n": 94,
+    "documented_bias": "iter5 LOOCV OOFs were generated at N=98 (each pred trained on N-1=97). Used here intersected to T1 cohort N=94. Each subject's iter5 pred was trained without using its own label (inductive). The +4 train subjects vs ideal apples-to-apples N=94 LOOCV constitutes a small disclosed bias O(1/N)."
+  },
+  "lockbox_rules": [
+    "AB1 sensitivity gate: \u0394 \u2265 +0.025 AND paired-subject bootstrap 95% CI lower bound > 0",
+    "All other cells: standard gate (\u0394 \u2265 +0.05 AND CI lower bound > 0)",
+    "All cells run regardless of gate outcome (negative-audit ablation map is the contribution)",
+    "Only cells whose 5-fold/LOOCV gate passes AND null gates pass enter lockbox",
+    "BB3 canary: abort cell if \u03b1\u0302 outside [0, 1] in >50% of folds"
+  ],
+  "notes": "Post-audit revisions: Part II/LEDD/MoCA/ON-OFF NOT in WearGait-PD; 8-cov panel uses purely demographic/anthropometric/disease-stage cols. CC1 prior REVISED to +0.005 [-0.015, +0.025]. Lockbox-candidate list shrunk to {AB1}. FF1/CC1/DD1 are scientific test cells, not promotion candidates."
+}

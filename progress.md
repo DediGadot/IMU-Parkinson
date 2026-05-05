@@ -2,7 +2,117 @@
 
 ---
 
-## Session: 2026-05-04 ~15:05—ongoing — iter21 nested-CV hybrid
+## Session: 2026-05-04 ~17:00—ongoing — `/planning-with-files:plan` ablation study around `plan-next.md`
+
+### Trigger
+Post-iter21 negative result (F56). User requested OpenRouter consult with grok-4.3 + deepseek-v4-pro at high reasoning effort, then asked for a synthesized plan in `/tmp/plan-next.md`, then invoked `/planning-with-files:plan` to design an ablation study around the synthesized plan as a 10x researcher (slow, deep, first-principles, maximize CPU + GPU utilization on remote).
+
+### Pre-flight reads
+- `/tmp/t3_advice_grok43.md` (5 directions, sensitivity-gate borderline +0.029 [+0.012, +0.046] Phase 1).
+- `/tmp/t3_advice_deepseek_v4pro.md` (5 directions, sensitivity-gate borderline +0.040 [+0.020, +0.060] Phase 1).
+- `/tmp/plan-next.md` (synthesis of both consults; 4 phases).
+- `task_plan.md` head (iter21 archived).
+- `findings.md` F56 (iter21 nested-meta blow-up at k=19), F55 (orthogonality probe r=+0.327), F53 (raw-sum negative).
+- `CLAUDE.md` headline + dead list + N=94/98 wall data points.
+
+### Consult execution detail
+- Script: `/tmp/consult_t3.py` — parallel POST to OpenRouter `/chat/completions` for both models; max_tokens=32000 response; reasoning {enabled: true, effort: high}.
+- grok-4.3: 94.1s wall, 4533 reasoning tokens, $0.019, finish=stop.
+- deepseek-v4-pro: 270.9s wall, 6280 reasoning tokens, $0.010, finish=stop.
+- Total cost ~$0.029.
+
+### Plan design (this session's work)
+Wrote `task_plan.md` ACTIVE MISSION section with:
+- Five first-principles questions (Q1: minimal causal model; Q2: wall first-principles DoF accounting; Q3: harvestability under k=1 meta; Q4: parallelism across 17 CPU + RTX 5070 12GB; Q5: kill list).
+- 15-cell ablation matrix (4 orthogonal axes + N-axis + learning-curve cell).
+- Compute schedule with 3 concurrent tracks (CPU × 2 + GPU × 1), wall clock ~5h end-to-end.
+- Master pre-reg JSON schema with `master_formula_sha256` + per-cell `cell_sha256`.
+- Decision tree gate-driven: AB1 sensitivity → CC1 standard → FF1 sub-sensitivity.
+- Stop conditions including BB3 canary (α̂ ∉ [0,1] aborts only that cell).
+- 5 open questions blocking pre-reg lock-down (clinical metadata; Goetz constants; compute cap; numpyro install; bootstrap config).
+
+Wrote `findings.md` F57 with consultant convergence/divergence summary and ablation framing.
+
+### Status
+PLANNING ONLY. No code written. No pre-reg locked. No cells executed.
+
+### Open-question audit (resolved 2026-05-04 PM)
+
+1. **Clinical metadata: Part II / LEDD / MoCA / ON-OFF NOT IN WearGait-PD.** Confirmed via V2_FEATURES audit (178×100% non-missing for cv_*, ext_*, hy only) + paper_v6 Limitations §9. Phase 2 8-cov panel locked as `{hy, cv_yrs, cv_sex, cv_dbs, cv_age, ext_yrs_sq, ext_yrs_log, ext_late_pd}`. CC1 prior REVISED DOWN to +0.005 [−0.015, +0.025] (was +0.020 conditioned on Part II); now expected to FAIL gate but scientifically valuable as CC1-vs-CC3 structured-shrinkage null test.
+2. **Goetz et al. 2008 SE-of-measurement constants** locked at `v(y) = max((a·y+b)², c²)` with prior (a, b, c) = (0.04, 2.5, 1.5). Pre-reg includes 3×3 (a, b) GPU sensitivity sweep DD1.{1..9}.
+3. **Compute cap 18h** kept (~3.6× the planned 5h wall; gives slack for GPU contention).
+4. **numpyro / jax NOT installed** on remote (verified via SSH); CUDA 13.0 driver, 21 GB free disk. One-shot install: `pip install --no-cache-dir numpyro "jax[cuda12]==0.4.31"`. CUDA 12 wheel works on 13 driver.
+5. **Bootstrap 5,000 paired-subject resamples** kept (standard).
+
+### Lockbox-candidate list (post-audit)
+{AB1} only. CC1 and FF1 are now scientific test cells, not promotion candidates. Single decision point: AB1 sensitivity gate (Δ ≥ +0.025 AND CI lower bound > 0).
+
+### Implementation execution (2026-05-04 21:30 — 22:00)
+
+**Pre-flight (parallel):**
+- numpyro/jax[cuda12]==0.4.31 installed on remote slave (3.7 GB; CUDA 13 driver / cu12 wheel works). Background task bon4wwe3u, completed in ~2 min.
+- Wrote `run_t3_iter22_ablation.py` (~770 lines): master orchestrator with `--write-prereg`/`--run` modes, `formula_sha256` validation, 9 cell registry, paired-subject bootstrap (5000 resamples), null-aware backfill mixer, alpha-only/joint/Ridge-meta/OLS-canary mixers.
+- Wrote `learning_curve_iter5.py`: 600-job parallel sweep (4 N-levels × 50 subsamples × 3 seeds) using `ProcessPoolExecutor` with 16 workers; `OMP_NUM_THREADS=1` per worker to avoid LightGBM thread oversubscription.
+- Extended `run_t3_iter5_clinical.py`: added `ext_yrs_sq`, `ext_yrs_log` to `CLINICAL_COLS_CONTINUOUS`; new feature set `A_iter22_8cov`.
+- Pre-reg written: `results/preregistration_t3_iter22_ablation_20260504_213817.json` (formula_sha256 `64aae388a2134126`).
+
+**Local AB1 cells run (~2 min total):** AB1, AB1_N98, AB3, BB1, BB2, BB3 — all FAIL their gates. AB1 sensitivity gate fails by Δ=−0.021 (frac>0=0.283).
+
+**Remote iter5 8-cov LOOCV (concurrent, ~14 min):** `./gpu.sh run_t3_iter5_clinical.py --mode lockbox --feature_set A_iter22_8cov` → CCC=0.5004 (Δ=−0.022 vs canonical). 8-cov OOF rsync'd back to master.
+
+**Local CC3 / AB1_N98_8cov cells (~3 min):** CC3_N94 Δ=−0.014; CC3_N98 Δ=−0.023 (widening alone hurts); AB1_N98_8cov Δ=−0.041 (compounding).
+
+**Remote learning-curve sweep (in-flight, started 21:43 UTC):** `nohup python3 learning_curve_iter5.py --workers 16` PID 56693+; 16-way parallel; ETA ~12 min total wall (~210 jobs/min).
+
+### Findings table summary (all 9 cells run)
+
+| Cell | CCC | Δ vs iter5 | frac>0 |
+|------|-----|-----------|--------|
+| AB1 (T1=94 backbone) | 0.4262 | −0.021 | 0.283 |
+| AB1_N98 (canonical-cohort backfill) | 0.4999 | −0.023 | 0.212 |
+| AB3 (iter5 sanity) | 0.4464 | 0.000 | n/a |
+| BB1 ((α,β) joint) | 0.4341 | −0.013 | 0.386 ← closest |
+| BB2 (Ridge k=2) | 0.3446 | −0.101 | 0.001 |
+| BB3 (OLS canary) | 0.3446 | −0.101 | 0.001 |
+| CC3_N94 (8-cov + blend) | 0.4073 | −0.014 | 0.373 |
+| CC3_N98 (8-cov alone) | 0.5004 | −0.023 | 0.167 |
+| AB1_N98_8cov (full stack) | 0.4822 | −0.041 | 0.156 |
+
+### Documentation
+- `findings.md` F58 entry written with full ablation table + first-principles mechanism diagnosis + falsified hypotheses.
+- `CLAUDE.md` Headline Results — added iter22 negative summary; "What Failed" section appended with iter22.
+- Memory: `feedback_t3_blend_dead_at_n98.md` written with the load-bearing finding that F55's 5-fold r=+0.327 does NOT survive at LOOCV scale.
+
+### Status
+Ablation phase COMPLETE except learning curve in-flight. 7th N=94/98 wall data point. Canonical T3 0.5227 UNCHANGED. Once LC completes, fit a learning curve to project N-expansion lift quantitatively for the paper.
+
+### Learning curve LC complete (2026-05-04 23:12 UTC; ~85 min wall on remote 16-way parallel)
+
+| N | CCC mean | std | n_jobs |
+|---|---|---|---|
+| 30 | 0.356 | 0.194 | 150 |
+| 50 | 0.424 | 0.138 | 150 |
+| 70 | 0.456 | 0.084 | 150 |
+| 89 | 0.478 | 0.050 | 150 |
+
+Pareto fit `CCC(N) = 0.5975 − 2.1308·N^(−0.6408)`, AIC = −52.75 (better than loglinear AIC = −39.22). **Asymptote = 0.5975 — structural ceiling near 0.60 CCC for iter5 architecture.** Bootstrap-CI projection: N=200 → Δ=+0.003 [−0.037, +0.039]; N=300 → Δ=+0.020 [−0.035, +0.074]. Neither reliably passes +0.05 gate. Loglinear (worse fit) says N=200 → +0.050. Both consultants' N-expansion priors match Loglinear, not the better-fit Pareto.
+
+### MISSION COMPLETE (23:15 UTC)
+
+iter22 ablation around plan-next.md fully traversed. AB1 sensitivity gate FAILED. All 9 ablation cells run; all FAIL their gates. Learning curve fit complete; structural ceiling identified at ~0.60. Canonical T3 LOOCV CCC = 0.5227 UNCHANGED. Files updated: findings.md F58 (full ablation table + LC + mechanism diagnosis + falsification list), CLAUDE.md headlines (iter22 + LC results), MEMORY.md (`feedback_t3_blend_dead_at_n98.md`). Paper framing now: "first published WearGait-PD T3 inductive CCC + 21-strategy negative audit + empirical learning curve to projected ceiling 0.60."
+
+### Next steps (on approval)
+1. Audit clinical metadata; lock CC1/CC3/FF1/FF2 panel.
+2. Patch `compose_t1_iter12_honest.py` and `run_t3_iter5_clinical.py` to expose fold-local OOFs via `--write-oof`.
+3. Write `lib_horseshoe_stage1.py` (numpyro + JAX) and `lib_heteroscedastic_ccc_loss.py` (LightGBM custom objective).
+4. Write `run_t3_iter22_ablation_orchestrator.py` with `--write-prereg` / `--run --cells` modes.
+5. `gpu.sh --setup` patch to install `numpyro`, `jax[cuda12]` on remote.
+6. Lock master pre-reg, verify `formula_sha256` round-trip locally, push to remote, run pre-flight cache jobs.
+7. Launch concurrent tracks; monitor.
+
+---
+
+## Session: 2026-05-04 ~15:05—~15:35 — iter21 nested-CV hybrid
 
 ### Trigger
 User dropped `/tmp/prompt.md` calling for iter21: implement the F55 nested-CV hybrid that has +0.113 5-fold theoretical headroom over iter5 5-fold (N=94). Goal: break T3 LOOCV CCC > 0.5227 WITHOUT data leakage; fix all 4 F54 bugs in one coherent batch.

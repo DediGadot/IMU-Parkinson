@@ -1,0 +1,577 @@
+{
+  "iter_id": "t3_iter22_ablation",
+  "timestamp": "20260504_214517",
+  "formula_sha256": "64aae388a2134126baf4939dcf1f591c177a8f1c692906b6178e92e9bdc164fb",
+  "preregistration": "results/preregistration_t3_iter22_ablation_20260504_213817.json",
+  "n_t3": 98,
+  "n_t1": 94,
+  "n_blend_cohort": 94,
+  "iter5_baseline_at_t1cohort": 0.44639400246584376,
+  "iter5_canonical_n98": 0.5227,
+  "cells_run": [
+    "AB1",
+    "AB1_N98",
+    "AB3",
+    "BB1",
+    "BB2",
+    "BB3",
+    "CC3_N94",
+    "CC3_N98",
+    "AB1_N98_8cov"
+  ],
+  "results": {
+    "AB1": {
+      "cell_id": "AB1",
+      "config": {
+        "name": "iter12-honest x alpha-only-CCC x 4cov-Ridge x std-CCC (T1=94 cohort)",
+        "purpose": "BACKBONE; sensitivity-gate target",
+        "t1_source": "iter12_honest",
+        "mixer": "alpha_only",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "sensitivity",
+        "cohort": "t1_94"
+      },
+      "cohort": "t1_94",
+      "n_eval": 94,
+      "headline": {
+        "n": 94,
+        "ccc": 0.4262,
+        "cal_slope": 0.3314,
+        "mae": 7.8666,
+        "r": 0.4487,
+        "pred_mean": 24.171,
+        "pred_std": 7.526,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter22_AB1"
+      },
+      "iter5_baseline": {
+        "n": 94,
+        "ccc": 0.4464,
+        "cal_slope": 0.3407,
+        "mae": 7.5082,
+        "r": 0.4697,
+        "pred_mean": 25.392,
+        "pred_std": 7.392,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter5_baseline_t1_94"
+      },
+      "bootstrap": {
+        "delta_mean": -0.020854156206653828,
+        "delta_ci_low": -0.09089519208239484,
+        "delta_ci_high": 0.0431405251167694,
+        "delta_frac_gt0": 0.2834,
+        "blend_ccc_mean": 0.41964682680925525,
+        "base_ccc_mean": 0.44050098301590895,
+        "n_boot": 5000
+      },
+      "gate": {
+        "passed": false,
+        "why": "delta_mean=-0.0209 \u2265 0.025 AND CI_low=-0.0909 > 0.0 \u2192 FAIL"
+      },
+      "diagnostics": {
+        "alpha_mean": 0.6817021276595745,
+        "alpha_std": 0.024695520218803238,
+        "alpha_min": 0.58,
+        "alpha_max": 0.8,
+        "alpha_at_1_pct": 0.0,
+        "alpha_at_0_pct": 0.0,
+        "beta_mean": 5.2700683214554775,
+        "beta_std": 0.10559543467983357,
+        "beta_sign_flips": 0
+      },
+      "elapsed_s": 1.8,
+      "blend_oof_path": "/home/fiod/medical/results/iter22_blend_AB1.oof.npy"
+    },
+    "AB1_N98": {
+      "cell_id": "AB1_N98",
+      "config": {
+        "name": "iter12-honest x alpha-only-CCC x 4cov-Ridge x std-CCC at N=98 (backfill)",
+        "purpose": "EXPLORATORY: AB1 at canonical iter5 cohort (4 missing T1 subjects backfilled with iter5 pred \u2192 \u03b1=1, \u03b2=0)",
+        "t1_source": "iter12_honest_backfill",
+        "mixer": "alpha_only",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "sensitivity",
+        "cohort": "t3_98"
+      },
+      "cohort": "t3_98",
+      "n_eval": 98,
+      "headline": {
+        "n": 98,
+        "ccc": 0.4999,
+        "cal_slope": 0.3865,
+        "mae": 7.8687,
+        "r": 0.526,
+        "pred_mean": 23.551,
+        "pred_std": 7.999,
+        "true_mean": 24.418,
+        "true_std": 10.884,
+        "label": "t3_iter22_AB1_N98"
+      },
+      "iter5_baseline": {
+        "n": 98,
+        "ccc": 0.5227,
+        "cal_slope": 0.4018,
+        "mae": 7.525,
+        "r": 0.5485,
+        "pred_mean": 24.722,
+        "pred_std": 7.973,
+        "true_mean": 24.418,
+        "true_std": 10.884,
+        "label": "t3_iter5_baseline_t3_98"
+      },
+      "bootstrap": {
+        "delta_mean": -0.023002627374348366,
+        "delta_ci_low": -0.08191204004631303,
+        "delta_ci_high": 0.03232301230481731,
+        "delta_frac_gt0": 0.212,
+        "blend_ccc_mean": 0.49352679775456837,
+        "base_ccc_mean": 0.5165294251289168,
+        "n_boot": 5000
+      },
+      "gate": {
+        "passed": false,
+        "why": "delta_mean=-0.0230 \u2265 0.05 AND CI_low=-0.0819 > 0.0 \u2192 FAIL"
+      },
+      "diagnostics": {
+        "alpha_mean": 0.6946938775510203,
+        "alpha_std": 0.06746433799638982,
+        "alpha_min": 0.58,
+        "alpha_max": 1.0,
+        "alpha_at_1_pct": 0.04081632653061224,
+        "alpha_at_0_pct": 0.0,
+        "beta_mean": 5.054963492008315,
+        "beta_std": 1.0478751535552104,
+        "beta_sign_flips": 8
+      },
+      "elapsed_s": 1.8,
+      "blend_oof_path": "/home/fiod/medical/results/iter22_blend_AB1_N98.oof.npy"
+    },
+    "AB3": {
+      "cell_id": "AB3",
+      "config": {
+        "name": "no-T1 (iter5 baseline reproduction)",
+        "purpose": "T1-source control: must reproduce iter5 LOOCV CCC=0.5227",
+        "t1_source": "none",
+        "mixer": "identity",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "none"
+      },
+      "cohort": "t1_94",
+      "n_eval": 94,
+      "headline": {
+        "n": 94,
+        "ccc": 0.4464,
+        "cal_slope": 0.3407,
+        "mae": 7.5082,
+        "r": 0.4697,
+        "pred_mean": 25.392,
+        "pred_std": 7.392,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter22_AB3"
+      },
+      "iter5_baseline": {
+        "n": 94,
+        "ccc": 0.4464,
+        "cal_slope": 0.3407,
+        "mae": 7.5082,
+        "r": 0.4697,
+        "pred_mean": 25.392,
+        "pred_std": 7.392,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter5_baseline_t1_94"
+      },
+      "bootstrap": {
+        "delta_mean": 0.0,
+        "delta_ci_low": 0.0,
+        "delta_ci_high": 0.0,
+        "delta_frac_gt0": 0.0,
+        "blend_ccc_mean": 0.44050098301590895,
+        "base_ccc_mean": 0.44050098301590895,
+        "n_boot": 5000
+      },
+      "gate": {
+        "passed": false,
+        "why": "No gate applies (control / scientific test cell)"
+      },
+      "diagnostics": {},
+      "elapsed_s": 1.2,
+      "blend_oof_path": "/home/fiod/medical/results/iter22_blend_AB3.oof.npy"
+    },
+    "BB1": {
+      "cell_id": "BB1",
+      "config": {
+        "name": "iter12-honest x (alpha,beta)-joint-CCC x 4cov-Ridge x std-CCC",
+        "purpose": "Mixer: explicit beta vs implicit OLS (Q3 diagnostic)",
+        "t1_source": "iter12_honest",
+        "mixer": "alpha_beta_joint",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "standard"
+      },
+      "cohort": "t1_94",
+      "n_eval": 94,
+      "headline": {
+        "n": 94,
+        "ccc": 0.4341,
+        "cal_slope": 0.36,
+        "mae": 7.8517,
+        "r": 0.4453,
+        "pred_mean": 25.891,
+        "pred_std": 8.239,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter22_BB1"
+      },
+      "iter5_baseline": {
+        "n": 94,
+        "ccc": 0.4464,
+        "cal_slope": 0.3407,
+        "mae": 7.5082,
+        "r": 0.4697,
+        "pred_mean": 25.392,
+        "pred_std": 7.392,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter5_baseline_t1_94"
+      },
+      "bootstrap": {
+        "delta_mean": -0.013025732244982198,
+        "delta_ci_low": -0.09621183383855071,
+        "delta_ci_high": 0.06456784906700525,
+        "delta_frac_gt0": 0.3862,
+        "blend_ccc_mean": 0.42747525077092685,
+        "base_ccc_mean": 0.44050098301590895,
+        "n_boot": 5000
+      },
+      "gate": {
+        "passed": false,
+        "why": "delta_mean=-0.0130 \u2265 0.05 AND CI_low=-0.0962 > 0.0 \u2192 FAIL"
+      },
+      "diagnostics": {
+        "alpha_mean": 0.6863829787234043,
+        "alpha_std": 0.025468005119055306,
+        "alpha_min": 0.6,
+        "alpha_max": 0.8,
+        "alpha_at_1_pct": 0.0,
+        "alpha_at_0_pct": 0.0,
+        "beta_mean": 6.604235319721233,
+        "beta_std": 0.1498863876510823,
+        "beta_sign_flips": 0
+      },
+      "elapsed_s": 13.2,
+      "blend_oof_path": "/home/fiod/medical/results/iter22_blend_BB1.oof.npy"
+    },
+    "BB2": {
+      "cell_id": "BB2",
+      "config": {
+        "name": "iter12-honest x Ridge-meta-2base x 4cov-Ridge x std-CCC",
+        "purpose": "Mixer: Ridge meta on 2 bases (k=2 control)",
+        "t1_source": "iter12_honest",
+        "mixer": "ridge_2base",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "standard"
+      },
+      "cohort": "t1_94",
+      "n_eval": 94,
+      "headline": {
+        "n": 94,
+        "ccc": 0.3446,
+        "cal_slope": 0.2167,
+        "mae": 7.6238,
+        "r": 0.4268,
+        "pred_mean": 25.156,
+        "pred_std": 5.173,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter22_BB2"
+      },
+      "iter5_baseline": {
+        "n": 94,
+        "ccc": 0.4464,
+        "cal_slope": 0.3407,
+        "mae": 7.5082,
+        "r": 0.4697,
+        "pred_mean": 25.392,
+        "pred_std": 7.392,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter5_baseline_t1_94"
+      },
+      "bootstrap": {
+        "delta_mean": -0.1010188025614712,
+        "delta_ci_low": -0.16339472407930283,
+        "delta_ci_high": -0.039523684194699496,
+        "delta_frac_gt0": 0.0012,
+        "blend_ccc_mean": 0.33948218045443784,
+        "base_ccc_mean": 0.44050098301590895,
+        "n_boot": 5000
+      },
+      "gate": {
+        "passed": false,
+        "why": "delta_mean=-0.1010 \u2265 0.05 AND CI_low=-0.1634 > 0.0 \u2192 FAIL"
+      },
+      "diagnostics": {
+        "coef_a_mean": 0.49068392628941043,
+        "coef_a_std": 0.01840774334468683,
+        "coef_b_mean": 1.0096910714761302,
+        "coef_b_std": 0.07958924751356779,
+        "coef_a_outside_01_pct": 0.0
+      },
+      "elapsed_s": 1.4,
+      "blend_oof_path": "/home/fiod/medical/results/iter22_blend_BB2.oof.npy"
+    },
+    "BB3": {
+      "cell_id": "BB3",
+      "config": {
+        "name": "iter12-honest x OLS-unconstrained x 4cov-Ridge x std-CCC",
+        "purpose": "CANARY: unconstrained alpha (must abort if \u03b1\u0302 \u2209 [0,1])",
+        "t1_source": "iter12_honest",
+        "mixer": "ols_unconstrained",
+        "stage1": "ridge_4cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "standard"
+      },
+      "cohort": "t1_94",
+      "n_eval": 94,
+      "headline": {
+        "n": 94,
+        "ccc": 0.3446,
+        "cal_slope": 0.2168,
+        "mae": 7.6243,
+        "r": 0.4267,
+        "pred_mean": 25.156,
+        "pred_std": 5.176,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter22_BB3"
+      },
+      "iter5_baseline": {
+        "n": 94,
+        "ccc": 0.4464,
+        "cal_slope": 0.3407,
+        "mae": 7.5082,
+        "r": 0.4697,
+        "pred_mean": 25.392,
+        "pred_std": 7.392,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter5_baseline_t1_94"
+      },
+      "bootstrap": {
+        "delta_mean": -0.1009822252454522,
+        "delta_ci_low": -0.16360307401664873,
+        "delta_ci_high": -0.03938935926940406,
+        "delta_frac_gt0": 0.0012,
+        "blend_ccc_mean": 0.3395187577704568,
+        "base_ccc_mean": 0.44050098301590895,
+        "n_boot": 5000
+      },
+      "gate": {
+        "passed": false,
+        "why": "delta_mean=-0.1010 \u2265 0.05 AND CI_low=-0.1636 > 0.0 \u2192 FAIL"
+      },
+      "diagnostics": {
+        "coef_a_mean": 0.4901393832196939,
+        "coef_a_std": 0.01844535458558265,
+        "coef_b_mean": 1.013817911289729,
+        "coef_b_std": 0.07999147152695532,
+        "coef_a_outside_01_pct": 0.0
+      },
+      "elapsed_s": 1.3,
+      "blend_oof_path": "/home/fiod/medical/results/iter22_blend_BB3.oof.npy"
+    },
+    "CC3_N94": {
+      "cell_id": "CC3_N94",
+      "config": {
+        "name": "iter12-honest x alpha-only-CCC x 8cov-Ridge x std-CCC (T1=94)",
+        "purpose": "Stage-1 widening NULL TEST: 8-cov Ridge; expected null/negative (structured shrinkage absent, same panel as CC1 horseshoe)",
+        "t1_source": "iter12_honest",
+        "mixer": "alpha_only",
+        "stage1": "ridge_8cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "standard",
+        "cohort": "t1_94"
+      },
+      "cohort": "t1_94",
+      "n_eval": 94,
+      "headline": {
+        "n": 94,
+        "ccc": 0.4073,
+        "cal_slope": 0.329,
+        "mae": 8.0992,
+        "r": 0.4246,
+        "pred_mean": 23.912,
+        "pred_std": 7.896,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter22_CC3_N94"
+      },
+      "iter5_baseline": {
+        "n": 94,
+        "ccc": 0.4206,
+        "cal_slope": 0.3321,
+        "mae": 7.8072,
+        "r": 0.4364,
+        "pred_mean": 25.304,
+        "pred_std": 7.754,
+        "true_mean": 25.17,
+        "true_std": 10.19,
+        "label": "t3_iter5_baseline_t1_94"
+      },
+      "bootstrap": {
+        "delta_mean": -0.013680174704511841,
+        "delta_ci_low": -0.09555724254099908,
+        "delta_ci_high": 0.060500226015343,
+        "delta_frac_gt0": 0.3732,
+        "blend_ccc_mean": 0.4003386392930424,
+        "base_ccc_mean": 0.4140188139975542,
+        "n_boot": 5000
+      },
+      "gate": {
+        "passed": false,
+        "why": "delta_mean=-0.0137 \u2265 0.05 AND CI_low=-0.0956 > 0.0 \u2192 FAIL"
+      },
+      "diagnostics": {
+        "alpha_mean": 0.618723404255319,
+        "alpha_std": 0.026386410209238303,
+        "alpha_min": 0.5,
+        "alpha_max": 0.72,
+        "alpha_at_1_pct": 0.0,
+        "alpha_at_0_pct": 0.0,
+        "beta_mean": 5.2856795229051645,
+        "beta_std": 0.08424247677348543,
+        "beta_sign_flips": 0
+      },
+      "elapsed_s": 2.4,
+      "blend_oof_path": "/home/fiod/medical/results/iter22_blend_CC3_N94.oof.npy"
+    },
+    "CC3_N98": {
+      "cell_id": "CC3_N98",
+      "config": {
+        "name": "iter5(8cov-Ridge) at N=98 (no T1 blend) \u2014 Stage-1-widening-only ablation",
+        "purpose": "Tests whether widening Stage-1 panel ALONE (no blend) helps; uses iter5 OOF re-trained with A_iter22_8cov panel",
+        "t1_source": "none",
+        "mixer": "identity",
+        "stage1": "ridge_8cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "standard",
+        "cohort": "t3_98"
+      },
+      "cohort": "t3_98",
+      "n_eval": 98,
+      "headline": {
+        "n": 98,
+        "ccc": 0.5004,
+        "cal_slope": 0.3952,
+        "mae": 7.7859,
+        "r": 0.5193,
+        "pred_mean": 24.658,
+        "pred_std": 8.281,
+        "true_mean": 24.418,
+        "true_std": 10.884,
+        "label": "t3_iter22_CC3_N98"
+      },
+      "iter5_baseline": {
+        "n": 98,
+        "ccc": 0.5227,
+        "cal_slope": 0.4018,
+        "mae": 7.525,
+        "r": 0.5485,
+        "pred_mean": 24.722,
+        "pred_std": 7.973,
+        "true_mean": 24.418,
+        "true_std": 10.884,
+        "label": "t3_iter5_baseline_t3_98"
+      },
+      "bootstrap": {
+        "delta_mean": -0.022638548846713104,
+        "delta_ci_low": -0.0695497695898703,
+        "delta_ci_high": 0.024243866355265844,
+        "delta_frac_gt0": 0.1674,
+        "blend_ccc_mean": 0.4938908762822037,
+        "base_ccc_mean": 0.5165294251289168,
+        "n_boot": 5000
+      },
+      "gate": {
+        "passed": false,
+        "why": "delta_mean=-0.0226 \u2265 0.05 AND CI_low=-0.0695 > 0.0 \u2192 FAIL"
+      },
+      "diagnostics": {},
+      "elapsed_s": 1.5,
+      "blend_oof_path": "/home/fiod/medical/results/iter22_blend_CC3_N98.oof.npy"
+    },
+    "AB1_N98_8cov": {
+      "cell_id": "AB1_N98_8cov",
+      "config": {
+        "name": "iter12-honest x alpha-only x 8cov-Ridge x std-CCC at N=98 (full Stage-1+blend)",
+        "purpose": "Stage-1 widening + blend at canonical N=98",
+        "t1_source": "iter12_honest_backfill",
+        "mixer": "alpha_only",
+        "stage1": "ridge_8cov",
+        "stage2_loss": "std_ccc_v2",
+        "gate": "standard",
+        "cohort": "t3_98"
+      },
+      "cohort": "t3_98",
+      "n_eval": 98,
+      "headline": {
+        "n": 98,
+        "ccc": 0.4822,
+        "cal_slope": 0.3841,
+        "mae": 8.066,
+        "r": 0.5031,
+        "pred_mean": 23.322,
+        "pred_std": 8.31,
+        "true_mean": 24.418,
+        "true_std": 10.884,
+        "label": "t3_iter22_AB1_N98_8cov"
+      },
+      "iter5_baseline": {
+        "n": 98,
+        "ccc": 0.5227,
+        "cal_slope": 0.4018,
+        "mae": 7.525,
+        "r": 0.5485,
+        "pred_mean": 24.722,
+        "pred_std": 7.973,
+        "true_mean": 24.418,
+        "true_std": 10.884,
+        "label": "t3_iter5_baseline_t3_98"
+      },
+      "bootstrap": {
+        "delta_mean": -0.04084926333590237,
+        "delta_ci_low": -0.12396362387164486,
+        "delta_ci_high": 0.03697444477553398,
+        "delta_frac_gt0": 0.156,
+        "blend_ccc_mean": 0.4756801617930144,
+        "base_ccc_mean": 0.5165294251289168,
+        "n_boot": 5000
+      },
+      "gate": {
+        "passed": false,
+        "why": "delta_mean=-0.0408 \u2265 0.05 AND CI_low=-0.1240 > 0.0 \u2192 FAIL"
+      },
+      "diagnostics": {
+        "alpha_mean": 0.6342857142857142,
+        "alpha_std": 0.07974448992544493,
+        "alpha_min": 0.5,
+        "alpha_max": 1.0,
+        "alpha_at_1_pct": 0.04081632653061224,
+        "alpha_at_0_pct": 0.0,
+        "beta_mean": 5.069937501562096,
+        "beta_std": 1.0490975619384932,
+        "beta_sign_flips": 8
+      },
+      "elapsed_s": 1.9,
+      "blend_oof_path": "/home/fiod/medical/results/iter22_blend_AB1_N98_8cov.oof.npy"
+    }
+  }
+}

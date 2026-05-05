@@ -1,0 +1,63 @@
+{
+  "experiment": "T3 push iter19 \u2014 per-item gated T3 composite",
+  "architecture_map": {
+    "1": "v2_baseline",
+    "2": "v2_baseline",
+    "3": "v2_baseline",
+    "4": "v2_baseline",
+    "5": "v2_baseline",
+    "6": "lr_multitask",
+    "7": "iter17:hy_residual_item_v2",
+    "8": "iter17:hy_residual_item_v2",
+    "9": "hy_residual_item",
+    "10": "item_plus_v2",
+    "11": "item_dedicated",
+    "12": "item_plus_v2",
+    "13": "item_plus_v2",
+    "14": "item_plus_v2",
+    "15": "iter17:item_only",
+    "16": "iter17:item_plus_v2",
+    "17": "iter17:item_plus_v2",
+    "18": "iter17:hy_residual_item_v2"
+  },
+  "items_in_composite": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "cv": "5fold",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "iter5_baseline_lookup": "results/lockbox_t3_iter5_A3_tier1_*.oof.npy",
+  "5null_inheritance": "Per-item architectures are bit-equivalent to their pre-registered iter8/iter17/A1-backfill lockboxes; each passed the 5-null gate. Composite is summation; no new model fitting at the composite level. Ground-truth T3 is reconstructed from per-item targets with per-item mean imputation for NaN entries.",
+  "purpose": "Decompose T3 into per-item predictions and sum. Mechanism: free-signal items {1, 7, 8, 15, 16, 17, 18} that direct T3 LGB averages out get item-specific architectures. Items 9-14 use iter12 honest single-batch winners. Items 1, 2, 3 use Phase A1 backfill winners. Items 4-6 use iter8 lockboxed winners.",
+  "formula_sha256": "5d2185f19c1abb58539ef953e93a88b4bd7d7b4fb603bc430100b02323832cc9",
+  "git_sha": "unknown",
+  "created_at_utc": "2026-05-04T13:44:22.462279Z",
+  "created_at_local": "2026-05-04T13:44:22.462289",
+  "timestamp": "20260504_134422",
+  "lockbox_rules": [
+    "Architecture map fixed BEFORE any composite is computed.",
+    "ONE pre-registered evaluation per cv mode. Headline = whatever this script returns.",
+    "Phase B: sum-level 5-fold gate (\u0394 \u2265 +0.05 / std < 0.020 vs iter5 5-fold ref).",
+    "Phase C: pre-registered LOOCV; paired bootstrap CI vs iter5 LOOCV OOF."
+  ]
+}

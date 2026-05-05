@@ -5,7 +5,309 @@
 
 ---
 
-# ACTIVE MISSION — iter21 Nested-CV Hybrid T3 Push (2026-05-04 PM) — COMPLETE (NEGATIVE RESULT, F56)
+# ACTIVE MISSION — Ablation Study Around `/tmp/plan-next.md` (2026-05-04 PM, planning)
+
+> **Status:** PLANNING. Not yet pre-registered. No cells executed. Awaiting user approval before any compute is consumed.
+> **Source plan:** `/tmp/plan-next.md` (synthesis of grok-4.3 + deepseek-v4-pro consult, 2026-05-04 ~17:00).
+> **Mode:** 10x researcher, slow + deep, first principles. Maximize CPU and GPU on remote slave (17 cores + RTX 5070 12GB).
+
+## Mission
+
+Execute an ablation study around `plan-next.md`, treating its three modeling phases (1: convex blend, 2: horseshoe Stage-1, 3: heteroscedastic Stage-2 loss) as **testable hypotheses about the in-domain T3 modeling space at N=98**. The goal is NOT just to land Phase 1 — it is to deliver a publication-grade map of which knobs move the gate and which don't, so the paper has a definitive audit regardless of whether AB1 (the backbone cell) passes.
+
+## First-principles analysis (the slow-thinking part)
+
+### Q1 — What is the minimal causal model under test?
+
+```
+T3_pred  =  α · F(clinical_panel, V2_residual)  +  (1−α) · β · G(per_item_T1_predictions)
+            └─── iter5 stream ──────────────┘     └────── T1-iter12 stream ──────┘
+```
+
+- `F` = iter5's two-stage pipeline: Stage-1 Ridge on a clinical panel; Stage-2 LightGBM on V2 features fit on Stage-1 residual.
+- `G` = T1-iter12 honest per-item gated architecture, summed over items 9–14.
+- `α ∈ [0, 1]` = convex mixer, fold-local 1-D grid search at step 0.01 maximizing CCC on the 88-train pool.
+- `β` = fold-local 1-D OLS scale calibration of T1-sum to T3 scale (intercept allowed).
+
+This minimal model has **three independent knobs**:
+- **F-Stage-1 panel** (which clinical scalars enter Ridge) — Phase 2 widens this under structured shrinkage.
+- **G-T1-source** (which lockboxed T1 architecture supplies the per-item predictions).
+- **Mixer regime** (k-parameter meta — k=1 is the conjecture; k=2 / k=Ridge / k=OLS-unconstrained are the ablation-axis controls).
+
+Phase 3 adds a fourth knob to F-Stage-2 (label-noise-aware loss). The ablation must isolate each knob.
+
+### Q2 — Why is N=98 the binding constraint? (Wall hypothesis)
+
+Five independent dead-list classes — frozen encoders × 4 (F41 MOMENT / F41 HC-SSL / F45 HARNet / F51 in-domain SSL), composition × 3 (F53 raw-sum / F54 single-loop hybrid / F56 nested k=19 meta), IMU feature additions × 5 (F19 / F44 / F48 / iter6-event-axial / iter6-asymmetry), site-centered Stage-2 (F49), and post-hoc calibration variants — all triangulate to a sample-size wall, not a domain-gap or feature-engineering wall.
+
+**First-principles DoF accounting at this N:**
+- Stage-2 LGB at K=500 features fit on N≈88 train fold consumes effective DoF in the leaf structure; held-out residual variance per fold is the noise floor for any mixer.
+- Mixer with k=1 parameter consumes 1 DoF; meta-parameter variance scales as σ²/N_train.
+- Mixer with k=19 (F56) consumed 19 DoF on the 78-row outer-train inner-OOF matrix → meta-coefficient blow-up (iter5 weight suppressed to 0.4×, item 11 inflated to +5×).
+- The k=1 regime is the only mixer regime not yet falsified at this N.
+
+**Wall hypothesis is testable** by subsampling iter5 to N ∈ {30, 50, 70, 89} × 50 random subsamples × 3 seeds = 600 jobs (LC cell). The fitted learning curve projects to N=150, 200, 300; if the slope at N=200 is ≤ +0.05 over the iter5 0.5227 anchor, the negative-N answer to "should we expand the cohort" is quantitatively defensible.
+
+### Q3 — Why should F55's r=+0.327 orthogonality survive a k=1 meta? (Harvestability hypothesis)
+
+F56 demonstrated that raw residual Pearson r overestimates harvestable lift at k=19, N≈78 outer-train. Mechanism: 19 collinear inner-OOFs in a Ridge α=1.0 → meta-coefficients ranging 0.4 to +5, each carrying ~σ²_meta variance. **Total meta-variance scales O(k/N_train).**
+
+For k=1: a single bounded scalar α ∈ [0, 1] optimized via 1-D grid. Variance scales O(1/N_train), NOT O(k/N_train). Harvestable lift is bounded above by F55's `r² · var(T1_sum) / var(iter5_resid)` ≈ 0.107 × (0.65² · σ²_T3) / σ²_T3_resid which is plausibly +0.04–+0.06 in CCC terms — exactly the consultants' converged prediction.
+
+**Critical caveat:** this depends on β being stable. β must be fit fold-locally on the same training subset that produces α; if β sign-flips or magnitude-swings across folds, the apparent k=1 mixer is effectively k=2 with hidden correlation, and the harvest collapses. **Cell BB1 (explicit (α, β)) vs AB1 (α only with implicit β-via-OLS) is the diagnostic for this.**
+
+### Q4 — How do we maximize 17 CPU + RTX 5070 12GB on the remote? (Parallelism principle)
+
+LightGBM CPU > GPU at N=98 (per CLAUDE.md gotcha). Therefore:
+
+- **CPU is the workhorse for base predictors:** iter5 stream, T1-iter12 stream, learning-curve subsamples. Allocate 16 worker cores via `ProcessPoolExecutor`, 1 core for OS / IO.
+- **GPU is the workhorse for Bayesian Stage-1:** numpyro + JAX NUTS sampling on the 9-cov horseshoe posterior. With `jax.pmap` across folds and `numpyro.infer.MCMC(chain_method="parallel")` we can fit ~5 folds simultaneously on the 12GB device; ~5× faster than CPU NUTS at this dim.
+- **Three concurrent tracks fit on the slave:**
+  - Track 1 (CPU 8 cores): Phase 1 ablation matrix cells AB1–AB3, BB1–BB3, CC1–CC3.
+  - Track 2 (CPU 8 cores): Learning curve LC (600 subsample jobs).
+  - Track 3 (GPU): Phase 2 horseshoe variants CC1, FF1, FF2, plus 3 prior-sensitivity variants (12 GPU jobs total).
+- **All three share one cache:** the T1-iter12 honest OOF predictions, computed ONCE up-front (3 seeds × 5-fold × 13 items × inner CV ≈ 1h CPU with 16-way parallel) and reused by every cell that consumes T1.
+
+### Q5 — Kill list (don't waste compute)
+
+- **No mixer with k > 2** (F56 falsified k=19; k=3+ at N=98 likely degenerate by extrapolation, predicted by both consultants).
+- **No mixer with α unconstrained outside [0, 1]** EXCEPT cell BB3 as the canary failure-mode probe (early-warning if α̂ leaves [0, 1], abort the cell and log).
+- **No frozen-encoder cell of any flavor** (4-way triangulated dead).
+- **No cross-cohort transfer cell** (Hssayeni / MJFF — both consultants negative at this N).
+- **No cell that re-runs LOOCV multiple times without a single pre-reg** (composite-level cherry-picking; iter11A failure mode).
+- **No cell with Stage-1 panel widening BEYOND structured shrinkage** (CC3 is included as the explicit null prediction, but no further widening variants).
+
+## Cache prerequisites (pre-flight, must succeed before any cell runs)
+
+1. **T1-iter12 honest OOF cache** (`results/t1_iter12_oof_seed{42,1337,7}.csv`) — exposes per-subject per-fold T1-sum predictions. Built ONCE from `compose_t1_iter12_honest.py` modified to expose fold-local OOFs (currently only emits the final per-subject prediction; need to add `--write-oof` flag).
+2. **iter5 OOF cache** (`results/t3_iter5_oof_seed{42,1337,7}.csv`) — same idea for the iter5 stream.
+3. **iter17-bests OOF cache** for cell AB2 — the per-item iter17 Phase A2 winners summed.
+4. **Clinical metadata audit** (`results/clinical_panel_audit.csv`) — verify which of {Part II total, LEDD, MoCA total, ON/OFF state, age} exist in WearGait-PD metadata at the patient level, with non-missing N per column. Drop any column with >15% missingness.
+
+Pre-flight phase compute: ~2h CPU on remote (16-way parallel for OOF generation; metadata audit is local).
+
+## The ablation matrix (15 cells)
+
+Each cell yields `(5-fold mean CCC, seed std, bootstrap 95% CI on Δ vs iter5, α̂ histogram, β̂ stability summary, 5-null-gate panel results)`.
+
+| Cell | A: T1 source | B: Mixer | C: Stage-1 | D: Stage-2 loss | Purpose |
+|------|--------------|----------|------------|------------------|---------|
+| **AB1** | iter12-honest | α-only-CCC | 4-cov-Ridge | std-CCC | **Backbone (Phase 1 main, sensitivity-gate target)** |
+| AB2 | iter17-best-per-item-summed | α-only-CCC | 4-cov-Ridge | std-CCC | T1-source ablation: hypothesis-restricted bests |
+| AB3 | none (β=0, α=1) | identity | 4-cov-Ridge | std-CCC | T1-source control = iter5 baseline (sanity reproduces 0.5227) |
+| BB1 | iter12-honest | (α, β) joint-CCC | 4-cov-Ridge | std-CCC | Mixer: explicit β instead of fold-local OLS |
+| BB2 | iter12-honest | Ridge-α=1 over 2 bases | 4-cov-Ridge | std-CCC | Mixer: Ridge meta on 2 bases (k=2 control) |
+| BB3 | iter12-honest | OLS unconstrained | 4-cov-Ridge | std-CCC | **Canary** mixer: unconstrained α (must abort if α̂ ∉ [0, 1]) |
+| CC1 | iter12-honest | best-from-B | 9-cov-horseshoe | std-CCC | **Stage-1 ablation: horseshoe widening (Phase 2 main)** |
+| CC2 | iter12-honest | best-from-B | 4-cov-OLS | std-CCC | Stage-1 control: no shrinkage at all |
+| CC3 | iter12-honest | best-from-B | 9-cov-Ridge | std-CCC | Stage-1 NULL prediction: widening WITHOUT structured shrinkage |
+| DD1 | iter12-honest | best-from-B | best-from-C | heteroscedastic-CCC | **Stage-2 ablation: label-noise weighting (Phase 3 main)** |
+| DD2 | iter12-honest | best-from-B | best-from-C | MSE | Stage-2 control: classic MSE |
+| FF1 | iter12-honest | best-from-B | 9-cov-horseshoe | heteroscedastic-CCC | **Full stack** |
+| FF2 | none (β=0) | identity | 9-cov-horseshoe | heteroscedastic-CCC | Full stack WITHOUT T1 |
+| NN1–3 | iter12-honest | α-only-CCC | 4-cov-Ridge | std-CCC | **N-axis: AB1 at N ∈ {50, 70, 89}** for wall test |
+| LC | iter5 baseline only | n/a | 4-cov-Ridge | std-CCC | **Learning curve: 50 subsamples × 4 N × 3 seeds** |
+
+**Why each cell is scientifically necessary:**
+- **AB1 / AB3** — gate decision + sanity baseline. AB3 must reproduce 0.5227; if it doesn't, the whole pipeline has a regression and we abort.
+- **AB2** — quantifies whether item-by-item bests beat the single-batch iter12 honest sum. F50 says items 15 + 18 win as item_only; the test is whether their sum-with-9-14 beats iter12 honest as a T1 source.
+- **BB1** — diagnostic for the harvestability hypothesis (Q3). Compares implicit β-via-OLS (in AB1) to explicit (α, β). If they differ, β-stability is the failure mode.
+- **BB2 / BB3** — quantifies meta-variance scaling vs k. Predicted: BB1 ≈ AB1; BB2 slightly worse (Ridge over-shrinks at k=2); BB3 either matches AB1 or canary-aborts.
+- **CC1 / CC2 / CC3** — the structured-shrinkage hypothesis. CC1 (horseshoe) > CC3 (Ridge widening) is the discriminating prediction. CC2 (4-cov-OLS no shrinkage) tests whether shrinkage matters at all at the original 4-cov panel.
+- **DD1 / DD2** — quantifies label-noise loss contribution orthogonal to other knobs.
+- **FF1 / FF2** — full-stack and no-T1 full-stack. FF2 is essential: it tests whether Stage-1 widening + Stage-2 noise-aware can replace the T1 contribution entirely.
+- **NN1–3** — directly tests the wall hypothesis at the BLEND level (does the blend gain shrink as N grows? Does it disappear?).
+- **LC** — the publication-grade learning curve.
+
+## Compute schedule (wall-clock optimized)
+
+```
+Hour 0–1:  Pre-flight  (CPU 16-way)
+            • clinical metadata audit (local, 5 min)
+            • iter5 OOF cache (16-way parallel, ~30 min)
+            • T1-iter12 honest OOF cache (16-way parallel, ~50 min)
+            • iter17-bests OOF cache (16-way parallel, ~20 min)
+            • Master pre-reg JSON written + formula_sha256 verified
+
+Hour 1–3:  Three concurrent tracks
+            • Track 1 (CPU 8 cores): cells AB1, AB2, AB3, BB1, BB2, BB3, CC2 (7 cells, ~15 min/cell × parallel = ~90 min)
+            • Track 2 (CPU 8 cores): LC learning curve (600 subsample jobs × ~10s = ~100 min)
+            • Track 3 (GPU): horseshoe NUTS for CC1, CC3, FF2 (3 cells × ~30 min = ~90 min)
+
+Hour 3–4:  Track 1 cell DD1, DD2 (depend on best-of-B,C from Hour 1–3 selection)
+            Track 3 cell FF1 (depends on best-of-C and DD1 result)
+            Track 1 cells NN1, NN2, NN3 (depend on AB1 architecture; ~20 min combined)
+
+Hour 4–5:  LOOCV lockboxes (only if gates pass)
+            • AB1 LOOCV (CPU 16-way, ~30 min)
+            • CC1 LOOCV (GPU, ~30 min) — only if CC1 5-fold passes Δ ≥ +0.05 vs AB1
+            • FF1 LOOCV (GPU, ~30 min) — only if FF1 5-fold passes Δ ≥ +0.025 vs CC1
+
+Hour 5+:   Analysis + write-up
+            • F57 entry in findings.md with full ablation table + α̂/β̂ diagnostics
+            • Update CLAUDE.md headline only if a lockbox passes
+            • Memory entries
+```
+
+**Total compute: ~35 CPU-h + 4 GPU-h.** Wall: ~5h end-to-end. Well under the plan-next 48 CPU-h budget; uses GPU which plan-next did not.
+
+## Pre-registration (one master pre-reg)
+
+`results/preregistration_t3_iter22_ablation_<TS>.json`:
+
+```json
+{
+  "iter_id": "t3_iter22_ablation",
+  "master_formula_sha256": "<hex>",
+  "cells": [
+    {"cell_id": "AB1", "cell_sha256": "<hex>", "recipe": {...}, "gate": "sensitivity"},
+    {"cell_id": "AB2", "cell_sha256": "<hex>", "recipe": {...}, "gate": "standard"},
+    ...
+  ],
+  "seeds": [42, 1337, 7],
+  "split_file": "results/paper3_split.json",
+  "split_seed": 20260309,
+  "n_pd": 98,
+  "sensitivity_gate": {"min_delta": 0.025, "ci_lower_bound": 0.0, "applies_to": ["AB1"]},
+  "standard_gate": {"min_delta": 0.05, "max_seed_std": 0.02, "applies_to_all_others": true},
+  "lockbox_candidates": ["AB1", "CC1", "FF1"],
+  "null_gate_targets": ["AB1", "CC1", "FF1"],
+  "bootstrap": {"n_resamples": 5000, "method": "paired_subjects"}
+}
+```
+
+`--write-prereg` and `--run` are separate orchestrator modes. `--run` validates `master_formula_sha256` AND each `cell_sha256` against the live recipe, refusing to start on mismatch.
+
+## Decision tree (single pass)
+
+1. AB1 5-fold runs first.
+   - **Sensitivity gate passes** (Δ ≥ +0.025 AND CI lower bound > 0) → AB1 enters LOOCV lockbox queue. Continue ablation.
+   - **Sensitivity gate fails** → no LOOCV. Continue ablation for negative-audit ablation map.
+2. CC1 5-fold gate vs AB1: Δ ≥ +0.05 AND seed std < 0.02.
+   - Passes → CC1 enters LOOCV lockbox queue.
+   - Fails → no further widening; continue ablation.
+3. FF1 5-fold gate vs CC1: Δ ≥ +0.025 AND seed std < 0.02 (sub-sensitivity since DD1's expected Δ is small).
+   - Passes → FF1 enters LOOCV lockbox queue.
+4. NN1–3 + LC always run; produce learning curve regardless.
+5. LOOCV lockboxes only run if their 5-fold gate passed AND all 5 null gates pass on that cell.
+
+## Stop conditions
+
+- Any null gate violation in any cell (scrambled-label CCC > 0.05, canary-feature detected, library-exclusion violated, SID-shuffle CCC > 0.05, transductive-sanity outside [0.75, 0.95]) → halt the offending cell, audit code path, re-run from scratch.
+- Total wall clock > 18h → escalate to user, do not extend autonomously.
+- Compute server unreachable > 1h → recover or pause and notify.
+- BB3 canary fires (α̂ ∉ [0, 1]) → abort BB3 only, log the failure mode, continue other cells.
+- Any cell shows sign of leakage during 5-fold (e.g. 5-fold CCC > Bound D = 0.683) → halt all, audit.
+
+## Success criteria (independent of gate outcome)
+
+The ablation succeeds if it produces a publication-grade table answering, with quantitative ΔCCC + 95% CI:
+
+1. **What is the marginal contribution of T1-source choice?** (Compare AB1 vs AB2 vs AB3.)
+2. **What mixer regime is optimal at N=98?** (Compare AB1 vs BB1 vs BB2; check BB3 canary.)
+3. **Does structured-shrinkage Stage-1 widening pass the gate where unstructured does not?** (CC1 vs CC3.)
+4. **Is heteroscedastic loss orthogonal to N-expansion?** (DD1 vs DD2 contribution magnitude vs LC slope.)
+5. **Does the learning curve project ≤ +0.05 lift at N=200?** (LC + NN1–3.)
+
+If yes to all five, the paper has a definitive in-domain modeling-saturation argument regardless of whether AB1 passes its gate. **The ablation is the contribution.**
+
+## File discipline
+
+- `run_t3_iter22_ablation_orchestrator.py` — master script (`--write-prereg`, `--run`, `--cells AB1,AB2,...` filters).
+- `cache_t1_iter12_oof.py` — extends `compose_t1_iter12_honest.py` with `--write-oof` flag.
+- `cache_iter5_oof.py` — extends `run_t3_iter5_clinical.py` with `--write-oof`.
+- `cache_iter17_bests_oof.py` — composes iter17 Phase A2 winners summed.
+- `lib_horseshoe_stage1.py` — numpyro + JAX horseshoe regression (NEW module).
+- `lib_heteroscedastic_ccc_loss.py` — LightGBM custom objective with Goetz-derived variance function (NEW module).
+- `inductive_lib.py` — UNCHANGED. Every cell uses fold-local helpers from this module.
+- All pre-reg JSONs committed to git; all OOF caches NOT committed (regeneratable from seed + recipe).
+- Results JSONs go to `results/preregistration_t3_iter22_ablation_<cell_id>_<TS>.json`.
+
+## Open questions — RESOLVED 2026-05-04 PM
+
+### Q1 — Clinical metadata: Part II / LEDD / MoCA / ON-OFF in WearGait-PD? **NO.**
+
+Audit results (`results/ablation_v3_features.csv`, N=178, 100% non-missing per col):
+
+- **NOT AVAILABLE in WearGait-PD public release** (confirmed by `generate_paper_v6.py` Limitations §9 + supplementary Table notes): Part II self-report, LEDD, MoCA total, ON/OFF medication state during gait. The `cv_dbs` column encodes device *presence*, not ON/OFF state.
+- **Available patient-level columns with non-zero correlation to T3 in PD-only (N=93):**
+
+  | Col | Pearson r vs updrs3 | In iter5? |
+  |---|---|---|
+  | hy | +0.411 | ✓ (4-cov) |
+  | ext_yrs_sq | +0.334 | — |
+  | cv_yrs | +0.316 | ✓ (4-cov) |
+  | ext_late_pd | +0.265 | tested in A4, HURT |
+  | ext_yrs_log | +0.245 | — |
+  | cv_sex | +0.222 | ✓ (4-cov) |
+  | cv_dbs | +0.193 | ✓ (4-cov) |
+  | cv_age | +0.137 | tested in A4, HURT |
+  | ext_age_onset | −0.070 | — |
+  | cv_ht / cv_wt / ext_early_pd | ≤ 0.05 | — |
+
+**Decision:** drop the 9-cov panel; lock the **8-cov panel** as `{hy, cv_yrs, cv_sex, cv_dbs, cv_age, ext_yrs_sq, ext_yrs_log, ext_late_pd}`. Skip cv_ht / cv_wt / ext_age_onset / ext_early_pd (~0 marginal r; horseshoe would shrink them anyway, so save DoF). The four extras tested before A4 (cv_age + ext_late_pd) HURT under Ridge; CC1 vs CC3 is the direct test that *structured shrinkage rescues what Ridge couldn't*.
+
+**Revised Phase 2 prior:** without Part II / LEDD / MoCA / ON-OFF, deepseek's +0.020 [−0.010, +0.050] prior was conditioned on those columns being available. **Realistic revised Δ for CC1 vs AB1: +0.005 [−0.015, +0.025]** — Phase 2 now expected to FAIL its +0.05 gate; the scientific value is the structured-shrinkage null test (CC1 vs CC3), not gate promotion. **Lockbox candidate list shrinks to {AB1, FF1}.**
+
+### Q2 — Goetz et al. 2008 SE-of-measurement constants
+
+Goetz CG et al. Mov Disord 2008;23(15):2129–70 reports MDS-UPDRS Part III inter-rater ICC ≈ 0.90, intra-rater ≈ 0.95 in mild-moderate PD. Severity-stratified SEM ≈ 2.5 (T3 ∈ [0, 20]) → 3.5 (T3 ∈ [20, 40]) → 4.5 (T3 ∈ [40, 80]).
+
+**Lock at pre-reg: variance function** `v(y) = max((a·y + b)², c²)` with **prior (a, b, c) = (0.04, 2.5, 1.5)** giving σ(0)=2.5, σ(30)=3.7, σ(60)=4.9 — matches Goetz severity stratification.
+
+**Sensitivity sweep (locked at pre-reg, runs on GPU in parallel):** 3×3 grid `(a, b) ∈ {0.02, 0.04, 0.06} × {1.5, 2.5, 3.5}` with `c=1.5` fixed. Nine Phase 3 sub-cells DD1.{1..9}. Pick the (a, b) whose 5-fold CCC peaks; this IS pre-registered (grid is locked, not tuned per-fold), so it's not adaptive.
+
+### Q3 — Compute cap: **18h wall, KEEP.**
+
+Plan budget is ~5h end-to-end with concurrent tracks, ~7h in worst case. 18h gives 2.5× slack for unexpected serialization (e.g. GPU contention with horseshoe sensitivity sweep). Hard escalate at 18h.
+
+### Q4 — numpyro on remote: **NOT installed, install required.**
+
+Remote state (verified via SSH):
+- Disk: 21 GB free of 126 GB.
+- CUDA: 13.0, `torch.cuda.is_available() = True`.
+- numpyro / jax: NOT installed.
+
+**Install plan (patch to `gpu.sh --setup` or one-shot SSH):**
+```bash
+ssh -p 26843 root@142.171.48.138 'pip install --no-cache-dir numpyro "jax[cuda12]==0.4.31"'
+```
+JAX CUDA 12 wheel runs against CUDA 13 driver. Estimated install ~3–4 GB; fits in 21 GB free. Do BEFORE Phase 2 GPU jobs launch.
+
+### Q5 — Bootstrap config: **5,000 paired-subject resamples, KEEP.**
+
+Standard for this N. Paired-subject resampling preserves the within-subject prediction pairing (iter5 vs blend) which is what the gate is testing. 10,000 would tighten CIs by ~30% but is overkill for the +0.025 sensitivity gate.
+
+---
+
+## Revised predicted Δ (post-audit)
+
+| Cell | Pre-audit prior Δ | Post-audit revised Δ |
+|---|---|---|
+| AB1 | +0.029 / +0.040 (consultants) | UNCHANGED, +0.030 [+0.010, +0.050] |
+| CC1 (horseshoe widening) | +0.020 [−0.010, +0.050] (Phase 2) | **REVISED DOWN: +0.005 [−0.015, +0.025]** |
+| CC3 (Ridge widening) | predicted-null | unchanged null prediction |
+| DD1 (heteroscedastic CCC) | +0.030 [0.000, +0.060] | UNCHANGED |
+| FF1 (full stack) | +0.040 stacked | **REVISED DOWN: +0.020 [−0.010, +0.050]** |
+
+**Implication:** AB1 remains the only cell with sensitivity-gate-passable expected value. CC1 and FF1 are now scientific tests, not promotion candidates. The lockbox-candidate list reduces to **{AB1}**. If AB1 fails, no LOOCV runs; if it passes, AB1 lockbox is the headline.
+
+---
+
+## Open question status
+
+All 5 questions resolved. Pre-reg can be locked once user approves the revised Δ predictions and shrunk lockbox-candidate list.
+
+## Risks
+
+- **β instability** kills AB1: fold-local 1-D OLS on n=88 may sign-flip if T1-sum is poorly correlated with T3 in some folds. Mitigation: BB1 (explicit (α, β)) is the diagnostic; if AB1 fails but BB1 lands, switch to BB1.
+- **Horseshoe ADVI vs NUTS** disagreement: ADVI is fast on GPU but has known biases on heavy-tailed posteriors. Mitigation: run both for cell CC1 only; if disagree by >+0.005 CCC, switch to NUTS.
+- **Learning curve overfitting** at low N: at N=30, LGB K=500 selector is unstable. Mitigation: report LC with explicit 95% CIs; do not extrapolate beyond fitted range.
+- **Cell coupling**: CC1 depends on best-of-B; if BB1 ≈ AB1, the choice is arbitrary and we use AB1 (simpler). Pre-reg the tie-break rule explicitly.
+
+---
+
+# ARCHIVED MISSION — iter21 Nested-CV Hybrid T3 Push (2026-05-04 PM) — COMPLETE (NEGATIVE RESULT, F56)
 
 ## Outcome (final, 2026-05-04 ~15:30)
 

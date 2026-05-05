@@ -60,7 +60,7 @@ PUBLISHED_HY_RESIDUAL_CCC = 0.4092
 # ── Clinical feature loading ─────────────────────────────────────────────────
 
 
-CLINICAL_COLS_CONTINUOUS: list[str] = ["cv_yrs", "cv_age"]
+CLINICAL_COLS_CONTINUOUS: list[str] = ["cv_yrs", "cv_age", "ext_yrs_sq", "ext_yrs_log"]
 CLINICAL_COLS_BINARY: list[str] = ["cv_sex", "cv_dbs", "ext_late_pd"]
 
 
@@ -90,6 +90,8 @@ FEATURE_SETS: dict[str, list[str]] = {
     "A4_tier1_plus": ["cv_yrs", "cv_sex", "cv_dbs", "cv_age", "ext_late_pd"],
     "A5_tier1_plus_site": ["cv_yrs", "cv_sex", "cv_dbs", "cv_age", "ext_late_pd", "site_nls"],
     "A6_yrs_dbs_only": ["cv_yrs", "cv_dbs"],  # parsimony test
+    # Iter22 ablation Stage-1 widening test (CC3 = Ridge widening, predicted-null vs A3_tier1):
+    "A_iter22_8cov": ["cv_yrs", "cv_sex", "cv_dbs", "cv_age", "ext_yrs_sq", "ext_yrs_log", "ext_late_pd"],
 }
 
 
