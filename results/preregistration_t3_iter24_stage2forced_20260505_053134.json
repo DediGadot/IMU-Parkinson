@@ -1,0 +1,38 @@
+{
+  "experiment": "T3 iter24 \u2014 Stage-2 forced-inclusion of clinical extras (finalizing experiment)",
+  "origin": "iter23 (F59 prequel) Stage-1 widening ablation = monotone negative across 19 sets. Partial-r residualization vs (H&Y + cv_yrs + cv_sex + cv_dbs) showed only 3 covariates retain non-trivial partial signal: part1_cognitive (+0.232), assistive_device_yn (+0.156), hours_since_last_dose (\u22120.158). iter24 tests the only remaining architectural lever \u2014 forced-inclusion at Stage-2 LGB (bypasses K=500 absorption that killed F19/F44/F45/F48).",
+  "stage1": "Ridge alpha=1.0 on (H&Y(linear+1hot) + cv_yrs + cv_sex + cv_dbs) \u2014 bit-identical to iter5",
+  "stage2": "LGB on (clinical_extras \u2295 V2 residual). FORCED inclusion of the 3 clinical_extras columns; remaining K-3=497 V2 cols selected per-fold by LGB-importance.",
+  "forced_extra_cols": [
+    "part1_cognitive",
+    "assistive_device_yn",
+    "hours_since_last_dose"
+  ],
+  "iter5_feature_set": "A3_tier1",
+  "iter5_alpha": 1.0,
+  "lgb_K": 500,
+  "cv": "5fold",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "n_subjects": "T3-native cohort N=98 (canonical updrs3 cohort).",
+  "endpoint": "updrs3 (T3 canonical)",
+  "clinical_extras_manifest_sha256": "e775c0344232717f7a1dd8effd6528a3cf6f945bfc8a30972fe8450fbddf9794",
+  "5null_inheritance": "iter5 base bit-identical to canonical lockbox preregistration_t3_iter5_*.json. Clinical extras cache leakage_status='clean_by_construction' (verified at script start). Per-fold FoldImputer for extras-only NaNs; per-fold standardization in Stage-1; per-fold LGB-importance selector for Stage-2 V2 cols. Forced inclusion is a per-fold rule, not a global pick.",
+  "purpose": "Final test of whether ANY clinical-extra signal is harvestable at Stage-2 with forced inclusion. Both codex and gemini priors: predicted \u0394 \u2208 [\u22120.04, +0.015], P(gate) < 10-15%.",
+  "formula_sha256": "7194964bd5ec195b50b613febadefb61a9694829f1cdefd3acdd3983bb27eebf",
+  "git_sha": "unknown",
+  "created_at_utc": "2026-05-05T05:31:34.797342Z",
+  "created_at_local": "2026-05-05T05:31:34.797350",
+  "timestamp": "20260505_053134",
+  "lockbox_rules": [
+    "Architecture FROZEN before any composite is computed.",
+    "ONE pre-reg JSON per cv mode. --mode run requires --preregistration_file.",
+    "5-fold gate: hybrid 5-fold CCC \u2265 iter5 5-fold + 0.025 AND seed std < 0.020 across 3 seeds.",
+    "LOOCV lockbox: paired bootstrap CI vs iter5 LOOCV on identical N=98 SIDs; 5000 resamples; canonical update requires frac>0 \u2265 95% AND ccc > 0.5227.",
+    "Wide-margin \u0394 < 0 \u2192 skip LOOCV; F59 negative.",
+    "If gate passes: run LOOCV separately with a NEW pre-reg JSON."
+  ]
+}

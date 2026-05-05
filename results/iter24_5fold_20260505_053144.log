@@ -1,0 +1,24 @@
+
+Loaded pre-reg preregistration_t3_iter24_stage2forced_20260505_053134.json
+  cv=5fold, seeds=[42, 1337, 7], forced_cols=['part1_cognitive', 'assistive_device_yn', 'hours_since_last_dose']
+  formula_sha256 = 7194964bd5ec195b...
+  Manifest: clinical_extras leakage_status=clean_by_construction ✓
+
+=== Running 3 (seed) jobs, n_workers=3 ===
+  seed=1337 CCC=+0.4388 MAE=8.072 (11.9s)
+  seed=42 CCC=+0.4647 MAE=8.067 (12.0s)
+  seed=7 CCC=+0.5205 MAE=7.691 (12.0s)
+
+Total 5fold elapsed: 12.1s
+  iter5 5-fold seed=42 CCC=+0.4850  (12.1s)
+  iter5 5-fold seed=1337 CCC=+0.4492  (11.5s)
+  iter5 5-fold seed=7 CCC=+0.5227  (10.9s)
+
+=== iter24 5-fold GATE ===
+  iter24 5-fold CCC = +0.4747 ± 0.0341  (per-seed: [0.4647, 0.4388, 0.5205])
+  iter5  5-fold CCC = +0.4856 ± 0.0300  (per-seed: [0.485, 0.4492, 0.5227])
+  Δ = -0.0110
+  GATE: FAIL (Δ < 0; F59 negative)
+  Bootstrap (n=2000, 3-seed-mean): Δ=-0.0124, 95% CI [-0.0371, +0.0150], frac>0=0.176
+
+Wrote iter24_5fold_gate_20260505_053134.json

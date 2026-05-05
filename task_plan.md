@@ -1,11 +1,55 @@
-# Task Plan — Active mission (2026-05-04) + historical archive
+# Task Plan — Active mission (2026-05-05) + historical archive
 
 > **CANONICAL NUMBERS LIVE IN `CLAUDE.md`. THIS FILE'S HEAD IS THE ACTIVE MISSION; BELOW IT IS A HISTORICAL ARCHIVE.**
 > **For the deployable canonical headlines, read `CLAUDE.md` § Headline Results.**
 
 ---
 
-# ACTIVE MISSION — Ablation Study Around `/tmp/plan-next.md` (2026-05-04 PM, planning)
+# ACTIVE MISSION — iter23+iter24 Clinical-Extras T3 Push (2026-05-05) — COMPLETE (NEGATIVE RESULT, F59)
+
+## Outcome (final)
+
+User's explicit goal: "boost T3 CCC further" via genuinely new clinical signal not yet in V2. **Two-phase agent-team-built ablation closed the chapter:**
+
+- **Phase A (cache):** `cache_clinical_extras.py` extracted Tomlinson-2010 LEDD + MDS-UPDRS Part 1 + ON/OFF state + assistive-device + race + PT-OT + days-since-Part3 from raw clinical CSV. 98/98 V2-cohort SID match. Manifest leakage-clean (`labels_used=False`, `leakage_status=clean_by_construction`).
+- **Phase B (Stage-1 widening, iter23):** 19-set 5-fold ablation runner (`run_t3_iter23_clinical_ablation.py`) tested every single-signal addition + selected pairs + kitchen-sink. **Zero passers; monotone Δ ≤ 0; pairs/kitchen-sink hurt MORE than singles.** Mechanism: partial-correlation collapse (codex+gemini synthesis).
+- **Phase C (Stage-2 forced-inclusion, iter24):** the only remaining architectural lever explicitly allowed by AGENTS.md dead-list rules. Pre-registered single-batch (`run_t3_iter24_stage2_forced.py`, formula_sha256 `7194964bd5ec195b`). Forced-inclusion of 3 partial-r winners (`part1_cognitive`, `assistive_device_yn`, `hours_since_last_dose`). **5-fold gate FAIL: Δ = −0.0110, bootstrap CI [−0.0371, +0.0150] STRADDLES ZERO, frac>0 = 0.176.** iter5 ≡ iter24 statistically indistinguishable. Smallest negative of any architectural variant in this codebase but still gate-FAIL.
+
+**Canonical numbers UNCHANGED.** T3 LOOCV CCC = **0.5227** (iter5).
+
+**8th N≈98 wall data point.** Wall now spans all 8 probe-strategy classes (feature-eng / composition / single-loop hybrid / nested mixing / Stage-1 widening / 1-2-param blend / clinical-extras Stage-1 / clinical-extras Stage-2). F58 Pareto fit asymptote 0.5975 stands; closing the gap requires N expansion to ≫ 300 (won't reliably deliver +0.05 per F58 bootstrap projection) OR external cohort augmentation (Hssayeni / mPower / OPDC).
+
+## Decisions log (final)
+
+- 04:55 — Audited raw clinical CSV; identified MDS-UPDRS Parts 1/2/4 + LEDD-extractable medication strings + ON/OFF + race + assistive-device as never-tried signals.
+- 05:10 — Spawned two parallel sub-agents (general-purpose) to build cache + ablation runner. Self-contained code returned in ~5-10 min each.
+- 05:21 — Cache built; partial-r residualization showed signal collapses across the board. Only 3 covariates retain |partial r| > 0.15.
+- 05:25 — iter23 ablation launched on remote (3 seeds × 19 sets × 5 folds = 57 jobs, 11 workers, 76s wall). All 19 sets fail.
+- 05:27 — Triple-CLI consult on result; both codex and gemini converge: partial-correlation collapse + Ridge DOF amplifier; Option 3 (paper rigor) highest-EV.
+- 05:31 — Wrote `run_t3_iter24_stage2_forced.py`. Pre-registered. Ran 5-fold gate (12s wall). Δ=−0.0110, CI straddles zero. F59 negative.
+- 05:35 — Documented F59 in findings.md; updated CLAUDE.md / AGENTS.md / MEMORY.md / progress.md.
+
+## Lessons (durable for future sessions)
+
+1. **Partial r matters more than raw r at saturated baselines.** Always residualize against existing covariates before estimating expected lift. Raw r=+0.30 looks promising; partial r=+0.05 is what's actually harvestable.
+2. **Stage-1 Ridge widening is a DOF trap at N≈100.** Even one new covariate over the iter5 9-feature baseline reduces CCC by 0.01-0.10. Stop attempting Stage-1 widening at this N.
+3. **Stage-2 forced-inclusion is the cleanest architectural lever for new features but doesn't unlock signal that isn't there.** Bypassing K=500 absorption is necessary but not sufficient. iter24 Δ=−0.011 with CI straddling zero is the definitive null for clinical extras at this N.
+4. **`assistive_device_yn` is the surprise standalone signal** (raw r=+0.328, partial r=+0.156). Worth carrying forward to a hypothetical N=300 cohort. Not actionable at N=98.
+5. **NaN imputation is NOT the dominant failure mode.** B5_part1_cognitive with 37% NaN was the LEAST-bad single-signal variant (Δ=−0.0025).
+6. **The agent team pattern works for parallel cache + script construction.** Two general-purpose agents ran 5-10 min each, returning self-contained, manifest-clean, syntax-clean code.
+
+## Next session pivot
+
+The architecture has saturated. Next session should pivot to paper-rigor work:
+1. **Conformal prediction + abstention** post-hoc on iter5 LOOCV OOF (zero new compute).
+2. **Cross-dataset zero-shot transportability** (Hssayeni MJFF / mPower / OPDC).
+3. **Manifest backfill for ~23 cache files** — pure provenance.
+
+Stop pushing internal CCC at N=98; it's structurally bounded.
+
+---
+
+# ARCHIVED MISSION — Ablation Study Around `/tmp/plan-next.md` (2026-05-04 PM, planning)
 
 > **Status:** PLANNING. Not yet pre-registered. No cells executed. Awaiting user approval before any compute is consumed.
 > **Source plan:** `/tmp/plan-next.md` (synthesis of grok-4.3 + deepseek-v4-pro consult, 2026-05-04 ~17:00).

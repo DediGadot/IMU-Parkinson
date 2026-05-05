@@ -1020,6 +1020,131 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 
 ---
 
+## F59 — iter23 ablation + iter24 Stage-2 forced-inclusion — clinical extras DEAD at N=98 (2026-05-05)
+
+**Mission origin:** user asked "what's available in the dataset?" and "use agent team to do an ablation study of how each new signal adds to overall CCC." Two-stage answer: (a) full audit of `data/raw/weargait-pd/PD - Demographic+Clinical - datasetV1.csv` (100 PD subjects, 94 cols) revealed full MDS-UPDRS Parts 1/2/4 + medication free-text + ON/OFF state + assistive-device + race + days-since-Part3 — none of which were in the V2 cache; (b) two-agent parallel build of `cache_clinical_extras.py` (Tomlinson-2010 LEDD extractor + Part 1 + ON/OFF + race + assistive + PT-OT + days-since-P3) and `run_t3_iter23_clinical_ablation.py` (19-set 5-fold ablation runner with manifest validation + ProcessPoolExecutor 11-worker parallelism).
+
+### Phase A — clinical_extras.csv build (cache_clinical_extras.py, 2026-05-05 05:21)
+
+98/98 V2-cohort SID match. Coverage:
+
+| Column | Coverage / 98 | Pearson r vs updrs3 | Partial r \| (H&Y, cv_yrs, cv_sex, cv_dbs) |
+|---|---|---|---|
+| ledd_total | 98/98 | +0.004 (NLS172 outlier) | −0.129 |
+| ledd_levodopa | 98/98 | +0.242 | +0.089 |
+| ledd_dopamine_agonist | 98/98 | −0.069 | −0.110 |
+| ledd_other | 98/98 | −0.137 | −0.194 |
+| hours_since_last_dose | 89/98 | −0.177 | **−0.158** |
+| **assistive_device_yn** | **98/98** | **+0.328** | **+0.156** |
+| pt_ot_status_yn | 92/98 | +0.133 | +0.035 |
+| race_white | 98/98 | +0.008 | −0.046 |
+| days_since_part3 | 97/98 | −0.120 | −0.151 |
+| part1_sum | 84/98 | +0.133 | +0.047 |
+| **part1_cognitive** | **61/98** | **+0.288** | **+0.232** |
+| part1_hallucinations | 61/98 | +0.303 | +0.109 |
+| part1_sleep | 82/98 | −0.053 | −0.130 |
+| part1_daytime_sleepiness | 82/98 | +0.059 | +0.055 |
+
+**Key insight:** after residualizing against the iter5 baseline (H&Y + cv_yrs + cv_sex + cv_dbs), the signal collapses across the board. Only 3 covariates retain |partial r| > 0.15: `part1_cognitive` (+0.232 with 37% NaN), `assistive_device_yn` (+0.156), `hours_since_last_dose` (−0.158). LEDD partial r drops from +0.242 → +0.089 — most LEDD signal is colinear with cv_yrs.
+
+LEDD outlier: NLS172 has `ledd_total=11320` driven by safinamide × 100.0 factor parse. Robust transforms (log1p, clip95) yield partial r ∈ [+0.02, +0.08] — nothing rescues LEDD as a meaningful new signal.
+
+Cache + manifest leakage-clean: `labels_used=False`, `leakage_status=clean_by_construction`, `data_sha256=e775c0344232717f...`, full Tomlinson-2010 factors embedded.
+
+### Phase B — iter23 5-fold ablation (76s wall on 11 workers)
+
+19 feature sets × 3 seeds × 5-fold = 57 jobs. Strict gate: Δ ≥ +0.025 over iter5 5-fold AND seed std < 0.020.
+
+| Feature set | mean | std | Δ vs B0 |
+|---|---|---|---|
+| B0_iter5_canonical | +0.4856 | 0.0368 | (baseline) |
+| B0_check_no_extras | +0.4856 | 0.0368 | 0.0000 [sanity ✓] |
+| **B5_plus_part1_cognitive** | **+0.4832** | 0.0372 | **−0.0025** [least-bad] |
+| B11_plus_days_p3 | +0.4693 | 0.0305 | −0.0163 |
+| B6_plus_part1_hallucinations | +0.4686 | 0.0265 | −0.0170 |
+| B2_plus_ledd_split | +0.4625 | 0.0290 | −0.0231 |
+| B7_plus_onoff | +0.4611 | 0.0388 | −0.0245 |
+| B1_plus_ledd_total | +0.4508 | 0.0290 | −0.0349 |
+| B4_plus_part1_sum | +0.4493 | 0.0452 | −0.0364 |
+| C1_ledd_plus_part1 | +0.4485 | **0.0024** | −0.0372 [tightest std] |
+| B8_plus_assistive | +0.4480 | 0.0323 | −0.0376 |
+| B10_plus_race | +0.4445 | 0.0341 | −0.0412 |
+| B9_plus_ptot | +0.4443 | 0.0462 | −0.0413 |
+| C2_ledd_plus_onoff | +0.4397 | 0.0257 | −0.0460 |
+| D1_ledd_part1_onoff | +0.4391 | 0.0365 | −0.0465 |
+| C3_part1_plus_onoff | +0.4308 | 0.0476 | −0.0548 |
+| D2_ledd_part1_onoff_assist | +0.4137 | 0.0198 | −0.0719 |
+| B3_plus_ledd_other | +0.4026 | 0.0693 | −0.0830 |
+| C4_ledd_plus_assistive | +0.3881 | 0.0488 | −0.0975 |
+
+**Zero passers. Monotone Δ ≤ 0. Pairs/kitchen-sink hurt MORE than singles (compounding).** Confirms F58's "Stage-1 widening alone hurts Δ=−0.023" rule and elevates it to a structural law.
+
+### Triple-CLI consult on iter23 result (2026-05-05 ~05:25)
+
+  - **Codex:** "Dominant mechanism: partial-correlation collapse, with Ridge DOF as the amplifier. B5 nearly neutral despite 30% imputation argues NaN imputation is NOT the main failure mode. Highest EV: pivot to paper rigor. Stage-2 forced-inclusion P(gate) < 10%."
+  - **Gemini:** "Partial-correlation collapse dominates. Adding clinical extras injects redundant variance, consuming precious DOF at N≈78 training folds. Ridge actively shrinks mean-imputed missing values toward zero (saves DOF on imputed-NaN entries). Stop extracting; start defending."
+  - **Synthesis:** Both converge on partial-correlation collapse + Ridge DOF amplifier. Both rank Option 3 (paper rigor) as highest-EV. Stage-2 forced-inclusion P(gate) < 10% but is the only remaining architectural lever explicitly allowed by AGENTS.md "dead-list rules" (forced inclusion bypasses K=500 absorption that killed F19/F44/F45/F48).
+
+### Phase C — iter24 Stage-2 forced-inclusion (finalizing experiment)
+
+**Architecture:**
+- Stage 1: Ridge α=1.0 on (H&Y + cv_yrs + cv_sex + cv_dbs) — bit-identical to iter5.
+- Stage 2: LGB on (clinical_extras_3cols ⊕ V2 residual). FORCED inclusion of [`part1_cognitive`, `assistive_device_yn`, `hours_since_last_dose`] (the 3 partial-r winners); remaining K-3 = 497 V2 cols selected per-fold by LGB-importance. Custom `_feature_select_fold_forced` ensures the clinical-extra columns ALWAYS pass the K=500 cut.
+
+Pre-registered single-batch: `results/preregistration_t3_iter24_stage2forced_20260505_053134.json` (formula_sha256 `7194964bd5ec195b`). Gate: Δ ≥ +0.025 AND seed std < 0.020.
+
+**Result (3 seeds × 5-fold, N=98, 12s wall):**
+
+| Pipeline | per-seed CCCs (42, 1337, 7) | mean ± std |
+|---|---|---|
+| iter5 5-fold (recomputed in same script) | 0.4850, 0.4492, 0.5227 | **+0.4856 ± 0.0300** |
+| iter24 Stage-2 forced-inclusion | 0.4647, 0.4388, 0.5205 | **+0.4747 ± 0.0341** |
+| **Δ (iter24 − iter5)** | | **−0.0110** |
+| Bootstrap (3-seed-mean, n=2000) | | Δ=−0.0124, 95% CI **[−0.0371, +0.0150]**, frac>0=**0.176** |
+
+**GATE: FAIL (Δ < 0; F59 negative). LOOCV SKIPPED per protocol.** But: bootstrap CI **straddles zero**, frac>0 = 17.6%. iter24 and iter5 are statistically **indistinguishable**. The cleanest "no architectural lever for clinical extras at N=98" result — Δ=−0.011 is the smallest negative of any architectural variant tested in this codebase (vs iter6 −0.022, iter21 −0.147, iter19 −0.107, iter22 [−0.013, −0.041], iter23 best −0.0025).
+
+### Mechanism (anatomy)
+
+iter23 (Stage-1 widening) and iter24 (Stage-2 forced-inclusion) triangulate the same fact: **the dimensions H&Y captures (motor severity stage) and cv_yrs captures (disease progression) are so PD-correlated that almost any clinical covariate is redundant.** part1_cognitive is the rare exception with meaningful orthogonal signal (partial r=+0.232) — but its 37% missing rate damps it. Even forcing all 3 partial-r winners into Stage-2 LGB (K=500 absorption bypassed by construction) yields only Δ=−0.011 with CI straddling zero.
+
+This is the **8th N≈98 wall data point.** Wall now spans:
+1. Feature engineering (F19, F44, F45, F48, F51): K=500 absorption.
+2. Composition (F53): variance compounding.
+3. Single-loop hybrid (F54 leakage).
+4. Nested mixing (F56): meta-overfitting / curse of dimensionality.
+5. Stage-1 widening (F58): DOF death.
+6. 1-2 parameter blend (F58): residual orthogonality non-harvestable.
+7. Clinical-extras Stage-1 widening (F59 iter23): partial-r collapse across 19 sets.
+8. Clinical-extras Stage-2 forced-inclusion (F59 iter24): even cleanest architectural lever yields zero net lift.
+
+**Structural ceiling re-confirmed.** F58's CCC(N) Pareto fit asymptote 0.5975 for the iter5 architecture stands.
+
+### Status
+
+- **Canonical numbers UNCHANGED.** T1 LOOCV CCC = **0.6550**; T3 LOOCV CCC = **0.5227**; T3 LOSO two-way CCC = **0.341**; item 15 +0.1099; item 18 +0.4858.
+- iter23 ablation CSV: `results/iter23_clinical_ablation_5fold_20260505_052551.csv`.
+- iter24 5-fold gate: `results/iter24_5fold_gate_20260505_053134.json` + .{iter24_oof, iter5_oof, sids}.npy.
+- Cache: `results/clinical_extras.csv` + manifest. Reusable for paper-rigor section (e.g., conformal abstention by part1_cognitive level).
+
+### Lessons (durable for future sessions)
+
+1. **Partial r matters more than raw r at saturated baselines.** Always residualize against existing covariates before estimating expected lift.
+2. **Stage-1 Ridge widening is a DOF trap at N≈100.** Even a single new covariate over the iter5 baseline reduces CCC by 0.01-0.10 across single-signal additions.
+3. **Stage-2 forced-inclusion is the cleanest architectural lever for new features but does not unlock signal that isn't there.** Bypassing K=500 absorption is necessary but not sufficient.
+4. **`assistive_device_yn` is the surprise standalone signal** (raw r=+0.328, partial r=+0.156). Its inclusion in iter23 single-signal HURT Stage-1 (Δ=−0.038) but the partial r is real. First feature to try in a hypothetical N=300 cohort.
+5. **NaN imputation is NOT the dominant failure mode.** B5_plus_part1_cognitive had 37% NaN imputed and was the LEAST-bad single-signal variant. Both consults converged on this.
+6. **The paper's main T3 contribution is the architectural ceiling characterization, not a single CCC number.**
+
+### Side-effects
+
+- New: `cache_clinical_extras.py` (770 lines), `run_t3_iter23_clinical_ablation.py` (699 lines), `run_t3_iter24_stage2_forced.py` (~430 lines).
+- New caches: `results/clinical_extras.csv` (98 PD × 17 cols) + manifest sidecar.
+- New pre-regs: `preregistration_t3_iter24_stage2forced_20260505_053134.json`.
+- Result files: `iter23_clinical_ablation_5fold_20260505_052551.csv`; `iter24_5fold_gate_20260505_053134.json` + .npy bundle.
+
+---
+
 ## F56 — iter21 nested-CV hybrid — Phase B 5-fold gate FAIL (2026-05-04 ~15:30)
 
 **Mission origin:** F55 orthogonality probe (2026-05-04) showed pearson(composite − iter5, updrs3 − iter5) = +0.327 ± 0.037 at N=94 5-fold → theoretical hybrid Pearson upper bound +0.518; lift available up to +0.113 over iter5 5-fold. F54 audit identified 4 bugs that any hybrid attempt MUST fix:

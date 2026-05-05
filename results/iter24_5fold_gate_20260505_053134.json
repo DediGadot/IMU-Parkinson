@@ -1,0 +1,48 @@
+{
+  "mode": "5fold_gate",
+  "preregistration": "preregistration_t3_iter24_stage2forced_20260505_053134.json",
+  "ts": "20260505_053134",
+  "n_subjects": 98,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "iter24_ccc_mean": 0.47467211730866943,
+  "iter24_ccc_std": 0.03405909543612816,
+  "iter24_per_seed_ccc": [
+    0.4647197442024769,
+    0.43883475617160184,
+    0.5204618515519296
+  ],
+  "iter5_ccc_mean": 0.48562396443046313,
+  "iter5_ccc_std": 0.03002025103906338,
+  "iter5_per_seed_ccc": [
+    0.4850351993450772,
+    0.44915473418240537,
+    0.5226819597639069
+  ],
+  "delta": -0.0109518471217937,
+  "gate_pass": false,
+  "gate_message": "FAIL (\u0394 < 0; F59 negative)",
+  "iter24_3seed_ccc": 0.49281905106747714,
+  "iter5_3seed_ccc": 0.5052469909226522,
+  "iter24_3seed_mae": 7.676890450011483,
+  "iter5_3seed_mae": 7.663141069858788,
+  "bootstrap": {
+    "ccc_a": 0.49281905106747714,
+    "ccc_b": 0.5052469909226522,
+    "delta_point": -0.012427939855175096,
+    "delta_mean_boot": -0.011849102155479383,
+    "delta_ci_low": -0.037135199691306166,
+    "delta_ci_high": 0.015013416638458399,
+    "frac_above_zero": 0.1765,
+    "n_boot": 2000
+  },
+  "forced_extra_cols": [
+    "part1_cognitive",
+    "assistive_device_yn",
+    "hours_since_last_dose"
+  ],
+  "total_elapsed_s": 12.1
+}

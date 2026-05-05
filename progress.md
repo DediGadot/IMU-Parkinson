@@ -2,6 +2,58 @@
 
 ---
 
+## Session: 2026-05-05 ~04:55—05:35 — iter23+iter24 clinical-extras ablation (F59)
+
+### Trigger
+User asked to "deeply examine [external clinical signal]" — what's available in the dataset — and then "use agent team to do an ablation study of how each new signal adds to overall CCC when used in the pipeline, and decide on the architecture for the finalizing experiment."
+
+### Phase A — clinical metadata audit
+- Inspected `data/raw/weargait-pd/PD - Demographic+Clinical - datasetV1.csv` on remote (100 PD subjects, 94 cols).
+- Identified untried signals: full MDS-UPDRS Parts 1/2/4, medication free-text (LEDD-extractable), Time-of-last-dose (ON/OFF proxy), assistive-device, race, days-since-Part3, PT/OT.
+- Pulled CSV to local; computed coverage + raw Pearson r vs updrs3.
+- **Critical methodological insight: computed partial r residualizing against (H&Y + cv_yrs + cv_sex + cv_dbs) — the iter5 baseline.** Signal collapses across the board. Only 3 covariates retain |partial r| > 0.15: part1_cognitive (+0.232, 37% NaN), assistive_device_yn (+0.156), hours_since_last_dose (−0.158).
+
+### Phase B — agent-team build (parallel)
+- Spawned two general-purpose sub-agents in parallel:
+  - **Agent A:** built `cache_clinical_extras.py` (770 lines) with Tomlinson-2010 LEDD extractor, Part 1 items, ON/OFF state, race, assistive, PT-OT, days-since-Part3. Manifest sidecar with `labels_used=False`, `leakage_status=clean_by_construction`. 98/98 V2-cohort SID match. Outlier flagged: NLS172 ledd_total=11320 from safinamide × 100 factor.
+  - **Agent B:** built `run_t3_iter23_clinical_ablation.py` (699 lines) with 19 ablation feature sets, ProcessPoolExecutor 11-worker parallelism, manifest-validation refusal, `--mode write_prereg/run/lockbox` discipline.
+- Both agents returned syntax-clean code in 5-10 min each.
+- Pulled remote item_specific_features.csv (had items 7+8 added in iter19 Phase A2).
+- Pushed cache + raw clinical CSV to remote.
+
+### Phase C — iter23 5-fold ablation (remote, 76s wall)
+- 19 feature sets × 3 seeds × 5-fold = 57 jobs, 11 workers.
+- **Result: zero passers, monotone Δ ≤ 0 across ALL sets.** Best (least-bad): B5_plus_part1_cognitive Δ=−0.0025. Worst: kitchen-sink C4 Δ=−0.0975.
+- Pairs and kitchen-sinks compounded loss vs singles.
+
+### Triple-CLI consult on iter23
+- Codex (gpt-5.5 xhigh): "partial-correlation collapse with Ridge DOF amplifier; B5 nearly neutral despite 30% imputation argues NaN is NOT the failure; pivot to paper rigor."
+- Gemini (gemini-3.1-pro): "partial-correlation collapse dominates; Ridge actively shrinks mean-imputed values toward zero (saves DOF); stop extracting; start defending."
+- Synthesis: both rank Option 3 (paper rigor) highest-EV. Stage-2 forced-inclusion P(gate) < 10%.
+
+### Phase D — iter24 Stage-2 forced-inclusion (finalizing experiment)
+- Wrote `run_t3_iter24_stage2_forced.py` with custom `_feature_select_fold_forced` that ALWAYS retains the 3 partial-r-winning clinical-extra columns + selects K-3 V2 cols by LGB importance. Bypasses K=500 absorption.
+- Pre-registered single-batch: `results/preregistration_t3_iter24_stage2forced_20260505_053134.json` (formula_sha256 `7194964bd5ec195b`).
+- Ran 5-fold gate on remote (12s wall, 3 seeds in parallel + iter5 reproduction).
+- **Result: GATE FAIL but barely.** Δ=−0.0110 (smallest negative of any architectural variant in this codebase). Bootstrap CI [−0.0371, +0.0150] STRADDLES ZERO, frac>0=0.176. iter5 ≡ iter24 statistically indistinguishable.
+- LOOCV SKIPPED per protocol.
+
+### Documentation
+- F59 in findings.md (full anatomy: cache audit + partial-r table + 19-set ablation + iter24 result + dual consult quotes + 8th wall data point synthesis).
+- CLAUDE.md Headline Results — appended iter23+iter24 negative summary.
+- AGENTS.md Do-Not-Re-Run — added iter23 + iter24 to dead list with the partial-r-collapse mechanism.
+- MEMORY.md + new feedback memory `feedback_iter23_iter24_clinical_extras_dead.md`.
+- task_plan.md ACTIVE MISSION rewritten as iter23+iter24 COMPLETE-NEGATIVE.
+
+### Status (final)
+- **Canonical numbers UNCHANGED.** T1 0.6550 / T3 0.5227 / T3 LOSO 0.341 / item 15 +0.1099 / item 18 +0.4858.
+- **Architecture saturated at N=98.** 8 wall data points across all probe-strategy classes.
+- **Compute used:** ~90 seconds total (cache build + iter23 ablation + iter24 gate + iter5 reproduction).
+- **Wall-clock from "what's available?" to F59 close:** ~50 minutes.
+- **Next session pivot:** paper rigor (conformal + cross-dataset). Stop pushing internal CCC; it's structurally bounded.
+
+---
+
 ## Session: 2026-05-04 ~17:00—ongoing — `/planning-with-files:plan` ablation study around `plan-next.md`
 
 ### Trigger
