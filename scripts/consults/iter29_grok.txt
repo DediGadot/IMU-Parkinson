@@ -1,0 +1,46 @@
+[opencode-swarm] WARNING: .swarm/ is not in your .gitignore. Shell audit logs may contain API keys. Add ".swarm/" to your .gitignore to prevent accidental commits.
+[swarm] Agent 'architect' not found in config — using default model 'opencode/big-pickle'. Add it to opencode-swarm.json to customize.
+[0m
+> build · x-ai/grok-4.3
+[0m
+[0m→ [0mSkill "pd-imu-100x-researcher"
+[0m→ [0mRead AGENTS.md[90m [offset=1, limit=100][0m
+[0m→ [0mRead CLAUDE.md[90m [offset=1, limit=80][0m
+[0m✱ [0mGlob "findings.md"[90m 1 match[0m
+[0m✱ [0mGlob "progress.md"[90m 1 match[0m
+[0m✱ [0mGrep "RegressorChain|multi-task|multi task|iter29|chain.*item|item.*chain"[90m in . · 66 matches[0m
+[0m✱ [0mGrep "F53|F56|F58|Pareto|wall|N=94|0\.6550"[90m in findings.md · 152 matches[0m
+[0m✗ [0mread failed
+[91m[1mError: [0mThe read tool was called with invalid arguments: SchemaError(Expected number | undefined, got "50 offset=1"
+  at ["limit"]).
+Please rewrite the input so it satisfies the expected schema.
+[0m→ [0mRead run_t1_iter29b_multitask_lgb.py[90m [limit=100][0m
+**1. Mechanism (iter29b vs independent per-item / single-task)**
+
+RegressorChain on mean-centered item residuals (9-14) does (a)+(b): the chain order (random per seed) injects the *predicted value of prior item in chain* as an extra covariate into the LGB trees for later items. This encodes between-item residual correlation (r≈0.65-0.82 within T1) that 6 independent per-item models or the single scalar T1 residual never see. Effective N×6 is *not* literal (outputs are collinear), but the joint structure shares tree splits across the 6 heads while conditioning on partial sums — a lightweight form of multi-task information sharing inside the fold-local K=500 selector. Matches the hypothesis in `run_t1_iter29b_multitask_lgb.py:14-16`.
+
+**2. LOOCV survival prediction**
+
+**No, expected LOOCV Δ ≈ +0.01 to +0.015 (or <0), with wide CI straddling zero.** F58 (iter22/28) + F56 (nested hybrid) + F53 (per-item sum) establish the pattern at N=94: 5-fold Δ=+0.05 for any mixer/hybrid/composite shrinks 60-80% at LOOCV because LOO variance per fold is ~2-3× higher than 5-fold at this N (seed std on per-item ~0.06, sum-std ~0.02). F58 Pareto asymptote 0.5975 already caps the iter5-direct family near 0.66 even at ∞N; the +0.051 5-fold is inside sampling noise of the 0.6550 iter12 honest LOOCV baseline. Paired-bootstrap of (29b-iter5) at LOO will likely show frac>0<0.70.
+
+**3. Leakage paths**
+
+None fatal inside the 5-fold loop:
+- Per-fold K=500 on *train residual only* (same as iter5; `feature_select_fold`).
+- Item residuals subtract *train-fold mean* (fold-local, no test leakage).
+- Random chain order per seed is just RNG, not data-dependent selection.
+
+However, the *architecture choice itself* (RegressorChain vs direct) after running A/B/C in parallel on the same 5-fold splits is post-hoc variant selection — exactly the iter11A pattern retracted in AGENTS.md:14-15 (multi-layer adaptive selection across batches; bootstrap inflation +0.070). Any LOOCV run on iter29b now requires a fresh pre-reg with `formula_sha256` *before* the LOOCV command.
+
+**4. Iter30 highest-leverage (ranked)**
+
+- **30D (Bayesian model averaging of iter5-direct + 29b + 12-honest OOFs)** — highest: uses existing 3 OOF arrays, no new cache, tests whether the 0.327 orthogonality (F55) is harvestable with 1-2 parameter convex mix inside nested CV. Low variance risk vs F56's 19-col Ridge.
+- **30A (cross-pollinate multi-task chain to full 18-item T3)** — medium leverage; tests if the item-correlation structure generalizes beyond axial subscore. But F53/F56 already killed 18-item compositions at this N.
+- **30C (supervised contrastive embedding + soft-KNN)** or **30E: conformal abstention post-hoc on iter12 OOF** — both paper-rigor, zero new compute risk. Open angle in AGENTS.md:85. (Avoid 30B: K=500 absorption + chain-order tuning will hit same wall; 30C variance at N=94 high.)
+- Skip any new frozen encoder or handcrafted scalar (dead per F64/F45/F19).
+
+**5. Lockbox decision**
+
+**No — do not lockbox as new canonical.** Even if LOOCV Δ≥+0.025 (CI excludes 0), iter29B violates the composite-level cherry-pick rule (AGENTS.md:57-59): the variant was screened after seeing 5-fold numbers across A/B/C angles; no pre-reg with `formula_sha256` + `created_at_utc` committed before any OOF existed. iter11A retraction was exactly this (+0.070 inflation). Keep canonical T1 = **0.6550** (`compose_t1_iter12_honest.py`, single iter8 batch) + report 29b as supplementary "exploratory multi-task angle, 5-fold only". Write `preregistration_t1_iter29b_posthoc_*.json` noting the post-screen timing if you want to publish the negative LOOCV result.
+
+**State readout (Phase 1 per skill):** Canonical T1 LOOCV CCC remains 0.6550 (iter12 honest, N=94, single-batch iter8 20260430_143044; `compose_t1_iter12_honest.py`; pre-reg `results/preregistration_t1_iter12_honest_*.json`). F64 (2026-05-05) just closed SOTA pipeline angle for T1 at same wall; no iter29 lockbox yet. iter29b 5-fold numbers are real within 5-fold but unconfirmed at LOOCV.

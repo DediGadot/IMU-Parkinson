@@ -1,0 +1,84 @@
+{
+  "timestamp": "20260505_202026",
+  "iso_datetime": "2026-05-05T20:20:26.858564",
+  "experiment": "T3 iter31 multi-task LGB chain on items 1-18 LOCKBOX",
+  "git_head": "unknown",
+  "formula_sha256": "5e2e3d19423103a3b55bb650c157f7b8ad035fe4fc86cd99d336eb8edc96c652",
+  "formula": {
+    "experiment": "T3 iter31 multi-task LGB chain on items 1-18",
+    "cohort": {
+      "target": "updrs3 (V2_FEATURES column)",
+      "n_subjects": 98
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "updrs3"
+    },
+    "stage2": {
+      "model": "sklearn.multioutput.RegressorChain over LGBMRegressor",
+      "variant": "V1_random",
+      "lgb_params": {
+        "n_estimators": 500,
+        "learning_rate": 0.05,
+        "num_leaves": 15,
+        "min_data_in_leaf": 10,
+        "n_jobs": 1,
+        "verbose": -1
+      },
+      "items_targets": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "item_target_centering": "subtract per-fold train_mean(item)",
+      "feature_select_method": "lgb_importance_top_k_per_fold",
+      "feature_select_k": 500,
+      "imputation": "fold_local_median",
+      "post_combine_formula": "Stage1_pred + (sum(item_pred + train_mean) - sum(train_mean))"
+    },
+    "eval": {
+      "loocv_n": 98,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "headline_metric": "CCC of mean-of-3-seed predictions",
+      "comparator_iter5_lockbox_oof": "lockbox_t3_iter5_A3_tier1_20260502_171604.oof.npy",
+      "comparator_iter5_published_loocv": 0.5227
+    },
+    "lockbox_rules": [
+      "ONE pre-registered config. ONE LOOCV run.",
+      "Headline = CCC of mean-of-3-seed preds on N=98.",
+      "Pass-canonical: paired-bootstrap (n=5000) vs iter5-lockbox-OOF frac>0 \u2265 0.95 AND headline > 0.5227."
+    ]
+  },
+  "n_subjects": 98,
+  "variant": "V1_random",
+  "eval_protocol": "LOOCV (n=98) on T3 cohort. Stage-1 Ridge (alpha=1.0) on H&Y + cv_yrs + cv_sex + cv_dbs with per-fold standardisation, target=updrs3. Stage-2 RegressorChain(LGBMRegressor) random order on per-item residuals (items 1-18, train-mean-centered) with K=500 LGB-importance selection per fold. 3-seed mean preds = headline."
+}

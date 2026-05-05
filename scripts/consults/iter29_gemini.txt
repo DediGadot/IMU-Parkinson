@@ -1,0 +1,33 @@
+Warning: Limited color support detected (TERM=screen). Some visual elements may not render correctly. For better color support in tmux, add to ~/.tmux.conf:
+      set -g default-terminal "tmux-256color"
+      set -ga terminal-overrides ",*256col*:Tc"
+Warning: True color (24-bit) support not detected. Using a terminal with true color enabled will result in a better visual experience.
+YOLO mode is enabled. All tool calls will be automatically approved.
+YOLO mode is enabled. All tool calls will be automatically approved.
+MCP issues detected. Run /mcp list for status.Skill conflict detected: "planning-with-files" from "/home/fiod/.agents/skills/planning-with-files/SKILL.md" is overriding the same skill from "/home/fiod/.gemini/skills/planning-with-files/SKILL.md".### 1. Mechanism
+The lift is driven by **(a) information sharing across item heads**. The `RegressorChain` maps the clinical covariance manifold (e.g., a high posture severity restricts the plausible space for gait severity), acting as an implicit regularizer. 
+
+However, there is a severe mathematical side effect to your pipeline structure. Because Stage 2 predicts `item - train_mean_item` instead of the *Stage 1 residual*, summing Stage 1 and Stage 2 creates an **unweighted parallel ensemble**: $\hat{T1}_{final} = \hat{T1}_{stage1} + \hat{T1}_{stage2\_centered}$. This artificially inflates prediction variance, which is exactly why your calibration slopes dropped to ~0.80 (inflated variance on the prediction x-axis shrinks the regression slope).
+
+### 2. Will it survive LOOCV?
+**No. Predict LOOCV Δ to collapse to [−0.01, +0.02].** 
+- Per **F58** and **F56**, $k$-way mixers heavily overestimate LOOCV lift because they exploit fold-level correlations in the small ($N\approx75$) 5-fold training sets. In LOOCV ($N=1$ test), these fold-level idiosyncrasies evaporate.
+- Per **F53**, per-item composition suffers from variance compounding. The 6-link RegressorChain amplifies this because errors propagate sequentially.
+- When LOOCV evaluates the final N=94 vector, the variance inflation from your Stage 1 / Stage 2 parallel ensemble will trigger a massive CCC scale-shift penalty.
+
+### 3. Possible Leakage Paths
+- **Exposure Bias (Critical):** If you used the `sklearn` default `cv=None` in `RegressorChain`, the model appends the *true* $y_{<j}$ labels to the features during training. Your K=500 selector will over-index on these perfect labels. At validation, it relies on *noisy predicted* $\hat{y}_{<j}$. This causes severe covariate shift. It isn't strict data leakage (since test targets aren't seen), but it renders the 5-fold CCC structurally brittle.
+- **Target definition:** The per-fold mean subtraction is safe, but as noted above, failing to use Stage 1 residuals double-counts variance. 
+
+### 4. Iter30 Design — Highest Leverage
+**30B (Improve iter29b)** is the highest-leverage path, provided you fix the architecture.
+- **Fix Exposure Bias:** Initialize `RegressorChain(..., cv=5)`. This forces the chain to use out-of-fold cross-validated predictions during training, matching the test-time distribution.
+- **Fix the Pipeline:** Have Stage 2 predict the *actual Stage 1 per-item residuals* rather than mean-centered raw items. This restores the serial residual architecture of iter5.
+- **Chain Order:** Order by clinical cascade (e.g., posture → gait → left/right agility).
+- **Why reject others:** **30A** (18 items) will fatally compound variance over 18 links (F53). **30D** (Bayesian mixer) is structurally dead per the F54/F56/F58 mixer wall. **30C** (K-NN) is too brittle at N=94.
+
+### 5. Lockbox Decision
+**DO NOT lockbox Iter29B, even if LOOCV holds.** 
+The methodological hazard is high: you would be canonizing an architecture with uncorrected exposure bias and an accidental parallel ensemble that violates the F58 blending wall constraints. If LOOCV holds, it is likely a seed-lucky artifact. 
+
+Instead, implement the structural fixes in **Iter30B** (`cv=5` in the chain + true residual targets). If *that* rigorously correct pipeline clears the +0.025 LOOCV gate, it becomes the new canonical standard.

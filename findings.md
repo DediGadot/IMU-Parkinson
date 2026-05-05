@@ -1020,6 +1020,63 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 
 ---
 
+## F64 — iter28 T1-target SOTA shootout — NEGATIVE (T1 wall confirmed, 2026-05-05 PM)
+
+**Mission origin:** "do the same for t1 ccc only" — port iter28's T3 SOTA shootout to T1 (sum items 9-14, N=94 PD). Two angles ran:
+
+- `run_t1_iter28a_autogluon.py` — iter5 Stage-1 (Ridge on H&Y + cv_yrs + cv_sex + cv_dbs, target=T1) + AutoGluon Stage-2 (180s/fold, 8-model ensemble) on K=500 V2-residual features.
+- `run_t1_iter28b_multirocket.py` — same Stage-1; Stage-2 = MultiROCKET-RidgeCV on 79968 random kernels. Cache reused from T3 28b extract by sub-selecting 94 of 98 SIDs.
+
+Comparator on each fold/seed: **iter5-direct-T1** (Stage1 Ridge + Stage2 LGB on V2 residual, target=T1). Mean iter5-direct-T1 5-fold CCC = **0.6572 ± 0.021** across 3 seeds. (Note: 0.6572 5-fold ≈ 0.6550 iter12-honest LOOCV — direct-T1 iter5 ≡ canonical T1 within sampling noise.)
+
+### Results (5-fold × 3 seeds)
+
+| Pipeline | Mean CCC | Δ vs iter5-direct-T1 | Per-seed Δ | Verdict |
+|---|---|---|---|---|
+| **iter28a-T1 (iter5-S1 + AutoGluon-S2 on T1 residual)** | 0.6263 ± 0.0275 | **−0.0309** | seed42 −0.001 / seed1337 −0.058 / seed7 −0.034 | NEG (3/3 seeds) |
+| **iter28b-T1 (iter5-S1 + MultiROCKET-Ridge-S2 on T1 residual)** | 0.5141 ± 0.1318 | **−0.1431** | seed42 −0.054 / seed1337 −0.315 / seed7 −0.060 | CATASTROPHIC NEG |
+
+CSVs: `results/iter28a_t1_autogluon_5fold_20260505_191822.csv`, `results/iter28b_t1_multirocket_5fold_20260505_185824.csv`.
+
+iter28b-T1 Ridge α* pinned at top of grid (100) for all 3 seeds — same mechanism as T3 28b (Ridge on 80K shape features cannot recover residual variance LGB-on-V2 captures).
+
+### Mechanism
+
+Identical to T3 F63:
+- AutoGluon's 8-model bagging diversity gain washed out by per-model variance at N=94.
+- MultiROCKET shape features orthogonal to V2's hand-crafted statistical features for T1 residual modeling.
+- V2 already saturates the harvestable signal at iter5 architecture for both T1 and T3.
+
+### Triangulation
+
+T1 wall now spans the same probe-strategy classes as T3:
+- Frozen encoders dead (F41 MOMENT, F41 HC-SSL, F45 HARNet, F51 in-domain SSL)
+- Per-item composition modest gains for items 15+18 only (F50)
+- Hybrid mixing (F53 / F56)
+- Sensor fusion (F19)
+- **SOTA AutoML + ROCKET shape features (THIS, F64)**
+
+Both T1 and T3 walls are structural at N≈94-98, orthogonal to algorithm choice.
+
+### Verdict
+
+**Canonical T1 LOOCV CCC = 0.6550 (iter12 honest composite) UNCHANGED.** F64 closes the SOTA-pipeline angle for T1 just as F63 did for T3.
+
+### Don't retry without
+
+- AutoGluon: longer time budget, fastai install, fusion-stacking — all expected Δ <+0.02 per the matching-T3 prior.
+- ROCKET-family Stage-2 heads at this N.
+- TabPFN-v7 evaluation requires PriorLabs license; revisit if obtained.
+
+### Files
+
+- `run_t1_iter28a_autogluon.py` (~250 lines)
+- `run_t1_iter28b_multirocket.py` (~200 lines, reuses T3 28b feature extractor)
+- `results/iter28a_t1_autogluon_5fold_20260505_191822.csv`
+- `results/iter28b_t1_multirocket_5fold_20260505_185824.csv`
+
+---
+
 ## F63 — iter28 SOTA pipeline shootout — NEGATIVE (10th wall data point, spans algorithm class, 2026-05-05 PM)
 
 **Mission origin:** user pushed back on F58's structural-ceiling claim ("i can't believe the winning strategy is as far as we can go") and instructed: "act as a 100x researcher in this space. use codex cli gemini cli and kimi cli. consruct a deep and rigrous plan to test multiple other sota pipelines (either opensource on github or from the literature) that is best for this problem. use agent team and execute in parallel." Triple-CLI consult (codex gpt-5.5 xhigh + gemini-3.1-pro-preview + kimi via opencode/openrouter) ranked SOTA candidates. Selected: AutoGluon (best tabular AutoML, 0.4.0 / 1.5.0 line, 8-model ensemble), MultiROCKET (top time-series shape-feature extractor, aeon library), TabPFN-v7 / TabM 0.0.3 / TabR (DL tabular).

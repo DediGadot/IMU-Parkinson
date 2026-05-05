@@ -1,0 +1,137 @@
+[opencode-swarm] WARNING: .swarm/ is not in your .gitignore. Shell audit logs may contain API keys. Add ".swarm/" to your .gitignore to prevent accidental commits.
+[swarm] Agent 'architect' not found in config — using default model 'opencode/big-pickle'. Add it to opencode-swarm.json to customize.
+[0m
+> build · deepseek/deepseek-v4-pro
+[0m
+[0m→ [0mSkill "pd-imu-100x-researcher"
+[0m→ [0mRead findings.md[90m [limit=150, offset=1][0m
+[0m→ [0mRead CLAUDE.md[90m [limit=100][0m
+[0m→ [0mRead CLAUDE.md[90m [offset=100][0m
+[0m✱ [0mGrep "iter29|iter5.direct.T1|RegressorChain|pairwise.rank|CCC.objective"[90m 39 matches[0m
+[0m✱ [0mGrep "F5[0-9]|F6[0-3]"[90m 108 matches[0m
+[0m→ [0mRead results/iter29_figures/iter29_summary.md
+[0m→ [0mRead findings.md[90m [offset=1020, limit=200][0m
+[0m✱ [0mGlob "**/run_t1_iter29*"[90m 4 matches[0m
+[0m✱ [0mGlob "**/results/iter29*"[90m 2 matches[0m
+[0m✱ [0mGrep "RegressorChain"[90m 4 matches[0m
+[0m→ [0mRead run_t1_iter29b_multitask_lgb.py
+[0m→ [0mRead run_t1_iter29b_validate.py
+[0m✱ [0mGlob "**/results/iter29b_validate*"[90m 0 matches[0m
+[0m
+[0m$ [0mls -la results/iter29* 2>/dev/null; cat results/iter29_figures/iter29_summary.md 2>/dev/null
+-rw-r--r-- 1 fiod fiod   205 May  5 19:32 results/iter29b_multitask_5fold_20260505_192841.csv
+-rw-r--r-- 1 fiod fiod 12545 May  5 19:33 results/iter29b_multitask_5fold_20260505_192841.oof.json
+
+results/iter29_figures:
+total 284
+drwxrwxr-x 2 fiod fiod    4096 May  5 20:01 .
+drwxrwxr-x 6 fiod docker 81920 May  5 20:01 ..
+-rw-rw-r-- 1 fiod fiod   77055 May  5 20:01 fig1_oof_calibration.png
+-rw-rw-r-- 1 fiod fiod   27954 May  5 20:01 fig2_residual_by_quartile.png
+-rw-rw-r-- 1 fiod fiod   43445 May  5 20:01 fig3_per_subject_delta.png
+-rw-rw-r-- 1 fiod fiod   43344 May  5 20:01 fig4_seed_consistency.png
+-rw-rw-r-- 1 fiod fiod     327 May  5 20:01 iter29_summary.md
+# iter29 — T1 SOTA shootout summary
+
+Generated: 2026-05-05T20:01:26.053182
+
+## 5-fold per-angle results
+
+| Angle | seed=42 | seed=1337 | seed=7 | Mean Δ vs iter5 | Notes |
+| --- | --- | --- | --- | --- | --- |
+| iter29b_multitask | 0.7049 (Δ=+0.0470) | 0.7061 (Δ=+0.0288) | 0.7146 (Δ=+0.0782) | +0.0513 | std(Δ)=0.0250 |
+[0m
+Now let me check if LOOCV has completed:
+LOOCV hasn't landed yet. Analyzing from the 5-fold results and the code I've read:
+
+---
+
+## 1. Mechanism
+
+**Primary: (c) increased effective sample size,** but NOT through N×6 — that's a sloppy framing. The real mechanism is subtler:
+
+RegressorChain fits 6 LGBs sequentially. Output _j_ receives `[V2_features | chain_predictions_{1..j-1}]` as input. This means:
+
+- **Item 10 (gait, best-observable)** gets ~2200 V2 features + no chain dependency → essentially a single-task LGB. Its prediction is the same quality as iter8 per-item.
+- **Item 12 (postural stability, second-best)** gets V2 + item 10 prediction as a covariate. The chain learns that high item 10 → slightly elevated item 12 baseline, implicitly capturing the between-item correlation without needing to rediscover it from raw V2.
+- **By item 9/11/13 (worst-observable),** the model has 3–5 prior item predictions as covariates. These carry the clinical structure: "this subject's gait suggests they're at severity level X, so their FoG/chance/posture is probably Y."
+
+**Not (a):** RegressorChain doesn't share tree structure — each LGB is independent. The information sharing is **sequential prediction feeding**, not shared parameters.
+
+**Not (b):** Each item's LGB has its own `n_estimators=500` trees with identical hyperparameters. No explicit regularization beyond LGB defaults.
+
+**Not (d):** The null-gate PASSED. Scrambled labels → |CCC| ≤ 0.2. The chain collapses when the between-item structure is destroyed, proving the lift comes from the genuine clinical correlation.
+
+**Critical detail the user missed:** In `run_one_seed_multitask_residual`, the final prediction is `s1_te + (t1_pred_from_items - sum_means)`. This means the multi-task sum is **shifted by Stage-1's predicted T1 minus the train-fold mean** — i.e., the chain does ALL the item-level work, but Stage-1 provides a bias-correction anchor. This is NOT a blend; it's a residual shift using only train-fold statistics. The 0.5 fixed blend in `run_one_seed_multitask` was scrapped. This is clean.
+
+---
+
+## 2. Will it survive LOOCV?
+
+**Prediction: Δ ≈ +0.025 to +0.035, bootstrap CI will straddle or barely exclude zero.**
+
+Quantitative reasoning:
+
+- F58's AB1 blend lost **Δ ≈ −0.021** (from 5-fold expectations to LOOCV actual) because blending two separate model predictions at test time has `O(2/N_test)` per-fold meta-variance — each test fold in 5-fold averages 19 points, smoothing the meta-estimate; LOOCV's 1-point test gives no such averaging.
+
+- iter29b is NOT a blender. The chain's output is a **single forward pass**. The only 5-fold→LOOCV bias comes from **per-fold model variance**: 94 LOOCV models each trained on 93 subjects vs 5 5-fold models each trained on ~75 subjects. More training data → better chain → **upward** pressure on LOOCV Δ. Counter-pressure: 94 different models → 94 different chain orders → more variance in the per-subject prediction vector → **downward** pressure on CCC.
+
+- Net estimate: upward from N=93 train (vs 75) ≈ +0.005 to +0.010. Downward from model-count variance ≈ −0.010 to −0.020. **Net loss ~0.010–0.020**, putting LOOCV Δ ≈ +0.031 to +0.041.
+
+- However: at 5-fold, `std(Δ)=0.025` across 3 seeds → individual per-seed CCCs vary by ~0.03 even at 5-fold. The LOOCV CCC for a given seed will differ from its 5-fold CCC by ~0.01–0.03 simply from the fold structure change. The **mean across 3 seeds** is more stable.
+
+- **Biggest risk:** item 11 (FoG, 0.17 CCC in iter8) has LOOCV worse than 5-fold by a wide margin in all prior experiments (F30, F50). The chain feeds item 11's noisy prediction forward to item 13 (worst of all at 0.10). At LOOCV, item 11's prediction on a single held-out subject is near-useless → item 13 gets garbage chain input → LOOCV delta collapses more than 5-fold delta would suggest.
+
+**Bottom line: 60% chance Δ > +0.025 with CI excluding 0; 30% chance Δ positive but CI straddles zero; 10% chance flat/negative.**
+
+---
+
+## 3. Leakage analysis
+
+All three flagged points are **clean**:
+
+1. **Per-fold K=500 LGB-importance on train residual:** Identical to iter5. Fold-local. Used only on `Xtr` + `y_t1[tr] - s1_tr`. No test data in the selector.
+
+2. **Per-fold item means:** `np.nanmean(v[train_fold])` — fold-local subtraction. The test-fold subject's item values are NOT used. Clean.
+
+3. **Random chain order per seed:** Not leakage, just a design choice. The random seed controls both the KFold split AND the chain order. **Potential subtlety:** if the same `seed` parameter controls both the fold split and chain order, then a "lucky" seed produces both a favorable split AND a favorable chain order simultaneously. This is NOT leakage but IS a seed-sensitivity concern at N=94. Fix: use independent `split_seed` and `chain_seed` in the pre-registration.
+
+**One more to check:** The feature selector target is `y_t1[tr] - s1_tr` (T1 residual). But the chain target is the 6-item vector. If the feature selector picks features good for T1-sum but BAD for individual items, items 11 and 13 could get noisy predictions that propagate forward. This isn't leakage — it's architecture design. But verify: re-run with per-item feature selection (K=150 per item instead of K=500 on T1) and see if the delta shrinks.
+
+---
+
+## 4. Iter30 design — highest leverage
+
+| Angle | Expected 5-fold Δ | Risk | Novelty vs dead list |
+|---|---|---|---|
+| **30A**: T3 cross-pollinate | +0.01 to −0.03 | HIGH — 18-item chain at N=98, items 1-3 effectively zeros | Semi-new (RegressorChain not tried on T3 but 18 noisy items) |
+| **30B**: Med-domain chain + blend | +0.00 to +0.02 | HIGH — blending is dead (F58) | LOW — chain ordering is a hyperparameter, wasn't the bottleneck |
+| **30C**: Soft-K-NN over contrastive latent | −0.02 to +0.02 | HIGH — meta-training at N=94 | NEW but high variance at this N |
+| **30D**: BMA ensemble | 0 to −0.02 | FATAL — mixing is dead (F56/F58) | LOW — same class as dead ideas |
+| **30E (mine)**: **Hierarchical chain** | **+0.02 to +0.05** | MEDIUM | NEW — structurally different from dead ideas |
+
+**30E detail — "Hierarchical residual chain":**
+
+Split 6 items into two tiers by IMU-observability:
+- **Tier 1** = {10: gait, 12: postural stability, 14: body bradykinesia} — high observable. Single RegressorChain on these 3.
+- **Tier 2** = {9: arising, 11: FoG, 13: posture} — low observable. Second RegressorChain on these 3, with **Tier 1's sum prediction as an additional covariate**.
+
+Reasoning: The current chain propagates noisy item 11 prediction → item 13. If items 11 and 13 are at the END of the chain (fed by the 4 good items), the propagation is more reliable. This decouples the chain from item-ordering luck.
+
+Also worth pursuing in parallel: **30A-lite** — T3 with chain on items {9-14} only (the T1 subset), keeping items {1-8, 15-18} at their iter5 Stage-1 Ridge contributions. This is the cleanest T1→T3 bridge: if the chain lifts T1 LOOCV by +0.03, that's ~+0.02 on T3 through the F58 α≈0.68 weighting. Expected Δ ≈ +0.015 at T3 LOOCV — modest but real.
+
+---
+
+## 5. Lockbox decision
+
+If LOOCV Δ ≥ +0.025 with bootstrap CI excluding 0: **YES, lockbox as new canonical T1.**
+
+Hazards to disclose in the pre-registration:
+
+1. **Seed-coupling:** Same `seed` controls KFold split, LGB random_state, AND RegressorChain order. Must deconfound in the pre-registration (independent `split_seed`, `model_seed`, `chain_seed`). If the current 3 seeds all had favorable chain orders, LOOCV across more seeds could regress.
+
+2. **Composite replacement:** iter12 honest (0.6550) is a composite of 6 independent per-item lockboxes. iter29b is a single joint model. Replacing a composite with a joint model is architecturally cleaner, but the pre-reg must list ALL 3 seeds' LOOCV numbers, not just the mean.
+
+3. **std(Δ)=0.025 at 5-fold is ABOVE the 0.020 gate.** This alone argues for NOT lockboxing even if LOOCV mean Δ clears +0.025 — the gate was designed to prevent seed-shopping, and the multi-task chain at this N is seed-volatile. If LOOCV std(Δ) across 3 seeds exceeds 0.020, the result is screening-positive but not confirmatory — file as supplementary, keep iter12 as canonical.
+
+4. **Beware the F58 lesson:** The largest single LOOCV loss observed was F55's r=+0.327 residual orthogonality → F58's AB1 Δ=−0.021. That was a k=1 blend (simplest possible mixer). The chain is NOT a k=1 blend, but the structural concern is the same: 5-fold correlation structure doesn't survive LOOCV at N=94. The chain's advantage is larger (+0.05 not +0.02) so there's more margin, but don't be surprised by Δ ≈ +0.015 at LOOCV.

@@ -1,0 +1,75 @@
+{
+  "timestamp": "20260505_201626",
+  "iso_datetime": "2026-05-05T20:16:26.506401",
+  "experiment": "T1 iter30-B V1_random \u2014 multi-task LGB chain LOCKBOX",
+  "git_head": "unknown",
+  "formula_sha256": "512ed04f6f3c52b1e5a422c6eb464fe6e08d3802b9d956ec20bf192730fc5f05",
+  "formula": {
+    "experiment": "T1 iter30-B multi-task LGB chain on items 9-14",
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects": 94,
+      "filter": "PD with full items 9-14"
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "T1 (sum items 9-14)"
+    },
+    "stage2": {
+      "model": "sklearn.multioutput.RegressorChain over LGBMRegressor",
+      "variant": "V1_random",
+      "lgb_params": {
+        "n_estimators": 500,
+        "learning_rate": 0.05,
+        "num_leaves": 15,
+        "min_data_in_leaf": 10,
+        "n_jobs": 1,
+        "verbose": -1
+      },
+      "items_targets": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "item_target_centering": "subtract per-fold train_mean(item)",
+      "feature_select_method": "lgb_importance_top_k_per_fold",
+      "feature_select_k": 500,
+      "imputation": "fold_local_median",
+      "post_combine_formula": "Stage1_pred + (sum(item_pred + train_mean) - sum(train_mean))"
+    },
+    "eval": {
+      "loocv_n": 94,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "fold_construction_5fold": "KFold(shuffle=True, random_state=seed)",
+      "headline_metric": "CCC of mean-of-3-seed predictions",
+      "comparator_iter5_direct_loocv": "computed live in same SID-aligned LOOCV",
+      "comparator_iter12_honest_loocv_oof": "results/t1_iter12_honest_composite.oof.npy"
+    },
+    "lockbox_rules": [
+      "ONE pre-registered config. ONE LOOCV run.",
+      "Headline = CCC of mean-of-3-seed preds on N=94.",
+      "Pass-canonical: paired-bootstrap (n=5000) vs iter5-direct-T1 frac>0 \u2265 0.95 AND headline > 0.6550.",
+      "Pre-reg written BEFORE any LOOCV run for this variant (per multi-LLM consult)."
+    ]
+  },
+  "n_subjects": 94,
+  "variant": "V1_random",
+  "eval_protocol": "LOOCV (n=94) on T1 cohort. Stage-1 Ridge (alpha=1.0) on H&Y + cv_yrs + cv_sex + cv_dbs with per-fold standardisation, target=T1. Stage-2 RegressorChain(LGBMRegressor) variant 'V1_random' on per-item residuals (items 9-14, train-mean-centered) with K=500 LGB-importance selection per fold. 3-seed mean preds = headline."
+}

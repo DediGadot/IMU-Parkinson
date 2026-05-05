@@ -1,0 +1,4 @@
+seed,variant,feature_set,stage2,n_rocket_features,ccc,mae,r,alpha_mean,alpha_median,wall_time_s,iter5_direct_t1_5fold_ccc,delta_vs_iter5_direct
+42,iter5_stage1+rocket_stage2,A3_tier1,ridgecv,79968,0.6036,1.936,0.6043,100.0,100.0,5.2,0.6579,-0.0543
+1337,iter5_stage1+rocket_stage2,A3_tier1,ridgecv,79968,0.3627,2.356,0.3929,100.0,100.0,5.4,0.6773,-0.3146
+7,iter5_stage1+rocket_stage2,A3_tier1,ridgecv,79968,0.576,2.004,0.5763,100.0,100.0,5.3,0.6364,-0.0604

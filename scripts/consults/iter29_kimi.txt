@@ -1,0 +1,149 @@
+[opencode-swarm] WARNING: .swarm/ is not in your .gitignore. Shell audit logs may contain API keys. Add ".swarm/" to your .gitignore to prevent accidental commits.
+[swarm] Agent 'architect' not found in config — using default model 'opencode/big-pickle'. Add it to opencode-swarm.json to customize.
+[0m
+> build · moonshotai/kimi-k2.6
+[0m
+[0m→ [0mRead findings.md[90m [limit=200, offset=1][0m
+[0m→ [0mRead CLAUDE.md[90m [limit=200, offset=1][0m
+[0m✱ [0mGlob "**/run_t3_iter29*.py"[90m in . · 0 matches[0m
+[0m✱ [0mGlob "**/*iter29*.py"[90m in . · 5 matches[0m
+[0m✱ [0mGrep "RegressorChain|iter29|multi_task"[90m in . · 152 matches[0m
+[0m→ [0mRead findings.md[90m [limit=200, offset=1400][0m
+[0m→ [0mRead findings.md[90m [limit=200, offset=1600][0m
+[0m→ [0mRead run_t1_iter29b_multitask_lgb.py[90m [limit=150, offset=1][0m
+[0m→ [0mRead scripts/consults/iter29_codex.txt[90m [limit=200, offset=1][0m
+[0m→ [0mRead scripts/consults/iter29_gemini.txt[90m [limit=200, offset=1][0m
+[0m→ [0mRead scripts/consults/iter29_grok.txt[90m [limit=200, offset=1][0m
+[0m→ [0mRead scripts/consults/iter29_kimi.txt[90m [limit=200, offset=1][0m
+[0m→ [0mRead run_t1_iter29b_validate.py[90m [limit=150, offset=1][0m
+[0m→ [0mRead run_t1_iter30b_multitask_variants.py[90m [limit=150, offset=1][0m
+[0m
+[0m$ [0mls -la results/iter29* 2>/dev/null; ls -la results/iter30* 2>/dev/null
+-rw-r--r-- 1 fiod fiod   205 May  5 19:32 results/iter29b_multitask_5fold_20260505_192841.csv
+-rw-r--r-- 1 fiod fiod 12545 May  5 19:33 results/iter29b_multitask_5fold_20260505_192841.oof.json
+
+results/iter29_figures:
+total 284
+drwxrwxr-x 2 fiod fiod    4096 May  5 20:01 .
+drwxrwxr-x 6 fiod docker 81920 May  5 20:01 ..
+-rw-rw-r-- 1 fiod fiod   77055 May  5 20:01 fig1_oof_calibration.png
+-rw-rw-r-- 1 fiod fiod   27954 May  5 20:01 fig2_residual_by_quartile.png
+-rw-rw-r-- 1 fiod fiod   43445 May  5 20:01 fig3_per_subject_delta.png
+-rw-rw-r-- 1 fiod fiod   43344 May  5 20:01 fig4_seed_consistency.png
+-rw-rw-r-- 1 fiod fiod     327 May  5 20:01 iter29_summary.md
+[0m
+## Iter29B Multi-Task RegressorChain — 5-LLM Synthesis
+
+**TL;DR**: The +0.051 5-fold lift is **real within 5-fold** but structurally unlikely to survive LOOCV at +0.025+. The canonical T1 ceiling **remains 0.6550** (iter12 honest). Iter29B is a strong *exploratory* candidate but **not lockboxable** without additional hardening.
+
+---
+
+### 1. Mechanism — What is RegressorChain doing differently?
+
+**Consensus across codex/gemini/grok/kimi**: The lift is **(a) information sharing across item heads**, primarily via conditioning on prior items in the chain — not (b) joint optimization, not (c) effective N×6 sample size increase.
+
+T1 items 9-14 are clinically correlated (r≈0.65-0.82). In the chain:
+- **Later heads** see predictions from earlier heads as extra covariates, creating a low-dimensional learned severity proxy.
+- This encodes *between-item residual correlation* that independent per-item models (F53) or single-task T1 LGB miss.
+- As codex notes: `"RegressorChain is not joint optimization. It fits six scalar LGB models sequentially, so it does not make the effective N equal to 94 × 6 = 564."`
+
+**Critical caveat — Exposure Bias (gemini / codex)**: `sklearn.RegressorChain(cv=None)` appends **true** prior-item residuals during training, but **predicted** residuals at test time. This is not classic leakage, but it causes **teacher-forcing mismatch** that inflates 5-fold stability. The K=500 selector may over-index on these perfect labels.
+
+**Your code analysis confirms**: `run_t1_iter29b_multitask_lgb.py:94` uses default `RegressorChain(base, order="random", random_state=seed)` — `cv=None`.
+
+---
+
+### 2. Will it survive LOOCV?
+
+**All 4 consultants: NO** (or "barely / probably not").
+
+| Consultant | LOOCV Δ Forecast | LOOCV CCC Forecast | Key rationale |
+|---|---|---|---|
+| **Codex** | +0.025 to +0.035 | 0.680–0.690 | `cv=None` teacher-forcing shrinks; seed SD=0.025 misses `std<0.020` gate |
+| **Gemini** | −0.01 to +0.02 | ~0.66 | Fold-level idiosyncrasies evaporate at LOO; variance compounding + parallel ensemble penalty |
+| **Grok** | +0.01 to +0.015 (or <0) | ~0.66 | 5-fold Δ shrinks 60-80% at LOOCV; F58 Pareto asymptote 0.5975 caps iter5 family near 0.66 even at ∞N |
+| **Kimi** | (reads others, defers) | — | Echoes grok/codex: "unconfirmed at LOOCV" |
+
+**Quantitative justification (F58/F56/F53)**:
+- F56 (nested hybrid k=19): 5-fold Δ=+0.05 → LOOCV collapsed to −0.147 (Ridge meta overfit)
+- F58 (iter22 convex blend): 5-fold looked borderline positive → LOOCV −0.021
+- F53 (raw per-item sum): 5-fold CCC=+0.299 vs iter5 +0.405 → variance compounding killed it
+
+Your observed **seed SD on Δ = 0.025** (from [+0.029, +0.047, +0.078]) already **misses the T1 promotion gate** (`sum-level seed std < 0.020`). This is the same pattern as prior mixer failures: 5-fold looks promising because fold-level correlations are stable with N≈75 train, but LOOCV (N=1 test) exposes per-fold prediction variance.
+
+---
+
+### 3. Leakage Paths — Which are real?
+
+**Not leakage (all consultants agree)**:
+- ✅ Per-fold K=500 on train residual — fold-local, same as iter5
+- ✅ Item residual = item minus train-fold mean — fold-local
+- ✅ Random chain order per seed — not data-dependent selection
+
+**Real methodological issues (not classic leakage but structurally inflating)**:
+- ⚠️ **Exposure bias / teacher-forcing** (`cv=None`): Training sees true prior items; test sees predicted. This inflates 5-fold stability. Fix: `RegressorChain(..., cv=5)` or manual OOF prior-item covariates inside each outer train.
+- ⚠️ **Parallel ensemble / double-counting variance** (gemini): Your Stage 2 predicts `item - train_mean` (not Stage 1 residual), so `final_pred = Stage1 + Stage2` creates an unweighted parallel ensemble. This artificially inflates prediction variance → calibration slope drops to ~0.80 (observed). Fix: Have Stage 2 predict the *actual Stage 1 per-item residual*.
+- ⚠️ **Post-hoc variant selection** (grok/kimi): You ran A/B/C (pairwise/multi-task/CCC-direct) in parallel on the same splits and selected B as the winner. **This IS the iter11A pattern** (AGENTS.md:14-15 — multi-layer adaptive selection; bootstrap inflation +0.070). Even if LOOCV runs clean numerically, the *decision to lockbox* was made after seeing 5-fold screen results.
+
+**Required additional null gates**:
+- `RegressorChain(cv=5)` rerun
+- Independent per-item ablation (same selector/base, no chain covariates)
+- Permute prior-item covariates inside train → lift should disappear
+- Oracle diagnostic: use true prior items at test to bound max chain benefit
+- 100+ scrambled-label permutations (N=94 CCC nulls are noisy; 1-shot is weak)
+
+---
+
+### 4. Iter30 Design — Highest Leverage?
+
+**Consensus ranking:**
+
+| Rank | Option | Leverage | Rationale |
+|---|---|---|---|
+| **1** | **30E: Harden iter29B** | **Highest** | Fix `cv=5` + true residual targets + fixed clinical chain order + fresh pre-reg. 30B-chain-order-tuning alone is secondary to fixing the exposure bias. |
+| **2** | 30B (medical chain order) | Medium | Only AFTER fixing `cv=5`. Orders by symptom cluster (e.g., posture→gait→balance→brady) may outperform random, but the gain is likely <0.01. |
+| **3** | 30A (T3 cross-pollination, 18 items) | Low | F53/F56 already killed 18-item composition at this N. Variance compounding over 18 links would be worse than 6. |
+| **4** | 30C (supervised contrastive + KNN) | Low | At N=94, likely another target-leaky latent/retrieval variant unless deeply nested. Variance risk. |
+| **5** | 30D (BMA ensemble) | Low-None | F54/F56/F58 mixer wall already proven dead. k>2 mixers look better in screening than LOOCV. |
+
+**Grok's dissent (worth noting)**: Grok ranks **30D (BMA)** highest, arguing a 1-2 parameter convex mix of iter5-direct + iter29b + iter12-honest OOFs is low-variance. But F55's +0.327 orthogonality → F56's −0.147 nested hybrid showed **raw residual Pearson r is necessary but not sufficient** for predictive lift. The curse of dimensionality at N≈100 kills k>2 meta even when orthogonality is real.
+
+**Skip**: CatBoost/XGB (30B exotic learners) — AGENTS.md dead-list says algorithm class doesn't matter at this N (F63 AutoGluon/MultiROCKET null). The wall is structural, not algorithmic.
+
+---
+
+### 5. Lockbox Decision — Should it replace 0.6550?
+
+**All 4 consultants: NO.**
+
+**Even if LOOCV Δ ≥ +0.025 with CI excluding 0**, iter29B **violates the composite-level cherry-pick rule** (AGENTS.md:57-59). The iter11A retraction was exactly this:
+
+> *"iter11A 0.7241 was retracted on 2026-05-03 after independent leakage scrutiny found multi-layer adaptive variant selection across iter6/iter8/cccv2/iter10/iter11 batches."*
+
+Your iter29B is:
+- Selected after running A/B/C in parallel (adaptive variant selection)
+- No pre-reg with `formula_sha256` + `created_at_utc` committed **before** any OOF existed
+- Uses `cv=None` exposure bias (structural inflation)
+
+**If you want to pursue this**: 
+1. Freeze **one** formula: fixed item order, fixed seed ensemble, `cv=5`, true residual targets, K=500, LGB params
+2. Write **one** pre-reg JSON with `formula_sha256` BEFORE running LOOCV
+3. Run full 5-null gate (scrambled, SID-shuffle, canary, library-exclusion, transductive)
+4. Run LOOCV **once**
+5. Paired bootstrap vs **iter12 honest 0.6550** (not iter5 5-fold); 95% CI must exclude 0
+
+Only then can it become canonical. Until then, report iter29B as: *"exploratory multi-task angle, 5-fold only, Δ=+0.051, exposure-bias uncorrected."*
+
+---
+
+### Bottom Line Summary
+
+| Question | Answer |
+|---|---|
+| Real signal in 5-fold? | **Yes.** Item-covariance exploitation via chain conditioning is a genuine mechanism. |
+| Will LOOCV hold +0.025? | **Unlikely.** Forecast Δ = −0.01 to +0.035; full +0.05 survival improbable. |
+| Leakage? | No classic leakage; **exposure bias + post-hoc selection** are the hazards. |
+| Iter30 priority? | **Harden iter29B** (`cv=5`, true residuals, fixed order, fresh pre-reg). Nothing else has higher EV at this N. |
+| Lockbox now? | **No.** Violates composite cherry-pick rule regardless of LOOCV number. |
+
+Canonical T1 LOOCV CCC remains **0.6550** (`compose_t1_iter12_honest.py`, single iter8 batch 20260430_143044).

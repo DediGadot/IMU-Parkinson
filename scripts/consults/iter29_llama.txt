@@ -1,0 +1,24 @@
+[opencode-swarm] WARNING: .swarm/ is not in your .gitignore. Shell audit logs may contain API keys. Add ".swarm/" to your .gitignore to prevent accidental commits.
+[swarm] Agent 'architect' not found in config — using default model 'opencode/big-pickle'. Add it to opencode-swarm.json to customize.
+ProviderModelNotFoundError: ProviderModelNotFoundError
+ data: {
+  providerID: "openrouter",
+  modelID: "meta-llama/llama-4-maverick",
+  suggestions: [],
+},
+
+      at <anonymous> (/$bunfs/root/chunk-3t0fqs9d.js:779:47377)
+      at ~effect/Effect/successCont (/$bunfs/root/chunk-vn1rjvmw.js:25:7738)
+      at runLoop (/$bunfs/root/chunk-vn1rjvmw.js:25:2045)
+      at evaluate (/$bunfs/root/chunk-vn1rjvmw.js:25:1435)
+      at <anonymous> (/$bunfs/root/chunk-vn1rjvmw.js:25:5589)
+      at o7 (/$bunfs/root/chunk-vn1rjvmw.js:25:38715)
+      at <anonymous> (/$bunfs/root/chunk-pafwasff.js:4:78979)
+      at ~effect/Effect/successCont (/$bunfs/root/chunk-vn1rjvmw.js:25:17713)
+      at runLoop (/$bunfs/root/chunk-vn1rjvmw.js:25:2045)
+      at evaluate (/$bunfs/root/chunk-vn1rjvmw.js:25:1435)
+      at <anonymous> (/$bunfs/root/chunk-vn1rjvmw.js:25:5589)
+      at <anonymous> (/$bunfs/root/chunk-vky1wh7c.js:709:12988)
+      at <anonymous> (node:fs:225:13)
+
+[91m[1mError: [0mModel not found: openrouter/meta-llama/llama-4-maverick.

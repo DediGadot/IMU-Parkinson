@@ -1,0 +1,261 @@
+warning: `--full-auto` is deprecated; use `--sandbox workspace-write` instead.
+Reading additional input from stdin...
+OpenAI Codex v0.128.0 (research preview)
+--------
+workdir: /home/fiod/medical
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR, /home/fiod/.codex/memories]
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 019df9bb-bf87-7521-ab8d-02b8db0f06ec
+--------
+user
+# T1 iter29 — multi-LLM consult brief
+
+You are a senior ML researcher consulting on a **Parkinson's UPDRS-III T1 (axial subscore) regression** problem at N=94 PD subjects with 13 IMU sensors at 100 Hz. **Goal**: break the canonical T1 LOOCV CCC ceiling of 0.6550.
+
+## Wall data (10 prior negatives, summarized)
+
+The following all FAILED at this N (see findings.md F19-F63):
+- Feature engineering (sensor fusion, FoG-summary, frozen encoders MOMENT/HC-SSL/HARNet/in-domain SSL, unused IMU channels)
+- Per-item gated composition (variance compounding)
+- Hybrid mixing (k=1 convex blend, k=2 OLS/Ridge, k=19 nested-CV — all dead)
+- Stage-1 widening (clinical-extras Tomlinson LEDD, Part1 cognitive, etc — partial-r collapse)
+- Cross-dataset zero-shot transfer (PADS Apple Watch — task/protocol mismatch)
+- Sample-weighted retraining + post-hoc calibration (regression-to-mean shrinkage is necessary)
+- SOTA tabular AutoML (AutoGluon Δ=-0.03) and SOTA TSC features (MultiROCKET Δ=-0.14 catastrophic)
+
+F58 Pareto-fit on iter5 architecture: structural ceiling asymptote 0.5975 for T3.
+
+## Iter 29 results (5-fold × 3 seeds {42, 1337, 7})
+
+Comparator everywhere: iter5-direct-T1 (Stage1 Ridge on H&Y + cv_yrs + cv_sex + cv_dbs;
+Stage2 LGB on V2 residual). Mean iter5-direct-T1 5-fold CCC = 0.6572 ± 0.021.
+
+### Iter29A — Pairwise rank + isotonic calibration on T1 residual
+- Per fold: enumerate all C(N_tr, 2) ≈ 3000 pairs of training subjects → train LGBM
+  classifier on sign(y_i − y_j); at test time mean P(y_test > y_train) over all train
+  → rank percentile in [0, 1]; isotonic-calibrate to T1 via inner 5-fold OOF.
+- **Seed 42 result**: CCC = 0.6406, Δ = −0.0173 NEG. (Other seeds in progress.)
+
+### Iter29B — Multi-task LGB on items 9-14 (joint prediction via RegressorChain)
+- Stage 1 = same as iter5 (Ridge on H&Y + clinical, predicts T1 directly).
+- Stage 2 = sklearn RegressorChain(LGBMRegressor) predicting per-item residuals
+  (item − train_mean_item) jointly across items 9, 10, 11, 12, 13, 14 in random
+  chain order per seed.
+- Per-fold K=500 LGB-importance feature select; per-fold imputation.
+- **Result**: per-seed CCC = [0.7049, 0.7061, 0.7146]; Δ vs iter5-direct =
+  [+0.047, +0.029, +0.078]. **Mean Δ = +0.0513**, all 3 seeds positive.
+  - 5-fold MAE: [1.97, 1.94, 1.88]
+  - Slope (pred vs true): [seed42=0.81, seed1337=0.81, seed7=0.75]
+- **Scrambled-label null gate PASSED**: both multi-task and iter5-direct show
+  |scrambled CCC| ≤ 0.2 (sampling noise at N=18-19 fold size); no systematic
+  signal recovery from shuffled labels.
+- **LOOCV in progress** (will complete in ~30 min). Critical: F58 showed 5-fold
+  Pearson r over-estimates LOOCV lift for k>2 mixers.
+
+### Iter29C — Direct CCC-objective LGB on T1 (with F50 v2 fixes)
+- Custom CCC gradient/hessian objective; init_score=mean(y); Pearson selector;
+  hessian=1.0 scaling; post-hoc affine calibration via inner 5-fold OOF.
+- Variants: with_stage1, no_stage1.
+- Status: still running (slow due to custom objective + inner OOF).
+
+## My ask
+
+Given the iter29b apparent breakthrough (Δ=+0.0513 5-fold across 3 seeds with
+null-gate clean), please answer:
+
+1. **Mechanism**: what is multi-task RegressorChain (joint prediction of items
+   9-14) doing differently than independent per-item LGB or single-task LGB-on-T1?
+   Specifically: is the lift from (a) information sharing across item heads via
+   the chain's predicted-prior-item covariates, (b) implicit regularization
+   from joint optimization, (c) increased effective sample size to N×6=564,
+   or (d) an unintended leakage path I've missed?
+
+2. **Will it survive LOOCV?** Per F58/F56, mixers/blenders fail going from 5-fold
+   to LOOCV due to higher per-fold prediction variance at LOO level. Predict
+   the LOOCV Δ given the observed 5-fold Δ=+0.05. Justify quantitatively.
+
+3. **Possible leakage paths**:
+   - Per-fold K=500 LGB-importance selector on train residual (same as iter5).
+   - Item residuals subtract train-fold mean (per-fold).
+   - RegressorChain order is random per seed.
+   - Are any of these subtle leakage points I should test more rigorously?
+
+4. **Iter30 design — which are highest-leverage?**
+   - 30A: Cross-pollinate to T3 — apply multi-task chain to all 18 UPDRS-III items.
+   - 30B: Improve iter29b — alternative chain orders (medical-domain-driven:
+     items by symptom cluster), blend with iter12 honest LOOCV preds, exotic
+     base learners (CatBoost/XGB instead of LGB).
+   - 30C: Soft-K-NN over learned latent — embed subjects via supervised
+     contrastive on T1 then predict via Gaussian-kernel-weighted train-neighbor
+     average.
+   - 30D: Bayesian model averaging — combine iter5-direct, iter29b multi-task,
+     and (if survives) iter29a pairwise via posterior-weighted ensemble.
+   - 30E (suggest your own).
+
+5. **Lockbox decision**: if iter29b LOOCV holds Δ ≥ +0.025 with bootstrap
+   95% CI excluding 0, should we lockbox it as the new canonical T1 number
+   (replacing iter12 honest 0.6550)? What's the methodological hazard?
+
+Be brief but quantitatively rigorous. Cite F-numbers from findings.md when relevant.
+warning: Codex's Linux sandbox uses bubblewrap and needs access to create user namespaces.
+codex
+I’ll ground this in the repo’s current audit notes before answering, especially the failure modes around F56/F58 and the leakage rules that matter for a new T1 lockbox.
+codex
+The first sandboxed read hit a local bubblewrap/network namespace issue before the command ran. I’m going to use simpler direct reads through the same shell interface and keep the scope to the local planning and audit files.
+mcp: codex/list_mcp_resources started
+mcp: codex/list_mcp_resources (completed)
+codex
+Short version: iter29B is a plausible real signal, but I would treat it as **not yet canonical** until the chain-specific leakage/teacher-forcing checks pass and the LOOCV artifact is cleanly pre-registered.
+
+1. **Mechanism**
+
+The lift is mostly **item-covariance exploitation plus target decomposition**, not true multi-task sample-size gain.
+
+`RegressorChain` is not joint optimization. It fits six scalar LGB models sequentially, so it does **not** make the effective N equal to `94 × 6 = 564`. Later heads get prior item predictions as extra covariates, so the chain can use “easy” axial items as a low-dimensional learned severity proxy for harder items.
+
+That differs from:
+
+- single-task T1 LGB: one noisy summed ordinal target, one feature-target map.
+- independent per-item LGB: six maps, but no conditional correction among item residuals, so F53-style variance compounding can dominate.
+- chain: six maps plus conditional item manifold constraints.
+
+The biggest caveat is sklearn `RegressorChain(cv=None)`: during training, later heads see **true previous item residuals**, while at test time they see predicted previous residuals. That is not classic test leakage, but it is teacher-forcing mismatch and can overstate stability.
+
+2. **LOOCV Survival**
+
+Observed:
+
+- iter29B mean 5-fold CCC: `0.7085`
+- iter5-direct-T1 mean 5-fold CCC: `0.6572`
+- mean Δ: `+0.0513`
+- Δ seed SD from `[+0.047, +0.029, +0.078]`: about `0.025`
+
+That seed SD already misses the repo’s T1 promotion discipline of 5 seeds with sum-level SD `<0.020`.
+
+Given F53/F56/F58, I would not project the full `+0.05` into LOOCV. This is less doomed than the F56 19-feature meta-stack because it is a structured six-head target factorization, but it is still a k>2 label-side construction.
+
+My forecast:
+
+- expected LOOCV Δ: `+0.025` to `+0.035`
+- expected LOOCV CCC: about `0.680` to `0.690`
+- full `+0.05` survival: unlikely
+- Δ positive but CI crossing zero: very plausible at N=94
+
+If the `cv=None` teacher-forcing artifact is large, shrink that forecast to roughly `0` to `+0.015`.
+
+3. **Leakage Checks**
+
+Your listed pieces are not leaks if strictly fold-local:
+
+- K=500 selector on train residual: OK if fit only inside outer train.
+- item residual = item minus train-fold mean: OK if train mean only.
+- random chain order: OK only if the seed/order ensemble was fixed before reading LOOCV.
+
+Tests I would require:
+
+- rerun with `RegressorChain(cv=inner_5fold)` or manual OOF prior-item covariates inside each outer train.
+- independent per-item ablation with identical selector/base learner but no chain covariates.
+- permute prior-item chain covariates inside train; lift should disappear.
+- oracle diagnostic using true prior items at test to bound the maximum possible chain benefit.
+- 100+ scrambled-label permutations, not only one, because N=94 CCC nulls can be noisy.
+- SID-shuffle join and test-only canary as usual.
+
+4. **Iter30 Priority**
+
+Highest leverage is **30E: harden iter29B**, not broaden the search.
+
+Freeze one formula: fixed item order, fixed seed ensemble, fixed K, fixed LGB params, fold-local means, and preferably OOF chain covariates. Then run null gates and LOOCV once.
+
+30B is second, but only narrowly: medical-domain chain order or fixed equal-weight order ensemble. I would avoid CatBoost/XGB/blending until after the lockbox decision because that becomes iter11A-style adaptive variant search.
+
+30A T3 all-18 chain is low priority. F53 and F56 say per-item T3 composition/meta-learning at this N is structurally fragile, and 18 heads greatly increase order/variance risk.
+
+30C supervised contrastive KNN is low priority. At N=94 it is likely another target-leaky latent/retrieval variant unless deeply nested.
+
+30D BMA is low priority for canonical use. F56/F58 already warn that same-sample mixers look better in screening than LOOCV.
+
+5. **Lockbox Decision**
+
+If, and only if, iter29B was pre-registered before LOOCV results/artifacts were observed, full null gates pass, and paired bootstrap versus **iter12 honest** excludes zero, then yes: it can replace `0.6550` as canonical T1.
+
+The hazard is methodological, not just statistical: if LOOCV was launched or inspected before freezing the exact formula, seed ensemble, chain order, and comparison target, this becomes another adaptive-selection result. In that case I would report it as a strong post-hoc candidate, not the new canonical.
+tokens used
+28,299
+Short version: iter29B is a plausible real signal, but I would treat it as **not yet canonical** until the chain-specific leakage/teacher-forcing checks pass and the LOOCV artifact is cleanly pre-registered.
+
+1. **Mechanism**
+
+The lift is mostly **item-covariance exploitation plus target decomposition**, not true multi-task sample-size gain.
+
+`RegressorChain` is not joint optimization. It fits six scalar LGB models sequentially, so it does **not** make the effective N equal to `94 × 6 = 564`. Later heads get prior item predictions as extra covariates, so the chain can use “easy” axial items as a low-dimensional learned severity proxy for harder items.
+
+That differs from:
+
+- single-task T1 LGB: one noisy summed ordinal target, one feature-target map.
+- independent per-item LGB: six maps, but no conditional correction among item residuals, so F53-style variance compounding can dominate.
+- chain: six maps plus conditional item manifold constraints.
+
+The biggest caveat is sklearn `RegressorChain(cv=None)`: during training, later heads see **true previous item residuals**, while at test time they see predicted previous residuals. That is not classic test leakage, but it is teacher-forcing mismatch and can overstate stability.
+
+2. **LOOCV Survival**
+
+Observed:
+
+- iter29B mean 5-fold CCC: `0.7085`
+- iter5-direct-T1 mean 5-fold CCC: `0.6572`
+- mean Δ: `+0.0513`
+- Δ seed SD from `[+0.047, +0.029, +0.078]`: about `0.025`
+
+That seed SD already misses the repo’s T1 promotion discipline of 5 seeds with sum-level SD `<0.020`.
+
+Given F53/F56/F58, I would not project the full `+0.05` into LOOCV. This is less doomed than the F56 19-feature meta-stack because it is a structured six-head target factorization, but it is still a k>2 label-side construction.
+
+My forecast:
+
+- expected LOOCV Δ: `+0.025` to `+0.035`
+- expected LOOCV CCC: about `0.680` to `0.690`
+- full `+0.05` survival: unlikely
+- Δ positive but CI crossing zero: very plausible at N=94
+
+If the `cv=None` teacher-forcing artifact is large, shrink that forecast to roughly `0` to `+0.015`.
+
+3. **Leakage Checks**
+
+Your listed pieces are not leaks if strictly fold-local:
+
+- K=500 selector on train residual: OK if fit only inside outer train.
+- item residual = item minus train-fold mean: OK if train mean only.
+- random chain order: OK only if the seed/order ensemble was fixed before reading LOOCV.
+
+Tests I would require:
+
+- rerun with `RegressorChain(cv=inner_5fold)` or manual OOF prior-item covariates inside each outer train.
+- independent per-item ablation with identical selector/base learner but no chain covariates.
+- permute prior-item chain covariates inside train; lift should disappear.
+- oracle diagnostic using true prior items at test to bound the maximum possible chain benefit.
+- 100+ scrambled-label permutations, not only one, because N=94 CCC nulls can be noisy.
+- SID-shuffle join and test-only canary as usual.
+
+4. **Iter30 Priority**
+
+Highest leverage is **30E: harden iter29B**, not broaden the search.
+
+Freeze one formula: fixed item order, fixed seed ensemble, fixed K, fixed LGB params, fold-local means, and preferably OOF chain covariates. Then run null gates and LOOCV once.
+
+30B is second, but only narrowly: medical-domain chain order or fixed equal-weight order ensemble. I would avoid CatBoost/XGB/blending until after the lockbox decision because that becomes iter11A-style adaptive variant search.
+
+30A T3 all-18 chain is low priority. F53 and F56 say per-item T3 composition/meta-learning at this N is structurally fragile, and 18 heads greatly increase order/variance risk.
+
+30C supervised contrastive KNN is low priority. At N=94 it is likely another target-leaky latent/retrieval variant unless deeply nested.
+
+30D BMA is low priority for canonical use. F56/F58 already warn that same-sample mixers look better in screening than LOOCV.
+
+5. **Lockbox Decision**
+
+If, and only if, iter29B was pre-registered before LOOCV results/artifacts were observed, full null gates pass, and paired bootstrap versus **iter12 honest** excludes zero, then yes: it can replace `0.6550` as canonical T1.
+
+The hazard is methodological, not just statistical: if LOOCV was launched or inspected before freezing the exact formula, seed ensemble, chain order, and comparison target, this becomes another adaptive-selection result. In that case I would report it as a strong post-hoc candidate, not the new canonical.
