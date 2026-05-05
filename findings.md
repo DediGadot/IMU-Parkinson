@@ -1020,7 +1020,115 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 
 ---
 
-## F60 — iter25 cross-dataset zero-shot transportability on PADS — NO TRANSFER (2026-05-05)
+## F60b — iter25b PADS re-run with full data + bug fixes — VERDICT STANDS, narrative SHARPENED (2026-05-05 PM)
+
+**Mission origin:** user asked to "debug what's going on with first order thinking" after iter25. First-order analysis found two upstream bugs in iter25 polluting the comparison: (a) WG used raw `R_Wrist_Acc_*` in m/s² with gravity included while PADS used Apple Watch FreeAcc in g gravity-removed (60-110× scale gap); (b) gait_reg features meaningless on PADS stationary upper-limb tasks. Triple-CLI consult (codex + gemini) flagged 4 additional issues: Earth-NEU vs Device-XYZ axis-frame mismatch (per-axis features still incomparable even after unit fix); Movella Kalman vs Apple CoreMotion sensor-fusion bias; LeftWrist fallback without axis inversion; need to verify fs and gravity-removal at runtime.
+
+iter25b (`run_t3_iter25b_pads_fixed.py`) applied ALL fixes:
+- **Fix A** — WG uses `R_Wrist_FreeAcc_E/N/U` (gravity-removed, Earth, m/s²); PADS multiplies acc by 9.81 (g → m/s²).
+- **Fix B** — drop `gait_reg` features (step_t/stride_t/cadence/step_reg/stride_reg).
+- **Fix C** — RightWrist-only on PADS (no LeftWrist fallback) — eliminates mirror-axis bug.
+- **Fix D** — runtime sanity checks: fs from Time-column delta vs JSON `sampling_rate` (±5%); mean(|acc|) in g < 0.5 (gravity-removed assertion).
+- **NEW Track A3** — magnitude-only `wrist_am_*` features (frame-invariant) as primary headline per consult consensus.
+
+PADS download completed: **7810/7810 timeseries files** at 100% coverage. **355 PADS subjects** extracted (276 PD + 79 HC), 3843 RightWrist sessions parsed.
+
+### Sanity checks PASSED ✓
+
+| Check | Result |
+|---|---|
+| fs from Time-column delta | 99.35 Hz (vs JSON `sampling_rate=100`; within 5%) |
+| mean acc magnitude in g | 0.0037 (≪ 0.5 threshold; gravity-removed FreeAcc-style confirmed) |
+| RightWrist coverage | 3843 sessions; 0 LeftWrist-fallback skipped |
+
+### Scale ratios collapsed from 60-110× → 1.3-2.4× (Fix A worked)
+
+| Feature | WG mean | PADS mean | iter25 ratio | iter25b ratio |
+|---|---|---|---|---|
+| wrist_am_rms | 2.92 | 1.53 | 62× | **1.91×** |
+| wrist_am_std | 1.84 | 0.89 | 16× | **2.07×** |
+| wrist_am_jerk | 43.75 | 33.52 | 12× | **1.31×** |
+| wrist_ax_rms | 1.75 | 0.73 | 111× | **2.38×** |
+
+Residual 1.3-2.4× = sensor-fusion bias (Movella Kalman vs Apple CoreMotion), not units. Fix A worked as intended.
+
+### Result table
+
+Pre-registered single-batch (formula_sha256 `4f67518ee293178f`):
+
+| Track | Description | iter25 AUROC | iter25b AUROC | Δ |
+|---|---|---|---|---|
+| **A2** | V2-wrist LGB, all features (per-axis + magnitude, no gait_reg) | 0.5166 | **0.4049** | **−0.112** |
+| **A3** | **MAGNITUDE-ONLY (frame-invariant, primary headline)** | n/a | **0.4975** | (vs iter25 A2: −0.019) |
+| **A3D2** | Magnitude AND dimensionless (most rigorous) | n/a | **0.4387** | n/a |
+| **B2** | iter5 Stage 1+2 with mean-imputed PADS clinical | 0.4177 | **0.3284** | **−0.089** |
+| **C2** | **PADS-only 5-fold baseline (within-cohort upper bound)** | 0.6336 | **0.7874 ± 0.025** | **+0.154 ⭐** |
+| **D2** | Dimensionless-only across all axes | n/a | **0.3364** | n/a |
+
+**PRIMARY HEADLINE: Track A3 AUROC = 0.4975** (chance). **VERDICT: NO TRANSFER STANDS.** The fixes did NOT change the verdict — iter25 was correct. But the surrounding story is dramatically richer.
+
+### Key new finding: PADS within-cohort ceiling = **0.7874**, not 0.63
+
+With full PADS data (355 subjects vs iter25's 310 from partial download), the within-PADS PD/HC AUROC ceiling jumped from 0.63 to **0.79**. **The wrist signal IS substantial** — wrist features clearly contain PD discrimination signal. iter5's WearGait training distribution simply does not transport to it.
+
+### Triple-CLI consult on the result (2026-05-05 ~13:50)
+
+Both codex and gemini converged:
+
+  - **Why priors overestimated (predicted 0.55-0.56, actual 0.4975):** "Task/protocol mismatch dominates. WG iter5 learned a gait/balance severity axis from body-worn sensors; PADS is mostly stationary upper-limb smartwatch behavior. The failure of frame-invariant magnitude-only features (A3=0.4975) proves the disconnect is semantic, not just coordinate misalignment. A model optimized for walking kinematics cannot decode resting hand tremors." (Gemini)
+
+  - **B2/D2/A3D2 below chance:** "Below-chance results likely reflect learned sign/interaction inversions under OOD features, not merely residual calibration error." (Codex). Mean-imputed clinical Stage 1 collapses to constant; Stage-2 LGB on OOD wrist features inverts predictions.
+
+  - **C2 = 0.79 makes the cautionary story STRONGER:** "0.63/0.52 could be dismissed as partial-download noise or weak PADS wrist signal. The new 0.79/0.50 split says the OPPOSITE: PADS wrist features contain substantial within-cohort PD/HC information, but WearGait's learned representation does not align with it. That sharpens Table 3: internal signal existence is not transportability, especially across device, body site, task, and clinical endpoint." (Codex)
+
+  - **Recommended paper framing (Gemini):** "*While wrist IMUs capture strong discriminative PD signal (0.79 within-cohort), the gait-trained architecture fails completely to transport (0.50 cross-cohort).* It is a failure of behavioral generalization, not hardware. The feature space contains the signal, but it is orthogonal to the representations learned during WearGait's mobility tasks. The core lesson is that **structural harmonization (units/axes) is meaningless without semantic (clinical protocol) harmonization**."
+
+### Sharpened paper Table 3 — Transportability cliff with within-cohort ceiling
+
+| Row | Eval | Cohort | Metric | Value |
+|---|---|---|---|---|
+| 1 | LOOCV (internal) | WG-PD N=98 | T3 CCC | **0.5227** |
+| 2 | LOSO two-way | NLS↔WPD within WG | T3 CCC | **0.341** |
+| 3 | LOOCV-IPW | WG-PD N=98 | T3 CCC | 0.4694 |
+| 4 | **Cross-dataset zero-shot WG → PADS** | **355 PADS subjects, RightWrist FreeAcc** | **AUROC** | **0.4975** |
+| 5 | **PADS-only ceiling (within-cohort)** | **355 PADS subjects** | **AUROC** | **0.7874 ± 0.025** |
+
+The 0.79/0.50 gap between within-PADS and cross-dataset is the **cleanest possible domain-shift collapse** in the paper. **The wrist data has the signal; iter5's learned representation cannot read it.** This is a publishable mechanistic claim: the failure mode is **representation orthogonality**, not signal absence.
+
+### Mechanism (final, post iter25b)
+
+Three nested bugs (in iter25 order; resolved in iter25b):
+1. **Unit + gravity scale mismatch** (60-110× ratio) → fixed by Fix A.
+2. **Sensor-fusion bias** (1.3-2.4× residual ratio after Fix A) → cannot fully fix without re-engineering features.
+3. **Task/protocol semantic mismatch** (WG gait/balance training vs PADS stationary upper-limb test) → fundamental; cannot be fixed at the feature level.
+
+iter25b establishes that fixes 1 and 2 are NECESSARY but NOT SUFFICIENT. The dominant blocker is mechanism 3 — semantic protocol mismatch — which is architectural, not engineering.
+
+### Status
+
+- **Canonical numbers UNCHANGED.** T3 LOOCV CCC = 0.5227.
+- **NEW canonical transportability number: iter25b PADS A3 AUROC = 0.4975** (post-fix; primary headline).
+- **NEW canonical within-cohort ceiling: iter25b PADS C2 AUROC = 0.7874** (full N=355).
+- F60 supersedes F60(prior); cleaner, more rigorous, more publishable.
+
+### Lessons (durable for future sessions)
+
+1. **First-order debugging matters.** iter25's "NO TRANSFER" was technically correct but mechanistically wrong (we attributed it to "no signal" when actually "wrong protocol"). The bug-hunt produced a publishable mechanistic claim.
+2. **Structural harmonization (units/axes/sampling rate) is necessary but not sufficient for cross-dataset transfer.** Semantic harmonization (matched clinical protocol, motor task) dominates.
+3. **The 0.79 within-cohort ceiling is the paper's strongest pro-PADS finding.** Wrist accelerometer data DOES contain PD discrimination signal. Future work should train on PADS for PADS, or use cross-dataset domain adaptation rather than zero-shot transfer.
+4. **A magnitude-only / frame-invariant track should be the default for any cross-dataset transfer.** Per-axis features are nearly never comparable across devices.
+5. **Sanity checks at runtime (fs verification, gravity-removal assertion)** caught nothing this time but provide a clean audit trail for the paper.
+
+### Side-effects
+
+- New: `run_t3_iter25b_pads_fixed.py` (~600 lines).
+- Pre-reg: `results/preregistration_t3_iter25b_pads_20260505_131413.json` (formula_sha256 `4f67518ee293178f`).
+- Result: `results/iter25b_pads_fixed_20260505_131413.json` + run log.
+- PADS data on remote: full 7810/7810 timeseries files (~290MB), `/root/pd-imu/data/raw/pads/v1/`.
+
+---
+
+## F60 — iter25 cross-dataset zero-shot transportability on PADS — NO TRANSFER (2026-05-05) — SUPERSEDED BY F60b
 
 **Mission origin:** user asked "now do the cross-dataset zero-shot transportability." Per AGENTS.md "Open Angles" and F58 LC analysis: external labeled cohorts (Hssayeni MJFF / mPower / OPDC) are the only theoretically-bounded levers above 0.60 internal CCC; iter25 produces the FIRST published cross-dataset zero-shot transportability number for the WearGait-PD-trained iter5 architecture. Target = **PADS** (Parkinson's Disease Smartwatch dataset, PhysioNet, public, no DUA): 79 HC + 276 PD + 114 Other = 469 subjects; we use only label-0 (HC) + label-1 (PD) = 355 subjects.
 

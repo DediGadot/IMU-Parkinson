@@ -1,0 +1,57 @@
+
+Loaded pre-reg preregistration_t3_iter25b_pads_20260505_131413.json
+  seeds = [42, 1337, 7], formula_sha256 = 4f67518ee293178f...
+
+=== Extract WG R_Wrist FreeAcc (gravity-removed, m/s²) ===
+  WG: (98, 66), 64 cols, elapsed 87.5s
+
+=== Extract PADS Apple Watch (×9.81 → m/s², RightWrist-only, no gait_reg, sanity-checked) ===
+  PADS sanity: fs_from_time=99.35 Hz vs json=100; mean acc magnitude in g = 0.0037 (gravity-removed: True) ✓
+  PADS: 355 subjects (276 PD + 79 HC), 65 cols, elapsed 49.4s
+  Sanity: {'fs_from_time': 99.35, 'fs_json': 100, 'mean_acc_magnitude_g': 0.0037, 'gravity_removed': True, 'sessions_parsed': 3843, 'skipped_left_wrist_only_sessions': 0}
+  Common features: 64
+
+=== Scale sanity check (WG vs PADS, post-fix) ===
+feature                             WG mean  PADS mean    ratio
+  wrist_am_rms                          2.918      1.530     1.91
+  wrist_am_std                          1.836      0.889     2.07
+  wrist_am_jerk                        43.754     33.520     1.31
+  wrist_am_loco                        -0.399     -1.768     0.23
+  wrist_am_loco_r                       0.377      0.242     1.56
+  wrist_ax_rms                          1.750      0.734     2.38
+  wrist_ax_skew                         0.216      0.235     0.92
+  wrist_ax_kurt                        16.026     84.247     0.19
+
+=== Track A2 — V2-wrist LGB regressor (FreeAcc, no gait_reg) ===
+  AUROC = 0.4049  (per-seed: [0.437, 0.401, 0.396])
+  Pred mean: HC=35.441, PD=34.243
+
+=== Track B2 — iter5 Stage 1+2 with clinical imputation ===
+  AUROC = 0.3284  (per-seed: [0.363, 0.332, 0.304])
+  Stage 1 pred mean: HC=26.543, PD=24.509
+  Full pred mean:    HC=29.446, PD=27.231
+
+=== Track C2 — PADS-only 5-fold baseline ===
+  AUROC = 0.7874 ± 0.0250
+
+=== Track D2 — Dimensionless features only (robustness) ===
+  AUROC = 0.3364  (n_feats = 32)
+  Per-seed: [0.308, 0.361, 0.351]
+
+=== Track A3 — MAGNITUDE-ONLY features (frame-invariant; primary headline) ===
+  AUROC = 0.4975  (n_feats = 16)
+  Pred mean: HC=27.301, PD=27.592
+  Per-seed: [0.488, 0.513, 0.499]
+
+=== Track A3∩D2 — magnitude AND dimensionless (most rigorous) ===
+  AUROC = 0.43872683911208954  (n_feats = 8)
+  Per-seed: [0.44, 0.431, 0.447]
+
+=== PRIMARY HEADLINE (Track A3 magnitude-only, frame-invariant): AUROC = 0.4975 ===
+  vs iter25 0.5166, Δ = -0.0191
+  Best across all tracks: 0.4975 (Δ = -0.0191)
+  Verdict: NO TRANSFER
+  iter25 verdict STANDS — fixes did not change the result
+  Track table: {'A2': 0.4048798385617319, 'A3': 0.4974775270592552, 'B2': 0.32842597688497527, 'D2': 0.33640616400660434, 'A3D2': 0.43872683911208954}
+
+Wrote iter25b_pads_fixed_20260505_131413.json

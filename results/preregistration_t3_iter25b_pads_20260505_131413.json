@@ -1,0 +1,67 @@
+{
+  "experiment": "T3 iter25b \u2014 Cross-dataset zero-shot transportability on PADS, FIXED acc convention + drop gait_reg + frame-invariant tracks + RightWrist-only + sanity-checked",
+  "external_dataset": "PADS (PhysioNet, parkinsons-disease-smartwatch v1.0.0)",
+  "internal_dataset": "WearGait-PD (PD-only N=98)",
+  "fixes_vs_iter25": {
+    "A_match_acc_convention": "WG: R_Wrist_FreeAcc_E/N/U (gravity-removed, Earth, m/s\u00b2); PADS: \u00d79.81 (g \u2192 m/s\u00b2). Both gravity-removed in m/s\u00b2.",
+    "B_drop_gait_reg": "Removed step_t/stride_t/cadence/step_reg/stride_reg \u2014 meaningless on PADS stationary tasks.",
+    "C_keep_5_tasks": "WG keeps all 5 tasks (averaging); restricting to Balance loses too much data.",
+    "D_rightwrist_only": "PADS RightWrist-only (no LeftWrist fallback) \u2014 eliminates mirror-axis ambiguity for per-axis features when device-frame axes flip L vs R.",
+    "E_sanity_checks": "Verify PADS sampling rate from Time-column delta matches JSON sampling_rate (\u00b15%); verify PADS acc is gravity-removed (mean magnitude in g < 0.5).",
+    "F_add_magnitude_only_track": "Add Track A3 (magnitude-only wrist_am_* features) \u2014 frame-invariant; cleanest cross-dataset comparison per codex+gemini consults flagging Earth-NEU vs Device-XYZ axis mismatch."
+  },
+  "tracks": [
+    "A2 \u2014 V2-wrist LGB regressor on FreeAcc features (per-axis + magnitude)",
+    "A3 \u2014 V2-wrist LGB on MAGNITUDE-ONLY features (frame-invariant; primary headline)",
+    "A3D2 \u2014 magnitude-only AND dimensionless (most rigorous frame+unit-invariant)",
+    "B2 \u2014 iter5 Stage 1+2 with PADS clinical imputation",
+    "C2 \u2014 PADS-only 5-fold baseline (upper bound)",
+    "D2 \u2014 V2-wrist LGB on dimensionless features only (robustness check)"
+  ],
+  "primary_headline_track": "A3_magnitude_only_frame_invariant",
+  "headline_metric": "AUROC of continuous predictions vs PADS PD/HC binary label",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "thresholds": {
+    "useful_transfer_AUROC": 0.65,
+    "borderline_AUROC_lower": 0.55
+  },
+  "comparison_to_iter25_AUROC_0_5166": "If iter25b A3 \u2265 0.55 \u2192 iter25 was measurement artifact (units + frame); if iter25b A3 \u2248 0.52 \u2192 iter25 verdict stands.",
+  "consult_predictions": {
+    "codex": {
+      "A2": 0.54,
+      "B2": 0.49,
+      "C2": 0.63,
+      "D2": 0.55,
+      "headline": 0.56,
+      "range": [
+        0.5,
+        0.62
+      ]
+    },
+    "gemini": {
+      "A2": 0.55,
+      "B2": 0.53,
+      "C2": 0.63,
+      "D2": 0.56,
+      "headline": 0.56,
+      "range": [
+        0.52,
+        0.6
+      ]
+    }
+  },
+  "formula_sha256": "4f67518ee293178f116b0aa56c337257a42dfdba7867621717a636775802dd09",
+  "git_sha": "unknown",
+  "created_at_utc": "2026-05-05T13:14:13.274198Z",
+  "created_at_local": "2026-05-05T13:14:13.274207",
+  "timestamp": "20260505_131413",
+  "lockbox_rules": [
+    "Architecture FROZEN before any PADS evaluation.",
+    "All 4 tracks (A2, B2, C2, D2) evaluated in ONE batch; reported regardless of AUROC.",
+    "Direct comparison vs iter25 AUROC=0.5166 to determine if iter25 was measurement artifact."
+  ]
+}

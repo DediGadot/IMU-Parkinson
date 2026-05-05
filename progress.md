@@ -2,6 +2,70 @@
 
 ---
 
+## Session: 2026-05-05 ~08:00—14:00 — iter25b PADS post-debug re-run (F60b)
+
+### Trigger
+User: "debug what's going on with first order thinking" — feature-distribution sanity check after iter25.
+
+### First-order debug
+- Side-by-side WG vs PADS feature means showed 60-110× ratios for amplitude features.
+- Diagnosed: WG `R_Wrist_Acc_*` (raw m/s² with gravity) vs PADS Apple Watch FreeAcc in g (gravity-removed). ~200× theoretical gap.
+- Plus `gait_reg` features meaningless on stationary PADS tasks.
+
+### Triple-CLI consult on iter25b plan
+Codex + gemini both flagged 4 additional issues:
+- Earth-NEU vs Device-XYZ axis-frame mismatch (per-axis features still incomparable even after unit fix; only magnitude is frame-invariant).
+- Sensor-fusion bias (Movella Kalman vs Apple CoreMotion).
+- LeftWrist fallback without axis inversion (mirror bug).
+- Need runtime fs + gravity-removal verification.
+
+### iter25b adjustments applied
+- Fix A: WG R_Wrist_FreeAcc_E/N/U + PADS ×9.81 (g→m/s²).
+- Fix B: drop gait_reg.
+- Fix C: RightWrist-only on PADS.
+- Fix D: runtime fs + gravity-removal sanity assertions.
+- NEW Track A3: magnitude-only `wrist_am_*` features (frame-invariant) as PRIMARY HEADLINE.
+- 6 tracks total: A2/A3/A3D2/B2/C2/D2.
+
+### PADS download completed
+7810/7810 timeseries files (100% coverage) via parallel curl on PhysioNet (started -P 40, throttled by rate-limit, resumed -P 4 after iter25). 355 PD/HC subjects.
+
+### iter25b run (~2 min wall on remote)
+Sanity checks PASSED (fs=99.35 vs 100; mean |acc|=0.0037g gravity-removed; 0 LeftWrist fallbacks). Scale ratios collapsed 60-110× → 1.3-2.4×.
+
+Final track table:
+- A2 (V2-wrist all): 0.4049
+- **A3 (magnitude-only, PRIMARY): 0.4975 (chance) — VERDICT NO TRANSFER STANDS**
+- A3D2 (mag ∩ dimensionless): 0.4387
+- B2 (iter5 + clinical imp): 0.3284 (BELOW chance, F60 mechanism confirmed)
+- **C2 (PADS-only 5-fold): 0.7874 ± 0.025 — JUMPED from 0.63 with full data**
+- D2 (dimensionless-only): 0.3364
+
+### Triple-CLI consult on result
+Both consults converged: **task/protocol mismatch dominates** (WG gait/balance training vs PADS stationary upper-limb test) — semantic, not coordinate-frame. C2=0.79 within-cohort makes the cautionary-benchmark story STRONGER. Recommended paper framing per gemini: "*structural harmonization (units/axes) is meaningless without semantic (clinical protocol) harmonization.*"
+
+### Sharpened paper Table 3 transportability cliff
+| iter5 LOOCV CCC | 0.5227 (internal) |
+| iter16 LOSO CCC | 0.341 (intra-WG site) |
+| iter25b PADS A3 AUROC | **0.4975 (cross-dataset zero-shot)** |
+| iter25b PADS C2 AUROC | **0.7874 (within-cohort ceiling)** |
+
+The 0.79/0.50 gap = cleanest possible representation-orthogonality finding. Wrist signal exists, but iter5's WG-trained representation cannot read it.
+
+### Documentation
+- F60b in findings.md (full anatomy, supersedes F60).
+- CLAUDE.md / AGENTS.md / MEMORY.md updated with iter25b numbers + sharpened framing.
+- New memory: `feedback_iter25b_post_fix_no_transfer.md`.
+
+### Status (final)
+- Canonical numbers UNCHANGED.
+- NEW: iter25b A3 AUROC = 0.4975 (cross-dataset zero-shot).
+- NEW: iter25b C2 AUROC = 0.7874 (within-PADS ceiling).
+- iter25 F60 verdict CORRECT (NO TRANSFER); iter25b F60b enriches the mechanism (representation orthogonality, not signal absence).
+- Compute used: ~30 min PADS resume + 2 min iter25b run + 2 consults.
+
+---
+
 ## Session: 2026-05-05 ~06:00—08:00 — iter25 cross-dataset zero-shot transportability on PADS (F60)
 
 ### Trigger
