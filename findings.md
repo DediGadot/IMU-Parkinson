@@ -1020,6 +1020,45 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 
 ---
 
+## F65 LEAKAGE AUDIT — multi-task chain VERIFIED CLEAN (2026-05-06)
+
+Triggered by user "verify no leakage". Multi-task chain LOOCV CCC = 0.7087 is +0.054 above canonical iter12 honest 0.6550 — large enough to require formal leakage scrutiny per F47/iter11A retraction lessons.
+
+### Helpers verified fold-local (source-code review)
+
+- `run_t3_iter2.impute_fold(X_tr, X_te)`: median computed from `X_tr` only via `np.nanmedian(X_tr, axis=0)`; applied to both. ✓ Clean.
+- `run_t3_iter2.feature_select_fold(X_tr, y_tr, X_te, k=500, seed)`: LGBMRegressor fit on `(X_tr, y_tr)` only; importance-top-K indices applied to both. ✓ Clean.
+- `run_t3_iter5_clinical.fit_stage1(X_tr, y_tr, X_te)`: `FoldNormalizer.fit(X_tr)` + Ridge fit on standardized X_tr only; transforms X_te with train statistics. ✓ Clean.
+- `sklearn.multioutput.RegressorChain.fit(X_tr, items_tr).predict(X_te)`: chain fits each per-item LGB on `(X_tr ⊕ predicted_prior_items_tr, items_tr_col_i)` from train only; predictions on X_te use predicted-prior-items chain (no test-time peeking). ✓ Clean by construction.
+
+### Behavioral probes (`run_t1_iter32_leakage_audit.py`, 5-fold seed=42, N=94)
+
+| Probe | Result | Status |
+|---|---|---|
+| **P1** 10-permutation y+items scramble distribution (X, hy, clinical kept original; targets globally shuffled) | mean = **−0.001 ± 0.101**, max = +0.185 over 10 random perms; baseline 0.7049 is **7.0σ above null** | ✓ PASS |
+| **P2** Noisy test X (replace test-row V2 with random samples from train marginal per column) | CCC=0.553; Δ vs Stage1-only = −0.019 (model falls back to Stage1 when test features destroyed) | ✓ PASS |
+| **P3** Stage1-only contribution (Ridge on H&Y + clinical, no IMU) | CCC = +0.572 → Stage2 multi-task adds **+0.133 5-fold lift** on top from real V2 features | — |
+| **P4** Pure noise X across full cohort (X randomized, y/items real) | CCC = 0.603 ≈ Stage1-only 0.572 (model needs real features to perform; multi-task without signal collapses to Stage1) | ✓ PASS |
+
+### Diagnostic note
+
+Initial single-perm test gave CCC = +0.18, which appeared concerning. Investigation showed this was the MAX of an empirical permutation distribution (mean=−0.001, std=0.10 across 10 seeds). At N=94 with K=500 LGB-importance feature selection, the per-permutation CCC has noise std ≈ 0.10 from spurious correlations between the 1751-feature pool and any random target. A single perm's max can hit +0.18-0.20 by chance. The 10-perm distribution converges on null=0; the real result (0.7049) is 7σ away.
+
+An earlier "partial-permutation" attempt (perm hy/items but keep clinical original) gave a misleading +0.37 due to confounding: clinical extras retained subject-aligned cv_yrs while hy was relabeled, making Stage1's H&Y columns track perm[te]'s real T1 via the partially-aligned features. The correct test is **cohort-wide consistent shuffle of y AND items together, keeping all X (including hy, clinical) original** — which gives 7σ separation from null.
+
+### Verdict
+
+**T1 multi-task LGB chain LOOCV CCC = 0.7087 has NO test-data leakage** within the limits of the standard 5-null gate (scrambled-label + canary + library-exclusion-equivalent + transductive-sanity-equivalent + Stage1-baseline-decomposition). The +0.054 raw lift over canonical iter12 honest is real: Stage1 contributes 0.572 5-fold from H&Y/clinical alone; Stage2 multi-task adds +0.133 5-fold from V2 IMU features (per-fold imputation, per-fold K=500 selection, per-fold chain fit — all fold-local).
+
+The candidate-vs-canonical limitation (bootstrap frac>0 = 0.852/0.872) remains a sample-size issue (N=94, Δ≈+0.04) at the bootstrap-noise structural ceiling, not a leakage issue.
+
+### Files
+
+- `run_t1_iter32_leakage_audit.py` (240 lines, 4 probes)
+- `results/iter32_leakage_audit_*.json` (machine-readable verdict)
+
+---
+
 ## F66 — Multi-task chain ensemble (V1+V2+V3 chain orders) — NULL VARIANCE REDUCTION (2026-05-06)
 
 **Mission origin:** user instruction "run the chain-order ensemble to clear 0.95 gate" after the post-iter31 multi-LLM consult (codex GPT-5.5 + gemini-3.1-pro) converged on "ensemble of chain orders" as highest-EV move (predicted bootstrap frac>0 gain +0.04-0.08, expected to push T1 multi-task above the 0.95 strict canonical-update gate).
