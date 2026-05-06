@@ -1,0 +1,79 @@
+{
+  "timestamp": "20260506_041228",
+  "iso_datetime": "2026-05-06T04:12:28.766101",
+  "experiment": "T1 iter32 multi-task chain ENSEMBLE (V1+V2+V3) LOCKBOX",
+  "git_head": "unknown",
+  "formula_sha256": "33c49972c96fc1c56c716fc6e9395ec67e0469116b833ee119a0cfec51aa6bfa",
+  "formula": {
+    "experiment": "T1 iter32 multi-task chain ENSEMBLE (V1+V2+V3 averaged)",
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects": 94
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "T1"
+    },
+    "stage2": {
+      "model": "Mean of 3 sklearn.multioutput.RegressorChain(LGBMRegressor)",
+      "ensemble_orders": [
+        "random",
+        "clinical",
+        "correlation"
+      ],
+      "lgb_params": {
+        "n_estimators": 500,
+        "learning_rate": 0.05,
+        "num_leaves": 15,
+        "min_data_in_leaf": 10,
+        "n_jobs": 1,
+        "verbose": -1
+      },
+      "items_targets": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "item_target_centering": "subtract per-fold train_mean(item)",
+      "feature_select_method": "lgb_importance_top_k_per_fold",
+      "feature_select_k": 500,
+      "imputation": "fold_local_median",
+      "post_combine_formula": "Stage1_pred + (mean_over_orders(sum_item_pred + train_mean) - sum_train_means)",
+      "ensemble_weights": "uniform across orders"
+    },
+    "eval": {
+      "loocv_n": 94,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "headline_metric": "CCC of mean-of-3-seed predictions (each seed = mean of 3 orders)",
+      "comparator_iter5_direct_loocv": "computed live in same SID-aligned LOOCV",
+      "comparator_iter12_honest_loocv_oof": "results/t1_iter12_honest_composite.oof.npy",
+      "comparator_iter30b_v1_lockbox_oof": "results/lockbox_t1_iter30b_V1_random_20260505_211112.oof.npy"
+    },
+    "lockbox_rules": [
+      "ONE pre-registered config. ONE LOOCV run.",
+      "Headline = CCC of mean-of-3-seed preds on N=94.",
+      "Pass-canonical: paired-bootstrap (n=5000) vs iter5-direct frac>0 \u2265 0.95 AND headline > 0.6550.",
+      "Pre-reg written BEFORE any LOOCV run for this ensemble (per multi-LLM consult)."
+    ]
+  },
+  "n_subjects": 94,
+  "variant": "ensemble_v1_v2_v3",
+  "eval_protocol": "LOOCV (n=94) on T1 cohort. Stage-1 Ridge (alpha=1.0) on H&Y + cv_yrs + cv_sex + cv_dbs with per-fold standardisation. Stage-2 mean of three RegressorChain(LGBMRegressor) predictions: random/clinical/correlation orders, each on per-item residuals (items 9-14, train-mean-centered) with K=500 LGB-importance selection per fold. 3-seed mean preds = headline."
+}

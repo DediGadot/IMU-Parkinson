@@ -1020,6 +1020,74 @@ Both lockbox CCCs match or exceed the 5-fold screen estimates. Item 18's +0.236 
 
 ---
 
+## F66 — Multi-task chain ensemble (V1+V2+V3 chain orders) — NULL VARIANCE REDUCTION (2026-05-06)
+
+**Mission origin:** user instruction "run the chain-order ensemble to clear 0.95 gate" after the post-iter31 multi-LLM consult (codex GPT-5.5 + gemini-3.1-pro) converged on "ensemble of chain orders" as highest-EV move (predicted bootstrap frac>0 gain +0.04-0.08, expected to push T1 multi-task above the 0.95 strict canonical-update gate).
+
+### Pre-registration (formula_sha256 written BEFORE LOOCV)
+
+`run_t1_iter32_ensemble_lockbox.py --mode write_prereg`
+- formula_sha256 = `33c49972c96fc1c56c716fc6e9395ec67e0469116b833ee119a0cfec51aa6bfa`
+- Pre-reg `results/preregistration_t1_iter32_ensemble_20260506_041228.json`
+- Pipeline: same Stage1 as iter30b lockbox; Stage2 = mean of 3 RegressorChain(LGBMRegressor) predictions with random / clinical-domain / correlation chain orders, averaged uniformly per fold.
+
+### Headline (3 seeds × 94 LOOCV folds, 14-worker ProcessPool fold parallelism)
+
+| metric | iter30b V1 single-order | **iter32 ENSEMBLE** | Δ ensemble−V1 |
+|---|---|---|---|
+| LOOCV CCC | 0.7087 | **0.7084** | −0.0003 |
+| MAE | 1.933 | 1.934 | +0.001 |
+| Pearson r | 0.7233 | 0.7232 | −0.0001 |
+| Calibration slope | 0.885 | 0.886 | +0.001 |
+| Δ vs iter5-direct LOOCV | +0.0378 | +0.0375 | −0.0003 |
+| Bootstrap frac>0 vs iter5-direct | 0.852 | **0.852** | **0.000** |
+| Δ vs iter12 honest | +0.0537 | +0.0534 | −0.0003 |
+| Bootstrap frac>0 vs iter12 | 0.872 | **0.871** | **−0.001** |
+| Bootstrap (paired) ENSEMBLE vs V1 directly | — | mean Δ̄=−0.0003, CI=[−0.094, +0.094], frac>0=**0.318** | indistinguishable |
+
+Per-seed LOOCV: seed=42 ENS=0.7089 / V1=0.7099 (Δ=−0.001); seed=1337 ENS=0.7077 / V1=0.7065 (Δ=+0.001); seed=7 ENS=0.7085 / V1=0.7086 (Δ=−0.000). **Ensemble preds are statistically indistinguishable from single-order V1 preds.**
+
+**`is_canonical_update = False`** — the strict frac>0 ≥ 0.95 gate is **NOT cleared**.
+
+### Why both LLMs were wrong
+
+Both consultants predicted +0.04-0.08 bootstrap frac gain via "target-sequence bias" variance reduction. The actual gain is **0.000**. The mechanism failure:
+
+1. **Chain orders produce highly correlated OOFs.** iter30b screen already showed V1≈V2≈V3≈V4 5-fold CCC all ≈ 0.71 (within ±0.002). Per-subject prediction correlation between V1, V2, V3 OOFs likely > 0.99.
+2. **Averaging highly-correlated predictions does not reduce variance.** Var(mean) ≈ Var(single) when correlation → 1. The classic 1/M variance scaling assumes independence; chain-order independence is an illusion at this scale because the LGB trees + V2 features dominate the prediction surface.
+3. **Target-sequence bias is small.** The chain order matters less than the LGB tree structure. Both LLMs over-weighted RegressorChain literature (where order matters more in classifier chains for highly correlated label spaces) compared to this specific regression problem with 6 ordinal items and dominant feature signal.
+
+### Implications for the 0.95 gate ceiling
+
+The bootstrap frac>0 = 0.852 is **a structural property of the (sample size, lift magnitude) tuple**, not an artifact of chain-order variance:
+
+- N=94, Δ=+0.04: paired bootstrap on CCC at this regime gives ~85% confidence by construction.
+- To reach 0.95 frac>0, need either: (a) a larger raw Δ (~+0.06+, not in reach with this architecture given F58 Pareto-fit asymptote), (b) more effective N via external data (Hssayeni MJFF blocked at Synapse DUA per F62), or (c) genuinely uncorrelated predictors that reduce ensemble variance (ROCKET dead F64, frozen encoders dead F45/F51, ALL frozen encoders all 4 modalities NULL).
+
+### Verdict
+
+**T1 multi-task LGB chain (iter30b V1_random) remains the strongest architectural lift on T1 ever achieved (LOOCV CCC = 0.7087, raw +0.054 over canonical iter12 honest 0.6550), with bootstrap frac>0 = 0.852-0.872 below the strict 0.95 gate.** The ensemble approach (iter32) does NOT change this conclusion — both candidate predictors have indistinguishable point estimates and bootstrap distributions.
+
+**Canonical T1 LOOCV CCC = 0.6550 UNCHANGED.** Multi-task chain (single-order or ensemble) is reported as a CANDIDATE alongside canonical, with the +0.85 frac>0 honestly disclosed. Strict canonical replacement requires external N expansion, which is currently blocked.
+
+### Don't retry without
+
+- ROCKET-family Stage-2 ensembles with multi-task chain (F64 confirmed all ROCKET variants dead at N=94).
+- Chain-order ensembles at this N — confirmed null variance reduction.
+- More seeds alone — predicted by codex to give +0.03-0.06 frac gain via 1/sqrt(M) scaling but at N=94 with this Δ regime, the dominant noise source is subject-bootstrap, not seed noise.
+
+### Files
+
+- `run_t1_iter32_ensemble_lockbox.py` (300 lines, ProcessPool-parallelized)
+- `results/preregistration_t1_iter32_ensemble_20260506_041228.json` (formula_sha256 `33c49972...`)
+- `results/lockbox_t1_iter32_ensemble_20260506_050714.json` + `.oof.npy`
+
+### Methodological note
+
+This is the FIRST iteration where multi-LLM consensus was empirically falsified: both codex and gemini independently predicted +0.04-0.08 frac>0 gain; actual gain was 0.000. The lesson is that "variance reduction via averaging" requires verified low correlation between ensemble members, NOT just nominal independence. Future variance-reduction angles must include a pre-flight correlation check on OOF predictions before committing compute.
+
+---
+
 ## F65 — Multi-task LGB chain on per-item residuals — T1 ARCHITECTURE WIN; T3 LOOCV NEG (2026-05-05 PM)
 
 **Mission origin:** user instruction "run 3 full iterations for boosting t1 ccc significantly as a 100x researcher in this space ... use codex cli, gemini cli and the 4 strongest and sota llms from openrouter ... think out of the box, slowly and patiently — like an owl ... your goal is to improve t1 ccc significantly using new architectures or data hacks or loss functions or machine learning sota approaches." Plus "ignore the strict std floor from now on."
