@@ -1,0 +1,1435 @@
+{
+  "generated_at_utc": "2026-05-09T04:31:18+00:00",
+  "script": "audit_missing_cache_manifest_origins.py",
+  "source_audit": "results/cache_manifest_audit_20260508.json",
+  "policy": "Non-mutating origin map. Do not create clean manifests from this audit alone; exact command/runtime/git/data-hash evidence must still be concrete.",
+  "n_missing_manifests": 33,
+  "decision_counts": {
+    "blocked_by_upstream_diagnostic_cache": 5,
+    "insufficient_producer_evidence": 9,
+    "manual_backfill_candidate_needs_human_patch": 5,
+    "manual_review_label_or_clinical_tokens": 14
+  },
+  "artifacts": [
+    {
+      "artifact": "results/ablation_v3_features.csv",
+      "bytes": 6127141,
+      "sha256": "b405d90a6a35808d556d726b58bf7d9361d26e020a79091e52c868ee98f9c2b4",
+      "shape": {
+        "rows": 178,
+        "columns": 1877
+      },
+      "producer": {
+        "path": "run_ablation_v3.py",
+        "suffix": ".py",
+        "is_cache_script": false,
+        "is_run_script": true,
+        "mentions": [
+          {
+            "line": 44,
+            "text": "FEATURE_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+          }
+        ]
+      },
+      "producer_alternatives": [
+        {
+          "path": "audit_ablation_v3_regeneration.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": false,
+          "mentions": [
+            {
+              "line": 4,
+              "text": "This script never writes to results/ablation_v3_features.csv.  It can be run on"
+            },
+            {
+              "line": 27,
+              "text": "FROZEN_CACHE = RESULTS_DIR / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 93,
+              "text": "\"Full ablation_v3_features.csv regeneration requires PD and control \""
+            },
+            {
+              "line": 198,
+              "text": "\"`results/ablation_v3_features.csv` to cache-manifest-clean headline use.\","
+            }
+          ]
+        },
+        {
+          "path": "cache_clinical_extras.py",
+          "suffix": ".py",
+          "is_cache_script": true,
+          "is_run_script": false,
+          "mentions": [
+            {
+              "line": 16,
+              "text": "results/ablation_v3_features.csv          \u2014 for V2 cohort SID cross-check"
+            },
+            {
+              "line": 607,
+              "text": "default=\"results/ablation_v3_features.csv\","
+            }
+          ]
+        },
+        {
+          "path": "cache_unused_channels.py",
+          "suffix": ".py",
+          "is_cache_script": true,
+          "is_run_script": false,
+          "mentions": [
+            {
+              "line": 4,
+              "text": "(see `task_plan.md` \u00a7 ACTIVE MISSION). The V2 feature set (ablation_v3_features.csv,"
+            }
+          ]
+        }
+      ],
+      "producer_sha256": "5a349664fab587e803ca5c2d26feffc5bc7318790d80acb7678ed5a981d9fd4d",
+      "producer_git_match": {
+        "commit": "e0c3eaa1b1becd6b49fe144c3473041ea27c6862",
+        "short": "e0c3eaa",
+        "subject": "pre bias fix"
+      },
+      "same_script_outputs": [
+        "results/ablation_v3_features.csv",
+        "results/v3_features.csv"
+      ],
+      "n_mentions": 73,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "hy",
+        "obs_subscore",
+        "target",
+        "updrs"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/axial_orientation_features.csv",
+      "bytes": 58030,
+      "sha256": "2757f433381f8a3b3a6e0ec53864120c80b074d831743d199f48fbf1c1970ef5",
+      "shape": {
+        "rows": 100,
+        "columns": 31
+      },
+      "producer": {
+        "path": "cache_axial_orientation_features.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 56,
+            "text": "OUT_PATH = RESULTS_DIR / \"axial_orientation_features.csv\""
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "c8d682d597867093503334afd87255c90eff614dd15af02320e275bbc9ec2ea3",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/axial_orientation_features.csv"
+      ],
+      "n_mentions": 6,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "target"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/coordination_features.csv",
+      "bytes": 722141,
+      "sha256": "ecf1eab14ebb1c4dac0a7c100b191b657488f80d3e8a45d95163e699e160babf",
+      "shape": {
+        "rows": 1417,
+        "columns": 28
+      },
+      "producer": null,
+      "producer_alternatives": [],
+      "producer_sha256": null,
+      "producer_git_match": null,
+      "same_script_outputs": [],
+      "n_mentions": 4,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "insufficient_producer_evidence",
+      "rationale": "No Python producer mention was found for this artifact name."
+    },
+    {
+      "artifact": "results/event_axial_features.csv",
+      "bytes": 711332,
+      "sha256": "8c8c3e7e328763b7433629cbeb664a4c5304189c897d59dc2031272c11f6157a",
+      "shape": {
+        "rows": 100,
+        "columns": 451
+      },
+      "producer": {
+        "path": "cache_event_axial_features.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 39,
+            "text": "DEFAULT_OUTPUT = Path(__file__).resolve().parent / \"results\" / \"event_axial_features.csv\""
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "97ea2836b0db3e74c2c22bed33ecc81bae12e962677dc66ed53c38f94bf1491f",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/event_axial_features.csv"
+      ],
+      "n_mentions": 6,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "label",
+        "target"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/fm_embeddings.npz",
+      "bytes": 4035758,
+      "sha256": "7fe56c0e13fe9e975d8e4b675183b2cad1f1114a18de814ba5d7b22a308737ef",
+      "shape": {
+        "rows": null,
+        "columns": null
+      },
+      "producer": {
+        "path": "run_phase5_fm_adapter.py",
+        "suffix": ".py",
+        "is_cache_script": false,
+        "is_run_script": true,
+        "mentions": [
+          {
+            "line": 234,
+            "text": "fm_path = results_artifact_path(\"fm_embeddings.npz\")"
+          }
+        ]
+      },
+      "producer_alternatives": [
+        {
+          "path": "run_event_features.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": true,
+          "mentions": [
+            {
+              "line": 55,
+              "text": "_FM_LEGACY = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ]
+        },
+        {
+          "path": "run_inductive_ablation.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": true,
+          "mentions": [
+            {
+              "line": 65,
+              "text": "_FM_LEGACY = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ]
+        },
+        {
+          "path": "run_memento_experiments.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": true,
+          "mentions": [
+            {
+              "line": 59,
+              "text": "npz_path = RESULTS / \"fm_embeddings.npz\""
+            },
+            {
+              "line": 271,
+              "text": "fm_path = RESULTS / \"fm_embeddings.npz\""
+            }
+          ]
+        }
+      ],
+      "producer_sha256": "744bc00a468b51b0be9d1014fc6cd612db93146b096b1d465f2a4ad3f1e60667",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [],
+      "n_mentions": 36,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "label",
+        "target"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/fm_embeddings_all_13.npz",
+      "bytes": 4035758,
+      "sha256": "7fe56c0e13fe9e975d8e4b675183b2cad1f1114a18de814ba5d7b22a308737ef",
+      "shape": {
+        "rows": null,
+        "columns": null
+      },
+      "producer": null,
+      "producer_alternatives": [],
+      "producer_sha256": null,
+      "producer_git_match": null,
+      "same_script_outputs": [],
+      "n_mentions": 3,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "insufficient_producer_evidence",
+      "rationale": "No Python producer mention was found for this artifact name."
+    },
+    {
+      "artifact": "results/fm_embeddings_lower_back_1.npz",
+      "bytes": 4022289,
+      "sha256": "bd2e9af19854eb287098787184ebdaad23659ae36b8e839fd0ca6273505a2768",
+      "shape": {
+        "rows": null,
+        "columns": null
+      },
+      "producer": null,
+      "producer_alternatives": [],
+      "producer_sha256": null,
+      "producer_git_match": null,
+      "same_script_outputs": [],
+      "n_mentions": 3,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "insufficient_producer_evidence",
+      "rationale": "No Python producer mention was found for this artifact name."
+    },
+    {
+      "artifact": "results/fm_embeddings_minimal_5.npz",
+      "bytes": 4036176,
+      "sha256": "43f749c6f0fbb4355fa766d8c31c8bd08b88feb1fea0201ffaa4478b80ef302e",
+      "shape": {
+        "rows": null,
+        "columns": null
+      },
+      "producer": null,
+      "producer_alternatives": [],
+      "producer_sha256": null,
+      "producer_git_match": null,
+      "same_script_outputs": [],
+      "n_mentions": 3,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "insufficient_producer_evidence",
+      "rationale": "No Python producer mention was found for this artifact name."
+    },
+    {
+      "artifact": "results/fm_embeddings_recording_norm.npz",
+      "bytes": 4036184,
+      "sha256": "e0d6b661b6307aedb901af92ffe8891b6df32b58a5039c9f670bb3afa0c58fbd",
+      "shape": {
+        "rows": null,
+        "columns": null
+      },
+      "producer": {
+        "path": "run_calibration_ablation.py",
+        "suffix": ".py",
+        "is_cache_script": false,
+        "is_run_script": true,
+        "mentions": [
+          {
+            "line": 1612,
+            "text": "cache_name=\"fm_embeddings_recording_norm.npz\","
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "637131ea81c39f3d44c24412ac4cd36a61ca911ddb818112892de6b60756c3b0",
+      "producer_git_match": {
+        "commit": "ec7e2ecc15a00807b2d6915e26a15f741aee1e06",
+        "short": "ec7e2ec",
+        "subject": "pre memento"
+      },
+      "same_script_outputs": [],
+      "n_mentions": 7,
+      "upstream_diagnostic_refs": [
+        "results/ablation_v3_features.csv",
+        "results/fm_embeddings.npz",
+        "results/v3_features.csv"
+      ],
+      "target_token_hits": [
+        "label",
+        "obs_subscore",
+        "target",
+        "updrs"
+      ],
+      "decision": "blocked_by_upstream_diagnostic_cache",
+      "rationale": "Producer depends on cache artifacts that are themselves missing/partial-manifest diagnostic-only."
+    },
+    {
+      "artifact": "results/fm_embeddings_wrists_2.npz",
+      "bytes": 4036738,
+      "sha256": "fbb23353d6e28cb8dfbcf1fdf2aee979acbff15b327198b760f44c125ab3ec69",
+      "shape": {
+        "rows": null,
+        "columns": null
+      },
+      "producer": null,
+      "producer_alternatives": [],
+      "producer_sha256": null,
+      "producer_git_match": null,
+      "same_script_outputs": [],
+      "n_mentions": 3,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "insufficient_producer_evidence",
+      "rationale": "No Python producer mention was found for this artifact name."
+    },
+    {
+      "artifact": "results/fm_embeddings_wrists_back_3.npz",
+      "bytes": 4036375,
+      "sha256": "75e7bf63cbb1b5e5809bde39271bd310e6abe9c905ae055fb6e7adf405cd764e",
+      "shape": {
+        "rows": null,
+        "columns": null
+      },
+      "producer": null,
+      "producer_alternatives": [],
+      "producer_sha256": null,
+      "producer_git_match": null,
+      "same_script_outputs": [],
+      "n_mentions": 3,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "insufficient_producer_evidence",
+      "rationale": "No Python producer mention was found for this artifact name."
+    },
+    {
+      "artifact": "results/hc_ssl_subj_embeddings.csv",
+      "bytes": 2668044,
+      "sha256": "beda6c55bdcdf85da53b50309b2d383657d3d0a81866ed4c249a909e0c6f025b",
+      "shape": {
+        "rows": 178,
+        "columns": 769
+      },
+      "producer": {
+        "path": "cache_hc_ssl_embeddings.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 5,
+            "text": "Output: results/hc_ssl_subj_embeddings.csv (subject \u00d7 256-d feature vector)"
+          },
+          {
+            "line": 54,
+            "text": "p.add_argument(\"--out\", default=\"results/hc_ssl_subj_embeddings.csv\")"
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "c184ebfbe0ab35a5b94f5f2684da552b728efc1e62730b77951123141d370e60",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/hc_ssl_subj_embeddings.csv"
+      ],
+      "n_mentions": 13,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "manual_backfill_candidate_needs_human_patch",
+      "rationale": "Producer is committed and context mentions exist, but a human must verify command, timestamp, fold scope, and leakage rationale before patching."
+    },
+    {
+      "artifact": "results/insole_recording_features.csv",
+      "bytes": 738689,
+      "sha256": "ee2cc31bd4d7467791bff5431cf34caf385bb8138e4822ca5a5c88d323c601f4",
+      "shape": {
+        "rows": 495,
+        "columns": 232
+      },
+      "producer": {
+        "path": "cache_insole_features.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 28,
+            "text": "results/insole_recording_features.csv   \u2014 per (subject, task) row"
+          },
+          {
+            "line": 34,
+            "text": "--out_recording results/insole_recording_features.csv \\"
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "a1eca78a1e2cc85f79f8a4dd6e3e377f8d10400d1f81d462bad380ed10e13a29",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [],
+      "n_mentions": 3,
+      "upstream_diagnostic_refs": [
+        "results/insole_subj_features.csv"
+      ],
+      "target_token_hits": [
+        "target",
+        "updrs"
+      ],
+      "decision": "blocked_by_upstream_diagnostic_cache",
+      "rationale": "Producer depends on cache artifacts that are themselves missing/partial-manifest diagnostic-only."
+    },
+    {
+      "artifact": "results/insole_subj_features.csv",
+      "bytes": 1155127,
+      "sha256": "6c2e410569dc92b86147af3252eed7c9b7bce178b06ba5e46b63083b8afca87a",
+      "shape": {
+        "rows": 100,
+        "columns": 688
+      },
+      "producer": {
+        "path": "cache_insole_features.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 29,
+            "text": "results/insole_subj_features.csv        \u2014 per subject (mean/max/min across tasks)"
+          },
+          {
+            "line": 35,
+            "text": "--out_subject   results/insole_subj_features.csv"
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "a1eca78a1e2cc85f79f8a4dd6e3e377f8d10400d1f81d462bad380ed10e13a29",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [],
+      "n_mentions": 5,
+      "upstream_diagnostic_refs": [
+        "results/insole_recording_features.csv"
+      ],
+      "target_token_hits": [
+        "target",
+        "updrs"
+      ],
+      "decision": "blocked_by_upstream_diagnostic_cache",
+      "rationale": "Producer depends on cache artifacts that are themselves missing/partial-manifest diagnostic-only."
+    },
+    {
+      "artifact": "results/interaction_features_subj.csv",
+      "bytes": 666816,
+      "sha256": "64305aaa43d6078ab93f1f4603e60c9e4aa1377050385122f0ac0515ed7a08de",
+      "shape": {
+        "rows": 94,
+        "columns": 701
+      },
+      "producer": {
+        "path": "cache_interaction_features.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 19,
+            "text": "Output: results/interaction_features_subj.csv (sid + interaction columns)"
+          },
+          {
+            "line": 34,
+            "text": "OUT_PATH = REPO_ROOT / \"results\" / \"interaction_features_subj.csv\""
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "9d11dcdd45135a2f0b8f6eadf093452535d070c4da5f42f0d77f4764c94c9fc9",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/interaction_features_subj.csv"
+      ],
+      "n_mentions": 6,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "hy",
+        "target"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/item9_event_moment.csv",
+      "bytes": 7918927,
+      "sha256": "f19a5011cdda4fdd1ad9d2a937e70e5addb6d92acd5aa56c89b533eaf692e17a",
+      "shape": {
+        "rows": 98,
+        "columns": 3841
+      },
+      "producer": {
+        "path": "cache_item9_event_moment.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 10,
+            "text": "Output: results/item9_event_moment.csv (sid + 3840 columns)."
+          },
+          {
+            "line": 15,
+            "text": "--out results/item9_event_moment.csv"
+          },
+          {
+            "line": 143,
+            "text": "p.add_argument(\"--out\", default=\"results/item9_event_moment.csv\")"
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "6132b642ca6832233b09163a8a047dc8f6d910b53208d409f1dbedb322efd273",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/item9_event_moment.csv"
+      ],
+      "n_mentions": 6,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "target"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/joints_v2_strides.csv",
+      "bytes": 10685280,
+      "sha256": "0a204b031681525fdffc6c8c7772ed9170a530a07a7bbf1859d674a5902f71fe",
+      "shape": {
+        "rows": 12524,
+        "columns": 64
+      },
+      "producer": null,
+      "producer_alternatives": [],
+      "producer_sha256": null,
+      "producer_git_match": null,
+      "same_script_outputs": [],
+      "n_mentions": 2,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "insufficient_producer_evidence",
+      "rationale": "No Python producer mention was found for this artifact name."
+    },
+    {
+      "artifact": "results/joints_v2_subj.csv",
+      "bytes": 1520997,
+      "sha256": "d218794a5a9611a1d7f2500fbafce01ad2f4715829debdaec343d04911066cf1",
+      "shape": {
+        "rows": 100,
+        "columns": 990
+      },
+      "producer": {
+        "path": "cache_joints_v2.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 24,
+            "text": "- Output: results/joints_v2_subj.csv (per-subject ~150-300 features)"
+          }
+        ]
+      },
+      "producer_alternatives": [
+        {
+          "path": "run_joints_v2.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": true,
+          "mentions": [
+            {
+              "line": 5,
+              "text": "Joints_v2 cache (results/joints_v2_subj.csv) is built from quaternion-aware"
+            },
+            {
+              "line": 62,
+              "text": "JOINTS_V2_CACHE = RESULTS_DIR / \"joints_v2_subj.csv\""
+            }
+          ]
+        }
+      ],
+      "producer_sha256": "62ca3315eeef318ff35d72fdb3ba0cbe7cd36a3b1f65747a8ebfcb0c7d2741a2",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/joints_v2_subj.csv"
+      ],
+      "n_mentions": 12,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "manual_backfill_candidate_needs_human_patch",
+      "rationale": "Producer is committed and context mentions exist, but a human must verify command, timestamp, fold scope, and leakage rationale before patching."
+    },
+    {
+      "artifact": "results/lr_asymmetry_features.csv",
+      "bytes": 2098150,
+      "sha256": "9e454169f6d97e675c2a4a6d0381493a827e19c269c5b76d94e10c1e0c5208b0",
+      "shape": {
+        "rows": 178,
+        "columns": 1065
+      },
+      "producer": {
+        "path": "cache_lr_asymmetry.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 9,
+            "text": "Output: `results/lr_asymmetry_features.csv` with columns: sid + new asymmetry features."
+          },
+          {
+            "line": 33,
+            "text": "OUT_PATH = RESULTS_DIR / \"lr_asymmetry_features.csv\""
+          }
+        ]
+      },
+      "producer_alternatives": [
+        {
+          "path": "cache_unsigned_asymmetry.py",
+          "suffix": ".py",
+          "is_cache_script": true,
+          "is_run_script": false,
+          "mentions": [
+            {
+              "line": 9,
+              "text": "abs(L-R) was already in lr_asymmetry_features.csv and the failure log marks"
+            }
+          ]
+        },
+        {
+          "path": "run_t1_iter4.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": true,
+          "mentions": [
+            {
+              "line": 52,
+              "text": "LR_ASYMMETRY = RESULTS_DIR / \"lr_asymmetry_features.csv\""
+            }
+          ]
+        }
+      ],
+      "producer_sha256": "04e40011adb495c63ba7c864017fd7a0f0c6861cd99089015279c6b987d593fa",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/lr_asymmetry_features.csv"
+      ],
+      "n_mentions": 7,
+      "upstream_diagnostic_refs": [
+        "results/ablation_v3_features.csv",
+        "results/v3_features.csv"
+      ],
+      "target_token_hits": [],
+      "decision": "blocked_by_upstream_diagnostic_cache",
+      "rationale": "Producer depends on cache artifacts that are themselves missing/partial-manifest diagnostic-only."
+    },
+    {
+      "artifact": "results/mahalanobis_hc_subj.csv",
+      "bytes": 321861,
+      "sha256": "c7d27df5dd8b654218fded6e4223c4d6e9d87a70b275aac510a9a52d8eef73cf",
+      "shape": {
+        "rows": 178,
+        "columns": 100
+      },
+      "producer": {
+        "path": "cache_mahalanobis_hc.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 20,
+            "text": "Output: results/mahalanobis_hc_subj.csv"
+          },
+          {
+            "line": 44,
+            "text": "OUT_PATH = RESULTS_DIR / \"mahalanobis_hc_subj.csv\""
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "0c454ec5a031d57ab331853cd6efe6e1e0055f687afaf438c1a3e17efa513c47",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/mahalanobis_hc_subj.csv"
+      ],
+      "n_mentions": 5,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "label"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/moment_subj_embeddings.csv",
+      "bytes": 8599566,
+      "sha256": "3e53a493dbc51c83036f67091588cd4902a26c54f3b1492e6718cbdd64248ddb",
+      "shape": {
+        "rows": 178,
+        "columns": 2305
+      },
+      "producer": {
+        "path": "cache_moment_embeddings.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 6,
+            "text": "Output: results/moment_subj_embeddings.csv (per-subject 768-d feature vector)."
+          },
+          {
+            "line": 25,
+            "text": "p.add_argument(\"--out\", default=\"results/moment_subj_embeddings.csv\")"
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "742ea4d6bee34fa6a351ac53350c7b667c0961bc3823b6120f92c2395b07d540",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/moment_subj_embeddings.csv"
+      ],
+      "n_mentions": 13,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "manual_backfill_candidate_needs_human_patch",
+      "rationale": "Producer is committed and context mentions exist, but a human must verify command, timestamp, fold scope, and leakage rationale before patching."
+    },
+    {
+      "artifact": "results/nonlinear_dynamics_features.csv",
+      "bytes": 122505,
+      "sha256": "011446ce9d31a1f5a067df5df126ef520cf3a1694dd349056980f3373e99ad85",
+      "shape": {
+        "rows": 100,
+        "columns": 73
+      },
+      "producer": {
+        "path": "cache_nonlinear_dynamics.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 13,
+            "text": "Output: results/nonlinear_dynamics_features.csv (per-subject, prefix `nl_`)."
+          },
+          {
+            "line": 18,
+            "text": "--out results/nonlinear_dynamics_features.csv"
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "d72908c92ecfc36e058526522bf19281082a260d2fe6bad4c8c757657899a2f6",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/nonlinear_dynamics_features.csv"
+      ],
+      "n_mentions": 5,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "hy"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/peritem_rec_features.csv",
+      "bytes": 2294673,
+      "sha256": "dbf82e07738633ada318301658e21323888962d5ed6156ff10d89959497f3786",
+      "shape": {
+        "rows": 495,
+        "columns": 438
+      },
+      "producer": null,
+      "producer_alternatives": [],
+      "producer_sha256": null,
+      "producer_git_match": null,
+      "same_script_outputs": [],
+      "n_mentions": 3,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "insufficient_producer_evidence",
+      "rationale": "No Python producer mention was found for this artifact name."
+    },
+    {
+      "artifact": "results/peritem_subj_features.csv",
+      "bytes": 2292650,
+      "sha256": "9078b0d813ed939c5ea190d3056d51def27c4bce74f71124d7df62ae88355a3f",
+      "shape": {
+        "rows": 100,
+        "columns": 1306
+      },
+      "producer": null,
+      "producer_alternatives": [],
+      "producer_sha256": null,
+      "producer_git_match": null,
+      "same_script_outputs": [],
+      "n_mentions": 12,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "insufficient_producer_evidence",
+      "rationale": "No Python producer mention was found for this artifact name."
+    },
+    {
+      "artifact": "results/rest_state_features.csv",
+      "bytes": 1327893,
+      "sha256": "227e2428438f0cb8d2f0a5b9ab08c7ec7ae37410d3ffbd1c0a2721de787c733a",
+      "shape": {
+        "rows": 176,
+        "columns": 417
+      },
+      "producer": {
+        "path": "cache_rest_state_features.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 19,
+            "text": "Output: `results/rest_state_features.csv` per-subject aggregated."
+          },
+          {
+            "line": 40,
+            "text": "OUT_PATH = RESULTS_DIR / \"rest_state_features.csv\""
+          }
+        ]
+      },
+      "producer_alternatives": [
+        {
+          "path": "run_t1_iter4.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": true,
+          "mentions": [
+            {
+              "line": 54,
+              "text": "REST_STATE = RESULTS_DIR / \"rest_state_features.csv\""
+            }
+          ]
+        }
+      ],
+      "producer_sha256": "9916a3fa4d33107d850f06bc77e142dac19cc3a66f0d02da0e507a1c225fe183",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/rest_state_features.csv"
+      ],
+      "n_mentions": 7,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "hy"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/stride_locked_subj.csv",
+      "bytes": 2005597,
+      "sha256": "9670a1a6488f822cb59a77a72bce09f1d407ae50133f32f2abcb07e970f055f6",
+      "shape": {
+        "rows": 100,
+        "columns": 1174
+      },
+      "producer": {
+        "path": "cache_stride_locked.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 30,
+            "text": "results/stride_locked_subj.csv"
+          },
+          {
+            "line": 35,
+            "text": "--out results/stride_locked_subj.csv"
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "e029be967b45a0f184c5a2bf6990ecbf4c0951420ff7acc07c91274c90834bd7",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [],
+      "n_mentions": 13,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "manual_backfill_candidate_needs_human_patch",
+      "rationale": "Producer is committed and context mentions exist, but a human must verify command, timestamp, fold scope, and leakage rationale before patching."
+    },
+    {
+      "artifact": "results/tug_transition_features.csv",
+      "bytes": 1230137,
+      "sha256": "6f386659653dbfc135237ba9a6b1308c73999bc0888c3fba29f57f95270cf2f3",
+      "shape": {
+        "rows": 176,
+        "columns": 422
+      },
+      "producer": {
+        "path": "cache_tug_transition_features.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 27,
+            "text": "Output: `results/tug_transition_features.csv` (per-subject aggregated) \u2014 ~30-100 features."
+          },
+          {
+            "line": 48,
+            "text": "OUT_PATH = RESULTS_DIR / \"tug_transition_features.csv\""
+          }
+        ]
+      },
+      "producer_alternatives": [
+        {
+          "path": "run_t1_iter4.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": true,
+          "mentions": [
+            {
+              "line": 6,
+              "text": "tug_microscope              \u2014 base v2 + TUG-transition phase features (cache_tug_transition_features.csv)"
+            },
+            {
+              "line": 53,
+              "text": "TUG_TRANSITION = RESULTS_DIR / \"tug_transition_features.csv\""
+            }
+          ]
+        }
+      ],
+      "producer_sha256": "269102f8d15ed6a053b28a56698a30363734488d22a9613a2a664279c2ff4912",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/tug_transition_features.csv"
+      ],
+      "n_mentions": 13,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [],
+      "decision": "manual_backfill_candidate_needs_human_patch",
+      "rationale": "Producer is committed and context mentions exist, but a human must verify command, timestamp, fold scope, and leakage rationale before patching."
+    },
+    {
+      "artifact": "results/unsigned_asymmetry_features.csv",
+      "bytes": 3798187,
+      "sha256": "11e8be1bf6065a4fb329dadaf2bdd89f5248c9db251f8310d550f62ea62bf0bb",
+      "shape": {
+        "rows": 178,
+        "columns": 1171
+      },
+      "producer": {
+        "path": "cache_unsigned_asymmetry.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 16,
+            "text": "Output: results/unsigned_asymmetry_features.csv."
+          },
+          {
+            "line": 29,
+            "text": "DEFAULT_OUTPUT = REPO_ROOT / \"results\" / \"unsigned_asymmetry_features.csv\""
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "be87df0e9fae9bcb95666814528610f98880721201fa6c45f9406c02606e6e6d",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/unsigned_asymmetry_features.csv"
+      ],
+      "n_mentions": 7,
+      "upstream_diagnostic_refs": [
+        "results/ablation_v3_features.csv",
+        "results/lr_asymmetry_features.csv",
+        "results/v3_features.csv"
+      ],
+      "target_token_hits": [],
+      "decision": "blocked_by_upstream_diagnostic_cache",
+      "rationale": "Producer depends on cache artifacts that are themselves missing/partial-manifest diagnostic-only."
+    },
+    {
+      "artifact": "results/v2_self_normalized.csv",
+      "bytes": 2914603,
+      "sha256": "f6b64b150983203774c1c2c5d85a795fbdca69293255b2f82eda5c447523dac9",
+      "shape": {
+        "rows": 94,
+        "columns": 1752
+      },
+      "producer": {
+        "path": "cache_v2_self_normalized.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 14,
+            "text": "Output: results/v2_self_normalized.csv (sid + selfnorm_<original col name>)"
+          },
+          {
+            "line": 30,
+            "text": "OUT_PATH = REPO_ROOT / \"results\" / \"v2_self_normalized.csv\""
+          }
+        ]
+      },
+      "producer_alternatives": [
+        {
+          "path": "run_t3_boost_iter5.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": true,
+          "mentions": [
+            {
+              "line": 43,
+              "text": "SELFNORM_PATH = RESULTS_DIR / \"v2_self_normalized.csv\""
+            },
+            {
+              "line": 314,
+              "text": "\"v2_self_normalized.csv\": sha256_path(SELFNORM_PATH),"
+            }
+          ]
+        }
+      ],
+      "producer_sha256": "aabb211454a51bb9c2e3e38de75666610edb08d80bc17e1a3dd526d816ad23ea",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [
+        "results/v2_self_normalized.csv"
+      ],
+      "n_mentions": 13,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "hy",
+        "target"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/v3_features.csv",
+      "bytes": 5736922,
+      "sha256": "dd7ef27fcd4edaf630929944b570445303a7d9e32a3abd2d718fad11357e8b88",
+      "shape": {
+        "rows": 178,
+        "columns": 1754
+      },
+      "producer": {
+        "path": "run_ablation_v3.py",
+        "suffix": ".py",
+        "is_cache_script": false,
+        "is_run_script": true,
+        "mentions": [
+          {
+            "line": 44,
+            "text": "FEATURE_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+          }
+        ]
+      },
+      "producer_alternatives": [
+        {
+          "path": "run_v3_experiments.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": true,
+          "mentions": [
+            {
+              "line": 36,
+              "text": "FEATURE_CACHE = str(repo_artifact_path(\"v3_features.csv\"))"
+            }
+          ]
+        },
+        {
+          "path": "audit_ablation_v3_regeneration.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": false,
+          "mentions": [
+            {
+              "line": 4,
+              "text": "This script never writes to results/ablation_v3_features.csv.  It can be run on"
+            },
+            {
+              "line": 27,
+              "text": "FROZEN_CACHE = RESULTS_DIR / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 93,
+              "text": "\"Full ablation_v3_features.csv regeneration requires PD and control \""
+            },
+            {
+              "line": 198,
+              "text": "\"`results/ablation_v3_features.csv` to cache-manifest-clean headline use.\","
+            }
+          ]
+        },
+        {
+          "path": "cache_clinical_extras.py",
+          "suffix": ".py",
+          "is_cache_script": true,
+          "is_run_script": false,
+          "mentions": [
+            {
+              "line": 16,
+              "text": "results/ablation_v3_features.csv          \u2014 for V2 cohort SID cross-check"
+            },
+            {
+              "line": 607,
+              "text": "default=\"results/ablation_v3_features.csv\","
+            }
+          ]
+        }
+      ],
+      "producer_sha256": "5a349664fab587e803ca5c2d26feffc5bc7318790d80acb7678ed5a981d9fd4d",
+      "producer_git_match": {
+        "commit": "e0c3eaa1b1becd6b49fe144c3473041ea27c6862",
+        "short": "e0c3eaa",
+        "subject": "pre bias fix"
+      },
+      "same_script_outputs": [
+        "results/ablation_v3_features.csv",
+        "results/v3_features.csv"
+      ],
+      "n_mentions": 75,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "hy",
+        "obs_subscore",
+        "target",
+        "updrs"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/velinc_features.csv",
+      "bytes": 1800379,
+      "sha256": "e9b22b6e9fbf06588ebd66ff781375d57f0ac081fd4c6bbe29575fe3c03482d6",
+      "shape": {
+        "rows": 182,
+        "columns": 495
+      },
+      "producer": {
+        "path": "cache_extra_features.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 5,
+            "text": "results/velinc_features.csv         \u2014 VelocityIncrement features (regular)"
+          },
+          {
+            "line": 148,
+            "text": "out_path = str(results_artifact_path(\"velinc_features.csv\"))"
+          }
+        ]
+      },
+      "producer_alternatives": [
+        {
+          "path": "run_phase4_distill.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": true,
+          "mentions": [
+            {
+              "line": 55,
+              "text": "VELINC = str(results_artifact_path(\"velinc_features.csv\"))"
+            }
+          ]
+        },
+        {
+          "path": "run_phase6_stack.py",
+          "suffix": ".py",
+          "is_cache_script": false,
+          "is_run_script": true,
+          "mentions": [
+            {
+              "line": 56,
+              "text": "VELINC = str(results_artifact_path(\"velinc_features.csv\"))"
+            }
+          ]
+        }
+      ],
+      "producer_sha256": "8c495b8248e26554e7f157bd6febf1fd8a6359f83a8e89e8383bd4ab70e4d6ea",
+      "producer_git_match": {
+        "commit": "94842a496e5d5484e5ad1123497150c489e61ccc",
+        "short": "94842a4",
+        "subject": "first commit"
+      },
+      "same_script_outputs": [
+        "results/velinc_features.csv",
+        "results/velinc_gated_features.csv"
+      ],
+      "n_mentions": 16,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "label"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/velinc_gated_features.csv",
+      "bytes": 3605254,
+      "sha256": "c2c18def9d30a0a95f0462189b4d6b1500e7ef8b98fed4b30cef4ab2e5681738",
+      "shape": {
+        "rows": 182,
+        "columns": 989
+      },
+      "producer": {
+        "path": "cache_extra_features.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 6,
+            "text": "results/velinc_gated_features.csv   \u2014 VelocityIncrement phase-gated (Walk vs Turn)"
+          },
+          {
+            "line": 146,
+            "text": "out_path = str(results_artifact_path(\"velinc_gated_features.csv\"))"
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "8c495b8248e26554e7f157bd6febf1fd8a6359f83a8e89e8383bd4ab70e4d6ea",
+      "producer_git_match": {
+        "commit": "94842a496e5d5484e5ad1123497150c489e61ccc",
+        "short": "94842a4",
+        "subject": "first commit"
+      },
+      "same_script_outputs": [
+        "results/velinc_features.csv",
+        "results/velinc_gated_features.csv"
+      ],
+      "n_mentions": 7,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "label"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    },
+    {
+      "artifact": "results/walkway_joint_subj.csv",
+      "bytes": 340970,
+      "sha256": "b8777eda76933158d8337f125bc8fa6d1a8c48d286ee8b1094479b2df27a52f1",
+      "shape": {
+        "rows": 100,
+        "columns": 217
+      },
+      "producer": {
+        "path": "cache_walkway_joint.py",
+        "suffix": ".py",
+        "is_cache_script": true,
+        "is_run_script": false,
+        "mentions": [
+          {
+            "line": 18,
+            "text": "results/walkway_joint_subj.csv (per-subject features)"
+          }
+        ]
+      },
+      "producer_alternatives": [],
+      "producer_sha256": "4940725707a9fffb2910b951bb6006fc43f78c4d2268934fa78d7ba4b22fe036",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "same_script_outputs": [],
+      "n_mentions": 5,
+      "upstream_diagnostic_refs": [],
+      "target_token_hits": [
+        "label"
+      ],
+      "decision": "manual_review_label_or_clinical_tokens",
+      "rationale": "Producer text contains target/clinical-label-like tokens; labels_used cannot be asserted false automatically."
+    }
+  ]
+}

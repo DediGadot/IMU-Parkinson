@@ -1,0 +1,10 @@
+
+=== T1 iter29-B SCREEN: multi-task LGB on items 9-14 (5-fold, feature_set=A3_tier1, 3 seeds) ===
+
+  seed=42: multitask CCC=0.7049 | iter5-direct CCC=0.6579 | Δ=+0.0470 | MAE=1.972 | r=0.7175 | 28.1s
+  seed=1337: multitask CCC=0.7061 | iter5-direct CCC=0.6773 | Δ=+0.0288 | MAE=1.938 | r=0.7180 | 28.0s
+  seed=7: multitask CCC=0.7146 | iter5-direct CCC=0.6364 | Δ=+0.0782 | MAE=1.877 | r=0.7323 | 27.8s
+
+Mean multi-task CCC = 0.7085 ± 0.0053; Mean iter5-direct CCC = 0.6572 ± 0.0205; Δ̄ = +0.0513
+Wrote /root/pd-imu/results/iter29b_multitask_5fold_20260505_192841.csv
+      /root/pd-imu/results/iter29b_multitask_5fold_20260505_192841.oof.json

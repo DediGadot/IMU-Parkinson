@@ -1,0 +1,529 @@
+{
+  "generated_at_utc": "2026-05-09T04:31:20+00:00",
+  "script": "audit_manual_cache_backfill_evidence.py",
+  "source_audit": "results/missing_cache_manifest_origin_audit_20260509.json",
+  "policy": "Do not backfill a clean manifest unless exact command/runtime/source-data evidence is concrete. Committed producer scripts and artifact hashes are candidate evidence only.",
+  "n_candidates": 5,
+  "decision_counts": {
+    "leave_missing_no_patch": 5
+  },
+  "remote_recovery_probe": {
+    "enabled": true,
+    "remote": "fiod@165.22.71.91",
+    "port": "2243",
+    "returncode": 0,
+    "output": [
+      "REMOTE_ROOT /home/fiod/pd-imu",
+      "BROKEN_SYMLINK results/rocket_recordings.npz -> /home/fiod/medical/results/results/rocket_recordings.npz 56 bytes mtime=2026-04-28 13:26:14.356989943 +0300",
+      "MISSING results/hc_ssl_subj_embeddings.csv",
+      "MISSING results/moment_subj_embeddings.csv",
+      "MISSING results/joints_v2_subj.csv",
+      "MISSING results/stride_locked_subj.csv",
+      "MISSING results/tug_transition_features.csv",
+      "MISSING results/cache_features.log"
+    ]
+  },
+  "artifacts": [
+    {
+      "artifact": "results/hc_ssl_subj_embeddings.csv",
+      "producer": "cache_hc_ssl_embeddings.py",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "artifact_stats": {
+        "path": "results/hc_ssl_subj_embeddings.csv",
+        "exists": true,
+        "is_file": true,
+        "is_dir": false,
+        "is_symlink": false,
+        "symlink_target": null,
+        "symlink_resolve_error": null,
+        "bytes": 2668044,
+        "mtime_utc": "2026-04-30T16:38:44+00:00",
+        "sha256": "beda6c55bdcdf85da53b50309b2d383657d3d0a81866ed4c249a909e0c6f025b",
+        "rows": 178,
+        "columns": 769
+      },
+      "source_dependencies": [
+        {
+          "path": "results/rocket_recordings.npz",
+          "exists": false,
+          "is_file": false,
+          "is_dir": false,
+          "is_symlink": true,
+          "symlink_target": "/home/fiod/medical/results/results/rocket_recordings.npz",
+          "symlink_resolve_error": "Symlink loop from '/home/fiod/medical/results/results/rocket_recordings.npz'",
+          "bytes": null,
+          "mtime_utc": "2026-04-28T10:26:14+00:00",
+          "sha256": null,
+          "kind": "source_npz",
+          "purpose": "recordings/sids/tasks source for HC-only SSL extraction"
+        }
+      ],
+      "context_hits": [
+        {
+          "path": "progress.md",
+          "line": 889,
+          "text": "- Output: `results/hc_ssl_subj_embeddings.csv` (178 \u00d7 768 features)"
+        },
+        {
+          "path": "progress.md",
+          "line": 2950,
+          "text": "- Inspected producer scripts and context for `hc_ssl_subj_embeddings.csv`, `moment_subj_embeddings.csv`, `tug_transition_features.csv`, `joints_v2_subj.csv`, and `stride_locked_subj.csv`."
+        },
+        {
+          "path": "findings.md",
+          "line": 1007,
+          "text": "- `cache_hc_ssl_embeddings.py`, `results/hc_ssl_subj_embeddings.csv` (178 \u00d7 768)"
+        },
+        {
+          "path": "findings.md",
+          "line": 4781,
+          "text": "- `results/hc_ssl_subj_embeddings.csv`: artifact exists (178 x 769, SHA `beda6c55bdcdf85da53b50309b2d383657d3d0a81866ed4c249a909e0c6f025b`), producer `cache_hc_ssl_embeddings.py` matches commit `d281a0e`, but source `results/rocket_recordings.npz` is a broken "
+        },
+        {
+          "path": "AGENTS.md",
+          "line": 49,
+          "text": "- **Cache scripts with complete concrete manifest sidecars (safe to feed inductive headlines):** `cache_item11_multiscale.py` \u2192 `results/item11_multiscale.csv` + `.manifest.json` and recording-level companion `results/item11_multiscale_recordings.csv` + `.mani"
+        },
+        {
+          "path": "results/cache_consumer_guard_audit_20260508.md",
+          "line": 43,
+          "text": "- `run_per_item_v2.py` \u2014 `results/hc_ssl_subj_embeddings.csv` (missing_manifest_diagnostic_only), `results/item11_multiscale.csv` (manifest_complete_clean_by_construction), `results/item9_event_moment.csv` (missing_manifest_diagnostic_only), `results/moment_su"
+        },
+        {
+          "path": "results/cache_manifest_audit_20260508.md",
+          "line": 32,
+          "text": "- `results/hc_ssl_subj_embeddings.csv` \u2014 `missing_manifest_diagnostic_only` (missing manifest)"
+        },
+        {
+          "path": "results/current_best_pipeline_artifact_index_20260508.md",
+          "line": 249,
+          "text": "`audit_manual_cache_backfill_evidence.py` records the follow-up no-patch decision for the 5 missing-manifest manual candidates. `hc_ssl_subj_embeddings.csv`, `moment_subj_embeddings.csv`, and `tug_transition_features.csv` depend on a broken `results/rocket_rec"
+        },
+        {
+          "path": "results/missing_cache_manifest_origin_audit_20260509.md",
+          "line": 27,
+          "text": "- `results/hc_ssl_subj_embeddings.csv` - `manual_backfill_candidate_needs_human_patch`; producer `cache_hc_ssl_embeddings.py`; git match `d281a0e`; upstream diagnostic refs `none`; target-token hits `none`. Producer is committed and context mentions exist, but"
+        },
+        {
+          "path": "results/transitive_cache_dependency_audit_20260508.md",
+          "line": 75,
+          "text": "- Diagnostic/partial artifacts in closure: `results/ablation_v3_features.csv`, `results/hc_ssl_subj_embeddings.csv`, `results/item9_event_moment.csv`, `results/lr_asymmetry_features.csv`, `results/moment_subj_embeddings.csv`, `results/peritem_subj_features.csv"
+        },
+        {
+          "path": "results/transitive_cache_dependency_audit_20260508.md",
+          "line": 83,
+          "text": "- Diagnostic/partial artifacts in closure: `results/ablation_v3_features.csv`, `results/hc_ssl_subj_embeddings.csv`, `results/item9_event_moment.csv`, `results/lr_asymmetry_features.csv`, `results/moment_subj_embeddings.csv`, `results/peritem_subj_features.csv"
+        }
+      ],
+      "command_like_context_hits": [],
+      "command_evidence_status": "insufficient",
+      "command_evidence_rationale": "No exact invocation was found, and narrative context says 80 epochs while the committed producer default is 50 epochs.",
+      "required_evidence_gaps": [
+        "80-epoch narrative conflicts with 50-epoch producer default",
+        "exact command/runtime evidence missing",
+        "results/rocket_recordings.npz is a broken/unresolvable symlink"
+      ],
+      "decision": "leave_missing_no_patch",
+      "rationale": "Committed producer-script evidence plus artifact hash/mtime is not enough to synthesize a clean cache manifest. Required command/runtime/source evidence is missing or currently unrecoverable."
+    },
+    {
+      "artifact": "results/joints_v2_subj.csv",
+      "producer": "cache_joints_v2.py",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "artifact_stats": {
+        "path": "results/joints_v2_subj.csv",
+        "exists": true,
+        "is_file": true,
+        "is_dir": false,
+        "is_symlink": false,
+        "symlink_target": null,
+        "symlink_resolve_error": null,
+        "bytes": 1520997,
+        "mtime_utc": "2026-04-30T21:15:58+00:00",
+        "sha256": "d218794a5a9611a1d7f2500fbafce01ad2f4715829debdaec343d04911066cf1",
+        "rows": 100,
+        "columns": 990
+      },
+      "source_dependencies": [
+        {
+          "path": "data/raw/weargait-pd/PD PARTICIPANTS/CSV files",
+          "exists": false,
+          "is_file": false,
+          "is_dir": false,
+          "is_symlink": false,
+          "symlink_target": null,
+          "symlink_resolve_error": null,
+          "bytes": null,
+          "mtime_utc": null,
+          "sha256": null,
+          "kind": "raw_csv_dir",
+          "purpose": "raw 100 Hz WearGait CSV input directory required by --csv_dir"
+        }
+      ],
+      "context_hits": [
+        {
+          "path": "progress.md",
+          "line": 2950,
+          "text": "- Inspected producer scripts and context for `hc_ssl_subj_embeddings.csv`, `moment_subj_embeddings.csv`, `tug_transition_features.csv`, `joints_v2_subj.csv`, and `stride_locked_subj.csv`."
+        },
+        {
+          "path": "findings.md",
+          "line": 4784,
+          "text": "- `results/joints_v2_subj.csv`: artifact exists (100 x 990, SHA `d218794a5a9611a1d7f2500fbafce01ad2f4715829debdaec343d04911066cf1`), producer matches commit `d281a0e`, but the required raw CSV directory `data/raw/weargait-pd/PD PARTICIPANTS/CSV files` is absen"
+        },
+        {
+          "path": "AGENTS.md",
+          "line": 49,
+          "text": "- **Cache scripts with complete concrete manifest sidecars (safe to feed inductive headlines):** `cache_item11_multiscale.py` \u2192 `results/item11_multiscale.csv` + `.manifest.json` and recording-level companion `results/item11_multiscale_recordings.csv` + `.mani"
+        },
+        {
+          "path": "results/cache_consumer_guard_audit_20260508.md",
+          "line": 36,
+          "text": "- `run_joints_v2.py` \u2014 `results/joints_v2_subj.csv` (missing_manifest_diagnostic_only), `results/peritem_subj_features.csv` (missing_manifest_diagnostic_only)"
+        },
+        {
+          "path": "results/cache_manifest_audit_20260508.md",
+          "line": 43,
+          "text": "- `results/joints_v2_subj.csv` \u2014 `missing_manifest_diagnostic_only` (missing manifest)"
+        },
+        {
+          "path": "results/current_best_pipeline_artifact_index_20260508.md",
+          "line": 249,
+          "text": "`audit_manual_cache_backfill_evidence.py` records the follow-up no-patch decision for the 5 missing-manifest manual candidates. `hc_ssl_subj_embeddings.csv`, `moment_subj_embeddings.csv`, and `tug_transition_features.csv` depend on a broken `results/rocket_rec"
+        },
+        {
+          "path": "results/missing_cache_manifest_origin_audit_20260509.md",
+          "line": 33,
+          "text": "- `results/joints_v2_subj.csv` - `manual_backfill_candidate_needs_human_patch`; producer `cache_joints_v2.py`; git match `d281a0e`; upstream diagnostic refs `none`; target-token hits `none`. Producer is committed and context mentions exist, but a human must ve"
+        }
+      ],
+      "command_like_context_hits": [],
+      "command_evidence_status": "insufficient",
+      "command_evidence_rationale": "No exact --csv_dir/--out_strides/--out_subj invocation was found.",
+      "required_evidence_gaps": [
+        "data/raw/weargait-pd/PD PARTICIPANTS/CSV files is missing locally",
+        "exact command/runtime evidence missing"
+      ],
+      "decision": "leave_missing_no_patch",
+      "rationale": "Committed producer-script evidence plus artifact hash/mtime is not enough to synthesize a clean cache manifest. Required command/runtime/source evidence is missing or currently unrecoverable."
+    },
+    {
+      "artifact": "results/moment_subj_embeddings.csv",
+      "producer": "cache_moment_embeddings.py",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "artifact_stats": {
+        "path": "results/moment_subj_embeddings.csv",
+        "exists": true,
+        "is_file": true,
+        "is_dir": false,
+        "is_symlink": false,
+        "symlink_target": null,
+        "symlink_resolve_error": null,
+        "bytes": 8599566,
+        "mtime_utc": "2026-04-30T16:38:36+00:00",
+        "sha256": "3e53a493dbc51c83036f67091588cd4902a26c54f3b1492e6718cbdd64248ddb",
+        "rows": 178,
+        "columns": 2305
+      },
+      "source_dependencies": [
+        {
+          "path": "results/rocket_recordings.npz",
+          "exists": false,
+          "is_file": false,
+          "is_dir": false,
+          "is_symlink": true,
+          "symlink_target": "/home/fiod/medical/results/results/rocket_recordings.npz",
+          "symlink_resolve_error": "Symlink loop from '/home/fiod/medical/results/results/rocket_recordings.npz'",
+          "bytes": null,
+          "mtime_utc": "2026-04-28T10:26:14+00:00",
+          "sha256": null,
+          "kind": "source_npz",
+          "purpose": "recordings/sids/tasks source for MOMENT extraction"
+        }
+      ],
+      "context_hits": [
+        {
+          "path": "progress.md",
+          "line": 73,
+          "text": "- Superseded by the later hardening/backfill pass: `results/clinical_extras.csv` and `results/harnet_subj_embeddings.csv` are concrete safe-cache checks, `results/item_specific_features.csv` still fails closed on remaining placeholder/missing required fields, "
+        },
+        {
+          "path": "progress.md",
+          "line": 884,
+          "text": "- Output: `results/moment_subj_embeddings.csv` (178 \u00d7 2304 features)"
+        },
+        {
+          "path": "progress.md",
+          "line": 2950,
+          "text": "- Inspected producer scripts and context for `hc_ssl_subj_embeddings.csv`, `moment_subj_embeddings.csv`, `tug_transition_features.csv`, `joints_v2_subj.csv`, and `stride_locked_subj.csv`."
+        },
+        {
+          "path": "findings.md",
+          "line": 1006,
+          "text": "- `cache_moment_embeddings.py`, `results/moment_subj_embeddings.csv` (178 \u00d7 2304)"
+        },
+        {
+          "path": "findings.md",
+          "line": 4782,
+          "text": "- `results/moment_subj_embeddings.csv`: artifact exists (178 x 2305, SHA `3e53a493dbc51c83036f67091588cd4902a26c54f3b1492e6718cbdd64248ddb`), producer matches commit `d281a0e`, but the same broken `rocket_recordings.npz` source and missing exact command/runtim"
+        },
+        {
+          "path": "AGENTS.md",
+          "line": 49,
+          "text": "- **Cache scripts with complete concrete manifest sidecars (safe to feed inductive headlines):** `cache_item11_multiscale.py` \u2192 `results/item11_multiscale.csv` + `.manifest.json` and recording-level companion `results/item11_multiscale_recordings.csv` + `.mani"
+        },
+        {
+          "path": "results/cache_consumer_guard_audit_20260508.md",
+          "line": 43,
+          "text": "- `run_per_item_v2.py` \u2014 `results/hc_ssl_subj_embeddings.csv` (missing_manifest_diagnostic_only), `results/item11_multiscale.csv` (manifest_complete_clean_by_construction), `results/item9_event_moment.csv` (missing_manifest_diagnostic_only), `results/moment_su"
+        },
+        {
+          "path": "results/cache_manifest_audit_20260508.md",
+          "line": 46,
+          "text": "- `results/moment_subj_embeddings.csv` \u2014 `missing_manifest_diagnostic_only` (missing manifest)"
+        },
+        {
+          "path": "results/current_best_pipeline_artifact_index_20260508.md",
+          "line": 249,
+          "text": "`audit_manual_cache_backfill_evidence.py` records the follow-up no-patch decision for the 5 missing-manifest manual candidates. `hc_ssl_subj_embeddings.csv`, `moment_subj_embeddings.csv`, and `tug_transition_features.csv` depend on a broken `results/rocket_rec"
+        },
+        {
+          "path": "results/current_best_pipeline_artifact_index_20260508.md",
+          "line": 251,
+          "text": "`cache_provenance.py` is the shared fail-closed guard for future scripts. It validates sidecar completeness, rejects placeholder required values, requires `labels_used=false`, requires `leakage_status=clean_by_construction`, and validates the cache `data_sha25"
+        },
+        {
+          "path": "results/missing_cache_manifest_origin_audit_20260509.md",
+          "line": 36,
+          "text": "- `results/moment_subj_embeddings.csv` - `manual_backfill_candidate_needs_human_patch`; producer `cache_moment_embeddings.py`; git match `d281a0e`; upstream diagnostic refs `none`; target-token hits `none`. Producer is committed and context mentions exist, but"
+        },
+        {
+          "path": "results/transitive_cache_dependency_audit_20260508.md",
+          "line": 75,
+          "text": "- Diagnostic/partial artifacts in closure: `results/ablation_v3_features.csv`, `results/hc_ssl_subj_embeddings.csv`, `results/item9_event_moment.csv`, `results/lr_asymmetry_features.csv`, `results/moment_subj_embeddings.csv`, `results/peritem_subj_features.csv"
+        }
+      ],
+      "command_like_context_hits": [],
+      "command_evidence_status": "insufficient",
+      "command_evidence_rationale": "No exact invocation/runtime log was found.",
+      "required_evidence_gaps": [
+        "exact command/runtime evidence missing",
+        "results/rocket_recordings.npz is a broken/unresolvable symlink"
+      ],
+      "decision": "leave_missing_no_patch",
+      "rationale": "Committed producer-script evidence plus artifact hash/mtime is not enough to synthesize a clean cache manifest. Required command/runtime/source evidence is missing or currently unrecoverable."
+    },
+    {
+      "artifact": "results/stride_locked_subj.csv",
+      "producer": "cache_stride_locked.py",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "artifact_stats": {
+        "path": "results/stride_locked_subj.csv",
+        "exists": true,
+        "is_file": true,
+        "is_dir": false,
+        "is_symlink": false,
+        "symlink_target": null,
+        "symlink_resolve_error": null,
+        "bytes": 2005597,
+        "mtime_utc": "2026-04-30T21:37:12+00:00",
+        "sha256": "9670a1a6488f822cb59a77a72bce09f1d407ae50133f32f2abcb07e970f055f6",
+        "rows": 100,
+        "columns": 1174
+      },
+      "source_dependencies": [
+        {
+          "path": "data/raw/weargait-pd/PD PARTICIPANTS/CSV files",
+          "exists": false,
+          "is_file": false,
+          "is_dir": false,
+          "is_symlink": false,
+          "symlink_target": null,
+          "symlink_resolve_error": null,
+          "bytes": null,
+          "mtime_utc": null,
+          "sha256": null,
+          "kind": "raw_csv_dir",
+          "purpose": "raw 100 Hz WearGait CSV input directory required by --csv_dir"
+        }
+      ],
+      "context_hits": [
+        {
+          "path": "progress.md",
+          "line": 2950,
+          "text": "- Inspected producer scripts and context for `hc_ssl_subj_embeddings.csv`, `moment_subj_embeddings.csv`, `tug_transition_features.csv`, `joints_v2_subj.csv`, and `stride_locked_subj.csv`."
+        },
+        {
+          "path": "findings.md",
+          "line": 4785,
+          "text": "- `results/stride_locked_subj.csv`: artifact exists (100 x 1174, SHA `9670a1a6488f822cb59a77a72bce09f1d407ae50133f32f2abcb07e970f055f6`), producer matches commit `d281a0e`, but the same raw CSV directory is absent and no exact command/runtime evidence was foun"
+        },
+        {
+          "path": "AGENTS.md",
+          "line": 49,
+          "text": "- **Cache scripts with complete concrete manifest sidecars (safe to feed inductive headlines):** `cache_item11_multiscale.py` \u2192 `results/item11_multiscale.csv` + `.manifest.json` and recording-level companion `results/item11_multiscale_recordings.csv` + `.mani"
+        },
+        {
+          "path": "results/cache_consumer_guard_audit_20260508.md",
+          "line": 53,
+          "text": "- `run_stride_fusion.py` \u2014 `results/peritem_subj_features.csv` (missing_manifest_diagnostic_only), `results/stride_locked_subj.csv` (missing_manifest_diagnostic_only)"
+        },
+        {
+          "path": "results/cache_consumer_guard_audit_20260508.md",
+          "line": 54,
+          "text": "- `run_stride_fusion_lean.py` \u2014 `results/stride_locked_subj.csv` (missing_manifest_diagnostic_only)"
+        },
+        {
+          "path": "results/cache_manifest_audit_20260508.md",
+          "line": 53,
+          "text": "- `results/stride_locked_subj.csv` \u2014 `missing_manifest_diagnostic_only` (missing manifest)"
+        },
+        {
+          "path": "results/current_best_pipeline_artifact_index_20260508.md",
+          "line": 249,
+          "text": "`audit_manual_cache_backfill_evidence.py` records the follow-up no-patch decision for the 5 missing-manifest manual candidates. `hc_ssl_subj_embeddings.csv`, `moment_subj_embeddings.csv`, and `tug_transition_features.csv` depend on a broken `results/rocket_rec"
+        },
+        {
+          "path": "results/missing_cache_manifest_origin_audit_20260509.md",
+          "line": 41,
+          "text": "- `results/stride_locked_subj.csv` - `manual_backfill_candidate_needs_human_patch`; producer `cache_stride_locked.py`; git match `d281a0e`; upstream diagnostic refs `none`; target-token hits `none`. Producer is committed and context mentions exist, but a human"
+        }
+      ],
+      "command_like_context_hits": [],
+      "command_evidence_status": "insufficient",
+      "command_evidence_rationale": "No exact --csv_dir/--out invocation was found.",
+      "required_evidence_gaps": [
+        "data/raw/weargait-pd/PD PARTICIPANTS/CSV files is missing locally",
+        "exact command/runtime evidence missing"
+      ],
+      "decision": "leave_missing_no_patch",
+      "rationale": "Committed producer-script evidence plus artifact hash/mtime is not enough to synthesize a clean cache manifest. Required command/runtime/source evidence is missing or currently unrecoverable."
+    },
+    {
+      "artifact": "results/tug_transition_features.csv",
+      "producer": "cache_tug_transition_features.py",
+      "producer_git_match": {
+        "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+        "short": "d281a0e",
+        "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+      },
+      "artifact_stats": {
+        "path": "results/tug_transition_features.csv",
+        "exists": true,
+        "is_file": true,
+        "is_dir": false,
+        "is_symlink": false,
+        "symlink_target": null,
+        "symlink_resolve_error": null,
+        "bytes": 1230137,
+        "mtime_utc": "2026-04-29T14:04:58+00:00",
+        "sha256": "6f386659653dbfc135237ba9a6b1308c73999bc0888c3fba29f57f95270cf2f3",
+        "rows": 176,
+        "columns": 422
+      },
+      "source_dependencies": [
+        {
+          "path": "results/rocket_recordings.npz",
+          "exists": false,
+          "is_file": false,
+          "is_dir": false,
+          "is_symlink": true,
+          "symlink_target": "/home/fiod/medical/results/results/rocket_recordings.npz",
+          "symlink_resolve_error": "Symlink loop from '/home/fiod/medical/results/results/rocket_recordings.npz'",
+          "bytes": null,
+          "mtime_utc": "2026-04-28T10:26:14+00:00",
+          "sha256": null,
+          "kind": "source_npz",
+          "purpose": "recordings/sids/tasks source for TUG phase extraction"
+        }
+      ],
+      "context_hits": [
+        {
+          "path": "progress.md",
+          "line": 2950,
+          "text": "- Inspected producer scripts and context for `hc_ssl_subj_embeddings.csv`, `moment_subj_embeddings.csv`, `tug_transition_features.csv`, `joints_v2_subj.csv`, and `stride_locked_subj.csv`."
+        },
+        {
+          "path": "findings.md",
+          "line": 468,
+          "text": "- `results/tug_transition_features.csv` (421 features, 176 subjects) \u2713 from iter4"
+        },
+        {
+          "path": "findings.md",
+          "line": 501,
+          "text": "- Already partially captured in `tug_transition_features.csv`. Needs raw triaxial + jerk."
+        },
+        {
+          "path": "findings.md",
+          "line": 4783,
+          "text": "- `results/tug_transition_features.csv`: artifact exists (176 x 422, SHA `6f386659653dbfc135237ba9a6b1308c73999bc0888c3fba29f57f95270cf2f3`), producer matches commit `d281a0e`, but it also depends on broken `rocket_recordings.npz` and lacks exact runtime evide"
+        },
+        {
+          "path": "AGENTS.md",
+          "line": 49,
+          "text": "- **Cache scripts with complete concrete manifest sidecars (safe to feed inductive headlines):** `cache_item11_multiscale.py` \u2192 `results/item11_multiscale.csv` + `.manifest.json` and recording-level companion `results/item11_multiscale_recordings.csv` + `.mani"
+        },
+        {
+          "path": "results/cache_consumer_guard_audit_20260508.md",
+          "line": 59,
+          "text": "- `run_t1_iter4.py` \u2014 `results/ablation_v3_features.csv` (missing_manifest_diagnostic_only), `results/lr_asymmetry_features.csv` (missing_manifest_diagnostic_only), `results/rest_state_features.csv` (missing_manifest_diagnostic_only), `results/tug_transition_f"
+        },
+        {
+          "path": "results/cache_manifest_audit_20260508.md",
+          "line": 54,
+          "text": "- `results/tug_transition_features.csv` \u2014 `missing_manifest_diagnostic_only` (missing manifest)"
+        },
+        {
+          "path": "results/current_best_pipeline_artifact_index_20260508.md",
+          "line": 249,
+          "text": "`audit_manual_cache_backfill_evidence.py` records the follow-up no-patch decision for the 5 missing-manifest manual candidates. `hc_ssl_subj_embeddings.csv`, `moment_subj_embeddings.csv`, and `tug_transition_features.csv` depend on a broken `results/rocket_rec"
+        },
+        {
+          "path": "results/missing_cache_manifest_origin_audit_20260509.md",
+          "line": 42,
+          "text": "- `results/tug_transition_features.csv` - `manual_backfill_candidate_needs_human_patch`; producer `cache_tug_transition_features.py`; git match `d281a0e`; upstream diagnostic refs `none`; target-token hits `none`. Producer is committed and context mentions exi"
+        },
+        {
+          "path": "results/transitive_cache_dependency_audit_20260508.md",
+          "line": 27,
+          "text": "- Diagnostic/partial artifacts in closure: `results/ablation_v3_features.csv`, `results/lr_asymmetry_features.csv`, `results/rest_state_features.csv`, `results/tug_transition_features.csv`, `results/velinc_features.csv`"
+        },
+        {
+          "path": "results/transitive_cache_dependency_audit_20260508.md",
+          "line": 35,
+          "text": "- Diagnostic/partial artifacts in closure: `results/ablation_v3_features.csv`, `results/lr_asymmetry_features.csv`, `results/rest_state_features.csv`, `results/tug_transition_features.csv`, `results/velinc_features.csv`"
+        },
+        {
+          "path": "results/transitive_cache_dependency_audit_20260508.md",
+          "line": 75,
+          "text": "- Diagnostic/partial artifacts in closure: `results/ablation_v3_features.csv`, `results/hc_ssl_subj_embeddings.csv`, `results/item9_event_moment.csv`, `results/lr_asymmetry_features.csv`, `results/moment_subj_embeddings.csv`, `results/peritem_subj_features.csv"
+        }
+      ],
+      "command_like_context_hits": [],
+      "command_evidence_status": "insufficient",
+      "command_evidence_rationale": "No exact invocation/runtime log was found.",
+      "required_evidence_gaps": [
+        "exact command/runtime evidence missing",
+        "results/rocket_recordings.npz is a broken/unresolvable symlink"
+      ],
+      "decision": "leave_missing_no_patch",
+      "rationale": "Committed producer-script evidence plus artifact hash/mtime is not enough to synthesize a clean cache manifest. Required command/runtime/source evidence is missing or currently unrecoverable."
+    }
+  ]
+}

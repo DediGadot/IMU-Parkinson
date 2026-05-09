@@ -1,0 +1,93 @@
+{
+  "created_at_utc": "2026-05-09T11:22:41+00:00",
+  "script": "run_t3_iter53_parkinsonathome.py",
+  "mode": "probe",
+  "dataset": "Parkinson@Home",
+  "doi": "10.34973/fr4z-a489",
+  "metadata_files": {
+    "patient_info": {
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/input/clinical_data/patient_info.csv",
+      "sha256": "41f0ad6c45e65e48a89a1102dc40778de68e0c68dfec0d813cd2ef028d240d6f",
+      "size_bytes": 12102
+    },
+    "distribution": {
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/input/clinical_data/distribution_participants.json",
+      "sha256": "cc36ecd1aae2cbb7d6a39dc45bf7fd6958ad297644bc4ba5f79e238caefd7db2",
+      "size_bytes": 1001
+    },
+    "readme": {
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/README.md",
+      "sha256": "bf345ebd2b6c9acc98c13a070547651ae28ecfffb4f631970205c23b8f97c8bc",
+      "size_bytes": 4304
+    },
+    "about": {
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/ABOUT.txt",
+      "sha256": "94a43d44b1febad2a2d67c66f6ba0fa277fd8bb9a562d6dec07cb621eb0d73ac",
+      "size_bytes": 2686
+    },
+    "manifest": {
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/MANIFEST.txt",
+      "sha256": "c005b944b9b40baa8c0e5d4f77b040f12af9c1cc3f57755396e680c336a808f1",
+      "size_bytes": 31964
+    },
+    "license": {
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/LICENSE.txt",
+      "sha256": "240cd1c345932866b833dd34c637d7b4832cd02218792feee0501349f312353b",
+      "size_bytes": 8346
+    }
+  },
+  "n_patient_info_rows": 50,
+  "n_pd_off_valid_target_rows": 25,
+  "n_off_columns": 33,
+  "n_on_columns": 33,
+  "off_target_summary": {
+    "mean": 42.16,
+    "min": 17.0,
+    "max": 67.0
+  },
+  "clinical_covariates_public": [],
+  "track_b_status": "skipped_public_non_target_clinical_covariates_absent",
+  "sample_prepared_parquet": {
+    "sid": "hbv002",
+    "side_label": "MAS",
+    "status": "ok",
+    "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv002_MAS.parquet",
+    "size_bytes": 13572930,
+    "shape": [
+      876535,
+      6
+    ],
+    "columns": [
+      "accelerometer_x",
+      "accelerometer_y",
+      "accelerometer_z",
+      "free_living_label",
+      "arm_label",
+      "pre_or_post"
+    ],
+    "free_living_labels": {
+      "Sitting": 605849,
+      "Walking": 140750,
+      "Standing": 111419,
+      "Lie-to-stand": 4763,
+      "Turning": 3703,
+      "Walking upstairs": 2279,
+      "Stand-to-lie": 1708,
+      "Walking downstairs": 1578
+    },
+    "arm_labels": {
+      "non_gait": 735785,
+      "Gait without other behaviours or other positions": 105567,
+      "Holding hands behind back": 5099,
+      "Holding an object in forward position (including grabbing the object)": 4661,
+      "Cannot assess": 4398,
+      "Using hand for support in upward position (e.g. holding wall, door, bike steering wheel) - including grabbing": 3706,
+      "Fixing clothes": 3431,
+      "Using hand for support in downward position (e.g. sitting down in chair, kitchen counter, holding bike saddle) - including grabbing": 2991
+    },
+    "unit": "g_converted_to_mps2",
+    "median_raw_mag": 1.0089667097312143,
+    "mean_raw_mag": 1.0150137498736127
+  },
+  "decision": "direct_public_external_t3_route_for_zero_shot_only"
+}

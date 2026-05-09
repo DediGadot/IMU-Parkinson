@@ -1,0 +1,23 @@
+{
+  "comparison": "iter34_hybrid vs iter12_honest_subset_n93",
+  "n_common": 93,
+  "iter12_honest_ccc_on_n93": 0.65535778076322,
+  "iter34_hybrid_ccc_on_n93": 0.7365943676137859,
+  "delta": 0.0812365868505659,
+  "paired_bootstrap": {
+    "n_boot": 5000,
+    "seed": 20260506,
+    "delta_mean": 0.08081370474682827,
+    "ci_low": -0.002922976905892845,
+    "ci_high": 0.16559058524176787,
+    "frac_above_zero": 0.9714,
+    "frac_above_0.025": 0.9046,
+    "frac_above_0.05": 0.7664
+  },
+  "gate_decision": {
+    "strict_0.95": true,
+    "bonferroni_n3_0.9833": false,
+    "bonferroni_n8_0.9938": false,
+    "bonferroni_n9_0.9944": false
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "created_at_utc": "2026-05-09T13:20:00Z",
+  "route": "Luxembourg / NCER-PD Sensors 2024 upper-limb MDS-UPDRS III subitem IMU study",
+  "decision": "document_only_no_runbook_no_scaffold_no_preregistration",
+  "status": "skipped_request_only_subitem_only_observability_context",
+  "rationale": [
+    "The public paper describes 33 PD patients and 12 controls, six elicited hand/arm MDS-UPDRS III tasks, and bilateral compact hand IMUs.",
+    "The route targets upper-limb subitems, not total MDS-UPDRS Part III and not the full T1 items 9-14 composite.",
+    "The data are not publicly downloadable; the data-availability statement says datasets are available only upon reasonable request under national and institutional regulations.",
+    "The current T3 residual audits already identify upper-limb items as non-WearGait-observable burden, so this route supports the observability-ceiling argument rather than creating a WearGait-PD internal ceiling-break path.",
+    "Prior per-item T3 composition failed at this N, so external upper-limb subitem data do not escape the known variance-compounding failure mode."
+  ],
+  "consults": {
+    "kimi": "skip_runbook_document_only; use as upper-limb observability context only",
+    "claude": "failed_credit_balance_too_low",
+    "glmcode": "not_found_on_path"
+  },
+  "methodology_caveats": [
+    "Medication state is ON in the public Sensors 2024 study.",
+    "The public paper does not expose row-level raw files or schema.",
+    "The task and sensor geometry are bilateral hand IMUs during elicited upper-limb tasks, not WearGait-PD gait/balance wrist/ankle/lumbar recordings.",
+    "No preregistration, download, scaffold, remote job, or request packet is justified for the active T1/T3 CCC objective."
+  ],
+  "sources": [
+    "https://www.mdpi.com/1424-8220/24/7/2195",
+    "https://pubmed.ncbi.nlm.nih.gov/38610406/",
+    "results/external_dataset_route_audit_20260508.json",
+    "findings.md"
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "script": "audit_ablation_v3_regeneration.py",
+  "created_at_utc": "2026-05-09T02:33:57+00:00",
+  "mode": "probe",
+  "status": "blocked_missing_regeneration_inputs",
+  "dependency_status": {
+    "antropy": "ok",
+    "pywt": "ok",
+    "lightgbm": "ok",
+    "xgboost": "ok",
+    "catboost": "ok"
+  },
+  "input_status": {
+    "checks": {
+      "data_dir": {
+        "path": "/home/fiod/pd-imu/data/raw/weargait-pd",
+        "exists": true,
+        "is_dir": true,
+        "csv_count": 1
+      },
+      "pd_clinical": {
+        "path": "/home/fiod/pd-imu/data/raw/weargait-pd/PD - Demographic+Clinical - datasetV1.csv",
+        "exists": true,
+        "is_dir": false,
+        "csv_count": null
+      },
+      "control_clinical": {
+        "path": "/home/fiod/pd-imu/data/raw/weargait-pd/CONTROLS - Demographic+Clinical - datasetV1.csv",
+        "exists": false,
+        "is_dir": false,
+        "csv_count": null
+      },
+      "pd_csv_dir": {
+        "path": "/home/fiod/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files",
+        "exists": true,
+        "is_dir": true,
+        "csv_count": 793
+      },
+      "control_csv_dir": {
+        "path": "/home/fiod/pd-imu/data/raw/weargait-pd/CONTROL PARTICIPANTS/CSV files",
+        "exists": false,
+        "is_dir": false,
+        "csv_count": null
+      },
+      "walkway_metrics": {
+        "path": "/home/fiod/pd-imu/data/raw/weargait-pd/Walkway-derived metrics/PKMAS Walkway Gait Metrics - HP+SP.csv",
+        "exists": false,
+        "is_dir": false,
+        "csv_count": null
+      }
+    },
+    "missing": [
+      "control_clinical",
+      "control_csv_dir",
+      "walkway_metrics"
+    ],
+    "complete_for_full_178_subject_regeneration": false,
+    "note": "Full ablation_v3_features.csv regeneration requires PD and control clinical files, PD and control CSV directories, and the walkway metrics file because the frozen cache has HC rows and selected dst_* columns."
+  },
+  "frozen_before": {
+    "path": "/home/fiod/pd-imu/results/ablation_v3_features.csv",
+    "exists": true,
+    "size_bytes": 6127141,
+    "mtime_ns": 1773092940074709280,
+    "sha256": "b405d90a6a35808d556d726b58bf7d9361d26e020a79091e52c868ee98f9c2b4"
+  },
+  "frozen_after": {
+    "path": "/home/fiod/pd-imu/results/ablation_v3_features.csv",
+    "exists": true,
+    "size_bytes": 6127141,
+    "mtime_ns": 1773092940074709280,
+    "sha256": "b405d90a6a35808d556d726b58bf7d9361d26e020a79091e52c868ee98f9c2b4"
+  },
+  "frozen_cache_unchanged": true,
+  "promotion_decision": "No regenerated cache was written. The current remote lacks the full WearGait raw-data inputs needed to reproduce the frozen 178-subject cache. Do not synthesize a clean manifest or promote the historical cache; keep using the existing provenance caveats until the full raw data are restored and a non-destructive regeneration succeeds."
+}

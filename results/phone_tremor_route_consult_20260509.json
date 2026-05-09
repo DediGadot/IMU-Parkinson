@@ -1,0 +1,41 @@
+{
+  "created_at_utc": "2026-05-09T05:12:00Z",
+  "purpose": "Persist external-consult evidence for the Papadopoulos phone-call tremor route decision.",
+  "route": {
+    "name": "Papadopoulos phone-call tremor",
+    "source": "https://zenodo.org/records/7273759",
+    "n_clinically_examined_subjects": 45,
+    "n_self_reported_subjects": 454,
+    "modality": "smartphone embedded-IMU acceleration captured during phone calls",
+    "labels": [
+      "UPDRS II item 16 tremor",
+      "UPDRS Part III item 20 right/left rest hand tremor",
+      "UPDRS Part III item 21 right/left action/postural hand tremor",
+      "binary signal-expert tremor annotation",
+      "PD status"
+    ],
+    "direct_t1_t3_eligible": false,
+    "eligibility_failure": "No total MDS-UPDRS Part III target, no T1 items 9-14, and no WearGait-aligned gait/balance protocol."
+  },
+  "consults": {
+    "kimi": {
+      "status": "completed",
+      "recommendation": "stop_at_provenance_paper_hardening",
+      "summary": "Do not launch another model experiment or access-gated scaffold until genuinely new data or credentials exist; record the negative web-search result and keep the paper/provenance story tight."
+    },
+    "gemini": {
+      "status": "completed",
+      "recommendation": "update_external_route_audit_only_no_probe",
+      "summary": "Stop new modeling; formally reject the smartphone tremor dataset for this objective because it lacks total UPDRS-III labels."
+    },
+    "claude": {
+      "status": "failed",
+      "error": "Credit balance is too low"
+    },
+    "glmcode": {
+      "status": "not_available",
+      "error": "glmcode not found on PATH"
+    }
+  },
+  "decision": "No preregistration, download, scaffold, or remote job. Keep as tremor-subitem / free-living context only."
+}

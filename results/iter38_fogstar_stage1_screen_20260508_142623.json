@@ -1,0 +1,87 @@
+{
+  "script": "run_t3_iter38_fogstar_stage1.py",
+  "created_at_utc": "2026-05-08T11:26:23+00:00",
+  "mode": "screen",
+  "dataset": {
+    "name": "FoG-STAR",
+    "n": 22,
+    "source": "https://zenodo.org/records/17838806",
+    "clinical_manifest": "/home/fiod/pd-imu/data/raw/fogstar/clinical_data.csv.manifest.json",
+    "updrs_mean": 38.95454545454545,
+    "updrs_min": 18.0,
+    "updrs_max": 69.0
+  },
+  "external_weight": 1.0,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "rows_csv": "/home/fiod/pd-imu/results/iter38_fogstar_stage1_screen_rows_20260508_142623.csv",
+  "per_seed": [
+    {
+      "seed": 42,
+      "baseline_ccc": 0.4785,
+      "augmented_ccc": 0.4954,
+      "delta_ccc": 0.0169,
+      "baseline_mae": 7.9797,
+      "augmented_mae": 7.8415,
+      "elapsed_s": 3.6
+    },
+    {
+      "seed": 1337,
+      "baseline_ccc": 0.4157,
+      "augmented_ccc": 0.4524,
+      "delta_ccc": 0.0367,
+      "baseline_mae": 8.3997,
+      "augmented_mae": 7.9363,
+      "elapsed_s": 3.6
+    },
+    {
+      "seed": 7,
+      "baseline_ccc": 0.5082,
+      "augmented_ccc": 0.4743,
+      "delta_ccc": -0.0338,
+      "baseline_mae": 7.814,
+      "augmented_mae": 7.9005,
+      "elapsed_s": 3.5
+    }
+  ],
+  "baseline_seed_mean": {
+    "ccc": 0.4888,
+    "mae": 7.8093,
+    "r": 0.52,
+    "cal_slope": 0.3645
+  },
+  "augmented_seed_mean": {
+    "ccc": 0.4896,
+    "mae": 7.6908,
+    "r": 0.5127,
+    "cal_slope": 0.3779
+  },
+  "delta_seed_mean_predictions": 0.0008,
+  "gate": {
+    "pass": false,
+    "criteria": "mean seed delta >= +0.025, seed std < 0.020, paired bootstrap frac_gt_0 >= 0.95",
+    "mean_seed_delta": 0.0066,
+    "seed_delta_std": 0.0297,
+    "bootstrap": {
+      "n_boot": 5000,
+      "mean_delta": 0.0003,
+      "ci95": [
+        -0.0566,
+        0.0658
+      ],
+      "frac_gt_0": 0.4938,
+      "frac_gt_0025": 0.2114
+    }
+  },
+  "canonical_t3_ccc": 0.5227,
+  "decision": "screen_fail_no_lockbox_no_canonical_change",
+  "leakage_rationale": [
+    "WearGait test folds are never included in Stage-1 or Stage-2 training.",
+    "FoG-STAR rows are external training rows only; they do not enter WearGait test labels.",
+    "Stage-2 remains WearGait train-fold V2 residual only, preserving the canonical V2 feature contract.",
+    "FoG-STAR missing DBS is imputed inside the fold by FoldImputer fit on combined training rows."
+  ]
+}

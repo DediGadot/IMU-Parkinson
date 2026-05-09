@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
-"""Generate Nature-quality academic paper (v2): UPDRS-III regression on WearGait-PD.
+"""STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.
+
+This legacy generator preserves pre-leakage/pre-iter47 manuscript archaeology.
+Use render_current_paper.py -> CURRENT_PAPER.html for current claims. Current
+anchors live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366,
+T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are
+target-contaminated or superseded.
+
+Generate Nature-quality academic paper (v2): UPDRS-III regression on WearGait-PD.
 
 Loads all experiment artifacts, recomputes statistics, generates publication
 figures, and assembles a self-contained HTML manuscript.

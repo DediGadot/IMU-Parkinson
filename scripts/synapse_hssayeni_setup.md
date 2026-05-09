@@ -21,6 +21,31 @@
 > exact entity IDs for the wrist accelerometer + UPDRS-III subset must
 > be discovered with `syn.getChildren("syn20681023")` after login.
 
+## Current access boundary
+
+Status: Synapse DUA/READ-gated. Do not run a download, feature cache, new
+pre-registration, or remote model job until access to `syn20681023` is approved
+and the child file/schema listing is visible. The existing iter26 scripts are
+scaffolding only while the DUA gate remains closed.
+
+Fillable DUA/request packet: `scripts/hssayeni_mjff_dua_request_packet.md`.
+Use it only for the Synapse/MJFF access step; do not commit a completed copy
+with personal details, signatures, Synapse credentials, access approvals,
+protected schema dumps, or data-use terms.
+
+After access exists, the first action should be a read-only probe that records:
+
+- the child entity tree and file sizes;
+- which files contain wrist accelerometer samples;
+- which files contain MDS-UPDRS Part III total/item labels;
+- subject and visit identifiers linking sensors to labels;
+- sampling rates, units, axis conventions, and medication timing;
+- label valid ranges and missing-code policy.
+
+Stop before modeling if DUA approval is absent, sensor/label IDs cannot be
+linked by subject and visit, raw wrist samples are unavailable, Part III labels
+are unavailable, or license terms prohibit aggregate validation artifacts.
+
 ## TL;DR runbook
 
 ```bash

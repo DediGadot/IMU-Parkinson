@@ -1,0 +1,16 @@
+
+=== T1 iter30-B SCREEN: multi-task variants (2, 5-fold, 3 seeds, N=94) ===
+
+  variant=V6_calibrated seed=42: CCC_v=0.7043 | iter5=0.6579 | Δ=+0.0464 | MAE=1.750 | r=0.7044 | 104.7s
+  variant=V6_calibrated seed=1337: CCC_v=0.6944 | iter5=0.6773 | Δ=+0.0171 | MAE=1.798 | r=0.6944 | 102.6s
+  variant=V6_calibrated seed=7: CCC_v=0.7127 | iter5=0.6364 | Δ=+0.0762 | MAE=1.699 | r=0.7128 | 110.6s
+  variant=V7_blend_with_iter5 seed=42: CCC_v=0.6579 | iter5=0.6579 | Δ=+0.0000 | MAE=1.705 | r=0.6631 | 120.3s
+  variant=V7_blend_with_iter5 seed=1337: CCC_v=0.6762 | iter5=0.6773 | Δ=-0.0011 | MAE=1.676 | r=0.6803 | 120.1s
+  variant=V7_blend_with_iter5 seed=7: CCC_v=0.6364 | iter5=0.6364 | Δ=+0.0000 | MAE=1.765 | r=0.6400 | 128.8s
+
+Per-variant Δ summary:
+  V6_calibrated: mean CCC = 0.7038 ± 0.0092; Δ̄ = +0.0466 ([0.0464, 0.0171, 0.0762])
+  V7_blend_with_iter5: mean CCC = 0.6568 ± 0.0199; Δ̄ = -0.0004 ([0.0, -0.0011, 0.0])
+
+Wrote /root/pd-imu/results/iter30b_multitask_variants_5fold_20260505_202319.csv
+      /root/pd-imu/results/iter30b_multitask_variants_5fold_20260505_202319.oof.json

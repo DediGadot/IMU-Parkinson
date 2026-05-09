@@ -1,0 +1,25 @@
+
+=== T1 iter29-C SCREEN: CCC-direct LGB (F50 v2 fixes) on T1 (5-fold, feature_set=A3_tier1, 3 seeds) ===
+
+Traceback (most recent call last):
+  File "/root/pd-imu/run_t1_iter29c_ccc_direct.py", line 261, in <module>
+    main()
+  File "/root/pd-imu/run_t1_iter29c_ccc_direct.py", line 257, in main
+    run_screen(tuple(args.seeds), args.feature_set)
+  File "/root/pd-imu/run_t1_iter29c_ccc_direct.py", line 204, in run_screen
+    y_t1, preds_cc = run_one_seed_ccc_direct(seed, feature_set, use_stage1=use_s1)
+  File "/root/pd-imu/run_t1_iter29c_ccc_direct.py", line 165, in run_one_seed_ccc_direct
+    s2_te_raw = _train_ccc_lgb(Xtr_sel, target_tr, Xte_sel, seed)
+  File "/root/pd-imu/run_t1_iter29c_ccc_direct.py", line 130, in _train_ccc_lgb
+    booster = lgb.train(params, train_set, num_boost_round=400)
+  File "/usr/local/lib/python3.10/dist-packages/lightgbm/engine.py", line 322, in train
+    booster.update(fobj=fobj)
+  File "/usr/local/lib/python3.10/dist-packages/lightgbm/basic.py", line 4165, in update
+    grad, hess = fobj(self.__inner_predict(0), self.train_set)
+  File "/root/pd-imu/run_t1_iter29c_ccc_direct.py", line 85, in obj
+    mp = float(np.mean(p))
+  File "/usr/local/lib/python3.10/dist-packages/numpy/core/fromnumeric.py", line 3504, in mean
+    return _methods._mean(a, axis=axis, dtype=dtype,
+  File "/usr/local/lib/python3.10/dist-packages/numpy/core/_methods.py", line 131, in _mean
+    ret = ret / rcount
+TypeError: unsupported operand type(s) for /: 'Dataset' and 'int'

@@ -1,0 +1,176 @@
+{
+  "generated_at_utc": "2026-05-09T10:04:20+00:00",
+  "script": "audit_paper_generator_routing.py",
+  "policy": "Current paper work must route to render_current_paper.py -> CURRENT_PAPER.html. generate_paper_v4.py / NEW4.html may exist only as explicitly quarantined legacy archaeology.",
+  "passed": true,
+  "decision": "current_paper_renderer_route_guard_passed",
+  "active_docs": [
+    {
+      "path": "AGENTS.md",
+      "missing_required": [],
+      "bad_exact_snippets": [],
+      "unguarded_generate_v4_or_new4_hits": [],
+      "contains_current_render_command": true,
+      "contains_legacy_quarantine": true,
+      "sha256": "8c50272c572048638089f46ad7441720a83490c5e3e67c41d0d63b7a1b22c1a5"
+    },
+    {
+      "path": "CLAUDE.md",
+      "missing_required": [],
+      "bad_exact_snippets": [],
+      "unguarded_generate_v4_or_new4_hits": [],
+      "contains_current_render_command": true,
+      "contains_legacy_quarantine": true,
+      "sha256": "6b1304dbb217d5891b98de3b3a692ecad27faa5fc64e951715c0b7b2c2025049"
+    },
+    {
+      "path": "README.md",
+      "missing_required": [],
+      "bad_exact_snippets": [],
+      "unguarded_generate_v4_or_new4_hits": [],
+      "contains_current_render_command": true,
+      "contains_legacy_quarantine": true,
+      "sha256": "f949f81bbd0197e04e2739991d4e2ff31b4b6d5fa153ec3b48f5f1d146b15d90"
+    },
+    {
+      "path": "task_plan.md",
+      "missing_required": [],
+      "bad_exact_snippets": [],
+      "unguarded_generate_v4_or_new4_hits": [],
+      "contains_current_render_command": false,
+      "contains_legacy_quarantine": true,
+      "sha256": "839066764f52a993d905524df998bb2e674645f6b64e3763ec66e14fc038a3a1"
+    },
+    {
+      "path": "progress.md",
+      "missing_required": [],
+      "bad_exact_snippets": [],
+      "unguarded_generate_v4_or_new4_hits": [],
+      "contains_current_render_command": true,
+      "contains_legacy_quarantine": true,
+      "sha256": "845b8740a72744a2400f25df754c6e638e3096f88571b6f2d7eb62b3e2cd7d19"
+    },
+    {
+      "path": "findings.md",
+      "missing_required": [],
+      "bad_exact_snippets": [],
+      "unguarded_generate_v4_or_new4_hits": [],
+      "contains_current_render_command": true,
+      "contains_legacy_quarantine": true,
+      "sha256": "c2af625e3be4ea2519b7b5ebe4a54f28e1d034900666e8de0d342739a2c10ea9"
+    },
+    {
+      "path": "results/current_best_pipeline_artifact_index_20260508.md",
+      "missing_required": [],
+      "bad_exact_snippets": [],
+      "unguarded_generate_v4_or_new4_hits": [],
+      "contains_current_render_command": false,
+      "contains_legacy_quarantine": true,
+      "sha256": "13c6be688bacc1a1ddb80d142b91d75c0832bfdd068f2251e884cde2319f29bc"
+    },
+    {
+      "path": "results/thread_goal_completion_audit_20260508.md",
+      "missing_required": [],
+      "bad_exact_snippets": [],
+      "unguarded_generate_v4_or_new4_hits": [],
+      "contains_current_render_command": false,
+      "contains_legacy_quarantine": true,
+      "sha256": "453a8b88b4ab79e3986b81d324ccc8cda6b3ba3add547f42566eb82f9b153a2c"
+    }
+  ],
+  "legacy_quarantine_docs": [
+    {
+      "path": ".claude/commands/update-paper.md",
+      "missing_required": [],
+      "stale_or_legacy_hit_count": 62,
+      "sample_stale_or_legacy_hits": [
+        {
+          "line": 8,
+          "line_text": "> **Current-route warning:** This command is retained only for historical archaeology. It contains stale pre-leakage assumptions and `NEW.html` / `generate_paper.py` routing. For current post-audit manuscript work, edit `paper.md` and run `uv run python render_current_paper.py`, which writes `CURRENT_PAPER.html` and validates `results/current_paper_export/manifest.json`. Do not use this file as the current manuscript pipeline.",
+          "context": "> **Current-route warning:** This command is retained only for historical archaeology. It contains stale pre-leakage assumptions and `NEW.html` / `generate_paper.py` routing. For current post-audit manuscript work, edit `paper.md` and run `uv run python render_current_paper.py`, which writes `CURRENT_PAPER.html` and validates `results/current_paper_export/manifest.json`. Do not use this file as the current manuscript pipeline."
+        },
+        {
+          "line": 21,
+          "line_text": "- T1: T=1.45, CCC 0.868\u21920.893, slope\u21921.000, MAE 0.986\u21921.091",
+          "context": "**Per-target temperature (LOOCV, canonical):** - T1: T=1.45, CCC 0.868\u21920.893, slope\u21921.000, MAE 0.986\u21921.091 - T2: T=1.45, CCC 0.852\u21920.863, slope\u21921.014, MAE 1.334\u21921.717"
+        },
+        {
+          "line": 23,
+          "line_text": "- T3: T=1.75, CCC 0.776\u21920.811, slope\u21921.008, MAE 4.646\u21925.579",
+          "context": "- T2: T=1.45, CCC 0.852\u21920.863, slope\u21921.014, MAE 1.334\u21921.717 - T3: T=1.75, CCC 0.776\u21920.811, slope\u21921.008, MAE 4.646\u21925.579 - Monotonicity: 0.893 > 0.863 > 0.811 (HOLDS under LOOCV)"
+        },
+        {
+          "line": 32,
+          "line_text": "**Legacy manuscript file: `/home/fiod/medical/NEW.html`** \u2014 historical/pre-audit archaeology only. The authoritative current manuscript export is `/home/fiod/medical/CURRENT_PAPER.html`, generated from `paper.md` by `render_current_paper.py`.",
+          "context": "**Legacy manuscript file: `/home/fiod/medical/NEW.html`** \u2014 historical/pre-audit archaeology only. The authoritative current manuscript export is `/home/fiod/medical/CURRENT_PAPER.html`, generated from `paper.md` by `render_current_paper.py`."
+        },
+        {
+          "line": 48,
+          "line_text": "> **A) From Scratch** \u2014 Full regeneration. Rebuilds narrative alignment, data collection, generate_paper.py script, and all review cycles from zero. Use when the paper structure needs fundamental changes, the narrative framing is wrong, or major new experiment categories have been added.",
+          "context": "> > **A) From Scratch** \u2014 Full regeneration. Rebuilds narrative alignment, data collection, generate_paper.py script, and all review cycles from zero. Use when the paper structure needs fundamental changes, the narrative framing is wrong, or major new experiment categories have been added. >"
+        },
+        {
+          "line": 50,
+          "line_text": "> **B) Update Existing** \u2014 Incremental update. Reads the current NEW.html, diffs it against the latest results from findings.md and memory files, identifies stale/missing/incorrect content, and surgically fixes it. Preserves working prose and structure. Use when you have new experiment results, corrected numbers, or incremental improvements to incorporate.",
+          "context": "> > **B) Update Existing** \u2014 Incremental update. Reads the current NEW.html, diffs it against the latest results from findings.md and memory files, identifies stale/missing/incorrect content, and surgically fixes it. Preserves working prose and structure. Use when you have new experiment results, corrected numbers, or incremental improvements to incorporate. >"
+        },
+        {
+          "line": 95,
+          "line_text": "1. \"Full pipeline (ranking + LGB + temp scaling T=1.4) achieves CCC=0.882, slope=0.967, MAE=1.162 on T1 (LOOCV). Without temp: CCC=0.868, slope=0.689\"",
+          "context": "1. \"Full pipeline (ranking + LGB + temp scaling T=1.4) achieves CCC=0.882, slope=0.967, MAE=1.162 on T1 (LOOCV). Without temp: CCC=0.868, slope=0.689\" 2. \"3-level observability gradient: direct CCC=0.56, partial CCC=0.12, unobs CCC=0.18 (baseline)\""
+        },
+        {
+          "line": 282,
+          "line_text": "## Step 2: Write generate_paper.py (1 subagent)",
+          "context": "## Step 2: Write generate_paper.py (1 subagent)"
+        },
+        {
+          "line": 293,
+          "line_text": "> You are a scientific paper script writer. Your job is to write `/home/fiod/medical/generate_paper.py` \u2014 a single, self-contained Python script that generates a complete Nature-quality HTML manuscript.",
+          "context": "**SUBAGENT_2 prompt:** > You are a scientific paper script writer. Your job is to write `/home/fiod/medical/generate_paper.py` \u2014 a single, self-contained Python script that generates a complete Nature-quality HTML manuscript. >"
+        },
+        {
+          "line": 301,
+          "line_text": "> Also check if a previous version exists: `/home/fiod/medical/generate_paper.py` \u2014 if it does, read it and reuse working code blocks (figure generation, HTML template structure, statistical computations).",
+          "context": "> > Also check if a previous version exists: `/home/fiod/medical/generate_paper.py` \u2014 if it does, read it and reuse working code blocks (figure generation, HTML template structure, statistical computations). >"
+        }
+      ],
+      "sha256": "318bf3eafabfe8ece59e77152d061206f2da12fd38d861c94f2efb04af3ae3d1"
+    }
+  ],
+  "current_renderer": {
+    "script": "render_current_paper.py",
+    "output": "CURRENT_PAPER.html",
+    "missing_required": [],
+    "manifest": {
+      "status": "passed",
+      "source": "paper.md",
+      "output": "CURRENT_PAPER.html",
+      "validation_issues": [],
+      "required_snippet_count": 108,
+      "forbidden_stale_snippet_count": 5,
+      "manifest_mtime_gte_renderer_mtime": true
+    },
+    "forbidden_hits": [],
+    "sha256": "7e4e5d75886130d5866c52c4e1bb7433aad54c96fd7780652e1a476f6a947150",
+    "output_sha256": "649bb0613ceb0fc91e365a67a71733fc825a1efb37f7d63d2a2eacc5fce6170b"
+  },
+  "legacy_generator": {
+    "script": "generate_paper_v4.py",
+    "output": "NEW4.html",
+    "script_missing_required_evidence": [],
+    "new4_missing_stale_evidence": [],
+    "stale_phrase_counts": {
+      "generate_paper_v4_py_0_868": 6,
+      "generate_paper_v4_py_0_776": 5,
+      "new4_html_0_868": 10,
+      "new4_html_0_776": 8,
+      "new4_html_transductive": 17
+    },
+    "sha256": "b5732deb4718ee2db5af5125ad43a650e6535b132932a42a4e22c2e91caae652",
+    "output_sha256": "6b923e1c30ad284f14fb88eedfc59039ba55963909ed7198826ddc39c927263d"
+  },
+  "kimi_consult_summary": "Kimi agreed this is a non-redundant publication-surface routing guard: docs should point to render_current_paper.py/CURRENT_PAPER.html, legacy generators should be marked stale, and no WearGait-only model run is justified by this issue.",
+  "hard_failures": [],
+  "warnings": []
+}

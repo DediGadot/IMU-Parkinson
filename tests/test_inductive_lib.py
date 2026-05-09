@@ -122,3 +122,21 @@ class TestMetrics:
         from inductive_lib import ccc
         y = np.linspace(0, 10, 50)
         assert abs(ccc(y, y) - 1.0) < 1e-9
+
+    def test_ccc_matches_lin_population_reference(self):
+        from inductive_lib import ccc
+
+        yt = np.array([0.0, 1.0, 2.0, 4.0, 7.0])
+        yp = np.array([0.2, 0.8, 2.4, 3.6, 6.5])
+        mt, mp = yt.mean(), yp.mean()
+        cov = np.mean((yt - mt) * (yp - mp))
+        expected = 2 * cov / (yt.var() + yp.var() + (mt - mp) ** 2)
+        assert abs(ccc(yt, yp) - expected) < 1e-12
+
+    def test_ccc_masks_nonfinite_like_eval_utils(self):
+        from eval_utils import lins_ccc
+        from inductive_lib import ccc
+
+        yt = np.array([0.0, 1.0, np.nan, 3.0, np.inf])
+        yp = np.array([0.0, 1.2, 2.0, 2.8, 4.0])
+        assert abs(ccc(yt, yp) - lins_ccc(yt, yp)) < 1e-12

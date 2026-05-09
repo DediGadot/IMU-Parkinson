@@ -1,0 +1,142 @@
+{
+  "timestamp": "20260508_062534",
+  "iso_datetime": "2026-05-08T06:25:34.215435",
+  "experiment": "T1 Ceiling Push Slot D \u2014 anatomical MoE \u00d7 per-item Ridge gating LOCKBOX (SKIPPED PRE-EXECUTION)",
+  "git_head": "b82d6a67c4e775f8e4256c83217d4d149a5f6f24",
+  "formula_sha256": "2e9173d55b50da08248ead10007d2f344d74e30e913a0e9884f5ff9226dfb514",
+  "formula": {
+    "experiment": "T1 Glass-Ceiling Push \u2014 Slot D: anatomical mixture-of-experts \u00d7 per-item Ridge gating",
+    "ceiling_push_master_prereg": "results/preregistration_t1_ceiling_push_20260508_051417.json",
+    "family_member": "slotD",
+    "fwer_family_n": 5,
+    "fwer_method": "Bonferroni 0.99 strict per-slot gate (n=5 = {iter34_baseline, slotA_FAIL, slotB_SKIPPED, slotC_BLOCKED, slotD})",
+    "loose_gate_frac_above_zero": 0.95,
+    "decision": "SKIP_PRE_EXECUTION",
+    "decision_basis": "tri-CLI 4-of-4 convergence on SKIP",
+    "consult_artifacts": [
+      "/tmp/pd_imu_consult/codex_20260508T055804.txt",
+      "/tmp/pd_imu_consult/gemini_20260508T055804.txt",
+      "/tmp/pd_imu_consult/codex_20260508T060847.txt",
+      "/tmp/pd_imu_consult/gemini_20260508T060847.txt"
+    ],
+    "mechanism_axis_proposed": "Anatomical MoE \u00d7 per-item routing \u2014 partition V2 into 4 expert pools by sensor anatomy {axial, lower, upper, residual}, train per-fold per-item LGB on each expert (K=125 selection per expert), combine via fold-locally-fit per-item Ridge gate.",
+    "skip_rationale": "Tri-CLI consult (codex+gemini \u00d7 2 parallel runs) converged 4-of-4 on SKIP. Load-bearing critique: the per-item Ridge gate over 4 expert outputs is mechanistically a stacked-meta blender, VIOLATING the F53/F56/F58 ban on composite blends at N=93. Per-item adaptive K (candidate B) is isomorphic to iter34 with inner-CV-tuned K. Tree-distance item-similarity (candidate C) is a learned-DAG reparameterization of F70's RegressorChain. PLS2 dense-projection 4th candidate (gemini) collapses to slot B's reduced-rank regression. Honest priors: P(strict gate 0.99) \u2264 0.10-0.15 for the best candidate (A) and \u2264 0.05 for B/C; net expected information gain is dominated by the FWER cost. Council lesson 2026-05-06: marginal credibility of probe N+1 in same session as N priors may be NEGATIVE under FWER.",
+    "wall_data_point_id_proposed": "F35-D",
+    "wall_classification": "Composite-blend collapse at N=93 \u2014 slot D candidate A's per-item Ridge gate over 4 expert outputs is a 4-element stacked-meta blender, joining F53/F56/F58 wall data points on blend mechanisms.",
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects_min": 90,
+      "filter": "PD with full items 9-14, 15, 18 (matches iter33-B / iter34)"
+    },
+    "stage1_proposed": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "T1 (sum items 9-14)"
+    },
+    "stage2_proposed": {
+      "expert_partition_names": [
+        "axial",
+        "lower",
+        "upper",
+        "residual"
+      ],
+      "expert_sensor_prefixes": {
+        "axial": [
+          "Forehead_",
+          "Xiphoid_",
+          "LowerBack_"
+        ],
+        "lower": [
+          "L_DorsalFoot_",
+          "R_DorsalFoot_",
+          "L_LatShank_",
+          "R_LatShank_",
+          "L_MidLatThigh_",
+          "R_MidLatThigh_",
+          "L_Ankle_",
+          "R_Ankle_"
+        ],
+        "upper": [
+          "L_Wrist_",
+          "R_Wrist_"
+        ]
+      },
+      "expert_residual_definition": "any V2 column not assigned to axial/lower/upper",
+      "k_per_expert": 125,
+      "k_total_effective": 500,
+      "selection_target_per_expert": "T1-sum residual (sum of item residuals)",
+      "per_item_base_learner": "LGBMRegressor (iter5 defaults via train_lgb)",
+      "per_item_combiner": "Ridge(alpha=1.0, fit_intercept=False)",
+      "items_targets_chain": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18
+      ],
+      "items_summed_for_t1": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "auxiliary_items": [
+        15,
+        18
+      ],
+      "post_combine_formula": "Stage1_pred + (sum_over_T1_SUM_ITEMS(Ridge_gate(expert_preds)) - sum(train_mean[T1_SUM_ITEMS]))"
+    },
+    "eval_proposed": {
+      "loocv_n_min": 90,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "headline_metric": "CCC of mean-of-3-seed predictions vs y_t1",
+      "comparator_iter5_direct_loocv": "computed live in same SID-aligned LOOCV",
+      "comparator_iter34_loocv_json": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "comparator_iter12_honest_path": "compose_t1_iter12_honest.py output"
+    },
+    "lockbox_rules": [
+      "ONE pre-registered config. ONE LOOCV run. NO seed shopping.",
+      "Headline = CCC of mean-of-3-seed preds.",
+      "Slot verdict per FWER strict gate: paired-bootstrap (n=5000) frac>0 vs iter12-honest-on-N=93 AND vs iter34-on-N=93, Bonferroni-adjusted threshold 0.99.",
+      "Verdict CANDIDATE if frac>0 in [0.95, 0.99).",
+      "Verdict FAIL if frac>0 < 0.95.",
+      "Verdict CANONICAL only if frac>0 >= 0.99 against BOTH baselines."
+    ],
+    "feat_cols_count": 1751,
+    "expert_sizes_at_commit": {
+      "axial": 320,
+      "lower": 856,
+      "upper": 208,
+      "residual": 367
+    }
+  },
+  "variant": "slot_d_anatomical_moe",
+  "ceiling_push_master_prereg": "results/preregistration_t1_ceiling_push_20260508_051417.json",
+  "fwer_family_n": 5,
+  "decision": "SKIP_PRE_EXECUTION",
+  "expert_sizes_at_commit": {
+    "axial": 320,
+    "lower": 856,
+    "upper": 208,
+    "residual": 367
+  },
+  "eval_protocol": "PROPOSED (NOT EXECUTED): LOOCV on T1\u2229{15,18} cohort (N\u224893). Stage-1 Ridge (alpha=1.0) on H&Y + cv_yrs + cv_sex + cv_dbs. Stage-2 = 4 experts {axial, lower, upper, residual} over V2 anatomical partition; per-fold per-expert K=125 LGB-importance selection on T1-sum-residual proxy; per-item LGB on selected subset; per-item Ridge(\u03b1=1.0) gate over 4 expert outputs. T1 = Stage1 + sum(Ridge_gate(expert_preds[item])) - sum(train_mean[items 9-14]). Aux items {15,18} for chain support only \u2014 not summed into T1."
+}

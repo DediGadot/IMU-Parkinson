@@ -1,5 +1,7 @@
 # Learnings
 
+> **Archive status, 2026-05-09:** historical clean Paper3 lesson log only. Current canonical numbers and manuscript routing are in `CLAUDE.md`, `paper.md`, `CURRENT_PAPER.html`, and `render_current_paper.py`; current T3 valid-range headline is iter47 CCC `0.3784` / LOSO `0.150`, while old Paper3 MAE/r and iter5 T3 `0.5227` values are not current deployment results.
+
 This file captures the lessons that still hold after the contamination audit in `CONT.md`.
 
 ## 1. Evaluation hygiene is the main result

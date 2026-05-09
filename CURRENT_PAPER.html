@@ -1,0 +1,3274 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>WearGait-PD Current Post-Audit Manuscript</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+<style>
+body {
+  color: #1d2733;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55;
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 32px 24px 72px;
+}
+h1, h2, h3, h4 { line-height: 1.2; letter-spacing: 0; }
+h1 { font-size: 2.1rem; }
+h2 { margin-top: 2.2rem; border-top: 1px solid #d9dee7; padding-top: 1.1rem; }
+h3 { margin-top: 1.6rem; }
+table { border-collapse: collapse; display: block; overflow-x: auto; width: 100%; }
+th, td { border: 1px solid #d9dee7; padding: 7px 9px; vertical-align: top; }
+th { background: #f4f6f9; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+blockquote { border-left: 4px solid #176f6b; margin-left: 0; padding-left: 16px; color: #43505e; }
+.audit-banner {
+  background: #eef7f6;
+  border-left: 5px solid #176f6b;
+  margin: 0 0 24px;
+  padding: 14px 16px;
+}
+.audit-banner strong { display: block; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<div class="audit-banner"><strong>Current post-audit render from paper.md.</strong>Generated 2026-05-09T11:37:31+00:00. Use this export instead of NEW4.html for current T1/T3 framing; NEW4.html is a legacy generator output with stale pre-leakage narrative fragments.</div>
+<header id="title-block-header">
+<h1 class="title">WearGait-PD Current Post-Audit Manuscript</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a
+href="#predicting-parkinsons-disease-motor-severity-from-body-worn-inertial-sensors-a-systematic-feature-engineering-approach-on-the-weargait-pd-dataset"
+id="toc-predicting-parkinsons-disease-motor-severity-from-body-worn-inertial-sensors-a-systematic-feature-engineering-approach-on-the-weargait-pd-dataset">Predicting
+Parkinson's Disease Motor Severity from Body-Worn Inertial Sensors: A
+Systematic Feature Engineering Approach on the WearGait-PD Dataset</a>
+<ul>
+<li><a href="#abstract" id="toc-abstract">Abstract</a></li>
+<li><a href="#1-introduction" id="toc-1-introduction">1.
+Introduction</a></li>
+<li><a href="#2-related-work" id="toc-2-related-work">2. Related
+Work</a>
+<ul>
+<li><a href="#21-updrs-iii-prediction-from-wearable-sensors"
+id="toc-21-updrs-iii-prediction-from-wearable-sensors">2.1 UPDRS-III
+Prediction from Wearable Sensors</a></li>
+<li><a href="#22-gait-feature-engineering-for-pd-assessment"
+id="toc-22-gait-feature-engineering-for-pd-assessment">2.2 Gait Feature
+Engineering for PD Assessment</a></li>
+<li><a href="#23-feature-engineering-vs-deep-learning-at-small-n"
+id="toc-23-feature-engineering-vs-deep-learning-at-small-n">2.3 Feature
+Engineering vs. Deep Learning at Small N</a></li>
+<li><a href="#24-the-weargait-pd-dataset"
+id="toc-24-the-weargait-pd-dataset">2.4 The WearGait-PD Dataset</a></li>
+</ul></li>
+<li><a href="#3-methods" id="toc-3-methods">3. Methods</a>
+<ul>
+<li><a href="#31-dataset-and-participants"
+id="toc-31-dataset-and-participants">3.1 Dataset and
+Participants</a></li>
+<li><a href="#32-data-splitting" id="toc-32-data-splitting">3.2 Data
+Splitting</a></li>
+<li><a href="#33-feature-engineering-pipeline"
+id="toc-33-feature-engineering-pipeline">3.3 Feature Engineering
+Pipeline</a></li>
+<li><a href="#34-feature-selection" id="toc-34-feature-selection">3.4
+Feature Selection</a></li>
+<li><a href="#35-model-training-and-evaluation"
+id="toc-35-model-training-and-evaluation">3.5 Model Training and
+Evaluation</a></li>
+<li><a href="#36-stacking-ensemble" id="toc-36-stacking-ensemble">3.6
+Stacking Ensemble</a></li>
+<li><a href="#37-pd-only-loocv-evaluation"
+id="toc-37-pd-only-loocv-evaluation">3.7 PD-Only LOOCV
+Evaluation</a></li>
+<li><a
+href="#38-multi-task-hybrid-architecture-for-the-t1-axial-subscore-iter34"
+id="toc-38-multi-task-hybrid-architecture-for-the-t1-axial-subscore-iter34">3.8
+Multi-Task Hybrid Architecture for the T1 Axial Subscore
+(iter34)</a></li>
+<li><a href="#39-sensor-ablation" id="toc-39-sensor-ablation">3.9 Sensor
+Ablation</a></li>
+</ul></li>
+<li><a href="#4-results" id="toc-4-results">4. Results</a>
+<ul>
+<li><a href="#41-progressive-ablation-study"
+id="toc-41-progressive-ablation-study">4.1 Progressive Ablation
+Study</a></li>
+<li><a href="#42-historical-pre-audit-multi-booster-sweep-and-stacking"
+id="toc-42-historical-pre-audit-multi-booster-sweep-and-stacking">4.2
+Historical Pre-Audit Multi-Booster Sweep and Stacking</a></li>
+<li><a href="#43-walkway-distillation-vs-oracle"
+id="toc-43-walkway-distillation-vs-oracle">4.3 Walkway Distillation vs.
+Oracle</a></li>
+<li><a href="#44-feature-importance" id="toc-44-feature-importance">4.4
+Feature Importance</a></li>
+<li><a href="#45-predicted-vs-actual-analysis"
+id="toc-45-predicted-vs-actual-analysis">4.5 Predicted vs. Actual
+Analysis</a></li>
+<li><a href="#46-clinical-agreement-analysis"
+id="toc-46-clinical-agreement-analysis">4.6 Clinical Agreement
+Analysis</a></li>
+<li><a
+href="#47-historical-pre-audit-seed-stability-and-ensemble-benefit"
+id="toc-47-historical-pre-audit-seed-stability-and-ensemble-benefit">4.7
+Historical Pre-Audit Seed Stability and Ensemble Benefit</a></li>
+<li><a href="#48-historical-pre-audit-subdomain-prediction"
+id="toc-48-historical-pre-audit-subdomain-prediction">4.8 Historical
+Pre-Audit Subdomain Prediction</a></li>
+<li><a href="#49-pd-only-loocv-comparison"
+id="toc-49-pd-only-loocv-comparison">4.9 PD-Only LOOCV
+Comparison</a></li>
+<li><a href="#410-historical-pre-audit-sensor-ablation"
+id="toc-410-historical-pre-audit-sensor-ablation">4.10 Historical
+Pre-Audit Sensor Ablation</a></li>
+<li><a href="#411-t1-axial-subscore-multi-task-hybrid-iter34"
+id="toc-411-t1-axial-subscore-multi-task-hybrid-iter34">4.11 T1 Axial
+Subscore: Multi-Task Hybrid (iter34)</a></li>
+<li><a
+href="#412-multiple-comparisons-rigor-for-the-iter33-probe-family"
+id="toc-412-multiple-comparisons-rigor-for-the-iter33-probe-family">4.12
+Multiple-Comparisons Rigor for the iter33 Probe Family</a></li>
+<li><a
+href="#413-t3-total-updrs-iii-error-anatomy-and-transportability-cliff"
+id="toc-413-t3-total-updrs-iii-error-anatomy-and-transportability-cliff">4.13
+T3 Total UPDRS-III: Error Anatomy and Transportability Cliff</a></li>
+</ul></li>
+<li><a href="#5-discussion" id="toc-5-discussion">5. Discussion</a>
+<ul>
+<li><a href="#51-principal-findings" id="toc-51-principal-findings">5.1
+Principal Findings</a></li>
+<li><a href="#52-comparison-with-prior-work"
+id="toc-52-comparison-with-prior-work">5.2 Comparison with Prior
+Work</a></li>
+<li><a
+href="#53-historical-pre-audit-ceiling-analysis-and-subdomain-validation"
+id="toc-53-historical-pre-audit-ceiling-analysis-and-subdomain-validation">5.3
+Historical Pre-Audit Ceiling Analysis and Subdomain Validation</a></li>
+<li><a href="#54-age-confound" id="toc-54-age-confound">5.4 Age
+Confound</a></li>
+<li><a href="#55-mechanism-orthogonality-of-the-iter34-hybrid"
+id="toc-55-mechanism-orthogonality-of-the-iter34-hybrid">5.5 Mechanism
+Orthogonality of the iter34 Hybrid</a></li>
+<li><a href="#56-limitations" id="toc-56-limitations">5.6
+Limitations</a></li>
+<li><a href="#57-clinical-implications"
+id="toc-57-clinical-implications">5.7 Clinical Implications</a></li>
+<li><a href="#58-deep-learning-comparison"
+id="toc-58-deep-learning-comparison">5.8 Deep Learning
+Comparison</a></li>
+<li><a href="#59-future-directions" id="toc-59-future-directions">5.9
+Future Directions</a></li>
+</ul></li>
+<li><a href="#6-conclusions" id="toc-6-conclusions">6.
+Conclusions</a></li>
+<li><a href="#data-availability" id="toc-data-availability">Data
+Availability</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+<li><a href="#figures" id="toc-figures">Figures</a></li>
+<li><a href="#supplementary-material"
+id="toc-supplementary-material">Supplementary Material</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1
+id="predicting-parkinsons-disease-motor-severity-from-body-worn-inertial-sensors-a-systematic-feature-engineering-approach-on-the-weargait-pd-dataset">Predicting
+Parkinson's Disease Motor Severity from Body-Worn Inertial Sensors: A
+Systematic Feature Engineering Approach on the WearGait-PD Dataset</h1>
+<h2 id="abstract">Abstract</h2>
+<p><strong>Background:</strong> Automated assessment of Parkinson's
+disease (PD) motor severity from wearable inertial measurement units
+(IMUs) could enable continuous, objective monitoring between clinical
+visits. While several studies have demonstrated feasibility on small
+cohorts (N &lt; 30) using leave-one-out cross-validation, no prior work
+has established UPDRS-III regression benchmarks on the WearGait-PD
+dataset — the largest publicly available multi-sensor gait dataset with
+full motor severity scores.</p>
+<p><strong>Objective:</strong> To develop and systematically evaluate a
+feature engineering pipeline for predicting MDS-UPDRS Part III total
+scores from 13 body-worn IMUs, establishing the first regression
+benchmark on WearGait-PD with rigorous held-out evaluation.</p>
+<p><strong>Methods:</strong> We conducted a systematic feature
+engineering study on 178 subjects (98 PD, 80 healthy controls) from the
+WearGait-PD dataset. Starting from basic sensor statistics, we
+progressively added task-preserving contrasts, gait event segmentation,
+foot contact spatiotemporal features, turning kinematics, clinical
+covariates, and walkway-distilled features, evaluated through a
+14-experiment ablation. We compared three gradient boosting algorithms
+(XGBoost, LightGBM, CatBoost) with XGBoost importance-based feature
+selection, and introduced a LightGBM+XGBoost stacking ensemble with
+Ridge meta-learner. All evaluations used 5-seed ensembles on 36 held-out
+test subjects. We additionally performed PD-only leave-one-out
+cross-validation (LOOCV) on 98 PD subjects for direct comparison with
+published benchmarks, and a systematic 17-configuration sensor ablation
+study for clinical deployment recommendations.</p>
+<p><strong>Results:</strong> Our best pre-audit model (LGB+XGB stacking,
+150 selected features) achieved MAE = 6.89 and r = 0.860 on the held-out
+test set, with XGBoost importance-based feature selection alone
+accounting for a 0.94-point improvement over mutual information
+selection (7.97 -&gt; 7.03). PD-only LOOCV achieved MAE = 7.22 (r =
+0.520) on 98 subjects in the original analysis, but later audits found
+both leakage and target-construction defects in the historical
+total-UPDRS-III path. For the gait-observable T1 axial-plus-truncal
+subscore (MDS-UPDRS-III items 9-14), a pre-registered multi-task hybrid
+(8-item auxiliary chain x 3-base-learner ensemble; iter34) achieved
+LOOCV CCC = 0.7366 (MAE = 1.731) on N=93, a paired-bootstrap lift of
++0.087 over iter5-direct (95% CI [+0.020, +0.167], frac &gt; 0 = 0.9958,
+surviving Bonferroni n=9) and +0.081 over the canonical iter12-honest T1
+floor of CCC = 0.6550 evaluated on the same N=93 cohort (frac &gt; 0 =
+0.9714); we report iter34 as the strongest candidate, with iter12-honest
+0.6550 retained as the canonical floor. For total UPDRS-III T3, the
+2026-05-08 target-construction audits first excluded three PD rows whose
+all-missing Part III item blocks had been skipna-summed to zero, then
+recoded raw Part III subitem values outside 0-4 as missing; the latter
+fixed NLS036 item 15, whose 9/9 right/left missing codes had inflated
+the target by 18 points. The valid-range-corrected same-architecture
+LOOCV result is CCC = 0.3784 (MAE = 7.528, N=95), with a
+no-Stage2-clinical-covariate sensitivity of CCC = 0.3771, a
+no-<code>dst_*</code> pressure-walkway-distiller sensitivity of CCC =
+0.3766, and valid-range LOSO two-way CCC = 0.150. Historical pre-audit
+sensor-ablation context suggested that wrist sensors alone (2 sensors)
+achieved MAE = 7.58, only 0.54 worse than all 13 sensors, while the
+lower back sensor was redundant in that held-out pipeline. Historical
+pre-audit subdomain prediction reached MAE = 2.61 on an observable axial
+composite; the current post-audit support for the gait-observability
+ceiling comes from the T1 LOOCV results and the iter47
+residual/domain/item audits, not from treating those historical
+auxiliary analyses as deployment evidence.</p>
+<p><strong>Conclusions:</strong> We establish the first UPDRS-III
+regression benchmark on WearGait-PD. Under strict inductive evaluation,
+the current audit-truth numbers are T1 LOOCV CCC = 0.6550 (MAE = 1.561;
+iter12 honest, N = 94) for the gait-observable axial-plus-truncal
+subscore (items 9-14) and valid-range-corrected T3 LOOCV CCC = 0.3784
+(MAE = 7.528; iter47 invalid-code fix, N = 95) for total UPDRS-III; the
+strongest T1 candidate is the iter34 multi-task hybrid (CCC = 0.7366,
+MAE = 1.731). The original pre-audit total-UPDRS-III headline (MAE =
+6.89, r = 0.860, LGB+XGB stacking, held-out N = 36) and the post-leakage
+iter5 T3 CCC = 0.5227 are retained for historical auditability but are
+no longer cited as deployment results. Our results demonstrate that (1)
+leakage and target-construction audits materially change the benchmark,
+(2) feature selection method dominated pre-audit pipeline choices, (3)
+just two wrist sensors retained 92% of full 13-sensor accuracy in the
+historical held-out analysis, (4) walkway distillation outperformed
+direct gold-standard walkway access in the pre-audit regime, and (5) at
+N = 94-98, valid-range-corrected total-UPDRS-III prediction remains a
+cautionary benchmark rather than a deployment-ready system, with
+valid-range LOSO transportability falling to CCC = 0.150.</p>
+<p><strong>Keywords:</strong> Parkinson's disease, UPDRS-III, inertial
+measurement units, gait analysis, feature engineering, gradient
+boosting, wearable sensors</p>
+<hr />
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Parkinson's disease (PD) is the second most common neurodegenerative
+disorder, affecting over 10 million people worldwide [1]. The Movement
+Disorder Society Unified Parkinson's Disease Rating Scale Part III
+(MDS-UPDRS-III) is the gold standard for assessing motor severity,
+comprising 33 items across 18 motor domains scored by trained clinicians
+[2]. However, in-clinic assessments capture only a snapshot of the
+patient's condition, are susceptible to inter-rater variability, and
+require specialist availability [3].</p>
+<p>Body-worn inertial measurement units (IMUs) offer a promising avenue
+for continuous, objective motor assessment. Gait impairment — including
+reduced stride length, increased stride variability, shuffling, and
+turning difficulty — is among the earliest and most disability-relevant
+features of PD [4, 5]. Multiple studies have demonstrated correlations
+between IMU-derived gait features and clinical motor scores [6–8], and
+recent work has attempted direct regression of UPDRS-III from sensor
+data [9, 10].</p>
+<p>However, the field faces several challenges. First, most studies
+operate on small cohorts (N &lt; 30), often using leave-one-out
+cross-validation (LOOCV), which can produce optimistic estimates [11].
+Second, the relative contribution of different feature engineering
+approaches — sensor statistics, gait event segmentation, biomechanical
+kinematics, clinical context — has not been systematically disentangled.
+Third, the tension between deep learning and handcrafted features at
+small sample sizes remains unresolved, with recent evidence suggesting
+that engineered features outperform neural approaches when N &lt; 200
+[12, 13]. Kubota et al. [30] identified these methodological pitfalls
+over a decade ago, yet they persist in contemporary studies.</p>
+<p>The WearGait-PD dataset [14] represents the largest publicly
+available multi-sensor gait dataset with full UPDRS-III scores,
+comprising 185 subjects (100 PD, 85 HC) with 13 body-worn IMUs recording
+22 channels each during five standardized tasks; 178 have valid IMU data
+for analysis. Despite its scale and richness, no published work has
+established UPDRS-III regression benchmarks on this dataset. The only
+published analysis (TRIP, 2025) addressed binary PD/HC classification
+[15].</p>
+<p>In this work, we present:</p>
+<ol type="1">
+<li><strong>The first UPDRS-III regression benchmark on
+WearGait-PD</strong>, originally including a pre-audit held-out test
+evaluation on 36 subjects never seen during development and now reframed
+around strict post-audit T1/T3 lockboxes.</li>
+<li><strong>A systematic 14-experiment ablation study</strong> that
+quantifies the marginal contribution of each feature engineering
+component — from basic sensor statistics through gait event
+segmentation, biomechanical kinematics, turning analysis, clinical
+covariates, and walkway-distilled gait parameters.</li>
+<li><strong>A historical pre-audit LightGBM+XGBoost stacking
+ensemble</strong> with XGBoost importance-based feature selection
+achieving MAE = 6.89 (r = 0.860) on held-out test, retained as audit
+context rather than a deployment result.</li>
+<li><strong>A systematic 17-configuration sensor ablation</strong>
+demonstrating that bilateral wrist sensors alone retain 92% of full
+accuracy, with the lower back sensor entirely redundant.</li>
+<li><strong>Practical recommendations</strong> for feature engineering
+at small sample sizes in PD motor assessment, including the finding that
+tree-based feature selection accounts for 87% of total pipeline
+improvement.</li>
+</ol>
+<h2 id="2-related-work">2. Related Work</h2>
+<h3 id="21-updrs-iii-prediction-from-wearable-sensors">2.1 UPDRS-III
+Prediction from Wearable Sensors</h3>
+<p>Direct regression of UPDRS-III total scores from wearable sensor data
+remains relatively uncommon compared to classification or sub-item
+prediction. Table 1 summarizes the principal studies.</p>
+<p><strong>Table 1.</strong> Published UPDRS-III regression from
+wearable sensors.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Study</th>
+<th>N</th>
+<th>Sensors</th>
+<th>Evaluation</th>
+<th>MAE</th>
+<th>r</th>
+<th>Key Method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hssayeni et al. 2021 [9]</td>
+<td>24 PD</td>
+<td>Wrist + ankle gyro</td>
+<td>LOOCV</td>
+<td>5.95</td>
+<td>0.74</td>
+<td>Ensemble DL</td>
+</tr>
+<tr class="even">
+<td>Shuqair et al. 2024 [10]</td>
+<td>24 PD</td>
+<td>Wrist + ankle gyro</td>
+<td>LOOCV</td>
+<td>~5.65</td>
+<td>0.89</td>
+<td>SS CNN-LSTM</td>
+</tr>
+<tr class="odd">
+<td>Rehman et al. 2021 [31]</td>
+<td>46 PD (test)</td>
+<td>Lower-back IMU</td>
+<td>Train/Val/Test</td>
+<td>6.29</td>
+<td>0.82</td>
+<td>2D-CNN</td>
+</tr>
+<tr class="even">
+<td>Parera et al. 2022 [32]</td>
+<td>74 PD</td>
+<td>Wrist + back accel</td>
+<td>10% held-out</td>
+<td>4.26*</td>
+<td>—</td>
+<td>Random Forest</td>
+</tr>
+<tr class="odd">
+<td>Ours (stacking, pre-audit)†</td>
+<td>178 (PD+HC)</td>
+<td>13 body IMUs</td>
+<td>Held-out (N=36)</td>
+<td>6.89</td>
+<td>0.860</td>
+<td>LGB+XGB stack</td>
+</tr>
+<tr class="even">
+<td>Ours (ceiling, pre-audit)†</td>
+<td>178 (PD+HC)</td>
+<td>13 IMUs + H&amp;Y</td>
+<td>Held-out (N=36)</td>
+<td>6.43</td>
+<td>0.848</td>
+<td>LGB+XGB stack</td>
+</tr>
+<tr class="odd">
+<td><strong>Ours T3 (iter47 valid-range target, audit
+truth)</strong></td>
+<td><strong>95 PD</strong></td>
+<td><strong>13 body IMUs + 4 intake clinical</strong></td>
+<td><strong>LOOCV</strong></td>
+<td><strong>7.528</strong></td>
+<td><strong>CCC = 0.3784</strong></td>
+<td><strong>Ridge(H&amp;Y+intake) -&gt; LGB on V2 residual; all-missing
+rows excluded and raw Part III codes outside 0-4 treated as
+missing</strong></td>
+</tr>
+<tr class="even">
+<td>Ours T3 (iter5 clinical, historical)‡</td>
+<td>98 PD</td>
+<td>13 body IMUs + 4 clinical</td>
+<td>LOOCV</td>
+<td>7.525</td>
+<td>CCC = 0.5227</td>
+<td>Target-contaminated historical artifact</td>
+</tr>
+<tr class="odd">
+<td><strong>Ours T1 (iter12 honest, canonical floor)</strong></td>
+<td><strong>94 PD</strong></td>
+<td><strong>13 body IMUs</strong></td>
+<td><strong>LOOCV</strong></td>
+<td><strong>1.561</strong></td>
+<td><strong>CCC = 0.6550</strong></td>
+<td><strong>Per-item iter8 composer (items 9–14)</strong></td>
+</tr>
+<tr class="even">
+<td>Ours T1 (iter34 hybrid, candidate)</td>
+<td>93 PD</td>
+<td>13 body IMUs + 4 clinical</td>
+<td>LOOCV</td>
+<td>1.731</td>
+<td>CCC = 0.7366</td>
+<td>Multi-task chain × 3-base-learner ensemble</td>
+</tr>
+</tbody>
+</table>
+<p>*Window-level data split (not subject-level), confirmed data leakage;
+result is optimistically biased.</p>
+<p>†The MAE = 6.89 / r = 0.860 stacking row and the MAE = 6.43 / r =
+0.848 ceiling row are retained from the pre-audit version of this work
+(April 2026, total UPDRS-III as a single regression target). A
+subsequent leakage audit (2026-04-28; finding F65) established that the
+original SSL-ranking and stacking pipelines that produced those numbers
+contained transductive components: pre-computed target-derived
+structures (e.g. XGBRanker leaf indices fit on all 178 subjects) and
+hyperparameters tuned on the same vector they were evaluated on. Those
+components did not survive a strict inductive evaluation. Later
+target-construction audits (2026-05-08; iter41 and iter47) found that
+three PD rows with all 33 raw Part III subitems missing
+(<code>NLS151</code>, <code>NLS188</code>, <code>WPD013</code>) had been
+included as true zero labels by a skipna sum, and that
+<code>NLS036</code> item 15 contained 9/9 right/left missing codes that
+had been summed as severity. The current audit-truth T3 row therefore
+excludes all-missing labels, treats raw Part III subitem values outside
+0-4 as missing, and reports concordance correlation coefficient (CCC) as
+the primary metric, with paired-bootstrap inference and pre-registered
+LOOCV. The pre-audit MAE figures are kept in this table for historical
+comparability but should not be cited as deployment results; see Section
+4.13, Section 5.2, and Section 6 for the post-audit reframing.</p>
+<p>‡The iter5 T3 row is retained only to document the historical path.
+It is fold-clean with respect to model fitting but target-contaminated
+by the all-missing Part III rows and by incomplete wording around hidden
+<code>cv_*</code> clinical columns in the Stage-2 V2 feature pool.</p>
+<p><strong>Table 1b.</strong> T1 (MDS-UPDRS-III items 9–14,
+axial-plus-truncal subscore) leave-one-out lockbox results on the
+WearGait-PD PD cohort. All rows use a pre-registered single LOOCV pass
+and paired-bootstrap inference against same-fold same-seed
+iter5-direct.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Pipeline</th>
+<th>Description</th>
+<th>N</th>
+<th>LOOCV CCC</th>
+<th>MAE</th>
+<th>Pre-registration <code>formula_sha256</code> (first 16)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>iter12 honest (canonical floor)</td>
+<td>Single iter8 batch composer; sum of items 9–14 LOOCV OOFs (no
+per-item adaptive variant selection)</td>
+<td>94</td>
+<td>0.6550</td>
+<td>1.561</td>
+<td>(composer; see <code>compose_t1_iter12_honest.py</code>)</td>
+</tr>
+<tr class="even">
+<td>F65 V1_random multi-task chain</td>
+<td>sklearn <code>RegressorChain(LGBMRegressor)</code> on items 9–14
+residuals; 3 seeds</td>
+<td>94</td>
+<td>0.7087</td>
+<td>1.933</td>
+<td><code>512ed04f...</code></td>
+</tr>
+<tr class="odd">
+<td>iter33-B 8-item auxiliary chain</td>
+<td>LGBMRegressor chain extended to items {9–14, 15, 18}; T1 sum over
+9–14 only; items 15+18 auxiliary</td>
+<td>93</td>
+<td>0.7219</td>
+<td>1.843</td>
+<td><code>fea93e33...</code></td>
+</tr>
+<tr class="even">
+<td><strong>iter34 hybrid (strongest candidate)</strong></td>
+<td><strong>8-item auxiliary chain × 3-base-learner ensemble {LGB,
+XGB-hist, ExtraTrees}; mean of chain outputs per fold per
+seed</strong></td>
+<td><strong>93</strong></td>
+<td><strong>0.7366</strong></td>
+<td><strong>1.731</strong></td>
+<td><strong><code>df89b9bb...</code></strong></td>
+</tr>
+</tbody>
+</table>
+<p>iter12 honest CCC = 0.6550 on N=94 stands as the canonical T1 floor;
+the iter34 hybrid is reported as the strongest candidate but does not
+formally replace it, because (i) the cohort drops to N=93 due to one PD
+subject lacking item-15 or item-18 score, (ii) a later valid-range audit
+found one historical auxiliary item-15 label outside the valid
+item-total range, and (iii) family-wise multiple-comparisons accounting
+against the iter33-class probe family is conservative (Section 4.12).
+Detailed comparisons and the iter33-A/B/C gate-rejection trio are
+documented in the supplementary material
+(<code>paper_supplement_iter33_gate_demo.md</code>).</p>
+<p>Hssayeni et al. [9] achieved the lowest reported MAE (5.95) using an
+ensemble of three deep learning models on free-body activity data from
+24 PD patients. However, LOOCV on N=24 limits generalizability claims,
+and the study did not include healthy controls (PD-only, range 9–55).
+Shuqair et al. [10] improved the correlation to r=0.89 on the same
+cohort using self-supervised CNN-LSTM. Rehman et al. [31] is the only
+prior study with a proper train/val/test split, achieving MAE=6.29 on
+PD-only with a single lower-back IMU. Parera et al. [32] reported
+MAE=4.26 but used window-level splits (not subject-level), causing data
+leakage.</p>
+<p>The historical pre-audit held-out analysis operated on a
+substantially larger cohort (178 vs. 24–74 subjects), included healthy
+controls, used a proper held-out test set, and achieved MAE = 6.89 with
+a stacking ensemble; after the leakage and target audits, this is
+retained as historical comparability rather than a deployment
+headline.</p>
+<h3 id="22-gait-feature-engineering-for-pd-assessment">2.2 Gait Feature
+Engineering for PD Assessment</h3>
+<p>The biomechanical gait analysis literature has identified several
+feature categories that correlate with PD motor severity:</p>
+<p><strong>Stride spatiotemporal features.</strong> Stride length and
+gait velocity are the strongest correlates of motor severity in PD [5,
+17]. Sotirakis et al. [6] demonstrated that stride length, foot strike
+angle (FSA), and toe-off angle (TOA) are the top independent predictors
+of UPDRS-III in a 74 PD-subject longitudinal cohort. Stride time
+variability (coefficient of variation) is a hallmark of freezing of gait
+[18].</p>
+<p><strong>Turning kinematics.</strong> Peak yaw velocity during turns
+is particularly sensitive to axial motor impairment [19]. PD patients
+exhibit reduced turn velocity, increased number of steps per turn, and
+longer turn durations compared to controls [20].</p>
+<p><strong>Task-specific contrasts.</strong> PD patients show reduced
+ability to modulate gait under task demands. The "cadence reserve" — the
+ratio of hurried to self-paced cadence — and dual-task cost on stride
+length are informative of motor reserve [21, 22].</p>
+<p><strong>Clinical covariates.</strong> Disease duration, age, and deep
+brain stimulation (DBS) status are known correlates of UPDRS-III [23].
+While not derivable from wearable sensors, they provide context that can
+improve model accuracy when available.</p>
+<h3 id="23-feature-engineering-vs-deep-learning-at-small-n">2.3 Feature
+Engineering vs. Deep Learning at Small N</h3>
+<p>Recent comparative studies have highlighted the challenge of applying
+deep learning to small clinical cohorts. Donie et al. [12] showed that
+ROCKET and InceptionTime — state-of-the-art time series classifiers —
+underperform handcrafted features when N &lt; 200 for motor symptom
+estimation from wrist accelerometer data, with classification-based
+approaches encountering particular challenges in detecting complex motor
+phenomena such as dyskinesia. Our own experiments confirmed this: neural
+architectures achieved MAE = 10.46 at best (Section 5.8, Table 8), while
+gradient boosting on engineered features achieves 6.89.</p>
+<p>The Youssef et al. [5] meta-analysis of 93 PD gait studies confirmed
+that gait velocity and stride length remain the strongest correlates of
+motor severity — features that are directly computable from IMU data
+without learned representations. Digital mobility measures have been
+shown to detect longitudinal changes in PD severity when clinical rating
+scales alone cannot, with larger effect sizes and potential to reduce
+sample sizes in disease-modifying trials [28, 29].</p>
+<h3 id="24-the-weargait-pd-dataset">2.4 The WearGait-PD Dataset</h3>
+<p>WearGait-PD [14] was released in 2026 as the largest publicly
+available multi-sensor PD gait dataset. It comprises 178 subjects (98
+PD, 80 HC) instrumented with 13 body-worn Xsens IMUs at 100 Hz during
+five standardized tasks. Key features distinguishing it from prior
+datasets include:</p>
+<ul>
+<li>22 channels per sensor (accelerometer, gyroscope, magnetometer,
+orientation quaternions, Euler angles, velocity increments, free
+accelerometer in global frame)</li>
+<li>Binary foot contact annotations enabling gait cycle
+segmentation</li>
+<li>GeneralEvent annotations (Walk, Turn, SitToStand, TurnToSit,
+Standing, TandemWalk)</li>
+<li>Gold-standard walkway gait metrics (PKMAS) for 135/185 subjects</li>
+<li>Full MDS-UPDRS Parts I–IV and Hoehn &amp; Yahr staging</li>
+</ul>
+<p>The TRIP benchmark [15] established classification results (80.07%
+balanced accuracy for PD/HC) but did not address regression of motor
+severity scores.</p>
+<h2 id="3-methods">3. Methods</h2>
+<h3 id="31-dataset-and-participants">3.1 Dataset and Participants</h3>
+<p>We used the WearGait-PD dataset (version 1) comprising 185 subjects
+with valid UPDRS-III scores: 100 with PD (65 male, 35 female; mean age
+67.0 ± 8.3 years; UPDRS-III range 0–59, mean 24.2 ± 10.9) and 85 healthy
+controls (HC; 38 male, 47 female; mean age 74.1 ± 9.2 years; UPDRS-III
+range 0–43, mean 7.1 ± 9.6). Notably, the HC group was significantly
+older than the PD group (p &lt; 0.001), which may reflect recruitment
+bias in the original study. UPDRS-III scores for HC subjects are
+non-zero due to age-related motor findings. Table 2 provides demographic
+details.</p>
+<p><strong>Table 2.</strong> Participant demographics.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Characteristic</th>
+<th>PD (N=100)</th>
+<th>HC (N=85)</th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Age (years)</td>
+<td>67.0 ± 8.3</td>
+<td>74.1 ± 9.2</td>
+<td>&lt;0.001</td>
+</tr>
+<tr class="even">
+<td>Sex (M/F)</td>
+<td>65/35</td>
+<td>38/47</td>
+<td>&lt;0.01</td>
+</tr>
+<tr class="odd">
+<td>Height (in)</td>
+<td>68.6 ± 4.1</td>
+<td>66.5 ± 5.0</td>
+<td>&lt;0.01</td>
+</tr>
+<tr class="even">
+<td>Weight (kg)</td>
+<td>78.1 ± 17.3</td>
+<td>80.6 ± 16.9</td>
+<td>0.33</td>
+</tr>
+<tr class="odd">
+<td>UPDRS-III</td>
+<td>24.2 ± 10.9</td>
+<td>7.1 ± 9.6</td>
+<td>&lt;0.001</td>
+</tr>
+<tr class="even">
+<td>H&amp;Y stage (N=95)</td>
+<td>2.2 ± 0.6</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>Disease duration (years)</td>
+<td>7.5 ± 5.9</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>DBS (yes/no/unknown)</td>
+<td>23/59/18</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 2b.</strong> UPDRS-III distribution across development
+and test sets.</p>
+<table>
+<thead>
+<tr class="header">
+<th>UPDRS-III bin</th>
+<th>Dev (N=142)</th>
+<th>Test (N=36)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0–5</td>
+<td>37</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>6–10</td>
+<td>15</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>11–20</td>
+<td>33</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>21–35</td>
+<td>41</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td>36–50</td>
+<td>15</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>51+</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Mean ± SD</td>
+<td>16.4 ± 13.3</td>
+<td>17.6 ± 14.2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-data-splitting">3.2 Data Splitting</h3>
+<p>We created a deterministic stratified split: 142 subjects for
+development (training + validation) and 36 subjects for held-out
+testing, stratified by UPDRS-III bins (0, 1–10, 11–20, 21–35, 36+) to
+ensure comparable severity distributions. The test set was frozen
+throughout all development and never used for feature selection,
+hyperparameter tuning, or model selection. Within the development set,
+15% of subjects were held out per seed as a validation set for early
+stopping.</p>
+<h3 id="33-feature-engineering-pipeline">3.3 Feature Engineering
+Pipeline</h3>
+<p>Our pipeline extracts features from raw IMU recordings through five
+progressively complex stages. Each recording is processed once,
+extracting all feature types simultaneously.</p>
+<h4 id="331-base-sensor-features-e0">3.3.1 Base Sensor Features
+(E0)</h4>
+<p>For each of the 13 sensors, we extract time-domain (RMS, standard
+deviation, range, IQR, skewness, kurtosis, jerk RMS, zero-crossing rate)
+and frequency-domain (Welch PSD band powers in locomotor 0.5–3 Hz,
+tremor 3–8 Hz, and high 8–20 Hz bands; dominant frequency; spectral
+entropy) features from the free accelerometer (FreeAcc, global frame,
+gravity-removed), gyroscope magnitude, and Euler angles. Additional
+features include autocorrelation-based gait regularity (step/stride
+time, cadence, regularity) for lower-body sensors, freeze-of-gait index,
+bilateral asymmetry, and trunk sway. Features are mean-aggregated across
+the five tasks (SelfPace, HurriedPace, TUG, Balance, TandemGait),
+yielding approximately 1,400 features per subject.</p>
+<h4 id="332-task-preserving-contrasts-e1">3.3.2 Task-Preserving
+Contrasts (E1)</h4>
+<p>Rather than discarding task identity through mean aggregation, we
+compute contrasts between task pairs for key gait features: HurriedPace
+− SelfPace, TUG − SelfPace, and TandemGait − SelfPace deltas and ratios.
+These capture the patient's ability to modulate gait under varying
+demands — a core clinical construct in PD assessment.</p>
+<h4 id="333-gait-event-segmentation-e2e6">3.3.3 Gait Event Segmentation
+(E2–E6)</h4>
+<p>Using the GeneralEvent annotations, we segment recordings into Walk,
+Turn, SitToStand, TurnToSit, and Standing epochs. For each event type,
+we compute lower-back accelerometer and gyroscope features. Using the
+Foot Contact annotations, we derive step time, stride time, cadence,
+stance/swing percentage, double support percentage, and bilateral step
+time asymmetry (E3). We extract foot strike angle and toe-off angle from
+ankle pitch at heel-strike and toe-off events respectively, along with
+foot clearance proxy and shank angular velocity at initial contact (E4).
+Turn features include duration, peak/mean lumbar yaw velocity, and steps
+per turn (E5). Transition features include sit-to-stand peak sagittal
+velocity and postural sway metrics (E6).</p>
+<h4 id="334-distribution-and-variability-features-e7">3.3.4 Distribution
+and Variability Features (E7)</h4>
+<p>For key gait metrics, we compute cross-task variability features:
+coefficient of variation, range, and worst-bout values across the five
+tasks. These capture the clinical observation that PD severity is often
+better reflected by worst observed performance than mean
+performance.</p>
+<h4 id="335-clinical-covariates-e8">3.3.5 Clinical Covariates (E8)</h4>
+<p>Six clinical covariates are added: age, sex, height, weight, years
+since PD diagnosis, and DBS status. While not derivable from IMU data
+alone, these are routinely available in clinical settings and provide
+important context for severity estimation.</p>
+<h4 id="336-walkway-distillation-e9e10">3.3.6 Walkway Distillation
+(E9–E10)</h4>
+<p>For 135/178 subjects, gold-standard walkway gait metrics are
+available from the PKMAS system, including stride length, velocity,
+cadence, stance percentage, and eGVI (31 parameters total). Rather than
+using these as direct features (which would limit the model to subjects
+with walkway data), we train XGBoost proxy models (within development
+folds only) to predict each walkway metric from IMU features. The
+predicted walkway metrics are then generated for all 178 subjects,
+creating "distilled" walkway features that capture gold-standard gait
+structure without requiring walkway hardware at deployment.</p>
+<h3 id="34-feature-selection">3.4 Feature Selection</h3>
+<p>Given the high feature dimensionality (up to 1,752 features) relative
+to sample size (N = 142 development subjects), feature selection is
+critical. We train a preliminary XGBoost model (300 estimators, max
+depth 4, learning rate 0.05, L2 regularization 2.0, MAE objective) on
+the development set and rank features by
+<code>feature_importances_</code>. The top K features are selected. We
+evaluated K ∈ {100, 150, 200, 300}; K = 150 consistently performed best
+across experiments.</p>
+<p>This tree-based importance selection substantially outperformed
+filter methods (mutual information regression, f-regression) that were
+used in our initial ablation. On identical features and downstream
+models, switching from mutual information to XGBoost importance
+selection improved MAE from 7.97 to 7.03 — the single largest
+improvement from any pipeline change.</p>
+<h3 id="35-model-training-and-evaluation">3.5 Model Training and
+Evaluation</h3>
+<p>We evaluated three gradient boosting implementations: XGBoost [24],
+LightGBM [25], and CatBoost [26]. All models were trained with MAE loss,
+learning rate 0.03, max depth 6, L2 regularization 3.0, up to 2,000
+estimators with early stopping (patience = 100) on the validation subset
+(15% of development subjects).</p>
+<p>For each configuration, we train 5 models with different random seeds
+(42, 123, 456, 789, 2024), controlling the validation split and model
+initialization. The ensemble prediction is the mean of the 5 models'
+predictions. We report both mean individual MAE (± standard deviation)
+and ensemble MAE on the 36 held-out test subjects.</p>
+<h3 id="36-stacking-ensemble">3.6 Stacking Ensemble</h3>
+<p>Our best model uses a two-level stacking architecture. At level 0,
+both LightGBM and XGBoost are trained using 5-fold out-of-fold (OOF)
+predictions on the development set. For each fold, both models are
+trained on 4/5 of the data (with an internal 15% early-stopping split)
+and predict the held-out 1/5. At level 1, a Ridge regression
+meta-learner (α = 1.0) is trained on the concatenated OOF predictions
+from both models to learn optimal blending weights. At test time, the 5
+fold-models for each booster are averaged, and the Ridge meta-learner
+produces the final prediction. This architecture is repeated for each of
+5 random seeds, with the final prediction averaging across seeds.</p>
+<h3 id="37-pd-only-loocv-evaluation">3.7 PD-Only LOOCV Evaluation</h3>
+<p>For direct comparison with Hssayeni et al. [9] (MAE = 5.95, N = 24,
+LOOCV), the original pre-audit analysis performed leave-one-out
+cross-validation on the 98 PD rows whose derived <code>updrs3</code>
+field was populated. Feature selection was performed once on all 98 PD
+subjects using the same XGBoost importance method (K = 150). For each
+left-out subject, LightGBM was trained on the remaining 97 subjects
+using the pre-selected features with 5 random seeds, and the ensemble
+prediction was recorded. We additionally tested LGB+XGB averaging and
+full stacking variants. The later target-construction audits showed that
+this 98-row cohort was not a valid corrected-target cohort: three rows
+had all 33 raw Part III subitems missing and had been converted to zero
+by skipna summation, and <code>NLS036</code> had raw item-15 missing
+codes (9/9) converted into 18 severity points. Current total-UPDRS-III
+claims therefore use the N = 95 valid-range-corrected cohort described
+in Section 4.13.</p>
+<h3
+id="38-multi-task-hybrid-architecture-for-the-t1-axial-subscore-iter34">3.8
+Multi-Task Hybrid Architecture for the T1 Axial Subscore (iter34)</h3>
+<p>The iter34 pipeline targets the T1 axial-plus-truncal subscore
+(MDS-UPDRS-III items 9–14, range 0–24, the Schrag-2007 axial subscore
+extended with body bradykinesia 3.14) through a two-stage multi-task
+hybrid. <strong>Stage 1</strong> is a Ridge regression (α = 1.0,
+fold-local standardisation) on a nine-feature clinical block — Hoehn
+&amp; Yahr stage one-hot dummies plus three patient-level intake
+covariates (years since diagnosis <code>cv_yrs</code>, sex
+<code>cv_sex</code>, deep-brain-stimulation status <code>cv_dbs</code>)
+— identical to the Stage 1 block separately validated for total
+UPDRS-III regression on the same cohort. All three intake covariates are
+recorded before the gait session and are demographically
+site-invariant.</p>
+<p><strong>Stage 2</strong> is a multi-task gradient-boosting chain on
+the eight-item residual block {items 9–14, 15, 18}. The auxiliary-task
+framing follows Caruana's classical multi-task learning argument [42]
+that learning related tasks in parallel — even when the auxiliary task
+predictions are discarded — biases the shared representation toward
+features that generalise across tasks, providing an inductive-bias
+regulariser at small N. Within each LOOCV fold, items 15 (postural
+tremor) and 18 (rest-tremor constancy) enter as auxiliary chain residual
+targets — their predictions are discarded — while items 9–14 are summed
+to form the T1 prediction. Per-item targets are fold-locally centred
+(subtract train-fold mean) before chain fitting and re-added in
+post-combination. The chain is implemented as scikit-learn's
+<code>RegressorChain</code> with random output ordering (controlled by
+the per-seed <code>random_state</code>), and is averaged across three
+decorrelated base learners per fold per seed: a LightGBM regressor (500
+trees, lr = 0.05, num_leaves = 15, min_data_in_leaf = 10), an XGBoost
+histogram regressor (500 trees, lr = 0.05, max_depth = 4,
+min_child_weight = 5), and an ExtraTrees regressor (300 trees, max_depth
+= 10, min_samples_leaf = 5). Per fold, a single K = 500
+LightGBM-importance feature selector is computed once on the V2 feature
+pool (1,752 hand-crafted features) and shared across the three base
+learners. Three random seeds {42, 1337, 7} produce three independent
+chain orderings; the headline prediction averages the three seeds'
+mean-of-three-bases predictions.</p>
+<p>The auxiliary items 15 and 18 are not arbitrary additions: both pass
+the F50 single-item hypothesis-restricted lockbox gate (item 15 LOOCV
+ΔCCC = +0.110 with a wrist-tremor item-only architecture; item 18 ΔCCC =
++0.486 with H&amp;Y residual + V2 plus eight wrist-burst features),
+confirming they carry harvestable within-PD severity signal. Including
+them as auxiliary chain targets — rather than as additional input
+features — shapes the chain's shared latent representation toward
+signal-carrying directions without incurring K = 500 absorption (the
+failure mechanism documented in F19 sensor-fusion, F44 FoG-summary, and
+F45 HARNet additions).</p>
+<p>The full LOOCV pass at N = 93 (94 PD subjects with complete items
+9–14 minus one subject missing item 15 or 18) was distributed across a
+17-worker <code>concurrent.futures.ProcessPoolExecutor</code> pool (94
+outer folds × 3 seeds = 282 fold-jobs) and completed in 16 minutes wall
+time. Per-seed CCC values clustered within 0.0006 of the headline
+(0.7371 / 0.7365 / 0.7359), comparable in tightness to the iter33-C
+diverse-base-learner trio. iter34 was pre-registered as a single
+post-publication replication target with
+<code>family_wise_independence_claim = "Single pre-registered post-publication run; not part of iter33-B canonical-update family of comparisons (council 2026-05-06)."</code>
+(formula SHA-256 first 16 hex digits = <code>df89b9bb711e267b</code>);
+the file
+<code>results/preregistration_t1_iter34_hybrid_20260506_135932.json</code>
+was committed before any LOOCV invocation. A later audit
+(<code>audit_t1_iter48_aux_validrange.py</code>) found that the
+historical auxiliary chain included <code>NLS036</code> item 15 = 18,
+caused by raw item-15 right/left codes 9/9; the primary T1 items 9–14
+were valid, but future item-total loaders now treat such out-of-range
+auxiliary totals as missing. A follow-up chain-order audit
+(<code>audit_t1_iter34_aux_order.py</code>) found that this invalid
+auxiliary value was not structurally downstream in every seed: iter34
+uses <code>RegressorChain(order="random")</code>, putting item 15
+upstream of T1 items in seeds 7 and 1337. A scoped all-base 5-fold
+stale-vs-valid impact screen nevertheless found a common-subject CCC
+delta of only -0.0008, below the predeclared |0.025| materiality
+threshold; this sharpens the caveat but does not create a replacement
+lockbox.</p>
+<h3 id="39-sensor-ablation">3.9 Sensor Ablation</h3>
+<p>To determine the minimum sensor configuration for clinical
+deployment, we performed a systematic ablation across 17 sensor
+configurations. Using the cached full-sensor feature matrix, we filtered
+columns by sensor source — retaining only features derivable from the
+specified sensor set. Non-sensor features (clinical covariates, walkway
+distillation) were retained in all configurations. Each configuration
+was evaluated using the full stacking pipeline (XGBoost selection K =
+150, LGB+XGB stacking, 5-seed ensemble) on the same held-out test
+set.</p>
+<h2 id="4-results">4. Results</h2>
+<h3 id="41-progressive-ablation-study">4.1 Progressive Ablation
+Study</h3>
+<p>Figure 1 and Table 3 present the results of the 14-experiment
+ablation study. Starting from mean-aggregated base sensor features (E0,
+MAE = 9.64), progressive addition of feature blocks reduced MAE to 8.17
+(E12, full fusion). The three largest improvements came from:</p>
+<ol type="1">
+<li><strong>Clinical covariates</strong> (E7 → E8): −0.60 MAE,
+reflecting the strong predictive power of disease duration and
+demographic factors.</li>
+<li><strong>Turn features</strong> (E4 → E5): −0.13 MAE, with peak
+lumbar yaw velocity emerging as a discriminative feature.</li>
+<li><strong>Walkway distillation</strong> (E8 → E10): −0.32 MAE,
+demonstrating the value of privileged gait lab supervision.</li>
+</ol>
+<p><strong>Table 3.</strong> Progressive ablation results (XGBoost, 200
+selected features, 5-seed ensemble).</p>
+<table>
+<thead>
+<tr class="header">
+<th>Experiment</th>
+<th>Description</th>
+<th>N Features</th>
+<th>Ens MAE</th>
+<th>Ens r</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>E0</td>
+<td>Baseline (mean-aggregated)</td>
+<td>200</td>
+<td>9.64</td>
+<td>0.673</td>
+</tr>
+<tr class="even">
+<td>E1</td>
+<td>+ Task contrasts</td>
+<td>200</td>
+<td>9.48</td>
+<td>0.715</td>
+</tr>
+<tr class="odd">
+<td>E2</td>
+<td>+ Event segmentation</td>
+<td>200</td>
+<td>9.51</td>
+<td>0.694</td>
+</tr>
+<tr class="even">
+<td>E3</td>
+<td>+ Foot contact spatiotemporal</td>
+<td>200</td>
+<td>9.44</td>
+<td>0.726</td>
+</tr>
+<tr class="odd">
+<td>E4</td>
+<td>+ Contact-phase kinematics</td>
+<td>200</td>
+<td>9.22</td>
+<td>0.741</td>
+</tr>
+<tr class="even">
+<td>E5</td>
+<td>+ Turn features</td>
+<td>200</td>
+<td>9.09</td>
+<td>0.745</td>
+</tr>
+<tr class="odd">
+<td>E6</td>
+<td>+ Transition/balance</td>
+<td>200</td>
+<td>9.15</td>
+<td>0.693</td>
+</tr>
+<tr class="even">
+<td>E7</td>
+<td>+ Distribution features</td>
+<td>200</td>
+<td>9.17</td>
+<td>0.734</td>
+</tr>
+<tr class="odd">
+<td>E8</td>
+<td>+ Clinical covariates</td>
+<td>200</td>
+<td>8.57</td>
+<td>0.802</td>
+</tr>
+<tr class="even">
+<td>E9</td>
+<td>+ Walkway oracle (135/178)</td>
+<td>200</td>
+<td>8.47</td>
+<td>0.819</td>
+</tr>
+<tr class="odd">
+<td>E10</td>
+<td>+ Walkway distillation (178/178)</td>
+<td>200</td>
+<td>8.25</td>
+<td>0.818</td>
+</tr>
+<tr class="even">
+<td>E11</td>
+<td>+ Insole pressure</td>
+<td>200</td>
+<td>8.21</td>
+<td>0.825</td>
+</tr>
+<tr class="odd">
+<td>E12</td>
+<td>+ Feature interactions</td>
+<td>200</td>
+<td>8.17</td>
+<td>0.815</td>
+</tr>
+<tr class="even">
+<td>E13</td>
+<td>+ H&amp;Y stage (ceiling)</td>
+<td>200</td>
+<td>6.63</td>
+<td>0.850</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-historical-pre-audit-multi-booster-sweep-and-stacking">4.2
+Historical Pre-Audit Multi-Booster Sweep and Stacking</h3>
+<p>Table 4 presents historical pre-audit results across three gradient
+boosting algorithms, feature selection thresholds, and ensemble
+strategies. Using XGBoost importance-based feature selection (Section
+3.4), LightGBM at K = 150 achieved MAE = 7.03 (r = 0.861) — a 0.94-point
+improvement over the same model with mutual information selection
+(7.97). The LGB+XGB stacking ensemble further reduced historical
+held-out MAE to 6.89 (r = 0.860).</p>
+<p><strong>Table 4.</strong> Historical pre-audit model comparison with
+XGBoost importance-based feature selection (5-seed ensemble, held-out
+test N = 36).</p>
+<table>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>K</th>
+<th>ENS MAE</th>
+<th>ENS r</th>
+<th>vs MI-selection</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>LGB+XGB stacking</strong></td>
+<td><strong>150</strong></td>
+<td><strong>6.89</strong></td>
+<td><strong>0.860</strong></td>
+<td><strong>+1.08</strong></td>
+</tr>
+<tr class="even">
+<td>LGB+XGB stacking + ext. cov.</td>
+<td>160</td>
+<td>6.93</td>
+<td>0.852</td>
+<td>+1.04</td>
+</tr>
+<tr class="odd">
+<td>LGB + ext. covariates</td>
+<td>150</td>
+<td>6.98</td>
+<td>0.860</td>
+<td>+0.99</td>
+</tr>
+<tr class="even">
+<td>LGB baseline (XGB selection)</td>
+<td>150</td>
+<td>7.03</td>
+<td>0.861</td>
+<td>+0.94</td>
+</tr>
+<tr class="odd">
+<td>LGB baseline (MI selection)</td>
+<td>150</td>
+<td>7.97</td>
+<td>0.821</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>Ceiling (stacking + H&amp;Y)</td>
+<td>160</td>
+<td>6.43</td>
+<td>0.848</td>
+<td>+1.54</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 4b.</strong> Improvement decomposition.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Change</th>
+<th>MAE</th>
+<th>Delta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>−1</td>
+<td>No feature selection (all 1,752 features)</td>
+<td>8.86</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>MI selection + LGB (K=150)</td>
+<td>7.97</td>
+<td>+0.89</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>XGBoost importance selection (K=150)</td>
+<td>7.03</td>
+<td>+0.94</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>+ LGB+XGB stacking (Ridge meta-learner)</td>
+<td>6.89</td>
+<td>+0.14</td>
+</tr>
+</tbody>
+</table>
+<p>Without any feature selection (Step −1, all 1,752 features), LightGBM
+achieves MAE = 8.86 — severely overfitting at a feature-to-sample ratio
+of ~12:1. MI-based selection to 150 features improves MAE by 0.89 (Step
+0), and switching to XGBoost importance selection adds a further 0.94
+(Step 1) — together accounting for 93% of the total improvement from
+8.86 to 6.89. The stacking ensemble provides a modest but reliable
+additional 0.14 by exploiting error diversity between LightGBM and
+XGBoost. Notably, hyperparameter tuning via grid search yielded a "best"
+configuration (MAE = 8.07) that was actually <em>worse</em> than the
+default hyperparameters (MAE = 7.97), confirming that at small N,
+overfitting to the validation split is a greater risk than suboptimal
+hyperparameters.</p>
+<h3 id="43-walkway-distillation-vs-oracle">4.3 Walkway Distillation vs.
+Oracle</h3>
+<p>A key finding is that walkway distillation (E10, MAE = 8.25)
+outperforms the walkway oracle (E9, MAE = 8.47), despite the oracle
+having access to gold-standard measurements. We attribute this to two
+factors: (1) the distillation approach generates predictions for all 178
+subjects, versus only 135 for the oracle, eliminating the missing-data
+penalty; and (2) the proxy models act as regularizers, mapping
+high-dimensional IMU features into a clinically meaningful
+low-dimensional gait representation. Figure 7 illustrates this
+comparison.</p>
+<h3 id="44-feature-importance">4.4 Feature Importance</h3>
+<p>Figure 4 shows the top 15 features in the best model. The most
+important features span multiple engineering categories: years since PD
+diagnosis (cv_yrs, importance = 0.012), right wrist spectral entropy
+(R_Wrist_ay_se, 0.013), right dorsal foot acceleration RMS
+(R_DorsalFoot_ay_rms, 0.012), and stride regularity from the right
+dorsal foot gyroscope (R_DorsalFoot_g_stride_reg, 0.011). Insole
+heel-to-toe rollover time (ins_R_ht, 0.010), lateral shank locomotor
+band ratio (L_LatShank_ay_loco_r, 0.010), and forehead gyroscope jerk
+(Forehead_gm_jerk, 0.008) also rank highly.</p>
+<p>The feature importance profile reveals that no single category
+dominates; rather, the model integrates clinical context, sensor
+statistics from multiple body locations, and gait-event-derived
+biomechanics. Task contrast features (e.g., d_tg_LowerBack_ay_rms —
+TandemGait vs. SelfPace delta) and interaction terms (ix_1_4) also
+contribute meaningfully, confirming the value of the progressive
+ablation approach.</p>
+<h3 id="45-predicted-vs-actual-analysis">4.5 Predicted vs. Actual
+Analysis</h3>
+<p>Figure 8 shows the predicted vs. actual UPDRS-III scatter plot for
+the 36 held-out test subjects. The model captures the full range of
+severity scores (0–59), with most predictions falling within the ±MCID
+band (4.63 points) of the identity line. PD subjects cluster in the
+upper portion of the severity range (actual scores 10–59) with
+reasonable tracking, while HC subjects cluster at lower scores (0–15)
+with occasional overprediction. The stacking model achieves PD-only MAE
+= 6.79 and HC-only MAE = 7.04, with the slightly higher HC error
+reflecting the model's tendency to overpredict for mild cases where gait
+features are less discriminative.</p>
+<h3 id="46-clinical-agreement-analysis">4.6 Clinical Agreement
+Analysis</h3>
+<p>Bland-Altman analysis (Figure 9) reveals a small positive bias (mean
+residual = +0.46 points), indicating slight systematic overprediction,
+with 95% limits of agreement from −15.6 to 16.6 points. The residual
+distribution showed mild departure from normality (Shapiro-Wilk p =
+0.026) with skewness = −0.68, kurtosis = −0.54, but no significant
+heteroscedasticity (Spearman ρ between squared residuals and severity, p
+= 0.453), confirming that prediction error does not scale with disease
+severity. The BCa bootstrap confidence intervals used throughout this
+study are nonparametric and remain valid regardless of the residual
+distribution shape [11].</p>
+<p>Table 5 presents the score-range breakdown of prediction
+accuracy:</p>
+<p><strong>Table 5.</strong> MAE by UPDRS-III severity range.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Severity Range</th>
+<th>UPDRS-III</th>
+<th>N (test)</th>
+<th>MAE</th>
+<th>Mean Bias</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mild</td>
+<td>0–9</td>
+<td>12</td>
+<td>7.16</td>
+<td>+7.16</td>
+</tr>
+<tr class="even">
+<td>Moderate</td>
+<td>10–19</td>
+<td>9</td>
+<td>4.80</td>
+<td>+4.54</td>
+</tr>
+<tr class="odd">
+<td>Moderate-severe</td>
+<td>20–34</td>
+<td>11</td>
+<td>5.96</td>
+<td>−5.18</td>
+</tr>
+<tr class="even">
+<td>Severe</td>
+<td>35+</td>
+<td>4</td>
+<td>13.34</td>
+<td>−13.34</td>
+</tr>
+</tbody>
+</table>
+<p>The model performs best in the moderate range (MAE = 4.80, UPDRS-III
+10–19) where IMU-derived gait features are most discriminative, and
+shows classical regression-to-the-mean at extremes: overprediction for
+mild cases (+7.16 bias) and underprediction for severe cases (−13.34
+bias). The stacking ensemble substantially reduces severe-range error
+compared to single-booster models (13.34 vs. 18.60 for LightGBM alone).
+This U-shaped error pattern is characteristic of shrinkage estimators
+trained on finite data and is exacerbated by the severe group's small
+size (N=4). No significant heteroscedasticity was observed (p =
+0.453).</p>
+<p>Of the 36 test subjects, 33% (12/36) had absolute prediction errors
+within the MCID threshold of 4.63 points.</p>
+<h3 id="47-historical-pre-audit-seed-stability-and-ensemble-benefit">4.7
+Historical Pre-Audit Seed Stability and Ensemble Benefit</h3>
+<p>In the historical pre-audit held-out pipeline, feature selection and
+progressive feature engineering substantially reduced prediction
+variance across seeds. The standard deviation of per-seed MAE decreased
+from ±0.48 (E0) to ±0.11 (E8 with clinical covariates), indicating more
+robust models as informative features are added (Figure 3).</p>
+<p><strong>Table 6.</strong> Historical pre-audit seed stability
+analysis across boosters (150 features, 5 seeds).</p>
+<table>
+<thead>
+<tr class="header">
+<th>Booster</th>
+<th>Ens MAE</th>
+<th>Mean Indiv MAE</th>
+<th>Ens Benefit</th>
+<th>CV(MAE)</th>
+<th>Seed Range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>LGB+XGB stacking</strong></td>
+<td><strong>6.89</strong></td>
+<td><strong>6.93</strong></td>
+<td><strong>0.04</strong></td>
+<td><strong>4.2%</strong></td>
+<td><strong>6.68–7.49</strong></td>
+</tr>
+<tr class="even">
+<td>LightGBM</td>
+<td>7.97</td>
+<td>8.17</td>
+<td>0.20</td>
+<td>3.7%</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>XGBoost</td>
+<td>8.54</td>
+<td>8.69</td>
+<td>0.15</td>
+<td>4.4%</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>CatBoost</td>
+<td>8.75</td>
+<td>8.81</td>
+<td>0.06</td>
+<td>1.6%</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>Ceiling (stacking + H&amp;Y)</td>
+<td>6.43</td>
+<td>6.49</td>
+<td>0.07</td>
+<td>4.6%</td>
+<td>6.21–7.05</td>
+</tr>
+</tbody>
+</table>
+<p>In the historical pre-audit held-out analysis, the LGB+XGB stacking
+ensemble showed tight seed stability (CV = 4.2%, seed range 6.68–7.49)
+with a modest ensemble benefit of 0.04 points, indicating that the
+stacking architecture already produced highly consistent individual-seed
+models. Among single boosters, CatBoost showed the lowest coefficient of
+variation (1.6%), though this stability came at the cost of higher
+absolute MAE. The historical ceiling stacking model (MAE = 6.43, CV =
+4.6%, seed range 6.21–7.05) showed that H&amp;Y stage provided a strong
+anchor in that pre-audit setting.</p>
+<h3 id="48-historical-pre-audit-subdomain-prediction">4.8 Historical
+Pre-Audit Subdomain Prediction</h3>
+<p>As historical pre-audit context, we trained separate LightGBM models
+for 9 individual UPDRS-III items where item-level scores were available
+(N = 117 development, 30 test subjects with item-level annotations).
+These item-level models were not rerun under the later strict inductive
+audit regime, so they are used only as hypothesis-generating support for
+the current post-audit T1 and residual-audit observability evidence.</p>
+<p><strong>Table 7.</strong> Historical pre-audit UPDRS-III item-level
+prediction from gait IMU features (LightGBM, 5-seed ensemble, 30
+held-out test subjects).</p>
+<table>
+<thead>
+<tr class="header">
+<th>Item (UPDRS-III)</th>
+<th>Subdomain</th>
+<th>Range</th>
+<th>MAE</th>
+<th>r</th>
+<th>% at Floor</th>
+<th>Observability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gait (3.10)</td>
+<td>Gait</td>
+<td>0–4</td>
+<td>0.60</td>
+<td>0.574</td>
+<td>57%</td>
+<td>Observable</td>
+</tr>
+<tr class="even">
+<td>Postural stability (3.12)</td>
+<td>Posture</td>
+<td>0–4</td>
+<td>0.59</td>
+<td>0.470</td>
+<td>63%</td>
+<td>Observable</td>
+</tr>
+<tr class="odd">
+<td>Arising from chair (3.9)</td>
+<td>Mobility</td>
+<td>0–4</td>
+<td>0.47</td>
+<td>0.434</td>
+<td>67%</td>
+<td>Observable</td>
+</tr>
+<tr class="even">
+<td>Posture (3.13)</td>
+<td>Posture</td>
+<td>0–4</td>
+<td>0.54</td>
+<td>0.414</td>
+<td>63%</td>
+<td>Observable</td>
+</tr>
+<tr class="odd">
+<td>Body bradykinesia (3.14)</td>
+<td>Bradykinesia</td>
+<td>0–4</td>
+<td>0.70</td>
+<td>0.250</td>
+<td>80%</td>
+<td>Observable</td>
+</tr>
+<tr class="even">
+<td>Freezing (3.11)</td>
+<td>FOG</td>
+<td>0–4</td>
+<td>0.27</td>
+<td>0.000</td>
+<td>93%</td>
+<td>Observable</td>
+</tr>
+<tr class="odd">
+<td>Facial expression (3.2)</td>
+<td>Hypomimia</td>
+<td>0–4</td>
+<td>0.69</td>
+<td>0.501</td>
+<td>80%</td>
+<td>Unobservable</td>
+</tr>
+<tr class="even">
+<td>Constancy tremor (3.18)</td>
+<td>Tremor</td>
+<td>0–4</td>
+<td>0.70</td>
+<td>0.366</td>
+<td>83%</td>
+<td>Unobservable</td>
+</tr>
+<tr class="odd">
+<td>Speech (3.1)</td>
+<td>Speech</td>
+<td>0–4</td>
+<td>0.57</td>
+<td><strong>0.097</strong></td>
+<td>87%</td>
+<td>Unobservable</td>
+</tr>
+<tr class="even">
+<td><strong>Axial composite</strong></td>
+<td>—</td>
+<td>0–32</td>
+<td><strong>2.61</strong></td>
+<td><strong>0.667</strong></td>
+<td>27%</td>
+<td>Mixed</td>
+</tr>
+</tbody>
+</table>
+<p>These historical pre-audit results show a clear observability
+gradient. Observable gait items (gait r = 0.574, postural stability r =
+0.470) show substantially higher correlations than speech (r = 0.097),
+the most unobservable item from gait IMU. The axial composite (sum of
+items 3.9–3.14, range 0–32) achieves MAE = 2.61 (r = 0.667),
+substantially outperforming the normalized total UPDRS-III prediction in
+that historical pipeline and suggesting that gait-observable subscores
+are a clinically better-aligned target representation. Freezing of gait
+(r = 0.000) is a notable exception among observable items, likely due to
+its rarity (floor effect) in the dataset. Current post-audit claims
+about observability should rely on the strict-inductive T1 results and
+iter47 residual audits rather than this historical table alone.</p>
+<h3 id="49-pd-only-loocv-comparison">4.9 PD-Only LOOCV Comparison</h3>
+<p>For direct comparison with Hssayeni et al. [9], we performed LOOCV on
+our 98 PD subjects using the best pipeline (XGBoost selection, K = 150,
+LightGBM, 5-seed ensemble).</p>
+<p><strong>Table 9.</strong> PD-only LOOCV comparison with published
+benchmarks.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Study</th>
+<th>N (PD)</th>
+<th>Sensors</th>
+<th>Evaluation</th>
+<th>MAE</th>
+<th>r</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hssayeni 2021 [9]</td>
+<td>24</td>
+<td>Wrist + ankle</td>
+<td>LOOCV</td>
+<td>5.95</td>
+<td>0.74</td>
+</tr>
+<tr class="even">
+<td>Shuqair 2024 [10]</td>
+<td>24</td>
+<td>Wrist + ankle</td>
+<td>LOOCV</td>
+<td>~5.65</td>
+<td>0.89</td>
+</tr>
+<tr class="odd">
+<td>Ours (LGB)</td>
+<td>98</td>
+<td>13 body IMUs</td>
+<td>LOOCV</td>
+<td><strong>7.22</strong></td>
+<td>0.520</td>
+</tr>
+<tr class="even">
+<td>Ours (LGB+XGB avg)</td>
+<td>98</td>
+<td>13 body IMUs</td>
+<td>LOOCV</td>
+<td>7.38</td>
+<td>0.496</td>
+</tr>
+<tr class="odd">
+<td>Ours (stacking)</td>
+<td>98</td>
+<td>13 body IMUs</td>
+<td>LOOCV</td>
+<td>7.44</td>
+<td>0.523</td>
+</tr>
+</tbody>
+</table>
+<p>Our LOOCV MAE of 7.22 on 98 PD subjects represents a gap of 1.27 from
+Hssayeni's 5.95 on 24 PD subjects. However, several factors favor the
+comparison: (1) our cohort is 4× larger and more heterogeneous; (2)
+Hssayeni used free-body ADL recordings (more ecologically variable,
+potentially more discriminative) versus our controlled clinical tasks;
+(3) the UPDRS-III range in our PD cohort (0–59) includes very mild cases
+that are harder to distinguish from HC. Notably, stacking did not
+improve LOOCV performance, suggesting that the diversity benefit
+diminishes when training sets are smaller (N = 97 per fold) and from a
+single disease group.</p>
+<h3 id="410-historical-pre-audit-sensor-ablation">4.10 Historical
+Pre-Audit Sensor Ablation</h3>
+<p>Table 10 presents the historical pre-audit sensor ablation across 17
+configurations, ranging from all 13 sensors to single-sensor sets. These
+held-out analyses are retained as context for wearable-design
+hypotheses, not as strict-inductive deployment evidence.</p>
+<p><strong>Table 10.</strong> Historical pre-audit sensor ablation
+results (LGB+XGB stacking, 5-seed ensemble, held-out test N = 36).</p>
+<table>
+<thead>
+<tr class="header">
+<th>Configuration</th>
+<th># Sensors</th>
+<th># Features</th>
+<th>ENS MAE</th>
+<th>ENS r</th>
+<th>Δ vs full</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>All 13 sensors</td>
+<td>13</td>
+<td>1760</td>
+<td>7.04</td>
+<td>0.843</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>No LowerBack</td>
+<td>12</td>
+<td>1475</td>
+<td>7.04</td>
+<td>0.833</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td>No Xiphoid</td>
+<td>12</td>
+<td>1655</td>
+<td>7.34</td>
+<td>0.822</td>
+<td>−0.30</td>
+</tr>
+<tr class="even">
+<td>No Ankles</td>
+<td>11</td>
+<td>1510</td>
+<td>7.38</td>
+<td>0.814</td>
+<td>−0.34</td>
+</tr>
+<tr class="odd">
+<td>No Thighs</td>
+<td>11</td>
+<td>1550</td>
+<td>7.51</td>
+<td>0.832</td>
+<td>−0.47</td>
+</tr>
+<tr class="even">
+<td><strong>Back + Wrists (3)</strong></td>
+<td><strong>3</strong></td>
+<td><strong>571</strong></td>
+<td><strong>7.55</strong></td>
+<td><strong>0.819</strong></td>
+<td><strong>−0.51</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Wrists only (2)</strong></td>
+<td><strong>2</strong></td>
+<td><strong>286</strong></td>
+<td><strong>7.58</strong></td>
+<td><strong>0.839</strong></td>
+<td><strong>−0.54</strong></td>
+</tr>
+<tr class="even">
+<td>Minimal 5</td>
+<td>5</td>
+<td>857</td>
+<td>7.62</td>
+<td>0.805</td>
+<td>−0.58</td>
+</tr>
+<tr class="odd">
+<td>No Feet</td>
+<td>11</td>
+<td>1510</td>
+<td>7.65</td>
+<td>0.811</td>
+<td>−0.61</td>
+</tr>
+<tr class="even">
+<td>No Shanks</td>
+<td>11</td>
+<td>1542</td>
+<td>7.66</td>
+<td>0.823</td>
+<td>−0.62</td>
+</tr>
+<tr class="odd">
+<td>No Forehead</td>
+<td>12</td>
+<td>1640</td>
+<td>7.87</td>
+<td>0.804</td>
+<td>−0.83</td>
+</tr>
+<tr class="even">
+<td>Lower body (9)</td>
+<td>9</td>
+<td>1307</td>
+<td>7.95</td>
+<td>0.769</td>
+<td>−0.91</td>
+</tr>
+<tr class="odd">
+<td>Upper body (4)</td>
+<td>4</td>
+<td>511</td>
+<td>8.04</td>
+<td>0.804</td>
+<td>−1.00</td>
+</tr>
+<tr class="even">
+<td>No Wrists</td>
+<td>11</td>
+<td>1532</td>
+<td>8.31</td>
+<td>0.764</td>
+<td>−1.27</td>
+</tr>
+<tr class="odd">
+<td>Lower back only (1)</td>
+<td>1</td>
+<td>343</td>
+<td>8.42</td>
+<td>0.770</td>
+<td>−1.38</td>
+</tr>
+<tr class="even">
+<td>Back + Ankles (3)</td>
+<td>3</td>
+<td>629</td>
+<td>8.51</td>
+<td>0.762</td>
+<td>−1.47</td>
+</tr>
+<tr class="odd">
+<td>Feet + Ankles (4)</td>
+<td>4</td>
+<td>594</td>
+<td>8.56</td>
+<td>0.739</td>
+<td>−1.52</td>
+</tr>
+</tbody>
+</table>
+<p>Three historical findings are useful design context:</p>
+<ol type="1">
+<li><p><strong>The lower back sensor was redundant in the historical
+held-out pipeline.</strong> Removing it caused zero MAE degradation
+(7.04 -&gt; 7.04). This contradicts the common assumption that
+trunk-mounted sensors are essential for gait analysis and suggests that
+bilateral wrist sensors may capture sufficient postural and gait
+information in this feature space.</p></li>
+<li><p><strong>Two wrist sensors retained 92% of full accuracy in the
+historical held-out analysis.</strong> With only bilateral wrist IMUs
+(MAE = 7.58), the model retained most predictive power. Adding a lower
+back sensor provided only 0.03 additional MAE improvement (7.55 vs
+7.58). This supports wrist-first follow-up designs, but it is not by
+itself a current deployment claim.</p></li>
+<li><p><strong>Wrists were the most critical sensor pair in that
+historical ablation.</strong> Removing wrists degraded MAE by 1.27 (the
+largest single-group removal impact), compared to 0.00 for lower back
+and 0.34 for ankles. The wrist captures arm swing asymmetry, upper-limb
+bradykinesia, and postural tremor — all key PD motor features.</p></li>
+</ol>
+<h3 id="411-t1-axial-subscore-multi-task-hybrid-iter34">4.11 T1 Axial
+Subscore: Multi-Task Hybrid (iter34)</h3>
+<p>The iter34 hybrid pipeline (Section 3.8) achieved leave-one-out CCC =
+0.7366 (MAE = 1.731, Pearson r = 0.7406, calibration slope = 0.8215) on
+the T1 axial-plus-truncal subscore (items 9–14, range 0–24) on N = 93 PD
+subjects. Per-seed CCC values were 0.7371, 0.7365, and 0.7359 (std =
+0.0006), among the tightest seed dispersions observed for any T1
+pipeline on this cohort.</p>
+<p>Paired-bootstrap inference (n = 5,000 subject-level resamples, seed =
+20260506) was performed against three comparators on the same
+subjects:</p>
+<ul>
+<li><strong>vs. iter5-direct</strong> (Stage 1 Ridge on the same nine
+clinical features + Stage 2 LightGBM directly on the T1 sum, no chain):
+paired Δ̄ = +0.087, 95% CI [+0.020, +0.167], frac &gt; 0 = 0.9958. This
+survives Bonferroni adjustment at α = 0.05 across the full nine-probe
+family-wise scope (n = 9 threshold = 0.9944).</li>
+<li><strong>vs. iter12-honest re-evaluated on the matched N = 93
+cohort</strong> (single iter8 batch; the canonical T1 floor): paired Δ̄ =
++0.081, 95% CI [−0.003, +0.166], frac &gt; 0 = 0.9714. The fraction
+clears the strict 0.95 single-comparison gate but does not survive
+Bonferroni n = 3 (LOOCV-only family) or n = 9 (full family)
+adjustment.</li>
+<li><strong>vs. iter33-B 8-item auxiliary chain</strong> (LGBMRegressor
+only, no base-learner ensemble): paired Δ̄ = +0.015, 95% CI [−0.001,
++0.032], frac &gt; 0 = 0.965. The hybrid genuinely improves over the
+structural-only iter33-B comparator.</li>
+</ul>
+<p>Restricting iter12-honest to the same N = 93 subset (dropping subject
+WPD002, who lacks a complete item-15 or item-18 score) gives CCC =
+0.6554, essentially unchanged from the canonical N = 94 value (0.6550),
+confirming that the cohort difference is not load-bearing and that
+paired-bootstrap inference within the matched cohort is fair. A direct
+one-subject bound in
+<code>results/audit_t1_iter34_n93_gap_20260508.json</code> reaches the
+same conclusion: WPD002 has complete T1 target items and T1 = 4.0, but
+missing auxiliary item 18; holding all locked iter34 OOF predictions
+fixed, even a grid-optimal prediction for WPD002 changes CCC only from
+0.736594 to 0.736598.</p>
+<p>A second, later T1 label audit found an auxiliary-label caveat rather
+than a primary-target defect.
+<code>results/t1_iter48_aux_validrange_audit.json</code> shows that
+<code>NLS036</code> entered the historical iter34 auxiliary chain with
+item 15 = 18, above the valid item-15 total maximum of 8, because the
+raw item-15 right/left fields were coded 9/9. The reported T1 target
+items 9–14 for NLS036 are valid, so the headline target is not directly
+contaminated; however, a valid-range auxiliary filter would make the
+chain cohort N = 92 instead of N = 93. A follow-up audit
+(<code>results/t1_iter34_aux_order_audit.json</code>) falsified the
+initial fixed-order reassurance: because the chain order is random by
+seed, item 15 is upstream of T1 items in two of the three locked seeds.
+The same audit ran a bounded all-base 5-fold stale-vs-valid impact
+screen and found validated common-SID CCC = 0.7154 versus stale-trained
+common-SID CCC = 0.7162, delta = -0.0008, with materiality flag false at
+|delta| ≥ 0.025. We therefore record iter34 with an explicit
+auxiliary-label/order caveat and do not run a post-hoc N = 92
+lockbox.</p>
+<p>The iter34 leakage audit remains transparently caveated. The primary
+scrambled-label probe passed strongly (baseline 5-fold CCC 0.699 vs.
+10-permutation null mean −0.038; z = 5.22) and the full-cohort
+pure-noise-X probe returned near the Stage-1 baseline (Δ = +0.019). The
+noisy-test-X P2 probe initially failed a conservative absolute criterion
+because replacing only the test-fold IMU features made the hybrid worse
+than Stage 1 (Δ = −0.065), not better. A follow-up five-seed one-sided
+audit (<code>results/iter34_p2_robustness_20260508.json</code>) found no
+positive point-estimate leakage signal: the largest P2 − Stage1 delta
+was +0.0389, below the +0.05 margin, and the Stage-2 residual
+correlation collapsed from a baseline mean of +0.380 to −0.002 under
+noisy test X. However, the maximum bootstrap upper bound was +0.0857, so
+P2 is not fully cleared. We therefore report iter34 as a strongest
+candidate with a noisy-test fragility caveat, not as an
+all-null-gates-green canonical replacement.</p>
+<p>Predicted vs. actual scatter, residual-by-quartile, and per-subject Δ
+figures are provided in Figures 11–14. Iter34 is reported as the
+<strong>strongest T1 candidate</strong> rather than as a canonical
+replacement for iter12-honest 0.6550, in keeping with the post-hoc
+multiple-comparisons accounting in Section 4.12, the P2 robustness
+caveat, and the cohort/auxiliary-label caveats noted in Section 5.6
+(Limitations item 8).</p>
+<h3 id="412-multiple-comparisons-rigor-for-the-iter33-probe-family">4.12
+Multiple-Comparisons Rigor for the iter33 Probe Family</h3>
+<p>To address the obvious reviewer concern that iter33-B (LOOCV CCC =
+0.7219, frac &gt; 0 vs. iter5-direct = 0.979) was selected from a
+fishing pool of related probes, we ran iter33-A (V1_random 7-seed
+extension), iter33-B (8-item auxiliary chain), and iter33-C (multi-base
+learner ensemble) on the same N = 93/94 lockbox cohort under one common
+gate (mean Δ̄ ≥ +0.025 <em>and</em> paired-bootstrap frac &gt; 0 ≥ 0.95)
+on 2026-05-06, all pre-registered before any LOOCV invocation. Two of
+the three failed the gate, including iter33-C, which produced the
+highest absolute LOOCV point estimate of the trio (CCC = 0.7231) but
+only frac &gt; 0 = 0.937 against iter5-direct. The full trio is reported
+in the supplement (<code>paper_supplement_iter33_gate_demo.md</code>);
+the rejection pattern demonstrates that the gate does not rubber-stamp
+high CCC and requires both a sufficient point estimate and a
+sufficiently tight bootstrap interval.</p>
+<p>Family-wise-error-rate adjustments for the realized inferential
+probes (one-sided tests of H₀: Δ̄ ≤ 0 against iter5-direct, p = max(1 −
+frac &gt; 0, 1/(n_boot+1))) are recorded in
+<code>results/iter33_multi_comparisons_2026_05_06.json</code>:</p>
+<p><strong>Table 11.</strong> Multiple-comparisons accounting for the
+iter33 probe family on the N = 93 lockbox cohort.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Scenario</th>
+<th>n_tests</th>
+<th>Method</th>
+<th>iter33-B p_adj</th>
+<th>iter33-B significant at α = 0.05</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LOOCV-only family</td>
+<td>3</td>
+<td>Bonferroni / Holm / Hochberg / BH-FDR</td>
+<td>0.063 / 0.063 / 0.063 / 0.063</td>
+<td>No (all four)</td>
+</tr>
+<tr class="even">
+<td>Full family (5-fold + LOOCV)</td>
+<td>8</td>
+<td>Bonferroni / Holm / Hochberg / BH-FDR</td>
+<td>0.168 / 0.168 / 0.085 / 0.066</td>
+<td>No (all four)</td>
+</tr>
+</tbody>
+</table>
+<p>iter33-B does not survive any standard correction across the iter33
+probe family. iter34 was pre-registered as a single post-publication
+replication target on 2026-05-06 PM (formula SHA-256 first 16 hex digits
+= <code>df89b9bb711e267b</code>), with
+<code>family_wise_independence_claim = "Single pre-registered post-publication run; not part of iter33-B canonical-update family of comparisons (council 2026-05-06)."</code>
+and a Bonferroni-trivial n = 1 family-wise scope. The vs.-iter5-direct
+comparison (frac &gt; 0 = 0.9958) survives Bonferroni adjustment even at
+the conservative n = 9 sensitivity scope (threshold 0.9944) that
+includes the entire iter33 probe family plus iter34 itself. The
+vs.-iter12-honest comparison (0.9714) does not survive the same
+Bonferroni n = 3 or n = 9 sensitivity adjustment, which is the
+load-bearing reason iter34 is reported as a candidate rather than a
+canonical replacement.</p>
+<h3
+id="413-t3-total-updrs-iii-error-anatomy-and-transportability-cliff">4.13
+T3 Total UPDRS-III: Error Anatomy and Transportability Cliff</h3>
+<p>The 2026-05-08 target-construction audits found two independent
+defects in the historical T3 target. First, iter41 showed that the
+target was constructed by skipna summing the 33 raw MDS-UPDRS Part III
+subitems: the derived <code>updrs3</code> field exactly matched that raw
+sum (maximum absolute difference 0.0 across the 98 V2 PD rows), but
+skipna summation converted three rows with all 33 raw Part III subitems
+missing (<code>NLS151</code>, <code>NLS188</code>, <code>WPD013</code>)
+into true zero labels. Six additional subjects had partial Part III
+missingness. Second, iter47 showed that <code>NLS036</code> contained
+raw item-15 right/left values of 9/9. Because raw Part III subitems are
+valid only on the 0-4 range, those values are missing/untestable codes
+rather than severity; treating them as valid had inflated the NLS036
+total from 28 to 46. The audit also found that the historical "Stage 2
+V2 residual" pool contained <code>cv_age</code>, <code>cv_dbs</code>,
+<code>cv_ht</code>, <code>cv_sex</code>, <code>cv_wt</code>, and
+<code>cv_yrs</code>; this is fold-clean, but it means the model was
+clinical+IMU at both stages rather than a pure IMU residual stage.</p>
+<p>The valid-range iter47 battery therefore re-ran the same iter5 A3
+architecture after excluding the three all-missing-label rows and
+treating raw Part III subitem values outside 0-4 as missing. The minimal
+valid-range cohort (N = 95) achieved LOOCV CCC = 0.3784 (MAE = 7.5280,
+Pearson r = 0.4141, calibration slope = 0.2692) with the current Stage-2
+V2 feature pool. Dropping the hidden <code>cv_*</code> columns from
+Stage 2 while keeping Stage 1 unchanged produced CCC = 0.3771 (MAE =
+7.6798), and the stricter complete-33-item cohort produced CCC = 0.4281
+with current Stage 2 and CCC = 0.4010 without Stage-2 <code>cv_*</code>
+columns. The complete-33 results are sensitivity-only because they
+exclude additional partially missing but still informative subjects. The
+iter47 minimal valid-range result replaces both old iter5 CCC = 0.5227
+and the earlier iter41 CCC = 0.3948 as the total-UPDRS-III audit
+truth.</p>
+<p>A subsequent provenance audit isolated one more Stage-2 caveat. The
+V2 matrix includes 31 <code>dst_*</code> columns generated by a
+historical pressure-walkway distiller
+(<code>run_ablation_v2.distill_walkway</code>) trained once on
+development subjects rather than refit inside each LOOCV fold. These
+columns are therefore not fold-local, even though they are not
+target-derived. Removing only <code>dst_*</code> from the iter47
+valid-range Stage 2 gave CCC = 0.3766 (MAE = 7.580); the
+paired-bootstrap delta relative to current Stage 2 was -0.0004 with 95%
+CI [-0.0479, +0.0523]. We therefore treat <code>dst_*</code> as a
+disclosure/provenance caveat, not as a load-bearing explanation for the
+corrected T3 result.</p>
+<p>The iter41 clinical-dependency audit further separated
+clinical/intake and IMU contributions while keeping Stage 2 free of
+hidden <code>cv_*</code> columns. The full A3 Stage 1 (H&amp;Y plus
+disease duration, sex, and DBS status) reached CCC = 0.4017, but the
+intake-only Stage 1 (<code>cv_yrs</code>, <code>cv_sex</code>,
+<code>cv_dbs</code>) still reached CCC = 0.3871; the
+A3-minus-intake-only paired-bootstrap delta was only +0.0136 with a 95%
+CI crossing zero. H&amp;Y-only reached CCC = 0.2899, and intercept-only
+Stage 1, effectively an IMU-only residual model, reached CCC = 0.2449.
+This audit predates the later NLS036 valid-range recode, but it
+establishes the framing: corrected T3 should be read as a
+clinical/intake + IMU decomposition benchmark, not as a pure IMU
+deployment result.</p>
+<p>We then tested the low-degree convex-mix escape hatch that had
+remained after the high-dimensional nested meta-stack failed (iter50).
+The corrected valid-range N = 95 screen combined only two predictors: A3
+clinical-only Ridge and direct IMU-only/no-<code>cv_*</code> LGB, with
+one convex alpha selected by inner CV inside each outer train fold. This
+iter50 low-degree convex mix failed rather than rescuing T3: the
+same-loop baseline was CCC = 0.3759, while the nested-convex CCC =
+0.3083 (delta = -0.0676; seed-delta std = 0.0319; bootstrap frac &gt; 0
+= 0.0348). Alpha choices were unstable and often extreme (mean = 0.584,
+std = 0.411, range 0.0-1.0). The screen decision was
+<code>screen_fail_no_loocv_no_canonical_change</code>, so no LOOCV was
+run and the valid-range T3 headline is unchanged.</p>
+<p>Valid-range leave-one-site-out transportability is lower still. On
+the N = 95 minimal valid-range cohort with the current Stage-2 policy,
+NLS-&gt;WPD achieved CCC = 0.194 and WPD-&gt;NLS achieved CCC = 0.106,
+for a two-way mean CCC = 0.150. The Stage2-no-cv sensitivity two-way
+mean was CCC = 0.163; strict complete-33 sensitivities were CCC = 0.106
+with current Stage 2 and CCC = 0.116 without Stage-2 <code>cv_*</code>
+columns. Thus the deployment-relevant T3 picture is not the old
+target-contaminated 0.5227 -&gt; 0.341 cliff, but a
+valid-range-corrected 0.3784 -&gt; 0.150 cliff.</p>
+<p>The historical iter5 deep-dive remains useful as an error-anatomy
+artifact but is not a canonical performance report. In that
+target-contaminated OOF vector, the correlation between true UPDRS-III
+and the residual (prediction minus truth) was -0.699, indicating
+over-prediction of mild subjects and under-prediction of severe
+subjects. Stratified by true-score quartile, Q1 subjects were
+over-predicted by +9.76 points on average, while Q4 subjects were
+under-predicted by -7.61 points. This reproduces the F54/F61
+regression-to-the-mean mechanism and explains why post-hoc calibration,
+tail-aware sample weighting, CCC-objective retraining, and local
+residual smoothing failed their gates. The target audits strengthen
+rather than weaken that conclusion: once invalid zero-label rows and
+invalid high subitem codes are corrected, the internal T3 ceiling is
+lower.</p>
+<p>The current iter47 residual-anatomy audit repeats the same exercise
+on the valid-range-corrected OOF vector rather than the historical iter5
+target. The result is more severe tail compression, not a new
+recoverable feature signal: residual corr = -0.7771, Q1 low-severity
+mean residual = +10.02, Q4 high-severity mean residual = -9.20, and WPD
+within-site CCC = 0.0515. The top post-hoc residual-feature |r| = 0.290
+(<code>fq_R_Wris_dw5</code>), and the audit explicitly labels these
+correlations as global diagnostic summaries rather than fold-local
+feature selection. We therefore use this audit as a stop rule against
+another scalar WearGait-only feature-fishing pass, not as a
+pre-registration gate.</p>
+<p>The CCC-rescale sanity audit then quantified a tempting accounting
+trap on the same saved iter47 OOF vector. OOF-level leave-one affine
+recalibration reduced CCC to 0.2572, while OOF-level variance matching
+raises CCC to 0.3996. That apparent lift is not a reportable model: the
+paired-bootstrap CCC delta versus the base iter47 vector is only +0.0208
+with 95% CI [-0.0104, +0.0578], and MAE worsens by +1.1398 points with
+95% CI [+0.4659, +1.8440]. More importantly, the second-level transform
+is not a fully nested meta-model because, for a held-out subject, the
+calibration set includes OOF predictions for other subjects generated by
+base models whose training folds included that held-out subject. A
+reportable rescaling route would require an outer/inner nested
+prediction artifact; given the MAE penalty and uncertain CCC gain, we do
+not pursue it as a lockbox route.</p>
+<p>A leave-one-subject influence audit then checked whether current CCC
+claims are carried by one or a few subjects. No single-subject redline
+was found. For T3 iter47, the leave-one CCC range is 0.3402-0.4056, the
+maximum absolute leave-one CCC delta is 0.0381, and the top five
+subjects account for 0.284 of the total absolute CCC influence. For T1,
+the iter34-minus-iter12 matched CCC delta remains positive after every
+leave-one deletion (minimum +0.0629), and iter34's leave-one CCC never
+drops below 0.6997. The caveat is not single-subject dominance but tail
+leverage: abs(target-median) correlates with abs(delta CCC) at r =
+0.6779 for T3, and the T3 influence Gini is 0.6009. We therefore record
+influence as a claim-fragility and severity-tail caveat, not as a
+filtering rule, model update, or reason for another lockbox run.</p>
+<p>A final domain-level residual audit decomposed the same iter47 OOF
+errors against the true valid-range MDS-UPDRS-III item domains. The
+parsed item totals exactly reproduce the iter47 target (max difference
+0.0), and the residual is dominated by non-gait clinical burden rather
+than a single observable gait item: unobservable non-gait burden has
+residual r = -0.8004, upper-limb bradykinesia r = -0.6224, and
+appendicular bradykinesia r = -0.6156. Privileged leave-one oracles are
+large if true domain labels are supplied at test time:
+unobservable-non-gait correction lifts CCC by +0.4716, and a multidomain
+Ridge oracle reaches CCC = 0.8533 / MAE = 4.487. The best
+gait-observable true-domain oracle, gait/balance items 7-14, still lifts
+CCC by +0.2083, which confirms target-representation headroom. But
+because these corrections require ground-truth Part III domain labels at
+prediction time, they are explanatory only; they do not justify a
+deployable WearGait-only model, feature-selection gate, subject
+filtering, or another LOOCV run.</p>
+<p>An item-level companion audit
+(<code>audit_t3_iter47_item_residuals.py</code>) breaks this down to
+individual MDS-UPDRS-III items. The top residual-correlated items are
+all non-WearGait-observable: item 6 pronation/supination (r = -0.571,
+oracle dCCC = +0.282), item 4 finger tapping (r = -0.528, dCCC =
++0.256), item 5 hand movements (r = -0.469, dCCC = +0.226), and item 3
+rigidity (r = -0.460, dCCC = +0.195). The best gait/balance-observable
+items are much weaker: item 8 leg agility (dCCC = +0.148), item 7 toe
+tapping (+0.125), and item 10 gait (+0.091). Mean |r(item,residual)| is
+0.247 for observable items 7-14 versus 0.371 for non-observable items.
+This is anatomical ceiling evidence: WearGait's gait/balance protocol
+does not capture upper-limb bradykinesia, rigidity, or tremor, and the
+residual structure is explained by target composition rather than
+missing model capacity. Combined with the dead-list (scalar additions,
+per-item composite, nested stacks, low-degree convex mix,
+frozen/fine-tuned encoders, local residual smoothing, sample weights,
+and calibration all failed), there is no valid next WearGait-only model
+route to break T3 CCC. Document this as a stop rule; do not launch
+another WearGait-only T3 scalar-feature or calibration screen.</p>
+<p>The current split-conformal analysis is computed on post-audit OOF
+predictions only, using leave-one-subject-out residual quantiles so that
+each subject's own label does not set its interval width. For the
+valid-range iter47 T3 current-Stage-2 result, nominal 80% intervals
+achieved empirical coverage 0.800 with mean width 25.94 UPDRS-III
+points, and nominal 95% intervals achieved empirical coverage 0.958 with
+mean width 34.72 points. The Stage2-no-cv sensitivity was nearly
+identical (80% width 26.22, 95% width 35.35). The same analysis on T1
+gives narrower but still clinically coarse intervals: iter12-honest
+widths 4.99 / 9.08 for nominal 80% / 95%, and iter34 widths 5.74 / 8.81.
+A deployable abstention proxy based only on prediction extremeness did
+not rescue the T3 ceiling: after discarding 50% of subjects farthest
+from the prediction median, iter47 current CCC dropped to 0.011. The
+oracle curve using true absolute error is recorded only as a
+non-deployable diagnostic upper bound.</p>
+<p>We also tested whether the six partially missing Part III rows should
+be prorated rather than skipna-summed or dropped (iter42). The
+literature-backed primary rule, prorating subjects with 1–3 missing Part
+III subitems and excluding &gt;3, failed: LOOCV CCC = 0.3468 with
+current Stage 2 and 0.3643 without Stage-2 <code>cv_*</code>; LOSO
+two-way CCC = 0.144 and 0.125 respectively. A looser
+<code>prorate_le7</code> sensitivity reached LOOCV CCC = 0.4165 and LOSO
+two-way CCC = 0.191 with current Stage 2, but it is not a canonical
+rescue because it includes <code>NLS210</code>, whose five missing
+values are the entire rigidity block rather than random scattered
+missingness, was not the primary pre-registered rule, is unstable across
+Stage-2 policy (0.4165 current vs. 0.3793 no-cv), and still
+underperforms old iter5 predictions evaluated against the same prorated
+target.</p>
+<p>The 2026 external-route audit initially identified two newly public,
+directly T3-eligible datasets. FoG-STAR is a 22-subject PD cohort with
+wearable IMU and subject-level <code>updrs_iii</code> labels. We tested
+the most conservative internal-ceiling use as iter38: augment only the
+iter5 Stage-1 clinical Ridge with FoG-STAR clinical rows while leaving
+the Stage-2 WearGait V2 residual model unchanged and fold-local. This
+did not move the WearGait-PD T3 screen (same-loop seed-mean baseline CCC
+= 0.4888, augmented CCC = 0.4896, delta = +0.0008; bootstrap frac &gt; 0
+= 0.494), so no LOOCV lockbox was run. A pre-registered zero-shot
+FoG-STAR analysis (iter39) trained on WearGait only and tested once on
+all 22 FoG-STAR subjects found no wrist-only transfer (CCC = -0.018),
+partial clinical-plus-wrist transport (CCC = +0.250, 95% CI [+0.028,
++0.503]), and weak FoG-STAR-only LOOCV sanity performance (CCC =
++0.082). This is external-validity evidence, not an internal CCC
+breakthrough.</p>
+<p>COPS is the larger newly surfaced public route: 66 OSF ZIP records,
+64 unique subject ZIP filenames after duplicate records, bilateral wrist
+GENEActiv accelerometry at 100 Hz, demographics, symptom diaries, and
+UPDRS-III OFF/ON CSVs. We pre-registered iter49 before full
+subject-archive download, verified the nested ZIP schema, and then ran
+the frozen zero-shot battery on the 62 subjects with OFF labels.
+Wrist-only magnitude features trained on WearGait did not transfer
+(right-wrist CCC = -0.019, 95% CI [-0.103, +0.070]). The
+iter5/iter47-style clinical-plus-wrist track transferred weakly
+(right-wrist CCC = +0.241, 95% CI [+0.106, +0.392]; bilateral CCC =
++0.254), close to the FoG-STAR clinical-plus-wrist value. The COPS-only
+LOOCV sanity check reached CCC = +0.310 (95% CI [+0.132, +0.482]). Thus
+COPS adds a larger external-validity row: wrist-only transport fails,
+clinical-plus-wrist transport is partial, and COPS-native learning is
+possible but modest. It does not update the internal WearGait-PD T3
+headline.</p>
+<p>The same external-route audit later surfaced TLVMC/DeFOG as another
+public direct T3 route. A metadata-only probe of Zenodo
+<code>10959560</code> and the Kaggle competition files found 173
+subject-visit rows from 136 subjects in <code>subjects.csv</code>, with
+172 <code>UPDRSIII_On</code> and 132 <code>UPDRSIII_Off</code> targets.
+The clean target-joined subset is DeFOG: 137 medication-matched
+recordings across 45 subjects and 70 subject-visits, split into 68 OFF
+records from 44 subjects and 69 ON records from 45 subjects. The daily
+subset has visit-level targets but no medication-state column, while
+<code>tdcsfog</code> did not join to UPDRS-III targets in the public
+metadata probe. We froze iter51 before any full raw-data/model run
+(<code>formula_sha256</code>
+<code>665479765911e8192e4db570babeb5fcef3e2b6553dfd6259187f76685ec08cd</code>)
+and trained WearGait lower-back accelerometer magnitude features to
+score OFF-state DeFOG <code>UPDRSIII_Off</code>. The iter51 zero-shot
+result gives Track A lower-back magnitude CCC = +0.2695 (95% CI
+[+0.1693, +0.3600], MAE = 8.07), with positive rank correlation but
+compressed prediction range. The wrist-to-lumbar stress test is
+near-null (Track B CCC = +0.0485), while the DeFOG-only subject-grouped
+LOSO sanity reaches CCC = +0.3450. TLVMC/DeFOG remains external-validity
+evidence only, not an internal WearGait-PD ceiling-break result.</p>
+<p>The later PDFE turning-in-place refresh added one more public direct
+T3 stress test. Figshare <code>14984667</code> exposes shank IMU during
+turning-in-place plus session-level UPDRS-III totals; the session-1
+cohort has 35 PD subjects. A companion public Figshare gait-biomechanics
+route (<code>14896881</code>) has ON/OFF UPDRS-III totals and items but
+uses motion capture and force plates rather than wearable IMU, so it
+stays document-only for this objective. We froze iter52 before modeling
+(<code>formula_sha256</code>
+<code>f0eb5985a15b271a333b3d9e1d093e32889814a0f48d0ca4f5131b9674c7b2f2</code>)
+and trained WearGait valid-range T3 lateral-shank acceleration-magnitude
+features to score PDFE trial/session-1 shank features. Track A WearGait
+shank-to-PDFE CCC = -0.101 (95% CI [-0.288, +0.055], MAE = 14.15). Track
+B clinical plus shank is weak and uncertain (CCC = +0.134, CI [-0.043,
++0.337]), while the PDFE-only LOOCV sanity reaches CCC = +0.402 (CI
+[+0.157, +0.652]). Thus PDFE has within-protocol severity signal, but
+WearGait transfer fails; iter52 is external transportability evidence
+only and cannot update the internal T3 headline.</p>
+<p>A final public wrist-IMU lead, Parkinson@Home (Radboud DOI
+<code>10.34973/fr4z-a489</code>), exposed 25 PD and 25 control
+participants, OFF/ON recordings, bilateral wrist accelerometer/gyroscope
+data, prepared parquet files, and public MDS-UPDRS Part III subitems. We
+preregistered iter53 before scoring (<code>formula_sha256</code>
+<code>417fdfe0bd2f07c8c5415bd49c87b70725979a26517fe353ca376e2b85387888</code>)
+with a minimum of 20 valid OFF PD subjects after feature-readability
+filtering. The metadata probe passed, but extraction retained only 18
+valid OFF PD subjects, so the hard stop fired before zero-shot,
+within-dataset LOOCV, or OFF/ON response scoring. Parkinson@Home is
+therefore recorded as a public direct T3 route that stopped before
+scoring, not as a positive or negative metric row.</p>
+<p>An External result claim labeling audit
+(<code>audit_external_result_claim_labeling.py</code>) now scans
+FoG-STAR, COPS, TLVMC/DeFOG, PDFE, and PADS references across the
+manuscript, handoff files, and external zero-shot JSONs. It passes with
+zero findings and zero artifact failures, enforcing that positive
+external-only numbers such as DeFOG Track A or PDFE-only sanity CCCs
+remain transportability or within-dataset sanity evidence, not internal
+WearGait-PD T3 headline, canonical, deployment, or ceiling-break
+updates.</p>
+<p>Other public sensor leads were intentionally not escalated to
+preregistered probes when the target did not match. Papadopoulos' public
+phone-call tremor dataset (Zenodo <code>7273759</code>) contains
+smartphone accelerometry in-the-wild and 45 clinically examined
+subjects, but its clinical annotations are tremor-specific (UPDRS II
+item 16 plus Part III item 20/21 hand tremor) rather than total
+MDS-UPDRS-III or the T1 items 9-14. The 2025 Harmonized Upper/Lower Limb
+Accelerometry resource is larger (790 participants, about 7% PD) and
+useful for rehabilitation accelerometry, but it exposes daily-life
+ActiGraph summaries and controlled-access DASH tables without confirmed
+total Part III or T1 targets. Monipar and BIOCLITE are public
+consumer-smartwatch exercise datasets with MDS-UPDRS subitem scores, but
+Monipar's labeled supervised subset is only six PD subjects and BIOCLITE
+provides per-exercise scores rather than a total Part III endpoint;
+neither can form the full T1 9-14 composite. Zenodo
+<code>14848598</code> is also public, but direct CSV inspection showed
+it is a derived CSF/clinical/gait-summary benchmark table, not raw
+wearable IMU or an auditable contemporaneous sensor-clinical cohort. The
+advanced Parkinson's disease smartwatch home-monitoring study by
+Fay-Karmon et al. and the marital-dyad social-actigraphy study both
+contain MDS-UPDRS Part III context, but both are author-request-only,
+small-N, schema-hidden routes; the first is partly proprietary through
+Intel/SWA outputs, and the second is daily-life/dyad actigraphy rather
+than a structured gait/balance protocol. We therefore treat these as
+context only, not as WearGait-PD T1/T3 external validation routes.</p>
+<p>After the FoG-STAR result, we also ran a deliberately high-risk
+local-similarity wildcard on WearGait-PD itself (iter40). The iter5
+clinical Stage 1 was kept unchanged, but the Stage 2 residual model was
+replaced by fold-local feature selection, train-only normalization, PCA,
+and inverse-distance nearest-neighbor residual smoothing. This failed
+before the target-construction audits: the same-fold iter5 baseline
+achieved 3-seed mean CCC = 0.4888, while the local residual smoother
+achieved CCC = 0.4332 (delta = -0.0556; bootstrap CI [-0.115, -0.001]).
+This remains a valid negative screen for that historical architecture
+class, but it should not be treated as a corrected-target lockbox
+result.</p>
+<p>Figures 15-19 summarize the historical iter5 deep dive and are
+generated by <code>visualize_t3_iter5.py</code> into
+<code>results/t3_iter5_deepdive/</code>. The corrected-target
+machine-readable artifacts are
+<code>results/t3_target_stage2_covariate_audit_20260508_165653.json</code>,
+<code>results/iter41_targetfix_20260508_170021.json</code>,
+<code>results/iter41_targetfix_loso_20260508_171003.json</code>,
+<code>results/iter47_invalidcode_20260508_194605.json</code>,
+<code>results/iter47_invalidcode_loso_20260508_195424.json</code>,
+<code>results/t3_iter47_residual_anatomy_20260509.json</code>,
+<code>results/t3_iter47_ccc_rescale_sanity_20260509.json</code>,
+<code>results/current_headline_influence_audit_20260509.json</code>,
+<code>results/t3_iter47_domain_residual_audit_20260509.json</code>,
+<code>results/t3_iter47_item_residual_audit_20260509.json</code>,
+<code>results/iter50_lowdf_convex_screen_20260508_225105.json</code>,
+and the clinical-dependency audit
+<code>results/t3_clinical_dependency_20260508.json</code>.</p>
+<h2 id="5-discussion">5. Discussion</h2>
+<h3 id="51-principal-findings">5.1 Principal Findings</h3>
+<p><strong>Framing note (post-audit reframing).</strong> This paper was
+originally constructed around a single total-UPDRS-III regression
+headline of MAE = 6.89 (r = 0.860) from an LGB+XGB stacking ensemble
+(Sections 4.2, 5.2, 5.7). A subsequent leakage audit (2026-04-28;
+finding F65) found that the original SSL-ranking and stacking pipelines
+that produced those numbers contained transductive components: most
+consequentially a pre-computed XGBRanker fit on all 178 subjects whose
+leaf indices encoded test-fold rank, and a temperature scaling
+hyperparameter tuned on the same N = 94 LOOCV vector it was then
+evaluated on (cost: delta CCC about 0.343 on T1 5-fold; calibration
+slope pinned to 1.000 by construction). Later target-construction audits
+(2026-05-08; iter41 and iter47) found that the historical
+total-UPDRS-III target converted three all-missing Part III item blocks
+into zero labels and converted NLS036 item-15 missing codes into 18
+severity points. After enforcing strict inductive evaluation, target
+hygiene, fold-local imputers and normalisers, single pre-registered
+LOOCV per pipeline, paired-bootstrap inference, and a five-null gate for
+new pipelines, the current audit-truth numbers are T1 LOOCV CCC = 0.6550
+(MAE = 1.561; iter12 honest), valid-range-corrected T3 LOOCV CCC =
+0.3784 (MAE = 7.528; iter47 invalid-code fix), and T1 strongest
+candidate LOOCV CCC = 0.7366 (MAE = 1.731; iter34 hybrid). We retain the
+MAE = 6.89 / 6.43 figures and the old iter5 T3 CCC = 0.5227 throughout
+this Discussion as historical audit context only; the
+deployment-relevant numbers are the post-audit CCC values reported in
+Table 1, Table 1b, Section 4.11, Section 4.13, and Section 6.</p>
+<p><strong>Pre-audit headline (retained for historical
+reference).</strong> We establish the first UPDRS-III regression
+benchmark on WearGait-PD, with the original pre-audit pipeline achieving
+MAE = 6.89 (r = 0.860) using a stacking ensemble and MAE = 6.43 (r =
+0.848) with a ceiling model including H&amp;Y stage. Our systematic
+investigation reveals that:</p>
+<ol type="1">
+<li><p><strong>Feature selection method is the single largest
+lever.</strong> Switching from mutual information to XGBoost
+importance-based feature selection improved MAE by 0.94 points (7.97 →
+7.03) — accounting for 87% of the total improvement from 7.97 to 6.89.
+Tree-based importance captures nonlinear feature interactions that
+filter methods miss, and at the K/N ratio of ~1.0, selecting the right
+150 features from 1,752 matters far more than any model or feature
+engineering change.</p></li>
+<li><p><strong>Stacking diverse boosters provides reliable but modest
+gains.</strong> The LGB+XGB stacking ensemble adds 0.14 MAE over the
+best single model by exploiting complementary error patterns between
+LightGBM (histogram-based) and XGBoost (exact splits). Ridge
+meta-learner prevents overfitting the 2D L1 input.</p></li>
+<li><p><strong>Two wrist sensors were the strongest reduced sensor set
+in the historical pre-audit ablation.</strong> Bilateral wrist IMUs
+alone (MAE = 7.58) captured most of the predictive signal from all 13
+sensors (MAE = 7.04), and the lower back sensor showed zero degradation
+when removed. This is retained as wearable-design context rather than a
+current deployment claim.</p></li>
+<li><p><strong>Knowledge distillation from privileged data is
+practical.</strong> Training proxy models to translate IMU signals into
+walkway-equivalent gait parameters outperforms direct access to walkway
+data, because it generates complete predictions for all subjects and
+regularizes the feature space.</p></li>
+<li><p><strong>Clinical context matters profoundly.</strong> The six
+clinical covariates contributed 0.60 MAE improvement in the ablation
+study (E7 → E8, Table 3) — more than any single IMU-derived feature
+category. Extended nonlinear covariates (disease duration²,
+log-duration, onset age) provide additional signal.</p></li>
+</ol>
+<h3 id="52-comparison-with-prior-work">5.2 Comparison with Prior
+Work</h3>
+<p>Direct comparison with published results is complicated by
+differences in cohort composition, evaluation methodology, and severity
+range (Table 1). Our PD-only LOOCV evaluation (Section 4.9) provides the
+closest methodological comparison with Hssayeni et al. [9]:</p>
+<p><strong>Head-to-head LOOCV.</strong> Our PD-only LOOCV MAE of 7.22 on
+98 subjects compared to Hssayeni's 5.95 on 24 subjects represents a gap
+of 1.27. Three factors contribute: (1) our 4× larger, more heterogeneous
+PD cohort includes very mild cases (UPDRS-III 0–10) that are harder to
+distinguish; (2) Hssayeni used free-body ADL recordings with wrist and
+ankle gyroscopes, which may capture more ecologically variable motor
+behavior than our controlled clinical gait tasks; (3) LOOCV on N = 24
+produces training sets with 96% overlap, potentially yielding optimistic
+estimates [11, 36].</p>
+<p><strong>Held-out evaluation (pre-audit).</strong> The original
+pre-audit primary evaluation used a 36-subject held-out test set never
+seen during development, achieving MAE = 6.89 (r = 0.860) with LGB+XGB
+stacking. At the time of original submission this represented the most
+rigorous evaluation of any UPDRS-III regression model in terms of cohort
+size, held-out design, and evaluation protocol; the MCID-normalized MAE
+(6.89/4.63 = 1.49) was reported as approaching clinical utility.
+Post-audit (Section 5.1, framing note), this number is no longer cited
+as a deployment headline because the underlying stacking pipeline
+contained transductive components that did not survive a strict
+inductive five-null gate; we retain it here for continuity with Table 1
+and prior reporting only.</p>
+<p><strong>Severity range.</strong> Our evaluation spans the full 0–59
+range including healthy controls, a harder task than PD-only prediction
+within the moderate range (9–55). The pre-audit held-out MAE of 6.89 was
+within the theoretical ceiling band from gait IMU (~6–7 MAE).</p>
+<p><strong>Post-audit headline (canonical).</strong> The
+deployment-relevant numbers are reported in Table 1, Table 1b, Section
+4.11, and Section 4.13: T1 (items 9-14) LOOCV CCC = 0.6550 (MAE = 1.561;
+iter12 honest, N = 94); T1 candidate CCC = 0.7366 (MAE = 1.731; iter34
+hybrid, N = 93); valid-range-corrected T3 (total UPDRS-III) LOOCV CCC =
+0.3784 (MAE = 7.528; iter47 invalid-code fix, N = 95). The valid-range
+T3 result is not merely a small adjustment to the post-leakage iter5
+number: it retracts the old CCC = 0.5227 as target-contaminated,
+supersedes the earlier iter41 CCC = 0.3948 all-missing-only correction,
+and shows that refitting the same architecture after removing
+all-missing labels and invalid high subitem codes lowers the honest
+internal benchmark. The valid-range cross-site transportability number
+(T3 LOSO two-way mean CCC = 0.150; iter47 LOSO) further sharpens the
+deployment picture: internal LOOCV systematically over-estimates
+real-world readiness, supporting the cautionary-benchmark framing of
+this paper rather than a deployment-ready claim.</p>
+<p>The T3 error anatomy in Section 4.13 clarifies why later ceiling-push
+attempts failed. The historical iter5 residuals were strongly
+anti-correlated with severity (corr = -0.699), with +9.76 mean
+over-prediction in the lowest quartile and -7.61 mean under-prediction
+in the highest quartile. The current iter47 valid-range residual audit
+is at least as compressed: residual corr = -0.7771, Q1 mean residual =
++10.02, Q4 mean residual = -9.20, WPD within-site CCC = 0.0515, and top
+post-hoc residual-feature |r| = 0.290. That shrinkage is a small-N
+bias-variance trade-off, not a hidden calibration knob: attempts to
+flatten the tails reduced Pearson signal more than they improved MAE.
+The iter41 and iter47 target audits add upstream explanations for why
+the old headline was too high; they do not create a new recoverable
+signal source. This is consistent with the empirical negatives from
+post-hoc calibration, tail-aware retraining, CCC-objective optimization,
+clinical-extras widening, AutoML, ROCKET-family features, and
+per-item/meta-stack compositions.</p>
+<h3
+id="53-historical-pre-audit-ceiling-analysis-and-subdomain-validation">5.3
+Historical Pre-Audit Ceiling Analysis and Subdomain Validation</h3>
+<p>The historical pre-audit H&amp;Y ceiling model (MAE = 6.43) provided
+an empirical upper bound for what clinical covariates combined with gait
+IMU features could achieve for total UPDRS-III prediction before the
+leakage and target-construction audits. The remaining error (~6.4
+points) was consistent with unobservable motor domains (rigidity items
+3.3–3.4, facial expression 3.2, speech 3.1, and resting/postural/kinetic
+tremor items) that together contribute 0–25+ points to the total score
+and cannot be assessed from gait IMU data. The subdomain prediction
+analysis (Section 4.8) still supports this interpretation: observable
+motor items (gait, posture, lower-limb bradykinesia) are predicted with
+substantially higher accuracy than unobservable items (rigidity, tremor,
+speech), confirming that model errors concentrate in domains that gait
+IMUs fundamentally cannot observe.</p>
+<p>We further tested a <strong>two-stage approach</strong> that first
+predicts the observable axial subtotal (MAE = 2.83, Section 4.8) and
+then maps the predicted subtotal to total UPDRS-III via a second-level
+model. This yielded MAE = 9.29 (r = 0.661) — substantially
+<em>worse</em> than direct total prediction (6.89). The failure
+demonstrates that the noise in L1 predictions (~2.8 points MAE on a 0–32
+scale) is too large for the L2 model to infer the ~70 unobservable
+UPDRS-III points reliably, confirming that direct regression on total
+UPDRS-III with diverse features remains more effective than
+decomposition strategies at this sample size.</p>
+<h3 id="54-age-confound">5.4 Age Confound</h3>
+<p>A notable feature of the WearGait-PD dataset is that HC subjects are
+significantly older than PD subjects (74.1 ± 9.2 vs. 67.0 ± 8.3 years, p
+&lt; 0.001). This is unusual — most PD datasets recruit age-matched
+controls. The consequence is that age-related gait deterioration in HC
+subjects may partially overlap with PD-related changes, potentially
+reducing the discriminative value of some gait features. Conversely, the
+inclusion of age as a covariate allows the model to partially adjust for
+this confound. The UPDRS-III scores of HC subjects (mean 7.1 ± 9.6)
+confirm that many exhibit age-related motor findings that overlap with
+mild PD severity levels, reinforcing the importance of regression
+(continuous prediction) over classification (PD/HC) for clinical
+utility.</p>
+<h3 id="55-mechanism-orthogonality-of-the-iter34-hybrid">5.5 Mechanism
+Orthogonality of the iter34 Hybrid</h3>
+<p>A council of senior reviewer roles convened immediately before the
+iter34 lockbox run to forecast its mechanism. The Architect predicted
+that two empirically-validated levers from the iter33 probe family — the
+structural lever from iter33-B (auxiliary multi-task regularization with
+the F50-validated tremor items 15 and 18) and the variance-reduction
+lever from iter33-C (decorrelated base learners) — would compose
+orthogonally rather than cannibalising each other's gain. The Skeptic
+argued the opposite: that the F50 auxiliary signal was already maximally
+extracted by the LightGBM-only iter33-B chain, leaving no head-room for
+a second lever, and that any hybrid lift would reflect a "gambler's
+fallacy" recombination of marginal effects.</p>
+<p>The empirical evidence falsified the Skeptic's prediction. iter34
+lifts CCC by +0.0147 over iter33-B (0.7366 − 0.7219), substantially
+larger than iter33-C's marginal lift of +0.0012 over iter33-B (0.7231 −
+0.7219). Because iter33-C captures the variance-only effect on a
+non-auxiliary chain (items 9–14 only), the +0.0012 figure is the
+variance-only component's headroom over the structural-only iter33-B
+baseline; the iter34 hybrid extracts roughly an order of magnitude more
+lift on top of the same structural baseline. The two effects compose
+non-trivially: the per-fold averaging across three decorrelated base
+learners (LGB, XGB-hist, ExtraTrees), each running its own
+random-ordered chain on the eight-item residual block, smooths the F68
+structural representation in directions the LightGBM-only chain cannot
+reach. The bootstrap CI vs. iter5-direct of [+0.020, +0.167] does not
+cross zero — the strongest published confidence interval on the T1 axial
+subscore in this paper.</p>
+<p>This pattern — two independent levers composing super-additively when
+each is independently validated — provides a constructive counterpoint
+to the wall of N ≈ 94 negatives documented in Section 5.8 (Deep Learning
+Comparison) and the per-item composition negative (F53). The wall is
+real for single-mechanism feature additions and for high-dimensional
+meta-stacks; it is not absolute when two pre-validated structural levers
+compose at the chain-architecture level.</p>
+<h3 id="56-limitations">5.6 Limitations</h3>
+<p>Several limitations should be noted:</p>
+<ol type="1">
+<li><p><strong>Sample size.</strong> While WearGait-PD is the largest
+available dataset with full UPDRS-III, N = 178 remains modest for
+machine learning. This likely explains why feature selection provided
+such outsized benefits and why deep learning underperformed (Section
+5.8, Table 8). The curse of dimensionality is particularly acute: our
+feature space (1,752 features) substantially exceeds the sample size,
+making aggressive selection mandatory.</p></li>
+<li><p><strong>Single-site evaluation.</strong> All data comes from one
+clinical site (Newcastle) with consistent equipment (Xsens MTw Awinda)
+and protocols. Sensor-specific calibration, attachment variability, and
+protocol differences across sites may substantially degrade performance.
+Multi-site validation is essential before clinical deployment
+claims.</p></li>
+<li><p><strong>Medication state.</strong> All PD participants were
+assessed in their typical medicated state. The ON/OFF medication
+dichotomy, which can alter UPDRS-III by 10+ points [23], was not modeled
+explicitly. A model trained on ON-state assessments may not generalize
+to OFF-state, and vice versa.</p></li>
+<li><p><strong>Cross-sectional design.</strong> We predict UPDRS-III at
+a single time point. Longitudinal prediction of disease progression
+would be clinically more valuable but requires repeated assessments not
+available in WearGait-PD.</p></li>
+<li><p><strong>Evaluation on total UPDRS-III.</strong> The total score
+includes items unobservable from gait IMUs, placing an inherent ceiling
+on accuracy (~6.4 MAE). Our subdomain analysis (Section 4.8) confirms
+this ceiling and shows that targeting gait-observable subscores yields
+substantially better prediction.</p></li>
+<li><p><strong>Demographic imbalance.</strong> The PD and HC groups
+differ in age and sex distribution, complicating interpretation of
+whether features reflect disease severity or demographic differences.
+Age-stratified analysis would strengthen claims but is constrained by
+sample size.</p></li>
+<li><p><strong>Controlled gait tasks only.</strong> Results are based on
+standardized clinical tasks, not free-living monitoring. Real-world
+deployment would require activity recognition and context
+normalization.</p></li>
+<li><p><strong>iter34 cohort and auxiliary-label/order caveats (T1
+lockbox).</strong> The iter34 hybrid and iter33-B 8-item chain are
+evaluated on N = 93 PD subjects rather than the canonical N = 94 floor
+used by iter12-honest, because one PD subject (<code>WPD002</code>)
+lacks a complete item-15 or item-18 score and is therefore dropped by
+the 8-item chain filter. Re-evaluating iter12-honest restricted to the
+matched N = 93 subset gives CCC = 0.6554, essentially unchanged from the
+canonical 0.6550 — the dropped subject is near-mean PD. A later
+valid-range audit found a separate auxiliary-label caveat:
+<code>NLS036</code> had historical auxiliary item 15 = 18 from raw 9/9
+missing codes, outside the valid item-15 total range 0–8. The primary T1
+target items 9–14 are clean, but a future valid-range auxiliary filter
+would make this chain N = 92. Because iter34's RegressorChain uses
+random target order, item 15 is upstream of T1 items in seeds 7 and
+1337; this invalid auxiliary value is therefore not structurally
+irrelevant. A bounded all-base 5-fold stale-vs-valid audit found only
+-0.0008 CCC common-SID impact, below the |0.025| materiality threshold.
+Paired-bootstrap inference is fair within the locked N = 93 cohort, but
+these cohort/auxiliary/order details are recorded explicitly; we do not
+run a post-hoc N = 92 replacement lockbox.</p></li>
+<li><p><strong>Single replication run for iter34.</strong> iter34 was
+pre-registered as a single post-publication replication target with
+<code>n = 1</code> family-wise scope. While the vs.-iter5-direct
+paired-bootstrap frac &gt; 0 = 0.9958 survives Bonferroni adjustment
+even at the conservative n = 9 sensitivity scope, the vs.-iter12-honest
+comparison (0.9714) clears only the strict 0.95 single-comparison gate.
+A second independent replication on the same cohort (additional seeds or
+a held-out external cohort such as Hssayeni MJFF, currently DUA-gated)
+would tighten this conclusion.</p></li>
+<li><p><strong>Historical walkway-distiller features are not
+fold-local.</strong> The current V2 feature cache contains
+<code>dst_*</code> pressure-walkway-distiller columns trained once on a
+historical development split. The no-<code>dst_*</code> sensitivity is
+essentially unchanged (CCC = 0.3766 vs 0.3784), but the provenance is
+not clean enough for a cache-manifest-clean deployment claim. Future
+versions should either regenerate these features with a fold-local
+distiller or remove them by default.</p></li>
+</ol>
+<h3 id="57-clinical-implications">5.7 Clinical Implications</h3>
+<p>The pre-audit headline MAE of 6.89 points on the UPDRS-III scale
+(range 0-132) was reported as approaching the minimal clinically
+important difference (MCID) thresholds of 3.25 for improvement and 4.63
+for worsening [27], representing 1.49x MCID. Post-audit (Section 5.1,
+framing note), the valid-range-corrected T3 LOOCV MAE = 7.528 (iter47
+invalid-code fix) corresponds to 1.63x MCID, farther from clinical
+utility than the pre-audit number suggested but more honestly
+characterising what the model can deliver under strict inductive
+evaluation and corrected target construction. While the cross-sectional
+T3 error remains above the worsening MCID for most subjects, three
+considerations temper this limitation:</p>
+<ol type="1">
+<li><p><strong>Within-subject precision may exceed cross-sectional
+accuracy.</strong> Cross-sectional MAE reflects inter-subject
+variability in severity-to-gait mapping. For longitudinal monitoring of
+the same individual, measurement noise dominates, and within-subject
+prediction consistency could enable detection of clinically meaningful
+changes even when absolute accuracy is moderate.</p></li>
+<li><p><strong>UPDRS-III observed range.</strong> In our cohort,
+UPDRS-III ranges from 0-59. The post-audit valid-range T3 MAE of 7.528
+represents 12.8% of this range (the pre-audit MAE of 6.89 represented
+11.7%), comparable to the inter-rater variability reported for clinical
+UPDRS-III assessments (10-20% depending on training) [2].</p></li>
+<li><p><strong>Practical use cases</strong> that tolerate moderate error
+include:</p>
+<ul>
+<li><strong>Screening and triage:</strong> Identifying patients with
+unexpectedly high or low motor scores relative to their clinical
+profile.</li>
+<li><strong>Longitudinal monitoring:</strong> Detecting clinically
+meaningful progression (&gt;4.63 points) between visits.</li>
+<li><strong>Clinical trial enrichment:</strong> Stratifying candidates
+by objective motor severity for recruitment.</li>
+</ul></li>
+</ol>
+<h3 id="58-deep-learning-comparison">5.8 Deep Learning Comparison</h3>
+<p>To assess whether deep learning could outperform handcrafted features
+at N = 178, we evaluated seven neural architectures with self-supervised
+pretraining (Table 8).</p>
+<p><strong>Table 8.</strong> Deep learning experiment results (5-seed
+ensemble, held-out test N = 36).</p>
+<table>
+<thead>
+<tr class="header">
+<th>Architecture</th>
+<th>Pretraining</th>
+<th>Pooling</th>
+<th>Ens. MAE</th>
+<th>Ens. r</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Transformer 128d/4L</td>
+<td>MAE reconstruct.</td>
+<td>MIL attn.</td>
+<td>10.85</td>
+<td>0.590</td>
+</tr>
+<tr class="even">
+<td>Transformer 128d/4L</td>
+<td>Contrastive</td>
+<td>MIL attn.</td>
+<td>11.70</td>
+<td>0.349</td>
+</tr>
+<tr class="odd">
+<td>Transformer 128d/4L</td>
+<td>None (scratch)</td>
+<td>MIL attn.</td>
+<td>10.99</td>
+<td>0.521</td>
+</tr>
+<tr class="even">
+<td>InceptionTime 3blk</td>
+<td>MAE reconstruct.</td>
+<td>MIL attn.</td>
+<td>11.87</td>
+<td>0.470</td>
+</tr>
+<tr class="odd">
+<td>InceptionTime 3blk</td>
+<td>MAE reconstruct.</td>
+<td>Ordinal</td>
+<td><strong>10.46</strong></td>
+<td>0.436</td>
+</tr>
+<tr class="even">
+<td>InceptionTime 3blk (h=24)</td>
+<td>MAE reconstruct.</td>
+<td>MIL attn.</td>
+<td>12.01</td>
+<td>0.443</td>
+</tr>
+<tr class="odd">
+<td>SensorGNN 64d</td>
+<td>MAE reconstruct.</td>
+<td>MIL attn.</td>
+<td>13.68</td>
+<td>0.454</td>
+</tr>
+<tr class="even">
+<td><strong>LGB+XGB stacking (150 features)</strong></td>
+<td>—</td>
+<td>—</td>
+<td><strong>6.89</strong></td>
+<td><strong>0.860</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The best DL result (InceptionTime with ordinal loss, MAE = 10.46)
+underperformed the stacking ensemble by 3.57 points (52% relative
+increase). Self-supervised pretraining provided no consistent benefit:
+the from-scratch Transformer matched pretrained variants, and
+contrastive pretraining degraded performance. A SensorGNN encoding
+inter-sensor spatial relationships performed worst (MAE = 13.68),
+indicating that explicit graph structure does not help at this sample
+size. These results are consistent with Donie et al. [12] and reflect
+the fundamental data efficiency advantage of engineered features at
+small sample sizes.</p>
+<h3 id="59-future-directions">5.9 Future Directions</h3>
+<ol type="1">
+<li><p><strong>Longitudinal evaluation.</strong> Within-subject change
+detection sensitivity is arguably more clinically important than
+cross-sectional accuracy for monitoring disease progression.</p></li>
+<li><p><strong>Multi-site validation.</strong> Transfer learning across
+sensor hardware and clinical protocols, with domain adaptation to handle
+site-specific calibration differences.</p></li>
+<li><p><strong>Medication-aware modeling.</strong> Explicitly modeling
+ON/OFF medication state as a latent variable or covariate [34], which
+can alter UPDRS-III by 10+ points.</p></li>
+<li><p><strong>Foundation models.</strong> Large-scale self-supervised
+pretraining would need aligned wearable IMU corpora with compatible
+tasks and labels. Current public-adjacent leads are insufficient for
+this purpose: mPower is phone-based and self-reported, Papadopoulos
+phone-call tremor is tremor-subitem-only, Harmonized Upper/Lower Limb
+Accelerometry is daily-life ActiGraph rehab summary data without
+confirmed Part III/T1 targets, Monipar/BIOCLITE are small
+consumer-smartwatch subitem datasets rather than full T1/T3 endpoints,
+Zenodo <code>14848598</code> is a derived CSF/clinical/gait-summary
+table rather than raw wearable IMU, Fay-Karmon advanced-PD smartwatch
+monitoring and the marital-dyad GeneActiv study are author-request-only
+small-N/schema-hidden rows, PADS transfers at chance cross-protocol, and
+the larger direct wearable-UPDRS routes remain access-gated or
+release-gated. TLVMC/DeFOG is now public/direct for T3 external
+validation and iter51 is complete, but its clean target-joined subset is
+lower-back/trunk DeFOG rather than a large wrist-native pretraining
+cohort, so it is external-validation evidence rather than
+foundation-model evidence. Parkinson@Home is wrist-native and
+public/direct for T3, but iter53 hard-stopped before scoring with only
+18 valid OFF PD subjects after the frozen feature-readability filter, so
+it is not a large pretraining or internal-ceiling route. Hssayeni/MJFF
+is Synapse DUA-blocked; PPMI/Verily is a newly documented
+higher-priority DUA route because it is wrist-native, longitudinal, and
+includes MDS-UPDRS Part III plus sensor data. The Personalized Parkinson
+Project / PD Virtual Motor Exam is another strong Verily-watch route but
+remains RDSRC-gated and schema-hidden. WATCH-PD is also protocol-matched
+to T3, with Apple Watch/iPhone data and APDM sensors during MDS-UPDRS
+Part III, but it requires C-Path 3DT or Steering Committee access and
+row-level schema before any scaffold. ICICLE and Mobilise-D CVS are
+lower-back longitudinal request/watch routes; Mobilise-D TVS is public
+but explicitly algorithm-validation oriented, not a clinical UPDRS-III
+regression target. The PPMI access runbook is
+<code>scripts/ppmi_verily_setup.md</code>, but no scaffold is justified
+before credentials or row-level schemas exist.</p></li>
+<li><p><strong>Free-living assessment.</strong> Our results are based on
+controlled gait tasks in a clinical setting. Extending to free-living
+IMU recordings would better capture natural motor fluctuations but
+introduces additional challenges (activity recognition,
+context-dependent normalization).</p></li>
+<li><p><strong>Sensor optimization.</strong> Our ablation (Section 4.10)
+demonstrates that wrist sensors alone retain 92% of accuracy, but
+further investigation of optimal sensor placement, orientation
+sensitivity, and consumer-grade wrist IMU transfer is needed.</p></li>
+</ol>
+<h2 id="6-conclusions">6. Conclusions</h2>
+<p>We present the first UPDRS-III regression benchmark on the
+WearGait-PD dataset under a strict inductive evaluation protocol. Two
+current audit-truth numbers anchor this benchmark, separated by target:
+the gait-observable T1 axial-plus-truncal subscore (MDS-UPDRS-III items
+9-14, range 0-24) is predicted at LOOCV CCC = 0.6550 (MAE = 1.561) on N
+= 94 PD subjects with the iter12-honest per-item composer (canonical
+floor); valid-range-corrected total UPDRS-III T3 (range 0-132) is
+predicted at LOOCV CCC = 0.3784 (MAE = 7.528) on N = 95 with the iter47
+invalid-code battery. The strongest current T1 candidate is the iter34
+hybrid at LOOCV CCC = 0.7366 (MAE = 1.731) on N = 93. All current
+numbers use single pre-registered LOOCV or audit passes, fold-local
+imputers and normalisers (no cohort-wide statistics), and
+paired-bootstrap inference; new pipelines must additionally pass a
+five-null gate before LOOCV is run. The original pre-audit
+total-UPDRS-III stacking headline of MAE = 6.89 (r = 0.860; LGB+XGB
+stacking on 150 XGBoost-importance-selected features, held-out N = 36)
+was found, in the 2026-04-28 leakage audit (F65), to depend on
+transductive components that did not survive strict inductive
+re-evaluation. The later iter5 total-UPDRS-III CCC = 0.5227 was found,
+in the 2026-05-08 iter41/iter47 target audits, to be target-contaminated
+by all-missing Part III rows converted to zero labels and by NLS036
+item-15 missing codes converted to severity. Both are retained in this
+paper only as historical audit references (Tables 1, 4; Sections 4.2,
+4.13, 5.2, 5.7). The paper is therefore framed as a cautionary
+benchmark: an honest assessment of how far gait-IMU-derived UPDRS-III
+regression can go on this dataset under proper inductive evaluation and
+target construction, including an explicit anatomy of the leakage and
+label-construction modes that previously inflated reported numbers.</p>
+<p>Pre-audit, our investigation demonstrated that feature selection
+method was the single most impactful pipeline choice at small sample
+sizes: switching from filter methods to tree-based importance selection
+accounted for 87% of the total improvement (7.97 -&gt; 6.89). The
+pre-audit ceiling model with H&amp;Y stage (MAE = 6.43) quantified the
+narrow remaining gap to the irreducible error from unobservable motor
+domains.</p>
+<p>Four additional analyses, conducted under the pre-audit pipeline and
+retained for historical comparability, strengthen the practical
+significance of these findings while requiring careful labeling. First,
+<strong>sensor ablation</strong> suggested that bilateral wrist sensors
+alone (MAE = 7.58) retained 92% of full 13-sensor accuracy and that the
+lower back sensor was redundant in the historical held-out pipeline;
+this is wearable-design context, not current deployment evidence.
+Second, <strong>subdomain prediction</strong> provided historical
+pre-audit clinical-specificity context: the observable axial composite
+(MAE = 2.61) fell within the MCID (3.25), and the current post-audit T1
+numbers (CCC = 0.6550 / 0.7366) now provide the stricter support for the
+items-9-14 axial-subscore claim. Third, <strong>PD-only LOOCV</strong>
+(pre-audit MAE = 7.22 on 98 PD rows) provides historical comparison with
+prior work, but the corrected T3 benchmark is now iter47 valid-range
+LOOCV (MAE = 7.528, CCC = 0.3784, N = 95). Fourth, <strong>deep
+learning</strong> approaches (best: InceptionTime MAE = 10.46; seven
+architectures tested) did not outperform handcrafted features at N =
+178, confirming that feature engineering remains the appropriate
+paradigm at current sample sizes. The historical walkway distillation
+idea remains biologically plausible, but the current <code>dst_*</code>
+implementation was not fold-local; the no-<code>dst_*</code> sensitivity
+leaves T3 essentially unchanged, and future privileged-distillation work
+should regenerate these features inside the fold before any deployment
+claim.</p>
+<p>For the gait-observable T1 axial-plus-truncal subscore (items 9–14),
+the iter34 hybrid pipeline — Ridge Stage 1 on a nine-feature clinical
+block plus a multi-task Stage 2 averaging three decorrelated
+<code>RegressorChain</code> base learners on the eight-item residual
+block (items 9–14 + auxiliary items 15 and 18) — achieves leave-one-out
+CCC = 0.7366 on N = 93, with paired-bootstrap frac &gt; 0 = 0.9958
+against iter5-direct (surviving Bonferroni adjustment at the
+conservative n = 9 sensitivity scope) and 0.9714 against the canonical
+iter12-honest T1 floor of 0.6550 evaluated on the same N = 93 cohort. We
+report iter34 as the strongest T1 candidate rather than as a canonical
+replacement, retaining iter12-honest 0.6550 as the canonical floor
+pending external-cohort replication and noting the documented
+auxiliary-label caveat for <code>NLS036</code> item 15 plus the
+random-chain order exposure audit. The mechanism — auxiliary multi-task
+regularization (F50-validated tremor items 15 and 18 entered as
+auxiliary chain residual targets) composed with base-learner-level
+variance reduction — provides a constructive counterpoint to the wall of
+N ≈ 94 negatives reported elsewhere in this work, demonstrating that two
+pre-validated structural levers can compose super-additively at the
+chain-architecture level even where single-mechanism feature additions
+fail.</p>
+<p>Finally, this benchmark now treats cache provenance as part of
+leakage discipline rather than bookkeeping. The current cache provenance
+audit marks four reusable cache artifacts as complete-clean
+(<code>clinical_extras.csv</code>, <code>item11_multiscale.csv</code>,
+the companion <code>item11_multiscale_recordings.csv</code>, and
+<code>harnet_subj_embeddings.csv</code> after a git-SHA backfill from
+matching script-hash evidence); all caches with missing, partial, or
+placeholder metadata remain diagnostic-only until backfilled from real
+command/script/git/data-hash evidence. Placeholder manifest fields such
+as <code>git_sha = "unknown"</code> are rejected by the shared guard. A
+dedicated <code>ablation_v3_features.csv</code> provenance audit now
+records the live V2 cache as hash-stable and git-tracked, but explicitly
+decides not to synthesize a clean manifest because the exact command,
+raw-data hash, creation timestamp, producing git SHA, and fold-scope
+fields are incomplete. A follow-up non-destructive regeneration probe
+(<code>audit_ablation_v3_regeneration.py</code>) attempted the only
+acceptable next step, writing to a separate path after monkeypatching
+<code>FEATURE_CACHE</code>; it exited
+<code>blocked_missing_regeneration_inputs</code> because the current GPU
+slave has PD raw CSVs and PD clinical data but lacks the control
+clinical file, control CSV directory, and walkway metrics needed to
+reproduce the 178-subject cache with <code>dst_*</code> columns. The
+exact Synapse recovery path is now recorded in a credential-safe
+preflight helper: control clinical <code>syn55105521</code>, control CSV
+folder <code>syn61370552</code> (680 files), and walkway metrics
+<code>syn64589881</code>; the preflight currently reports no
+token/config present and requires
+<code>--confirm-large-control-csvs</code> before any large
+control-folder download. The frozen cache SHA stayed unchanged and no
+regenerated CSV was written. Companion cache-dependency audits make that
+boundary operational: the cache-consumer guard audit confirms four
+current safe-cache consumers use <code>require_cache_manifest</code>
+while 53 model/composer scripts remain diagnostic-only when they
+reference missing or partial manifests; the transitive/runtime cache
+dependency audits scan 12 headline/reportable entrypoints and trace
+three lightweight iter12/iter34/iter47 paths, showing that the only
+diagnostic/partial cache opened at runtime is
+<code>results/ablation_v3_features.csv</code>. The latest
+missing-manifest origin audit covers 33 still-missing sidecars and
+classifies them as blocked by upstream diagnostic caches, lacking
+producer evidence, requiring human command/runtime patching, or
+requiring manual label/clinical-token review; it explicitly does not
+make any artifact headline-safe by itself. The follow-up manual cache
+backfill evidence audit
+(<code>audit_manual_cache_backfill_evidence.py</code>) checked the five
+human-patch missing-manifest candidates and left all five as
+<code>leave_missing_no_patch</code>: MOMENT, HC-SSL, and TUG-transition
+depend on a broken <code>rocket_recordings.npz</code> symlink,
+joints/stride caches depend on a missing raw CSV directory, the remote
+recovery probe found only the same broken rocket symlink plus missing
+artifacts/logs, and exact command/runtime evidence is absent. Direct
+cache-consumer guard status is therefore not enough for future
+cache-manifest-clean headline claims; either restore the full raw inputs
+and regenerate/backfill the V2 cache from real provenance or isolate
+reproduction artifacts that do not rely on it. This fail-closed rule is
+intentionally conservative: a cache may be biologically plausible and
+empirically negative, yet still not be reusable for a future inductive
+headline without concrete provenance. The Harnet cache provenance
+correction does not change the modeling conclusion: frozen HARNet
+embeddings were empirically negative.</p>
+<p>Nineteen final reproducibility and claim-labeling guards now sit
+above the modeling artifacts. A headline metric recompute audit
+(<code>audit_headline_metric_recompute.py</code>) recomputes the current
+T1/T3 headline and sensitivity values from stored per-subject prediction
+artifacts and per-seed LOSO rows, passing 9/9 checks within tolerance
+5e-4. A CCC metric integrity audit
+(<code>audit_ccc_metric_integrity.py</code>) pins reportable CCC to
+Lin's population-moment convention, checks seven headline/candidate
+vectors plus seven synthetic implementation cases, and shows that the
+sample-moment convention would move any headline by at most 0.0000028
+CCC. An OOF artifact integrity audit
+(<code>audit_oof_artifact_integrity.py</code>) verifies that selected
+lockbox <code>.oof.npy</code> arrays exactly match their JSON
+<code>per_subject.y_pred</code> vectors, passing 4/4 checks with max
+absolute difference 0.0. A pre-registration temporal integrity audit
+(<code>audit_preregistration_temporal_integrity.py</code>) checks
+selected reportable artifacts with embedded or filename timestamps and
+formula hashes where available, passing 9/9 with no hard failures while
+retaining weak-field warnings for legacy fields such as
+<code>git_sha: unknown</code>, missing result-side formula links, and
+pulled-file mtime caveats. A pre-audit claim labeling audit
+(<code>audit_pre_audit_claim_labeling.py</code>) scans
+<code>paper.md</code> and <code>CURRENT_PAPER.html</code> for the old
+pre-audit held-out/stacking/ceiling claims (<code>MAE = 6.89</code>,
+<code>r = 0.860</code>, <code>MAE = 6.43</code>, <code>r = 0.848</code>,
+and related "proper held-out" / "clinical utility" wording) and now
+passes with zero findings after Section 4.2, Section 4.7, and Section
+5.3 were explicitly labeled historical pre-audit. A historical subdomain
+claim labeling audit
+(<code>audit_historical_subdomain_claim_labeling.py</code>) separately
+guards the old sensor-ablation and subdomain-prediction claims
+(<code>MAE = 7.58</code>, <code>MAE = 2.61</code>, and related
+deployment phrasing), passing with zero findings after those sections
+and abstract references were relabeled as historical pre-audit context
+tied to current post-audit T1 and residual-audit support. A T1 candidate
+claim labeling audit (<code>audit_t1_candidate_claim_labeling.py</code>)
+scans the same active claim surfaces for iter34 / 0.7366 overclaim and
+now passes with zero findings, confirming that iter34 is locally framed
+as a strongest candidate with N=93, P2, and auxiliary-label caveats
+rather than as a canonical replacement for iter12-honest. A reportable
+artifact flag audit (<code>audit_reportable_artifact_flags.py</code>)
+adds the corresponding machine-readable guard: archived raw lockbox
+booleans are not current claim policy, and iter34's stored
+<code>is_canonical_update = true</code> is explicitly superseded by the
+strongest-candidate claim status. A per-item evidence map audit
+(<code>audit_per_item_evidence_map.py</code>) labels all 18 item-level
+CCC artifacts by current claim scope: items 9-14 are components of the
+canonical iter12 T1 floor, items 15 and 18 are supplementary iter17
+per-item wins, items 4-8/16/17 are historical iter8 lockbox context,
+items 1-3 are backfill-only, and the historical 18-item T3 sum is
+explicitly dead-route rather than a current T3 headline. A per-item OOF
+companion scope audit
+(<code>audit_per_item_oof_companion_scope.py</code>) records that the
+per-item JSONs lack row-level <code>per_subject.y_pred</code> arrays,
+checks 15 OOF-backed item rows as finite expected-length companion
+arrays, and verifies that the six current T1 item OOF companions sum
+exactly to the canonical iter12 OOF vector with max absolute difference
+0.0; its retained warning is the supplementary item-18 N=93 JSON summary
+versus 94-slot companion array. A T1 iter12 batch-integrity audit
+(<code>audit_t1_iter12_batch_integrity.py</code>) verifies the canonical
+T1 floor as a single coherent no-swap iter8-batch composite: six item
+OOF arrays, recomputed CCC = 0.6550, MAE = 1.5614, and max summed-OOF
+difference 0.0 against the stored composite OOF. A T3 iter47
+target-integrity audit
+(<code>audit_t3_iter47_target_integrity.py</code>) verifies the
+valid-range target/prediction artifact chain: minimal valid-range N =
+95, complete33 N = 88, NLS036 item-15 raw 9/9 invalid codes recoded from
+target 46 to 28, subject-CSV recomputed CCC = 0.3784 / MAE = 7.5280, and
+LOSO-row recomputed two-way CCC = 0.1498. A T3 complete33 claim labeling
+audit (<code>audit_t3_complete33_claim_labeling.py</code>) scans active
+manuscript and handoff surfaces for complete33 / 0.4281 / N = 88
+overclaim and now passes with zero findings, enforcing that complete33 N
+= 88 sensitivity-only values cannot replace the N = 95 minimal
+valid-range T3 headline. An external result claim labeling audit
+(<code>audit_external_result_claim_labeling.py</code>) scans FoG-STAR,
+COPS, TLVMC/DeFOG, PDFE, and PADS numbers across active claim surfaces
+and external zero-shot JSONs, passes with zero findings and zero
+artifact failures, and enforces that external-only numbers cannot update
+the internal T3 headline. A diagnostic T3 iter47 residual-anatomy audit
+(<code>audit_t3_iter47_residual_anatomy.py</code>) verifies that the
+corrected OOF errors remain tail-compressed rather than feature-starved
+by one obvious scalar: residual corr = -0.7771, Q1/Q4 mean residuals =
++10.02 / -9.20, WPD within-site CCC = 0.0515, and top post-hoc
+residual-feature |r| = 0.290. A T3 iter47 CCC-rescale sanity audit
+(<code>audit_t3_iter47_ccc_rescale_sanity.py</code>) records that
+OOF-level variance matching raises CCC to 0.3996 but MAE worsens by
++1.1398, and that the transform is not a fully nested meta-model. A
+current headline influence audit
+(<code>audit_current_headline_influence.py</code>) records that T3 max
+absolute leave-one CCC delta is 0.0381 and T1 iter34-minus-iter12
+matched delta stays positive under all leave-one deletions, while
+influence remains severity-tail concentrated. A T3 iter47 domain
+residual audit (<code>audit_t3_iter47_domain_residuals.py</code>)
+records that valid-range item totals reproduce the target exactly,
+residuals are dominated by true non-gait burden
+(<code>unobservable_non_gait</code> residual r = -0.8004), and
+privileged domain oracles are large but non-deployable because they
+require true Part III domain labels at prediction time. Finally, a T3
+iter47 item-level residual audit
+(<code>audit_t3_iter47_item_residuals.py</code>) records that the
+strongest residual-associated item is non-observable item 6
+pronation/supination (r = -0.571; privileged dCCC = +0.282), that
+non-observable items have higher mean |r(item,residual)| than
+gait/balance-observable items (0.371 vs 0.247), and that the best
+observable single-item oracle is only item 8 leg agility (dCCC =
++0.148). These audits do not improve the model; they make the artifact
+chain harder to accidentally overclaim.</p>
+<h2 id="data-availability">Data Availability</h2>
+<p>The WearGait-PD dataset is publicly available on Synapse
+(syn52994545). Code for the ablation study and all figure generation
+scripts are available at [repository URL].</p>
+<h2 id="references">References</h2>
+<p>[1] Dorsey ER, Sherer T, Okun MS, Bloem BR. The emerging evidence of
+the Parkinson pandemic. <em>J Parkinsons Dis</em>. 2018;8(s1):S3-S8.</p>
+<p>[2] Goetz CG, Tilley BC, Shaftman SR, et al. Movement Disorder
+Society-sponsored revision of the Unified Parkinson's Disease Rating
+Scale (MDS-UPDRS). <em>Mov Disord</em>. 2008;23(15):2129-2170.</p>
+<p>[3] Espay AJ, Bonato P, Nahab FB, et al. Technology in Parkinson's
+disease: Challenges and opportunities. <em>Mov Disord</em>.
+2016;31(9):1272-1282.</p>
+<p>[4] Mirelman A, Bonato P, Camicioli R, et al. Gait impairments in
+Parkinson's disease. <em>Lancet Neurol</em>. 2019;18(7):697-708.</p>
+<p>[5] Youssef H, et al. Can wearable sensor based measures of gait
+accurately reflect Parkinson's disease severity? A systematic review and
+meta-analysis. <em>Gait Posture</em>. 2025.</p>
+<p>[6] Sotirakis C, Brzezicki MA, Conway GE, et al. Identification of
+motor progression in Parkinson's disease using wearable sensors. <em>npj
+Parkinsons Dis</em>. 2023;9:138.</p>
+<p>[7] Del Din S, Godfrey A, Mazzà C, Lord S, Rochester L. Free-living
+monitoring of Parkinson's disease: Lessons from the field. <em>Mov
+Disord</em>. 2016;31(9):1293-1313.</p>
+<p>[8] Schlachetzki JCM, Barth J, Marxreiter F, et al. Wearable sensors
+objectively measure gait parameters in Parkinson's disease. <em>PLoS
+One</em>. 2017;12(10):e0183989.</p>
+<p>[9] Hssayeni MD, Jimenez-Shahed J, Ghoraani B. Ensemble deep model
+for continuous estimation of Unified Parkinson's Disease Rating Scale
+III. <em>BioMed Eng OnLine</em>. 2021;20:32.</p>
+<p>[10] Shuqair M, Jimenez-Shahed J, Ghoraani B. Multi-Shared-Task
+Self-Supervised CNN-LSTM for Monitoring Free-Body Movement UPDRS-III.
+<em>Bioengineering</em>. 2024;11(7):689.</p>
+<p>[11] Vabalas A, Gowen E, Poliakoff E, Casson AJ. Machine learning
+algorithm validation with a limited sample size. <em>PLoS One</em>.
+2019;14(11):e0224365.</p>
+<p>[12] Donie L, et al. Comparison of deep time series classifiers and
+handcrafted features for PD severity. 2025.</p>
+<p>[13] Tian L, et al. Ordinal scoring for motor assessment in
+Parkinson's disease. <em>IEEE Trans Neural Syst Rehabil Eng</em>.
+2025.</p>
+<p>[14] WearGait-PD dataset. <em>Sci Data</em>. 2026.</p>
+<p>[15] TRIP: A benchmark for transfer learning in IMU-based PD
+classification. <em>arXiv</em>. 2025.</p>
+<p>[16] Ma Y, et al. XGBoost-based prediction of UPDRS gait items from
+multi-site IMU data. 2025.</p>
+<p>[17] Rochester L, Galna B, Lord S, Burn D. The nature of dual-task
+interference during gait in incident Parkinson's disease.
+<em>Neuroscience</em>. 2014;265:83-94.</p>
+<p>[18] Hausdorff JM. Gait dynamics in Parkinson's disease: common and
+distinct behavior among stride length, gait variability, and
+fractal-like scaling. <em>Chaos</em>. 2009;19(2):026113.</p>
+<p>[19] Mancini M, El-Gohary M, Pearson S, et al. Continuous monitoring
+of turning in Parkinson's disease: Rehabilitation potential.
+<em>NeuroRehabilitation</em>. 2015;37(1):3-10.</p>
+<p>[20] Mellone S, Mancini M, King LA, Horak FB, Chiari L. The quality
+of turning in Parkinson's disease: a compensatory strategy to prevent
+postural instability? <em>J Neuroeng Rehabil</em>. 2016;13:39.</p>
+<p>[21] Kelly VE, Eusterbrock AJ, Shumway-Cook A. A review of dual-task
+walking deficits in people with Parkinson's disease. <em>Mov
+Disord</em>. 2012;27(1):1-11.</p>
+<p>[22] Yogev G, Giladi N, Peretz C, Springer S, Simon ES, Hausdorff JM.
+Dual tasking, gait rhythmicity, and Parkinson's disease. <em>Mov
+Disord</em>. 2005;20(9):1106-1114.</p>
+<p>[23] Skorvanek M, et al. Differences in MDS-UPDRS Scores Based on
+Hoehn and Yahr Stage and Disease Duration. <em>Mov Disord Clin
+Pract</em>. 2017;4(4):536-544.</p>
+<p>[24] Chen T, Guestrin C. XGBoost: A scalable tree boosting system.
+<em>KDD</em>. 2016:785-794.</p>
+<p>[25] Ke G, Meng Q, Finley T, et al. LightGBM: A highly efficient
+gradient boosting decision tree. <em>NeurIPS</em>. 2017:3149-3157.</p>
+<p>[26] Prokhorenkova L, Gusev G, Vorobev A, Dorogush AV, Gulin A.
+CatBoost: Unbiased boosting with categorical features. <em>NeurIPS</em>.
+2018:6639-6649.</p>
+<p>[27] Horvath K, Aschermann Z, Acs P, et al. Minimal clinically
+important difference on the Motor Examination part of MDS-UPDRS.
+<em>Parkinsonism Relat Disord</em>. 2015;21(12):1421-1426.</p>
+<p>[28] Rabano-Suarez P, et al. Digital outcomes as biomarkers of
+disease progression in early Parkinson's disease: A systematic review.
+<em>Mov Disord</em>. 2025;40(3).</p>
+<p>[29] Mirelman A, et al. Digital mobility measures as a window into
+real-world severity and progression of Parkinson's disease. <em>Mov
+Disord</em>. 2024.</p>
+<p>[30] Kubota KJ, et al. Machine learning for large-scale wearable
+sensor data in Parkinson's disease: concepts, promises, pitfalls, and
+futures. <em>Mov Disord</em>. 2016;31(9):1314-1326.</p>
+<p>[31] Rehman RZU, Rochester L, Yarnall AJ, Del Din S. Predicting the
+progression of Parkinson's disease MDS-UPDRS-III motor severity score
+from gait data using deep learning. <em>IEEE EMBC</em>.
+2021:5765-5768.</p>
+<p>[32] Parera J, et al. Machine-learning models for MDS-UPDRS III
+prediction. IS22. 2022.</p>
+<p>[33] Kluge F, et al. Digital gait biomarkers in Parkinson's disease:
+susceptibility/risk, progression, response to exercise, and prognosis.
+<em>npj Parkinsons Dis</em>. 2025;11:56.</p>
+<p>[34] Borzi L, et al. Can gait features help in differentiating
+Parkinson's disease medication states and severity levels?
+<em>Sensors</em>. 2022;22(24):9937.</p>
+<p>[35] Xu M, et al. RelCon: Relative contrastive learning for a motion
+foundation model for wearable data. <em>ICLR</em>. 2025.</p>
+<p>[36] Cawley GC, et al. Distributional bias of LOOCV in small clinical
+datasets. <em>Science Advances</em>. 2025;11(47):eadx6976.</p>
+<p>[37] Sabo A, Mehdizadeh S, et al. CARE-PD: A multi-site anonymized
+clinical dataset for Parkinson's disease gait assessment. <em>NeurIPS
+D&amp;B</em>. 2025.</p>
+<p>[38] Zhang Y, et al. Machine learning for Parkinson's disease: a
+comprehensive review of datasets, algorithms, and challenges. <em>npj
+Parkinsons Dis</em>. 2025;11:187.</p>
+<p>[39] Spathis D, et al. Wearable accelerometer foundation models for
+health via knowledge distillation. <em>arXiv:2412.11276</em>. 2025.</p>
+<p>[40] MaC-VC Consortium. Accessible assessment of motor and cognitive
+symptoms in Parkinson's disease via videoconferencing. <em>npj Digit
+Med</em>. 2026;9.</p>
+<p>[41] Lundberg SM, Lee SI. A unified approach to interpreting model
+predictions. <em>NeurIPS</em>. 2017:4765-4774.</p>
+<p>[42] Caruana R. Multitask learning. <em>Machine Learning</em>.
+1997;28(1):41-75. <a
+href="https://doi.org/10.1023/A:1007379606734">https://doi.org/10.1023/A:1007379606734</a></p>
+<hr />
+<h2 id="figures">Figures</h2>
+<ul>
+<li><strong>Figure 1.</strong> Progressive ablation study showing
+ensemble MAE and Pearson r across 13 experiments (E0–E13). Each
+experiment adds one feature engineering block while retaining all
+previous blocks.</li>
+<li><strong>Figure 2.</strong> Multi-booster sweep heatmap: MAE across 3
+boosters (XGBoost, LightGBM, CatBoost) × 4 feature counts (100, 150,
+200, 300) for (a) deployable and (b) ceiling models.</li>
+<li><strong>Figure 3.</strong> Per-seed MAE distributions across
+ablation stages, showing variance reduction with progressive feature
+engineering.</li>
+<li><strong>Figure 4.</strong> Top 15 features by importance in the best
+deployable model (LightGBM, 150 features), color-coded by feature
+engineering category.</li>
+<li><strong>Figure 5.</strong> Pipeline diagram illustrating the
+five-stage feature engineering workflow from raw IMU recordings to
+gradient boosting ensemble.</li>
+<li><strong>Figure 6.</strong> Comparison with published UPDRS-III
+regression results, normalized by cohort size and evaluation
+methodology.</li>
+<li><strong>Figure 7.</strong> Walkway distillation vs. oracle
+comparison: IMU-to-walkway proxy models outperform direct access to
+gold-standard walkway metrics.</li>
+<li><strong>Figure 8.</strong> Predicted vs. actual UPDRS-III scatter
+plot for 36 held-out test subjects, with ±MCID band, identity line, and
+bootstrapped regression CI. Points colored by PD/HC group.</li>
+<li><strong>Figure 9.</strong> Bland-Altman agreement plot showing
+predicted − actual vs. mean of predicted and actual. Bias line (+0.46),
+95% limits of agreement (−15.6 to 16.6), and ±MCID thresholds
+shown.</li>
+<li><strong>Figure 10.</strong> UPDRS-III score distribution across
+development (N=142) and test (N=36) sets, confirming stratification
+quality.</li>
+<li><strong>Figure 11.</strong> iter34 hybrid T1 LOOCV out-of-fold
+calibration plot (predicted vs. actual T1 score on N = 93 PD subjects),
+with ±MCID-equivalent band, identity line, and per-quartile mean
+residuals.</li>
+<li><strong>Figure 12.</strong> iter34 hybrid residuals stratified by
+true T1 quartile, illustrating the regression-to-the-mean shrinkage
+pattern characteristic of small-N PD severity prediction (Q1
+over-prediction, Q4 under-prediction).</li>
+<li><strong>Figure 13.</strong> Per-subject Δ between iter34 hybrid and
+iter12-honest predictions on the matched N = 93 cohort, sorted by true
+T1 score; positive bars indicate iter34 closer to truth than
+iter12-honest.</li>
+<li><strong>Figure 14.</strong> Cross-seed consistency for iter34
+(per-seed CCC = 0.7371 / 0.7365 / 0.7359, std = 0.0006), comparing seed
+dispersion against iter33-A/B/C and iter12-honest.</li>
+<li><strong>Figure 15.</strong> Historical T3 iter5 calibration plot
+(target-contaminated OOF; predicted vs. derived total UPDRS-III on N =
+98 PD rows), with points stratified by collection site.</li>
+<li><strong>Figure 16.</strong> Historical T3 iter5 residuals by derived
+UPDRS-III quartile, showing low-severity over-prediction and
+high-severity under-prediction.</li>
+<li><strong>Figure 17.</strong> Historical T3 site-stratified internal
+LOOCV CCC and leave-one-site-out transportability cliff (old 0.5227
+internal LOOCV to old 0.341 LOSO two-way); valid-range iter47 metrics
+are CCC = 0.3784 internal and 0.150 LOSO two-way.</li>
+<li><strong>Figure 18.</strong> Historical T3 split conformal coverage
+and abstention curve from the old iter5 OOF vector. Current post-audit
+conformal and abstention tables are regenerated in
+<code>results/current_conformal_abstention.html</code> and supersede the
+old interval numbers for reporting.</li>
+<li><strong>Figure 19.</strong> Historical T3 subject-level residuals
+sorted by derived UPDRS-III severity, highlighting high-leverage tail
+errors.</li>
+</ul>
+<h2 id="supplementary-material">Supplementary Material</h2>
+<ul>
+<li><strong>Table S1.</strong> Complete feature list with engineering
+category, sensor source, and importance rank.</li>
+<li><strong>Table S2.</strong> Per-seed MAE and r for all 12 × 5
+ablation configurations.</li>
+<li><strong>Table S3.</strong> Individual test subject predictions with
+actual scores, predicted scores, residuals, and group labels.</li>
+<li><strong>Figure S1.</strong> Correlation matrix of top 30 features
+showing feature block interactions.</li>
+</ul>
+</body>
+</html>

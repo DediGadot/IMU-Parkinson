@@ -1,0 +1,24 @@
+
+=== T1 iter33-C multi-base LOCKBOX LOOCV (3 seeds, N=94) ===
+    seed=42 fold 20/94  elapsed=665s
+    seed=42 fold 40/94  elapsed=1296s
+    seed=42 fold 60/94  elapsed=1928s
+    seed=42 fold 80/94  elapsed=2569s
+  seed=42: mt=0.7228 | i5=0.6698 | Δ=+0.0530 | 3299s
+    seed=1337 fold 20/94  elapsed=641s
+    seed=1337 fold 40/94  elapsed=1277s
+    seed=1337 fold 60/94  elapsed=1914s
+    seed=1337 fold 80/94  elapsed=2552s
+  seed=1337: mt=0.7225 | i5=0.6602 | Δ=+0.0623 | 3272s
+    seed=7 fold 20/94  elapsed=617s
+    seed=7 fold 40/94  elapsed=1231s
+    seed=7 fold 60/94  elapsed=1840s
+    seed=7 fold 80/94  elapsed=2451s
+  seed=7: mt=0.7236 | i5=0.6688 | Δ=+0.0547 | 3143s
+
+=== HEADLINE: CCC=0.7231, MAE=1.823 ===
+  Δ vs iter5-direct: +0.0522
+  Bootstrap vs iter5: Δ̄=+0.0536, frac>0=0.937
+  is_canonical_update = False
+Wrote /root/pd-imu/results/lockbox_t1_iter33c_multibase_20260506_085830.json
+      /root/pd-imu/results/lockbox_t1_iter33c_multibase_20260506_085830.oof.npy

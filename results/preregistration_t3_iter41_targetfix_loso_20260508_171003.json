@@ -1,0 +1,28 @@
+{
+  "experiment": "T3 iter41 corrected-target LOSO audit",
+  "parent": "run_t3_iter41_target_fix.py fixed-battery LOOCV audit",
+  "cohorts": [
+    "drop_allmissing",
+    "complete33"
+  ],
+  "stage2_policies": [
+    "stage2_current",
+    "stage2_no_cv"
+  ],
+  "stage1": "A3_tier1 = H&Y + cv_yrs + cv_sex + cv_dbs, alpha=1.0",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "directions": [
+    "NLS_to_WPD",
+    "WPD_to_NLS"
+  ],
+  "evaluation": "two-way LOSO; all 2x2 cells reported",
+  "no_selection_rule": "Transportability sensitivity after target bug discovery; no winner selection.",
+  "created_at_local": "2026-05-08T17:10:03.162214",
+  "created_at_utc": "2026-05-08T14:10:03.162223Z",
+  "git_sha": "unknown",
+  "formula_sha256": "1e6848d5c5ec34d5f2a6e13ff4f653293f247472f95a79c6d99085d49833b2fc"
+}

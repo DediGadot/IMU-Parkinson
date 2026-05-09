@@ -1,0 +1,430 @@
+{
+  "generated_at_utc": "2026-05-08T21:18:05+00:00",
+  "script": "audit_ablation_v3_cache_provenance.py",
+  "cache": {
+    "path": "results/ablation_v3_features.csv",
+    "exists": true,
+    "bytes": 6127141,
+    "mtime_utc": "2026-03-09T21:49:00+00:00",
+    "sha256": "b405d90a6a35808d556d726b58bf7d9361d26e020a79091e52c868ee98f9c2b4"
+  },
+  "producer_scripts": [
+    {
+      "path": "run_ablation_v3.py",
+      "exists": true,
+      "bytes": 36764,
+      "mtime_utc": "2026-03-09T21:39:19+00:00",
+      "sha256": "5a349664fab587e803ca5c2d26feffc5bc7318790d80acb7678ed5a981d9fd4d"
+    },
+    {
+      "path": "run_ablation_v2.py",
+      "exists": true,
+      "bytes": 42630,
+      "mtime_utc": "2026-03-08T14:26:05+00:00",
+      "sha256": "6b87041edf4ef569bda90574ad2dd4aa63baef1cae635344c0f3b66db3535704"
+    }
+  ],
+  "git_evidence": {
+    "head_sha": "b82d6a67c4e775f8e4256c83217d4d149a5f6f24",
+    "cache_tracked": true,
+    "cache_ls_files_stage": "100644 822137a66596f9e87ad625f6296fed8fff23a5e1 0\tresults/ablation_v3_features.csv",
+    "cache_history": [
+      {
+        "short": "94842a4",
+        "sha": "94842a496e5d5484e5ad1123497150c489e61ccc",
+        "date": "2026-03-23 12:45:43 +0000",
+        "subject": "first commit"
+      }
+    ],
+    "producer_script_history": [
+      {
+        "short": "e0c3eaa",
+        "sha": "e0c3eaa1b1becd6b49fe144c3473041ea27c6862",
+        "date": "2026-03-12 19:25:22 +0000",
+        "subject": "pre bias fix"
+      },
+      {
+        "short": "b565662",
+        "sha": "b565662a305b6682c6ac385bef356e5ec97aeb63",
+        "date": "2026-03-08 19:12:45 +0000",
+        "subject": "paper"
+      }
+    ],
+    "scoped_worktree_status": [],
+    "producer_script_current_sha256": {
+      "run_ablation_v3.py": "5a349664fab587e803ca5c2d26feffc5bc7318790d80acb7678ed5a981d9fd4d",
+      "run_ablation_v2.py": "6b87041edf4ef569bda90574ad2dd4aa63baef1cae635344c0f3b66db3535704"
+    }
+  },
+  "schema_evidence": {
+    "rows": 178,
+    "columns": 1877,
+    "unique_sids": 178,
+    "sid_prefix_counts": {
+      "NLS": 70,
+      "WPD": 28,
+      "other": 80
+    },
+    "label_or_clinical_columns_present": [
+      "updrs3",
+      "hy",
+      "obs_subscore"
+    ],
+    "current_v2_filter": {
+      "excluded_exact": [
+        "hy",
+        "obs_subscore",
+        "sid",
+        "updrs3"
+      ],
+      "excluded_prefixes": [
+        "nl_",
+        "sv_",
+        "pa_",
+        "fq_",
+        "hr_",
+        "ix_",
+        "ext_"
+      ],
+      "selected_columns": 1752,
+      "prefix_counts_total": {
+        "dst_": 31,
+        "cv_": 6,
+        "nl_": 30,
+        "sv_": 22,
+        "pa_": 8,
+        "fq_": 44,
+        "hr_": 2,
+        "ix_": 7,
+        "ext_": 8
+      },
+      "prefix_counts_selected": {
+        "dst_": 31,
+        "cv_": 6,
+        "nl_": 0,
+        "sv_": 0,
+        "pa_": 0,
+        "fq_": 0,
+        "hr_": 0,
+        "ix_": 0,
+        "ext_": 0
+      },
+      "dst_columns_selected": [
+        "dst_wk_absolute_step_length",
+        "dst_wk_cisp_ap",
+        "dst_wk_cisp_time",
+        "dst_wk_dop",
+        "dst_wk_ds_cop_dist",
+        "dst_wk_ds_cop_path_eff.%.1",
+        "dst_wk_foot_angle",
+        "dst_wk_gait_cycle_time",
+        "dst_wk_initial_d._support_%.1",
+        "dst_wk_integ._pressure",
+        "dst_wk_single_support_%.1",
+        "dst_wk_ss_cop_dist",
+        "dst_wk_ss_cop_dist._%.1",
+        "dst_wk_ss_cop_path_eff._%.1",
+        "dst_wk_stance_%.1",
+        "dst_wk_stance_cop_dist",
+        "dst_wk_stance_cop_dist._%.1",
+        "dst_wk_stance_cop_path_eff._%.1",
+        "dst_wk_stance_time",
+        "dst_wk_step_length",
+        "dst_wk_step_ratio",
+        "dst_wk_step_time",
+        "dst_wk_stride_length",
+        "dst_wk_stride_time",
+        "dst_wk_stride_velocity",
+        "dst_wk_stride_width",
+        "dst_wk_swing_%.1",
+        "dst_wk_swing_time",
+        "dst_wk_terminal_d._support_%.1",
+        "dst_wk_toe_in/out_angle",
+        "dst_wk_total_d._support_%.1"
+      ],
+      "cv_columns_selected": [
+        "cv_age",
+        "cv_dbs",
+        "cv_ht",
+        "cv_sex",
+        "cv_wt",
+        "cv_yrs"
+      ]
+    },
+    "updrs3_column_summary": {
+      "non_null": 178,
+      "min": 0.0,
+      "max": 59.0,
+      "mean": 16.629213483146067
+    }
+  },
+  "log_evidence": {
+    "exists": true,
+    "metadata": {
+      "path": "results/ablation_v3.log",
+      "exists": true,
+      "bytes": 8408,
+      "mtime_utc": "2026-03-09T22:30:23+00:00",
+      "sha256": "3a8beb404e1d58b73bff57268ebd4d44d31da47a2fdf032e3a20e6b4b02b1ed1"
+    },
+    "first_lines": [
+      "Loaded split: 142 dev + 36 test subjects",
+      "V3 extraction: 1417 recordings, 11 cores...",
+      "  1417 done in 160s",
+      "  Walkway loaded: 135 subjects, 31 metrics",
+      "  Distilled 31 walkway cols for 178 subjects",
+      "Cached: 178 subjects x 1875 features -> /root/pd-imu/results/ablation_v3_features.csv",
+      "",
+      "======================================================================",
+      "PHASE 0: FOUNDATION \u2014 10-split stability + K sweep",
+      "======================================================================",
+      "  split1_lgb: MAE=8.63 r=0.627 PD-MAE=8.60 (K=150)",
+      "  split1_stk: MAE=8.53 r=0.610 PD-MAE=8.41 (K=150, 2 base)"
+    ],
+    "relevant_lines": [
+      "Loaded split: 142 dev + 36 test subjects",
+      "V3 extraction: 1417 recordings, 11 cores...",
+      "  Walkway loaded: 135 subjects, 31 metrics",
+      "  Distilled 31 walkway cols for 178 subjects",
+      "Cached: 178 subjects x 1875 features -> /root/pd-imu/results/ablation_v3_features.csv",
+      "PHASE 0: FOUNDATION \u2014 10-split stability + K sweep",
+      "Loaded split: 142 dev + 36 test subjects",
+      "PHASE 1: MEGA FEATURE EXTRACTION",
+      "Loaded split: 142 dev + 36 test subjects",
+      "[cache] /root/pd-imu/results/ablation_v3_features.csv",
+      "PHASE 2: FEATURE ABLATION",
+      "Loaded split: 142 dev + 36 test subjects",
+      "PHASE 3: ARCHITECTURE ABLATION",
+      "Loaded split: 142 dev + 36 test subjects",
+      "PHASE 4: GRAND COMBINATION + VALIDATION",
+      "Loaded split: 142 dev + 36 test subjects"
+    ],
+    "contains_exact_command": false,
+    "contains_git_sha": false
+  },
+  "manifest_validation": {
+    "cache_path": "/home/fiod/medical/results/ablation_v3_features.csv",
+    "cache_exists": true,
+    "cache_sha256": "b405d90a6a35808d556d726b58bf7d9361d26e020a79091e52c868ee98f9c2b4",
+    "manifest_path": "/home/fiod/medical/results/ablation_v3_features.csv.manifest.json",
+    "manifest_exists": false,
+    "missing_required_fields": [
+      "script",
+      "git_sha",
+      "command",
+      "created_at_utc",
+      "data_sha256",
+      "labels_used",
+      "fold_scope",
+      "cohort_statistics_used",
+      "normalization_scope",
+      "leakage_status",
+      "leakage_rationale"
+    ],
+    "nullish_required_fields": [],
+    "declared_data_sha256": null,
+    "data_sha256_matches": null,
+    "labels_used": null,
+    "fold_scope": null,
+    "cohort_statistics_used": null,
+    "normalization_scope": null,
+    "leakage_status": null,
+    "status": "missing_manifest_diagnostic_only",
+    "safe_for_inductive_headline": false
+  },
+  "prior_audits": {
+    "manifest_audit_row": {
+      "artifact": "results/ablation_v3_features.csv",
+      "bytes": 6127141,
+      "sha256": "b405d90a6a35808d556d726b58bf7d9361d26e020a79091e52c868ee98f9c2b4",
+      "rows": 178,
+      "columns": 1877,
+      "manifest": null,
+      "manifest_exists": false,
+      "missing_required_fields": [
+        "script",
+        "git_sha",
+        "command",
+        "created_at_utc",
+        "data_sha256",
+        "labels_used",
+        "fold_scope",
+        "cohort_statistics_used",
+        "normalization_scope",
+        "leakage_status",
+        "leakage_rationale"
+      ],
+      "nullish_required_fields": [],
+      "labels_used": null,
+      "leakage_status": null,
+      "status": "missing_manifest_diagnostic_only"
+    },
+    "runtime_targets_opening_cache": [
+      {
+        "target": "t1_iter12_recompute",
+        "status": "ok",
+        "result": {
+          "n": 94,
+          "n_sids": 94,
+          "ccc": 0.655,
+          "mae": 1.5614
+        }
+      },
+      {
+        "target": "t1_iter34_loader",
+        "status": "ok",
+        "result": {
+          "n": 92,
+          "x_cols": 1751,
+          "stage1_cols": 9,
+          "stage1_names": [
+            "hy_0",
+            "hy_1",
+            "hy_2",
+            "hy_3",
+            "hy_4",
+            "hy_5",
+            "cv_yrs",
+            "cv_sex",
+            "cv_dbs"
+          ],
+          "available_aux": [
+            15,
+            18
+          ],
+          "t1_mean": 4.0326,
+          "item_keys": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            18
+          ]
+        }
+      },
+      {
+        "target": "t3_iter47_filter_minimal",
+        "status": "ok",
+        "result": {
+          "n": 95,
+          "x_cols": 1752,
+          "excluded_sids": [
+            "NLS188",
+            "WPD013",
+            "NLS151"
+          ],
+          "target_changed_sids": [
+            "NLS036"
+          ]
+        }
+      }
+    ],
+    "transitive_entrypoints_reaching_cache": [
+      {
+        "entrypoint": "compose_t1_iter12_honest.py",
+        "classification": "entrypoint_direct_diagnostic_cache_reference"
+      },
+      {
+        "entrypoint": "run_t1_iter34_hybrid_8item_multibase.py",
+        "classification": "import_closure_contains_diagnostic_cache_reference"
+      },
+      {
+        "entrypoint": "run_t1_iter46_et_robust.py",
+        "classification": "import_closure_contains_diagnostic_cache_reference"
+      },
+      {
+        "entrypoint": "run_t3_iter47_invalid_code_fix.py",
+        "classification": "import_closure_contains_diagnostic_cache_reference"
+      },
+      {
+        "entrypoint": "run_t3_iter41_target_fix.py",
+        "classification": "entrypoint_direct_diagnostic_cache_reference"
+      },
+      {
+        "entrypoint": "run_t3_iter5_clinical.py",
+        "classification": "entrypoint_direct_diagnostic_cache_reference"
+      },
+      {
+        "entrypoint": "run_t3_iter16_site_ipw.py",
+        "classification": "entrypoint_direct_diagnostic_cache_reference"
+      },
+      {
+        "entrypoint": "compose_t1_iter14_fog.py",
+        "classification": "import_closure_contains_diagnostic_cache_reference"
+      },
+      {
+        "entrypoint": "compose_t1_iter15_harnet.py",
+        "classification": "import_closure_contains_diagnostic_cache_reference"
+      },
+      {
+        "entrypoint": "run_t3_iter23_clinical_ablation.py",
+        "classification": "import_closure_contains_diagnostic_cache_reference"
+      },
+      {
+        "entrypoint": "run_t3_iter24_stage2_forced.py",
+        "classification": "import_closure_contains_diagnostic_cache_reference"
+      },
+      {
+        "entrypoint": "run_t3_iter49_cops.py",
+        "classification": "entrypoint_direct_diagnostic_cache_reference"
+      }
+    ],
+    "dst_walkway_distillation_summary": {
+      "audit": "results/dst_walkway_leakage_audit_20260508_multiseed.json",
+      "dst_columns_selected": 31,
+      "current_metrics": {
+        "n": 95,
+        "ccc": 0.3784,
+        "cal_slope": 0.2692,
+        "mae": 7.528,
+        "r": 0.4141,
+        "pred_mean": 24.815,
+        "pred_std": 6.446,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "stage2_current_mean"
+      },
+      "no_dst_metrics": {
+        "n": 95,
+        "ccc": 0.3766,
+        "cal_slope": 0.2708,
+        "mae": 7.5795,
+        "r": 0.41,
+        "pred_mean": 24.585,
+        "pred_std": 6.547,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "stage2_no_dst_mean"
+      },
+      "no_dst_minus_current": {
+        "n_boot": 5000,
+        "mean_delta": -0.00042923548816437636,
+        "ci95": [
+          -0.04792128652462331,
+          0.05232472713798538
+        ],
+        "frac_gt_0": 0.4796
+      },
+      "verdict": "dst_* columns are included by current V2 filters and were generated by a once-trained historical dev-split walkway distiller, so they are not fold-local for LOOCV. The no-dst rows are the leakage/provenance sensitivity for corrected T3; use the measured deltas, not this audit, as a new tuned model claim."
+    }
+  },
+  "regeneration_status": {
+    "attempted_by_this_script": false,
+    "rationale": "This audit records existing evidence only. Exact regeneration is not inferred from narrative logs; a future regeneration should write a complete manifest at cache creation time."
+  },
+  "decision": {
+    "decision": "do_not_synthesize_clean_manifest",
+    "manifest_backfill_status": "blocked_without_exact_command_runtime_git_datahash_evidence",
+    "safe_for_cache_manifest_clean_headline": false,
+    "acceptable_current_use": "Historical/current reports may cite pipelines that read this cache only with explicit provenance caveats and, for T3, the no-dst sensitivity. Future cache-manifest-clean headlines need a real regeneration/backfill or narrower reproduction artifacts.",
+    "reasons": [
+      "No ablation_v3_features.csv.manifest.json sidecar exists.",
+      "The available ablation_v3.log records split sizes, extraction, distillation, and cache path, but not an exact command, creation timestamp, raw-data hash, producing git SHA, or manifest schema fields.",
+      "The cache contains compatibility target/clinical columns and the current V2 feature filter selects six cv_* columns; this is disclosed but not a clean label-free feature-cache sidecar.",
+      "The cache also contains 31 selected dst_* pressure-walkway-distiller columns from a once-trained historical dev-split model; the no-dst sensitivity is non-material, but the distiller is not LOOCV fold-local."
+    ]
+  }
+}

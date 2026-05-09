@@ -1,0 +1,75 @@
+{
+  "timestamp": "20260506_060552",
+  "iso_datetime": "2026-05-06T06:05:52.683827",
+  "experiment": "T1 iter33-C diverse-base-learner chain ensemble LOCKBOX",
+  "git_head": "unknown",
+  "formula_sha256": "42a5789891377fc3ac5924196e22116b615ebc8e9c18d3bf4da6b95c1def84f1",
+  "formula": {
+    "experiment": "T1 iter33-C \u2014 diverse-base-learner chain ensemble {LGB, XGB-hist, ExtraTrees}",
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects": 94,
+      "filter": "PD with full items 9-14"
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "T1 (sum items 9-14)"
+    },
+    "stage2": {
+      "model_ensemble": [
+        "RegressorChain(LGBMRegressor random_state=seed, 500 trees, lr=0.05)",
+        "RegressorChain(XGBRegressor hist, 500 trees, lr=0.05, depth=4, min_child_weight=5)",
+        "RegressorChain(ExtraTreesRegressor 300 trees, max_depth=10, min_samples_leaf=5)"
+      ],
+      "ensemble_method": "average chain-output across bases per fold per seed",
+      "items_targets": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "item_target_centering": "subtract per-fold train_mean(item)",
+      "feature_select_method": "lgb_importance_top_k_per_fold",
+      "feature_select_k": 500,
+      "imputation": "fold_local_median",
+      "post_combine_formula": "Stage1_pred + (sum(item_pred + train_mean) - sum(train_mean))",
+      "decorrelation_argument": "F66 NULL: within-LGB chain-order avg has frac>0=0.318 (highly correlated). Different base learners (gradient boosting / hist boosting / random splits) produce decorrelated trees by construction \u2192 real variance reduction."
+    },
+    "eval": {
+      "loocv_n": 94,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "bases": [
+        "lgb",
+        "xgb",
+        "et"
+      ],
+      "fold_construction_5fold": "KFold(shuffle=True, random_state=seed)",
+      "headline_metric": "CCC of mean-of-seed predictions vs y_t1",
+      "comparator_iter5_direct_loocv": "computed live in same SID-aligned LOOCV"
+    },
+    "lockbox_rules": [
+      "ONE pre-registered config. ONE LOOCV run.",
+      "Headline = CCC of mean-of-3-seed preds (each seed averages 3 base learners).",
+      "Pass-canonical: paired-bootstrap (n=5000) vs iter5-direct frac>0 \u2265 0.95 AND headline > 0.6550."
+    ]
+  },
+  "n_subjects": 94,
+  "variant": "V1_random_multibase",
+  "eval_protocol": "LOOCV (n=94) on T1 cohort. Stage-1 Ridge on H&Y + cv_yrs + cv_sex + cv_dbs. Stage-2 RegressorChain V1_random with 3 base learners {LGB, XGB-hist, ExtraTrees}; chain-output OOFs averaged per fold. 3-seed mean preds = headline."
+}

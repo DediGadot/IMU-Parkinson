@@ -1,0 +1,61 @@
+
+=== T1 SLOT C LOCKBOX LOOCV (3 seeds, item9=hy_residual_item_v2, item12=item_plus_v2, bases=('lgb', 'xgb', 'et'), n_workers=11) ===
+  cohort: T1-only N=94 | with-aux N=93 (aux items used: [15, 18])
+  cohort N=93, item_order=[9, 10, 11, 12, 13, 14, 15, 18]
+    iter34-chain seed=42 20/93  elapsed=85s
+    iter34-chain seed=42 40/93  elapsed=168s
+    iter34-chain seed=42 60/93  elapsed=250s
+    iter34-chain seed=42 80/93  elapsed=329s
+    iter34-chain seed=42 93/93  elapsed=358s
+  item 9 phase-locked features matched 92/93 subjects (11 cols)
+    item 9 seed=42 25/93  elapsed=12s
+    item 9 seed=42 50/93  elapsed=19s
+    item 9 seed=42 75/93  elapsed=28s
+    item 9 seed=42 93/93  elapsed=33s
+  item 12 phase-locked features matched 92/93 subjects (12 cols)
+    item 12 seed=42 25/93  elapsed=11s
+    item 12 seed=42 50/93  elapsed=19s
+    item 12 seed=42 75/93  elapsed=28s
+    item 12 seed=42 93/93  elapsed=32s
+  seed=42: SLOT-C T1=0.7202 | iter34-repl T1=0.7394 | Δ=-0.0193 | 422s
+    iter34-chain seed=1337 20/93  elapsed=85s
+    iter34-chain seed=1337 40/93  elapsed=170s
+    iter34-chain seed=1337 60/93  elapsed=253s
+    iter34-chain seed=1337 80/93  elapsed=332s
+    iter34-chain seed=1337 93/93  elapsed=361s
+  item 9 phase-locked features matched 92/93 subjects (11 cols)
+    item 9 seed=1337 25/93  elapsed=12s
+    item 9 seed=1337 50/93  elapsed=20s
+    item 9 seed=1337 75/93  elapsed=28s
+    item 9 seed=1337 93/93  elapsed=34s
+  item 12 phase-locked features matched 92/93 subjects (12 cols)
+    item 12 seed=1337 25/93  elapsed=12s
+    item 12 seed=1337 50/93  elapsed=20s
+    item 12 seed=1337 75/93  elapsed=28s
+    item 12 seed=1337 93/93  elapsed=33s
+  seed=1337: SLOT-C T1=0.7129 | iter34-repl T1=0.7398 | Δ=-0.0269 | 429s
+    iter34-chain seed=7 20/93  elapsed=86s
+    iter34-chain seed=7 40/93  elapsed=168s
+    iter34-chain seed=7 60/93  elapsed=250s
+    iter34-chain seed=7 80/93  elapsed=329s
+    iter34-chain seed=7 93/93  elapsed=358s
+  item 9 phase-locked features matched 92/93 subjects (11 cols)
+    item 9 seed=7 25/93  elapsed=12s
+    item 9 seed=7 50/93  elapsed=20s
+    item 9 seed=7 75/93  elapsed=28s
+    item 9 seed=7 93/93  elapsed=33s
+  item 12 phase-locked features matched 92/93 subjects (12 cols)
+    item 12 seed=7 25/93  elapsed=12s
+    item 12 seed=7 50/93  elapsed=20s
+    item 12 seed=7 75/93  elapsed=28s
+    item 12 seed=7 93/93  elapsed=33s
+  seed=7: SLOT-C T1=0.7132 | iter34-repl T1=0.7394 | Δ=-0.0261 | 424s
+
+=== HEADLINE: CCC=0.7160, MAE=1.906, r=0.7278 ===
+  iter34 replication CCC = 0.7396
+  Δ vs iter34 replication = -0.0236
+  vs iter34 canonical: ccc_i34=0.7366, Δ̄=-0.0209, frac>0=0.013
+  VERDICT: UNKNOWN (comparator missing)
+  total wall = 1275s (21.3 min)
+Wrote /home/fiod/pd-imu/results/lockbox_t1_ceiling_push_slotC_20260508_093025.json
+      /home/fiod/pd-imu/results/lockbox_t1_ceiling_push_slotC_20260508_093025.oof.npy

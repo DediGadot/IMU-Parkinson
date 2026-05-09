@@ -1,0 +1,302 @@
+{
+  "generated_at_utc": "2026-05-09T07:12:55+00:00",
+  "script": "audit_ccc_metric_integrity.py",
+  "git_sha": "b82d6a6",
+  "policy": "Reportable CCC uses Lin's population-moment concordance formula: 2*cov_pop(y,p)/(var_pop(y)+var_pop(p)+(mean(y)-mean(p))^2). Sample-moment CCC is recorded only as a convention sensitivity.",
+  "external_formula_sources": [
+    {
+      "name": "Lin CCC formula overview",
+      "url": "https://www.medcalc.org/en/manual/concordance.php"
+    },
+    {
+      "name": "Population-vs-sample convention note",
+      "url": "https://en.wikipedia.org/wiki/Concordance_correlation_coefficient"
+    }
+  ],
+  "formula_tolerance": 1e-12,
+  "claim_tolerance": 0.0005,
+  "passed": true,
+  "hard_failures": [],
+  "warnings": [
+    {
+      "id": "degenerate_n2_policy_returns_zero",
+      "message": "Shared helpers intentionally return 0.0 for fewer than three finite pairs; headline vectors are unaffected.",
+      "values": {
+        "population_reference": 0.923076923077,
+        "sample_convention": 0.0,
+        "inductive_lib.ccc": 0.0,
+        "eval_utils.lins_ccc": 0.0
+      }
+    }
+  ],
+  "max_abs_sample_minus_population_headline": 2.7023203458265144e-06,
+  "implementation_checks": [
+    {
+      "id": "identity",
+      "requires_exact_current_impl_match": true,
+      "values": {
+        "population_reference": 1.0,
+        "sample_convention": 1.0,
+        "inductive_lib.ccc": 1.0,
+        "eval_utils.lins_ccc": 1.0
+      },
+      "max_abs_diff_current_impls_vs_reference": 0.0,
+      "passed": true,
+      "note": "Finite non-degenerate formula check."
+    },
+    {
+      "id": "shifted",
+      "requires_exact_current_impl_match": true,
+      "values": {
+        "population_reference": 0.714285714286,
+        "sample_convention": 0.769230769231,
+        "inductive_lib.ccc": 0.714285714286,
+        "eval_utils.lins_ccc": 0.714285714286
+      },
+      "max_abs_diff_current_impls_vs_reference": 0.0,
+      "passed": true,
+      "note": "Finite non-degenerate formula check."
+    },
+    {
+      "id": "scaled",
+      "requires_exact_current_impl_match": true,
+      "values": {
+        "population_reference": 0.588235294118,
+        "sample_convention": 0.629921259843,
+        "inductive_lib.ccc": 0.588235294118,
+        "eval_utils.lins_ccc": 0.588235294118
+      },
+      "max_abs_diff_current_impls_vs_reference": 0.0,
+      "passed": true,
+      "note": "Finite non-degenerate formula check."
+    },
+    {
+      "id": "anti_correlated",
+      "requires_exact_current_impl_match": true,
+      "values": {
+        "population_reference": -1.0,
+        "sample_convention": -1.0,
+        "inductive_lib.ccc": -1.0,
+        "eval_utils.lins_ccc": -1.0
+      },
+      "max_abs_diff_current_impls_vs_reference": 0.0,
+      "passed": true,
+      "note": "Finite non-degenerate formula check."
+    },
+    {
+      "id": "constant_prediction",
+      "requires_exact_current_impl_match": true,
+      "values": {
+        "population_reference": 0.0,
+        "sample_convention": 0.0,
+        "inductive_lib.ccc": 0.0,
+        "eval_utils.lins_ccc": 0.0
+      },
+      "max_abs_diff_current_impls_vs_reference": 0.0,
+      "passed": true,
+      "note": "Finite non-degenerate formula check."
+    },
+    {
+      "id": "n2_nonconstant",
+      "requires_exact_current_impl_match": false,
+      "values": {
+        "population_reference": 0.923076923077,
+        "sample_convention": 0.0,
+        "inductive_lib.ccc": 0.0,
+        "eval_utils.lins_ccc": 0.0
+      },
+      "max_abs_diff_current_impls_vs_reference": 0.9230769230769231,
+      "passed": true,
+      "note": "Non-finite/degenerate edge case is recorded as divergence rather than a hard failure."
+    },
+    {
+      "id": "nan_inf_masked",
+      "requires_exact_current_impl_match": false,
+      "values": {
+        "population_reference": 0.990712074303,
+        "sample_convention": 0.990712074303,
+        "inductive_lib.ccc": 0.990712074303,
+        "eval_utils.lins_ccc": 0.990712074303
+      },
+      "max_abs_diff_current_impls_vs_reference": 0.0,
+      "passed": true,
+      "note": "Non-finite/degenerate edge case is recorded as divergence rather than a hard failure."
+    }
+  ],
+  "headline_checks": [
+    {
+      "id": "t1_iter12_honest_floor",
+      "path": "results/t1_iter12_honest_composite.json",
+      "claim_scope": "canonical T1 floor",
+      "n": 94,
+      "unique_sids": 94,
+      "finite_pairs": 94,
+      "claimed_ccc": 0.655,
+      "full_metrics_ccc": 0.655,
+      "population_reference_ccc_unrounded": 0.6549835213947802,
+      "inductive_lib_ccc_unrounded": 0.6549835213947802,
+      "eval_utils_ccc_unrounded": 0.6549835213947802,
+      "sample_convention_ccc_unrounded": 0.6549839194368399,
+      "sample_minus_population": 3.980420596461087e-07,
+      "sample_minus_population_abs": 3.980420596461087e-07,
+      "sample_convention_rounded4": 0.655,
+      "population_rounded4": 0.655,
+      "sample_changes_rounded4": false,
+      "formula_passed": true,
+      "claim_passed": true,
+      "n_passed": true,
+      "unique_sids_passed": true,
+      "passed": true
+    },
+    {
+      "id": "t1_iter34_hybrid_candidate",
+      "path": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "claim_scope": "strongest caveated T1 candidate, not canonical replacement",
+      "n": 93,
+      "unique_sids": 93,
+      "finite_pairs": 93,
+      "claimed_ccc": 0.7366,
+      "full_metrics_ccc": 0.7366,
+      "population_reference_ccc_unrounded": 0.7365943676137859,
+      "inductive_lib_ccc_unrounded": 0.7365943676137859,
+      "eval_utils_ccc_unrounded": 0.7365943676137859,
+      "sample_convention_ccc_unrounded": 0.7365945136816415,
+      "sample_minus_population": 1.4606785558868296e-07,
+      "sample_minus_population_abs": 1.4606785558868296e-07,
+      "sample_convention_rounded4": 0.7366,
+      "population_rounded4": 0.7366,
+      "sample_changes_rounded4": false,
+      "formula_passed": true,
+      "claim_passed": true,
+      "n_passed": true,
+      "unique_sids_passed": true,
+      "passed": true
+    },
+    {
+      "id": "t1_iter46_etrobust_diagnostic",
+      "path": "results/lockbox_t1_iter46_etrobust_20260508_162825.json",
+      "claim_scope": "diagnostic negative stop branch",
+      "n": 93,
+      "unique_sids": 93,
+      "finite_pairs": 93,
+      "claimed_ccc": 0.7269,
+      "full_metrics_ccc": 0.7269,
+      "population_reference_ccc_unrounded": 0.7268856939060494,
+      "inductive_lib_ccc_unrounded": 0.7268856939060494,
+      "eval_utils_ccc_unrounded": 0.7268856939060494,
+      "sample_convention_ccc_unrounded": 0.7268868837409738,
+      "sample_minus_population": 1.189834924364419e-06,
+      "sample_minus_population_abs": 1.189834924364419e-06,
+      "sample_convention_rounded4": 0.7269,
+      "population_rounded4": 0.7269,
+      "sample_changes_rounded4": false,
+      "formula_passed": true,
+      "claim_passed": true,
+      "n_passed": true,
+      "unique_sids_passed": true,
+      "passed": true
+    },
+    {
+      "id": "t3_iter47_validrange_current",
+      "path": "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+      "claim_scope": "current corrected valid-range T3 internal headline",
+      "cohort": "drop_allmissing_validrange",
+      "stage2_policy": "stage2_current",
+      "n": 95,
+      "unique_sids": 95,
+      "finite_pairs": 95,
+      "claimed_ccc": 0.3784,
+      "full_metrics_ccc": 0.3784,
+      "population_reference_ccc_unrounded": 0.3783671177953899,
+      "inductive_lib_ccc_unrounded": 0.3783671177953899,
+      "eval_utils_ccc_unrounded": 0.3783671177953899,
+      "sample_convention_ccc_unrounded": 0.37836809676987504,
+      "sample_minus_population": 9.789744851440574e-07,
+      "sample_minus_population_abs": 9.789744851440574e-07,
+      "sample_convention_rounded4": 0.3784,
+      "population_rounded4": 0.3784,
+      "sample_changes_rounded4": false,
+      "formula_passed": true,
+      "claim_passed": true,
+      "n_passed": true,
+      "unique_sids_passed": true,
+      "passed": true
+    },
+    {
+      "id": "t3_iter47_validrange_no_cv_sensitivity",
+      "path": "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+      "claim_scope": "corrected T3 no-cv sensitivity",
+      "cohort": "drop_allmissing_validrange",
+      "stage2_policy": "stage2_no_cv",
+      "n": 95,
+      "unique_sids": 95,
+      "finite_pairs": 95,
+      "claimed_ccc": 0.3771,
+      "full_metrics_ccc": 0.3771,
+      "population_reference_ccc_unrounded": 0.37708496765212285,
+      "inductive_lib_ccc_unrounded": 0.37708496765212285,
+      "eval_utils_ccc_unrounded": 0.37708496765212285,
+      "sample_convention_ccc_unrounded": 0.37708620359026623,
+      "sample_minus_population": 1.2359381433846295e-06,
+      "sample_minus_population_abs": 1.2359381433846295e-06,
+      "sample_convention_rounded4": 0.3771,
+      "population_rounded4": 0.3771,
+      "sample_changes_rounded4": false,
+      "formula_passed": true,
+      "claim_passed": true,
+      "n_passed": true,
+      "unique_sids_passed": true,
+      "passed": true
+    },
+    {
+      "id": "t3_iter47_complete33_current_sensitivity",
+      "path": "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+      "claim_scope": "corrected T3 complete33 sensitivity, not headline",
+      "cohort": "complete33_validrange",
+      "stage2_policy": "stage2_current",
+      "n": 88,
+      "unique_sids": 88,
+      "finite_pairs": 88,
+      "claimed_ccc": 0.4281,
+      "full_metrics_ccc": 0.4281,
+      "population_reference_ccc_unrounded": 0.4281288119497497,
+      "inductive_lib_ccc_unrounded": 0.4281288119497497,
+      "eval_utils_ccc_unrounded": 0.4281288119497497,
+      "sample_convention_ccc_unrounded": 0.4281291687275588,
+      "sample_minus_population": 3.567778090740603e-07,
+      "sample_minus_population_abs": 3.567778090740603e-07,
+      "sample_convention_rounded4": 0.4281,
+      "population_rounded4": 0.4281,
+      "sample_changes_rounded4": false,
+      "formula_passed": true,
+      "claim_passed": true,
+      "n_passed": true,
+      "unique_sids_passed": true,
+      "passed": true
+    },
+    {
+      "id": "t3_iter5_historical_target_contaminated",
+      "path": "results/lockbox_t3_iter5_A3_tier1_20260502_171604.json",
+      "claim_scope": "historical target-contaminated artifact only",
+      "n": 98,
+      "unique_sids": 98,
+      "finite_pairs": 98,
+      "claimed_ccc": 0.5227,
+      "full_metrics_ccc": 0.5227,
+      "population_reference_ccc_unrounded": 0.5227196905523989,
+      "inductive_lib_ccc_unrounded": 0.5227196905523989,
+      "eval_utils_ccc_unrounded": 0.5227196905523989,
+      "sample_convention_ccc_unrounded": 0.5227223928727447,
+      "sample_minus_population": 2.7023203458265144e-06,
+      "sample_minus_population_abs": 2.7023203458265144e-06,
+      "sample_convention_rounded4": 0.5227,
+      "population_rounded4": 0.5227,
+      "sample_changes_rounded4": false,
+      "formula_passed": true,
+      "claim_passed": true,
+      "n_passed": true,
+      "unique_sids_passed": true,
+      "passed": true
+    }
+  ]
+}

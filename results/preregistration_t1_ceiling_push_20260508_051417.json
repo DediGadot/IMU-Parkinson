@@ -1,0 +1,172 @@
+{
+  "experiment": "T1 Glass-Ceiling Push (3-Iteration Mode)",
+  "iso_datetime_utc": "2026-05-08T05:14:17Z",
+  "git_head": "b82d6a67c4e775f8e4256c83217d4d149a5f6f24",
+  "session_authorization": {
+    "user_authorized_autonomous_chained_execution": true,
+    "user_authorization_memory": "feedback_t1_ceiling_push_autonomous_2026_05_08.md",
+    "scope": "this session only; does NOT waive leakage discipline (5-null gate, formula_sha256 prereg, 5-fold screen before LOOCV all mandatory)"
+  },
+  "objective": "Honest +ΔCCC over iter34 hybrid (LOOCV CCC=0.7366 on N=93) under FWER-adjusted gate, OR cleanly close the T1 ceiling story.",
+  "family_wise_correction": {
+    "n": 4,
+    "members": [
+      {
+        "id": "iter34_baseline",
+        "ccc_loocv": 0.7366,
+        "n": 93,
+        "lockbox": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+        "preregistration": "results/preregistration_t1_iter34_hybrid_20260506_135932.json"
+      },
+      {"id": "slotA", "status": "FAIL_SCREEN", "name": "ordinal_cumulative_link_chain", "mechanism_axis": 1, "screen_delta_vs_iter34_5fold": -0.0903, "screen_outcome": "5-fold screen failed promotion gate; LOOCV not run; F35-A wall data point", "lockbox": null, "screen_results": "results/slotA_screen_20260508_083620.json", "preregistration": "results/preregistration_t1_ceiling_push_slotA_20260508_082640.json", "formula_sha256": "c32cbe1aea73a24712c15b2ef504681be27838f1a4e00923f3a897c3e7e0c9c2"},
+      {"id": "slotB", "status": "SKIPPED_PRE_EXECUTION", "name": "bayesian_2factor_LKJ_pooling", "mechanism_axis": "2+3", "skip_reason": "Tri-CLI consult (codex+gemini) converged on SKIP. Load-bearing architectural critique: per-subject latent z_s in R^2 vanishes for held-out LOOCV subjects (E[z_s|X_s]=0 from prior; inferring from item residuals leaks target). Adding encoder z_s=g(X_s) collapses to reduced-rank regression which RegressorChain already extracts. N=93 with K=500 cannot support joint Bayesian inference. Mechanism is structurally redundant with iter34, not orthogonal. Skipping pre-execution preserves FWER credibility budget.", "consult_artifacts": "/tmp/pd_imu_consult/codex_20260508T053900.txt + gemini_20260508T053900.txt"},
+      {"id": "slotC", "status": "FAIL_LOCKBOX", "name": "phaselocked_item9_item12_slot_replacement", "mechanism_axis": 5, "screen_outcome": "5-fold screen PASS — item 9 hy_residual_item_v2 +0.382 ± 0.025; item 12 item_plus_v2 +0.543 ± 0.038", "lockbox": "results/lockbox_t1_ceiling_push_slotC_20260508_093025.json", "preregistration": "results/preregistration_t1_ceiling_push_slotC_20260508_090855.json", "formula_sha256": "fe6cf103135f7a14503d034e5b066a466487e5484ef06dc5242b31080f87c1d9", "loocv_ccc": 0.7160, "delta_vs_iter34": -0.0209, "frac_above_zero_vs_iter34": 0.013, "frac_above_zero_vs_iter12_honest_n93": 0.907, "verdict": "FAIL — composite Δ̄ vs iter34 = −0.0209, frac>0 vs iter34 = 0.013 (catastrophic); even vs iter12-honest-N=93 frac>0 = 0.907 < 0.95 loose gate. Per-item gains real (item 9 +0.42, item 12 +0.43) but do NOT aggregate to T1-sum gain because iter34 chain extracts equivalent or better cross-task signal. F35-C wall data point.", "data_acquired_at": "2026-05-08T09:30Z (793 CSVs, 16.92 GB at remote ~/pd-imu/data/raw/weargait-pd/)"},
+      {"id": "slotD", "status": "SKIPPED_PRE_EXECUTION", "name": "orthogonal_architecture_no_per_subject_latent", "mechanism_axis": "4 (alternative aggregation/expert architecture)", "skip_reason": "6-of-6 tri-CLI convergence on SKIP across 2 parallel runs (codex+gemini+kimi × 2). All viable candidates collapse: anatomical mixture-of-experts → stacked-meta blender (F58 ban); NUTS-without-per-subject-latent → isomorphic to iter34 + inner-CV-tuned K (F66/F67 wall); learned DAG chain → reparameterization of F70 RegressorChain (no orthogonal information). No viable 4th candidate orthogonal to slot A's loss-family axis, slot B's per-subject-latent axis, AND the F53/F56/F58 blending wall.", "preregistration": "results/preregistration_t1_ceiling_push_slotD_20260508_062534.json", "formula_sha256": "2e9173d55b50da08248ead10007d2f344d74e30e913a0e9884f5ff9226dfb514", "audit_artifacts": "results/slotD_skip_audit_20260508.json (6 consultant responses + rank/P(gate)/load-bearing critiques)", "verdict": "SKIPPED — F35-D 12th wall data point closes architecturally-orthogonal-without-per-subject-latent angle"},
+      {"id": "probeA_iter36", "status": "FAIL_POST_HOC", "name": "post_stage2_site_additive_intercept", "mechanism_axis": "post-Stage-2 calibration (1 DOF per-site offset)", "verdict": "FAIL — Δ vs iter34 = −0.0105, paired-bootstrap frac>0 = 0.065. WPD signed-residual was real but NON-UNIFORM (concentrated in ~6 high-leverage subjects); flat per-site offset HURT low-severity WPD. Dominant residual is F61 regression-to-mean (Q1 over-prediction signed −1.034). F36-A 13th wall data point — closes site-additive-bias angle.", "report": "results/probeA_site_intercept_report_20260508_080502.json", "formula_sha256": "426ea5831b3039fc12b5ad598e5d5d8965f4824e440f699e724e218c72f3a3d3"},
+      {"id": "probeD_iter36", "status": "FAIL_SCREEN_AND_P5_SANITY", "name": "chainpool_phaselocked_injection", "mechanism_axis": "5 augmented (chain-pool injection, not replacement)", "verdict": "5-fold screen FAIL — Δ̄ vs iter34 5-fold = +0.0076 across 3 seeds (per-seed: −0.006 / +0.018 / +0.011); paired-bootstrap vs iter34 frac>0 = 0.9252 (just below 0.95 nominal). Master P5 sanity (single seed=42): Δ_real_vs_v2 = −0.006 (probeD HURTS at seed=42); Δ_shuf_vs_v2 = +0.003 (shuf ≈ baseline, P5 PASS). Combined: the +0.008 mean is within seed-variance noise at N=92. Iter34's K=500 selector either ignores PL or picks noisy combinations. F36-D wall data point — chain-pool injection at this N produces no robust lift over iter34 V2-only baseline.", "preregistration": "results/preregistration_t1_probeD_chainpool_20260508_110847.json", "formula_sha256": "169d280f8a00546918a9e592b59ab756e17a39ff2ad95454cca42ec30dd6ce11", "screen_results": "results/probeD_chainpool_screen_20260508_111105.json", "p5_sanity_master": "results/probeD_p5_sanity_master_20260508.json", "audit_remote_status": "stalled at 40 min (ProcessPoolExecutor deadlock on 1774-col augmented X), killed cleanly; master P5 substituted for headline-level audit"}
+    ],
+    "method": "Bonferroni",
+    "per_slot_strict_gate_frac_above_zero": 0.9875,
+    "loose_gate_frac_above_zero": 0.95,
+    "comparators_per_slot": [
+      "iter12_honest_on_N=93 (CCC=0.6554, the canonical floor)",
+      "iter34_on_N=93 (CCC=0.7366, the strongest current candidate)"
+    ],
+    "supersession_claim_requires": "frac>0 >= 0.9875 vs iter34 paired-bootstrap on same N=93 OOFs"
+  },
+  "cohort": {
+    "N": 93,
+    "filter": "PD with full items 9, 10, 11, 12, 13, 14, 15, 18",
+    "drop_pattern": "matches iter33-B/iter34 (1 subject excluded for missing item 15 or 18)",
+    "split": "results/paper3_split.json (seed=20260309)",
+    "target_T1": "sum(items 9-14)",
+    "target_definition_source": "results/per_item_scores.json (items 1-18 are MDS-UPDRS Part III items 3.1-3.18)",
+    "items_summed_for_T1": [9, 10, 11, 12, 13, 14],
+    "auxiliary_chain_items": [15, 18]
+  },
+  "evaluation": {
+    "loocv_n_min": 90,
+    "seeds": [42, 1337, 7],
+    "n_seeds": 3,
+    "headline_metric": "CCC of mean-of-3-seed predictions vs y_t1",
+    "promotion_to_loocv_requires": [
+      "5-fold screen Δ̄ vs iter34 >= +0.025 across 3 seeds",
+      "scrambled-label P1 z>3 strong PASS",
+      "P2 noisy-test-X within 0.05 of Stage1-only (slot A is expected to PASS P2 strictly, unlike iter34's borderline)"
+    ],
+    "five_null_gate": ["P0_baseline","P1_perm_z","P2_noisy_test_x","P3_stage1_only","P4_pure_noise","P5_arch_specific_ablation"],
+    "lockbox_rules": [
+      "ONE pre-registered config per slot. ONE LOOCV run per slot. NO seed shopping.",
+      "Pre-reg formula_sha256 frozen BEFORE LOOCV starts.",
+      "Headline = CCC of mean-of-3-seed preds.",
+      "Verdict per slot reported as PASS / FAIL / CANDIDATE based on FWER strict gate."
+    ]
+  },
+  "stopping_rules": {
+    "hard_cap_slots": 3,
+    "soft_pass_and_stop": {
+      "trigger": "slot A frac>0 >= 0.99 against BOTH iter12-honest AND iter34 baselines",
+      "action": "skip slots B, C; proceed to closing memo"
+    },
+    "fwer_trap": "loose pass on any single slot surrounded by failures must be reported as candidate, not canonical (see iter11A inflation lesson F47)",
+    "slot_C_blocker": "If raw 22-channel WearGait-PD data not on remote (currently confirmed missing), slot C is hard-blocked. Do NOT initiate Synapse re-download (16+ GB, requires user authorization)."
+  },
+  "slots": {
+    "A": {
+      "id": "slotA",
+      "name": "ordinal_cumulative_link_chain",
+      "mechanism_axis": 1,
+      "hypothesis": "Items 9-14 are ordinal (0-4). iter34's MSE Stage-2 throws away rank-distance information. A proper cumulative-link logit (ordinal) loss on each item residual, summed via the same 8-item chain × 3-base ensemble structure as iter34, recovers rank info that translates to >= +0.025 LOOCV ΔCCC vs iter34.",
+      "stage1": "Ridge alpha=1.0 on H&Y + cv_yrs + cv_sex + cv_dbs (9 features, fold-local standardisation; same as iter34/iter5)",
+      "stage2_architecture": {
+        "chain_items": [9, 10, 11, 12, 13, 14, 15, 18],
+        "t1_sum_items": [9, 10, 11, 12, 13, 14],
+        "auxiliary_items": [15, 18],
+        "chain_order": "random(seed)",
+        "ordinal_bases_3": [
+          "mord.LogisticAT (linear all-threshold ordinal regression, sklearn-compatible) — analog of ExtraTrees in iter34",
+          "LightGBM 4-binary-decomposition: train 4 LGB binary classifiers for P(item_i >= k), k in {1,2,3,4}; isotonic-monotone projection across k; E[item_i] = sum_k P(item_i >= k) — analog of LGB in iter34",
+          "NGBoost with k_categorical_logit ordered link (gradient-boosted ordinal probabilistic regression) — analog of XGB in iter34"
+        ],
+        "ensemble_method": "average of expected-score predictions across 3 bases per fold per seed",
+        "feature_selection": "K=500 LGB-importance per fold (computed once on V2, shared across 3 bases)",
+        "imputation": "fold_local_median",
+        "item_target_centering": "subtract per-fold train_mean(item)",
+        "cut_point_strategy": "fold-local; pool across items 15+18 if item-specific cut-point unestimable (e.g., item 11 has sparse positive-class). Bayesian prior on cut-points: weakly informative N(0,1) centered at empirical fold quantiles."
+      },
+      "kill_signature": "if per-item Pearson residuals on items 11 (sparse positive class) and 13 (truncated 0-2 distribution) do NOT tighten vs iter34's per-item residuals, the ordinal lift didn't materialize at the items where it should matter most — slot dead.",
+      "wall_check_orthogonality": "Axis 1 (different loss family) is mechanistically distinct from F65/F68/F70's chain-and-ensemble axes. F-iter17 'per-item ordinal + temperature' was POST-HOC affine recalibration, NOT in-chain cumulative-link likelihood. NGBoost was tried in T3 mission but as point regression, not as ordinal classification. mord has not been used in this codebase.",
+      "compute_budget": {
+        "screen_5fold_3seeds": "~25 min wall on n_workers=11",
+        "loocv_3seeds": "~3-4 hours wall on n_workers=11",
+        "remote_resources": "CPU only (no GPU lock)"
+      },
+      "preregistration_script": "run_t1_ceiling_push_slotA.py",
+      "formula_sha256": "PENDING_AT_SCRIPT_FREEZE",
+      "expected_delta_loocv_vs_iter34": "+0.005 to +0.040 (consult priors will refine)",
+      "p_value_passing_strict_gate": "estimated 0.25-0.40 a priori (rank-info lift competing with N=93 detectability noise)"
+    },
+    "B": {
+      "id": "slotB",
+      "name": "bayesian_2factor_LKJ_pooling",
+      "mechanism_axis": "2+3",
+      "hypothesis": "The 6-item residual matrix is rank-2 (PC1 ~ 70% on items 9, 10, 12; PC2 ~ 12% on items 14 + 13). iter34's RegressorChain learns this empirically. An explicit 2-factor latent severity model with LKJ correlation prior on residuals + horseshoe sparsity on per-item feature loadings extracts the same structure with much stronger N=93 regularization.",
+      "stage1": "same as slot A",
+      "stage2_architecture": {
+        "model": "numpyro factor analysis with 2 latent factors per subject, LKJ(eta=2) prior on residual covariance, horseshoe prior on per-item feature loadings, K=50 LGB-importance features per fold",
+        "inference": "NUTS 1500 warmup + 1000 samples × 4 chains; SVI fallback if wall > 90 min/fold",
+        "gpu": "RTX 4060 8 GB VRAM — caps batch via chain_method='vectorized' size",
+        "predict": "posterior mean E[item | X] per subject"
+      },
+      "kill_signature": "if posterior factor loadings do NOT separate items 9/10/12 (PC1) from 14/13 (PC2), the rank-2 prior wasn't doing the work — ordinary multi-task dressed in Bayesian.",
+      "wall_check_orthogonality": "F58 falsified k=1 and k=2 META-STACK mixers (Ridge/OLS on top of OOF predictions). Slot B is a JOINT factor model, not a meta-stack — different inductive bias entirely. Not on dead list.",
+      "compute_budget": {
+        "screen_5fold_3seeds": "~30-60 min wall (NUTS small) or 5-10 min (SVI)",
+        "loocv_3seeds": "~3-6 h wall (NUTS) or 30-60 min (SVI)",
+        "remote_resources": "GPU lock REQUIRED (RTX 4060 8 GB)"
+      },
+      "preregistration_script": "run_t1_ceiling_push_slotB.py (DEFER until slot A complete; slow-think Sub-Phase 1 + tri-CLI Sub-Phase 2 mandatory before script write)",
+      "formula_sha256": "PENDING_AFTER_SLOT_A",
+      "expected_delta_loocv_vs_iter34": "+0.005 to +0.040",
+      "p_value_passing_strict_gate": "estimated 0.20-0.35 a priori"
+    },
+    "C": {
+      "id": "slotC",
+      "name": "phaselocked_item9_item12_slot_replacement",
+      "mechanism_axis": 5,
+      "hypothesis": "Items 9 (chair-rise) and 12 (pull-test postural-stability) are TUG-phase-locked transients. iter34's K=500 LGB selector on V2 absorbs phase-segmented signal because the chain shares one feature pool across items. F50-style hypothesis-restricted item slots (small focused feature set per item) bypass K=500 absorption. Replacing iter34's per-item-9 + per-item-12 OOFs with these slot OOFs, summed for T1, gives +0.025 vs iter34.",
+      "stage1": "for items 9 and 12: Ridge on H&Y + cv_yrs + cv_sex + cv_dbs (per-item, possibly hy_residual_item_v2 architecture)",
+      "stage2_architecture": {
+        "feature_extraction": "cache_phaselocked_item9.csv (TUG sit-to-stand impulse + thigh angular velocity peak) + cache_phaselocked_item12.csv (TUG turn / postural recovery, gated to TUG phase 5)",
+        "per_item_models": "F50-style item_only and hy_residual_item_v2 variants screened, winner per item lockboxed",
+        "t1_composition": "iter34 chain OOF for items {10, 11, 13, 14, 15, 18} + slot OOF for items {9, 12}; sum items 9-14 for T1"
+      },
+      "kill_signature": "if items 9 OR 12 do NOT lift >= +0.04 LOOCV vs iter34's per-item OOF (extracted from lockbox_t1_iter34_hybrid_20260506_141720.json y_pred decomposition), the phase-locked features didn't help.",
+      "wall_check_orthogonality": "F50 mechanism re-applied to items not yet attempted (iter17 covered 4, 6, 15, 16, 17, 18 — items 9 and 12 untouched in hypothesis-restricted slot architecture). Phase-locked features for item 9 in iter4 TUG-microscope were GLOBAL (all items shared), not per-item-slot.",
+      "compute_budget": {
+        "raw_data_required": "data/raw/weargait-pd/ on remote (currently MISSING, ~16 GB Synapse re-download)",
+        "feature_extraction_wall": "~30-60 min if data present",
+        "screen+lockbox_wall": "~1-2 h"
+      },
+      "blocker": "Raw 22-channel WearGait-PD data NOT on new server. Will not initiate 16+ GB Synapse re-download autonomously per skill rule. Slot C deferred to closing memo if blocker holds.",
+      "preregistration_script": "run_t1_ceiling_push_slotC.py (DEFER until raw data confirmed available)",
+      "formula_sha256": "PENDING",
+      "expected_delta_loocv_vs_iter34": "+0.010 to +0.050 if data available, else BLOCKED"
+    }
+  },
+  "diversity_audit": {
+    "axes_covered": [1, "2+3", 5],
+    "skill_constraint_check": "Top-3 must span >= 3 distinct mechanisms (skill SKILL.md). Slot A=loss family, slot B=Bayesian latent prior, slot C=feature engineering at item slot — three distinct mechanisms. PASS.",
+    "no_more_than_two_share_a_dependency": "slot A = V2 cache + LGB/XGB-style; slot B = V2 cache + numpyro; slot C = raw data + per-item slot. No 2 slots share the same architectural dependency. PASS."
+  },
+  "comparator_oof_paths": {
+    "iter34_y_pred_y_true": "results/lockbox_t1_iter34_hybrid_20260506_141720.json (per_subject block contains 93-element y_true and y_pred arrays for paired bootstrap)",
+    "iter12_honest_oof": "must compute on N=93 cohort for paired-bootstrap; OOF.npy not on master, will reconstruct from compose_t1_iter12_honest.py if needed"
+  },
+  "audit_trail": {
+    "draft_presented_to_user_at": "2026-05-07T21:38Z (in-conversation)",
+    "user_signed_off_at": "2026-05-08T05:30Z (authorization message: \"continue with your plan while maximizing utilization on it, without asking me\")",
+    "first_lockbox_run_at": "PENDING_SLOT_A",
+    "frozen_at": "PENDING_AT_FIRST_RUN"
+  }
+}

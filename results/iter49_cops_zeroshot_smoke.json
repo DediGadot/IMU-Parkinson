@@ -1,0 +1,39 @@
+{
+  "created_at_utc": "2026-05-08T17:59:02+00:00",
+  "script": "run_t3_iter49_cops.py",
+  "mode": "run_smoke",
+  "preregistration_formula_sha256": "0bc80ef0b6bd9c40da6a7a1282ce9f8898273c6e2dc01e7987ea2ecaa4715b15",
+  "features_csv": "results/iter49_cops_features_smoke.csv",
+  "rows_csv": "/home/fiod/pd-imu/results/iter49_cops_zeroshot_rows_smoke.csv",
+  "n_weargait_train": 95,
+  "n_cops_rows_total": 1,
+  "n_cops_off_labeled": 1,
+  "n_common_magnitude_features": 60,
+  "weargait_tasks": [
+    "TUG",
+    "SelfPace",
+    "HurriedPace"
+  ],
+  "feature_policy": {
+    "native_fs_hz": 100,
+    "feature_fs_hz": 20,
+    "downsample_stride": 5,
+    "window_seconds": 30,
+    "weargait_sensor": "R_Wrist_Acc_X/Y/Z",
+    "cops_sensor": "GENEActiv X/Y/Z converted from g to m/s^2",
+    "axis_policy": "magnitude_only_frame_invariant"
+  },
+  "scale_checks": {
+    "weargait_mag_feature_source": "raw R_Wrist_Acc magnitude",
+    "cops_right_raw_mag_mean_mps2_mean": 9.853815601693164,
+    "cops_left_raw_mag_mean_mps2_mean": 9.762408808114865,
+    "cops_right_hours_used_mean": 2.0,
+    "cops_left_hours_used_mean": 2.0
+  },
+  "metrics": {
+    "off_primary": {},
+    "on_sensitivity": {},
+    "off_on_mean_sensitivity": {}
+  },
+  "decision": "external_zero_shot_only_no_internal_t3_canonical_change"
+}

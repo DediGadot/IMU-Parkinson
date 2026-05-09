@@ -1,0 +1,119 @@
+{
+  "checks": {
+    "clinical_linkage_inventory": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "mds-updrs part iii",
+        "mds-updrs part ii",
+        "items 9-14",
+        "hoehn & yahr",
+        "medication state"
+      ]
+    },
+    "methodology_guardrails": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "read-only schema probe",
+        "zero-shot external validation",
+        "subject-level splits",
+        "pre-registration",
+        "formula_sha256",
+        "valid-range",
+        "manifest sidecars"
+      ]
+    },
+    "no_premature_compute_boundary": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "not be presented as an internal weargait-pd canonical",
+        "no ppmi label peeking",
+        "no endpoint switching"
+      ]
+    },
+    "official_sources": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "ppmi-info.org/access-data-specimens/download-data",
+        "ppmi data access guidelines",
+        "nature.com/articles/s41531-025-01034-8"
+      ]
+    },
+    "purpose_and_no_sharing": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "will not be shared beyond investigators named",
+        "only be used for the purpose described",
+        "not attempt participant re-identification"
+      ]
+    },
+    "required_packet_fields": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "principal investigator",
+        "intended use",
+        "analysis synopsis",
+        "named research team",
+        "data custodian"
+      ]
+    },
+    "security_plan": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "encrypted",
+        "access-controlled",
+        "do not commit credentials",
+        "consumer cloud"
+      ]
+    },
+    "specific_data_inventory": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "raw triaxial accelerometer",
+        "sampling frequency",
+        "wrist laterality",
+        "axis frame",
+        "wearable collection intervals"
+      ]
+    },
+    "tier3_submission": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "verily raw device data",
+        "tier 3",
+        "resources@michaeljfox.org"
+      ]
+    }
+  },
+  "created_at_utc": "2026-05-09T11:53:20.147286+00:00",
+  "decision": "ppmi_verily_tier3_request_packet_ready",
+  "goal_complete": false,
+  "hard_failures": [],
+  "missing": [],
+  "not_a_model_result": true,
+  "official_requirements_encoded": {
+    "standard_access": "qualified-researcher registration, Data Use Agreement, online application, and Publications Policy acknowledgement",
+    "tier3_packet_fields": [
+      "specific requested Tier-3 data",
+      "intended use",
+      "brief synopsis of proposed analyses",
+      "names of all requesting research-team members",
+      "re-acknowledgement of no-sharing and purpose limits"
+    ],
+    "tier3_verily": "Verily Raw Device Data is Tier 3 and needs a specific request packet"
+  },
+  "packet": "scripts/ppmi_verily_tier3_request_packet.md",
+  "packet_exists": true,
+  "passed": true,
+  "runbook": "scripts/ppmi_verily_setup.md",
+  "runbook_exists": true,
+  "runbook_mentions_packet": true
+}

@@ -1,0 +1,19 @@
+{
+  "script": "run_t3_iter52_pdfe_turning.py",
+  "created_at_utc": "2026-05-09T06:20:24+00:00",
+  "command": "run_t3_iter52_pdfe_turning.py --mode extract",
+  "data_sha256": "de5f1e222682be647143c6b986f4b64069d93cd1003d5f4d22ae7e4e21485d5b",
+  "labels_used": "Session 1 UPDRS-III only for external scoring and Track C sanity",
+  "fold_scope": "External zero-shot Tracks A/B train on WearGait only; Track C uses PDFE LOOCV.",
+  "cohort_statistics_used": "PDFE feature aggregation per subject/trial; no target-derived statistics.",
+  "normalization_scope": "WearGait train-only for Tracks A/B; PDFE fold-train-only for Track C.",
+  "leakage_status": "external_dataset_feature_cache_not_for_internal_headline",
+  "leakage_rationale": "External labels never enter WearGait training for zero-shot tracks.",
+  "n_rows": 35,
+  "n_subjects": 35,
+  "target_summary": {
+    "mean": 31.82857142857143,
+    "min": 9.0,
+    "max": 78.0
+  }
+}

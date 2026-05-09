@@ -1,0 +1,545 @@
+{
+  "script": "audit_t3_iter47_residual_anatomy.py",
+  "created_at_utc": "2026-05-09T03:06:25+00:00",
+  "scope": "diagnostic_only_no_model_selection",
+  "inputs": {
+    "predictions": "/home/fiod/medical/results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+    "features": "/home/fiod/medical/results/ablation_v3_features.csv",
+    "target_integrity_audit": "/home/fiod/medical/results/t3_iter47_target_integrity_audit_20260508.json"
+  },
+  "cohort": {
+    "name": "drop_allmissing_validrange",
+    "stage2_policy": "stage2_current",
+    "n": 95,
+    "sites": {
+      "NLS": 68,
+      "WPD": 27
+    },
+    "target_changed_sids": [
+      "NLS036"
+    ]
+  },
+  "overall_metrics": {
+    "n": 95,
+    "ccc": 0.3783671177953899,
+    "mae": 7.528022830280761,
+    "r": 0.4140570278396842,
+    "cal_slope_pred_on_true": 0.26924232265178977,
+    "mean_error_pred_minus_true": -0.185412419612919,
+    "prediction_sd": 6.446170478634331,
+    "target_sd": 9.913308439190537,
+    "residual_corr_with_true": -0.7770738735166363,
+    "residual_corr_with_pred": 0.25116760252743836
+  },
+  "severity_quartile_summary": [
+    {
+      "group": "Q1_low",
+      "n": 26,
+      "mean_y": 13.384615384615385,
+      "mean_pred": 23.408891311799433,
+      "mean_residual_pred_minus_true": 10.024275927184046,
+      "mae": 10.318850530073593,
+      "ccc": 0.013558379377399121,
+      "r": 0.05810485543942431
+    },
+    {
+      "group": "Q2",
+      "n": 26,
+      "mean_y": 22.46153846153846,
+      "mean_pred": 21.944841036317744,
+      "mean_residual_pred_minus_true": -0.5166974252207157,
+      "mae": 4.597604768712322,
+      "ccc": -0.1995638886913158,
+      "r": -0.2554293792150994
+    },
+    {
+      "group": "Q3",
+      "n": 19,
+      "mean_y": 27.736842105263158,
+      "mean_pred": 25.418497605239008,
+      "mean_residual_pred_minus_true": -2.3183445000241503,
+      "mae": 3.906659665561464,
+      "ccc": 0.1296469576637329,
+      "r": 0.2609908291202885
+    },
+    {
+      "group": "Q4_high",
+      "n": 24,
+      "mean_y": 38.166666666666664,
+      "mean_pred": 28.968221857757708,
+      "mean_residual_pred_minus_true": -9.198444808908958,
+      "mae": 10.546158227607103,
+      "ccc": 0.25515877882845395,
+      "r": 0.48002207480186426
+    }
+  ],
+  "site_summary": [
+    {
+      "group": "NLS",
+      "n": 68,
+      "mean_y": 26.058823529411764,
+      "mean_pred": 25.634343712465743,
+      "mean_residual_pred_minus_true": -0.42447981694602466,
+      "mae": 8.001835114550506,
+      "ccc": 0.406754506394133,
+      "r": 0.45304867500663687
+    },
+    {
+      "group": "WPD",
+      "n": 27,
+      "mean_y": 22.333333333333332,
+      "mean_pred": 22.750016581077862,
+      "mean_residual_pred_minus_true": 0.4166832477445321,
+      "mae": 6.334717818045839,
+      "ccc": 0.05146167615096947,
+      "r": 0.0531030131827848
+    }
+  ],
+  "site_by_quartile_mean_residual": {
+    "Q1_low": {
+      "NLS": 10.4543,
+      "WPD": 8.857
+    },
+    "Q2": {
+      "NLS": -0.1444,
+      "WPD": -1.1124
+    },
+    "Q3": {
+      "NLS": -1.3618,
+      "WPD": -3.3811
+    },
+    "Q4_high": {
+      "NLS": -9.1986,
+      "WPD": -9.1942
+    }
+  },
+  "clinical_covariate_correlations": [
+    {
+      "variable": "hy",
+      "corr_with_residual": 0.06992144755922675,
+      "corr_with_target": 0.3634167276381388,
+      "corr_with_prediction": 0.660004382237419
+    },
+    {
+      "variable": "cv_yrs",
+      "corr_with_residual": -0.018316583033931164,
+      "corr_with_target": 0.2669114433699867,
+      "corr_with_prediction": 0.383983046390566
+    },
+    {
+      "variable": "cv_sex",
+      "corr_with_residual": 0.03388153662677101,
+      "corr_with_target": 0.20893878542433586,
+      "corr_with_prediction": 0.3703180514170942
+    },
+    {
+      "variable": "cv_dbs",
+      "corr_with_residual": -0.03820050055569023,
+      "corr_with_target": 0.1636044644078783,
+      "corr_with_prediction": 0.19635527240496695
+    },
+    {
+      "variable": "cv_age",
+      "corr_with_residual": -0.035836095170113914,
+      "corr_with_target": 0.12542681699958352,
+      "corr_with_prediction": 0.14106279093207721
+    },
+    {
+      "variable": "obs_subscore",
+      "corr_with_residual": -0.5114915059965108,
+      "corr_with_target": 0.7644950969223904,
+      "corr_with_prediction": 0.43596825724978455
+    },
+    {
+      "variable": "raw_part3_missing_validrange",
+      "corr_with_residual": -0.025387309940915228,
+      "corr_with_target": 0.01918276020766831,
+      "corr_with_prediction": -0.007214688216492801
+    },
+    {
+      "variable": "target_delta_original_minus_validrange",
+      "corr_with_residual": 0.053315267437239924,
+      "corr_with_target": 0.031213229748241793,
+      "corr_with_prediction": 0.12510604151133026
+    }
+  ],
+  "global_diagnostic_feature_correlations": [
+    {
+      "feature": "fq_R_Wris_dw5",
+      "corr_with_residual": -0.28994771858567786,
+      "abs_corr_with_residual": 0.28994771858567786,
+      "corr_with_target": 0.34025589096828474,
+      "corr_with_prediction": 0.1039440017896262,
+      "nonmissing": 95
+    },
+    {
+      "feature": "R_Wrist_ax_dom",
+      "corr_with_residual": -0.2803217090464867,
+      "abs_corr_with_residual": 0.2803217090464867,
+      "corr_with_target": 0.32410817395747965,
+      "corr_with_prediction": 0.09303219263626979,
+      "nonmissing": 95
+    },
+    {
+      "feature": "R_LatShank_am_trem_r",
+      "corr_with_residual": -0.27513752384499846,
+      "abs_corr_with_residual": 0.27513752384499846,
+      "corr_with_target": 0.29564112408624404,
+      "corr_with_prediction": 0.05675121313866855,
+      "nonmissing": 95
+    },
+    {
+      "feature": "Forehead_ay_se",
+      "corr_with_residual": -0.26543413147323125,
+      "abs_corr_with_residual": 0.26543413147323125,
+      "corr_with_target": 0.41305376472055005,
+      "corr_with_prediction": 0.25134846117783893,
+      "nonmissing": 95
+    },
+    {
+      "feature": "Forehead_ay_trem_r",
+      "corr_with_residual": -0.261867942803806,
+      "abs_corr_with_residual": 0.261867942803806,
+      "corr_with_target": 0.42281060817247046,
+      "corr_with_prediction": 0.2715105382762657,
+      "nonmissing": 95
+    },
+    {
+      "feature": "d_tug_R_Wrist_ax_jerk",
+      "corr_with_residual": 0.2616565877770176,
+      "abs_corr_with_residual": 0.2616565877770176,
+      "corr_with_target": -0.2601485744116995,
+      "corr_with_prediction": -0.021664746524480655,
+      "nonmissing": 95
+    },
+    {
+      "feature": "L_Wrist_ro_kurt",
+      "corr_with_residual": 0.25424211943100994,
+      "abs_corr_with_residual": 0.25424211943100994,
+      "corr_with_target": -0.24664962833706025,
+      "corr_with_prediction": -0.011628048944333624,
+      "nonmissing": 95
+    },
+    {
+      "feature": "Forehead_ay_loco_r",
+      "corr_with_residual": 0.25004731162774535,
+      "abs_corr_with_residual": 0.25004731162774535,
+      "corr_with_target": -0.2631204488920724,
+      "corr_with_prediction": -0.04302439166458625,
+      "nonmissing": 95
+    },
+    {
+      "feature": "L_Wrist_ay_trem_r",
+      "corr_with_residual": -0.24764648350405796,
+      "abs_corr_with_residual": 0.24764648350405796,
+      "corr_with_target": 0.42816162275777686,
+      "corr_with_prediction": 0.30030670347184246,
+      "nonmissing": 95
+    },
+    {
+      "feature": "L_Wrist_am_loco_r",
+      "corr_with_residual": 0.24387306866243236,
+      "abs_corr_with_residual": 0.24387306866243236,
+      "corr_with_target": -0.432945420064478,
+      "corr_with_prediction": -0.3131206214624924,
+      "nonmissing": 95
+    },
+    {
+      "feature": "r_hp_LowerBack_g_cadence",
+      "corr_with_residual": 0.24322173441579065,
+      "abs_corr_with_residual": 0.24322173441579065,
+      "corr_with_target": -0.170427083592985,
+      "corr_with_prediction": 0.08965389763239845,
+      "nonmissing": 95
+    },
+    {
+      "feature": "d_tg_R_Wrist_ax_jerk",
+      "corr_with_residual": 0.2401794641731809,
+      "abs_corr_with_residual": 0.2401794641731809,
+      "corr_with_target": -0.26008446403556373,
+      "corr_with_prediction": -0.052626337993983335,
+      "nonmissing": 95
+    },
+    {
+      "feature": "fq_L_Wris_t46",
+      "corr_with_residual": -0.23744038111196827,
+      "abs_corr_with_residual": 0.23744038111196827,
+      "corr_with_target": 0.24559385383006377,
+      "corr_with_prediction": 0.03430306444947853,
+      "nonmissing": 95
+    },
+    {
+      "feature": "L_LatShank_am_loco_r",
+      "corr_with_residual": 0.23487300012680015,
+      "abs_corr_with_residual": 0.23487300012680015,
+      "corr_with_target": -0.29490094786783816,
+      "corr_with_prediction": -0.11384342006152173,
+      "nonmissing": 95
+    },
+    {
+      "feature": "d_tug_R_Wrist_ay_rms",
+      "corr_with_residual": 0.23372703653184246,
+      "abs_corr_with_residual": 0.23372703653184246,
+      "corr_with_target": -0.13627702454440008,
+      "corr_with_prediction": 0.1284406932069962,
+      "nonmissing": 95
+    },
+    {
+      "feature": "L_Wrist_ro_skew",
+      "corr_with_residual": -0.22971451232719753,
+      "abs_corr_with_residual": 0.22971451232719753,
+      "corr_with_target": 0.22721147329521754,
+      "corr_with_prediction": 0.017206674666886454,
+      "nonmissing": 95
+    },
+    {
+      "feature": "fq_R_Wris_sef90",
+      "corr_with_residual": -0.22930740381846298,
+      "abs_corr_with_residual": 0.22930740381846298,
+      "corr_with_target": 0.2168517500052934,
+      "corr_with_prediction": 0.0018636291928701152,
+      "nonmissing": 95
+    },
+    {
+      "feature": "Forehead_ro_jerk",
+      "corr_with_residual": 0.22914581678276327,
+      "abs_corr_with_residual": 0.22914581678276327,
+      "corr_with_target": -0.1502570375258462,
+      "corr_with_prediction": 0.10031603571281643,
+      "nonmissing": 95
+    },
+    {
+      "feature": "d_tg_LowerBack_ro_rms",
+      "corr_with_residual": 0.22847663260420228,
+      "abs_corr_with_residual": 0.22847663260420228,
+      "corr_with_target": -0.15067132831343233,
+      "corr_with_prediction": 0.09871114127157599,
+      "nonmissing": 95
+    },
+    {
+      "feature": "dv_Forehead_pi_rms_cv",
+      "corr_with_residual": 0.2283454712969533,
+      "abs_corr_with_residual": 0.2283454712969533,
+      "corr_with_target": -0.13804196022643875,
+      "corr_with_prediction": 0.11794365737508467,
+      "nonmissing": 95
+    },
+    {
+      "feature": "r_tg_LowerBack_pi_jerk",
+      "corr_with_residual": 0.22399273935440256,
+      "abs_corr_with_residual": 0.22399273935440256,
+      "corr_with_target": -0.14489175166296986,
+      "corr_with_prediction": 0.10111472189436968,
+      "nonmissing": 95
+    },
+    {
+      "feature": "LowerBack_ay_high_r",
+      "corr_with_residual": -0.22176015651074135,
+      "abs_corr_with_residual": 0.22176015651074135,
+      "corr_with_target": 0.3578687009068504,
+      "corr_with_prediction": 0.22964279061872728,
+      "nonmissing": 95
+    },
+    {
+      "feature": "Forehead_gm_kurt",
+      "corr_with_residual": 0.2206630307044333,
+      "abs_corr_with_residual": 0.2206630307044333,
+      "corr_with_target": -0.14437453026591004,
+      "corr_with_prediction": 0.09709471634423314,
+      "nonmissing": 95
+    },
+    {
+      "feature": "Xiphoid_ya_kurt",
+      "corr_with_residual": 0.22014374586764165,
+      "abs_corr_with_residual": 0.22014374586764165,
+      "corr_with_target": -0.2650827930942248,
+      "corr_with_prediction": -0.08928869492612886,
+      "nonmissing": 95
+    },
+    {
+      "feature": "Forehead_am_kurt",
+      "corr_with_residual": -0.21873751804605637,
+      "abs_corr_with_residual": 0.21873751804605637,
+      "corr_with_target": 0.32746727012195015,
+      "corr_with_prediction": 0.1872609781965144,
+      "nonmissing": 95
+    }
+  ],
+  "high_error_subjects": [
+    {
+      "sid": "NLS201",
+      "site": "NLS",
+      "y_true": 59.0,
+      "y_pred": 35.45064740393632,
+      "residual_pred_minus_true": -23.549352596063677,
+      "abs_error": 23.549352596063677,
+      "severity_quartile": "Q4_high",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "NLS141",
+      "site": "NLS",
+      "y_true": 17.0,
+      "y_pred": 40.04302013701203,
+      "residual_pred_minus_true": 23.04302013701203,
+      "abs_error": 23.04302013701203,
+      "severity_quartile": "Q1_low",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "NLS121",
+      "site": "NLS",
+      "y_true": 11.0,
+      "y_pred": 31.057053740683063,
+      "residual_pred_minus_true": 20.057053740683063,
+      "abs_error": 20.057053740683063,
+      "severity_quartile": "Q1_low",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "NLS173",
+      "site": "NLS",
+      "y_true": 38.0,
+      "y_pred": 20.600836022273672,
+      "residual_pred_minus_true": -17.399163977726328,
+      "abs_error": 17.399163977726328,
+      "severity_quartile": "Q4_high",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "NLS155",
+      "site": "NLS",
+      "y_true": 6.0,
+      "y_pred": 22.51773960619835,
+      "residual_pred_minus_true": 16.51773960619835,
+      "abs_error": 16.51773960619835,
+      "severity_quartile": "Q1_low",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "NLS162",
+      "site": "NLS",
+      "y_true": 38.0,
+      "y_pred": 21.50782165645521,
+      "residual_pred_minus_true": -16.49217834354479,
+      "abs_error": 16.49217834354479,
+      "severity_quartile": "Q4_high",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "NLS172",
+      "site": "NLS",
+      "y_true": 10.0,
+      "y_pred": 25.672550338088687,
+      "residual_pred_minus_true": 15.672550338088687,
+      "abs_error": 15.672550338088687,
+      "severity_quartile": "Q1_low",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "NLS160",
+      "site": "NLS",
+      "y_true": 37.0,
+      "y_pred": 21.787877724731867,
+      "residual_pred_minus_true": -15.212122275268133,
+      "abs_error": 15.212122275268133,
+      "severity_quartile": "Q4_high",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "NLS191",
+      "site": "NLS",
+      "y_true": 36.0,
+      "y_pred": 20.79646003605017,
+      "residual_pred_minus_true": -15.20353996394983,
+      "abs_error": 15.20353996394983,
+      "severity_quartile": "Q4_high",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "WPD023",
+      "site": "WPD",
+      "y_true": 13.0,
+      "y_pred": 28.13157464016472,
+      "residual_pred_minus_true": 15.131574640164722,
+      "abs_error": 15.131574640164722,
+      "severity_quartile": "Q1_low",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "NLS183",
+      "site": "NLS",
+      "y_true": 14.0,
+      "y_pred": 28.933006291293523,
+      "residual_pred_minus_true": 14.933006291293523,
+      "abs_error": 14.933006291293523,
+      "severity_quartile": "Q1_low",
+      "raw_part3_missing_validrange": 1,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "NLS033",
+      "site": "NLS",
+      "y_true": 31.0,
+      "y_pred": 45.32010003144664,
+      "residual_pred_minus_true": 14.320100031446643,
+      "abs_error": 14.320100031446643,
+      "severity_quartile": "Q4_high",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "WPD020",
+      "site": "WPD",
+      "y_true": 13.0,
+      "y_pred": 27.12483801067193,
+      "residual_pred_minus_true": 14.12483801067193,
+      "abs_error": 14.12483801067193,
+      "severity_quartile": "Q1_low",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "NLS165",
+      "site": "NLS",
+      "y_true": 33.0,
+      "y_pred": 18.99397320321322,
+      "residual_pred_minus_true": -14.00602679678678,
+      "abs_error": 14.00602679678678,
+      "severity_quartile": "Q4_high",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    },
+    {
+      "sid": "WPD007",
+      "site": "WPD",
+      "y_true": 12.0,
+      "y_pred": 25.49144598552839,
+      "residual_pred_minus_true": 13.49144598552839,
+      "abs_error": 13.49144598552839,
+      "severity_quartile": "Q1_low",
+      "raw_part3_missing_validrange": 0,
+      "target_delta_original_minus_validrange": 0.0
+    }
+  ],
+  "interpretation": [
+    "Tail shrinkage remains the dominant corrected-target failure mode: residuals are strongly negative-correlated with true severity.",
+    "WPD rank ordering is still near-collapsed under the corrected target, matching the broader LOSO transportability warning.",
+    "No single post-hoc IMU feature has a large residual correlation; this supports the current stop rule against another scalar feature-fishing pass."
+  ],
+  "decision": {
+    "no_model_promotion": true,
+    "no_new_loocv": true,
+    "recommended_next": "Do not launch another WearGait-only scalar feature addition. Use this audit to justify either data access/restoration or a fresh preregistered target-representation hypothesis."
+  }
+}

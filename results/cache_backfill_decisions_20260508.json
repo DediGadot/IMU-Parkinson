@@ -1,0 +1,70 @@
+{
+  "generated_at_utc": "2026-05-09T04:08:55+00:00",
+  "script": "audit_cache_backfill_decisions.py",
+  "source_candidates": "results/cache_backfill_candidates_20260508.json",
+  "policy": "Do not synthesize missing manifest fields. A committed script hash is candidate evidence only; command/runtime fields need concrete evidence.",
+  "searched_context": [
+    "progress.md",
+    "findings.md",
+    "task_plan.md",
+    "results/cache_backfill_candidates_20260508.json",
+    "results/cache_manifest_audit_20260508.json",
+    "duplicate sidecars under results/results/",
+    "results/cache_features.log"
+  ],
+  "counts": {
+    "leave_partial_no_patch": 2
+  },
+  "decisions": [
+    {
+      "artifact": "results/item_specific_features.csv",
+      "manifest": "results/item_specific_features.csv.manifest.json",
+      "script": "cache_item_specific_features.py",
+      "candidate_recommendation": "manual_backfill_candidate",
+      "decision": "leave_partial_no_patch",
+      "rationale": "Committed script-hash evidence is insufficient to promote this older-schema manifest because exact command/runtime schema fields are missing. Do not infer them from narrative docs.",
+      "blocking_fields": [
+        "cohort_statistics_used",
+        "command",
+        "created_at_utc",
+        "fold_scope",
+        "git_sha",
+        "leakage_rationale",
+        "normalization_scope",
+        "script"
+      ],
+      "git_script_sha_matches": [
+        {
+          "commit": "4d0cc13e6bd284ff7471a37a058b5e95ce235f0d",
+          "short": "4d0cc13",
+          "subject": "result: iter19 per-item gated T3 composite \u2014 Phase B 5-fold gate FAIL"
+        }
+      ]
+    },
+    {
+      "artifact": "results/unused_channels_features.csv",
+      "manifest": "results/unused_channels_features.csv.manifest.json",
+      "script": "cache_unused_channels.py",
+      "candidate_recommendation": "manual_backfill_candidate",
+      "decision": "leave_partial_no_patch",
+      "rationale": "Committed script-hash evidence is insufficient to promote this older-schema manifest because exact command/runtime schema fields are missing. Do not infer them from narrative docs.",
+      "blocking_fields": [
+        "cohort_statistics_used",
+        "command",
+        "created_at_utc",
+        "fold_scope",
+        "git_sha",
+        "leakage_rationale",
+        "normalization_scope",
+        "script"
+      ],
+      "git_script_sha_matches": [
+        {
+          "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+          "short": "d281a0e",
+          "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+        }
+      ]
+    }
+  ]
+}

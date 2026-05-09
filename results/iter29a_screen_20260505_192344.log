@@ -1,0 +1,10 @@
+
+=== T1 iter29-A SCREEN: pairwise rank + isotonic (5-fold, feature_set=A3_tier1, 3 seeds) ===
+
+  seed=42: pairwise CCC=0.6406 | iter5-direct CCC=0.6579 | Δ=-0.0173 | MAE=1.707 | r=0.6469 | 905.8s
+  seed=1337: pairwise CCC=0.6004 | iter5-direct CCC=0.6773 | Δ=-0.0769 | MAE=1.774 | r=0.6102 | 982.9s
+  seed=7: pairwise CCC=0.6282 | iter5-direct CCC=0.6364 | Δ=-0.0082 | MAE=1.739 | r=0.6337 | 980.4s
+
+Mean pairwise CCC = 0.6231 ± 0.0206; Mean iter5-direct CCC = 0.6572 ± 0.0205; Δ̄ = -0.0341
+Wrote /root/pd-imu/results/iter29a_pairwise_5fold_20260505_201210.csv
+      /root/pd-imu/results/iter29a_pairwise_5fold_20260505_201210.oof.json

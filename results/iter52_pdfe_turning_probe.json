@@ -1,0 +1,10 @@
+{
+  "created_at_utc": "2026-05-09T06:19:44+00:00",
+  "dataset": "PDFE turning-in-place / Figshare 14984667",
+  "n_metadata_rows": 41,
+  "n_session1_targets": 35,
+  "n_session2_targets": 23,
+  "n_session3_targets": 13,
+  "has_imu_zip": true,
+  "decision": "direct_public_external_t3_route_for_zero_shot_only"
+}

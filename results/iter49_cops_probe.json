@@ -1,0 +1,494 @@
+{
+  "created_at_utc": "2026-05-08T17:39:29+00:00",
+  "script": "run_t3_iter49_cops.py",
+  "mode": "probe",
+  "preregistration_formula_sha256": "0bc80ef0b6bd9c40da6a7a1282ce9f8898273c6e2dc01e7987ea2ecaa4715b15",
+  "web_sources": {
+    "scientific_data": "https://www.nature.com/articles/s41597-026-06999-6",
+    "osf": "https://osf.io/5xvwn/",
+    "brainpatch_summary": "https://brainpatch.ai/blog/post/open-dataset-links-hourly-symptom-diaries-with-bilateral-e3b68cf6/237"
+  },
+  "root_files": [
+    {
+      "name": "Symptom Diary",
+      "kind": "folder",
+      "materialized_path": "/Symptom Diary/",
+      "size_bytes": null,
+      "sha256": null,
+      "md5": null,
+      "download_url": null,
+      "date_modified": null
+    },
+    {
+      "name": "Data",
+      "kind": "folder",
+      "materialized_path": "/Data/",
+      "size_bytes": null,
+      "sha256": null,
+      "md5": null,
+      "download_url": null,
+      "date_modified": null
+    },
+    {
+      "name": "Demographics.csv",
+      "kind": "file",
+      "materialized_path": "/Demographics.csv",
+      "size_bytes": 3600,
+      "sha256": "252b0dc316a834ee450f45ee431d29e37df549444d27e04065e56d57123ea832",
+      "md5": "80ce1d76df2259ca5b0f647838011c16",
+      "download_url": "https://osf.io/download/h6gu7/",
+      "date_modified": "2025-08-31T15:33:09.739493"
+    },
+    {
+      "name": "Demographics.mat",
+      "kind": "file",
+      "materialized_path": "/Demographics.mat",
+      "size_bytes": 75184,
+      "sha256": "28df6fb50d04ec35da29a373b1ea0d5da095820b2883f58f542228d20f7dec30",
+      "md5": "ecf581c10aa3e210fb03f2564fdf715c",
+      "download_url": "https://osf.io/download/awrny/",
+      "date_modified": "2025-08-31T15:33:09.758996"
+    },
+    {
+      "name": "Scripts",
+      "kind": "folder",
+      "materialized_path": "/Scripts/",
+      "size_bytes": null,
+      "sha256": null,
+      "md5": null,
+      "download_url": null,
+      "date_modified": null
+    }
+  ],
+  "data_summary": {
+    "n_data_files": 66,
+    "n_zip_files": 66,
+    "total_zip_size_bytes": 47891946414,
+    "smallest_zip_files": [
+      {
+        "name": "COPS-11.zip",
+        "kind": "file",
+        "materialized_path": "/Data/COPS-11.zip",
+        "size_bytes": 153047765,
+        "sha256": "dfd7e21fcd26ce262e413074daf94d1039a30e950582b5eadfb595abddce14b7",
+        "md5": "177556b89d1614e7d8b566e9638221b4",
+        "download_url": "https://osf.io/download/an4dy/",
+        "date_modified": "2025-08-29T07:53:23.940174"
+      },
+      {
+        "name": "COPS-18.zip",
+        "kind": "file",
+        "materialized_path": "/Data/COPS-18.zip",
+        "size_bytes": 210179203,
+        "sha256": "58f994ecdea07b83f4e0475ee35b486a3563bcfbe375d539c2db4480a741637b",
+        "md5": "902ab903be30cfa253ced565aa5831ae",
+        "download_url": "https://osf.io/download/2jtcs/",
+        "date_modified": "2025-08-29T08:08:04.578735"
+      },
+      {
+        "name": "COPS-44.zip",
+        "kind": "file",
+        "materialized_path": "/Data/COPS-44.zip",
+        "size_bytes": 215672145,
+        "sha256": "2a48f202f905d0e928c3c02b032c8bd917c7dc8b892f2b8ad445c44927fd2d91",
+        "md5": "60c9266c8c150509dd5a55641abdd0f6",
+        "download_url": "https://osf.io/download/68b1a21c25b56848feab1311/",
+        "date_modified": "2025-08-29T12:50:36.850864"
+      },
+      {
+        "name": "COPS-46.zip",
+        "kind": "file",
+        "materialized_path": "/Data/COPS-46.zip",
+        "size_bytes": 235958599,
+        "sha256": "990ade061ed175825f44479a348d8083d807b62b45328b737c4607341e497e8c",
+        "md5": "e4bdd2e5b2c0b50b587e3f2a3efd7de6",
+        "download_url": "https://osf.io/download/68b1a2a4d3038b299d3221ac/",
+        "date_modified": "2025-08-29T12:52:52.900887"
+      },
+      {
+        "name": "COPS-25.zip",
+        "kind": "file",
+        "materialized_path": "/Data/COPS-25.zip",
+        "size_bytes": 268725823,
+        "sha256": "b043f2c079a1cd264c086cdcccea11564b60b44f35cf40c2494c58a07d35c7a2",
+        "md5": "a3cad01959a622bf0b12526284868963",
+        "download_url": "https://osf.io/download/53jwy/",
+        "date_modified": "2025-08-29T08:20:16.883646"
+      }
+    ],
+    "largest_zip_files": [
+      {
+        "name": "COPS-59.zip",
+        "kind": "file",
+        "materialized_path": "/Data/COPS-59.zip",
+        "size_bytes": 862803658,
+        "sha256": "0d2b402b7a16dcfb2fae54739fd83741c3d8c9bf32d3a4a223b411c8b925c0d7",
+        "md5": "0dc3c5ec28019c4d8c8ad2e435bb06e4",
+        "download_url": "https://osf.io/download/68b1a81909cc4ac528f98e64/",
+        "date_modified": "2025-08-29T13:16:09.757799"
+      },
+      {
+        "name": "COPS-45.zip",
+        "kind": "file",
+        "materialized_path": "/Data/COPS-45.zip",
+        "size_bytes": 866026241,
+        "sha256": "6d3838e263d9a3f1724aafe519290055794d1c73bcb38c37d56697bc9f2e906e",
+        "md5": "99171c930cbf63b8938ab581c40076d9",
+        "download_url": "https://osf.io/download/68b1a2872d5ba17cde780aeb/",
+        "date_modified": "2025-08-29T12:52:23.869269"
+      },
+      {
+        "name": "COPS-65.zip",
+        "kind": "file",
+        "materialized_path": "/Data/COPS-65.zip",
+        "size_bytes": 876720665,
+        "sha256": "8e86f150b946789b64c68681811f2ce1a39e177a5da3bfb773855f2129d3a7f4",
+        "md5": "d59740353c5047ed76afba4a9bdddfbd",
+        "download_url": "https://osf.io/download/68b1a95f28a6144bab7809ae/",
+        "date_modified": "2025-08-29T13:21:35.903071"
+      },
+      {
+        "name": "COPS-53.zip",
+        "kind": "file",
+        "materialized_path": "/Data/COPS-53.zip",
+        "size_bytes": 884409124,
+        "sha256": "2ae70f5b0dd29191b51cb92ef5933361dae0242f72da951ca63de8698d514ca5",
+        "md5": "4c00236701984a9533f42ffa043fdd55",
+        "download_url": "https://osf.io/download/68b1a57076f52a004505e6b6/",
+        "date_modified": "2025-08-29T13:04:48.184311"
+      },
+      {
+        "name": "COPS-33.zip",
+        "kind": "file",
+        "materialized_path": "/Data/COPS-33.zip",
+        "size_bytes": 887860659,
+        "sha256": "8696cf2c5001963201872f283c03006e1276ef4686be4366ac019404e1ef915d",
+        "md5": "69439bed1ca2760b7be56eabe3ed00af",
+        "download_url": "https://osf.io/download/68b19e3dbfff0b211c322093/",
+        "date_modified": "2025-08-29T12:34:05.309898"
+      }
+    ]
+  },
+  "script_files": [
+    {
+      "name": "COPS_helper_butterfilter.m",
+      "kind": "file",
+      "materialized_path": "/Scripts/Matlab/COPS_helper_butterfilter.m",
+      "size_bytes": 308,
+      "sha256": "0d3c34a706954d53b44fbc28b047a5a0fa2cb7860bc1241400a6e2dcacb4f6c1",
+      "md5": "90b872e046c60f30ebdfbff2c5448042",
+      "download_url": "https://osf.io/download/6998315d646ca625b65058d4/",
+      "date_modified": "2026-02-20T10:03:09.564399"
+    },
+    {
+      "name": "COPS_02_CreateMatlabTableWithAccelerometryData.m",
+      "kind": "file",
+      "materialized_path": "/Scripts/Matlab/COPS_02_CreateMatlabTableWithAccelerometryData.m",
+      "size_bytes": 2819,
+      "sha256": "8e710dd1be7dccfe8638e7940fa4a95a22afca7fce77beee04da1f3492f3d85a",
+      "md5": "6b56bdfe56d9edbaa6dcd0957afa0f63",
+      "download_url": "https://osf.io/download/699831579df3b54a0288633c/",
+      "date_modified": "2026-02-20T10:03:03.204746"
+    },
+    {
+      "name": "COPS_03_CreateSummaryFigure.m",
+      "kind": "file",
+      "materialized_path": "/Scripts/Matlab/COPS_03_CreateSummaryFigure.m",
+      "size_bytes": 13921,
+      "sha256": "e4aeac54212ccf11eb198488ce21e5d2ae36f3f7ad92244238dc43815491c54f",
+      "md5": "4ad6152a5e24fac48c39c0a4b1109d1c",
+      "download_url": "https://osf.io/download/6998315d849080a8237b00e7/",
+      "date_modified": "2026-02-20T10:03:09.555129"
+    },
+    {
+      "name": "COPS_01_UnzipData.m",
+      "kind": "file",
+      "materialized_path": "/Scripts/Matlab/COPS_01_UnzipData.m",
+      "size_bytes": 1931,
+      "sha256": "9e1d1d4fe9d63eabec1bba3d82fa1ae06a4d0e4004f3f2a1ebe9346aa6e41468",
+      "md5": "4653434faec31e8058dbb7a1d8ce0727",
+      "download_url": "https://osf.io/download/6998315d06fe34104088632c/",
+      "date_modified": "2026-02-20T10:03:09.569955"
+    }
+  ],
+  "demographics": {
+    "download": {
+      "path": "/home/fiod/pd-imu/data/raw/cops/Demographics.csv",
+      "size_bytes": 3600,
+      "sha256": "252b0dc316a834ee450f45ee431d29e37df549444d27e04065e56d57123ea832"
+    },
+    "n_rows": 66,
+    "columns": [
+      "ID",
+      "Age",
+      "Sex",
+      "Handedness",
+      "PD_Subtype",
+      "PD_DominantSide",
+      "PD_HoehnAndYahr",
+      "PD_YearsSinceDiagnosis",
+      "DBS"
+    ],
+    "pd_hoehn_yahr_counts": {
+      "1.0": 3,
+      "1.5": 1,
+      "2.0": 24,
+      "2.5": 2,
+      "3.0": 31,
+      "4.0": 5
+    },
+    "dbs_counts": {
+      "yes": 46,
+      "no": 20
+    },
+    "example_rows": [
+      {
+        "ID": "COPS-1",
+        "Age": 61,
+        "Sex": "male",
+        "Handedness": "right",
+        "PD_Subtype": "equivalence-type",
+        "PD_DominantSide": "left",
+        "PD_HoehnAndYahr": 3.0,
+        "PD_YearsSinceDiagnosis": 12,
+        "DBS": "yes"
+      },
+      {
+        "ID": "COPS-2",
+        "Age": 69,
+        "Sex": "male",
+        "Handedness": "left",
+        "PD_Subtype": "tremordominant",
+        "PD_DominantSide": "left",
+        "PD_HoehnAndYahr": 3.0,
+        "PD_YearsSinceDiagnosis": 7,
+        "DBS": "yes"
+      },
+      {
+        "ID": "COPS-3",
+        "Age": 72,
+        "Sex": "female",
+        "Handedness": "right",
+        "PD_Subtype": "akinetic-rigid",
+        "PD_DominantSide": "right",
+        "PD_HoehnAndYahr": 4.0,
+        "PD_YearsSinceDiagnosis": 16,
+        "DBS": "no"
+      },
+      {
+        "ID": "COPS-4",
+        "Age": 69,
+        "Sex": "male",
+        "Handedness": "right",
+        "PD_Subtype": "tremordominant",
+        "PD_DominantSide": "left",
+        "PD_HoehnAndYahr": 3.0,
+        "PD_YearsSinceDiagnosis": 7,
+        "DBS": "no"
+      },
+      {
+        "ID": "COPS-5",
+        "Age": 55,
+        "Sex": "male",
+        "Handedness": "left",
+        "PD_Subtype": "tremordominant",
+        "PD_DominantSide": "right",
+        "PD_HoehnAndYahr": 3.0,
+        "PD_YearsSinceDiagnosis": 11,
+        "DBS": "yes"
+      }
+    ]
+  },
+  "sample_zip": {
+    "source_record": {
+      "name": "COPS-11.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-11.zip",
+      "size_bytes": 153047765,
+      "sha256": "dfd7e21fcd26ce262e413074daf94d1039a30e950582b5eadfb595abddce14b7",
+      "md5": "177556b89d1614e7d8b566e9638221b4",
+      "download_url": "https://osf.io/download/an4dy/",
+      "date_modified": "2025-08-29T07:53:23.940174"
+    },
+    "download": {
+      "path": "/home/fiod/pd-imu/data/raw/cops/COPS-11.zip",
+      "size_bytes": 153047765,
+      "sha256": "dfd7e21fcd26ce262e413074daf94d1039a30e950582b5eadfb595abddce14b7"
+    },
+    "zip_listing": {
+      "n_members": 74,
+      "total_uncompressed_bytes": 154180819,
+      "suffix_counts": {
+        ".eps": 1,
+        ".png": 1,
+        ".csv": 3,
+        ".mat": 3,
+        ".zip": 66
+      },
+      "first_members": [
+        "COPS-11/COPS-11_Summary.eps",
+        "COPS-11/COPS-11_Summary.png",
+        "COPS-11/COPS-11_UPDRS_OFF.csv",
+        "COPS-11/COPS-11_UPDRS_OFF.mat",
+        "COPS-11/COPS-11_UPDRS_ON.csv",
+        "COPS-11/COPS-11_UPDRS_ON.mat",
+        "COPS-11/COPS-11_symptomdiary.csv",
+        "COPS-11/COPS-11_symptomdiary.mat",
+        "COPS-11/Accelerometry/COPS-11_Day0_15h-16h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_15h-16h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_16h-17h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_16h-17h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_17h-18h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_17h-18h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_18h-19h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_18h-19h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_19h-20h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_19h-20h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_20h-21h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_20h-21h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_21h-22h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_21h-22h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_22h-23h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_22h-23h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_23h-00h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_23h-00h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_00h-01h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_00h-01h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_01h-02h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_01h-02h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_02h-03h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_02h-03h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_03h-04h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_03h-04h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_04h-05h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_04h-05h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_05h-06h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_05h-06h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_06h-07h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_06h-07h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_07h-08h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_07h-08h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_08h-09h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_08h-09h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_09h-10h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_09h-10h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_10h-11h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_10h-11h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_11h-12h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_11h-12h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_12h-13h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_12h-13h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_13h-14h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_13h-14h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_14h-15h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_14h-15h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_15h-16h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_15h-16h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_16h-17h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_16h-17h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_17h-18h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_17h-18h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_18h-19h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_18h-19h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_19h-20h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_19h-20h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_20h-21h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_20h-21h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_21h-22h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_21h-22h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_22h-23h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_22h-23h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_23h-00h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_23h-00h_rightWrist.zip"
+      ],
+      "updrs_like_members": [
+        "COPS-11/COPS-11_UPDRS_OFF.csv",
+        "COPS-11/COPS-11_UPDRS_OFF.mat",
+        "COPS-11/COPS-11_UPDRS_ON.csv",
+        "COPS-11/COPS-11_UPDRS_ON.mat"
+      ],
+      "accelerometry_like_members": [
+        "COPS-11/Accelerometry/COPS-11_Day0_15h-16h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_15h-16h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_16h-17h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_16h-17h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_17h-18h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_17h-18h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_18h-19h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_18h-19h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_19h-20h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_19h-20h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_20h-21h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_20h-21h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_21h-22h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_21h-22h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_22h-23h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_22h-23h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_23h-00h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day0_23h-00h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_00h-01h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_00h-01h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_01h-02h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_01h-02h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_02h-03h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_02h-03h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_03h-04h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_03h-04h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_04h-05h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_04h-05h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_05h-06h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_05h-06h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_06h-07h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_06h-07h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_07h-08h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_07h-08h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_08h-09h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_08h-09h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_09h-10h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_09h-10h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_10h-11h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_10h-11h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_11h-12h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_11h-12h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_12h-13h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_12h-13h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_13h-14h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_13h-14h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_14h-15h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_14h-15h_rightWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_15h-16h_leftWrist.zip",
+        "COPS-11/Accelerometry/COPS-11_Day1_15h-16h_rightWrist.zip"
+      ],
+      "updrs_csv_previews": {
+        "COPS-11/COPS-11_UPDRS_OFF.csv": {
+          "header": "DaysSinceExamination;MedicationState;MedicationDose;DBSState;TotalScore;Item1_Speech;Item2_FacialExpression;Item3a_TremorAtRestFace;Item3b_TremorAtRestRightArm;Item3c_TremorAtRestLeftArm;Item3d_TremorAtRestRightLeg;Item3e_TremorAtRestLeftLeg;Item4a_TremorPosturalActionRightArm;Item4b_TremorPosturalActionLeftArm;Item5a_RigidityNeck;Item5b_RigidityRightArm;Item5c_RigidityLeftArm;Item5d_RigidityRightLeg;Item5e_RigidityLeftLeg;Item6a_FingerTapsRightHand;Item6b_FingerTapsLeftHand;Item7a_OpenCloseRightHand;Item7b_OpenCloseLeftHand;Item8a_RotationRightHand;Item8b_RotationLeftHand;Item9a_HeelTapsRightFoot;Item9b_HeelTapsLeftFoot;Item10_AriseFromChair;Item11_Posture;Item12_Gait;Item13_PosturalStability;Item14_BodyBradykinesia",
+          "first_data_row": "555;0;NaN;0;27;1;3;0;1;1;0;0;0;1;3;0;0;0;0;1;1;3;3;1;1;1;2;0;1;1;1;1",
+          "n_preview_lines": 2
+        },
+        "COPS-11/COPS-11_UPDRS_ON.csv": {
+          "header": "DaysSinceExamination;MedicationState;MedicationDose;DBSState;TotalScore;Item1_Speech;Item2_FacialExpression;Item3a_TremorAtRestFace;Item3b_TremorAtRestRightArm;Item3c_TremorAtRestLeftArm;Item3d_TremorAtRestRightLeg;Item3e_TremorAtRestLeftLeg;Item4a_TremorPosturalActionRightArm;Item4b_TremorPosturalActionLeftArm;Item5a_RigidityNeck;Item5b_RigidityRightArm;Item5c_RigidityLeftArm;Item5d_RigidityRightLeg;Item5e_RigidityLeftLeg;Item6a_FingerTapsRightHand;Item6b_FingerTapsLeftHand;Item7a_OpenCloseRightHand;Item7b_OpenCloseLeftHand;Item8a_RotationRightHand;Item8b_RotationLeftHand;Item9a_HeelTapsRightFoot;Item9b_HeelTapsLeftFoot;Item10_AriseFromChair;Item11_Posture;Item12_Gait;Item13_PosturalStability;Item14_BodyBradykinesia",
+          "first_data_row": "555;1;200;0;22;1;3;0;0;0;0;0;0;0;3;0;0;0;0;1;1;3;2;1;1;1;2;0;1;1;0;1",
+          "n_preview_lines": 2
+        }
+      },
+      "nested_accelerometry_preview": {
+        "inner_zip": "COPS-11/Accelerometry/COPS-11_Day0_15h-16h_rightWrist.zip",
+        "n_members": 1,
+        "inner_csv": "COPS-11_Day0_15h-16h_rightWrist.csv",
+        "header": "Time;X;Y;Z;Photo;Temp",
+        "first_data_rows": [
+          "15:45:04.500;0.0418;-0.1189;-1.0129;44;24.7",
+          "15:45:04.510;0.0378;-0.107;-1.0049;44;24.7",
+          "15:45:04.520;0.0498;-0.1189;-1.0008;44;24.7",
+          "15:45:04.530;0.0498;-0.103;-1.0129;44;24.7",
+          "15:45:04.540;0.0458;-0.1109;-1.017;44;24.7"
+        ]
+      }
+    }
+  },
+  "decision": {
+    "cops_is_new_external_route": true,
+    "recommended_next_step": "Implement full iter49 zero-shot only after confirming UPDRS OFF/ON CSV names inside subject archives and raw accelerometry schema.",
+    "not_an_internal_t3_update": true
+  }
+}

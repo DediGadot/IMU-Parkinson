@@ -1,0 +1,51 @@
+{
+  "experiment": "T1 iter33-C diverse-base-learner chain ensemble \u2014 5-fold screen",
+  "n_subjects": 94,
+  "bases": [
+    "lgb",
+    "xgb",
+    "et"
+  ],
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "per_seed": [
+    {
+      "seed": 42,
+      "ccc_mt": 0.7232,
+      "ccc_i5": 0.6579,
+      "delta": 0.0653,
+      "wall_time_s": 130.9
+    },
+    {
+      "seed": 1337,
+      "ccc_mt": 0.7252,
+      "ccc_i5": 0.6773,
+      "delta": 0.0479,
+      "wall_time_s": 131.4
+    },
+    {
+      "seed": 7,
+      "ccc_mt": 0.7344,
+      "ccc_i5": 0.6364,
+      "delta": 0.098,
+      "wall_time_s": 129.8
+    }
+  ],
+  "ccc_mt_meanof_seeds": 0.7361,
+  "ccc_i5_meanof_seeds": 0.6729,
+  "delta_meanof_seeds": 0.0631,
+  "delta_seed_mean": 0.0704,
+  "delta_seed_std": 0.02076872648960451,
+  "paired_bootstrap_vs_iter5": {
+    "delta_mean": 0.06496079250471859,
+    "ci_low": -0.005001387290594469,
+    "ci_high": 0.14694080591031972,
+    "frac_above_zero": 0.9656,
+    "frac_above_0.025": 0.8554
+  },
+  "gate_pass": true,
+  "gate_threshold": "\u0394\u0304_seed \u2265 +0.025 AND paired_bootstrap_frac>0 \u2265 0.95"
+}

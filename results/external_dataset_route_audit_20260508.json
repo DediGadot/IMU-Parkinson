@@ -1,0 +1,994 @@
+{
+  "created_at_utc": "2026-05-08T17:47:00Z",
+  "purpose": "Assess whether newly surfaced external datasets can directly break WearGait-PD T1/T3 CCC.",
+  "eligibility_rule": [
+    "subject-level Parkinson cohort data",
+    "wearable IMU or directly alignable modality",
+    "labels for T1 items 9-14 or total MDS-UPDRS Part III",
+    "public or already-approved access",
+    "metadata sufficient for strict subject-level splits"
+  ],
+  "routes": [
+    {
+      "name": "CARE-PD",
+      "access_status": "public",
+      "label": "UPDRS_GAIT",
+      "modality": "SMPL 3D gait meshes from RGB or motion capture",
+      "direct_t1_t3_eligible": false,
+      "verdict": "SOTA comparator / gait-score benchmark only; not a T1/T3 CCC ceiling-break route.",
+      "sources": [
+        "https://neurips2025.care-pd.ca/",
+        "https://github.com/TaatiTeam/CARE-PD",
+        "https://huggingface.co/datasets/vida-adl/CARE-PD",
+        "https://arxiv.org/abs/2510.04312"
+      ]
+    },
+    {
+      "name": "MJFF Levodopa Response / Hssayeni",
+      "access_status": "Synapse DUA/READ-gated",
+      "label": "MDS-UPDRS and symptom labels",
+      "modality": "wearable accelerometers, including wrist/waist/forearm/shank/back",
+      "direct_t1_t3_eligible": true,
+      "status": "synapse_dua_gated_no_scaffold_until_access",
+      "verdict": "Larger direct external wearable UPDRS-III route, but blocked until DUA approval.",
+      "access_runbook": "scripts/synapse_hssayeni_setup.md",
+      "sources": [
+        "https://www.synapse.org/Synapse%3Asyn20681023/wiki/597164",
+        "https://www.synapse.org/Synapse%3Asyn20681939",
+        "results/iter26_dua_status_20260508.json",
+        "https://doi.org/10.1038/s41597-021-00830-0",
+        "https://doi.org/10.1038/s41597-021-00831-z",
+        "https://github.com/BLopo20/Parkinson-s-Disease-Datasets",
+        "scripts/synapse_hssayeni_setup.md"
+      ],
+      "alias_note": "Scientific Data 2021 minimum-set and limb/trunk accelerometry papers are the same Synapse syn20681023 MJFF/Hssayeni route, not separate unblocked datasets."
+    },
+    {
+      "name": "PPMI / Verily Study Watch",
+      "access_status": "PPMI DUA/application required; no local credentials configured",
+      "label": "MDS-UPDRS Part III and Hoehn & Yahr in PPMI clinical data; npj 2025 analysis linked MDS-UPDRS within 90 days of wearable data",
+      "modality": "Verily Study Watch wrist accelerometer, 100 Hz, free-living longitudinal monitoring",
+      "direct_t1_t3_eligible": true,
+      "status": "access_gated_no_scaffold_until_credentials",
+      "verdict": "Priority gated direct external T3 route. Kimi advised documenting it and waiting for user PPMI DUA/account action before building a probe scaffold; do not launch a remote job without credentials.",
+      "consults": {
+        "kimi": "document_as_access_gated_priority_route_no_scaffold_until_credentials",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "access_runbook": "scripts/ppmi_verily_setup.md",
+      "sources": [
+        "https://www.ppmi-info.org/access-data-specimens/download-data",
+        "https://www.ppmi-info.org/help-and-resources/faqs",
+        "https://www.nature.com/articles/s41531-025-01034-8",
+        "scripts/ppmi_verily_setup.md"
+      ]
+    },
+    {
+      "name": "Personalized Parkinson Project / PD Virtual Motor Exam",
+      "access_status": "RDSRC request-gated; no local access or schema; data release fees may apply",
+      "label": "MDS-UPDRS Part III at clinic visits and consensus subitem ratings for PD-VME validation subsets",
+      "modality": "Verily Study Watch wrist sensors during passive monitoring and self-guided active motor tasks",
+      "direct_t1_t3_eligible": true,
+      "status": "access_gated_document_only_no_scaffold_until_access",
+      "n_subjects": 517,
+      "n_vme_participants": 388,
+      "verdict": "Strong gated Verily-watch external route and useful peer to PPMI/Verily, but not public or locally approved. Do not create a scaffold, preregistration, download job, or remote run until RDSRC access is approved and row-level sensor/label schema is available.",
+      "access_runbook": "scripts/ppp_pd_vme_request_setup.md",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9126938/",
+        "https://www.personalizedparkinsonproject.com/data-sharing/available-data/overview-of-the-project-and-available-data/ppp",
+        "https://www.personalizedparkinsonproject.com/data-sharing/requesting-data",
+        "https://www.personalizedparkinsonproject.com/data-sharing/requesting-data/additional-information-on-the-procedure/costs-of-data-release",
+        "scripts/ppp_pd_vme_request_setup.md"
+      ]
+    },
+    {
+      "name": "WATCH-PD",
+      "access_status": "C-Path 3DT Stage 2 membership or WATCH-PD Steering Committee proposal required; no local access or schema; C-Path Integrated Parkinson's Database does not include DHT data",
+      "label": "MDS-UPDRS Parts I-III; APDM sensors worn during MDS-UPDRS Part III; mean PD Part III 24.1 at baseline",
+      "modality": "Apple Watch, iPhone BrainBaseline, and APDM Opal inertial sensors during in-clinic MDS-UPDRS Part III plus at-home longitudinal digital assessments",
+      "direct_t1_t3_eligible": true,
+      "status": "request_gated_document_only_no_scaffold_until_access_schema",
+      "n_subjects": 132,
+      "n_pd": 82,
+      "n_controls": 50,
+      "duration_months": 12,
+      "verdict": "Direct and protocol-relevant external T3 route, but request-gated and schema-hidden. Add to access queue only; do not create a scaffold, preregistration, download job, or remote run until C-Path 3DT membership or WATCH-PD Steering Committee approval provides row-level sensor files, labels, and schema. PPMI remains higher priority because it is larger and already has a Verily/MDS-UPDRS publication trail.",
+      "consults": {
+        "kimi": "request_gated_document_only_no_scaffold_until_access_schema",
+        "gemini": "request_gated_document_only_no_scaffold_ppmi_priority",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "access_runbook": "scripts/watchpd_request_setup.md",
+      "sources": [
+        "https://www.mdsabstracts.org/abstract/watch-pd-wearable-assessments-in-the-clinic-and-home-in-parkinsons-disease-baseline-analyses/",
+        "https://www.nature.com/articles/s41531-024-00721-2",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11381495/",
+        "https://c-path.org/tools-platforms/integrated-parkisons-database/",
+        "https://watchpdstudy.org/technologies",
+        "scripts/watchpd_request_setup.md"
+      ]
+    },
+    {
+      "name": "Advanced PD smartwatch home monitoring / Fay-Karmon 2024",
+      "access_status": "data available from corresponding author upon reasonable request; no local files or row-level schema",
+      "label": "MDS-UPDRS Part II and Part III in ON/OFF states plus Part IV, daily motor-task labels and diaries",
+      "modality": "Intel Pharma Analytics Platform smartwatch plus iPhone/app during approximately two weeks of home-based monitoring with proprietary SWA algorithm outputs",
+      "direct_t1_t3_eligible": false,
+      "potential_external_t3_if_access_and_schema_approved": true,
+      "status": "request_only_document_only_no_scaffold",
+      "n_pd_subjects": 21,
+      "verdict": "Request-only small advanced-PD smartwatch route. It is not actionable for the active T1/T3 CCC objective because the row-level files/schema are not public, SWA scoring is proprietary, N=21 is below stronger already-tested external rows, and no T1 item-level target is visible. Do not create a scaffold, preregistration, download job, or remote run unless data-owner approval and schema are obtained.",
+      "consults": {
+        "kimi": "no_prereg_document_only_access_request_only",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://www.nature.com/articles/s41598-023-48209-y",
+        "results/request_only_actigraphy_route_refresh_20260509.json",
+        "results/request_only_actigraphy_route_refresh_20260509.md"
+      ]
+    },
+    {
+      "name": "Marital-dyad social actigraphy / Sensors 2023",
+      "access_status": "source data available to researchers upon author request; no local files or row-level schema",
+      "label": "clinician MDS-UPDRS Part III total for the PD participant",
+      "modality": "non-dominant wrist GeneActiv triaxial accelerometry at 100 Hz for seven days in PD participants and spouses",
+      "direct_t1_t3_eligible": false,
+      "potential_external_t3_if_access_and_schema_approved": true,
+      "status": "request_only_document_only_no_scaffold",
+      "n_dyads": 27,
+      "n_individuals": 54,
+      "n_pd_subjects": 27,
+      "verdict": "Request-only small daily-life/social-actigraphy route. It is not actionable for the active T1/T3 CCC objective because the row-level files/schema are not public, the protocol is dyad/social activity rather than structured WearGait-like gait/balance, N=27 PD participants is underpowered after stronger external rows, and no T1 item-level target is visible. Do not create a scaffold, preregistration, download job, or remote run unless data-owner approval and schema are obtained.",
+      "consults": {
+        "kimi": "no_prereg_document_only_access_request_only",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9921738/",
+        "results/request_only_actigraphy_route_refresh_20260509.json",
+        "results/request_only_actigraphy_route_refresh_20260509.md"
+      ]
+    },
+    {
+      "name": "ICICLE-PD / ICICLE-GAIT",
+      "access_status": "request-gated via Newcastle / data available on request; no local agreement or files",
+      "label": "MDS-UPDRS Part III and Hoehn & Yahr at clinical visits",
+      "modality": "lower-back Axivity AX3 triaxial accelerometer, 100 Hz, +/-8g, 7-day free-living real-world gait at 18-month visits over 6 years",
+      "direct_t1_t3_eligible": true,
+      "status": "request_gated_document_only_no_scaffold_until_data",
+      "n_subjects": 89,
+      "n_pd": 89,
+      "n_daily_samples": 1476,
+      "published_benchmark": {
+        "traditional_ml_mae": 10.43,
+        "traditional_ml_r": 0.26,
+        "traditional_ml_icc": 0.389,
+        "global_fl_mae": 10.22,
+        "local_personalized_mae": 4.83,
+        "best_global_fl_mae": 9.26,
+        "best_global_fl_r": 0.43,
+        "best_global_fl_icc": 0.438
+      },
+      "verdict": "Direct longitudinal external T3 route with clinician MDS-UPDRS Part III labels, but request-gated and lower-back rather than wrist-native. Document and pursue access only; do not create a scaffold, preregistration, download job, or remote run until files and schema are available.",
+      "consults": {
+        "kimi": "document_as_request_gated_route_no_scaffold_until_data",
+        "gemini": "document_and_request_access_no_scaffold_until_schema",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "access_runbook": "scripts/icicle_request_setup.md",
+      "sources": [
+        "https://www.frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2026.1766599/full",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13006630/",
+        "scripts/icicle_request_setup.md"
+      ]
+    },
+    {
+      "name": "Mobilise-D TVS / CVS",
+      "access_status": "TVS public on Zenodo; CVS row-level public wearable/clinical release or schema not found",
+      "label": "TVS includes demographic/clinical variables but is explicitly for algorithm validation, not clinical inference; CVS reports MDS-UPDRS in a 600+ PD longitudinal cohort",
+      "modality": "TVS lower-back McRoberts MM+ IMU plus reference systems, with some wrist-worn recordings; CVS lower-back wearable worn for seven days after study visits",
+      "direct_t1_t3_eligible": false,
+      "status": "watchlist_no_scaffold_until_cvs_release_or_schema",
+      "n_tvs_subjects_total": 108,
+      "n_cvs_pd_baseline_reported": 600,
+      "n_cvs_pd_hra_reported": 602,
+      "verdict": "Do not preregister/download for the active WearGait-PD T1/T3 CCC objective. The open TVS is an algorithm-validation dataset and not a clinical UPDRS-III regression target. CVS is potentially useful future lower-back longitudinal T3 evidence, but remains a release/access/schema watch route; no scaffold, preregistration, download, or remote job is justified until row-level wearable plus MDS-UPDRS III data access is confirmed.",
+      "consults": {
+        "kimi": "skip_tvs_watchlist_request_cvs_no_scaffold_until_schema",
+        "gemini": "skip_tvs_watchlist_request_cvs_no_scaffold_until_row_level_release",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://zenodo.org/records/15861907",
+        "https://www.mdsabstracts.org/abstract/baseline-data-of-the-mobilise-d-parkinson-cohort/",
+        "https://www.hra.nhs.uk/planning-and-improving-research/application-summaries/research-summaries/mobilise-d-clinical-validation-study/",
+        "https://mobilise-d.eu/data/"
+      ]
+    },
+    {
+      "name": "FoG-STAR",
+      "access_status": "public",
+      "label": "updrs_iii total MDS-UPDRS Part III",
+      "modality": "IMUs on left ankle, right ankle, lower back, and wrist",
+      "direct_t1_t3_eligible": true,
+      "n_subjects": 22,
+      "verdict": "Direct public small-N T3 external route; iter38 Stage-1 augmentation screen failed and iter39 zero-shot showed partial clinical+wrist external validity only.",
+      "screen_artifacts": [
+        "results/iter38_fogstar_probe_20260508_112546.json",
+        "results/iter38_fogstar_stage1_screen_20260508_142623.json",
+        "results/iter38_fogstar_stage1_screen_rows_20260508_142623.csv"
+      ],
+      "screen_result": {
+        "baseline_seed_mean_ccc": 0.4888,
+        "augmented_seed_mean_ccc": 0.4896,
+        "delta_seed_mean_predictions": 0.0008,
+        "gate_pass": false,
+        "bootstrap_frac_gt_0": 0.4938
+      },
+      "zero_shot_result": {
+        "track_a_wrist_direct_ccc": -0.018,
+        "track_a_ci95": [
+          -0.0912,
+          0.0465
+        ],
+        "track_b_iter5_style_clinical_plus_wrist_ccc": 0.2499,
+        "track_b_ci95": [
+          0.0281,
+          0.5028
+        ],
+        "track_c_fogstar_only_loo_ccc": 0.0821,
+        "track_c_ci95": [
+          -0.3058,
+          0.5096
+        ],
+        "interpretation": "partial external-validity evidence only; no internal canonical change"
+      },
+      "zero_shot_artifacts": [
+        "results/preregistration_t3_iter39_fogstar_zeroshot_20260508_143717.json",
+        "results/iter39_fogstar_zeroshot_20260508_143717.json",
+        "results/iter39_fogstar_zeroshot_rows_20260508_143717.csv",
+        "results/iter39_fogstar_zeroshot.html"
+      ],
+      "sources": [
+        "https://www.nature.com/articles/s41597-026-06645-1",
+        "https://zenodo.org/records/17838806"
+      ]
+    },
+    {
+      "name": "COPS",
+      "access_status": "public",
+      "label": "UPDRS-III OFF/ON total and item-level CSVs",
+      "modality": "bilateral wrist GENEActiv accelerometry at 100 Hz, free-living",
+      "direct_t1_t3_eligible": true,
+      "n_osf_zip_records": 66,
+      "n_unique_subject_archives": 64,
+      "n_off_labeled_subjects": 62,
+      "total_archive_size_gb": 47.89,
+      "status": "zero_shot_complete_external_validity_only",
+      "verdict": "Direct public T3 external route; iter49 zero-shot is complete. Wrist-only WearGait-to-COPS transfer is null, clinical+wrist transfer is partial, COPS-only LOOCV sanity is modest, and no internal canonical T3 change is allowed from this external result.",
+      "preregistration_artifacts": [
+        "results/preregistration_t3_iter49_cops.json",
+        "results/preregistration_t3_iter49_cops_20260508_173452.json"
+      ],
+      "probe_artifacts": [
+        "results/iter49_cops_probe.json",
+        "results/iter49_cops_probe_20260508_173929.json"
+      ],
+      "probe_result": {
+        "formula_sha256": "0bc80ef0b6bd9c40da6a7a1282ce9f8898273c6e2dc01e7987ea2ecaa4715b15",
+        "n_zip_files": 66,
+        "total_zip_size_bytes": 47891946414,
+        "demographics_rows": 66,
+        "sample_zip": "COPS-11.zip",
+        "sample_updrs_files": [
+          "COPS-11/COPS-11_UPDRS_OFF.csv",
+          "COPS-11/COPS-11_UPDRS_ON.csv"
+        ],
+        "sample_accelerometry_header": "Time;X;Y;Z;Photo;Temp"
+      },
+      "full_run_artifacts": [
+        "results/iter49_cops_download_manifest.json",
+        "results/iter49_cops_features_full.csv",
+        "results/iter49_cops_features_full.csv.manifest.json",
+        "results/iter49_cops_zeroshot_20260508_185226.json",
+        "results/iter49_cops_zeroshot.json",
+        "results/iter49_cops_zeroshot_rows_20260508_185226.csv"
+      ],
+      "zero_shot_result": {
+        "n_weargait_train": 95,
+        "n_cops_rows_total": 64,
+        "n_cops_off_labeled": 62,
+        "n_common_magnitude_features": 60,
+        "scale_check_cops_right_raw_mag_mean_mps2": 9.8735,
+        "scale_check_cops_left_raw_mag_mean_mps2": 9.8573,
+        "track_a_right_wrist_direct_ccc": -0.0193,
+        "track_a_right_ci95": [
+          -0.103,
+          0.0704
+        ],
+        "track_b_right_clinical_plus_wrist_ccc": 0.2412,
+        "track_b_right_ci95": [
+          0.1061,
+          0.3916
+        ],
+        "track_d_bilateral_clinical_plus_wrist_ccc": 0.2535,
+        "track_d_bilateral_clinical_plus_wrist_ci95": [
+          0.1199,
+          0.3989
+        ],
+        "track_c_cops_only_loo_sanity_ccc": 0.31,
+        "track_c_ci95": [
+          0.1321,
+          0.4818
+        ],
+        "interpretation": "external-validity evidence only; no internal WearGait-PD T3 canonical change"
+      },
+      "sources": [
+        "https://www.nature.com/articles/s41597-026-06999-6",
+        "https://osf.io/5xvwn/",
+        "results/iter49_cops_probe.json",
+        "results/iter49_cops_zeroshot.json"
+      ]
+    },
+    {
+      "name": "TLVMC / DeFOG Parkinson's Freezing of Gait Prediction",
+      "access_status": "public via Kaggle competition files and Zenodo archived competition dataset; iter51 full public raw-data run completed on remote",
+      "label": "subjects.csv contains UPDRSIII_On, UPDRSIII_Off, and NFOGQ; DeFOG metadata joins recordings to Subject/Visit/Medication",
+      "modality": "lower-back/trunk accelerometry with AccV/AccML/AccAP axes for DeFOG structured FoG tasks plus daily free-living recordings; tdcsfog metadata exists but did not join to UPDRS-III targets in this probe",
+      "direct_t1_t3_eligible": true,
+      "status": "zero_shot_complete_external_validity_only",
+      "n_subjects_with_updrsiii": 136,
+      "n_subject_visits_with_updrsiii": 173,
+      "n_defog_subjects": 45,
+      "n_defog_subject_visits": 70,
+      "n_defog_recordings": 137,
+      "n_defog_medication_matched_targets": 137,
+      "n_daily_recordings_with_visit_targets": 65,
+      "n_tdcsfog_joined_updrsiii_targets": 0,
+      "verdict": "Direct public T3 external route; iter51 zero-shot is complete. WearGait lower-back magnitude features transfer weakly but positively to OFF-state DeFOG, wrist-to-lumbar stress transfer is near-null, DeFOG-only LOSO sanity is modest, and no internal WearGait-PD T3 canonical change is allowed from this external result.",
+      "probe_artifacts": [
+        "scripts/probe_tlvmc_fog_route.py",
+        "results/tlvmc_fog_route_probe_20260509.json",
+        "results/tlvmc_fog_route_probe_20260509.md"
+      ],
+      "sources": [
+        "https://zenodo.org/records/10959560",
+        "https://zenodo.org/api/records/10959560",
+        "https://www.kaggle.com/competitions/tlvmc-parkinsons-freezing-gait-prediction",
+        "https://www.nature.com/articles/s41467-024-49027-0",
+        "results/tlvmc_fog_route_probe_20260509.json",
+        "results/preregistration_t3_iter51_tlvmc_defog_zeroshot.json",
+        "results/preregistration_t3_iter51_tlvmc_defog_zeroshot.md",
+        "results/iter51_tlvmc_defog_zeroshot.json",
+        "results/iter51_tlvmc_defog_features.csv.manifest.json"
+      ],
+      "raw_schema_sample": {
+        "source_file": "train/defog/02ea782681.csv",
+        "rows": 162907,
+        "columns": [
+          "Time",
+          "AccV",
+          "AccML",
+          "AccAP",
+          "StartHesitation",
+          "Turn",
+          "Walking",
+          "Valid",
+          "Task"
+        ],
+        "time_start": 0,
+        "time_end": 162906
+      },
+      "n_defog_off_records": 68,
+      "n_defog_off_subjects": 44,
+      "n_defog_on_records": 69,
+      "n_defog_on_subjects": 45,
+      "preregistration_artifacts": [
+        "scripts/write_tlvmc_defog_prereg.py",
+        "results/preregistration_t3_iter51_tlvmc_defog_zeroshot.json",
+        "results/preregistration_t3_iter51_tlvmc_defog_zeroshot_20260509_010408.json",
+        "results/preregistration_t3_iter51_tlvmc_defog_zeroshot.md"
+      ],
+      "preregistration": {
+        "experiment": "t3_iter51_tlvmc_defog_external_zeroshot",
+        "formula_sha256": "665479765911e8192e4db570babeb5fcef3e2b6553dfd6259187f76685ec08cd",
+        "created_at_utc": "2026-05-09T01:04:08+00:00",
+        "primary_target": "OFF-state DeFOG UPDRSIII_Off",
+        "primary_expected_n_records": 68,
+        "primary_expected_n_subjects": 44,
+        "primary_track": "A_zero_shot_lumbar_acc_magnitude",
+        "interpretation": "external transportability evidence only; no internal canonical change"
+      },
+      "n_defog_model_rows": 136,
+      "n_defog_model_subjects": 45,
+      "n_defog_off_records_modeled": 68,
+      "n_defog_on_records_modeled": 68,
+      "n_common_magnitude_features": 54,
+      "full_run_artifacts": [
+        "run_t3_iter51_tlvmc_defog.py",
+        "results/iter51_tlvmc_defog_download_manifest.json",
+        "results/iter51_tlvmc_defog_features.csv",
+        "results/iter51_tlvmc_defog_features.csv.manifest.json",
+        "results/iter51_tlvmc_defog_zeroshot_20260509_013357.json",
+        "results/iter51_tlvmc_defog_zeroshot.json",
+        "results/iter51_tlvmc_defog_zeroshot_rows_20260509_013357.csv"
+      ],
+      "zero_shot_result": {
+        "n_weargait_lowerback_train": 95,
+        "n_weargait_wrist_train": 95,
+        "n_defog_rows_total": 136,
+        "n_defog_subjects": 45,
+        "n_defog_off_labeled": 68,
+        "n_defog_on_labeled": 68,
+        "n_common_magnitude_features": 54,
+        "track_a_lowerback_magnitude_off_ccc": 0.2695,
+        "track_a_lowerback_magnitude_off_ci95": [
+          0.1693,
+          0.36
+        ],
+        "track_a_lowerback_magnitude_off_mae": 8.0688,
+        "track_a_lowerback_magnitude_off_r": 0.5635,
+        "track_b_wrist_to_lumbar_off_ccc": 0.0485,
+        "track_b_wrist_to_lumbar_off_ci95": [
+          0.0141,
+          0.0868
+        ],
+        "track_c_defog_only_loso_off_ccc": 0.345,
+        "track_c_defog_only_loso_off_ci95": [
+          0.1229,
+          0.5557
+        ],
+        "on_sensitivity_track_a_ccc": 0.0548,
+        "pooled_medication_matched_track_a_ccc": 0.166,
+        "subject_visit_mean_state_track_a_ccc": 0.1731,
+        "null_target_shuffle_track_a_off_ccc": 0.0404,
+        "null_scrambled_label_track_c_off_ccc": 0.1206,
+        "transductive_defog_off_diagnostic_ccc": 0.5969,
+        "skipped_raw_files": [
+          {
+            "id": "02ab235146",
+            "reason": "Usecols do not match columns, columns expected but not found: ['Valid', 'Task']"
+          }
+        ],
+        "interpretation": "partial external-validity evidence only; no internal WearGait-PD T3 canonical change"
+      }
+    },
+    {
+      "name": "PDFE turning-in-place",
+      "access_status": "public Figshare CC-BY 4.0",
+      "label": "session-level UPDRS-III total in PDFEinfo.csv; session 1 used for iter52 primary external scoring",
+      "modality": "shank IMU acceleration and gyroscope during turning-in-place; video files also public but not used",
+      "direct_t1_t3_eligible": true,
+      "status": "zero_shot_complete_external_validity_only",
+      "n_metadata_rows": 41,
+      "n_session1_targets": 35,
+      "n_session2_targets": 23,
+      "n_session3_targets": 13,
+      "verdict": "Direct public T3 external route; iter52 zero-shot is complete. WearGait lateral-shank transfer is negative, clinical+shank transfer is weak and CI-crossing-zero, PDFE-only LOOCV sanity is positive, and no internal WearGait-PD T3 canonical change is allowed from this external result.",
+      "preregistration_artifacts": [
+        "results/preregistration_t3_iter52_pdfe_turning_zeroshot.json",
+        "results/preregistration_t3_iter52_pdfe_turning_zeroshot.md"
+      ],
+      "preregistration": {
+        "experiment": "T3 iter52 PDFE turning-in-place external zero-shot validation",
+        "formula_sha256": "f0eb5985a15b271a333b3d9e1d093e32889814a0f48d0ca4f5131b9674c7b2f2",
+        "primary_rows": "one row per PDFE subject: trial/session 1 only, target = Session 1 UPDRS-III",
+        "primary_track": "A_primary_weargait_shank_magnitude_to_pdfe",
+        "interpretation": "external transportability evidence only; no internal canonical change"
+      },
+      "probe_artifacts": [
+        "results/iter52_pdfe_turning_probe.json"
+      ],
+      "download_artifacts": [
+        "results/iter52_pdfe_turning_download_manifest.json"
+      ],
+      "full_run_artifacts": [
+        "run_t3_iter52_pdfe_turning.py",
+        "results/iter52_pdfe_turning_features.csv",
+        "results/iter52_pdfe_turning_features.csv.manifest.json",
+        "results/iter52_pdfe_turning_zeroshot.json",
+        "results/iter52_pdfe_turning_zeroshot_20260509_092223.json",
+        "results/iter52_pdfe_turning_zeroshot_rows_20260509_092223.csv"
+      ],
+      "zero_shot_result": {
+        "n_weargait_train": 95,
+        "n_pdfe": 35,
+        "n_common_magnitude_features": 54,
+        "track_a_weargait_shank_to_pdfe_ccc": -0.1008,
+        "track_a_ci95": [
+          -0.2877,
+          0.0554
+        ],
+        "track_a_mae": 14.1539,
+        "track_a_r": -0.1935,
+        "track_b_clinical_plus_shank_ccc": 0.134,
+        "track_b_ci95": [
+          -0.0426,
+          0.3369
+        ],
+        "track_b_mae": 12.5851,
+        "track_b_r": 0.2515,
+        "track_c_pdfe_only_loo_ccc": 0.402,
+        "track_c_ci95": [
+          0.1569,
+          0.6519
+        ],
+        "track_c_mae": 10.2833,
+        "track_c_r": 0.4387,
+        "null_track_a_wg_target_shuffle_ccc": -0.0866,
+        "interpretation": "external-validity evidence only; no internal WearGait-PD T3 canonical change"
+      },
+      "consults": {
+        "kimi": "document_only_conservative_due_shank_protocol_mismatch; empirical iter52 run recorded as external-only negative/weak transfer",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://api.figshare.com/v2/articles/14984667",
+        "https://figshare.com/articles/dataset/A_public_dataset_of_video_acceleration_and_angular_velocity_in_individuals_with_Parkinson_s_disease_during_the_turning-in-place_task/14984667",
+        "https://www.frontiersin.org/articles/10.3389/fnins.2022.832463/full",
+        "results/preregistration_t3_iter52_pdfe_turning_zeroshot.json",
+        "results/iter52_pdfe_turning_probe.json",
+        "results/iter52_pdfe_turning_zeroshot.json"
+      ]
+    },
+    {
+      "name": "Public overground walking full-body biomechanics",
+      "access_status": "public Figshare CC-BY 4.0",
+      "label": "ON/OFF UPDRS-III total and item columns in PDGinfo.xlsx",
+      "modality": "3D motion capture and force plates during overground walking; no wearable IMU feature space",
+      "direct_t1_t3_eligible": false,
+      "status": "document_only_wrong_modality_motion_capture_force_plates",
+      "n_pd_subjects": 26,
+      "verdict": "Public target-bearing gait-biomechanics dataset, but not a WearGait-PD T1/T3 CCC route because the modality is laboratory motion capture and force plates rather than wearable IMU.",
+      "sources": [
+        "https://api.figshare.com/v2/articles/14896881",
+        "https://figshare.com/articles/dataset/A_dataset_of_overground_walking_full-body_kinematics_and_kinetics_in_individuals_with_Parkinson_s_disease/14896881",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9978741/"
+      ]
+    },
+    {
+      "name": "PADS",
+      "access_status": "public and already evaluated",
+      "label": "diagnosis/cohort class, not UPDRS-III",
+      "modality": "wrist smartwatch IMU",
+      "direct_t1_t3_eligible": false,
+      "verdict": "Already useful for zero-shot transportability, not for T1/T3 regression CCC."
+    },
+    {
+      "name": "ALAMEDA Parkinson's Disease Accelerometer Dataset",
+      "access_status": "public",
+      "label": "MDS-UPDRS III annotations, but N=11 PD",
+      "modality": "wrist-worn GENEActiv raw accelerometer Parquet over longitudinal monitoring periods",
+      "direct_t1_t3_eligible": true,
+      "n_subjects": 11,
+      "archive_size_gb": 4.786,
+      "status": "skipped_underpowered_no_preregistration",
+      "verdict": "Public direct T3-labeled route, but N=11 and free-living/longitudinal protocol make it underpowered and low-value after COPS/FoG-STAR/PADS. Kimi advised no iter50 preregistration or download for this objective.",
+      "sources": [
+        "https://zenodo.org/records/15769959",
+        "https://zenodo.org/api/records/15769959",
+        "https://zenodo.org/records/10782573"
+      ]
+    },
+    {
+      "name": "Comprehensive Multi-Modal Dataset for Parkinson's Disease Prediction",
+      "access_status": "public on Zenodo",
+      "label": "UPDRS part totals and scalar gait summaries in a derived table; no item-level Part III raw subitems",
+      "modality": "CSF protein/peptide features plus scalar gait summaries (gait_time, gait_steps, freezing), not raw wearable IMU",
+      "direct_t1_t3_eligible": false,
+      "n_clinical_gait_rows": 2223,
+      "n_unique_patients": 771,
+      "n_integrated_rows": 1113,
+      "n_integrated_columns": 1196,
+      "status": "skipped_derived_summary_table_not_raw_wearable_or_subject_aligned_t1_t3",
+      "verdict": "Public derived benchmark table, not a contemporaneous wearable sensor cohort. It mixes Kaggle AMP clinical/CSF data with a Mendeley gait repository, exposes only scalar gait summaries rather than raw IMU, and lacks T1 item-level labels or a trustworthy subject-aligned wearable-to-UPDRS schema. No preregistration, download, scaffold, or remote job is justified.",
+      "consults": {
+        "kimi": "no_prereg_document_only_due_synthetic_alignment_and_no_raw_wearable_imu",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://zenodo.org/records/14848598",
+        "https://zenodo.org/api/records/14848598",
+        "results/derivative_multimodal_route_refresh_20260509.json"
+      ]
+    },
+    {
+      "name": "Monipar",
+      "access_status": "public on Zenodo, CC-BY 4.0",
+      "label": "exercise-level MDS-UPDRS subitem labels for the supervised group only; no confirmed total Part III",
+      "modality": "single consumer-smartwatch triaxial accelerometer at 50 Hz during eight structured exercises",
+      "direct_t1_t3_eligible": false,
+      "n_pd": 21,
+      "n_controls": 7,
+      "n_supervised_pd": 6,
+      "n_supervised_trials": 46,
+      "covered_items": [
+        "3.17",
+        "3.15",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.10"
+      ],
+      "status": "skipped_public_subitem_only_tiny_supervised_n",
+      "verdict": "Public consumer-smartwatch subitem dataset. It lacks total MDS-UPDRS Part III, lacks a full T1 9-14 composite, and has only six supervised PD subjects with item labels. No preregistration, download, scaffold, or remote job is justified for the active WearGait-PD T1/T3 CCC objective.",
+      "consults": {
+        "kimi": "document_only_no_prereg_no_download_no_remote_job",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://zenodo.org/records/8104853",
+        "https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2023.1326640/full",
+        "results/smartwatch_subitem_route_refresh_20260509.json",
+        "results/external_route_audit_monipar_bioclite_20260509.md"
+      ]
+    },
+    {
+      "name": "BIOCLITE",
+      "access_status": "public on Zenodo, CC-BY 4.0",
+      "label": "per-exercise MDS-UPDRS score 0-4 when a clinical evaluation is available; no total Part III endpoint",
+      "modality": "single consumer-smartwatch triaxial accelerometer and gyroscope at 50 Hz across supervised and unsupervised exercise sessions",
+      "direct_t1_t3_eligible": false,
+      "n_pd": 24,
+      "n_controls": 16,
+      "covered_items": [
+        "3.17",
+        "3.15",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.9",
+        "3.10"
+      ],
+      "status": "skipped_public_subitem_only_no_t1_t3_endpoint",
+      "verdict": "Public smartwatch follow-up to Monipar with acc+gyro and supervised/unsupervised sessions. It is useful related work for exercise-level motor subitems, but it cannot support total T3 or the full T1 items 9-14 composite. No preregistration, download, scaffold, or remote job is justified for the active WearGait-PD T1/T3 CCC objective.",
+      "consults": {
+        "kimi": "document_only_no_prereg_no_download_no_remote_job",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://zenodo.org/records/16408199",
+        "https://zenodo.org/records/16408199/preview/Bioclite_README.txt?include_deleted=0",
+        "https://doi.org/10.2196/72820",
+        "results/smartwatch_subitem_route_refresh_20260509.json",
+        "results/external_route_audit_monipar_bioclite_20260509.md"
+      ]
+    },
+    {
+      "name": "mPower",
+      "access_status": "Synapse DUA plus MDS-UPDRS copyright/permission friction",
+      "label": "self-reported subset of MDS-UPDRS patient-questionnaire items, not clinician-rated Part III total",
+      "modality": "iPhone handheld/pocket accelerometer/gyroscope during walking, standing, tapping, voice, and cognitive tasks",
+      "direct_t1_t3_eligible": false,
+      "n_participants_portal": 8320,
+      "status": "skipped_not_direct_clinician_t3",
+      "verdict": "Large digital PD cohort, but not a direct WearGait-PD T1/T3 CCC route: labels are self-reported subset items, not clinician MDS-UPDRS III total, and phone task sensors do not align with the wrist-IMU gait/balance feature space.",
+      "sources": [
+        "https://www.synapse.org/Synapse:syn4993293",
+        "https://www.nature.com/articles/sdata201611",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4776701/",
+        "https://www.synapse.org/Synapse%3Asyn8717496/discussion/threadId%3D2202"
+      ]
+    },
+    {
+      "name": "Papadopoulos phone-call tremor",
+      "access_status": "public on Zenodo, CC-BY 4.0",
+      "label": "tremor-specific annotations only: UPDRS II item 16 plus Part III item 20/21 left/right hand tremor in the clinically examined group",
+      "modality": "smartphone embedded IMU acceleration recorded during phone calls, in-the-wild",
+      "direct_t1_t3_eligible": false,
+      "n_clinically_examined_subjects": 45,
+      "n_self_reported_subjects": 454,
+      "archive_size_gb": 4.8,
+      "status": "skipped_tremor_subitem_phone_not_t1_t3",
+      "verdict": "Public tremor-subitem/free-living context only. It lacks total MDS-UPDRS Part III and T1 items 9-14, uses smartphone phone-call accelerometry rather than WearGait gait/balance IMU tasks, and should not receive a preregistration, download, or remote job for the active T1/T3 CCC objective.",
+      "consults": {
+        "kimi": "stop_new_modeling_update_route_audit_paper_hardening",
+        "gemini": "update_external_route_audit_only_no_new_probe",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://zenodo.org/records/7273759",
+        "https://doi.org/10.5281/zenodo.7273759"
+      ]
+    },
+    {
+      "name": "Harmonized Upper/Lower Limb Accelerometry",
+      "access_status": "NICHD DASH controlled access Part1/Part2; processing code public on GitHub/Zenodo",
+      "label": "demographic/clinical survey fields; no confirmed total MDS-UPDRS Part III or T1 items 9-14",
+      "modality": "daily-life ActiGraph upper/lower-limb accelerometry and processed summary variables",
+      "direct_t1_t3_eligible": false,
+      "n_subjects_total": 790,
+      "n_recording_days": 2885,
+      "pd_fraction_reported": 0.07,
+      "approx_n_pd": 55,
+      "status": "skipped_rehab_activity_summaries_no_t1_t3_targets",
+      "verdict": "Document-only route. The dataset is a valuable rehab/free-living accelerometry resource, but it lacks confirmed total MDS-UPDRS Part III or T1 items 9-14, is controlled-access through DASH, and exposes daily-life ActiGraph summaries rather than WearGait-aligned gait/balance raw IMU. No preregistration, download, scaffold, or remote job is justified for the active T1/T3 CCC objective.",
+      "consults": {
+        "kimi": "no_prereg_no_download_no_scaffold_target_gap_and_modality_mismatch",
+        "gemini": "document_no_prereg_no_download_target_and_method_risk",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12681975/",
+        "https://www.sciencedirect.com/science/article/pii/S2352340925009928",
+        "https://dash.nichd.nih.gov/study/426315",
+        "https://dash.nichd.nih.gov/study/426433",
+        "https://github.com/keithlohse/HarmonizedAccelData",
+        "https://zenodo.org/records/10999195"
+      ]
+    },
+    {
+      "name": "REMAP Bristol",
+      "access_status": "University of Bristol controlled dataset application required for accelerometry and individual clinical ranges",
+      "label": "motor MDS-UPDRS / Part III values released as individual-level ranges plus STS/turning labels",
+      "modality": "open coarsened skeleton data; controlled bilateral wrist accelerometry for STS, turning, and other mobility episodes",
+      "direct_t1_t3_eligible": false,
+      "n_pd": 12,
+      "n_controls": 12,
+      "status": "skipped_controlled_tiny_n_range_labels",
+      "verdict": "Not worth preregistration for this objective: accelerometry is controlled, exact continuous T3 labels are not an unblocked public CCC target, and N=12 PD is the same underpowered class as ALAMEDA after stronger COPS/FoG-STAR rows already exist.",
+      "sources": [
+        "https://www.nature.com/articles/s41597-023-02663-5",
+        "https://data.bris.ac.uk/data/dataset/21h9f9e30v9cl2fapjggz4q1x7"
+      ]
+    },
+    {
+      "name": "Oxford OPDC / OxQUIP wearable progression lead",
+      "access_status": "OPDC clinical cohort requires DPUK application; OxQUIP wearable study data not publicly shared",
+      "label": "clinician MDS-UPDRS III in OxQUIP paper; OPDC catalogue has clinical variables but no confirmed public aligned IMU files",
+      "modality": "OxQUIP used 6 APDM IMUs for walking and postural sway; OPDC Discovery is primarily clinical/genetic/imaging cohort metadata",
+      "direct_t1_t3_eligible": false,
+      "status": "skipped_no_public_aligned_sensor_data",
+      "verdict": "Do not preregister/download. The Oxford wearable progression paper reports useful MDS-UPDRS III + IMU data but explicitly says original data were not shareable at publication; OPDC/DPUK access is a catalogue/application route without confirmed public wrist-IMU files.",
+      "sources": [
+        "https://www.nature.com/articles/s41531-023-00581-2",
+        "https://data.dpuk.ukserp.ac.uk/cohortdirectory/Item?fingerPrintID=OPDC+Discovery"
+      ]
+    },
+    {
+      "name": "PD-BioStampRC21",
+      "access_status": "open via IEEE DataPort DOI; Kaggle mirrors exist but are not treated as canonical",
+      "label": "MDS-UPDRS assessment-task annotations and demographic/clinical assessment data; published analysis emphasizes Part III and rest-tremor items",
+      "modality": "five BioStampRC accelerometers on chest, thighs, and forearms at 31.25 Hz; no wrist sensor",
+      "direct_t1_t3_eligible": false,
+      "n_pd": 17,
+      "n_controls": 17,
+      "status": "skipped_tiny_n_wrong_sensor_geometry",
+      "verdict": "Open and clinically interesting, but too small and geometrically mismatched for the current WearGait-PD wrist-IMU CCC objective. At most it is a forearm/tremor robustness dataset, not an internal T1/T3 ceiling-breaker.",
+      "sources": [
+        "https://www.nature.com/articles/s41531-021-00248-w",
+        "https://doi.org/10.21227/g2g8-1503",
+        "https://dblp.org/rec/data/10/AdamsDSXTSDS22"
+      ]
+    },
+    {
+      "name": "CNS Portugal / Lobo IS2022 AX3 gait",
+      "access_status": "request-gated through authors/CNS; related CNS Sensors 2022 article states raw data available from authors on request",
+      "label": "MDS-UPDRS Part III total and Hoehn & Yahr 2-4",
+      "modality": "Axivity AX3 triaxial accelerometers on wrist and lower back, 100 Hz, structured 10-meter walk",
+      "direct_t1_t3_eligible": true,
+      "status": "request_gated_document_only_no_scaffold_until_data",
+      "n_subjects": 74,
+      "n_pd": 74,
+      "n_sessions": 104,
+      "n_gait_instances": 267,
+      "published_benchmark": {
+        "best_10pct_leftout_mae": 4.26,
+        "best_loso_mae": 9.99,
+        "reported_average_t3": 40.92,
+        "reported_average_hy": 2.57,
+        "best_10pct_model": "Random Forest, 2.5 s window, wrist + lower back",
+        "best_loso_model": "SVM, 5 s window, wrist + lower back",
+        "validation_caution": "10% heldout result is window-level/patient-already-seen optimistic; require subject/session-grouped validation"
+      },
+      "verdict": "Direct request-gated T3 external route with wrist+lower-back AX3 and structured 10 m walk. Do not scaffold before schema and access are confirmed. Treat as external-validity evidence only; not an internal WearGait-PD ceiling-breaker.",
+      "consults": {
+        "kimi": "add_request_gated_direct_t3_no_scaffold_subject_level",
+        "gemini": "add_request_gated_direct_t3_no_scaffold_strict_subject_split",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "access_runbook": "scripts/cns_portugal_request_setup.md",
+      "sources": [
+        "https://techandpeople.github.io/downloads/updrs_is22.pdf",
+        "https://techandpeople.github.io/publications/",
+        "https://www.mdpi.com/1424-8220/22/11/3980",
+        "scripts/cns_portugal_request_setup.md"
+      ]
+    },
+    {
+      "name": "Luxembourg upper-limb MDS-UPDRS III subitem study",
+      "access_status": "paper public; datasets not publicly available and only available upon reasonable request under national/institutional regulations",
+      "label": "MDS-UPDRS III upper-limb subitems; no total Part III endpoint for current objective",
+      "modality": "two compact hand IMUs during elicited upper-limb tasks",
+      "direct_t1_t3_eligible": false,
+      "status": "skipped_request_only_subitem_only_observability_context",
+      "n_pd": 33,
+      "n_controls": 12,
+      "verdict": "Document-only upper-limb observability context. The route maps to residual-burden items 4/5/6, but it is request-only, ON-medication, subitem-only, and not a total T3 or full T1 endpoint. Do not create an access runbook, preregistration, scaffold, download job, or remote run for the active T1/T3 CCC objective.",
+      "consults": {
+        "kimi": "skip_runbook_document_only_upper_limb_observability_context",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://www.mdpi.com/1424-8220/24/7/2195",
+        "https://pubmed.ncbi.nlm.nih.gov/38610406/",
+        "results/luxembourg_upper_limb_route_refresh_20260509.json",
+        "results/luxembourg_upper_limb_route_refresh_20260509.md"
+      ]
+    },
+    {
+      "name": "Pre-QuantiPark / ActiMyo levodopa-challenge wearable IMU pilot",
+      "access_status": "paper public; data request-gated for academic non-commercial use after written proposal review and data access agreement",
+      "label": "Repeated MDS-UPDRS Part III total during a 90-minute levodopa challenge; no visible T1 items 9-14 endpoint",
+      "modality": "ActiMyo magneto-inertial sensors on the most affected wrist and ankle, 130.69 Hz, controlled levodopa-challenge setting",
+      "direct_t1_t3_eligible": false,
+      "potential_external_t3_if_access_and_schema_approved": true,
+      "status": "skipped_request_only_tiny_lct_no_scaffold",
+      "n_pd": 10,
+      "verdict": "Document-only levodopa-challenge wearable-IMU context. The route has repeated MDS-UPDRS Part III during a within-subject L-dopa challenge, but it is request-only, N=10, highly selected, schema-hidden, and not a stable cross-sectional WearGait-PD T1/T3 ceiling-break route. Do not create an access runbook, preregistration, scaffold, download job, request packet, or remote run for the active T1/T3 CCC objective.",
+      "consults": {
+        "kimi": "document_only_no_runbook_no_prereg_no_scaffold_tiny_lct",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://www.nature.com/articles/s41598-025-28927-1",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12748983/",
+        "results/prequantipark_route_refresh_20260509.json",
+        "results/prequantipark_route_refresh_20260509.md"
+      ]
+    },
+    {
+      "name": "TUM Donie 2025 ROCKET/InceptionTime wrist symptom-classification alias",
+      "access_status": "paper and code public; underlying data are MJFF Levodopa Response syn20681023 and remain Synapse DUA-gated",
+      "label": "Task-level tremor severity plus bradykinesia/dyskinesia presence labels; not total MDS-UPDRS Part III and not T1 items 9-14",
+      "modality": "GENEActiv smartwatch/wrist accelerometer on most affected limb, 50 Hz, predefined motor tasks",
+      "direct_t1_t3_eligible": false,
+      "status": "document_only_hssayeni_alias_algorithm_dead_no_scaffold",
+      "n_pd": 27,
+      "underlying_route": "MJFF Levodopa Response / Hssayeni syn20681023",
+      "code_available": true,
+      "verdict": "Document-only alias to the existing Hssayeni/MJFF DUA gate and already-negative ROCKET/InceptionTime-style algorithm families. The public code is useful related work, but the data source is still syn20681023, the labels are task-level symptom classifications rather than T1/T3 regression targets, and local ROCKET/MultiROCKET plus learned time-series fine-tuning routes have already failed. Do not create an access runbook, clone/scaffold, preregistration, download job, or remote run for the active T1/T3 CCC objective.",
+      "consults": {
+        "kimi": "document_only_alias_no_scaffold_hssayeni_gate_rocket_inception_dead",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://www.nature.com/articles/s41598-025-04263-2",
+        "https://pubmed.ncbi.nlm.nih.gov/40450120/",
+        "https://github.com/cedricdonie/tsc-for-wrist-motion-pd-detection",
+        "https://doi.org/10.7303/syn20681023",
+        "results/tum_rocket_inception_route_refresh_20260509.json",
+        "results/tum_rocket_inception_route_refresh_20260509.md"
+      ]
+    },
+    {
+      "name": "ParaDigMa PD digital biomarker toolbox",
+      "access_status": "public GitHub/JOSS 2026/Zenodo software; no dataset rows",
+      "label": "No cohort or clinical labels; feature-extraction software only",
+      "modality": "wrist accelerometer, gyroscope, and PPG feature-extraction pipelines during daily-life passive monitoring",
+      "direct_t1_t3_eligible": false,
+      "status": "local_feature_addition_dead_at_n94",
+      "code_available": true,
+      "data_available": false,
+      "verdict": "Document-only standardized wrist-IMU biomarker toolbox. The route is software, not a labeled cohort; applying it to WearGait would be a local scalar handcrafted feature addition, and that category is already closed at N=94. Do not create a preregistration, scaffold, download job, or remote run for the active T1/T3 CCC objective.",
+      "consults": {
+        "kimi": "document_only_dead_local_feature_fishing",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://github.com/biomarkersParkinson/paradigma",
+        "https://doi.org/10.21105/joss.09502",
+        "https://doi.org/10.5281/zenodo.19207320",
+        "results/paradigma_yin_route_refresh_20260509.json",
+        "results/paradigma_yin_route_refresh_20260509.md"
+      ]
+    },
+    {
+      "name": "Yin et al Frontiers Neurology 2025 gait-parameter regression",
+      "access_status": "paper public; raw data corresponding-author request only; no public row-level schema",
+      "label": "Total MDS-UPDRS III, tremor part score, and non-tremor part score in OFF/ON medication states",
+      "modality": "plantar angles, stride length, foot clearance, velocity, cadence, and stride time; likely motion-capture or instrumented-walkway gait parameters rather than raw wearable IMU",
+      "direct_t1_t3_eligible": false,
+      "status": "request_only_underpowered_no_public_schema",
+      "n_pd": 20,
+      "n_controls": 17,
+      "n_hc": 17,
+      "code_available": false,
+      "data_available": false,
+      "verdict": "Document-only small-N gait-parameter correlation study. The route is request-only, has no public row-level schema, is underpowered versus already-tested public external rows, and does not expose a WearGait-aligned raw IMU feature path. Do not create an access runbook, preregistration, scaffold, download job, or remote run for the active T1/T3 CCC objective.",
+      "consults": {
+        "kimi": "document_only_request_only_underpowered_no_schema",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2025.1527020/full",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12435819/",
+        "results/paradigma_yin_route_refresh_20260509.json",
+        "results/paradigma_yin_route_refresh_20260509.md"
+      ]
+    },
+    {
+      "name": "Parkinson@Home arm-swing validation",
+      "access_status": "public Radboud WebDAV / DOI route; metadata, clinical CSV, and prepared per-subject parquet files are directly downloadable",
+      "label": "OFF/ON MDS-UPDRS Part III subitems in patient_info.csv; OFF total Part III is computable under valid-range handling",
+      "modality": "bilateral wrist accelerometer and gyroscope at 200 Hz, prepared per-subject parquet files with gait and arm-activity labels",
+      "direct_t1_t3_eligible": true,
+      "status": "probe_passed_zero_shot_hard_stop_n18_no_scoring",
+      "n_pd": 25,
+      "n_controls": 25,
+      "n_patient_info_rows": 50,
+      "n_pd_off_valid_target_rows": 25,
+      "n_feature_readable_off_subjects": 18,
+      "n_required_feature_readable_off_subjects": 20,
+      "completed_result": false,
+      "metrics_available": false,
+      "track_b_status": "skipped_public_non_target_clinical_covariates_absent",
+      "formula_sha256": "417fdfe0bd2f07c8c5415bd49c87b70725979a26517fe353ca376e2b85387888",
+      "verdict": "Public direct T3 external route, but iter53 stopped before scoring because the pre-registered feature-readability hard stop retained only 18 valid OFF PD subjects versus the minimum of 20. No zero-shot, within-dataset LOOCV, or OFF/ON response metric exists; no internal WearGait-PD T1/T3 canonical can change. Do not rerun under the same preregistration; any shorter-window or fallback policy requires a fresh preregistration and remains external-validity-only.",
+      "consults": {
+        "kimi": "probe_gated_preregistration; run only if public labels/features pass hard stops; no internal canonical update under any outcome",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "sources": [
+        "https://doi.org/10.34973/fr4z-a489",
+        "https://webdav.data.ru.nl/dcmn/DSC_pdhasq_t0000123a_971_v1/",
+        "https://github.com/biomarkersParkinson/pdathome_gait",
+        "https://jneuroengrehab.biomedcentral.com/articles/10.1186/s12984-025-01625-x",
+        "results/iter53_parkinsonathome_probe.json",
+        "results/preregistration_t3_iter53_parkinsonathome_zeroshot.json",
+        "results/iter53_parkinsonathome_features.csv.manifest.json"
+      ]
+    },
+    {
+      "name": "Perioperative MDS-UPDRS-III tremor accelerometry / Smid 2026",
+      "access_status": "paper_only_no_public_row_level_data_found",
+      "label": "MDS-UPDRS-III tremor items 3.15-3.18 only",
+      "modality": "wired tri-axial index-finger accelerometers at 200 Hz during 10-second tremor tasks",
+      "direct_t1_t3_eligible": false,
+      "status": "document_only_tremor_subitems_no_t1_t3_endpoint",
+      "n_pd": 64,
+      "n_controls": 64,
+      "sources": [
+        "https://link.springer.com/article/10.1007/s00702-026-03132-0"
+      ],
+      "verdict": "document_only_no_scaffold_no_preregistration_no_remote_job: The endpoint is tremor subitems 3.15-3.18, not T1 items 9-14 or total MDS-UPDRS Part III. Sensors are index-finger accelerometers in a perioperative seated tremor protocol, not WearGait-aligned wrist/lower-back gait or balance data. Thresholds use healthy-control accelerometry; that is useful method context but not a fold-clean WearGait deployment route. No public row-level data or reusable schema was visible from the opened article page."
+    },
+    {
+      "name": "PDAssist de novo smartphone UPDRS Part III / Guo 2025",
+      "access_status": "article_data_available_statement_but_no_public_row_level_schema_seen",
+      "label": "UPDRS Part III total and task/subitem scores in untreated de novo PD",
+      "modality": "smartphone accelerometer/gyroscope/touchscreen/camera/microphone tasks",
+      "direct_t1_t3_eligible": false,
+      "potential_external_t3_if_access_and_schema_approved": true,
+      "status": "document_only_smartphone_protocol_not_weargait_aligned",
+      "n_pd": 282,
+      "n_controls": 110,
+      "sources": [
+        "https://journals.sagepub.com/doi/10.1177/1877718X251359494"
+      ],
+      "verdict": "document_only_no_scaffold_no_preregistration_no_remote_job: The cohort is larger and clinically interesting, but the modality is smartphone active tasks plus camera/audio rather than wearable IMU comparable to WearGait. The article page says data are available, but no direct row-level public download/schema was visible in the opened evidence. The methods used severity-stratified truncation based on feature correlations with UPDRS-III; that is a methodology warning for leakage-sensitive benchmarking, not a route to reuse. Any future use would need data-owner access plus a fresh protocol and would be external-validity only, not an internal WearGait-PD canonical update."
+    }
+  ],
+  "decision": "Do not launch a CARE-PD download/training job for the current T1/T3 CCC objective. FoG-STAR is a direct public small-N T3 external route, but iter38 Stage-1 augmentation failed and iter39 zero-shot is only partial external-validity evidence; no canonical T3 change. COPS is a public, unblocked, direct T3 external route and iter49 full zero-shot is complete; it adds a larger transportability row but does not update the internal WearGait-PD T3 headline. ALAMEDA is public/direct but skipped as underpowered at N=11 after web/API triage and Kimi consult. The Zenodo Comprehensive Multi-Modal Dataset is public but skipped because it is a derived CSF/clinical/gait-summary table, not raw wearable IMU or a trustworthy contemporaneous sensor-clinical cohort. Mobilise-D TVS is public but explicitly algorithm-validation oriented, so it is skipped for UPDRS-III regression; Mobilise-D CVS is a potentially useful lower-back longitudinal T3 watch/request route, but no row-level public wearable plus MDS-UPDRS III schema/release was found, so no scaffold or remote job is justified. The remaining mPower, Papadopoulos phone-call tremor, Harmonized Upper/Lower Limb Accelerometry, Monipar/BIOCLITE, derivative multimodal Zenodo, Advanced PD smartwatch home monitoring, marital-dyad social actigraphy, REMAP, Oxford OPDC/OxQUIP, PD-BioStampRC21, Luxembourg/NCER-PD upper-limb subitem, Pre-QuantiPark ActiMyo levodopa-challenge, TUM Donie ROCKET/InceptionTime, ParaDigMa, and Yin et al gait-parameter leads do not warrant preregistration or download for T1/T3 CCC: mPower has self-reported subset labels plus phone sensors, Papadopoulos has phone-call accelerometry with tremor-subitem labels only, the harmonized accelerometry dataset has DASH-gated daily-life ActiGraph rehab summaries and no confirmed Part III/T1 targets, Monipar/BIOCLITE are public subitem-only smartwatch datasets, the derivative multimodal table lacks raw wearable IMU and auditable subject alignment, the advanced-PD smartwatch route is N=21, request-only, and proprietary/schema-hidden, the marital-dyad route is N=27, request-only, and daily-life/social-actigraphy oriented rather than structured gait/balance, REMAP is controlled and N=12 with range labels, Oxford wearable data are not publicly shared / OPDC lacks confirmed public IMU files, BioStamp is N=17 with forearm/chest/thigh sensors, Luxembourg/NCER-PD is request-only, ON-medication, upper-limb subitem-only observability context rather than total T3 or full T1, Pre-QuantiPark is request-only, N=10, and a within-subject levodopa-challenge trajectory rather than a stable cross-sectional WearGait-PD severity endpoint, TUM Donie 2025 is a public-code alias to DUA-gated syn20681023 with task-level symptom-classification labels plus already-negative ROCKET/InceptionTime-style algorithm families, ParaDigMa is software rather than a labeled cohort and would be a dead local scalar feature-addition route, and Yin et al is request-only, N=20, schema-hidden, and likely gait-parameter/motion-capture rather than raw WearGait-aligned IMU. Hssayeni/MJFF, PPMI/Verily, WATCH-PD, ICICLE-PD/ICICLE-GAIT, CNS Portugal/Lobo AX3 gait, and Mobilise-D CVS are direct or plausible external wearable-UPDRS routes, but all are access/request/release-gated. PPMI remains the higher-priority DUA target if the user applies to only one route because it is wrist-native, larger, longitudinal, and has a 2025 Verily/MDS-UPDRS publication trail. WATCH-PD is protocol-relevant and wrist/APDM-native, but it is smaller, early-untreated, consortium/proposal-gated, and schema-hidden; no scaffold, preregistration, download job, or remote run is justified until C-Path 3DT or Steering Committee access exists. The Fay-Karmon advanced-PD smartwatch, marital-dyad GeneActiv, Pre-QuantiPark ActiMyo, TUM Donie/MJFF subset, ParaDigMa, and Yin et al rows are lower-priority access/request-only, software-only, or alias/context because they are small-N, schema-hidden, target-mismatched, or already subsumed; no scaffold, preregistration, download job, request packet, or remote run is justified until data-owner approval and row-level schema exist. CNS Portugal/Lobo is a strong structured-gait second/peer request route because it has wrist plus lower-back AX3, 74 PD subjects, and direct MDS-UPDRS Part III labels, but no scaffold, preregistration, download job, or remote run is justified until files and schema are available. ICICLE and Mobilise-D CVS are useful lower-back longitudinal gait routes once access/release exists, but no scaffold, preregistration, download job, or remote run is justified until files and schema are available. TLVMC/DeFOG is a public direct T3 external-validation route and iter51 is now complete: Track A lower-back magnitude zero-shot OFF CCC is +0.2695 (95% CI [+0.1693,+0.3600]), Track B wrist-to-lumbar stress CCC is +0.0485, and Track C DeFOG-only LOSO sanity CCC is +0.3450. It is partial external-validity evidence only and cannot update the internal WearGait-PD T3 canonical. Parkinson@Home is the one newly probed public/direct T3 route from the 2026-05-09 refresh; iter53 passed metadata and preregistration gates but hard-stopped before scoring at 18 feature-readable OFF PD subjects versus the frozen N>=20 rule, so it contributes no metric and no canonical/internal ceiling update."
+}

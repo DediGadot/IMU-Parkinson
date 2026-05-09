@@ -67,6 +67,7 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from inductive_lib import FoldImputer, FoldNormalizer, ccc as ccc_fn, mae as mae_fn, pearson_r, full_metrics
 from project_paths import RESULTS_DIR, ensure_dir
+from cache_provenance import require_cache_manifest
 from run_t3_iter3 import load_full_pd_data, get_hy_features
 from run_t3_iter2 import impute_fold, train_lgb
 from run_t3_iter5_clinical import (
@@ -95,15 +96,7 @@ LGB_FEATURE_K = 500
 
 
 def _validate_manifest() -> dict:
-    if not MANIFEST_PATH.exists():
-        raise FileNotFoundError(f"Missing manifest: {MANIFEST_PATH}")
-    with open(MANIFEST_PATH) as f:
-        m = json.load(f)
-    if m.get("labels_used") is True:
-        raise RuntimeError(f"Manifest labels_used=True; cache is leaky.")
-    if m.get("leakage_status") != "clean_by_construction":
-        raise RuntimeError(f"Manifest leakage_status={m.get('leakage_status')!r}")
-    return m
+    return require_cache_manifest(CLINICAL_EXTRAS_PATH)
 
 
 def load_clinical_extras_aligned(sids: np.ndarray) -> tuple[np.ndarray, list[str]]:
@@ -242,7 +235,7 @@ def _formula_sha256(payload: dict) -> str:
 
 
 def make_prereg_payload(seeds: list[int], cv: str) -> dict:
-    manifest = json.load(open(MANIFEST_PATH))
+    manifest = _validate_manifest()
     return {
         "experiment": "T3 iter24 — Stage-2 forced-inclusion of clinical extras (finalizing experiment)",
         "origin": (
@@ -265,7 +258,7 @@ def make_prereg_payload(seeds: list[int], cv: str) -> dict:
         "seeds": list(seeds),
         "n_subjects": "T3-native cohort N=98 (canonical updrs3 cohort).",
         "endpoint": "updrs3 (T3 canonical)",
-        "clinical_extras_manifest_sha256": manifest["data_sha256"],
+        "clinical_extras_manifest_sha256": manifest["declared_data_sha256"],
         "5null_inheritance": (
             "iter5 base bit-identical to canonical lockbox preregistration_t3_iter5_*.json. "
             "Clinical extras cache leakage_status='clean_by_construction' (verified at script start). "

@@ -1,0 +1,15 @@
+
+Loaded pre-reg preregistration_t3_iter25_pads_20260505_073324.json
+  seeds = [42, 1337, 7], formula_sha256 = 9972a6d163382174...
+
+=== Extract WearGait wrist features ===
+Traceback (most recent call last):
+  File "/root/pd-imu/run_t3_iter25_pads_zeroshot.py", line 812, in <module>
+    main()
+  File "/root/pd-imu/run_t3_iter25_pads_zeroshot.py", line 808, in main
+    run_mode(prereg_path)
+  File "/root/pd-imu/run_t3_iter25_pads_zeroshot.py", line 691, in run_mode
+    for p in WEARGAIT_HC_CSV.iterdir():
+  File "/usr/lib/python3.10/pathlib.py", line 1017, in iterdir
+    for name in self._accessor.listdir(self):
+FileNotFoundError: [Errno 2] No such file or directory: '/root/pd-imu/data/raw/weargait-pd/CONTROL PARTICIPANTS/CSV files'

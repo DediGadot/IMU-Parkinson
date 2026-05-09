@@ -1,0 +1,33 @@
+{
+  "script": "run_t3_iter38_fogstar_stage1.py",
+  "created_at_utc": "2026-05-08T11:25:46+00:00",
+  "dataset": "FoG-STAR",
+  "n": 22,
+  "columns": [
+    "sid",
+    "hy",
+    "cv_yrs",
+    "cv_sex",
+    "cv_dbs",
+    "updrs3"
+  ],
+  "missing_by_column": {
+    "sid": 0,
+    "hy": 1,
+    "cv_yrs": 1,
+    "cv_sex": 0,
+    "cv_dbs": 22,
+    "updrs3": 0
+  },
+  "updrs_summary": {
+    "mean": 38.95454545454545,
+    "std": 14.636800563508775,
+    "min": 18.0,
+    "max": 69.0
+  },
+  "hy_summary": {
+    "mean": 2.738095238095238,
+    "missing": 1
+  },
+  "decision": "schema_valid_for_iter38_stage1_screen"
+}

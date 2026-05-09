@@ -1,5 +1,7 @@
 # Experiment Summary: WearGait-PD UPDRS-III Regression
 
+> **Archive status, 2026-05-09:** historical March 2026 ablation summary only. Current canonical numbers and manuscript routing are in `CLAUDE.md`, `paper.md`, `CURRENT_PAPER.html`, and `render_current_paper.py`; current T3 valid-range headline is iter47 CCC `0.3784` / LOSO `0.150`, while old Paper3 MAE/r and iter5 T3 `0.5227` values are not current deployment results.
+
 **Date:** 2026-03-09 (ablation) / 2026-03-10 (follow-up)
 **Scripts:** `run_ablation_v3.py`, `run_followup_v3.py`
 **Total compute:** ~71 minutes on remote GPU slave (RTX 5060 Ti, 11 CPU cores)

@@ -1,0 +1,90 @@
+{
+  "created_at_utc": "2026-05-09T12:37:02+00:00",
+  "script": "audit_recent_external_web_leads.py",
+  "purpose": "Classify fresh web-search leads after the access-submission tracker.",
+  "not_a_model_result": true,
+  "goal_complete": false,
+  "decision": "recent_external_web_leads_documented_no_compute_route",
+  "summary": {
+    "routes_checked": 3,
+    "new_compute_ready_routes": 0,
+    "new_scaffold_or_preregistration_actions": 0,
+    "master_routes_changed": [
+      "Perioperative MDS-UPDRS-III tremor accelerometry / Smid 2026",
+      "PDAssist de novo smartphone UPDRS Part III / Guo 2025"
+    ],
+    "already_present_routes": [
+      "Yin et al Frontiers Neurology 2025 gait-parameter regression"
+    ]
+  },
+  "routes": [
+    {
+      "name": "Perioperative MDS-UPDRS-III tremor accelerometry / Smid 2026",
+      "access_status": "paper_only_no_public_row_level_data_found",
+      "label": "MDS-UPDRS-III tremor items 3.15-3.18 only",
+      "modality": "wired tri-axial index-finger accelerometers at 200 Hz during 10-second tremor tasks",
+      "direct_t1_t3_eligible": false,
+      "status": "document_only_tremor_subitems_no_t1_t3_endpoint",
+      "n_pd": 64,
+      "n_controls": 64,
+      "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+      "rationale": [
+        "The endpoint is tremor subitems 3.15-3.18, not T1 items 9-14 or total MDS-UPDRS Part III.",
+        "Sensors are index-finger accelerometers in a perioperative seated tremor protocol, not WearGait-aligned wrist/lower-back gait or balance data.",
+        "Thresholds use healthy-control accelerometry; that is useful method context but not a fold-clean WearGait deployment route.",
+        "No public row-level data or reusable schema was visible from the opened article page."
+      ],
+      "sources": [
+        "https://link.springer.com/article/10.1007/s00702-026-03132-0"
+      ]
+    },
+    {
+      "name": "PDAssist de novo smartphone UPDRS Part III / Guo 2025",
+      "access_status": "article_data_available_statement_but_no_public_row_level_schema_seen",
+      "label": "UPDRS Part III total and task/subitem scores in untreated de novo PD",
+      "modality": "smartphone accelerometer/gyroscope/touchscreen/camera/microphone tasks",
+      "direct_t1_t3_eligible": false,
+      "potential_external_t3_if_access_and_schema_approved": true,
+      "status": "document_only_smartphone_protocol_not_weargait_aligned",
+      "n_pd": 282,
+      "n_controls": 110,
+      "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+      "rationale": [
+        "The cohort is larger and clinically interesting, but the modality is smartphone active tasks plus camera/audio rather than wearable IMU comparable to WearGait.",
+        "The article page says data are available, but no direct row-level public download/schema was visible in the opened evidence.",
+        "The methods used severity-stratified truncation based on feature correlations with UPDRS-III; that is a methodology warning for leakage-sensitive benchmarking, not a route to reuse.",
+        "Any future use would need data-owner access plus a fresh protocol and would be external-validity only, not an internal WearGait-PD canonical update."
+      ],
+      "sources": [
+        "https://journals.sagepub.com/doi/10.1177/1877718X251359494"
+      ]
+    },
+    {
+      "name": "Yin et al Frontiers Neurology 2025 gait-parameter regression",
+      "access_status": "already_audited_request_only",
+      "label": "MDS-UPDRS III total, tremor part score, non-tremor part score",
+      "modality": "bilateral ankle IMU-derived gait parameters during 10-meter walking",
+      "direct_t1_t3_eligible": false,
+      "status": "already_recorded_request_only_underpowered_no_public_schema",
+      "n_pd": 20,
+      "n_controls": 17,
+      "decision": "already_recorded_no_new_action",
+      "rationale": [
+        "This lead is already represented in the external route ledger via the ParaDigMa/Yin refresh.",
+        "The paper states raw data are available from authors upon request, but no public row-level schema exists.",
+        "N=20 PD and request-only schema make it weaker than public routes already tested and closed."
+      ],
+      "sources": [
+        "https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2025.1527020/full",
+        "https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2025.1527020/pdf"
+      ]
+    }
+  ],
+  "outputs": {
+    "json": "results/recent_external_web_leads_20260509.json",
+    "markdown": "results/recent_external_web_leads_20260509.md",
+    "master_json": "results/external_dataset_route_audit_20260508.json",
+    "master_markdown": "results/external_dataset_route_audit_20260508.md",
+    "master_markdown_section": "## Recent Post-Tracker Web Leads"
+  }
+}

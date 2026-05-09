@@ -1,0 +1,72 @@
+{
+  "generated_at_utc": "2026-05-09T12:40:19+00:00",
+  "script": "audit_task_plan_current_scope.py",
+  "policy": "The active head of task_plan.md must carry explicit post-iter47 completion criteria, while older success tiers remain archive-bound.",
+  "passed": true,
+  "decision": "task_plan_current_scope_guard_passed",
+  "task_plan": "task_plan.md",
+  "historical_boundary": {
+    "found": true,
+    "line": 305,
+    "heading_line": 307,
+    "heading": "# ACTIVE MISSION \u2014 iter26 Hssayeni MJFF Acquisition (2026-05-05 PM) \u2014 BLOCKED at Synapse DUA gate (F62)",
+    "offset": 70621
+  },
+  "current_scope": {
+    "line_count": 304,
+    "required_snippet_count": 9,
+    "missing_required_snippets": [],
+    "legacy_success_findings": [],
+    "contains_current_completion_criteria": true,
+    "contains_goal_not_complete": true
+  },
+  "archive_scope": {
+    "line_count": 1706,
+    "checks": [
+      {
+        "name": "historical_boundary_found",
+        "passed": true,
+        "evidence": {
+          "found": true,
+          "line": 305,
+          "heading_line": 307,
+          "heading": "# ACTIVE MISSION \u2014 iter26 Hssayeni MJFF Acquisition (2026-05-05 PM) \u2014 BLOCKED at Synapse DUA gate (F62)",
+          "offset": 70621
+        }
+      },
+      {
+        "name": "top_banner_warns_archive_below",
+        "passed": true,
+        "evidence": "BELOW IT IS A HISTORICAL ARCHIVE"
+      },
+      {
+        "name": "archive_contains_legacy_success_table",
+        "passed": true,
+        "evidence": {
+          "success_criteria_present": true,
+          "tier0_present": true
+        }
+      },
+      {
+        "name": "archive_contains_old_threshold_values",
+        "passed": true,
+        "evidence": {
+          "0.4092": true,
+          "0.43": true,
+          "0.46": true,
+          "0.50": true
+        }
+      },
+      {
+        "name": "current_scope_has_no_legacy_success_header",
+        "passed": true,
+        "evidence": {
+          "success_criteria_header_in_current": false,
+          "legacy_tier_table_in_current": false
+        }
+      }
+    ]
+  },
+  "hard_failures": [],
+  "warnings": []
+}

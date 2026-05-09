@@ -1,5 +1,8 @@
 # Numerical Consistency Audit: NEW.html vs Source JSON Files
 
+> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.**
+> This numerical audit targets an older `NEW.html` manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded.
+
 **Date:** 2026-03-24
 **Auditor:** Claude Opus 4.6 automated review
 **Paper:** NEW.html (Ordinal Ranking Substantially Reduces Prediction Compression in Wearable PD Motor Assessment)

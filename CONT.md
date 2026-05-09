@@ -1,5 +1,7 @@
 # Continuity Memo
 
+> **Archive status, 2026-05-09:** historical Paper3/contamination handoff only. Current canonical numbers and manuscript routing are in `CLAUDE.md`, `paper.md`, `CURRENT_PAPER.html`, and `render_current_paper.py`; current T3 valid-range headline is iter47 CCC `0.3784` / LOSO `0.150`, while old Paper3 MAE/r and iter5 T3 `0.5227` values are not current deployment results.
+
 This file documents the full current understanding of the repository state after the contamination audit, code fixes, remote reruns, and `paper3.html` rebuild.
 
 It is written as an operational handoff, not a polished manuscript section.

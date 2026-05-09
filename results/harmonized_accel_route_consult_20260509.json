@@ -1,0 +1,44 @@
+{
+  "created_at_utc": "2026-05-09T05:32:00Z",
+  "purpose": "Persist external-consult evidence for the Harmonized Upper/Lower Limb Accelerometry route decision.",
+  "route": {
+    "name": "Harmonized Upper/Lower Limb Accelerometry",
+    "primary_source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12681975/",
+    "dash_part1": "https://dash.nichd.nih.gov/study/426315",
+    "dash_part2": "https://dash.nichd.nih.gov/study/426433",
+    "code_repository": "https://github.com/keithlohse/HarmonizedAccelData",
+    "n_subjects_total": 790,
+    "n_recording_days": 2885,
+    "pd_fraction_reported": 0.07,
+    "approx_n_pd": 55,
+    "modality": "daily-life ActiGraph upper/lower-limb accelerometry with processed summary variables",
+    "labels": [
+      "demographic and clinical survey fields",
+      "no confirmed total MDS-UPDRS Part III",
+      "no confirmed T1 items 9-14"
+    ],
+    "direct_t1_t3_eligible": false,
+    "eligibility_failure": "No confirmed total MDS-UPDRS Part III or T1 items 9-14; daily-life ActiGraph summaries are not aligned to WearGait-PD structured gait/balance raw IMU features."
+  },
+  "consults": {
+    "kimi": {
+      "status": "completed",
+      "recommendation": "no_prereg_no_download_no_scaffold",
+      "summary": "Hard target gap is disqualifying; H&Y alone is not a T1/T3 target. Daily-life ActiGraph summaries and small PD N make the route incompatible with the current ceiling-break objective."
+    },
+    "gemini": {
+      "status": "completed",
+      "recommendation": "document_no_prereg_no_download",
+      "summary": "Dataset lacks confirmed MDS-UPDRS III total or T1 subitems and has severe modality mismatch versus structured WearGait raw IMU."
+    },
+    "claude": {
+      "status": "failed",
+      "error": "Credit balance is too low"
+    },
+    "glmcode": {
+      "status": "not_available",
+      "error": "glmcode not found on PATH"
+    }
+  },
+  "decision": "No preregistration, download, scaffold, or remote job. Keep only as rehab/free-living accelerometry context."
+}

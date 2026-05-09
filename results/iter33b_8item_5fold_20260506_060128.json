@@ -1,0 +1,60 @@
+{
+  "experiment": "T1 iter33-B 8-item auxiliary-task chain \u2014 5-fold screen",
+  "n_subjects": 93,
+  "item_order": [
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    18
+  ],
+  "auxiliary_items_used": [
+    15,
+    18
+  ],
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "per_seed": [
+    {
+      "seed": 42,
+      "ccc_mt": 0.6854,
+      "ccc_i5": 0.6036,
+      "delta": 0.0818,
+      "wall_time_s": 42.1
+    },
+    {
+      "seed": 1337,
+      "ccc_mt": 0.6914,
+      "ccc_i5": 0.6914,
+      "delta": -0.0,
+      "wall_time_s": 41.5
+    },
+    {
+      "seed": 7,
+      "ccc_mt": 0.7137,
+      "ccc_i5": 0.6416,
+      "delta": 0.0721,
+      "wall_time_s": 41.4
+    }
+  ],
+  "ccc_mt_meanof_seeds": 0.716,
+  "ccc_i5_meanof_seeds": 0.6657,
+  "delta_meanof_seeds": 0.0503,
+  "delta_seed_mean": 0.05129999999999999,
+  "delta_seed_std": 0.03649008997887874,
+  "paired_bootstrap_vs_iter5": {
+    "delta_mean": 0.05271969743122852,
+    "ci_low": -0.012637813886480092,
+    "ci_high": 0.1258844697713332,
+    "frac_above_zero": 0.9368,
+    "frac_above_0.025": 0.7876
+  },
+  "gate_pass": false,
+  "gate_threshold": "\u0394\u0304_seed \u2265 +0.025 AND paired_bootstrap_frac>0 \u2265 0.95"
+}

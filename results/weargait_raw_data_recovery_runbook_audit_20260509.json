@@ -1,0 +1,66 @@
+{
+  "blocked_actions": [
+    "do not synthesize a clean cache manifest from the preflight alone",
+    "do not promote results/ablation_v3_features.csv from this runbook",
+    "do not run a new T1/T3 model from this recovery branch"
+  ],
+  "created_at_utc": "2026-05-09T08:37:53+00:00",
+  "current_status": {
+    "can_attempt_download": false,
+    "credentials_present": false,
+    "frozen_cache_unchanged": true,
+    "preflight_status": "missing_inputs",
+    "regeneration_probe_missing": [
+      "control_clinical",
+      "control_csv_dir",
+      "walkway_metrics"
+    ],
+    "regeneration_probe_status": "blocked_missing_regeneration_inputs"
+  },
+  "decision": "raw_data_recovery_runbook_ready_no_download",
+  "entity_checks": {
+    "control_clinical": {
+      "large_transfer": false,
+      "large_transfer_ok": true,
+      "local_complete": false,
+      "present": true,
+      "synapse_id": "syn55105521",
+      "synapse_id_ok": true,
+      "synapse_probe_status": "ok"
+    },
+    "control_csv_folder": {
+      "large_transfer": true,
+      "large_transfer_ok": true,
+      "local_complete": false,
+      "present": true,
+      "synapse_id": "syn61370552",
+      "synapse_id_ok": true,
+      "synapse_probe_status": "ok"
+    },
+    "walkway_metrics": {
+      "large_transfer": false,
+      "large_transfer_ok": true,
+      "local_complete": false,
+      "present": true,
+      "synapse_id": "syn64589881",
+      "synapse_id_ok": true,
+      "synapse_probe_status": "ok"
+    }
+  },
+  "hard_failures": [],
+  "missing_required_snippets": [],
+  "next_allowed_actions": [
+    "./gpu.sh scripts/download_weargait_missing_synapse.py --mode preflight",
+    "after credentials and user approval: ./gpu.sh scripts/download_weargait_missing_synapse.py --mode download-small",
+    "after explicit large-transfer confirmation: ./gpu.sh scripts/download_weargait_missing_synapse.py --mode download-all --confirm-large-control-csvs",
+    "after full recovery: ./gpu.sh audit_ablation_v3_regeneration.py --mode probe --tag <timestamp>"
+  ],
+  "passed": true,
+  "purpose": "Verify the human-facing raw-data recovery runbook preserves Synapse IDs and cache-promotion guardrails.",
+  "required_snippet_count": 15,
+  "runbook": "scripts/weargait_raw_data_recovery_runbook.md",
+  "script": "audit_weargait_raw_data_recovery_runbook.py",
+  "source_preflight": "results/weargait_missing_synapse_recovery_preflight_20260509.json",
+  "source_regeneration_probe": "results/ablation_v3_regeneration_probe_20260509.json",
+  "warnings": []
+}

@@ -1,5 +1,8 @@
 # Calibration Fix Experiments — From slope=0.69 to slope=0.90+
 
+> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.**
+> This file preserves pre-leakage calibration-planning archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded.
+
 **Date:** 2026-04-02
 **Target:** Observable subscore T1 (items 3.9-3.14, range 0-24)
 **Current:** CCC=0.868, MAE=0.95, cal_slope=0.69, std_ratio=0.85

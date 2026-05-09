@@ -1,0 +1,13 @@
+cohort,stage2_policy,seed,n,ccc,mae,r,cal_slope,wall_s
+prorate_le3,stage2_current,42,94,0.3512,8.0149,0.3721,0.2639,42.8
+prorate_le3,stage2_current,1337,94,0.3095,8.0654,0.3328,0.2264,43.6
+prorate_le3,stage2_current,7,94,0.3631,8.0095,0.3893,0.2669,42.5
+prorate_le3,stage2_no_cv,42,94,0.3667,7.8494,0.3914,0.2717,42.4
+prorate_le3,stage2_no_cv,1337,94,0.3365,7.7934,0.369,0.2386,42.4
+prorate_le3,stage2_no_cv,7,94,0.3728,7.9336,0.3981,0.2764,43.4
+prorate_le7,stage2_current,42,95,0.3862,7.9499,0.4134,0.2848,43.4
+prorate_le7,stage2_current,1337,95,0.4137,7.5093,0.4476,0.3002,44.5
+prorate_le7,stage2_current,7,95,0.4355,7.5161,0.462,0.3269,45.3
+prorate_le7,stage2_no_cv,42,95,0.3713,8.1093,0.3977,0.2734,43.2
+prorate_le7,stage2_no_cv,1337,95,0.3865,7.6286,0.42,0.2785,44.5
+prorate_le7,stage2_no_cv,7,95,0.3639,8.0718,0.3862,0.2727,45.3

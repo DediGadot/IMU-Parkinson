@@ -1,0 +1,18 @@
+
+=== T1 LEAKAGE AUDIT (N=94, seed=42, 5-fold) ===
+
+[BASELINE] multi-task 5-fold CCC = +0.7049   (expect ≈ 0.7049, the iter29b/iter30b V1_random seed=42 number)  [26s]
+[P1] 10-perm scramble CCC distribution: mean=-0.0014, std=0.1013, min=-0.1516, max=+0.1849
+     vs baseline 0.7049 → permutation z-score = 7.0σ above null
+     (PASS if baseline >> permutation distribution; chance perms should be near 0 with noise)  [258s]
+[P2] Noisy-test-X CCC = +0.5530   (Stage1 alone should hold ~0.43; >0.45 means Stage2 is using leaked test info)  [26s]
+[P3] Stage1-only CCC = +0.5724   (just Ridge on H&Y+clinical, no IMU; bound below baseline by stage2's contribution)  [0s]
+[P4] Noise-X CCC = +0.6027   (X randomized, y/items real → should equal Stage1-only CCC ≈ 0.57)  [29s]
+
+=== VERDICT ===
+  P1 (10-perm scramble dist) PASS  (mean=-0.001±0.101, max=+0.185; baseline 0.705 is far away)
+  P2 (noisy test X)          PASS  (Δ vs Stage1-only = -0.019; expect close to 0)
+  P3 (Stage1 contribution)   CCC = +0.572  → Stage2 multi-task adds +0.133 on top
+  P4 (noise-X full cohort)   PASS  (CCC = +0.603, expect ≈ Stage1-only +0.572)
+
+Wrote /root/pd-imu/results/iter32_leakage_audit_20260506_053639.json

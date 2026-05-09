@@ -1,0 +1,39 @@
+
+=== T3 iter31 multi-task LOCKBOX LOOCV (3 seeds, N=98) ===
+    seed=42 fold 10/98  elapsed=253s
+    seed=42 fold 20/98  elapsed=494s
+    seed=42 fold 30/98  elapsed=714s
+    seed=42 fold 40/98  elapsed=936s
+    seed=42 fold 50/98  elapsed=1154s
+    seed=42 fold 60/98  elapsed=1372s
+    seed=42 fold 70/98  elapsed=1586s
+    seed=42 fold 80/98  elapsed=1789s
+    seed=42 fold 90/98  elapsed=1988s
+  seed=42: mt=0.4956 | i5=0.5051 | Δ=-0.0095 | 2463s
+    seed=1337 fold 10/98  elapsed=207s
+    seed=1337 fold 20/98  elapsed=412s
+    seed=1337 fold 30/98  elapsed=613s
+    seed=1337 fold 40/98  elapsed=808s
+    seed=1337 fold 50/98  elapsed=1001s
+    seed=1337 fold 60/98  elapsed=1197s
+    seed=1337 fold 70/98  elapsed=1396s
+    seed=1337 fold 80/98  elapsed=1595s
+    seed=1337 fold 90/98  elapsed=1792s
+  seed=1337: mt=0.5128 | i5=0.5098 | Δ=+0.0030 | 2244s
+    seed=7 fold 10/98  elapsed=193s
+    seed=7 fold 20/98  elapsed=387s
+    seed=7 fold 30/98  elapsed=581s
+    seed=7 fold 40/98  elapsed=775s
+    seed=7 fold 50/98  elapsed=968s
+    seed=7 fold 60/98  elapsed=1163s
+    seed=7 fold 70/98  elapsed=1357s
+    seed=7 fold 80/98  elapsed=1552s
+    seed=7 fold 90/98  elapsed=1750s
+  seed=7: mt=0.4974 | i5=0.4947 | Δ=+0.0028 | 2209s
+
+=== HEADLINE: CCC=0.5031, MAE=8.274 ===
+  iter5-direct LOOCV: Δ=-0.0068, frac>0=0.430
+  vs iter5 lockbox 0.5227: ccc_lb=0.5227, Δ̄=-0.0187, frac>0=0.328
+  is_canonical_update = False
+Wrote /root/pd-imu/results/lockbox_t3_iter31_multitask_20260505_221600.json
+      /root/pd-imu/results/lockbox_t3_iter31_multitask_20260505_221600.oof.npy

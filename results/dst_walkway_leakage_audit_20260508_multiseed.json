@@ -1,0 +1,1027 @@
+{
+  "generated_at_utc": "2026-05-08T21:03:04+00:00",
+  "script": "audit_dst_walkway_leakage.py",
+  "git_sha": "unknown",
+  "declaration": {
+    "experiment": "dst walkway-distillation leakage audit",
+    "trigger": "runtime/provenance audit found ablation_v3_features.csv is the live missing-manifest cache; schema inspection found dst_* columns are included by V2 filters",
+    "cohort": "iter47 drop_allmissing_validrange N=95",
+    "target": "valid-range corrected MDS-UPDRS Part III",
+    "stage1": "iter5 A3_tier1 = H&Y + cv_yrs + cv_sex + cv_dbs",
+    "stage2_policies": [
+      "stage2_current",
+      "stage2_no_dst"
+    ],
+    "seeds": [
+      42,
+      1337,
+      7
+    ],
+    "evaluation": "LOOCV, mean of seed predictions; no winner selection",
+    "interpretation_rule": "If no-dst changes metrics materially, report as leakage/provenance sensitivity, not as a tuned model family.",
+    "formula_sha256": "1463a1818faca49d5a2774b5ea07516e268de093a73203fb74c879ac244885af"
+  },
+  "schema_audit": {
+    "v2_path": "/home/fiod/pd-imu/results/ablation_v3_features.csv",
+    "n_columns_total": 1877,
+    "n_v2_selected_by_current_filters": 1752,
+    "prefix_counts_total": {
+      "dst_": 31,
+      "cv_": 6,
+      "nl_": 30,
+      "sv_": 22,
+      "pa_": 8,
+      "fq_": 44,
+      "hr_": 2,
+      "ix_": 7,
+      "ext_": 8
+    },
+    "dst_columns_total": [
+      "dst_wk_absolute_step_length",
+      "dst_wk_cisp_ap",
+      "dst_wk_cisp_time",
+      "dst_wk_dop",
+      "dst_wk_ds_cop_dist",
+      "dst_wk_ds_cop_path_eff.%.1",
+      "dst_wk_foot_angle",
+      "dst_wk_gait_cycle_time",
+      "dst_wk_initial_d._support_%.1",
+      "dst_wk_integ._pressure",
+      "dst_wk_single_support_%.1",
+      "dst_wk_ss_cop_dist",
+      "dst_wk_ss_cop_dist._%.1",
+      "dst_wk_ss_cop_path_eff._%.1",
+      "dst_wk_stance_%.1",
+      "dst_wk_stance_cop_dist",
+      "dst_wk_stance_cop_dist._%.1",
+      "dst_wk_stance_cop_path_eff._%.1",
+      "dst_wk_stance_time",
+      "dst_wk_step_length",
+      "dst_wk_step_ratio",
+      "dst_wk_step_time",
+      "dst_wk_stride_length",
+      "dst_wk_stride_time",
+      "dst_wk_stride_velocity",
+      "dst_wk_stride_width",
+      "dst_wk_swing_%.1",
+      "dst_wk_swing_time",
+      "dst_wk_terminal_d._support_%.1",
+      "dst_wk_toe_in/out_angle",
+      "dst_wk_total_d._support_%.1"
+    ],
+    "dst_columns_selected_by_current_filters": [
+      "dst_wk_absolute_step_length",
+      "dst_wk_cisp_ap",
+      "dst_wk_cisp_time",
+      "dst_wk_dop",
+      "dst_wk_ds_cop_dist",
+      "dst_wk_ds_cop_path_eff.%.1",
+      "dst_wk_foot_angle",
+      "dst_wk_gait_cycle_time",
+      "dst_wk_initial_d._support_%.1",
+      "dst_wk_integ._pressure",
+      "dst_wk_single_support_%.1",
+      "dst_wk_ss_cop_dist",
+      "dst_wk_ss_cop_dist._%.1",
+      "dst_wk_ss_cop_path_eff._%.1",
+      "dst_wk_stance_%.1",
+      "dst_wk_stance_cop_dist",
+      "dst_wk_stance_cop_dist._%.1",
+      "dst_wk_stance_cop_path_eff._%.1",
+      "dst_wk_stance_time",
+      "dst_wk_step_length",
+      "dst_wk_step_ratio",
+      "dst_wk_step_time",
+      "dst_wk_stride_length",
+      "dst_wk_stride_time",
+      "dst_wk_stride_velocity",
+      "dst_wk_stride_width",
+      "dst_wk_swing_%.1",
+      "dst_wk_swing_time",
+      "dst_wk_terminal_d._support_%.1",
+      "dst_wk_toe_in/out_angle",
+      "dst_wk_total_d._support_%.1"
+    ],
+    "cv_columns_selected_by_current_filters": [
+      "cv_age",
+      "cv_dbs",
+      "cv_ht",
+      "cv_sex",
+      "cv_wt",
+      "cv_yrs"
+    ],
+    "distillation_source": "run_ablation_v3.py build_v3_features() calls run_ablation_v2.distill_walkway(df, wk, dev_sids)",
+    "distillation_leakage_risk": "distill_walkway trains XGBRegressor on historical dev_sids once and writes predictions for all subjects; later LOOCV folds do not refit that distiller inside the fold."
+  },
+  "cohort": {
+    "n": 95,
+    "excluded_sids": [
+      "NLS188",
+      "WPD013",
+      "NLS151"
+    ],
+    "target_changed_sids": [
+      "NLS036"
+    ]
+  },
+  "policy_results": {
+    "stage2_current": {
+      "mean_metrics": {
+        "n": 95,
+        "ccc": 0.3784,
+        "cal_slope": 0.2692,
+        "mae": 7.528,
+        "r": 0.4141,
+        "pred_mean": 24.815,
+        "pred_std": 6.446,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "stage2_current_mean"
+      },
+      "seed_details": {
+        "42": {
+          "metrics": {
+            "n": 95,
+            "ccc": 0.3506,
+            "cal_slope": 0.2537,
+            "mae": 7.7946,
+            "r": 0.3797,
+            "pred_mean": 24.729,
+            "pred_std": 6.622,
+            "true_mean": 25.0,
+            "true_std": 9.913,
+            "label": "stage2_current_seed42"
+          },
+          "n_stage2_features": 1752,
+          "selected_prefix_counts": {
+            "dst_": 537,
+            "cv_": 37
+          },
+          "top_selected_features": [
+            [
+              "L_Wrist_ay_loco_r",
+              95
+            ],
+            [
+              "L_Wrist_ro_skew",
+              95
+            ],
+            [
+              "LowerBack_ay_dom",
+              95
+            ],
+            [
+              "R_LatShank_ya_kurt",
+              95
+            ],
+            [
+              "L_MidLatThigh_ya_rms",
+              93
+            ],
+            [
+              "R_MidLatThigh_pi_skew",
+              93
+            ],
+            [
+              "Forehead_ay_loco_r",
+              92
+            ],
+            [
+              "d_tg_LowerBack_fi",
+              92
+            ],
+            [
+              "L_Ankle_ax_dom",
+              91
+            ],
+            [
+              "L_Ankle_ax_loco_r",
+              91
+            ],
+            [
+              "R_LatShank_ro_range",
+              91
+            ],
+            [
+              "Forehead_ro_skew",
+              90
+            ],
+            [
+              "d_hp_LowerBack_g_step_t",
+              90
+            ],
+            [
+              "r_tug_R_Wrist_ay_rms",
+              90
+            ],
+            [
+              "R_Ankle_ax_zcr",
+              89
+            ],
+            [
+              "R_Ankle_az_skew",
+              89
+            ],
+            [
+              "R_LatShank_ya_std",
+              89
+            ],
+            [
+              "dv_L_DorsalFoot_g_step_t_rng",
+              89
+            ],
+            [
+              "L_Ankle_ax_skew",
+              88
+            ],
+            [
+              "L_Wrist_ax_loco_r",
+              88
+            ],
+            [
+              "R_LatShank_az_trem_r",
+              88
+            ],
+            [
+              "R_MidLatThigh_ya_rms",
+              88
+            ],
+            [
+              "Xiphoid_am_dom",
+              88
+            ],
+            [
+              "asy_LatShank_m",
+              88
+            ],
+            [
+              "d_hp_LowerBack_pi_rms",
+              88
+            ],
+            [
+              "d_tug_LowerBack_g_cadence",
+              88
+            ],
+            [
+              "Forehead_ro_kurt",
+              87
+            ],
+            [
+              "L_Wrist_ay_iqr",
+              87
+            ],
+            [
+              "LowerBack_ro_skew",
+              87
+            ],
+            [
+              "LowerBack_ya_iqr",
+              87
+            ]
+          ],
+          "wall_s": 44.1
+        },
+        "1337": {
+          "metrics": {
+            "n": 95,
+            "ccc": 0.3947,
+            "cal_slope": 0.2824,
+            "mae": 7.3103,
+            "r": 0.4301,
+            "pred_mean": 24.976,
+            "pred_std": 6.508,
+            "true_mean": 25.0,
+            "true_std": 9.913,
+            "label": "stage2_current_seed1337"
+          },
+          "n_stage2_features": 1752,
+          "selected_prefix_counts": {
+            "dst_": 537,
+            "cv_": 37
+          },
+          "top_selected_features": [
+            [
+              "L_Wrist_ay_loco_r",
+              95
+            ],
+            [
+              "L_Wrist_ro_skew",
+              95
+            ],
+            [
+              "LowerBack_ay_dom",
+              95
+            ],
+            [
+              "R_LatShank_ya_kurt",
+              95
+            ],
+            [
+              "L_MidLatThigh_ya_rms",
+              93
+            ],
+            [
+              "R_MidLatThigh_pi_skew",
+              93
+            ],
+            [
+              "Forehead_ay_loco_r",
+              92
+            ],
+            [
+              "d_tg_LowerBack_fi",
+              92
+            ],
+            [
+              "L_Ankle_ax_dom",
+              91
+            ],
+            [
+              "L_Ankle_ax_loco_r",
+              91
+            ],
+            [
+              "R_LatShank_ro_range",
+              91
+            ],
+            [
+              "Forehead_ro_skew",
+              90
+            ],
+            [
+              "d_hp_LowerBack_g_step_t",
+              90
+            ],
+            [
+              "r_tug_R_Wrist_ay_rms",
+              90
+            ],
+            [
+              "R_Ankle_ax_zcr",
+              89
+            ],
+            [
+              "R_Ankle_az_skew",
+              89
+            ],
+            [
+              "R_LatShank_ya_std",
+              89
+            ],
+            [
+              "dv_L_DorsalFoot_g_step_t_rng",
+              89
+            ],
+            [
+              "L_Ankle_ax_skew",
+              88
+            ],
+            [
+              "L_Wrist_ax_loco_r",
+              88
+            ],
+            [
+              "R_LatShank_az_trem_r",
+              88
+            ],
+            [
+              "R_MidLatThigh_ya_rms",
+              88
+            ],
+            [
+              "Xiphoid_am_dom",
+              88
+            ],
+            [
+              "asy_LatShank_m",
+              88
+            ],
+            [
+              "d_hp_LowerBack_pi_rms",
+              88
+            ],
+            [
+              "d_tug_LowerBack_g_cadence",
+              88
+            ],
+            [
+              "Forehead_ro_kurt",
+              87
+            ],
+            [
+              "L_Wrist_ay_iqr",
+              87
+            ],
+            [
+              "LowerBack_ro_skew",
+              87
+            ],
+            [
+              "LowerBack_ya_iqr",
+              87
+            ]
+          ],
+          "wall_s": 44.5
+        },
+        "7": {
+          "metrics": {
+            "n": 95,
+            "ccc": 0.3733,
+            "cal_slope": 0.2717,
+            "mae": 7.705,
+            "r": 0.4028,
+            "pred_mean": 24.738,
+            "pred_std": 6.686,
+            "true_mean": 25.0,
+            "true_std": 9.913,
+            "label": "stage2_current_seed7"
+          },
+          "n_stage2_features": 1752,
+          "selected_prefix_counts": {
+            "dst_": 537,
+            "cv_": 37
+          },
+          "top_selected_features": [
+            [
+              "L_Wrist_ay_loco_r",
+              95
+            ],
+            [
+              "L_Wrist_ro_skew",
+              95
+            ],
+            [
+              "LowerBack_ay_dom",
+              95
+            ],
+            [
+              "R_LatShank_ya_kurt",
+              95
+            ],
+            [
+              "L_MidLatThigh_ya_rms",
+              93
+            ],
+            [
+              "R_MidLatThigh_pi_skew",
+              93
+            ],
+            [
+              "Forehead_ay_loco_r",
+              92
+            ],
+            [
+              "d_tg_LowerBack_fi",
+              92
+            ],
+            [
+              "L_Ankle_ax_dom",
+              91
+            ],
+            [
+              "L_Ankle_ax_loco_r",
+              91
+            ],
+            [
+              "R_LatShank_ro_range",
+              91
+            ],
+            [
+              "Forehead_ro_skew",
+              90
+            ],
+            [
+              "d_hp_LowerBack_g_step_t",
+              90
+            ],
+            [
+              "r_tug_R_Wrist_ay_rms",
+              90
+            ],
+            [
+              "R_Ankle_ax_zcr",
+              89
+            ],
+            [
+              "R_Ankle_az_skew",
+              89
+            ],
+            [
+              "R_LatShank_ya_std",
+              89
+            ],
+            [
+              "dv_L_DorsalFoot_g_step_t_rng",
+              89
+            ],
+            [
+              "L_Ankle_ax_skew",
+              88
+            ],
+            [
+              "L_Wrist_ax_loco_r",
+              88
+            ],
+            [
+              "R_LatShank_az_trem_r",
+              88
+            ],
+            [
+              "R_MidLatThigh_ya_rms",
+              88
+            ],
+            [
+              "Xiphoid_am_dom",
+              88
+            ],
+            [
+              "asy_LatShank_m",
+              88
+            ],
+            [
+              "d_hp_LowerBack_pi_rms",
+              88
+            ],
+            [
+              "d_tug_LowerBack_g_cadence",
+              88
+            ],
+            [
+              "Forehead_ro_kurt",
+              87
+            ],
+            [
+              "L_Wrist_ay_iqr",
+              87
+            ],
+            [
+              "LowerBack_ro_skew",
+              87
+            ],
+            [
+              "LowerBack_ya_iqr",
+              87
+            ]
+          ],
+          "wall_s": 44.4
+        }
+      }
+    },
+    "stage2_no_dst": {
+      "mean_metrics": {
+        "n": 95,
+        "ccc": 0.3766,
+        "cal_slope": 0.2708,
+        "mae": 7.5795,
+        "r": 0.41,
+        "pred_mean": 24.585,
+        "pred_std": 6.547,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "stage2_no_dst_mean"
+      },
+      "seed_details": {
+        "42": {
+          "metrics": {
+            "n": 95,
+            "ccc": 0.3343,
+            "cal_slope": 0.2472,
+            "mae": 7.9882,
+            "r": 0.3583,
+            "pred_mean": 24.474,
+            "pred_std": 6.84,
+            "true_mean": 25.0,
+            "true_std": 9.913,
+            "label": "stage2_no_dst_seed42"
+          },
+          "n_stage2_features": 1721,
+          "selected_prefix_counts": {
+            "dst_": 0,
+            "cv_": 33
+          },
+          "top_selected_features": [
+            [
+              "L_Wrist_ay_loco_r",
+              95
+            ],
+            [
+              "L_Wrist_ro_skew",
+              95
+            ],
+            [
+              "LowerBack_ay_dom",
+              95
+            ],
+            [
+              "R_LatShank_ya_kurt",
+              95
+            ],
+            [
+              "Forehead_ay_loco_r",
+              94
+            ],
+            [
+              "L_MidLatThigh_ya_rms",
+              94
+            ],
+            [
+              "R_MidLatThigh_pi_skew",
+              93
+            ],
+            [
+              "L_Ankle_ax_dom",
+              92
+            ],
+            [
+              "L_Ankle_ax_loco_r",
+              92
+            ],
+            [
+              "d_tg_LowerBack_fi",
+              91
+            ],
+            [
+              "Forehead_ro_kurt",
+              90
+            ],
+            [
+              "Forehead_ro_skew",
+              90
+            ],
+            [
+              "LowerBack_ro_skew",
+              90
+            ],
+            [
+              "Xiphoid_am_dom",
+              90
+            ],
+            [
+              "d_hp_LowerBack_g_step_t",
+              90
+            ],
+            [
+              "L_MidLatThigh_az_zcr",
+              89
+            ],
+            [
+              "R_Ankle_az_skew",
+              89
+            ],
+            [
+              "R_LatShank_az_trem_r",
+              89
+            ],
+            [
+              "d_tg_R_Wrist_ay_rms",
+              89
+            ],
+            [
+              "r_tug_R_Wrist_ay_rms",
+              89
+            ],
+            [
+              "L_Wrist_ax_loco_r",
+              88
+            ],
+            [
+              "R_Ankle_ax_se",
+              88
+            ],
+            [
+              "R_LatShank_ro_range",
+              88
+            ],
+            [
+              "R_MidLatThigh_ya_rms",
+              88
+            ],
+            [
+              "d_hp_LowerBack_pi_rms",
+              88
+            ],
+            [
+              "R_Ankle_am_jerk",
+              87
+            ],
+            [
+              "asy_LatShank_m",
+              87
+            ],
+            [
+              "dv_L_DorsalFoot_g_step_t_rng",
+              87
+            ],
+            [
+              "Forehead_ay_high_r",
+              86
+            ],
+            [
+              "Forehead_pi_kurt",
+              86
+            ]
+          ],
+          "wall_s": 43.5
+        },
+        "1337": {
+          "metrics": {
+            "n": 95,
+            "ccc": 0.3746,
+            "cal_slope": 0.266,
+            "mae": 7.4547,
+            "r": 0.4107,
+            "pred_mean": 24.701,
+            "pred_std": 6.422,
+            "true_mean": 25.0,
+            "true_std": 9.913,
+            "label": "stage2_no_dst_seed1337"
+          },
+          "n_stage2_features": 1721,
+          "selected_prefix_counts": {
+            "dst_": 0,
+            "cv_": 33
+          },
+          "top_selected_features": [
+            [
+              "L_Wrist_ay_loco_r",
+              95
+            ],
+            [
+              "L_Wrist_ro_skew",
+              95
+            ],
+            [
+              "LowerBack_ay_dom",
+              95
+            ],
+            [
+              "R_LatShank_ya_kurt",
+              95
+            ],
+            [
+              "Forehead_ay_loco_r",
+              94
+            ],
+            [
+              "L_MidLatThigh_ya_rms",
+              94
+            ],
+            [
+              "R_MidLatThigh_pi_skew",
+              93
+            ],
+            [
+              "L_Ankle_ax_dom",
+              92
+            ],
+            [
+              "L_Ankle_ax_loco_r",
+              92
+            ],
+            [
+              "d_tg_LowerBack_fi",
+              91
+            ],
+            [
+              "Forehead_ro_kurt",
+              90
+            ],
+            [
+              "Forehead_ro_skew",
+              90
+            ],
+            [
+              "LowerBack_ro_skew",
+              90
+            ],
+            [
+              "Xiphoid_am_dom",
+              90
+            ],
+            [
+              "d_hp_LowerBack_g_step_t",
+              90
+            ],
+            [
+              "L_MidLatThigh_az_zcr",
+              89
+            ],
+            [
+              "R_Ankle_az_skew",
+              89
+            ],
+            [
+              "R_LatShank_az_trem_r",
+              89
+            ],
+            [
+              "d_tg_R_Wrist_ay_rms",
+              89
+            ],
+            [
+              "r_tug_R_Wrist_ay_rms",
+              89
+            ],
+            [
+              "L_Wrist_ax_loco_r",
+              88
+            ],
+            [
+              "R_Ankle_ax_se",
+              88
+            ],
+            [
+              "R_LatShank_ro_range",
+              88
+            ],
+            [
+              "R_MidLatThigh_ya_rms",
+              88
+            ],
+            [
+              "d_hp_LowerBack_pi_rms",
+              88
+            ],
+            [
+              "R_Ankle_am_jerk",
+              87
+            ],
+            [
+              "asy_LatShank_m",
+              87
+            ],
+            [
+              "dv_L_DorsalFoot_g_step_t_rng",
+              87
+            ],
+            [
+              "Forehead_ay_high_r",
+              86
+            ],
+            [
+              "Forehead_pi_kurt",
+              86
+            ]
+          ],
+          "wall_s": 43.9
+        },
+        "7": {
+          "metrics": {
+            "n": 95,
+            "ccc": 0.4013,
+            "cal_slope": 0.2991,
+            "mae": 7.5108,
+            "r": 0.4277,
+            "pred_mean": 24.579,
+            "pred_std": 6.932,
+            "true_mean": 25.0,
+            "true_std": 9.913,
+            "label": "stage2_no_dst_seed7"
+          },
+          "n_stage2_features": 1721,
+          "selected_prefix_counts": {
+            "dst_": 0,
+            "cv_": 33
+          },
+          "top_selected_features": [
+            [
+              "L_Wrist_ay_loco_r",
+              95
+            ],
+            [
+              "L_Wrist_ro_skew",
+              95
+            ],
+            [
+              "LowerBack_ay_dom",
+              95
+            ],
+            [
+              "R_LatShank_ya_kurt",
+              95
+            ],
+            [
+              "Forehead_ay_loco_r",
+              94
+            ],
+            [
+              "L_MidLatThigh_ya_rms",
+              94
+            ],
+            [
+              "R_MidLatThigh_pi_skew",
+              93
+            ],
+            [
+              "L_Ankle_ax_dom",
+              92
+            ],
+            [
+              "L_Ankle_ax_loco_r",
+              92
+            ],
+            [
+              "d_tg_LowerBack_fi",
+              91
+            ],
+            [
+              "Forehead_ro_kurt",
+              90
+            ],
+            [
+              "Forehead_ro_skew",
+              90
+            ],
+            [
+              "LowerBack_ro_skew",
+              90
+            ],
+            [
+              "Xiphoid_am_dom",
+              90
+            ],
+            [
+              "d_hp_LowerBack_g_step_t",
+              90
+            ],
+            [
+              "L_MidLatThigh_az_zcr",
+              89
+            ],
+            [
+              "R_Ankle_az_skew",
+              89
+            ],
+            [
+              "R_LatShank_az_trem_r",
+              89
+            ],
+            [
+              "d_tg_R_Wrist_ay_rms",
+              89
+            ],
+            [
+              "r_tug_R_Wrist_ay_rms",
+              89
+            ],
+            [
+              "L_Wrist_ax_loco_r",
+              88
+            ],
+            [
+              "R_Ankle_ax_se",
+              88
+            ],
+            [
+              "R_LatShank_ro_range",
+              88
+            ],
+            [
+              "R_MidLatThigh_ya_rms",
+              88
+            ],
+            [
+              "d_hp_LowerBack_pi_rms",
+              88
+            ],
+            [
+              "R_Ankle_am_jerk",
+              87
+            ],
+            [
+              "asy_LatShank_m",
+              87
+            ],
+            [
+              "dv_L_DorsalFoot_g_step_t_rng",
+              87
+            ],
+            [
+              "Forehead_ay_high_r",
+              86
+            ],
+            [
+              "Forehead_pi_kurt",
+              86
+            ]
+          ],
+          "wall_s": 43.7
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "stage2_no_dst_minus_current": {
+      "n_boot": 5000,
+      "mean_delta": -0.00042923548816437636,
+      "ci95": [
+        -0.04792128652462331,
+        0.05232472713798538
+      ],
+      "frac_gt_0": 0.4796
+    }
+  },
+  "rows_csv": "/home/fiod/pd-imu/results/dst_walkway_leakage_audit_rows_20260508_multiseed.csv",
+  "subject_rows_csv": "/home/fiod/pd-imu/results/dst_walkway_leakage_audit_subject_rows_20260508_multiseed.csv",
+  "verdict": "dst_* columns are included by current V2 filters and were generated by a once-trained historical dev-split walkway distiller, so they are not fold-local for LOOCV. The no-dst rows are the leakage/provenance sensitivity for corrected T3; use the measured deltas, not this audit, as a new tuned model claim."
+}

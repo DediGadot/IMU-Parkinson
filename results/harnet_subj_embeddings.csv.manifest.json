@@ -2,7 +2,7 @@
   "name": "harnet_subj_embeddings.csv",
   "script": "cache_harnet_embeddings.py",
   "script_sha256": "e99f66c4ebf7e4f321b33db41b7e57ecaac44a851b26392ea3dbfb6a4be9db42",
-  "git_sha": "unknown",
+  "git_sha": "d281a0ea762dff234374f1c2d7f278314e5a2845",
   "command": "cache_harnet_embeddings.py --csv_dir2 data/raw/wpd_pd_csv --batch_size 256",
   "created_at_utc": "2026-05-03T07:50:06.418046Z",
   "data_sha256": "df08c104b47fcd9c8f31bf1a1eee2230338d114c3d3bccb2d66f1e95def089f5",
@@ -51,5 +51,11 @@
   ],
   "downstream_unsafe_for": [],
   "audit_added_at_utc": "2026-05-03T07:50:06.418082Z",
-  "audit_note": "Manifest written by cache_harnet_embeddings.py; verified leakage-clean by construction."
+  "audit_note": "Manifest written by cache_harnet_embeddings.py; verified leakage-clean by construction.",
+  "provenance_backfill": {
+    "backfilled_at_utc": "2026-05-08T19:43:22Z",
+    "backfilled_by": "audit_cache_backfill_candidates.py follow-up",
+    "evidence": "Manifest script_sha256 e99f66c4ebf7e4f321b33db41b7e57ecaac44a851b26392ea3dbfb6a4be9db42 matches cache_harnet_embeddings.py at git commit d281a0ea762dff234374f1c2d7f278314e5a2845.",
+    "note": "Original remote extraction recorded git_sha as unknown because git metadata was unavailable to the script; the producing script bytes are recovered by script_sha256."
+  }
 }

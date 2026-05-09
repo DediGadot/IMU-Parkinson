@@ -1,0 +1,540 @@
+{
+  "generated_at_utc": "2026-05-08T21:43:00+00:00",
+  "script": "audit_headline_metric_recompute.py",
+  "policy": "Recompute headline/candidate metrics from stored per-subject prediction artifacts where available; LOSO is recomputed from per-seed rows.",
+  "tolerance": 0.0005,
+  "passed": true,
+  "checks": [
+    {
+      "name": "t1_iter12_honest_floor",
+      "source": "results/t1_iter12_honest_composite.json",
+      "method": "full_metrics(per_subject.y_true, per_subject.y_pred)",
+      "n_sids": 94,
+      "unique_sids": 94,
+      "recomputed": {
+        "n": 94,
+        "ccc": 0.655,
+        "cal_slope": 0.4827,
+        "mae": 1.5614,
+        "r": 0.7012,
+        "pred_mean": 4.081,
+        "pred_std": 1.938,
+        "true_mean": 4.106,
+        "true_std": 2.815,
+        "label": "t1_iter12_honest_floor"
+      },
+      "claimed": {
+        "n": 94,
+        "ccc": 0.655,
+        "mae": 1.5614,
+        "r": 0.7012,
+        "cal_slope": 0.4827
+      },
+      "passed": true,
+      "comparisons": [
+        {
+          "metric": "n",
+          "recomputed": 94,
+          "claimed": 94,
+          "passed": true
+        },
+        {
+          "metric": "ccc",
+          "recomputed": 0.655,
+          "claimed": 0.655,
+          "passed": true
+        },
+        {
+          "metric": "mae",
+          "recomputed": 1.5614,
+          "claimed": 1.5614,
+          "passed": true
+        },
+        {
+          "metric": "r",
+          "recomputed": 0.7012,
+          "claimed": 0.7012,
+          "passed": true
+        },
+        {
+          "metric": "cal_slope",
+          "recomputed": 0.4827,
+          "claimed": 0.4827,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "t1_iter34_hybrid_candidate",
+      "source": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "method": "full_metrics(per_subject.y_true, per_subject.y_pred)",
+      "n_sids": 93,
+      "unique_sids": 93,
+      "recomputed": {
+        "n": 93,
+        "ccc": 0.7366,
+        "cal_slope": 0.8215,
+        "mae": 1.731,
+        "r": 0.7406,
+        "pred_mean": 4.089,
+        "pred_std": 3.139,
+        "true_mean": 4.108,
+        "true_std": 2.83,
+        "label": "t1_iter34_hybrid_candidate"
+      },
+      "claimed": {
+        "n": 93,
+        "ccc": 0.7366,
+        "mae": 1.731,
+        "r": 0.7406,
+        "cal_slope": 0.8215
+      },
+      "passed": true,
+      "comparisons": [
+        {
+          "metric": "n",
+          "recomputed": 93,
+          "claimed": 93,
+          "passed": true
+        },
+        {
+          "metric": "ccc",
+          "recomputed": 0.7366,
+          "claimed": 0.7366,
+          "passed": true
+        },
+        {
+          "metric": "mae",
+          "recomputed": 1.731,
+          "claimed": 1.731,
+          "passed": true
+        },
+        {
+          "metric": "r",
+          "recomputed": 0.7406,
+          "claimed": 0.7406,
+          "passed": true
+        },
+        {
+          "metric": "cal_slope",
+          "recomputed": 0.8215,
+          "claimed": 0.8215,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "t3_iter47_validrange_current",
+      "source": "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+      "summary_source": "results/iter47_invalidcode_20260508_194605.json",
+      "method": "full_metrics(subject_predictions.y_true_validrange, subject_predictions.y_pred)",
+      "cohort": "drop_allmissing_validrange",
+      "stage2_policy": "stage2_current",
+      "n_rows": 95,
+      "unique_sids": 95,
+      "recomputed": {
+        "n": 95,
+        "ccc": 0.3784,
+        "cal_slope": 0.2692,
+        "mae": 7.528,
+        "r": 0.4141,
+        "pred_mean": 24.815,
+        "pred_std": 6.446,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "t3_iter47_validrange_current"
+      },
+      "claimed": {
+        "n": 95,
+        "ccc": 0.3784,
+        "cal_slope": 0.2692,
+        "mae": 7.528,
+        "r": 0.4141,
+        "pred_mean": 24.815,
+        "pred_std": 6.446,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "drop_allmissing_validrange_stage2_current_mean3"
+      },
+      "passed": true,
+      "comparisons": [
+        {
+          "metric": "n",
+          "recomputed": 95,
+          "claimed": 95,
+          "passed": true
+        },
+        {
+          "metric": "ccc",
+          "recomputed": 0.3784,
+          "claimed": 0.3784,
+          "passed": true
+        },
+        {
+          "metric": "mae",
+          "recomputed": 7.528,
+          "claimed": 7.528,
+          "passed": true
+        },
+        {
+          "metric": "r",
+          "recomputed": 0.4141,
+          "claimed": 0.4141,
+          "passed": true
+        },
+        {
+          "metric": "cal_slope",
+          "recomputed": 0.2692,
+          "claimed": 0.2692,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "t3_iter47_validrange_no_cv",
+      "source": "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+      "summary_source": "results/iter47_invalidcode_20260508_194605.json",
+      "method": "full_metrics(subject_predictions.y_true_validrange, subject_predictions.y_pred)",
+      "cohort": "drop_allmissing_validrange",
+      "stage2_policy": "stage2_no_cv",
+      "n_rows": 95,
+      "unique_sids": 95,
+      "recomputed": {
+        "n": 95,
+        "ccc": 0.3771,
+        "cal_slope": 0.2745,
+        "mae": 7.6798,
+        "r": 0.4067,
+        "pred_mean": 24.789,
+        "pred_std": 6.691,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "t3_iter47_validrange_no_cv"
+      },
+      "claimed": {
+        "n": 95,
+        "ccc": 0.3771,
+        "cal_slope": 0.2745,
+        "mae": 7.6798,
+        "r": 0.4067,
+        "pred_mean": 24.789,
+        "pred_std": 6.691,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "drop_allmissing_validrange_stage2_no_cv_mean3"
+      },
+      "passed": true,
+      "comparisons": [
+        {
+          "metric": "n",
+          "recomputed": 95,
+          "claimed": 95,
+          "passed": true
+        },
+        {
+          "metric": "ccc",
+          "recomputed": 0.3771,
+          "claimed": 0.3771,
+          "passed": true
+        },
+        {
+          "metric": "mae",
+          "recomputed": 7.6798,
+          "claimed": 7.6798,
+          "passed": true
+        },
+        {
+          "metric": "r",
+          "recomputed": 0.4067,
+          "claimed": 0.4067,
+          "passed": true
+        },
+        {
+          "metric": "cal_slope",
+          "recomputed": 0.2745,
+          "claimed": 0.2745,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "t3_iter47_complete33_current_sensitivity",
+      "source": "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+      "summary_source": "results/iter47_invalidcode_20260508_194605.json",
+      "method": "full_metrics(subject_predictions.y_true_validrange, subject_predictions.y_pred)",
+      "cohort": "complete33_validrange",
+      "stage2_policy": "stage2_current",
+      "n_rows": 88,
+      "unique_sids": 88,
+      "recomputed": {
+        "n": 88,
+        "ccc": 0.4281,
+        "cal_slope": 0.3019,
+        "mae": 7.3131,
+        "r": 0.4713,
+        "pred_mean": 24.977,
+        "pred_std": 6.476,
+        "true_mean": 25.08,
+        "true_std": 10.11,
+        "label": "t3_iter47_complete33_current_sensitivity"
+      },
+      "claimed": {
+        "n": 88,
+        "ccc": 0.4281,
+        "cal_slope": 0.3019,
+        "mae": 7.3131,
+        "r": 0.4713,
+        "pred_mean": 24.977,
+        "pred_std": 6.476,
+        "true_mean": 25.08,
+        "true_std": 10.11,
+        "label": "complete33_validrange_stage2_current_mean3"
+      },
+      "passed": true,
+      "comparisons": [
+        {
+          "metric": "n",
+          "recomputed": 88,
+          "claimed": 88,
+          "passed": true
+        },
+        {
+          "metric": "ccc",
+          "recomputed": 0.4281,
+          "claimed": 0.4281,
+          "passed": true
+        },
+        {
+          "metric": "mae",
+          "recomputed": 7.3131,
+          "claimed": 7.3131,
+          "passed": true
+        },
+        {
+          "metric": "r",
+          "recomputed": 0.4713,
+          "claimed": 0.4713,
+          "passed": true
+        },
+        {
+          "metric": "cal_slope",
+          "recomputed": 0.3019,
+          "claimed": 0.3019,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "dst_audit_stage2_current",
+      "source": "results/dst_walkway_leakage_audit_subject_rows_20260508_multiseed.csv",
+      "summary_source": "results/dst_walkway_leakage_audit_20260508_multiseed.json",
+      "method": "full_metrics(dst_subject_rows.y_true, dst_subject_rows.y_pred)",
+      "policy": "stage2_current",
+      "n_rows": 95,
+      "unique_sids": 95,
+      "recomputed": {
+        "n": 95,
+        "ccc": 0.3784,
+        "cal_slope": 0.2692,
+        "mae": 7.528,
+        "r": 0.4141,
+        "pred_mean": 24.815,
+        "pred_std": 6.446,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "dst_audit_stage2_current"
+      },
+      "claimed": {
+        "n": 95,
+        "ccc": 0.3784,
+        "cal_slope": 0.2692,
+        "mae": 7.528,
+        "r": 0.4141,
+        "pred_mean": 24.815,
+        "pred_std": 6.446,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "stage2_current_mean"
+      },
+      "passed": true,
+      "comparisons": [
+        {
+          "metric": "n",
+          "recomputed": 95,
+          "claimed": 95,
+          "passed": true
+        },
+        {
+          "metric": "ccc",
+          "recomputed": 0.3784,
+          "claimed": 0.3784,
+          "passed": true
+        },
+        {
+          "metric": "mae",
+          "recomputed": 7.528,
+          "claimed": 7.528,
+          "passed": true
+        },
+        {
+          "metric": "r",
+          "recomputed": 0.4141,
+          "claimed": 0.4141,
+          "passed": true
+        },
+        {
+          "metric": "cal_slope",
+          "recomputed": 0.2692,
+          "claimed": 0.2692,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "dst_audit_stage2_no_dst",
+      "source": "results/dst_walkway_leakage_audit_subject_rows_20260508_multiseed.csv",
+      "summary_source": "results/dst_walkway_leakage_audit_20260508_multiseed.json",
+      "method": "full_metrics(dst_subject_rows.y_true, dst_subject_rows.y_pred)",
+      "policy": "stage2_no_dst",
+      "n_rows": 95,
+      "unique_sids": 95,
+      "recomputed": {
+        "n": 95,
+        "ccc": 0.3766,
+        "cal_slope": 0.2708,
+        "mae": 7.5795,
+        "r": 0.41,
+        "pred_mean": 24.585,
+        "pred_std": 6.547,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "dst_audit_stage2_no_dst"
+      },
+      "claimed": {
+        "n": 95,
+        "ccc": 0.3766,
+        "cal_slope": 0.2708,
+        "mae": 7.5795,
+        "r": 0.41,
+        "pred_mean": 24.585,
+        "pred_std": 6.547,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "stage2_no_dst_mean"
+      },
+      "passed": true,
+      "comparisons": [
+        {
+          "metric": "n",
+          "recomputed": 95,
+          "claimed": 95,
+          "passed": true
+        },
+        {
+          "metric": "ccc",
+          "recomputed": 0.3766,
+          "claimed": 0.3766,
+          "passed": true
+        },
+        {
+          "metric": "mae",
+          "recomputed": 7.5795,
+          "claimed": 7.5795,
+          "passed": true
+        },
+        {
+          "metric": "r",
+          "recomputed": 0.41,
+          "claimed": 0.41,
+          "passed": true
+        },
+        {
+          "metric": "cal_slope",
+          "recomputed": 0.2708,
+          "claimed": 0.2708,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "t3_iter47_loso_drop_allmissing_validrange_stage2_current",
+      "source": "results/iter47_invalidcode_loso_rows_20260508_195424.csv",
+      "summary_source": "results/iter47_invalidcode_loso_20260508_195424.json",
+      "method": "mean per-seed CCC by LOSO direction from rows CSV, then two-way mean",
+      "cohort": "drop_allmissing_validrange",
+      "stage2_policy": "stage2_current",
+      "n_rows": 6,
+      "recomputed": {
+        "NLS_to_WPD_mean_ccc": 0.1937,
+        "WPD_to_NLS_mean_ccc": 0.1059,
+        "two_way_mean_ccc": 0.1498
+      },
+      "claimed": {
+        "NLS_to_WPD_mean_ccc": 0.19369999999999998,
+        "WPD_to_NLS_mean_ccc": 0.1059,
+        "two_way_mean_ccc": 0.1498
+      },
+      "passed": true,
+      "comparisons": [
+        {
+          "metric": "NLS_to_WPD_mean_ccc",
+          "recomputed": 0.1937,
+          "claimed": 0.19369999999999998,
+          "passed": true
+        },
+        {
+          "metric": "WPD_to_NLS_mean_ccc",
+          "recomputed": 0.1059,
+          "claimed": 0.1059,
+          "passed": true
+        },
+        {
+          "metric": "two_way_mean_ccc",
+          "recomputed": 0.1498,
+          "claimed": 0.1498,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "t3_iter47_loso_drop_allmissing_validrange_stage2_no_cv",
+      "source": "results/iter47_invalidcode_loso_rows_20260508_195424.csv",
+      "summary_source": "results/iter47_invalidcode_loso_20260508_195424.json",
+      "method": "mean per-seed CCC by LOSO direction from rows CSV, then two-way mean",
+      "cohort": "drop_allmissing_validrange",
+      "stage2_policy": "stage2_no_cv",
+      "n_rows": 6,
+      "recomputed": {
+        "NLS_to_WPD_mean_ccc": 0.2125,
+        "WPD_to_NLS_mean_ccc": 0.1138,
+        "two_way_mean_ccc": 0.1631
+      },
+      "claimed": {
+        "NLS_to_WPD_mean_ccc": 0.21246666666666666,
+        "WPD_to_NLS_mean_ccc": 0.1138,
+        "two_way_mean_ccc": 0.16313333333333332
+      },
+      "passed": true,
+      "comparisons": [
+        {
+          "metric": "NLS_to_WPD_mean_ccc",
+          "recomputed": 0.2125,
+          "claimed": 0.21246666666666666,
+          "passed": true
+        },
+        {
+          "metric": "WPD_to_NLS_mean_ccc",
+          "recomputed": 0.1138,
+          "claimed": 0.1138,
+          "passed": true
+        },
+        {
+          "metric": "two_way_mean_ccc",
+          "recomputed": 0.1631,
+          "claimed": 0.16313333333333332,
+          "passed": true
+        }
+      ]
+    }
+  ]
+}

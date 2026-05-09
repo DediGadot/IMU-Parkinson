@@ -1,0 +1,217 @@
+{
+  "audit": "t1_iter34_auxiliary_random_chain_order",
+  "created_at_utc": "2026-05-09T05:31:53+00:00",
+  "mode": "order",
+  "invalid_auxiliary_label": {
+    "sid": "NLS036",
+    "item": 15,
+    "stale_top_level_value": 18.0,
+    "valid_total_range": [
+      0.0,
+      8.0
+    ],
+    "source": "results/t1_iter48_aux_validrange_audit.json"
+  },
+  "order_audit": {
+    "item_columns_supplied_to_chain": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      18
+    ],
+    "implementation": {
+      "script": "run_t1_iter34_hybrid_8item_multibase.py",
+      "call": "RegressorChain(regr, order=\"random\", random_state=seed)",
+      "important_correction": "The supplied item column order is not the causal chain order. sklearn permutes the target order deterministically by seed."
+    },
+    "rows": [
+      {
+        "seed": 7,
+        "chain_order": [
+          11,
+          14,
+          9,
+          15,
+          12,
+          10,
+          13,
+          18
+        ],
+        "item15_position": 3,
+        "t1_items_after_item15": [
+          10,
+          12,
+          13
+        ],
+        "n_t1_items_after_item15": 3,
+        "aux_before_t1_items": {
+          "15": [
+            10,
+            12,
+            13
+          ],
+          "18": []
+        },
+        "iter34_lockbox_seed": true,
+        "iter46_decomp_seed": true
+      },
+      {
+        "seed": 42,
+        "chain_order": [
+          10,
+          14,
+          9,
+          18,
+          11,
+          13,
+          12,
+          15
+        ],
+        "item15_position": 7,
+        "t1_items_after_item15": [],
+        "n_t1_items_after_item15": 0,
+        "aux_before_t1_items": {
+          "15": [],
+          "18": [
+            11,
+            12,
+            13
+          ]
+        },
+        "iter34_lockbox_seed": true,
+        "iter46_decomp_seed": true
+      },
+      {
+        "seed": 1337,
+        "chain_order": [
+          15,
+          11,
+          10,
+          12,
+          9,
+          13,
+          14,
+          18
+        ],
+        "item15_position": 0,
+        "t1_items_after_item15": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "n_t1_items_after_item15": 6,
+        "aux_before_t1_items": {
+          "15": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "18": []
+        },
+        "iter34_lockbox_seed": true,
+        "iter46_decomp_seed": true
+      },
+      {
+        "seed": 2026,
+        "chain_order": [
+          13,
+          14,
+          12,
+          18,
+          9,
+          11,
+          15,
+          10
+        ],
+        "item15_position": 6,
+        "t1_items_after_item15": [
+          10
+        ],
+        "n_t1_items_after_item15": 1,
+        "aux_before_t1_items": {
+          "15": [
+            10
+          ],
+          "18": [
+            9,
+            10,
+            11
+          ]
+        },
+        "iter34_lockbox_seed": false,
+        "iter46_decomp_seed": true
+      },
+      {
+        "seed": 9001,
+        "chain_order": [
+          15,
+          11,
+          12,
+          18,
+          9,
+          14,
+          13,
+          10
+        ],
+        "item15_position": 0,
+        "t1_items_after_item15": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "n_t1_items_after_item15": 6,
+        "aux_before_t1_items": {
+          "15": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "18": [
+            9,
+            10,
+            13,
+            14
+          ]
+        },
+        "iter34_lockbox_seed": false,
+        "iter46_decomp_seed": true
+      }
+    ],
+    "summary": {
+      "iter34_lockbox_seeds": [
+        42,
+        1337,
+        7
+      ],
+      "iter34_lockbox_seeds_with_item15_upstream_of_any_t1": [
+        7,
+        1337
+      ],
+      "iter34_lockbox_seed_count_with_exposure": 2,
+      "iter34_lockbox_seed_count": 3,
+      "iter46_decomp_seed_count_with_exposure": 4,
+      "iter46_decomp_seed_count": 5,
+      "kimi_fixed_order_assumption_status": "falsified_by_code"
+    }
+  },
+  "decision_boundary": "Order exposure means the invalid auxiliary label is not structurally irrelevant. Any impact screen is claim-label evidence only; no post-hoc LOOCV or canonical promotion is allowed.",
+  "web_source": {
+    "mds_updrs_part_iii_items_scored_0_to_4": "https://www.apta.org/patient-care/evidence-based-practice-resources/test-measures/unified-parkinsons-disease-rating-scale-updrs-movement-disorders-society-mds-modified-unified-parkinsons-disease-rating-scale-mds-updrs"
+  }
+}

@@ -1,0 +1,3171 @@
+{
+  "timestamp_utc": "2026-05-08T15:43:43.788326+00:00",
+  "audit": "t3_corrected_target_clinical_dependency",
+  "cohort": "drop_allmissing",
+  "stage2_policy": "stage2_no_cv",
+  "n": 95,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "stage1_policies": [
+    "a3_hy_cv",
+    "hy_only",
+    "cv_only",
+    "intercept_only"
+  ],
+  "interpretation": "This is a framing audit. It estimates corrected-target T3 dependence on H&Y/clinical Stage-1 information while keeping Stage 2 free of hidden cv_* columns.",
+  "policy_rows": [
+    {
+      "stage1_policy": "a3_hy_cv",
+      "n": 95,
+      "mean_prediction_metrics": {
+        "n": 95,
+        "ccc": 0.4017,
+        "cal_slope": 0.2935,
+        "mae": 7.7127,
+        "r": 0.4322,
+        "pred_mean": 25.163,
+        "pred_std": 6.885,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "a3_hy_cv"
+      },
+      "mean_stage1_only_metrics": {
+        "n": 95,
+        "ccc": 0.3369,
+        "cal_slope": 0.2189,
+        "mae": 7.636,
+        "r": 0.4002,
+        "pred_mean": 25.167,
+        "pred_std": 5.545,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "a3_hy_cv_stage1_only"
+      },
+      "per_seed_metrics": [
+        {
+          "n": 95,
+          "ccc": 0.4014,
+          "cal_slope": 0.2957,
+          "mae": 7.878,
+          "r": 0.43,
+          "pred_mean": 25.005,
+          "pred_std": 6.971,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "a3_hy_cv_seed42"
+        },
+        {
+          "n": 95,
+          "ccc": 0.381,
+          "cal_slope": 0.2827,
+          "mae": 7.7882,
+          "r": 0.4063,
+          "pred_mean": 25.2,
+          "pred_std": 7.054,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "a3_hy_cv_seed1337"
+        },
+        {
+          "n": 95,
+          "ccc": 0.4042,
+          "cal_slope": 0.3021,
+          "mae": 7.6797,
+          "r": 0.4295,
+          "pred_mean": 25.283,
+          "pred_std": 7.131,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "a3_hy_cv_seed7"
+        }
+      ],
+      "per_seed_stage1_only_metrics": [
+        {
+          "n": 95,
+          "ccc": 0.3369,
+          "cal_slope": 0.2189,
+          "mae": 7.636,
+          "r": 0.4002,
+          "pred_mean": 25.167,
+          "pred_std": 5.545,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "a3_hy_cv_stage1_seed42"
+        },
+        {
+          "n": 95,
+          "ccc": 0.3369,
+          "cal_slope": 0.2189,
+          "mae": 7.636,
+          "r": 0.4002,
+          "pred_mean": 25.167,
+          "pred_std": 5.545,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "a3_hy_cv_stage1_seed1337"
+        },
+        {
+          "n": 95,
+          "ccc": 0.3369,
+          "cal_slope": 0.2189,
+          "mae": 7.636,
+          "r": 0.4002,
+          "pred_mean": 25.167,
+          "pred_std": 5.545,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "a3_hy_cv_stage1_seed7"
+        }
+      ],
+      "meta": {
+        "stage1_feature_names": [
+          "hy_0",
+          "hy_1",
+          "hy_2",
+          "hy_3",
+          "hy_4",
+          "hy_5",
+          "cv_yrs",
+          "cv_sex",
+          "cv_dbs"
+        ],
+        "stage2_policy": "stage2_no_cv",
+        "stage2_n_features": 1746
+      }
+    },
+    {
+      "stage1_policy": "hy_only",
+      "n": 95,
+      "mean_prediction_metrics": {
+        "n": 95,
+        "ccc": 0.2899,
+        "cal_slope": 0.2019,
+        "mae": 8.0761,
+        "r": 0.3223,
+        "pred_mean": 25.334,
+        "pred_std": 6.352,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "hy_only"
+      },
+      "mean_stage1_only_metrics": {
+        "n": 95,
+        "ccc": 0.2295,
+        "cal_slope": 0.1373,
+        "mae": 7.8635,
+        "r": 0.3094,
+        "pred_mean": 25.188,
+        "pred_std": 4.499,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "hy_only_stage1_only"
+      },
+      "per_seed_metrics": [
+        {
+          "n": 95,
+          "ccc": 0.2525,
+          "cal_slope": 0.18,
+          "mae": 8.5368,
+          "r": 0.276,
+          "pred_mean": 25.238,
+          "pred_std": 6.611,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "hy_only_seed42"
+        },
+        {
+          "n": 95,
+          "ccc": 0.2953,
+          "cal_slope": 0.2074,
+          "mae": 7.9919,
+          "r": 0.3262,
+          "pred_mean": 25.29,
+          "pred_std": 6.445,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "hy_only_seed1337"
+        },
+        {
+          "n": 95,
+          "ccc": 0.307,
+          "cal_slope": 0.2184,
+          "mae": 7.9994,
+          "r": 0.3362,
+          "pred_mean": 25.475,
+          "pred_std": 6.586,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "hy_only_seed7"
+        }
+      ],
+      "per_seed_stage1_only_metrics": [
+        {
+          "n": 95,
+          "ccc": 0.2295,
+          "cal_slope": 0.1373,
+          "mae": 7.8635,
+          "r": 0.3094,
+          "pred_mean": 25.188,
+          "pred_std": 4.499,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "hy_only_stage1_seed42"
+        },
+        {
+          "n": 95,
+          "ccc": 0.2295,
+          "cal_slope": 0.1373,
+          "mae": 7.8635,
+          "r": 0.3094,
+          "pred_mean": 25.188,
+          "pred_std": 4.499,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "hy_only_stage1_seed1337"
+        },
+        {
+          "n": 95,
+          "ccc": 0.2295,
+          "cal_slope": 0.1373,
+          "mae": 7.8635,
+          "r": 0.3094,
+          "pred_mean": 25.188,
+          "pred_std": 4.499,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "hy_only_stage1_seed7"
+        }
+      ],
+      "meta": {
+        "stage1_feature_names": [
+          "hy_0",
+          "hy_1",
+          "hy_2",
+          "hy_3",
+          "hy_4",
+          "hy_5"
+        ],
+        "stage2_policy": "stage2_no_cv",
+        "stage2_n_features": 1746
+      }
+    },
+    {
+      "stage1_policy": "cv_only",
+      "n": 95,
+      "mean_prediction_metrics": {
+        "n": 95,
+        "ccc": 0.3871,
+        "cal_slope": 0.2653,
+        "mae": 7.2065,
+        "r": 0.4357,
+        "pred_mean": 25.161,
+        "pred_std": 6.173,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "cv_only"
+      },
+      "mean_stage1_only_metrics": {
+        "n": 95,
+        "ccc": 0.2123,
+        "cal_slope": 0.1231,
+        "mae": 7.7168,
+        "r": 0.3085,
+        "pred_mean": 25.186,
+        "pred_std": 4.045,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "cv_only_stage1_only"
+      },
+      "per_seed_metrics": [
+        {
+          "n": 95,
+          "ccc": 0.37,
+          "cal_slope": 0.2572,
+          "mae": 7.4155,
+          "r": 0.4121,
+          "pred_mean": 24.929,
+          "pred_std": 6.327,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "cv_only_seed42"
+        },
+        {
+          "n": 95,
+          "ccc": 0.3861,
+          "cal_slope": 0.2665,
+          "mae": 7.1409,
+          "r": 0.4322,
+          "pred_mean": 25.214,
+          "pred_std": 6.251,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "cv_only_seed1337"
+        },
+        {
+          "n": 95,
+          "ccc": 0.3891,
+          "cal_slope": 0.2723,
+          "mae": 7.2837,
+          "r": 0.4309,
+          "pred_mean": 25.341,
+          "pred_std": 6.405,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "cv_only_seed7"
+        }
+      ],
+      "per_seed_stage1_only_metrics": [
+        {
+          "n": 95,
+          "ccc": 0.2123,
+          "cal_slope": 0.1231,
+          "mae": 7.7168,
+          "r": 0.3085,
+          "pred_mean": 25.186,
+          "pred_std": 4.045,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "cv_only_stage1_seed42"
+        },
+        {
+          "n": 95,
+          "ccc": 0.2123,
+          "cal_slope": 0.1231,
+          "mae": 7.7168,
+          "r": 0.3085,
+          "pred_mean": 25.186,
+          "pred_std": 4.045,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "cv_only_stage1_seed1337"
+        },
+        {
+          "n": 95,
+          "ccc": 0.2123,
+          "cal_slope": 0.1231,
+          "mae": 7.7168,
+          "r": 0.3085,
+          "pred_mean": 25.186,
+          "pred_std": 4.045,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "cv_only_stage1_seed7"
+        }
+      ],
+      "meta": {
+        "stage1_feature_names": [
+          "cv_yrs",
+          "cv_sex",
+          "cv_dbs"
+        ],
+        "stage2_policy": "stage2_no_cv",
+        "stage2_n_features": 1746
+      }
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "n": 95,
+      "mean_prediction_metrics": {
+        "n": 95,
+        "ccc": 0.2449,
+        "cal_slope": 0.1537,
+        "mae": 7.8363,
+        "r": 0.3043,
+        "pred_mean": 25.221,
+        "pred_std": 5.119,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "intercept_only"
+      },
+      "mean_stage1_only_metrics": {
+        "n": 95,
+        "ccc": -0.0213,
+        "cal_slope": -0.0106,
+        "mae": 8.0394,
+        "r": -1.0,
+        "pred_mean": 25.189,
+        "pred_std": 0.108,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "intercept_only_stage1_only"
+      },
+      "per_seed_metrics": [
+        {
+          "n": 95,
+          "ccc": 0.2679,
+          "cal_slope": 0.1717,
+          "mae": 7.7739,
+          "r": 0.3236,
+          "pred_mean": 25.052,
+          "pred_std": 5.378,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "intercept_only_seed42"
+        },
+        {
+          "n": 95,
+          "ccc": 0.1946,
+          "cal_slope": 0.1241,
+          "mae": 8.0811,
+          "r": 0.2368,
+          "pred_mean": 25.457,
+          "pred_std": 5.312,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "intercept_only_seed1337"
+        },
+        {
+          "n": 95,
+          "ccc": 0.2577,
+          "cal_slope": 0.1652,
+          "mae": 7.9963,
+          "r": 0.311,
+          "pred_mean": 25.154,
+          "pred_std": 5.386,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "intercept_only_seed7"
+        }
+      ],
+      "per_seed_stage1_only_metrics": [
+        {
+          "n": 95,
+          "ccc": -0.0213,
+          "cal_slope": -0.0106,
+          "mae": 8.0394,
+          "r": -1.0,
+          "pred_mean": 25.189,
+          "pred_std": 0.108,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "intercept_only_stage1_seed42"
+        },
+        {
+          "n": 95,
+          "ccc": -0.0213,
+          "cal_slope": -0.0106,
+          "mae": 8.0394,
+          "r": -1.0,
+          "pred_mean": 25.189,
+          "pred_std": 0.108,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "intercept_only_stage1_seed1337"
+        },
+        {
+          "n": 95,
+          "ccc": -0.0213,
+          "cal_slope": -0.0106,
+          "mae": 8.0394,
+          "r": -1.0,
+          "pred_mean": 25.189,
+          "pred_std": 0.108,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "intercept_only_stage1_seed7"
+        }
+      ],
+      "meta": {
+        "stage1_feature_names": [
+          "intercept_only_zero_feature"
+        ],
+        "stage2_policy": "stage2_no_cv",
+        "stage2_n_features": 1746
+      }
+    }
+  ],
+  "comparisons_vs_a3_hy_cv": {
+    "a3_hy_cv_minus_hy_only": {
+      "n_boot": 5000,
+      "delta_mean": 0.10986201618630263,
+      "ci_low": 0.008536328535639634,
+      "ci_high": 0.21612328789716684,
+      "frac_above_zero": 0.9818
+    },
+    "a3_hy_cv_minus_cv_only": {
+      "n_boot": 5000,
+      "delta_mean": 0.013616336005336903,
+      "ci_low": -0.09836665616638482,
+      "ci_high": 0.12033919721858859,
+      "frac_above_zero": 0.6068
+    },
+    "a3_hy_cv_minus_intercept_only": {
+      "n_boot": 5000,
+      "delta_mean": 0.15190515796384133,
+      "ci_low": 0.006368508925356742,
+      "ci_high": 0.28852907854671866,
+      "frac_above_zero": 0.9794
+    }
+  },
+  "subject_rows": [
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS142",
+      "y_true": 24.0,
+      "y_pred": 29.382709173800922,
+      "stage1_pred": 28.220886903757236
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS179",
+      "y_true": 43.0,
+      "y_pred": 41.76672138721886,
+      "stage1_pred": 36.96855824164774
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS146",
+      "y_true": 10.0,
+      "y_pred": 23.557210305278243,
+      "stage1_pred": 29.47190875973186
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS157",
+      "y_true": 25.0,
+      "y_pred": 27.337183848247662,
+      "stage1_pred": 21.119597087552748
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS130",
+      "y_true": 22.0,
+      "y_pred": 29.369281513605575,
+      "stage1_pred": 31.070253262055406
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS175",
+      "y_true": 29.0,
+      "y_pred": 27.70209210625373,
+      "stage1_pred": 23.856832797205623
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD022",
+      "y_true": 27.0,
+      "y_pred": 25.878762538922057,
+      "stage1_pred": 23.00679941270219
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS121",
+      "y_true": 11.0,
+      "y_pred": 30.228037847449695,
+      "stage1_pred": 32.55504460753522
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS150",
+      "y_true": 35.0,
+      "y_pred": 22.264553193032086,
+      "stage1_pred": 28.613997759858545
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD020",
+      "y_true": 13.0,
+      "y_pred": 28.537787798387285,
+      "stage1_pred": 25.666337579419416
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS197",
+      "y_true": 23.0,
+      "y_pred": 19.8911708856397,
+      "stage1_pred": 21.27033803797813
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS184",
+      "y_true": 21.0,
+      "y_pred": 18.989364130649303,
+      "stage1_pred": 21.180457400853168
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS036",
+      "y_true": 46.0,
+      "y_pred": 36.18460653545247,
+      "stage1_pred": 34.18873341136801
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS143",
+      "y_true": 36.0,
+      "y_pred": 26.499139855159214,
+      "stage1_pred": 29.473166771104143
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS102",
+      "y_true": 14.0,
+      "y_pred": 14.810996050719988,
+      "stage1_pred": 13.978630199486139
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS183",
+      "y_true": 14.0,
+      "y_pred": 27.08548313777203,
+      "stage1_pred": 25.097935134947864
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS192",
+      "y_true": 18.0,
+      "y_pred": 25.729701419524016,
+      "stage1_pred": 25.77851083470917
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD018",
+      "y_true": 26.0,
+      "y_pred": 17.166732359938592,
+      "stage1_pred": 20.124275264637102
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD002",
+      "y_true": 19.0,
+      "y_pred": 24.73830472695077,
+      "stage1_pred": 22.87880447397284
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS163",
+      "y_true": 25.0,
+      "y_pred": 21.505638173831883,
+      "stage1_pred": 22.699634563167397
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS189",
+      "y_true": 13.0,
+      "y_pred": 17.04050362176329,
+      "stage1_pred": 19.937023104566194
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS144",
+      "y_true": 29.0,
+      "y_pred": 21.267201906914757,
+      "stage1_pred": 25.085283311094333
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD024",
+      "y_true": 18.0,
+      "y_pred": 17.360607348319842,
+      "stage1_pred": 18.629153352327993
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD012",
+      "y_true": 19.0,
+      "y_pred": 21.32676831119345,
+      "stage1_pred": 22.87880447397284
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD010",
+      "y_true": 24.0,
+      "y_pred": 27.14052339872988,
+      "stage1_pred": 29.29956187668279
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS176",
+      "y_true": 9.0,
+      "y_pred": 24.34908194445849,
+      "stage1_pred": 21.693607788388125
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS160",
+      "y_true": 37.0,
+      "y_pred": 20.099258058136297,
+      "stage1_pred": 23.48643461186157
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS135",
+      "y_true": 43.0,
+      "y_pred": 33.76641685934133,
+      "stage1_pred": 28.155484894156945
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS190",
+      "y_true": 34.0,
+      "y_pred": 27.462306888790355,
+      "stage1_pred": 26.031884228018452
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS069",
+      "y_true": 25.0,
+      "y_pred": 26.566698467222107,
+      "stage1_pred": 30.795483747655624
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD023",
+      "y_true": 13.0,
+      "y_pred": 28.27429671821074,
+      "stage1_pred": 24.31590887788099
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD005",
+      "y_true": 15.0,
+      "y_pred": 21.769656946542227,
+      "stage1_pred": 21.349532016308288
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS198",
+      "y_true": 24.0,
+      "y_pred": 24.395680475549096,
+      "stage1_pred": 25.689238361821094
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD027",
+      "y_true": 26.0,
+      "y_pred": 23.07680851734303,
+      "stage1_pred": 23.327224131529906
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS149",
+      "y_true": 29.0,
+      "y_pred": 31.153779694628962,
+      "stage1_pred": 31.042822913020377
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS185",
+      "y_true": 40.0,
+      "y_pred": 36.41765796015912,
+      "stage1_pred": 31.66390221823191
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS172",
+      "y_true": 10.0,
+      "y_pred": 27.149492969242075,
+      "stage1_pred": 25.537539424117956
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS164",
+      "y_true": 13.0,
+      "y_pred": 22.84821175202193,
+      "stage1_pred": 25.013535486587912
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS182",
+      "y_true": 14.0,
+      "y_pred": 17.315015024567874,
+      "stage1_pred": 18.849059017528127
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD025",
+      "y_true": 30.0,
+      "y_pred": 33.51595490025612,
+      "stage1_pred": 35.41145477183235
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD003",
+      "y_true": 30.0,
+      "y_pred": 22.844019530854997,
+      "stage1_pred": 22.550326304162855
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS170",
+      "y_true": 27.0,
+      "y_pred": 26.979744870458784,
+      "stage1_pred": 21.77191357798095
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS127",
+      "y_true": 19.0,
+      "y_pred": 26.9294772445442,
+      "stage1_pred": 29.92269319264121
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD015",
+      "y_true": 22.0,
+      "y_pred": 26.32219190474319,
+      "stage1_pred": 24.51409650488014
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS167",
+      "y_true": 12.0,
+      "y_pred": 24.749940362306234,
+      "stage1_pred": 25.52795071925037
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS186",
+      "y_true": 17.0,
+      "y_pred": 24.72289756388807,
+      "stage1_pred": 25.001873948676707
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD016",
+      "y_true": 10.0,
+      "y_pred": 20.42422162986973,
+      "stage1_pred": 17.74578234304059
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS169",
+      "y_true": 22.0,
+      "y_pred": 17.845206574681438,
+      "stage1_pred": 23.93010323391214
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS035",
+      "y_true": 20.0,
+      "y_pred": 14.936496870349751,
+      "stage1_pred": 18.1938139931843
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS153",
+      "y_true": 30.0,
+      "y_pred": 25.544473476100432,
+      "stage1_pred": 26.585344138058478
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD021",
+      "y_true": 25.0,
+      "y_pred": 13.567777850751243,
+      "stage1_pred": 16.953239850335358
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS155",
+      "y_true": 6.0,
+      "y_pred": 21.36560130994772,
+      "stage1_pred": 23.683188803572268
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS166",
+      "y_true": 26.0,
+      "y_pred": 37.414421559665065,
+      "stage1_pred": 32.12701361847279
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS191",
+      "y_true": 36.0,
+      "y_pred": 22.83502274363988,
+      "stage1_pred": 26.781606165715004
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD004",
+      "y_true": 30.0,
+      "y_pred": 27.856971582131095,
+      "stage1_pred": 22.550326304162855
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD009",
+      "y_true": 19.0,
+      "y_pred": 27.72734997878365,
+      "stage1_pred": 25.1122347310298
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD017",
+      "y_true": 27.0,
+      "y_pred": 15.824607989434123,
+      "stage1_pred": 20.01288828721245
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD029",
+      "y_true": 25.0,
+      "y_pred": 23.441156731528096,
+      "stage1_pred": 23.570839493374734
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS211",
+      "y_true": 24.0,
+      "y_pred": 18.871627644623334,
+      "stage1_pred": 24.173243015174005
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS201",
+      "y_true": 59.0,
+      "y_pred": 32.510291895376625,
+      "stage1_pred": 30.891858416598165
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS152",
+      "y_true": 19.0,
+      "y_pred": 19.971082192621353,
+      "stage1_pred": 24.342827958380738
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS174",
+      "y_true": 27.0,
+      "y_pred": 20.35151581987039,
+      "stage1_pred": 24.302071409892488
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS165",
+      "y_true": 33.0,
+      "y_pred": 26.3063495222281,
+      "stage1_pred": 28.6448510811399
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS148",
+      "y_true": 38.0,
+      "y_pred": 24.91287155461806,
+      "stage1_pred": 22.466853904752785
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS161",
+      "y_true": 39.0,
+      "y_pred": 29.226636505776856,
+      "stage1_pred": 28.734349580502098
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS159",
+      "y_true": 39.0,
+      "y_pred": 24.2270886289734,
+      "stage1_pred": 24.267319634053063
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD019",
+      "y_true": 25.0,
+      "y_pred": 8.507388684267134,
+      "stage1_pred": 12.921851989403775
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS208",
+      "y_true": 22.0,
+      "y_pred": 32.13389844509862,
+      "stage1_pred": 26.975589265885883
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD026",
+      "y_true": 28.0,
+      "y_pred": 25.66930274784312,
+      "stage1_pred": 22.978817681874883
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS154",
+      "y_true": 13.0,
+      "y_pred": 16.166118837416075,
+      "stage1_pred": 17.762215588137668
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS173",
+      "y_true": 38.0,
+      "y_pred": 18.70968737984597,
+      "stage1_pred": 19.271967720432972
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD006",
+      "y_true": 34.0,
+      "y_pred": 27.325663071372674,
+      "stage1_pred": 22.430879696959224
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS177",
+      "y_true": 25.0,
+      "y_pred": 18.347288330384444,
+      "stage1_pred": 19.570710562946704
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD008",
+      "y_true": 23.0,
+      "y_pred": 19.45173219733253,
+      "stage1_pred": 17.025760178112925
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS101",
+      "y_true": 14.0,
+      "y_pred": 29.747444015100584,
+      "stage1_pred": 33.46571645835387
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS033",
+      "y_true": 31.0,
+      "y_pred": 47.79865859025142,
+      "stage1_pred": 43.76372696254348
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS022",
+      "y_true": 32.0,
+      "y_pred": 24.744835387765864,
+      "stage1_pred": 24.76509423909685
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS124",
+      "y_true": 41.0,
+      "y_pred": 44.74969605096437,
+      "stage1_pred": 39.85321634786334
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS056",
+      "y_true": 32.0,
+      "y_pred": 21.68544661384658,
+      "stage1_pred": 16.433932695601065
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS209",
+      "y_true": 26.0,
+      "y_pred": 24.173466671015927,
+      "stage1_pred": 24.93039727783857
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS162",
+      "y_true": 38.0,
+      "y_pred": 23.231590783623897,
+      "stage1_pred": 25.890496231322334
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS195",
+      "y_true": 16.0,
+      "y_pred": 20.117888866200133,
+      "stage1_pred": 19.272549261144903
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS139",
+      "y_true": 33.0,
+      "y_pred": 25.150831057774496,
+      "stage1_pred": 23.473348181431714
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS002",
+      "y_true": 18.0,
+      "y_pred": 18.69127312055861,
+      "stage1_pred": 23.892740760113295
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS210",
+      "y_true": 26.0,
+      "y_pred": 23.518528862197016,
+      "stage1_pred": 26.566916974377843
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS141",
+      "y_true": 17.0,
+      "y_pred": 35.67070274484973,
+      "stage1_pred": 34.51425358020178
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD007",
+      "y_true": 12.0,
+      "y_pred": 24.474333473285924,
+      "stage1_pred": 23.087836036579194
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD001",
+      "y_true": 13.0,
+      "y_pred": 21.702033992524264,
+      "stage1_pred": 17.57962338190344
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS147",
+      "y_true": 19.0,
+      "y_pred": 23.882800899268943,
+      "stage1_pred": 21.403343750084332
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD011",
+      "y_true": 26.0,
+      "y_pred": 22.428973772941372,
+      "stage1_pred": 22.669772911366483
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "WPD014",
+      "y_true": 24.0,
+      "y_pred": 13.598517763159165,
+      "stage1_pred": 21.84112252299666
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS158",
+      "y_true": 15.0,
+      "y_pred": 24.1715779279527,
+      "stage1_pred": 24.36330876343818
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS196",
+      "y_true": 52.0,
+      "y_pred": 43.59128059050287,
+      "stage1_pred": 37.59202222757034
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS140",
+      "y_true": 40.0,
+      "y_pred": 37.87007573373324,
+      "stage1_pred": 33.25981642304498
+    },
+    {
+      "stage1_policy": "a3_hy_cv",
+      "sid": "NLS187",
+      "y_true": 33.0,
+      "y_pred": 34.534279027376364,
+      "stage1_pred": 33.56487780402474
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS142",
+      "y_true": 24.0,
+      "y_pred": 22.080656053098938,
+      "stage1_pred": 22.962445730690906
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS179",
+      "y_true": 43.0,
+      "y_pred": 32.21045060924238,
+      "stage1_pred": 31.017740631086355
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS146",
+      "y_true": 10.0,
+      "y_pred": 20.472572745640665,
+      "stage1_pred": 23.2163234314035
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS157",
+      "y_true": 25.0,
+      "y_pred": 24.378265898344612,
+      "stage1_pred": 22.94431160921144
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS130",
+      "y_true": 22.0,
+      "y_pred": 31.052788506352215,
+      "stage1_pred": 30.316129315351333
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS175",
+      "y_true": 29.0,
+      "y_pred": 27.453580302247605,
+      "stage1_pred": 22.871775123293556
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD022",
+      "y_true": 27.0,
+      "y_pred": 24.793382661249822,
+      "stage1_pred": 22.9080433662525
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS121",
+      "y_true": 11.0,
+      "y_pred": 37.557655318373946,
+      "stage1_pred": 33.90510732249366
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS150",
+      "y_true": 35.0,
+      "y_pred": 21.735353257141046,
+      "stage1_pred": 29.143368683963107
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD020",
+      "y_true": 13.0,
+      "y_pred": 23.8033756440519,
+      "stage1_pred": 23.16192106696509
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS197",
+      "y_true": 23.0,
+      "y_pred": 18.713024137406453,
+      "stage1_pred": 20.2641323781927
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS184",
+      "y_true": 21.0,
+      "y_pred": 20.09398887144461,
+      "stage1_pred": 23.016848095129323
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS036",
+      "y_true": 46.0,
+      "y_pred": 32.31135623420104,
+      "stage1_pred": 28.151032765096147
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS143",
+      "y_true": 36.0,
+      "y_pred": 22.337665567400254,
+      "stage1_pred": 29.05315632770247
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS102",
+      "y_true": 14.0,
+      "y_pred": 21.583137403659,
+      "stage1_pred": 20.165311668890034
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS183",
+      "y_true": 14.0,
+      "y_pred": 30.697958360134688,
+      "stage1_pred": 31.037828165436398
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS192",
+      "y_true": 18.0,
+      "y_pred": 28.892919712373338,
+      "stage1_pred": 23.071250459567732
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD018",
+      "y_true": 26.0,
+      "y_pred": 15.567910296748144,
+      "stage1_pred": 19.977375632713063
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD002",
+      "y_true": 19.0,
+      "y_pred": 20.93770932339537,
+      "stage1_pred": 23.053116338088262
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS163",
+      "y_true": 25.0,
+      "y_pred": 20.051965060861164,
+      "stage1_pred": 22.94431160921144
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS189",
+      "y_true": 13.0,
+      "y_pred": 17.602333043771015,
+      "stage1_pred": 23.16192106696509
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS144",
+      "y_true": 29.0,
+      "y_pred": 29.989210808372874,
+      "stage1_pred": 32.28096355857705
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD024",
+      "y_true": 18.0,
+      "y_pred": 20.1137133662025,
+      "stage1_pred": 23.071250459567732
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD012",
+      "y_true": 19.0,
+      "y_pred": 20.1948036663455,
+      "stage1_pred": 23.053116338088262
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD010",
+      "y_true": 24.0,
+      "y_pred": 26.500539193991973,
+      "stage1_pred": 30.135704602830074
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS176",
+      "y_true": 9.0,
+      "y_pred": 23.726769109712006,
+      "stage1_pred": 23.234457552882972
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS160",
+      "y_true": 37.0,
+      "y_pred": 22.1748552956626,
+      "stage1_pred": 22.726702151457786
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS135",
+      "y_true": 43.0,
+      "y_pred": 36.083825430320104,
+      "stage1_pred": 31.017740631086355
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS190",
+      "y_true": 34.0,
+      "y_pred": 21.954308799164522,
+      "stage1_pred": 22.7811045158962
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS069",
+      "y_true": 25.0,
+      "y_pred": 19.078684746549715,
+      "stage1_pred": 23.21623454836192
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD023",
+      "y_true": 13.0,
+      "y_pred": 27.040232739299654,
+      "stage1_pred": 23.16192106696509
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD005",
+      "y_true": 15.0,
+      "y_pred": 20.667061904547506,
+      "stage1_pred": 21.02881703280505
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS198",
+      "y_true": 24.0,
+      "y_pred": 19.790110289708178,
+      "stage1_pred": 22.962445730690906
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD027",
+      "y_true": 26.0,
+      "y_pred": 22.34990756353807,
+      "stage1_pred": 22.926177487731973
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS149",
+      "y_true": 29.0,
+      "y_pred": 34.153438890997656,
+      "stage1_pred": 29.684642821526907
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS185",
+      "y_true": 40.0,
+      "y_pred": 30.557955457905063,
+      "stage1_pred": 28.692306902659947
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS172",
+      "y_true": 10.0,
+      "y_pred": 25.840803201644874,
+      "stage1_pred": 23.2163234314035
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS164",
+      "y_true": 13.0,
+      "y_pred": 21.717401086341123,
+      "stage1_pred": 23.16192106696509
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS182",
+      "y_true": 14.0,
+      "y_pred": 20.413857100907215,
+      "stage1_pred": 23.143786945485616
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD025",
+      "y_true": 30.0,
+      "y_pred": 28.437099486393183,
+      "stage1_pred": 32.19073334947058
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD003",
+      "y_true": 30.0,
+      "y_pred": 21.902365083512674,
+      "stage1_pred": 22.853641001814086
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS170",
+      "y_true": 27.0,
+      "y_pred": 24.874891186130668,
+      "stage1_pred": 19.881790050886522
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS127",
+      "y_true": 19.0,
+      "y_pred": 28.56092949307369,
+      "stage1_pred": 30.586766384133238
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD015",
+      "y_true": 22.0,
+      "y_pred": 26.633340197410917,
+      "stage1_pred": 22.998713973649853
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS167",
+      "y_true": 12.0,
+      "y_pred": 26.461238153295955,
+      "stage1_pred": 23.18005518844456
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS186",
+      "y_true": 17.0,
+      "y_pred": 19.80698159459584,
+      "stage1_pred": 20.837645869151956
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD016",
+      "y_true": 10.0,
+      "y_pred": 28.036654969175203,
+      "stage1_pred": 23.2163234314035
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS169",
+      "y_true": 22.0,
+      "y_pred": 20.42182897726094,
+      "stage1_pred": 22.998713973649853
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS035",
+      "y_true": 20.0,
+      "y_pred": 18.868965282238587,
+      "stage1_pred": 20.550889123672324
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS153",
+      "y_true": 30.0,
+      "y_pred": 22.737102949541335,
+      "stage1_pred": 22.853641001814086
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD021",
+      "y_true": 25.0,
+      "y_pred": 20.39426968747583,
+      "stage1_pred": 22.94431160921144
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS155",
+      "y_true": 6.0,
+      "y_pred": 23.69627720219926,
+      "stage1_pred": 23.288859917321385
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS166",
+      "y_true": 26.0,
+      "y_pred": 39.595739125154324,
+      "stage1_pred": 29.955279890308805
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS191",
+      "y_true": 36.0,
+      "y_pred": 21.137127707170464,
+      "stage1_pred": 22.74483627293726
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD004",
+      "y_true": 30.0,
+      "y_pred": 28.2102873070183,
+      "stage1_pred": 22.853641001814086
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD009",
+      "y_true": 19.0,
+      "y_pred": 34.43141314991197,
+      "stage1_pred": 33.18326564964184
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD017",
+      "y_true": 27.0,
+      "y_pred": 19.39491805293062,
+      "stage1_pred": 19.88179005088653
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD029",
+      "y_true": 25.0,
+      "y_pred": 21.33561583557899,
+      "stage1_pred": 22.94431160921144
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS211",
+      "y_true": 24.0,
+      "y_pred": 19.18555136205343,
+      "stage1_pred": 22.962445730690906
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS201",
+      "y_true": 59.0,
+      "y_pred": 33.35406936189829,
+      "stage1_pred": 29.574057285382693
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS152",
+      "y_true": 19.0,
+      "y_pred": 22.967627501119903,
+      "stage1_pred": 23.053116338088262
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS174",
+      "y_true": 27.0,
+      "y_pred": 24.370215541060208,
+      "stage1_pred": 22.9080433662525
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS165",
+      "y_true": 33.0,
+      "y_pred": 23.95981472614767,
+      "stage1_pred": 29.323793396484366
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS148",
+      "y_true": 38.0,
+      "y_pred": 28.20276335506689,
+      "stage1_pred": 22.708568029978313
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS161",
+      "y_true": 39.0,
+      "y_pred": 30.27587055819927,
+      "stage1_pred": 31.378661467512263
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS159",
+      "y_true": 39.0,
+      "y_pred": 25.502036643641443,
+      "stage1_pred": 22.690433908498846
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD019",
+      "y_true": 25.0,
+      "y_pred": 17.476811939745634,
+      "stage1_pred": 23.2162345483619
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS208",
+      "y_true": 22.0,
+      "y_pred": 28.898817818081408,
+      "stage1_pred": 22.998713973649853
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD026",
+      "y_true": 28.0,
+      "y_pred": 27.57630517284269,
+      "stage1_pred": 22.889909244773026
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS154",
+      "y_true": 13.0,
+      "y_pred": 21.129392047649688,
+      "stage1_pred": 23.16192106696509
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS173",
+      "y_true": 38.0,
+      "y_pred": 17.911028346570035,
+      "stage1_pred": 22.708568029978313
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD006",
+      "y_true": 34.0,
+      "y_pred": 26.61742545073341,
+      "stage1_pred": 22.7811045158962
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS177",
+      "y_true": 25.0,
+      "y_pred": 18.7716290352339,
+      "stage1_pred": 22.94431160921144
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD008",
+      "y_true": 23.0,
+      "y_pred": 24.26813565738867,
+      "stage1_pred": 22.98057985217038
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS101",
+      "y_true": 14.0,
+      "y_pred": 31.37547775831051,
+      "stage1_pred": 33.634416695174224
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS033",
+      "y_true": 31.0,
+      "y_pred": 47.64992995127937,
+      "stage1_pred": 42.267211684720905
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS022",
+      "y_true": 32.0,
+      "y_pred": 28.987521413331805,
+      "stage1_pred": 29.41400575274501
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS124",
+      "y_true": 41.0,
+      "y_pred": 39.898318250341056,
+      "stage1_pred": 31.1982010492993
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS056",
+      "y_true": 32.0,
+      "y_pred": 28.950442936272136,
+      "stage1_pred": 22.817372758855143
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS209",
+      "y_true": 26.0,
+      "y_pred": 22.016526228871076,
+      "stage1_pred": 22.926177487731973
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS162",
+      "y_true": 38.0,
+      "y_pred": 17.00837596284207,
+      "stage1_pred": 22.708568029978313
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS195",
+      "y_true": 16.0,
+      "y_pred": 21.812672715999245,
+      "stage1_pred": 20.933231450978504
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS139",
+      "y_true": 33.0,
+      "y_pred": 24.33835210329356,
+      "stage1_pred": 22.79923863737567
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS002",
+      "y_true": 18.0,
+      "y_pred": 16.799121743787115,
+      "stage1_pred": 23.071250459567732
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS210",
+      "y_true": 26.0,
+      "y_pred": 24.47077438056404,
+      "stage1_pred": 22.926177487731973
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS141",
+      "y_true": 17.0,
+      "y_pred": 33.38148492797222,
+      "stage1_pred": 33.363726067854785
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD007",
+      "y_true": 12.0,
+      "y_pred": 23.46865909515748,
+      "stage1_pred": 23.180055188444555
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD001",
+      "y_true": 13.0,
+      "y_pred": 24.291469823182535,
+      "stage1_pred": 23.16192106696509
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS147",
+      "y_true": 19.0,
+      "y_pred": 25.537108686889553,
+      "stage1_pred": 23.053116338088262
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD011",
+      "y_true": 26.0,
+      "y_pred": 24.595301860513576,
+      "stage1_pred": 22.926177487731973
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "WPD014",
+      "y_true": 24.0,
+      "y_pred": 16.96818375053249,
+      "stage1_pred": 22.962445730690906
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS158",
+      "y_true": 15.0,
+      "y_pred": 15.420252346986743,
+      "stage1_pred": 21.028817032805037
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS196",
+      "y_true": 52.0,
+      "y_pred": 33.91107367714428,
+      "stage1_pred": 31.868914164598575
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS140",
+      "y_true": 40.0,
+      "y_pred": 38.69070558024899,
+      "stage1_pred": 31.28843125840578
+    },
+    {
+      "stage1_policy": "hy_only",
+      "sid": "NLS187",
+      "y_true": 33.0,
+      "y_pred": 45.11965384418679,
+      "stage1_pred": 41.27689763518544
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS142",
+      "y_true": 24.0,
+      "y_pred": 27.220250243948446,
+      "stage1_pred": 30.736168043418946
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS179",
+      "y_true": 43.0,
+      "y_pred": 42.949752643084345,
+      "stage1_pred": 34.79126769030788
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS146",
+      "y_true": 10.0,
+      "y_pred": 29.47794544286964,
+      "stage1_pred": 33.146049924760405
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS157",
+      "y_true": 25.0,
+      "y_pred": 26.618193711096733,
+      "stage1_pred": 23.047136804685312
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS130",
+      "y_true": 22.0,
+      "y_pred": 25.17695775725576,
+      "stage1_pred": 25.639633391853195
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS175",
+      "y_true": 29.0,
+      "y_pred": 33.132155158847674,
+      "stage1_pred": 26.918807848631317
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD022",
+      "y_true": 27.0,
+      "y_pred": 26.054541394014944,
+      "stage1_pred": 24.11549834684693
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS121",
+      "y_true": 11.0,
+      "y_pred": 26.439417891153294,
+      "stage1_pred": 24.86555216432052
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS150",
+      "y_true": 35.0,
+      "y_pred": 22.251366860348714,
+      "stage1_pred": 24.234585680377645
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD020",
+      "y_true": 13.0,
+      "y_pred": 25.28516398742634,
+      "stage1_pred": 27.284042075139592
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS197",
+      "y_true": 23.0,
+      "y_pred": 24.96761130854928,
+      "stage1_pred": 24.695430303398794
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS184",
+      "y_true": 21.0,
+      "y_pred": 26.370782118460966,
+      "stage1_pred": 23.006587380634258
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS036",
+      "y_true": 46.0,
+      "y_pred": 31.419308769435318,
+      "stage1_pred": 33.19415823735858
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS143",
+      "y_true": 36.0,
+      "y_pred": 25.095929527237644,
+      "stage1_pred": 27.73450380776977
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS102",
+      "y_true": 14.0,
+      "y_pred": 17.647812502873,
+      "stage1_pred": 18.19107354516553
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS183",
+      "y_true": 14.0,
+      "y_pred": 11.105818112107338,
+      "stage1_pred": 18.782927766321478
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS192",
+      "y_true": 18.0,
+      "y_pred": 31.41348352806035,
+      "stage1_pred": 27.507704024518677
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD018",
+      "y_true": 26.0,
+      "y_pred": 22.03890344463913,
+      "stage1_pred": 23.67350249942274
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD002",
+      "y_true": 19.0,
+      "y_pred": 24.228599161884674,
+      "stage1_pred": 23.84650324062837
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS163",
+      "y_true": 25.0,
+      "y_pred": 25.803621904586254,
+      "stage1_pred": 23.698216891023538
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS189",
+      "y_true": 13.0,
+      "y_pred": 18.231607799144893,
+      "stage1_pred": 21.235704628441255
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS144",
+      "y_true": 29.0,
+      "y_pred": 16.20997951503036,
+      "stage1_pred": 19.43188061763788
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD024",
+      "y_true": 18.0,
+      "y_pred": 12.210953836860241,
+      "stage1_pred": 19.681638034384953
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD012",
+      "y_true": 19.0,
+      "y_pred": 17.313763580131155,
+      "stage1_pred": 23.84650324062837
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD010",
+      "y_true": 24.0,
+      "y_pred": 22.78201702261502,
+      "stage1_pred": 23.722931282624348
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS176",
+      "y_true": 9.0,
+      "y_pred": 25.56981857585212,
+      "stage1_pred": 23.32837235245213
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS160",
+      "y_true": 37.0,
+      "y_pred": 18.954281403324536,
+      "stage1_pred": 24.863207138212402
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS135",
+      "y_true": 43.0,
+      "y_pred": 27.05725154463255,
+      "stage1_pred": 23.47872494949021
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS190",
+      "y_true": 34.0,
+      "y_pred": 25.606802894701996,
+      "stage1_pred": 28.167651964320765
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS069",
+      "y_true": 25.0,
+      "y_pred": 29.667708437752406,
+      "stage1_pred": 32.61667279549391
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD023",
+      "y_true": 13.0,
+      "y_pred": 28.81933817870657,
+      "stage1_pred": 25.59510340636653
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD005",
+      "y_true": 15.0,
+      "y_pred": 20.33095726823206,
+      "stage1_pred": 23.94536080703159
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS198",
+      "y_true": 24.0,
+      "y_pred": 26.53963253742337,
+      "stage1_pred": 27.50328755097631
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD027",
+      "y_true": 26.0,
+      "y_pred": 24.29624826730959,
+      "stage1_pred": 24.510885330479706
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS149",
+      "y_true": 29.0,
+      "y_pred": 27.925527022863804,
+      "stage1_pred": 28.915883421775078
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS185",
+      "y_true": 40.0,
+      "y_pred": 36.70293099339877,
+      "stage1_pred": 28.343238943374786
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS172",
+      "y_true": 10.0,
+      "y_pred": 28.947474434664233,
+      "stage1_pred": 29.412325990316518
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS164",
+      "y_true": 13.0,
+      "y_pred": 21.46981513146058,
+      "stage1_pred": 26.471218387160217
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS182",
+      "y_true": 14.0,
+      "y_pred": 16.61715677829554,
+      "stage1_pred": 19.879861697291187
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD025",
+      "y_true": 30.0,
+      "y_pred": 29.34051216860338,
+      "stage1_pred": 31.81488840170726
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD003",
+      "y_true": 30.0,
+      "y_pred": 23.359429140269665,
+      "stage1_pred": 23.574644933019517
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS170",
+      "y_true": 27.0,
+      "y_pred": 30.386877074039546,
+      "stage1_pred": 25.702583443811196
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS127",
+      "y_true": 19.0,
+      "y_pred": 21.724436421112312,
+      "stage1_pred": 24.712271995488223
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD015",
+      "y_true": 22.0,
+      "y_pred": 24.056656041262134,
+      "stage1_pred": 25.971010182265545
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS167",
+      "y_true": 12.0,
+      "y_pred": 28.33079027211519,
+      "stage1_pred": 27.096685316858427
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS186",
+      "y_true": 17.0,
+      "y_pred": 27.244846785498623,
+      "stage1_pred": 28.51118188983293
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD016",
+      "y_true": 10.0,
+      "y_pred": 21.30704600836513,
+      "stage1_pred": 18.387534935563387
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS169",
+      "y_true": 22.0,
+      "y_pred": 20.330694974318387,
+      "stage1_pred": 25.226807153812302
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS035",
+      "y_true": 20.0,
+      "y_pred": 19.865357663557987,
+      "stage1_pred": 22.06449915352526
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS153",
+      "y_true": 30.0,
+      "y_pred": 32.379016302039425,
+      "stage1_pred": 28.800296075183937
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD021",
+      "y_true": 25.0,
+      "y_pred": 11.707998732709887,
+      "stage1_pred": 17.69895709950869
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS155",
+      "y_true": 6.0,
+      "y_pred": 26.573993685064995,
+      "stage1_pred": 27.0239677218613
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS166",
+      "y_true": 26.0,
+      "y_pred": 30.695979074326363,
+      "stage1_pred": 27.332807848275763
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS191",
+      "y_true": 36.0,
+      "y_pred": 23.940788353694746,
+      "stage1_pred": 30.700532533064926
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD004",
+      "y_true": 30.0,
+      "y_pred": 28.324851353737397,
+      "stage1_pred": 23.574644933019517
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD009",
+      "y_true": 19.0,
+      "y_pred": 18.916079787925884,
+      "stage1_pred": 17.945496807168215
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD017",
+      "y_true": 27.0,
+      "y_pred": 20.178612131350462,
+      "stage1_pred": 23.64878810782194
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD029",
+      "y_true": 25.0,
+      "y_pred": 27.112131874733095,
+      "stage1_pred": 24.80861643871576
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS211",
+      "y_true": 24.0,
+      "y_pred": 23.549362151358068,
+      "stage1_pred": 27.023179520468247
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS201",
+      "y_true": 59.0,
+      "y_pred": 31.26215937302183,
+      "stage1_pred": 27.97193440205599
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS152",
+      "y_true": 19.0,
+      "y_pred": 21.237169438063685,
+      "stage1_pred": 27.08180255082564
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS174",
+      "y_true": 27.0,
+      "y_pred": 24.904282838095998,
+      "stage1_pred": 27.271466570486826
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS165",
+      "y_true": 33.0,
+      "y_pred": 24.695279501147066,
+      "stage1_pred": 26.440452658763387
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS148",
+      "y_true": 38.0,
+      "y_pred": 26.85794647311128,
+      "stage1_pred": 23.57333970045944
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS161",
+      "y_true": 39.0,
+      "y_pred": 25.24725680911115,
+      "stage1_pred": 25.99354687205516
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS159",
+      "y_true": 39.0,
+      "y_pred": 29.218117532578262,
+      "stage1_pred": 25.91185726127428
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD019",
+      "y_true": 25.0,
+      "y_pred": 16.12751291555531,
+      "stage1_pred": 17.65080472157143
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS208",
+      "y_true": 22.0,
+      "y_pred": 32.27765875595293,
+      "stage1_pred": 30.4667575329713
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD026",
+      "y_true": 28.0,
+      "y_pred": 31.425129074271126,
+      "stage1_pred": 24.09298140936416
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS154",
+      "y_true": 13.0,
+      "y_pred": 17.816325239632466,
+      "stage1_pred": 18.473950710279773
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS173",
+      "y_true": 38.0,
+      "y_pred": 22.339583652020078,
+      "stage1_pred": 22.643307771785057
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD006",
+      "y_true": 34.0,
+      "y_pred": 26.078872363707678,
+      "stage1_pred": 23.4757873666163
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS177",
+      "y_true": 25.0,
+      "y_pred": 18.683990605332102,
+      "stage1_pred": 21.035514491854443
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD008",
+      "y_true": 23.0,
+      "y_pred": 19.702741074570056,
+      "stage1_pred": 17.749035416770358
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS101",
+      "y_true": 14.0,
+      "y_pred": 18.672983666172414,
+      "stage1_pred": 26.47388091762132
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS033",
+      "y_true": 31.0,
+      "y_pred": 32.82095067403299,
+      "stage1_pred": 26.19063269564298
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS022",
+      "y_true": 32.0,
+      "y_pred": 22.01203674525112,
+      "stage1_pred": 20.527006036169677
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS124",
+      "y_true": 41.0,
+      "y_pred": 44.1295229750371,
+      "stage1_pred": 38.03940384129709
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS056",
+      "y_true": 32.0,
+      "y_pred": 31.17972696044103,
+      "stage1_pred": 18.98668761836321
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS209",
+      "y_true": 26.0,
+      "y_pred": 29.215411036006817,
+      "stage1_pred": 28.023687390440198
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS162",
+      "y_true": 38.0,
+      "y_pred": 28.18597469491999,
+      "stage1_pred": 28.079468222877054
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS195",
+      "y_true": 16.0,
+      "y_pred": 20.759755363225295,
+      "stage1_pred": 22.933805514126842
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS139",
+      "y_true": 33.0,
+      "y_pred": 21.869665668524508,
+      "stage1_pred": 24.79141211277449
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS002",
+      "y_true": 18.0,
+      "y_pred": 25.314458251229894,
+      "stage1_pred": 25.12568655464752
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS210",
+      "y_true": 26.0,
+      "y_pred": 27.31226784219938,
+      "stage1_pred": 28.67343180618138
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS141",
+      "y_true": 17.0,
+      "y_pred": 33.32280144552802,
+      "stage1_pred": 29.277619804463498
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD007",
+      "y_true": 12.0,
+      "y_pred": 22.40245743147601,
+      "stage1_pred": 24.019503981834006
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD001",
+      "y_true": 13.0,
+      "y_pred": 19.025376619333283,
+      "stage1_pred": 18.240188892764998
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS147",
+      "y_true": 19.0,
+      "y_pred": 23.300737005155284,
+      "stage1_pred": 23.233734891212194
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD011",
+      "y_true": 26.0,
+      "y_pred": 24.708717885554275,
+      "stage1_pred": 23.67350249942274
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "WPD014",
+      "y_true": 24.0,
+      "y_pred": 17.85752471140459,
+      "stage1_pred": 24.15724162023909
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS158",
+      "y_true": 15.0,
+      "y_pred": 26.134692569726553,
+      "stage1_pred": 27.53653356883713
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS196",
+      "y_true": 52.0,
+      "y_pred": 41.40876288342616,
+      "stage1_pred": 30.984837062809593
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS140",
+      "y_true": 40.0,
+      "y_pred": 38.55732832464751,
+      "stage1_pred": 28.88538318795906
+    },
+    {
+      "stage1_policy": "cv_only",
+      "sid": "NLS187",
+      "y_true": 33.0,
+      "y_pred": 14.95347537541116,
+      "stage1_pred": 19.28012375944774
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS142",
+      "y_true": 24.0,
+      "y_pred": 25.478870549915314,
+      "stage1_pred": 25.20212765957447
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS179",
+      "y_true": 43.0,
+      "y_pred": 30.901600889384753,
+      "stage1_pred": 25.0
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS146",
+      "y_true": 10.0,
+      "y_pred": 25.292112592712765,
+      "stage1_pred": 25.351063829787233
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS157",
+      "y_true": 25.0,
+      "y_pred": 28.712254766254066,
+      "stage1_pred": 25.19148936170213
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS130",
+      "y_true": 22.0,
+      "y_pred": 23.497431682826726,
+      "stage1_pred": 25.22340425531915
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS175",
+      "y_true": 29.0,
+      "y_pred": 32.59449663224702,
+      "stage1_pred": 25.148936170212767
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD022",
+      "y_true": 27.0,
+      "y_pred": 18.99159341358822,
+      "stage1_pred": 25.170212765957448
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS121",
+      "y_true": 11.0,
+      "y_pred": 25.171278164106344,
+      "stage1_pred": 25.340425531914892
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS150",
+      "y_true": 35.0,
+      "y_pred": 25.418816940825618,
+      "stage1_pred": 25.085106382978722
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD020",
+      "y_true": 13.0,
+      "y_pred": 21.474496324814123,
+      "stage1_pred": 25.319148936170212
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS197",
+      "y_true": 23.0,
+      "y_pred": 20.38667760231603,
+      "stage1_pred": 25.21276595744681
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS184",
+      "y_true": 21.0,
+      "y_pred": 23.989136831959275,
+      "stage1_pred": 25.23404255319149
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS036",
+      "y_true": 46.0,
+      "y_pred": 26.325307738241808,
+      "stage1_pred": 24.968085106382983
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS143",
+      "y_true": 36.0,
+      "y_pred": 18.769909991329108,
+      "stage1_pred": 25.07446808510638
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS102",
+      "y_true": 14.0,
+      "y_pred": 24.333378912486335,
+      "stage1_pred": 25.30851063829787
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS183",
+      "y_true": 14.0,
+      "y_pred": 16.85557149189133,
+      "stage1_pred": 25.30851063829787
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS192",
+      "y_true": 18.0,
+      "y_pred": 31.34428941551543,
+      "stage1_pred": 25.26595744680851
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD018",
+      "y_true": 26.0,
+      "y_pred": 21.065473402613556,
+      "stage1_pred": 25.180851063829788
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD002",
+      "y_true": 19.0,
+      "y_pred": 20.695266688032675,
+      "stage1_pred": 25.25531914893617
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS163",
+      "y_true": 25.0,
+      "y_pred": 27.81769173707009,
+      "stage1_pred": 25.19148936170213
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS189",
+      "y_true": 13.0,
+      "y_pred": 19.28538604455863,
+      "stage1_pred": 25.319148936170212
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS144",
+      "y_true": 29.0,
+      "y_pred": 29.253242517951787,
+      "stage1_pred": 25.148936170212767
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD024",
+      "y_true": 18.0,
+      "y_pred": 15.078354062742983,
+      "stage1_pred": 25.26595744680851
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD012",
+      "y_true": 19.0,
+      "y_pred": 18.27398313126264,
+      "stage1_pred": 25.25531914893617
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD010",
+      "y_true": 24.0,
+      "y_pred": 23.36445155729156,
+      "stage1_pred": 25.20212765957447
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS176",
+      "y_true": 9.0,
+      "y_pred": 24.5417447419612,
+      "stage1_pred": 25.361702127659573
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS160",
+      "y_true": 37.0,
+      "y_pred": 17.710114824663236,
+      "stage1_pred": 25.06382978723404
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS135",
+      "y_true": 43.0,
+      "y_pred": 30.54334320262446,
+      "stage1_pred": 25.0
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS190",
+      "y_true": 34.0,
+      "y_pred": 27.93118853678008,
+      "stage1_pred": 25.095744680851066
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS069",
+      "y_true": 25.0,
+      "y_pred": 27.127901098504264,
+      "stage1_pred": 25.19148936170213
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD023",
+      "y_true": 13.0,
+      "y_pred": 29.0252864694888,
+      "stage1_pred": 25.319148936170212
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD005",
+      "y_true": 15.0,
+      "y_pred": 21.289064228158562,
+      "stage1_pred": 25.29787234042553
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS198",
+      "y_true": 24.0,
+      "y_pred": 21.730135161512653,
+      "stage1_pred": 25.20212765957447
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD027",
+      "y_true": 26.0,
+      "y_pred": 23.471506877866346,
+      "stage1_pred": 25.180851063829788
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS149",
+      "y_true": 29.0,
+      "y_pred": 25.39543955923904,
+      "stage1_pred": 25.148936170212767
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS185",
+      "y_true": 40.0,
+      "y_pred": 30.297434013203127,
+      "stage1_pred": 25.031914893617017
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS172",
+      "y_true": 10.0,
+      "y_pred": 23.465328134991342,
+      "stage1_pred": 25.351063829787233
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS164",
+      "y_true": 13.0,
+      "y_pred": 22.69944820245193,
+      "stage1_pred": 25.319148936170212
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS182",
+      "y_true": 14.0,
+      "y_pred": 19.58861625100137,
+      "stage1_pred": 25.30851063829787
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD025",
+      "y_true": 30.0,
+      "y_pred": 22.868100946616284,
+      "stage1_pred": 25.138297872340427
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD003",
+      "y_true": 30.0,
+      "y_pred": 25.227623119130794,
+      "stage1_pred": 25.138297872340427
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS170",
+      "y_true": 27.0,
+      "y_pred": 33.16669230303239,
+      "stage1_pred": 25.170212765957448
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS127",
+      "y_true": 19.0,
+      "y_pred": 19.51596088941327,
+      "stage1_pred": 25.25531914893617
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD015",
+      "y_true": 22.0,
+      "y_pred": 25.313386816456372,
+      "stage1_pred": 25.22340425531915
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS167",
+      "y_true": 12.0,
+      "y_pred": 25.730539994874874,
+      "stage1_pred": 25.329787234042552
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS186",
+      "y_true": 17.0,
+      "y_pred": 28.879862698369987,
+      "stage1_pred": 25.27659574468085
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD016",
+      "y_true": 10.0,
+      "y_pred": 25.08786640913459,
+      "stage1_pred": 25.351063829787233
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS169",
+      "y_true": 22.0,
+      "y_pred": 18.882971449514404,
+      "stage1_pred": 25.22340425531915
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS035",
+      "y_true": 20.0,
+      "y_pred": 19.36437141528374,
+      "stage1_pred": 25.24468085106383
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS153",
+      "y_true": 30.0,
+      "y_pred": 29.38903155578964,
+      "stage1_pred": 25.138297872340427
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD021",
+      "y_true": 25.0,
+      "y_pred": 17.052581209938936,
+      "stage1_pred": 25.19148936170213
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS155",
+      "y_true": 6.0,
+      "y_pred": 28.91630593748557,
+      "stage1_pred": 25.393617021276597
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS166",
+      "y_true": 26.0,
+      "y_pred": 31.615790624545912,
+      "stage1_pred": 25.180851063829788
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS191",
+      "y_true": 36.0,
+      "y_pred": 22.31293989272048,
+      "stage1_pred": 25.07446808510638
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD004",
+      "y_true": 30.0,
+      "y_pred": 28.40259051241101,
+      "stage1_pred": 25.138297872340427
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD009",
+      "y_true": 19.0,
+      "y_pred": 31.530850768807568,
+      "stage1_pred": 25.25531914893617
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD017",
+      "y_true": 27.0,
+      "y_pred": 18.845380118246858,
+      "stage1_pred": 25.170212765957448
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD029",
+      "y_true": 25.0,
+      "y_pred": 26.459107928253086,
+      "stage1_pred": 25.19148936170213
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS211",
+      "y_true": 24.0,
+      "y_pred": 20.560442798669502,
+      "stage1_pred": 25.20212765957447
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS201",
+      "y_true": 59.0,
+      "y_pred": 31.13175285836398,
+      "stage1_pred": 24.829787234042552
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS152",
+      "y_true": 19.0,
+      "y_pred": 23.5282448603644,
+      "stage1_pred": 25.25531914893617
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS174",
+      "y_true": 27.0,
+      "y_pred": 25.63746282052183,
+      "stage1_pred": 25.170212765957448
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS165",
+      "y_true": 33.0,
+      "y_pred": 20.449859118307398,
+      "stage1_pred": 25.106382978723403
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS148",
+      "y_true": 38.0,
+      "y_pred": 25.918862104364962,
+      "stage1_pred": 25.053191489361705
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS161",
+      "y_true": 39.0,
+      "y_pred": 22.193060025728386,
+      "stage1_pred": 25.04255319148936
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS159",
+      "y_true": 39.0,
+      "y_pred": 26.980531831823622,
+      "stage1_pred": 25.04255319148936
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD019",
+      "y_true": 25.0,
+      "y_pred": 23.452430579620145,
+      "stage1_pred": 25.19148936170213
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS208",
+      "y_true": 22.0,
+      "y_pred": 35.60714773664642,
+      "stage1_pred": 25.22340425531915
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD026",
+      "y_true": 28.0,
+      "y_pred": 33.63724142740701,
+      "stage1_pred": 25.159574468085108
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS154",
+      "y_true": 13.0,
+      "y_pred": 21.704949677795543,
+      "stage1_pred": 25.319148936170212
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS173",
+      "y_true": 38.0,
+      "y_pred": 20.84851904107293,
+      "stage1_pred": 25.053191489361705
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD006",
+      "y_true": 34.0,
+      "y_pred": 26.741552381483782,
+      "stage1_pred": 25.095744680851066
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS177",
+      "y_true": 25.0,
+      "y_pred": 25.465389559698675,
+      "stage1_pred": 25.19148936170213
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD008",
+      "y_true": 23.0,
+      "y_pred": 25.130436470052533,
+      "stage1_pred": 25.21276595744681
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS101",
+      "y_true": 14.0,
+      "y_pred": 20.23009616528269,
+      "stage1_pred": 25.30851063829787
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS033",
+      "y_true": 31.0,
+      "y_pred": 39.901056588756184,
+      "stage1_pred": 25.127659574468087
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS022",
+      "y_true": 32.0,
+      "y_pred": 22.371955251864808,
+      "stage1_pred": 25.11702127659574
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS124",
+      "y_true": 41.0,
+      "y_pred": 39.99796860403399,
+      "stage1_pred": 25.02127659574468
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS056",
+      "y_true": 32.0,
+      "y_pred": 38.45566063669131,
+      "stage1_pred": 25.11702127659574
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS209",
+      "y_true": 26.0,
+      "y_pred": 24.946853520196182,
+      "stage1_pred": 25.180851063829788
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS162",
+      "y_true": 38.0,
+      "y_pred": 19.558596940855892,
+      "stage1_pred": 25.053191489361705
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS195",
+      "y_true": 16.0,
+      "y_pred": 24.50269097120316,
+      "stage1_pred": 25.28723404255319
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS139",
+      "y_true": 33.0,
+      "y_pred": 25.45196559604371,
+      "stage1_pred": 25.106382978723403
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS002",
+      "y_true": 18.0,
+      "y_pred": 20.710319671288133,
+      "stage1_pred": 25.26595744680851
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS210",
+      "y_true": 26.0,
+      "y_pred": 24.876971482317753,
+      "stage1_pred": 25.180851063829788
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS141",
+      "y_true": 17.0,
+      "y_pred": 28.671342669995322,
+      "stage1_pred": 25.27659574468085
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD007",
+      "y_true": 12.0,
+      "y_pred": 22.67579272212571,
+      "stage1_pred": 25.329787234042552
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD001",
+      "y_true": 13.0,
+      "y_pred": 27.090479493961833,
+      "stage1_pred": 25.319148936170212
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS147",
+      "y_true": 19.0,
+      "y_pred": 31.87238733490442,
+      "stage1_pred": 25.25531914893617
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD011",
+      "y_true": 26.0,
+      "y_pred": 25.79202437618201,
+      "stage1_pred": 25.180851063829788
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "WPD014",
+      "y_true": 24.0,
+      "y_pred": 19.43946861655346,
+      "stage1_pred": 25.20212765957447
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS158",
+      "y_true": 15.0,
+      "y_pred": 20.793607833938527,
+      "stage1_pred": 25.29787234042553
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS196",
+      "y_true": 52.0,
+      "y_pred": 32.086544007291444,
+      "stage1_pred": 24.904255319148934
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS140",
+      "y_true": 40.0,
+      "y_pred": 35.123018434720386,
+      "stage1_pred": 25.031914893617017
+    },
+    {
+      "stage1_policy": "intercept_only",
+      "sid": "NLS187",
+      "y_true": 33.0,
+      "y_pred": 24.71675599710585,
+      "stage1_pred": 25.106382978723403
+    }
+  ],
+  "verdict": {
+    "canonical_t3_changed": false,
+    "best_policy_by_ccc": "a3_hy_cv",
+    "a3_hy_cv_ccc": 0.4017,
+    "intercept_only_ccc": 0.2449
+  }
+}

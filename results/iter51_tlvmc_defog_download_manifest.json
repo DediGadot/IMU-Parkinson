@@ -1,0 +1,1385 @@
+{
+  "created_at_utc": "2026-05-09T01:29:08+00:00",
+  "script": "run_t3_iter51_tlvmc_defog.py",
+  "mode": "download",
+  "dataset": "TLVMC/DeFOG",
+  "kaggle_competition": "tlvmc-parkinsons-freezing-gait-prediction",
+  "formula_sha256": "665479765911e8192e4db570babeb5fcef3e2b6553dfd6259187f76685ec08cd",
+  "n_files": 137,
+  "states": [
+    "off",
+    "on"
+  ],
+  "files": [
+    {
+      "id": "02ab235146",
+      "subject": "e1f62e",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/02ab235146.csv.zip",
+      "source_rel_path": null,
+      "size_bytes": 7451587,
+      "sha256": "043859714c46c12c8955b9198bd102134bc20e62be40e6621b154e23eb2b031d"
+    },
+    {
+      "id": "02ea782681",
+      "subject": "ae2d35",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/02ea782681.csv.zip",
+      "source_rel_path": null,
+      "size_bytes": 2061368,
+      "sha256": "c1935cb62bc36c2a27f5c0bb95536271963054ccc5ce48c070ac9320dfa31487"
+    },
+    {
+      "id": "06414383cf",
+      "subject": "8c1f5e",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/06414383cf.csv.zip",
+      "source_rel_path": null,
+      "size_bytes": 3037949,
+      "sha256": "ec7d9bc9e23397ea07d4ffe9212614b1ca24dac86108d0928f24705f7db6922d"
+    },
+    {
+      "id": "092b4c1819",
+      "subject": "2874c5",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/092b4c1819.csv.zip",
+      "source_rel_path": null,
+      "size_bytes": 4954628,
+      "sha256": "515760ad7cff67ad250d6e2fabc50e9ec86f0d4d9119b028ae853ceb329d4314"
+    },
+    {
+      "id": "0a900ed8a2",
+      "subject": "0e3d49",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/0a900ed8a2.csv.zip",
+      "source_rel_path": "train/notype/0a900ed8a2.csv",
+      "size_bytes": 5419651,
+      "sha256": "b6ce03fa7ff33c0f8b015d5c5a8e820b8f02fa8060ca63c31044572523f0919d"
+    },
+    {
+      "id": "0c55be4384",
+      "subject": "1fb9cd",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/0c55be4384.csv.zip",
+      "source_rel_path": "train/defog/0c55be4384.csv",
+      "size_bytes": 3318348,
+      "sha256": "58d87de0bdcf64f54543651d6cfd5be95a42e7d93f88aba01a13ea75a859c2f7"
+    },
+    {
+      "id": "0d7ab3a9f9",
+      "subject": "8c1f5e",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/0d7ab3a9f9.csv.zip",
+      "source_rel_path": "train/defog/0d7ab3a9f9.csv",
+      "size_bytes": 2673800,
+      "sha256": "c0a7d6a92ca2389b43230abf3a88ab6dde6fb4b1aefb25b9ab5fe7259378a43f"
+    },
+    {
+      "id": "0eaac04f17",
+      "subject": "3a90e2",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/0eaac04f17.csv.zip",
+      "source_rel_path": "train/defog/0eaac04f17.csv",
+      "size_bytes": 2510461,
+      "sha256": "dd1432d52e821822a0f721334758787ed0e5244316185b921525ff9b708a6e1d"
+    },
+    {
+      "id": "0ec76d2d8e",
+      "subject": "3a90e2",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/0ec76d2d8e.csv.zip",
+      "source_rel_path": "train/defog/0ec76d2d8e.csv",
+      "size_bytes": 2173812,
+      "sha256": "b4f32a099d36a9562fe34276bdc14abbc06080bd9108e6c91ac8ce5f0514ebae"
+    },
+    {
+      "id": "139f60d29b",
+      "subject": "f28337",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/139f60d29b.csv.zip",
+      "source_rel_path": "train/defog/139f60d29b.csv",
+      "size_bytes": 2607101,
+      "sha256": "4337ac8ebb5f8e0dcc0fe13d1f467d8e8e9bce7997bb838fc583b7c3191de1f9"
+    },
+    {
+      "id": "13a4fe5159",
+      "subject": "1a778d",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/13a4fe5159.csv.zip",
+      "source_rel_path": "train/defog/13a4fe5159.csv",
+      "size_bytes": 2521369,
+      "sha256": "1c7455802c4f9249f8b13013d17234065204c3d119eff7fd7335bc93de938d8a"
+    },
+    {
+      "id": "15508c7f41",
+      "subject": "1fb9cd",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/15508c7f41.csv.zip",
+      "source_rel_path": "train/defog/15508c7f41.csv",
+      "size_bytes": 3488115,
+      "sha256": "c405ec12b8b9ab0b11bdd65fb6d60674bd55b6611670b82fe082648d15c81f34"
+    },
+    {
+      "id": "18e7abc37e",
+      "subject": "8d43d9",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/18e7abc37e.csv.zip",
+      "source_rel_path": "train/defog/18e7abc37e.csv",
+      "size_bytes": 1121636,
+      "sha256": "a3fcd06f2121e270b23790198c82dd376bf8150cf8b3716310a3145f4f240fe4"
+    },
+    {
+      "id": "1b3bc93401",
+      "subject": "d89567",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/1b3bc93401.csv.zip",
+      "source_rel_path": "train/notype/1b3bc93401.csv",
+      "size_bytes": 4787995,
+      "sha256": "8fc73e5ed09f0940a06c370cf37b8211351882ad21ba69bde7b704554d162a27"
+    },
+    {
+      "id": "1d99c2eecf",
+      "subject": "12f8d1",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/1d99c2eecf.csv.zip",
+      "source_rel_path": "train/defog/1d99c2eecf.csv",
+      "size_bytes": 2154552,
+      "sha256": "ee1e912667ee258f024c477fee5506473e38d4e64a75f1d783bf4ad82c257123"
+    },
+    {
+      "id": "1e8d55d48d",
+      "subject": "c83ff6",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/1e8d55d48d.csv.zip",
+      "source_rel_path": "train/notype/1e8d55d48d.csv",
+      "size_bytes": 5487126,
+      "sha256": "51defd04c39537746bffd9a77f6067aa5f0334e5022a0eb4e92bcfd240e0e0d3"
+    },
+    {
+      "id": "1ff78d55e9",
+      "subject": "413532",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/1ff78d55e9.csv.zip",
+      "source_rel_path": "train/defog/1ff78d55e9.csv",
+      "size_bytes": 6074043,
+      "sha256": "94b919e72a3f5731a8bfee66491c3b983d1ec7d9dbff48b179c0e4c1270ead72"
+    },
+    {
+      "id": "2054f1d5df",
+      "subject": "08de77",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/2054f1d5df.csv.zip",
+      "source_rel_path": "train/notype/2054f1d5df.csv",
+      "size_bytes": 6789531,
+      "sha256": "6defb1094939fce21f1a9a01b44d94046e25484020c29ac2840ed75148ad3c42"
+    },
+    {
+      "id": "28209b9006",
+      "subject": "5db717",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/28209b9006.csv.zip",
+      "source_rel_path": "train/defog/28209b9006.csv",
+      "size_bytes": 4275725,
+      "sha256": "7bf8e7819abfa8b2f23bd737ad9dc652f44351bb2112de8e35706c065b769512"
+    },
+    {
+      "id": "285c2210b3",
+      "subject": "2a7175",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/285c2210b3.csv.zip",
+      "source_rel_path": "train/notype/285c2210b3.csv",
+      "size_bytes": 5772527,
+      "sha256": "1e1c9a05bf6887d3c5dbb39ed3780375744a059c9b7abd68cd17c223fc76164d"
+    },
+    {
+      "id": "296c84448e",
+      "subject": "5db717",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/296c84448e.csv.zip",
+      "source_rel_path": "train/notype/296c84448e.csv",
+      "size_bytes": 7293509,
+      "sha256": "cbeb2298d935676b4ee5749f00442d919e95690a83e48e7b86af02b34067b7b4"
+    },
+    {
+      "id": "2a01c919c0",
+      "subject": "a3a1f9",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/2a01c919c0.csv.zip",
+      "source_rel_path": "train/defog/2a01c919c0.csv",
+      "size_bytes": 5340590,
+      "sha256": "7a0ef4190491d18b4aba3026ad4f3d56574388a85e01fdfc532927a5ea83a8ca"
+    },
+    {
+      "id": "2acdf5a450",
+      "subject": "7f8949",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/2acdf5a450.csv.zip",
+      "source_rel_path": "train/notype/2acdf5a450.csv",
+      "size_bytes": 7922787,
+      "sha256": "c92ede6b5436f7c5de1654444cf6f934fe700e0789c7d6651839e34b9716c310"
+    },
+    {
+      "id": "2b6a1c294a",
+      "subject": "4e6c23",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/2b6a1c294a.csv.zip",
+      "source_rel_path": "train/defog/2b6a1c294a.csv",
+      "size_bytes": 4044861,
+      "sha256": "0d28ed6a195ec09de9c102d936609e0e0a564f3dcb9f79403e2ec845807705aa"
+    },
+    {
+      "id": "2c12284ed2",
+      "subject": "a50c72",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/2c12284ed2.csv.zip",
+      "source_rel_path": "train/defog/2c12284ed2.csv",
+      "size_bytes": 2313680,
+      "sha256": "05745a7901a8c3958b5d28313bb0c78f6db3621a90630299b34107f592402b3f"
+    },
+    {
+      "id": "2cc3c30645",
+      "subject": "040587",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/2cc3c30645.csv.zip",
+      "source_rel_path": "train/notype/2cc3c30645.csv",
+      "size_bytes": 3539877,
+      "sha256": "afe4df30c727570038623c31f07ac186cfc40e0708f1f5b841ed6b8fd1856760"
+    },
+    {
+      "id": "2e75cf4507",
+      "subject": "1a778d",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/2e75cf4507.csv.zip",
+      "source_rel_path": "train/defog/2e75cf4507.csv",
+      "size_bytes": 3506247,
+      "sha256": "328329c8f6ba033d381e14fb8bcf4c91deff0f6f358c1d382d81acb516d17520"
+    },
+    {
+      "id": "2ea5e817f4",
+      "subject": "710c5e",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/2ea5e817f4.csv.zip",
+      "source_rel_path": "train/notype/2ea5e817f4.csv",
+      "size_bytes": 3757415,
+      "sha256": "c24740a7d1fc7bfd5437464d75acc24fc8deaaa7b2f057e7d65aa46e61f73469"
+    },
+    {
+      "id": "32843e32b6",
+      "subject": "12f8d1",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/32843e32b6.csv.zip",
+      "source_rel_path": "train/defog/32843e32b6.csv",
+      "size_bytes": 1477178,
+      "sha256": "d19c70f4fb560cc2101a6d6e04e193c7ffb03137d2c4f4b2984ee0f0a8fbf72c"
+    },
+    {
+      "id": "32d03020a9",
+      "subject": "3a90e2",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/32d03020a9.csv.zip",
+      "source_rel_path": "train/defog/32d03020a9.csv",
+      "size_bytes": 1636156,
+      "sha256": "1ad8f6585b176f455ec444994b91dc9f951b18ac61261c4ba459c0bd10468fc3"
+    },
+    {
+      "id": "339c0cc15f",
+      "subject": "a066f4",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/339c0cc15f.csv.zip",
+      "source_rel_path": "train/notype/339c0cc15f.csv",
+      "size_bytes": 9137261,
+      "sha256": "892e2d1eb16ca0f0b57529003d18d146793027bd766c3d57aecdc5e420df1dd7"
+    },
+    {
+      "id": "34b979fc28",
+      "subject": "2a7175",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/34b979fc28.csv.zip",
+      "source_rel_path": "train/notype/34b979fc28.csv",
+      "size_bytes": 5050941,
+      "sha256": "0d49d03a3e73584aabd66b82246c368f36784c2c21cad8c96d6afcbaf96e929b"
+    },
+    {
+      "id": "36ad8ae06d",
+      "subject": "a3a1f9",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/36ad8ae06d.csv.zip",
+      "source_rel_path": "train/notype/36ad8ae06d.csv",
+      "size_bytes": 5510421,
+      "sha256": "cb6b8cdecdd818311f02122906b20e9228056d4ae451accb82b6f112401ca36f"
+    },
+    {
+      "id": "38befe9f39",
+      "subject": "7b2e84",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/38befe9f39.csv.zip",
+      "source_rel_path": "train/defog/38befe9f39.csv",
+      "size_bytes": 3435410,
+      "sha256": "9a1df2147c54e71c77ec95b520861f2555736fbdad35a665a3f8526b342dea1e"
+    },
+    {
+      "id": "39a74dc6d5",
+      "subject": "c56629",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/39a74dc6d5.csv.zip",
+      "source_rel_path": "train/notype/39a74dc6d5.csv",
+      "size_bytes": 5065134,
+      "sha256": "f7e24c4a9208fee5963589476a1bfc059897eab4c2414ca4380e6be0b30c1b2c"
+    },
+    {
+      "id": "3e6987cb2d",
+      "subject": "a066f4",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/3e6987cb2d.csv.zip",
+      "source_rel_path": "train/defog/3e6987cb2d.csv",
+      "size_bytes": 8239394,
+      "sha256": "e659d5bef90d90aab96bad26703e208826d2a4ffe9802ce5cef4703b7252374b"
+    },
+    {
+      "id": "3f02fa6e40",
+      "subject": "8d43d9",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/3f02fa6e40.csv.zip",
+      "source_rel_path": "train/notype/3f02fa6e40.csv",
+      "size_bytes": 5834525,
+      "sha256": "bb88888db45a04a5808e94c68803a2b687db0ceaac80afb350b4bcb5546eef4b"
+    },
+    {
+      "id": "3f3b08f78d",
+      "subject": "00f674",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/3f3b08f78d.csv.zip",
+      "source_rel_path": "train/defog/3f3b08f78d.csv",
+      "size_bytes": 1604542,
+      "sha256": "bbaf117d00db68391cd5e1b5ab6398aa01de08b1e74c506166a9542835714221"
+    },
+    {
+      "id": "3f970065e5",
+      "subject": "056372",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/3f970065e5.csv.zip",
+      "source_rel_path": "train/defog/3f970065e5.csv",
+      "size_bytes": 4341383,
+      "sha256": "d142162dc8b4a824376d086f3342f5983031ce3ef003adc86071e2eb3f36213b"
+    },
+    {
+      "id": "41bc215f97",
+      "subject": "00f674",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/41bc215f97.csv.zip",
+      "source_rel_path": "train/defog/41bc215f97.csv",
+      "size_bytes": 2647154,
+      "sha256": "9838769627d86d67c72427a9454f9b2d731a6655ff49288ef7661f96bf69377b"
+    },
+    {
+      "id": "434732a5e3",
+      "subject": "a066f4",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/434732a5e3.csv.zip",
+      "source_rel_path": "train/notype/434732a5e3.csv",
+      "size_bytes": 12251012,
+      "sha256": "4684c076b94d590a8cf2a05b84d6e1168c6ff4bfbb99368f8adb14f5b8dcffec"
+    },
+    {
+      "id": "4520cf1068",
+      "subject": "3e1d75",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/4520cf1068.csv.zip",
+      "source_rel_path": "train/defog/4520cf1068.csv",
+      "size_bytes": 2793468,
+      "sha256": "70d9d0d24ad3b78230a203d140849b4a8699e5dda0bbcb503cb442aea8b63b9b"
+    },
+    {
+      "id": "46cdfe23ea",
+      "subject": "1d7a0d",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/46cdfe23ea.csv.zip",
+      "source_rel_path": "train/notype/46cdfe23ea.csv",
+      "size_bytes": 3704470,
+      "sha256": "7fc572fe50ecefab1574e3a71e7dac1fc2a40442f281bcae5ae961e6c36cae29"
+    },
+    {
+      "id": "4c0aec9035",
+      "subject": "ae2d35",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/4c0aec9035.csv.zip",
+      "source_rel_path": "train/defog/4c0aec9035.csv",
+      "size_bytes": 2134289,
+      "sha256": "f7d638cc1f806612b7f9a0ebbbf119e1f14ba304e40c54a72938f332ef0dbfb3"
+    },
+    {
+      "id": "4c3aa8ea6e",
+      "subject": "00f674",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/4c3aa8ea6e.csv.zip",
+      "source_rel_path": "train/defog/4c3aa8ea6e.csv",
+      "size_bytes": 1091923,
+      "sha256": "86c032f1514f05739358f00f114115db1ce92162245f24a56cb53a1e619a7cf0"
+    },
+    {
+      "id": "4ec23c3d98",
+      "subject": "e86b6e",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/4ec23c3d98.csv.zip",
+      "source_rel_path": "train/defog/4ec23c3d98.csv",
+      "size_bytes": 9480985,
+      "sha256": "3338953cdeb6ee4d7a45131305023e603b2edf484f5abcd970fea0f8fc4fd7b1"
+    },
+    {
+      "id": "4f613ccf88",
+      "subject": "58e067",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/4f613ccf88.csv.zip",
+      "source_rel_path": "train/defog/4f613ccf88.csv",
+      "size_bytes": 1752032,
+      "sha256": "11056b3704db69115915226122e30d5ff3f973b72038606d6e3b1429af24e99d"
+    },
+    {
+      "id": "509a9830a6",
+      "subject": "72716b",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/509a9830a6.csv.zip",
+      "source_rel_path": "train/defog/509a9830a6.csv",
+      "size_bytes": 794655,
+      "sha256": "9b50f1fef6f114ce69be32c4bc2e2253e4ad6669423667cf1b7c7d35e926e940"
+    },
+    {
+      "id": "519f292daa",
+      "subject": "bb3387",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/519f292daa.csv.zip",
+      "source_rel_path": "train/defog/519f292daa.csv",
+      "size_bytes": 4793293,
+      "sha256": "141973bff785f0bdf91f1c1dd89603e19497cc08281cce4d80d038a456cc9b34"
+    },
+    {
+      "id": "5327e062c9",
+      "subject": "040587",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/5327e062c9.csv.zip",
+      "source_rel_path": "train/defog/5327e062c9.csv",
+      "size_bytes": 1841141,
+      "sha256": "c9fe3fbe6423a60951026e07223133ff3c5dab8a3fe36be4458eb254f9836a5f"
+    },
+    {
+      "id": "54c6a21be6",
+      "subject": "ab3b2e",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/54c6a21be6.csv.zip",
+      "source_rel_path": "train/defog/54c6a21be6.csv",
+      "size_bytes": 4332000,
+      "sha256": "c91746ef9fe4981b1070f999028124a57d1fb8106d6c3ddb68f4727e0b7bdb47"
+    },
+    {
+      "id": "5f7c0cfbb5",
+      "subject": "7da72f",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/5f7c0cfbb5.csv.zip",
+      "source_rel_path": "train/defog/5f7c0cfbb5.csv",
+      "size_bytes": 2821339,
+      "sha256": "5a96792655955fc2151804dbefd63338d4e8aea97f27236c31197853d02db5dd"
+    },
+    {
+      "id": "6041cad8ec",
+      "subject": "a066f4",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/6041cad8ec.csv.zip",
+      "source_rel_path": "train/defog/6041cad8ec.csv",
+      "size_bytes": 5256255,
+      "sha256": "64768bec7f998515b24e0345222e6bcb7db585528fedb1b40b0059b12b3418d8"
+    },
+    {
+      "id": "60dfb26b2c",
+      "subject": "72e2c7",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/60dfb26b2c.csv.zip",
+      "source_rel_path": "train/notype/60dfb26b2c.csv",
+      "size_bytes": 10790485,
+      "sha256": "b9e9bf30fe3d94d9d18690f1eb4fda3a27fe443f7e856a11584f294e38ae5671"
+    },
+    {
+      "id": "60f28aa837",
+      "subject": "d79fa0",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/60f28aa837.csv.zip",
+      "source_rel_path": "train/notype/60f28aa837.csv",
+      "size_bytes": 4451195,
+      "sha256": "e7d42ed858779bb0b10db12307e5f03ed1271b79bae3ef0aa1d63e6bb1f2933d"
+    },
+    {
+      "id": "6214414fff",
+      "subject": "5db717",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/6214414fff.csv.zip",
+      "source_rel_path": "train/notype/6214414fff.csv",
+      "size_bytes": 5842750,
+      "sha256": "931de8a906d4369e7c6c72aafa4390a274e93699a218bf7cbe5f993ac2a82330"
+    },
+    {
+      "id": "62d4a42a73",
+      "subject": "1fb9cd",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/62d4a42a73.csv.zip",
+      "source_rel_path": "train/defog/62d4a42a73.csv",
+      "size_bytes": 2489103,
+      "sha256": "d9495d79bb67731856c5ad7e421bb355484351239db6ddc95bf044888fd1c15f"
+    },
+    {
+      "id": "64b8429f83",
+      "subject": "1d7a0d",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/64b8429f83.csv.zip",
+      "source_rel_path": "train/defog/64b8429f83.csv",
+      "size_bytes": 2394227,
+      "sha256": "fce4671799b4cd1b5269df7b4a321c89f3cf52b68fdfbacbd19e725b936fe1d7"
+    },
+    {
+      "id": "6614bf9767",
+      "subject": "413532",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/6614bf9767.csv.zip",
+      "source_rel_path": "train/notype/6614bf9767.csv",
+      "size_bytes": 8478297,
+      "sha256": "e1446c6b284438c980cbf0af187096d4884b5944645db3b277334d134169fb19"
+    },
+    {
+      "id": "68e7e02a47",
+      "subject": "08de77",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/68e7e02a47.csv.zip",
+      "source_rel_path": "train/defog/68e7e02a47.csv",
+      "size_bytes": 3852339,
+      "sha256": "595cf8ddb9822438af2261203bbf99420ff2583429d38a629f7daeeb40ea6c1a"
+    },
+    {
+      "id": "6a18e3751f",
+      "subject": "a3a1f9",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/6a18e3751f.csv.zip",
+      "source_rel_path": "train/notype/6a18e3751f.csv",
+      "size_bytes": 6170926,
+      "sha256": "c5216a688cb2df0f97dde2737d08bee63cde480e1e1f951687341d5f05d1bac2"
+    },
+    {
+      "id": "6a20935af5",
+      "subject": "2874c5",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/6a20935af5.csv.zip",
+      "source_rel_path": "train/defog/6a20935af5.csv",
+      "size_bytes": 2666417,
+      "sha256": "e44fa790b290e9123ca29ac9e10153491336a33bde87dfb3e2f61800eaf7b776"
+    },
+    {
+      "id": "6a886a3bb8",
+      "subject": "d89567",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/6a886a3bb8.csv.zip",
+      "source_rel_path": "train/notype/6a886a3bb8.csv",
+      "size_bytes": 4447848,
+      "sha256": "e10c6f85d067b0b8a47ca681f9eb965c1ff2832ca91929bb755262ee83eb3ba8"
+    },
+    {
+      "id": "6c300fcdd5",
+      "subject": "575c60",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/6c300fcdd5.csv.zip",
+      "source_rel_path": "train/defog/6c300fcdd5.csv",
+      "size_bytes": 3512506,
+      "sha256": "1a19898975e901ed35ed41fdc4d79f544042d6019f39b74422f2901f668bb79c"
+    },
+    {
+      "id": "6dc94db321",
+      "subject": "107712",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/6dc94db321.csv.zip",
+      "source_rel_path": "train/defog/6dc94db321.csv",
+      "size_bytes": 4140885,
+      "sha256": "1bf179cd45d0c2426e9e870d1b829be9bf9ee2c639aa57e715c299bea03b8cdb"
+    },
+    {
+      "id": "7030643376",
+      "subject": "c92925",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/7030643376.csv.zip",
+      "source_rel_path": "train/defog/7030643376.csv",
+      "size_bytes": 5320596,
+      "sha256": "a361e6a8b5e5eada8417f7c2d5e80164569f5790683ae1601daec9fe05c296e1"
+    },
+    {
+      "id": "71dd8ce20d",
+      "subject": "5db717",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/71dd8ce20d.csv.zip",
+      "source_rel_path": "train/notype/71dd8ce20d.csv",
+      "size_bytes": 5368401,
+      "sha256": "4458c8701ab5a1323a154ec517a7fe5765fd701c8de64ee665c5aee18a91ba73"
+    },
+    {
+      "id": "72853af746",
+      "subject": "d89567",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/72853af746.csv.zip",
+      "source_rel_path": "train/notype/72853af746.csv",
+      "size_bytes": 4910854,
+      "sha256": "4e83fca59bd27fe18715e4d916cc93758440441fab8d2738e1eff9658d35f230"
+    },
+    {
+      "id": "771d69d829",
+      "subject": "387ea0",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/771d69d829.csv.zip",
+      "source_rel_path": "train/defog/771d69d829.csv",
+      "size_bytes": 2912751,
+      "sha256": "2abb5f371bce83715430ab9119bb1af3bb930208d635c2e6213a9daa4a296fd8"
+    },
+    {
+      "id": "77d7d95074",
+      "subject": "413532",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/77d7d95074.csv.zip",
+      "source_rel_path": "train/defog/77d7d95074.csv",
+      "size_bytes": 6284521,
+      "sha256": "4a6fa9c194db201fedfe6435d0d18b1c95b83441506e6d9eca68b70840a27d1a"
+    },
+    {
+      "id": "7a467da4f3",
+      "subject": "4e6c23",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/7a467da4f3.csv.zip",
+      "source_rel_path": "train/defog/7a467da4f3.csv",
+      "size_bytes": 3222269,
+      "sha256": "9cbbd57224f25275031ad3c624a135094ac3049ef84313f7f6d6c3aa8fbec10c"
+    },
+    {
+      "id": "7a993fbed7",
+      "subject": "3e1d75",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/7a993fbed7.csv.zip",
+      "source_rel_path": "train/defog/7a993fbed7.csv",
+      "size_bytes": 5081913,
+      "sha256": "00b40d6e25f2b6ed10d02b9aecdabe369d7176f73e1f9f00c89983318dbfeccd"
+    },
+    {
+      "id": "7b5346a3f2",
+      "subject": "2874c5",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/7b5346a3f2.csv.zip",
+      "source_rel_path": "train/defog/7b5346a3f2.csv",
+      "size_bytes": 3937116,
+      "sha256": "1a7987ce93257a225d22365e2a0150ffbf7c0493cb5a84256e217628b686ba3c"
+    },
+    {
+      "id": "816bd20e5d",
+      "subject": "7f8949",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/816bd20e5d.csv.zip",
+      "source_rel_path": "train/notype/816bd20e5d.csv",
+      "size_bytes": 6507623,
+      "sha256": "c62f199e46850d6ce298d236f97453eca2c18eca2fc823eb4b230996de3b29b5"
+    },
+    {
+      "id": "8228c6fdee",
+      "subject": "ae2d35",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/8228c6fdee.csv.zip",
+      "source_rel_path": "train/notype/8228c6fdee.csv",
+      "size_bytes": 1544128,
+      "sha256": "95275dfc08c8678367cb3b734a9f876b37ee2ff342b31391c4dc4ed91f84b3ed"
+    },
+    {
+      "id": "8282009100",
+      "subject": "8c1f5e",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/8282009100.csv.zip",
+      "source_rel_path": "train/defog/8282009100.csv",
+      "size_bytes": 4550810,
+      "sha256": "cf4bdfe7496e11bd8f996c580e991a1a0ec54658427f5417549a2c20d9f1b69b"
+    },
+    {
+      "id": "847ebc0a8d",
+      "subject": "c92925",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/847ebc0a8d.csv.zip",
+      "source_rel_path": "train/notype/847ebc0a8d.csv",
+      "size_bytes": 7429260,
+      "sha256": "a6ed131d9850f61e4a7fd7a943cfd8b180a3e176f9f1de9a4d201cbda9f9dbd9"
+    },
+    {
+      "id": "850748a138",
+      "subject": "5d1cf8",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/850748a138.csv.zip",
+      "source_rel_path": "train/defog/850748a138.csv",
+      "size_bytes": 2015060,
+      "sha256": "9f0eeed86b453a0123f9f4bc8bba6fc423a043adb7c02c5cce5c1e369165586a"
+    },
+    {
+      "id": "88c6d288fb",
+      "subject": "1a778d",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/88c6d288fb.csv.zip",
+      "source_rel_path": "train/defog/88c6d288fb.csv",
+      "size_bytes": 2690335,
+      "sha256": "32ba51259a0223c8fa94aa158b608c5d48a08c12f0029e20c51394aa5d7cdd42"
+    },
+    {
+      "id": "89e9ed32d1",
+      "subject": "7da72f",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/89e9ed32d1.csv.zip",
+      "source_rel_path": "train/notype/89e9ed32d1.csv",
+      "size_bytes": 4423396,
+      "sha256": "f662920a9232985928fb77ca248ddbfdb1fd24a48cbc7813cfb670c3627356c1"
+    },
+    {
+      "id": "8d2d863dfd",
+      "subject": "d79fa0",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/8d2d863dfd.csv.zip",
+      "source_rel_path": "train/defog/8d2d863dfd.csv",
+      "size_bytes": 4398264,
+      "sha256": "186fe698a175749e52fee6ca08ff8161c94a791bfff0ab85c8f23a17633c09e1"
+    },
+    {
+      "id": "8db3a7e46b",
+      "subject": "58e067",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/8db3a7e46b.csv.zip",
+      "source_rel_path": "train/defog/8db3a7e46b.csv",
+      "size_bytes": 1975459,
+      "sha256": "597b5692a00505eb91b875898d7769f5c3df499c396d4aec943eca631eb57fed"
+    },
+    {
+      "id": "8e5d9c4e16",
+      "subject": "a3a1f9",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/8e5d9c4e16.csv.zip",
+      "source_rel_path": "train/defog/8e5d9c4e16.csv",
+      "size_bytes": 3696895,
+      "sha256": "07f5c57be1dd427fa46eb0161f05fa62a6290ab7e453d3bb407fbee45efcee47"
+    },
+    {
+      "id": "8ea7ae7254",
+      "subject": "bb3387",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/8ea7ae7254.csv.zip",
+      "source_rel_path": "train/notype/8ea7ae7254.csv",
+      "size_bytes": 6558590,
+      "sha256": "e5690bf0d63f5930db50a683fa0fcd03c112a8703f63a013d567a7fae000446d"
+    },
+    {
+      "id": "9506859311",
+      "subject": "e1f62e",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/9506859311.csv.zip",
+      "source_rel_path": "train/notype/9506859311.csv",
+      "size_bytes": 8442468,
+      "sha256": "f9606845cfbd20a07401bd5322b9447b9f07e169df823aadf95b0ec70a7ffa97"
+    },
+    {
+      "id": "95e9824e15",
+      "subject": "c12ab3",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/95e9824e15.csv.zip",
+      "source_rel_path": "train/defog/95e9824e15.csv",
+      "size_bytes": 3016444,
+      "sha256": "2a66f7d46eac3c7c2b2416c4488429ff6a1a2a53b0bdaf202b73e84b09da5af3"
+    },
+    {
+      "id": "961b782275",
+      "subject": "387ea0",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/961b782275.csv.zip",
+      "source_rel_path": "train/defog/961b782275.csv",
+      "size_bytes": 3511537,
+      "sha256": "481a82436d35626bf29169b91e958423e4b6c10d27fda472cc07a37c5d02f501"
+    },
+    {
+      "id": "97e44fa8c3",
+      "subject": "ab3b2e",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/97e44fa8c3.csv.zip",
+      "source_rel_path": "train/defog/97e44fa8c3.csv",
+      "size_bytes": 2538193,
+      "sha256": "e78075490842599f894ae6bffdd6b690b58719e5b091d13382f920a86bacfd34"
+    },
+    {
+      "id": "9cd837fd53",
+      "subject": "ab3b2e",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/9cd837fd53.csv.zip",
+      "source_rel_path": "train/notype/9cd837fd53.csv",
+      "size_bytes": 3673471,
+      "sha256": "491042bebd80c581e513081da6a8693d80d271b4ee3ffab576cf6582a5e99494"
+    },
+    {
+      "id": "9e75dbc817",
+      "subject": "710c5e",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/9e75dbc817.csv.zip",
+      "source_rel_path": "train/notype/9e75dbc817.csv",
+      "size_bytes": 5550196,
+      "sha256": "d244f43f09aeaa701df4f832065b24a9fe83eececa535c70bf5e27d1289e5cae"
+    },
+    {
+      "id": "9f2b3555c8",
+      "subject": "040587",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/9f2b3555c8.csv.zip",
+      "source_rel_path": "train/defog/9f2b3555c8.csv",
+      "size_bytes": 3200777,
+      "sha256": "f01d153e9ae84d07cf27169b5da787598fe19e1cde07375ab1c7d27ccbc591be"
+    },
+    {
+      "id": "a057215d88",
+      "subject": "72716b",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/a057215d88.csv.zip",
+      "source_rel_path": "train/defog/a057215d88.csv",
+      "size_bytes": 2321578,
+      "sha256": "7dd3ff06de3e97e4e65c21f41519e635c3e66b0b34986515537330a7b62f0d48"
+    },
+    {
+      "id": "a2f1a8ab76",
+      "subject": "e86b6e",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/a2f1a8ab76.csv.zip",
+      "source_rel_path": "train/defog/a2f1a8ab76.csv",
+      "size_bytes": 11594489,
+      "sha256": "c6f167855d508255177d421b166380c8c09d0b8e9baa4715cc717776d461942f"
+    },
+    {
+      "id": "a8c5a489bd",
+      "subject": "ae2d35",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/a8c5a489bd.csv.zip",
+      "source_rel_path": "train/defog/a8c5a489bd.csv",
+      "size_bytes": 1184020,
+      "sha256": "fda6b79762cdb6a956155dcb54e279b789abfbbe97e7e5f2f7e3ee24f3261751"
+    },
+    {
+      "id": "aaeaa345e6",
+      "subject": "08de77",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/aaeaa345e6.csv.zip",
+      "source_rel_path": "train/notype/aaeaa345e6.csv",
+      "size_bytes": 5793931,
+      "sha256": "78aad5f7bfcf0ca1e5d634b03429731cad00f95bf6917e34919768679a4f2637"
+    },
+    {
+      "id": "aafcbecb5a",
+      "subject": "1fb9cd",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/aafcbecb5a.csv.zip",
+      "source_rel_path": "train/defog/aafcbecb5a.csv",
+      "size_bytes": 3029061,
+      "sha256": "97031e7589826208963a0896a03d3f3aeef065d26e5fe238f678dcaae0bd828e"
+    },
+    {
+      "id": "ad8e83242a",
+      "subject": "72e2c7",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/ad8e83242a.csv.zip",
+      "source_rel_path": "train/notype/ad8e83242a.csv",
+      "size_bytes": 5734242,
+      "sha256": "3e9b16a0bafa59ef155b83a45ccdfa51ff4c7d10513d805d891e5ce5e3211f7a"
+    },
+    {
+      "id": "ae96bee4b5",
+      "subject": "58e067",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/ae96bee4b5.csv.zip",
+      "source_rel_path": "train/notype/ae96bee4b5.csv",
+      "size_bytes": 6282879,
+      "sha256": "d935619222b18def9133e8534334413eb3f1f16e4b64eb445f4f57f93b643abd"
+    },
+    {
+      "id": "af02b83cbf",
+      "subject": "bb3387",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/af02b83cbf.csv.zip",
+      "source_rel_path": "train/notype/af02b83cbf.csv",
+      "size_bytes": 8474698,
+      "sha256": "cdcacf801dd3279d72a6d4eab6a9fcaa2567793322998243b58790b8abab5829"
+    },
+    {
+      "id": "afaec39b8c",
+      "subject": "7da72f",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/afaec39b8c.csv.zip",
+      "source_rel_path": "train/defog/afaec39b8c.csv",
+      "size_bytes": 4447954,
+      "sha256": "010b2552189648a9ce0e116ee136e338295a03f2b81f93f2f00f0fa717adddc3"
+    },
+    {
+      "id": "afc4b9d2a8",
+      "subject": "a50c72",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/afc4b9d2a8.csv.zip",
+      "source_rel_path": "train/defog/afc4b9d2a8.csv",
+      "size_bytes": 1460460,
+      "sha256": "1fab541dc0cf567696310ed24d5a6986fb3e17291fec65e61041c49052711db8"
+    },
+    {
+      "id": "affdf8553f",
+      "subject": "c56629",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/affdf8553f.csv.zip",
+      "source_rel_path": "train/notype/affdf8553f.csv",
+      "size_bytes": 6789968,
+      "sha256": "e9fb654f1f32db5bd825384dad55279af085c02b6ccbea8f67da865b45cf2142"
+    },
+    {
+      "id": "b1f5aa1b77",
+      "subject": "413532",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/b1f5aa1b77.csv.zip",
+      "source_rel_path": "train/notype/b1f5aa1b77.csv",
+      "size_bytes": 8898851,
+      "sha256": "dcd9b5ee074df90ae23687844d7f0142bd7a3f0a10e0727c4ace9a60bcbaba08"
+    },
+    {
+      "id": "b3891f42d0",
+      "subject": "3e1d75",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/b3891f42d0.csv.zip",
+      "source_rel_path": "train/defog/b3891f42d0.csv",
+      "size_bytes": 1694658,
+      "sha256": "bb41236025f4f9ffdfd4e83c1e32eff7aecdeb496616b8d9829a634be91edc6e"
+    },
+    {
+      "id": "b4365bba9d",
+      "subject": "00f674",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/b4365bba9d.csv.zip",
+      "source_rel_path": "train/defog/b4365bba9d.csv",
+      "size_bytes": 1856253,
+      "sha256": "720f18ef70221bb676c1e538fece2babf22c9030b9735fd7c78cdafab8ddc478"
+    },
+    {
+      "id": "b77b68675d",
+      "subject": "8d43d9",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/b77b68675d.csv.zip",
+      "source_rel_path": "train/notype/b77b68675d.csv",
+      "size_bytes": 2928749,
+      "sha256": "3964b6590d2b630c3424360e4426bec9fe74235ccc8f1054193dadfed4c8fe19"
+    },
+    {
+      "id": "bdcff4be3a",
+      "subject": "d79fa0",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/bdcff4be3a.csv.zip",
+      "source_rel_path": "train/defog/bdcff4be3a.csv",
+      "size_bytes": 6251870,
+      "sha256": "77c138180b5351f71b095bd4247b478ec1cae229ee24dcabc85dfe732a152a1a"
+    },
+    {
+      "id": "bdda73c9be",
+      "subject": "3a90e2",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/bdda73c9be.csv.zip",
+      "source_rel_path": "train/defog/bdda73c9be.csv",
+      "size_bytes": 2463123,
+      "sha256": "33fc9e479f22ac1769cde31e2fff5d091bff2932d0de19182dee9591530095f6"
+    },
+    {
+      "id": "be15a0d6c5",
+      "subject": "5d9cae",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/be15a0d6c5.csv.zip",
+      "source_rel_path": "train/defog/be15a0d6c5.csv",
+      "size_bytes": 3522485,
+      "sha256": "f95538ea2d97ef24611b6ecc8b9587e4a24e0bac3a54b2982006def1fd2e2e13"
+    },
+    {
+      "id": "be9d33541d",
+      "subject": "f28337",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/be9d33541d.csv.zip",
+      "source_rel_path": "train/defog/be9d33541d.csv",
+      "size_bytes": 3342538,
+      "sha256": "77af072d1028263f3c78e8466b19ae2451402a696207223a9a710a287e485497"
+    },
+    {
+      "id": "bf2fd0ff35",
+      "subject": "d89567",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/bf2fd0ff35.csv.zip",
+      "source_rel_path": "train/defog/bf2fd0ff35.csv",
+      "size_bytes": 3211025,
+      "sha256": "c6999b1b281bafa119a70af626b0bf73bf62b301eeecd3fbe7725a1aa90d7aa3"
+    },
+    {
+      "id": "c50f164e00",
+      "subject": "387ea0",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/c50f164e00.csv.zip",
+      "source_rel_path": "train/defog/c50f164e00.csv",
+      "size_bytes": 2041952,
+      "sha256": "56d49a90eeaf2f2021aa9f9671d67170e09a43f3687d33c3d13f08a0ede7c6e1"
+    },
+    {
+      "id": "c7f06a72e7",
+      "subject": "5d9cae",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/c7f06a72e7.csv.zip",
+      "source_rel_path": "train/defog/c7f06a72e7.csv",
+      "size_bytes": 4668611,
+      "sha256": "32e772be3dc26758528892fdbc4a7152601b98923e4648a58643ded787af5e02"
+    },
+    {
+      "id": "c816aa3562",
+      "subject": "c83ff6",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/c816aa3562.csv.zip",
+      "source_rel_path": "train/notype/c816aa3562.csv",
+      "size_bytes": 7406826,
+      "sha256": "e813f5ebbefea43e445044d315b73a594c3a8cfb89baf132c062f94bbac207da"
+    },
+    {
+      "id": "cb82000108",
+      "subject": "c12ab3",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/cb82000108.csv.zip",
+      "source_rel_path": "train/notype/cb82000108.csv",
+      "size_bytes": 3901441,
+      "sha256": "cde4987a7445d400fc861b9f41f5a9a3affb3912e59b0bfca2ee259535fd6e93"
+    },
+    {
+      "id": "d2ecd51a66",
+      "subject": "d79fa0",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/d2ecd51a66.csv.zip",
+      "source_rel_path": "train/notype/d2ecd51a66.csv",
+      "size_bytes": 9044594,
+      "sha256": "487d7be66ed61ed6dd760907b8bcc6c0f68078c43b9d767b277bba1152c6f857"
+    },
+    {
+      "id": "d59b65430b",
+      "subject": "056372",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/d59b65430b.csv.zip",
+      "source_rel_path": "train/defog/d59b65430b.csv",
+      "size_bytes": 5105013,
+      "sha256": "986d47c0ae505290bd7ba6dda71abb68842b5af173125346df229f6ed989bb38"
+    },
+    {
+      "id": "d99c7b2069",
+      "subject": "2a7175",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/d99c7b2069.csv.zip",
+      "source_rel_path": "train/defog/d99c7b2069.csv",
+      "size_bytes": 4904719,
+      "sha256": "49b3334a81eef411da17afe0997b0eb07e0ad7215dc5946fc34d8a2107139a97"
+    },
+    {
+      "id": "da05ad7058",
+      "subject": "bb3387",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/da05ad7058.csv.zip",
+      "source_rel_path": "train/defog/da05ad7058.csv",
+      "size_bytes": 5798100,
+      "sha256": "0af0f24ba662d23de412a26c985aa2dae78173252d3d2ebfd892a6d1e2ca0b0a"
+    },
+    {
+      "id": "daa4d27db4",
+      "subject": "5d9cae",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/daa4d27db4.csv.zip",
+      "source_rel_path": "train/defog/daa4d27db4.csv",
+      "size_bytes": 2475172,
+      "sha256": "d2971e54dd6b33e14bda050195eea14933aabfd97b09198f2e97b097158cb36e"
+    },
+    {
+      "id": "dd0ddc0bb5",
+      "subject": "3e1d75",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/dd0ddc0bb5.csv.zip",
+      "source_rel_path": "train/defog/dd0ddc0bb5.csv",
+      "size_bytes": 6264253,
+      "sha256": "3a4b3b3caa5819580f041be8c63ed2cd3e4b16aab1cfbf85f18199d10af3409c"
+    },
+    {
+      "id": "dd589529b5",
+      "subject": "c92925",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/dd589529b5.csv.zip",
+      "source_rel_path": "train/notype/dd589529b5.csv",
+      "size_bytes": 5655169,
+      "sha256": "398aaf157c9ef661ca4bddae1158a5d8b5247572147f000a05abbad44f1370c2"
+    },
+    {
+      "id": "e069a57511",
+      "subject": "2a7175",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/e069a57511.csv.zip",
+      "source_rel_path": "train/defog/e069a57511.csv",
+      "size_bytes": 3557971,
+      "sha256": "58d9799bd9916217e347babe652fe7b10b777513d296743d692cae768206d9be"
+    },
+    {
+      "id": "e1f92471b9",
+      "subject": "2874c5",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/e1f92471b9.csv.zip",
+      "source_rel_path": "train/defog/e1f92471b9.csv",
+      "size_bytes": 3227178,
+      "sha256": "88a8cdc111a0a47bd426621d42f57edeb9fbace156f2e9fd79d23eb1765f8174"
+    },
+    {
+      "id": "e5a0e226fe",
+      "subject": "58e067",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/e5a0e226fe.csv.zip",
+      "source_rel_path": "train/notype/e5a0e226fe.csv",
+      "size_bytes": 4070637,
+      "sha256": "68fbab2fb8ca05c3997d85df3c36e7ff9c1faf952d6915dd1dd27e762b93c6ef"
+    },
+    {
+      "id": "e642d9ea5f",
+      "subject": "387ea0",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/e642d9ea5f.csv.zip",
+      "source_rel_path": "train/defog/e642d9ea5f.csv",
+      "size_bytes": 2965401,
+      "sha256": "6a0fc0c0dec6a2df70613f1f2f9ba1c6f616add9fcb61d19d50f23174561b790"
+    },
+    {
+      "id": "e8e530a4f9",
+      "subject": "7da72f",
+      "visit": 2,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/e8e530a4f9.csv.zip",
+      "source_rel_path": "train/notype/e8e530a4f9.csv",
+      "size_bytes": 4962363,
+      "sha256": "8881a9d8d609e74c745b2eac1cabebc72a478d2686d75303cc36955791805fd8"
+    },
+    {
+      "id": "e971ae2a09",
+      "subject": "c92925",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/e971ae2a09.csv.zip",
+      "source_rel_path": "train/defog/e971ae2a09.csv",
+      "size_bytes": 3661257,
+      "sha256": "baa1fcf9a277471a8c096f100ffd099b7ecc091e382c696155a7040f78d9b7f3"
+    },
+    {
+      "id": "edd79a7494",
+      "subject": "7b2e84",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/edd79a7494.csv.zip",
+      "source_rel_path": "train/defog/edd79a7494.csv",
+      "size_bytes": 2068901,
+      "sha256": "8449967224d7780890b62252a692cba84e115c3f2c084f2259011632d23d056b"
+    },
+    {
+      "id": "f0b8335d50",
+      "subject": "ab3b2e",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/f0b8335d50.csv.zip",
+      "source_rel_path": "train/defog/f0b8335d50.csv",
+      "size_bytes": 2484190,
+      "sha256": "3e2a1be7f0f146a391d369ebc56cb38c71b3248518f1b34ab2e1ed73acc8083c"
+    },
+    {
+      "id": "f17eacf7d8",
+      "subject": "5d1cf8",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/f17eacf7d8.csv.zip",
+      "source_rel_path": "train/defog/f17eacf7d8.csv",
+      "size_bytes": 3166844,
+      "sha256": "e11e97e11b56a3146879ad676a6b61df4661b550f4eee099199b9667c07841a2"
+    },
+    {
+      "id": "f2ffe15369",
+      "subject": "8d43d9",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/f2ffe15369.csv.zip",
+      "source_rel_path": "train/defog/f2ffe15369.csv",
+      "size_bytes": 2555202,
+      "sha256": "3b3f900876f5faaf7c8e74612f416408c4460c676cb8dbcf9e1700f60474b295"
+    },
+    {
+      "id": "f3a921edee",
+      "subject": "1a778d",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/f3a921edee.csv.zip",
+      "source_rel_path": "train/defog/f3a921edee.csv",
+      "size_bytes": 1336706,
+      "sha256": "d5146e8fbff235a6472156a4a0d65852e546793585d3bef2d7e281389f56c9a1"
+    },
+    {
+      "id": "f40e8c6ebe",
+      "subject": "575c60",
+      "visit": 1,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/f40e8c6ebe.csv.zip",
+      "source_rel_path": "train/defog/f40e8c6ebe.csv",
+      "size_bytes": 3740201,
+      "sha256": "27825b007f4e4699371e10fd58a78d3f062205cda34b784a3881b005a4d43a24"
+    },
+    {
+      "id": "f8ddbdd98d",
+      "subject": "107712",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/f8ddbdd98d.csv.zip",
+      "source_rel_path": "train/defog/f8ddbdd98d.csv",
+      "size_bytes": 5330657,
+      "sha256": "254ec9eef57985525ccf346ff9bda59e400090f157ab3fe73fb0ff4517f5c984"
+    },
+    {
+      "id": "f9efef91fb",
+      "subject": "5d9cae",
+      "visit": 2,
+      "medication": "off",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/f9efef91fb.csv.zip",
+      "source_rel_path": "train/defog/f9efef91fb.csv",
+      "size_bytes": 3490601,
+      "sha256": "b8726f98a9b2a43c70b216833ffb0bd275e839fa30b1ce2a3e0f45bcd8c345ed"
+    },
+    {
+      "id": "f9fc61ce85",
+      "subject": "040587",
+      "visit": 1,
+      "medication": "on",
+      "path": "/home/fiod/pd-imu/data/raw/tlvmc-defog/raw_defog/f9fc61ce85.csv.zip",
+      "source_rel_path": "train/defog/f9fc61ce85.csv",
+      "size_bytes": 3319051,
+      "sha256": "d6c1ff05803cef6059fe8a6bfff86629ab777f8cb4560497514feb0ec9eb3659"
+    }
+  ]
+}

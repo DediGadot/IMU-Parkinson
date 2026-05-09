@@ -1,0 +1,24 @@
+{
+  "experiment": "T3 iter42 Part III proration fixed-battery audit",
+  "trigger": "iter41 found all-missing zero-label bug plus six partially missing raw Part III rows",
+  "literature_rule": "MDS-UPDRS Part III surrogate totals may be prorated only within bounded missing-item thresholds; primary uses <=3 missing scores.",
+  "primary_cohort": "prorate_le3",
+  "sensitivity_cohort": "prorate_le7",
+  "target_formula": "observed_raw_part3_sum * 33 / n_observed_part3_scores for kept partially missing rows; complete rows unchanged; all-missing excluded",
+  "stage1": "A3_tier1 = H&Y + cv_yrs + cv_sex + cv_dbs, alpha=1.0",
+  "stage2_policies": [
+    "stage2_current",
+    "stage2_no_cv"
+  ],
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "evaluation": "LOOCV, mean of 3 seed predictions; all cells reported",
+  "no_selection_rule": "This audit reports the primary and sensitivity target rules and does not promote a new T3 headline by winner selection.",
+  "created_at_local": "2026-05-08T17:34:12.795214",
+  "created_at_utc": "2026-05-08T14:34:12.795223Z",
+  "git_sha": "unknown",
+  "formula_sha256": "f7349d1eecd526c1f84fe0e283b29ef95b844ff945121920b317ccf182160f90"
+}

@@ -1,0 +1,1096 @@
+{
+  "script": "audit_t3_iter47_item_residuals.py",
+  "created_at_utc": "2026-05-09T05:52:53+00:00",
+  "scope": "diagnostic_only_saved_oof_no_model_selection_no_prereg_no_loocv",
+  "inputs": {
+    "predictions": "/home/fiod/medical/results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+    "clinical_csv": "/home/fiod/medical/results/pd_demographic_clinical_v1.csv"
+  },
+  "web_scan_sources": [
+    {
+      "name": "COPS Scientific Data 2026",
+      "url": "https://www.nature.com/articles/s41597-026-06999-6",
+      "finding": "Public bilateral wrist accelerometry plus symptom diaries; OSF archives include UPDRS OFF/ON CSVs per local probe, so existing COPS target provenance is not diary-inferred."
+    },
+    {
+      "name": "ICICLE / real-world gait federated-learning paper",
+      "url": "https://www.frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2026.1766599/full",
+      "finding": "Direct MDS-UPDRS III wearable route remains request-only; data availability statement requires contacting the investigator."
+    }
+  ],
+  "target_reconstruction": {
+    "max_abs_parsed_total_minus_iter47_target": 0.0,
+    "n_nonzero_diffs": 0
+  },
+  "cohort": {
+    "n": 95,
+    "sites": {
+      "NLS": 68,
+      "WPD": 27
+    }
+  },
+  "base_metrics": {
+    "n": 95,
+    "ccc": 0.3783671177953899,
+    "mae": 7.528022830280761,
+    "r": 0.4140570278396842,
+    "target_mean": 25.0,
+    "target_sd": 9.913308439190537,
+    "prediction_mean": 24.814587580387084,
+    "prediction_sd": 6.446170478634331,
+    "residual_corr_with_true": -0.7770738735166363
+  },
+  "item_rows": [
+    {
+      "item": 1,
+      "name": "speech",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 0.8947368421052632,
+      "sd": 0.7177990366834661,
+      "max": 3.0,
+      "nonzero_fraction": 0.7157894736842105,
+      "corr_item_with_t3_target": 0.33136216800155754,
+      "corr_item_with_t3_prediction": 0.3471612344719198,
+      "corr_item_with_residual_pred_minus_true": -0.11231336768739844,
+      "abs_corr_item_with_residual": 0.11231336768739844,
+      "corr_item_with_abs_error": 0.1205750515250065,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.11231336768739844,
+        "ci_low": -0.3203638069613403,
+        "ci_high": 0.10212849260188543
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.38369119367966253,
+        "mae": 7.655213027112939,
+        "delta_ccc_vs_base": 0.005324075884272639,
+        "delta_mae_vs_base": 0.1271901968321787,
+        "mean_slope_per_item_sd": -1.0468230231839748
+      }
+    },
+    {
+      "item": 2,
+      "name": "facial_expression",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.3789473684210527,
+      "sd": 0.9752618797389868,
+      "max": 4.0,
+      "nonzero_fraction": 0.7894736842105263,
+      "corr_item_with_t3_target": 0.45728380100940197,
+      "corr_item_with_t3_prediction": 0.14879795040659638,
+      "corr_item_with_residual_pred_minus_true": -0.3833779113035298,
+      "abs_corr_item_with_residual": 0.3833779113035298,
+      "corr_item_with_abs_error": 0.0019142206256307413,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.3833779113035298,
+        "ci_low": -0.5405437269280841,
+        "ci_high": -0.21424434183895735
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5177811458698667,
+        "mae": 7.0692965247522475,
+        "delta_ccc_vs_base": 0.13941402807447678,
+        "delta_mae_vs_base": -0.4587263055285131,
+        "mean_slope_per_item_sd": -3.5737479527451312
+      }
+    },
+    {
+      "item": 3,
+      "name": "rigidity",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 94,
+      "n_missing_item_scores": 1,
+      "mean": 4.319148936170213,
+      "sd": 3.149511160844823,
+      "max": 14.0,
+      "nonzero_fraction": 0.9052631578947369,
+      "corr_item_with_t3_target": 0.5414117862787665,
+      "corr_item_with_t3_prediction": 0.16766925357020365,
+      "corr_item_with_residual_pred_minus_true": -0.46011238570982516,
+      "abs_corr_item_with_residual": 0.46011238570982516,
+      "corr_item_with_abs_error": 0.04979101736853949,
+      "residual_corr_bootstrap": {
+        "n": 94,
+        "corr": -0.46011238570982516,
+        "ci_low": -0.6187621011400806,
+        "ci_high": -0.25895265534686646
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5729953976548056,
+        "mae": 6.691339846030587,
+        "delta_ccc_vs_base": 0.19462827985941566,
+        "delta_mae_vs_base": -0.8366829842501735,
+        "mean_slope_per_item_sd": -4.263636326635676
+      }
+    },
+    {
+      "item": 4,
+      "name": "finger_tapping",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 2.473684210526316,
+      "sd": 1.4714268425268675,
+      "max": 6.0,
+      "nonzero_fraction": 0.8842105263157894,
+      "corr_item_with_t3_target": 0.6364842869249192,
+      "corr_item_with_t3_prediction": 0.21491867743641305,
+      "corr_item_with_residual_pred_minus_true": -0.5282159468417101,
+      "abs_corr_item_with_residual": 0.5282159468417101,
+      "corr_item_with_abs_error": -0.014810603107719882,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.5282159468417101,
+        "ci_low": -0.6439859416155305,
+        "ci_high": -0.39530619054343563
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.6345749735484644,
+        "mae": 6.7491781752185425,
+        "delta_ccc_vs_base": 0.2562078557530745,
+        "delta_mae_vs_base": -0.7788446550622181,
+        "mean_slope_per_item_sd": -4.924010996572863
+      }
+    },
+    {
+      "item": 5,
+      "name": "hand_movements",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.9157894736842105,
+      "sd": 1.6004154585260657,
+      "max": 6.0,
+      "nonzero_fraction": 0.8210526315789474,
+      "corr_item_with_t3_target": 0.6488792598574653,
+      "corr_item_with_t3_prediction": 0.3190566990484105,
+      "corr_item_with_residual_pred_minus_true": -0.4693884163859579,
+      "abs_corr_item_with_residual": 0.4693884163859579,
+      "corr_item_with_abs_error": 0.013791245538597528,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.4693884163859579,
+        "ci_low": -0.6055386785367267,
+        "ci_high": -0.32066527559991354
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.6047896316068718,
+        "mae": 6.678383697794498,
+        "delta_ccc_vs_base": 0.22642251381148193,
+        "delta_mae_vs_base": -0.8496391324862627,
+        "mean_slope_per_item_sd": -4.375635335096279
+      }
+    },
+    {
+      "item": 6,
+      "name": "pronation_supination",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.9578947368421054,
+      "sd": 1.4932535264257125,
+      "max": 5.0,
+      "nonzero_fraction": 0.8,
+      "corr_item_with_t3_target": 0.6350028663821272,
+      "corr_item_with_t3_prediction": 0.15144723783120098,
+      "corr_item_with_residual_pred_minus_true": -0.5705291019290375,
+      "abs_corr_item_with_residual": 0.5705291019290375,
+      "corr_item_with_abs_error": 0.0022104777461639433,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.5705291019290375,
+        "ci_low": -0.6833769537582056,
+        "ci_high": -0.44331903740886774
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.6600684229455746,
+        "mae": 6.3448600109424085,
+        "delta_ccc_vs_base": 0.28170130515018466,
+        "delta_mae_vs_base": -1.183162819338352,
+        "mean_slope_per_item_sd": -5.318357053432066
+      }
+    },
+    {
+      "item": 7,
+      "name": "toe_tapping",
+      "weargait_observable": true,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 2.610526315789474,
+      "sd": 1.4746613301979419,
+      "max": 6.0,
+      "nonzero_fraction": 0.9368421052631579,
+      "corr_item_with_t3_target": 0.5278000882658065,
+      "corr_item_with_t3_prediction": 0.33451182639085725,
+      "corr_item_with_residual_pred_minus_true": -0.32994839250897817,
+      "abs_corr_item_with_residual": 0.32994839250897817,
+      "corr_item_with_abs_error": 0.1150920550857122,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.32994839250897817,
+        "ci_low": -0.519276394957324,
+        "ci_high": -0.1193755562178576
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5035472962271503,
+        "mae": 7.179468109194858,
+        "delta_ccc_vs_base": 0.12518017843176044,
+        "delta_mae_vs_base": -0.348554721085903,
+        "mean_slope_per_item_sd": -3.0756614667401214
+      }
+    },
+    {
+      "item": 8,
+      "name": "leg_agility",
+      "weargait_observable": true,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.5578947368421052,
+      "sd": 1.671531220318249,
+      "max": 6.0,
+      "nonzero_fraction": 0.6105263157894737,
+      "corr_item_with_t3_target": 0.5621944499923157,
+      "corr_item_with_t3_prediction": 0.3447154737702018,
+      "corr_item_with_residual_pred_minus_true": -0.35946720965493023,
+      "abs_corr_item_with_residual": 0.35946720965493023,
+      "corr_item_with_abs_error": 0.0013659109700099004,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.35946720965493023,
+        "ci_low": -0.5198393909934989,
+        "ci_high": -0.1696965141599851
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5268461542888822,
+        "mae": 7.107514142155527,
+        "delta_ccc_vs_base": 0.14847903649349226,
+        "delta_mae_vs_base": -0.420508688125234,
+        "mean_slope_per_item_sd": -3.3508973453680864
+      }
+    },
+    {
+      "item": 9,
+      "name": "arising_from_chair",
+      "weargait_observable": true,
+      "t1_item": true,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 0.2631578947368421,
+      "sd": 0.4858097161774453,
+      "max": 2.0,
+      "nonzero_fraction": 0.24210526315789474,
+      "corr_item_with_t3_target": 0.4436981493774817,
+      "corr_item_with_t3_prediction": 0.32718803180318723,
+      "corr_item_with_residual_pred_minus_true": -0.2455801532116214,
+      "abs_corr_item_with_residual": 0.2455801532116214,
+      "corr_item_with_abs_error": 0.134383275789204,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.2455801532116214,
+        "ci_low": -0.4073343470201832,
+        "ci_high": -0.04999593286797082
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.45308221751982475,
+        "mae": 7.463592430491545,
+        "delta_ccc_vs_base": 0.07471509972443485,
+        "delta_mae_vs_base": -0.06443039978921572,
+        "mean_slope_per_item_sd": -2.289065464529347
+      }
+    },
+    {
+      "item": 10,
+      "name": "gait",
+      "weargait_observable": true,
+      "t1_item": true,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.0421052631578946,
+      "sd": 0.7527603864749947,
+      "max": 4.0,
+      "nonzero_fraction": 0.7789473684210526,
+      "corr_item_with_t3_target": 0.5571833304240262,
+      "corr_item_with_t3_prediction": 0.49940051713023836,
+      "corr_item_with_residual_pred_minus_true": -0.2471787218857997,
+      "abs_corr_item_with_residual": 0.2471787218857997,
+      "corr_item_with_abs_error": 0.019892600338055445,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.2471787218857997,
+        "ci_low": -0.4364321506378951,
+        "ci_high": -0.027305526153377332
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.46980764380696466,
+        "mae": 7.279553657976155,
+        "delta_ccc_vs_base": 0.09144052601157476,
+        "delta_mae_vs_base": -0.2484691723046053,
+        "mean_slope_per_item_sd": -2.30409083295378
+      }
+    },
+    {
+      "item": 11,
+      "name": "freezing_of_gait",
+      "weargait_observable": true,
+      "t1_item": true,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 0.21052631578947367,
+      "sd": 0.6137844099837158,
+      "max": 3.0,
+      "nonzero_fraction": 0.1368421052631579,
+      "corr_item_with_t3_target": 0.3148569691682595,
+      "corr_item_with_t3_prediction": 0.34890270957196806,
+      "corr_item_with_residual_pred_minus_true": -0.093557877546216,
+      "abs_corr_item_with_residual": 0.093557877546216,
+      "corr_item_with_abs_error": 0.2726939709112947,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.093557877546216,
+        "ci_low": -0.3390848398647511,
+        "ci_high": 0.19127674208151452
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.37041857339763606,
+        "mae": 7.690968083434063,
+        "delta_ccc_vs_base": -0.007948544397753832,
+        "delta_mae_vs_base": 0.16294525315330244,
+        "mean_slope_per_item_sd": -0.8716613233000648
+      }
+    },
+    {
+      "item": 12,
+      "name": "postural_stability",
+      "weargait_observable": true,
+      "t1_item": true,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 0.5578947368421052,
+      "sd": 0.9483036319625439,
+      "max": 4.0,
+      "nonzero_fraction": 0.3368421052631579,
+      "corr_item_with_t3_target": 0.46692423607653416,
+      "corr_item_with_t3_prediction": 0.41876128724869954,
+      "corr_item_with_residual_pred_minus_true": -0.20695835777132454,
+      "abs_corr_item_with_residual": 0.20695835777132454,
+      "corr_item_with_abs_error": 0.020560596618376985,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.20695835777132454,
+        "ci_low": -0.40054174137985976,
+        "ci_high": 0.0001783449677566422
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.43738305237747027,
+        "mae": 7.615628038789603,
+        "delta_ccc_vs_base": 0.059015934582080376,
+        "delta_mae_vs_base": 0.08760520850884213,
+        "mean_slope_per_item_sd": -1.9292363004428885
+      }
+    },
+    {
+      "item": 13,
+      "name": "posture",
+      "weargait_observable": true,
+      "t1_item": true,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.0315789473684212,
+      "sd": 0.7320142589774193,
+      "max": 3.0,
+      "nonzero_fraction": 0.7578947368421053,
+      "corr_item_with_t3_target": 0.36264211897028537,
+      "corr_item_with_t3_prediction": 0.2352219299392618,
+      "corr_item_with_residual_pred_minus_true": -0.22297832254248562,
+      "abs_corr_item_with_residual": 0.22297832254248562,
+      "corr_item_with_abs_error": -0.05035653945380065,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.22297832254248562,
+        "ci_low": -0.4182508170193053,
+        "ci_high": -0.009657086252372327
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.42886630784381813,
+        "mae": 7.5671535086254496,
+        "delta_ccc_vs_base": 0.05049919004842823,
+        "delta_mae_vs_base": 0.039130678344688974,
+        "mean_slope_per_item_sd": -2.0785253543621938
+      }
+    },
+    {
+      "item": 14,
+      "name": "global_spontaneity",
+      "weargait_observable": true,
+      "t1_item": true,
+      "n_valid_item_scores": 94,
+      "n_missing_item_scores": 1,
+      "mean": 0.9893617021276596,
+      "sd": 0.7365052736455734,
+      "max": 3.0,
+      "nonzero_fraction": 0.7263157894736842,
+      "corr_item_with_t3_target": 0.42037799164710277,
+      "corr_item_with_t3_prediction": 0.2623419367913107,
+      "corr_item_with_residual_pred_minus_true": -0.27002807172446047,
+      "abs_corr_item_with_residual": 0.27002807172446047,
+      "corr_item_with_abs_error": 0.00040676883530417046,
+      "residual_corr_bootstrap": {
+        "n": 94,
+        "corr": -0.27002807172446047,
+        "ci_low": -0.46205586615241334,
+        "ci_high": -0.052236522092007034
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.45377368620866254,
+        "mae": 7.533331880185228,
+        "delta_ccc_vs_base": 0.07540656841327265,
+        "delta_mae_vs_base": 0.0053090499044676775,
+        "mean_slope_per_item_sd": -2.4824653330227786
+      }
+    },
+    {
+      "item": 15,
+      "name": "postural_tremor",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 94,
+      "n_missing_item_scores": 1,
+      "mean": 0.5425531914893617,
+      "sd": 0.7244204377120519,
+      "max": 3.0,
+      "nonzero_fraction": 0.4105263157894737,
+      "corr_item_with_t3_target": 0.10264987310985413,
+      "corr_item_with_t3_prediction": -0.18766071634979983,
+      "corr_item_with_residual_pred_minus_true": -0.2381834001633804,
+      "abs_corr_item_with_residual": 0.2381834001633804,
+      "corr_item_with_abs_error": -0.06312305298319836,
+      "residual_corr_bootstrap": {
+        "n": 94,
+        "corr": -0.2381834001633804,
+        "ci_low": -0.3968304482983409,
+        "ci_high": -0.05358679872134898
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.3915998148934016,
+        "mae": 7.543558878091578,
+        "delta_ccc_vs_base": 0.013232697098011725,
+        "delta_mae_vs_base": 0.015536047810817522,
+        "mean_slope_per_item_sd": -2.205410786678811
+      }
+    },
+    {
+      "item": 16,
+      "name": "kinetic_tremor",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.063157894736842,
+      "sd": 1.0240325479591839,
+      "max": 4.0,
+      "nonzero_fraction": 0.6105263157894737,
+      "corr_item_with_t3_target": 0.2685615157563423,
+      "corr_item_with_t3_prediction": -0.12459502826085574,
+      "corr_item_with_residual_pred_minus_true": -0.3717367047507035,
+      "abs_corr_item_with_residual": 0.3717367047507035,
+      "corr_item_with_abs_error": -0.020450940597814615,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.3717367047507035,
+        "ci_low": -0.5463916027418978,
+        "ci_high": -0.1906390116186171
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.46812578036658326,
+        "mae": 6.981790426764308,
+        "delta_ccc_vs_base": 0.08975866257119336,
+        "delta_mae_vs_base": -0.546232403516453,
+        "mean_slope_per_item_sd": -3.465278846067971
+      }
+    },
+    {
+      "item": 17,
+      "name": "rest_tremor_amplitude",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.2526315789473683,
+      "sd": 1.78277383548123,
+      "max": 9.0,
+      "nonzero_fraction": 0.49473684210526314,
+      "corr_item_with_t3_target": 0.21203693711076865,
+      "corr_item_with_t3_prediction": -0.04370550746514901,
+      "corr_item_with_residual_pred_minus_true": -0.25569702293339064,
+      "abs_corr_item_with_residual": 0.25569702293339064,
+      "corr_item_with_abs_error": -0.05773988149912836,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.25569702293339064,
+        "ci_low": -0.43564811478082965,
+        "ci_high": -0.04830996346082368
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.4151426638054747,
+        "mae": 7.451017970867539,
+        "delta_ccc_vs_base": 0.036775546010084814,
+        "delta_mae_vs_base": -0.077004859413222,
+        "mean_slope_per_item_sd": -2.383534843587616
+      }
+    },
+    {
+      "item": 18,
+      "name": "rest_tremor_constancy",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 94,
+      "n_missing_item_scores": 1,
+      "mean": 1.0106382978723405,
+      "sd": 1.348716338889906,
+      "max": 4.0,
+      "nonzero_fraction": 0.4631578947368421,
+      "corr_item_with_t3_target": 0.24102678584379747,
+      "corr_item_with_t3_prediction": -0.09496171299378917,
+      "corr_item_with_residual_pred_minus_true": -0.3225481963839769,
+      "abs_corr_item_with_residual": 0.3225481963839769,
+      "corr_item_with_abs_error": -0.21064742533754655,
+      "residual_corr_bootstrap": {
+        "n": 94,
+        "corr": -0.3225481963839769,
+        "ci_low": -0.4612384487528852,
+        "ci_high": -0.1782999441074684
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.4459690466334137,
+        "mae": 7.38415860965956,
+        "delta_ccc_vs_base": 0.0676019288380238,
+        "delta_mae_vs_base": -0.1438642206212002,
+        "mean_slope_per_item_sd": -2.980774168686551
+      }
+    }
+  ],
+  "top_items_by_abs_residual_corr": [
+    {
+      "item": 6,
+      "name": "pronation_supination",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.9578947368421054,
+      "sd": 1.4932535264257125,
+      "max": 5.0,
+      "nonzero_fraction": 0.8,
+      "corr_item_with_t3_target": 0.6350028663821272,
+      "corr_item_with_t3_prediction": 0.15144723783120098,
+      "corr_item_with_residual_pred_minus_true": -0.5705291019290375,
+      "abs_corr_item_with_residual": 0.5705291019290375,
+      "corr_item_with_abs_error": 0.0022104777461639433,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.5705291019290375,
+        "ci_low": -0.6833769537582056,
+        "ci_high": -0.44331903740886774
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.6600684229455746,
+        "mae": 6.3448600109424085,
+        "delta_ccc_vs_base": 0.28170130515018466,
+        "delta_mae_vs_base": -1.183162819338352,
+        "mean_slope_per_item_sd": -5.318357053432066
+      }
+    },
+    {
+      "item": 4,
+      "name": "finger_tapping",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 2.473684210526316,
+      "sd": 1.4714268425268675,
+      "max": 6.0,
+      "nonzero_fraction": 0.8842105263157894,
+      "corr_item_with_t3_target": 0.6364842869249192,
+      "corr_item_with_t3_prediction": 0.21491867743641305,
+      "corr_item_with_residual_pred_minus_true": -0.5282159468417101,
+      "abs_corr_item_with_residual": 0.5282159468417101,
+      "corr_item_with_abs_error": -0.014810603107719882,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.5282159468417101,
+        "ci_low": -0.6439859416155305,
+        "ci_high": -0.39530619054343563
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.6345749735484644,
+        "mae": 6.7491781752185425,
+        "delta_ccc_vs_base": 0.2562078557530745,
+        "delta_mae_vs_base": -0.7788446550622181,
+        "mean_slope_per_item_sd": -4.924010996572863
+      }
+    },
+    {
+      "item": 5,
+      "name": "hand_movements",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.9157894736842105,
+      "sd": 1.6004154585260657,
+      "max": 6.0,
+      "nonzero_fraction": 0.8210526315789474,
+      "corr_item_with_t3_target": 0.6488792598574653,
+      "corr_item_with_t3_prediction": 0.3190566990484105,
+      "corr_item_with_residual_pred_minus_true": -0.4693884163859579,
+      "abs_corr_item_with_residual": 0.4693884163859579,
+      "corr_item_with_abs_error": 0.013791245538597528,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.4693884163859579,
+        "ci_low": -0.6055386785367267,
+        "ci_high": -0.32066527559991354
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.6047896316068718,
+        "mae": 6.678383697794498,
+        "delta_ccc_vs_base": 0.22642251381148193,
+        "delta_mae_vs_base": -0.8496391324862627,
+        "mean_slope_per_item_sd": -4.375635335096279
+      }
+    },
+    {
+      "item": 3,
+      "name": "rigidity",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 94,
+      "n_missing_item_scores": 1,
+      "mean": 4.319148936170213,
+      "sd": 3.149511160844823,
+      "max": 14.0,
+      "nonzero_fraction": 0.9052631578947369,
+      "corr_item_with_t3_target": 0.5414117862787665,
+      "corr_item_with_t3_prediction": 0.16766925357020365,
+      "corr_item_with_residual_pred_minus_true": -0.46011238570982516,
+      "abs_corr_item_with_residual": 0.46011238570982516,
+      "corr_item_with_abs_error": 0.04979101736853949,
+      "residual_corr_bootstrap": {
+        "n": 94,
+        "corr": -0.46011238570982516,
+        "ci_low": -0.6187621011400806,
+        "ci_high": -0.25895265534686646
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5729953976548056,
+        "mae": 6.691339846030587,
+        "delta_ccc_vs_base": 0.19462827985941566,
+        "delta_mae_vs_base": -0.8366829842501735,
+        "mean_slope_per_item_sd": -4.263636326635676
+      }
+    },
+    {
+      "item": 2,
+      "name": "facial_expression",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.3789473684210527,
+      "sd": 0.9752618797389868,
+      "max": 4.0,
+      "nonzero_fraction": 0.7894736842105263,
+      "corr_item_with_t3_target": 0.45728380100940197,
+      "corr_item_with_t3_prediction": 0.14879795040659638,
+      "corr_item_with_residual_pred_minus_true": -0.3833779113035298,
+      "abs_corr_item_with_residual": 0.3833779113035298,
+      "corr_item_with_abs_error": 0.0019142206256307413,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.3833779113035298,
+        "ci_low": -0.5405437269280841,
+        "ci_high": -0.21424434183895735
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5177811458698667,
+        "mae": 7.0692965247522475,
+        "delta_ccc_vs_base": 0.13941402807447678,
+        "delta_mae_vs_base": -0.4587263055285131,
+        "mean_slope_per_item_sd": -3.5737479527451312
+      }
+    },
+    {
+      "item": 16,
+      "name": "kinetic_tremor",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.063157894736842,
+      "sd": 1.0240325479591839,
+      "max": 4.0,
+      "nonzero_fraction": 0.6105263157894737,
+      "corr_item_with_t3_target": 0.2685615157563423,
+      "corr_item_with_t3_prediction": -0.12459502826085574,
+      "corr_item_with_residual_pred_minus_true": -0.3717367047507035,
+      "abs_corr_item_with_residual": 0.3717367047507035,
+      "corr_item_with_abs_error": -0.020450940597814615,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.3717367047507035,
+        "ci_low": -0.5463916027418978,
+        "ci_high": -0.1906390116186171
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.46812578036658326,
+        "mae": 6.981790426764308,
+        "delta_ccc_vs_base": 0.08975866257119336,
+        "delta_mae_vs_base": -0.546232403516453,
+        "mean_slope_per_item_sd": -3.465278846067971
+      }
+    },
+    {
+      "item": 8,
+      "name": "leg_agility",
+      "weargait_observable": true,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.5578947368421052,
+      "sd": 1.671531220318249,
+      "max": 6.0,
+      "nonzero_fraction": 0.6105263157894737,
+      "corr_item_with_t3_target": 0.5621944499923157,
+      "corr_item_with_t3_prediction": 0.3447154737702018,
+      "corr_item_with_residual_pred_minus_true": -0.35946720965493023,
+      "abs_corr_item_with_residual": 0.35946720965493023,
+      "corr_item_with_abs_error": 0.0013659109700099004,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.35946720965493023,
+        "ci_low": -0.5198393909934989,
+        "ci_high": -0.1696965141599851
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5268461542888822,
+        "mae": 7.107514142155527,
+        "delta_ccc_vs_base": 0.14847903649349226,
+        "delta_mae_vs_base": -0.420508688125234,
+        "mean_slope_per_item_sd": -3.3508973453680864
+      }
+    },
+    {
+      "item": 7,
+      "name": "toe_tapping",
+      "weargait_observable": true,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 2.610526315789474,
+      "sd": 1.4746613301979419,
+      "max": 6.0,
+      "nonzero_fraction": 0.9368421052631579,
+      "corr_item_with_t3_target": 0.5278000882658065,
+      "corr_item_with_t3_prediction": 0.33451182639085725,
+      "corr_item_with_residual_pred_minus_true": -0.32994839250897817,
+      "abs_corr_item_with_residual": 0.32994839250897817,
+      "corr_item_with_abs_error": 0.1150920550857122,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.32994839250897817,
+        "ci_low": -0.519276394957324,
+        "ci_high": -0.1193755562178576
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5035472962271503,
+        "mae": 7.179468109194858,
+        "delta_ccc_vs_base": 0.12518017843176044,
+        "delta_mae_vs_base": -0.348554721085903,
+        "mean_slope_per_item_sd": -3.0756614667401214
+      }
+    }
+  ],
+  "top_items_by_privileged_oracle_delta_ccc": [
+    {
+      "item": 6,
+      "name": "pronation_supination",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.9578947368421054,
+      "sd": 1.4932535264257125,
+      "max": 5.0,
+      "nonzero_fraction": 0.8,
+      "corr_item_with_t3_target": 0.6350028663821272,
+      "corr_item_with_t3_prediction": 0.15144723783120098,
+      "corr_item_with_residual_pred_minus_true": -0.5705291019290375,
+      "abs_corr_item_with_residual": 0.5705291019290375,
+      "corr_item_with_abs_error": 0.0022104777461639433,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.5705291019290375,
+        "ci_low": -0.6833769537582056,
+        "ci_high": -0.44331903740886774
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.6600684229455746,
+        "mae": 6.3448600109424085,
+        "delta_ccc_vs_base": 0.28170130515018466,
+        "delta_mae_vs_base": -1.183162819338352,
+        "mean_slope_per_item_sd": -5.318357053432066
+      }
+    },
+    {
+      "item": 4,
+      "name": "finger_tapping",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 2.473684210526316,
+      "sd": 1.4714268425268675,
+      "max": 6.0,
+      "nonzero_fraction": 0.8842105263157894,
+      "corr_item_with_t3_target": 0.6364842869249192,
+      "corr_item_with_t3_prediction": 0.21491867743641305,
+      "corr_item_with_residual_pred_minus_true": -0.5282159468417101,
+      "abs_corr_item_with_residual": 0.5282159468417101,
+      "corr_item_with_abs_error": -0.014810603107719882,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.5282159468417101,
+        "ci_low": -0.6439859416155305,
+        "ci_high": -0.39530619054343563
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.6345749735484644,
+        "mae": 6.7491781752185425,
+        "delta_ccc_vs_base": 0.2562078557530745,
+        "delta_mae_vs_base": -0.7788446550622181,
+        "mean_slope_per_item_sd": -4.924010996572863
+      }
+    },
+    {
+      "item": 5,
+      "name": "hand_movements",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.9157894736842105,
+      "sd": 1.6004154585260657,
+      "max": 6.0,
+      "nonzero_fraction": 0.8210526315789474,
+      "corr_item_with_t3_target": 0.6488792598574653,
+      "corr_item_with_t3_prediction": 0.3190566990484105,
+      "corr_item_with_residual_pred_minus_true": -0.4693884163859579,
+      "abs_corr_item_with_residual": 0.4693884163859579,
+      "corr_item_with_abs_error": 0.013791245538597528,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.4693884163859579,
+        "ci_low": -0.6055386785367267,
+        "ci_high": -0.32066527559991354
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.6047896316068718,
+        "mae": 6.678383697794498,
+        "delta_ccc_vs_base": 0.22642251381148193,
+        "delta_mae_vs_base": -0.8496391324862627,
+        "mean_slope_per_item_sd": -4.375635335096279
+      }
+    },
+    {
+      "item": 3,
+      "name": "rigidity",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 94,
+      "n_missing_item_scores": 1,
+      "mean": 4.319148936170213,
+      "sd": 3.149511160844823,
+      "max": 14.0,
+      "nonzero_fraction": 0.9052631578947369,
+      "corr_item_with_t3_target": 0.5414117862787665,
+      "corr_item_with_t3_prediction": 0.16766925357020365,
+      "corr_item_with_residual_pred_minus_true": -0.46011238570982516,
+      "abs_corr_item_with_residual": 0.46011238570982516,
+      "corr_item_with_abs_error": 0.04979101736853949,
+      "residual_corr_bootstrap": {
+        "n": 94,
+        "corr": -0.46011238570982516,
+        "ci_low": -0.6187621011400806,
+        "ci_high": -0.25895265534686646
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5729953976548056,
+        "mae": 6.691339846030587,
+        "delta_ccc_vs_base": 0.19462827985941566,
+        "delta_mae_vs_base": -0.8366829842501735,
+        "mean_slope_per_item_sd": -4.263636326635676
+      }
+    },
+    {
+      "item": 8,
+      "name": "leg_agility",
+      "weargait_observable": true,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.5578947368421052,
+      "sd": 1.671531220318249,
+      "max": 6.0,
+      "nonzero_fraction": 0.6105263157894737,
+      "corr_item_with_t3_target": 0.5621944499923157,
+      "corr_item_with_t3_prediction": 0.3447154737702018,
+      "corr_item_with_residual_pred_minus_true": -0.35946720965493023,
+      "abs_corr_item_with_residual": 0.35946720965493023,
+      "corr_item_with_abs_error": 0.0013659109700099004,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.35946720965493023,
+        "ci_low": -0.5198393909934989,
+        "ci_high": -0.1696965141599851
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5268461542888822,
+        "mae": 7.107514142155527,
+        "delta_ccc_vs_base": 0.14847903649349226,
+        "delta_mae_vs_base": -0.420508688125234,
+        "mean_slope_per_item_sd": -3.3508973453680864
+      }
+    },
+    {
+      "item": 2,
+      "name": "facial_expression",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.3789473684210527,
+      "sd": 0.9752618797389868,
+      "max": 4.0,
+      "nonzero_fraction": 0.7894736842105263,
+      "corr_item_with_t3_target": 0.45728380100940197,
+      "corr_item_with_t3_prediction": 0.14879795040659638,
+      "corr_item_with_residual_pred_minus_true": -0.3833779113035298,
+      "abs_corr_item_with_residual": 0.3833779113035298,
+      "corr_item_with_abs_error": 0.0019142206256307413,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.3833779113035298,
+        "ci_low": -0.5405437269280841,
+        "ci_high": -0.21424434183895735
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5177811458698667,
+        "mae": 7.0692965247522475,
+        "delta_ccc_vs_base": 0.13941402807447678,
+        "delta_mae_vs_base": -0.4587263055285131,
+        "mean_slope_per_item_sd": -3.5737479527451312
+      }
+    },
+    {
+      "item": 7,
+      "name": "toe_tapping",
+      "weargait_observable": true,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 2.610526315789474,
+      "sd": 1.4746613301979419,
+      "max": 6.0,
+      "nonzero_fraction": 0.9368421052631579,
+      "corr_item_with_t3_target": 0.5278000882658065,
+      "corr_item_with_t3_prediction": 0.33451182639085725,
+      "corr_item_with_residual_pred_minus_true": -0.32994839250897817,
+      "abs_corr_item_with_residual": 0.32994839250897817,
+      "corr_item_with_abs_error": 0.1150920550857122,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.32994839250897817,
+        "ci_low": -0.519276394957324,
+        "ci_high": -0.1193755562178576
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.5035472962271503,
+        "mae": 7.179468109194858,
+        "delta_ccc_vs_base": 0.12518017843176044,
+        "delta_mae_vs_base": -0.348554721085903,
+        "mean_slope_per_item_sd": -3.0756614667401214
+      }
+    },
+    {
+      "item": 10,
+      "name": "gait",
+      "weargait_observable": true,
+      "t1_item": true,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.0421052631578946,
+      "sd": 0.7527603864749947,
+      "max": 4.0,
+      "nonzero_fraction": 0.7789473684210526,
+      "corr_item_with_t3_target": 0.5571833304240262,
+      "corr_item_with_t3_prediction": 0.49940051713023836,
+      "corr_item_with_residual_pred_minus_true": -0.2471787218857997,
+      "abs_corr_item_with_residual": 0.2471787218857997,
+      "corr_item_with_abs_error": 0.019892600338055445,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.2471787218857997,
+        "ci_low": -0.4364321506378951,
+        "ci_high": -0.027305526153377332
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.46980764380696466,
+        "mae": 7.279553657976155,
+        "delta_ccc_vs_base": 0.09144052601157476,
+        "delta_mae_vs_base": -0.2484691723046053,
+        "mean_slope_per_item_sd": -2.30409083295378
+      }
+    }
+  ],
+  "observable_vs_unobservable_summary": {
+    "observable_items": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "mean_abs_residual_corr_observable": 0.246962138355727,
+    "mean_abs_residual_corr_unobservable": 0.371210245408891,
+    "best_observable_oracle_delta_ccc": 0.14847903649349226,
+    "best_unobservable_oracle_delta_ccc": 0.28170130515018466
+  },
+  "interpretation": [
+    "Parsed item totals exactly reconstruct the iter47 valid-range T3 target.",
+    "Residual-item dependence is stronger for non-WearGait-observable clinical items than for gait/balance-observable items.",
+    "Top residual-correlated item is 6 (pronation_supination), r=-0.571.",
+    "Top privileged single-item oracle is item 6 (pronation_supination), delta CCC=0.282; this is non-deployable because it uses the true clinical item at prediction time."
+  ],
+  "decision": {
+    "ceiling_broken": false,
+    "no_model_promotion": true,
+    "recommended_next": "Do not launch another WearGait-only T3 scalar-feature or calibration screen. The residual is item/domain target anatomy, not an uncovered deployable feature block."
+  }
+}

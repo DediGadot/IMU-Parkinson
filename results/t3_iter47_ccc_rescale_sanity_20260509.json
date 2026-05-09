@@ -1,0 +1,196 @@
+{
+  "script": "audit_t3_iter47_ccc_rescale_sanity.py",
+  "created_at_utc": "2026-05-09T03:25:37+00:00",
+  "scope": "diagnostic_only_not_reportable_model",
+  "input_predictions": "/home/fiod/medical/results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+  "cohort": {
+    "name": "drop_allmissing_validrange",
+    "stage2_policy": "stage2_current",
+    "n": 95
+  },
+  "methods": {
+    "base_iter47_current": {
+      "metrics": {
+        "n": 95,
+        "ccc": 0.3783671177953899,
+        "mae": 7.528022830280761,
+        "r": 0.4140570278396842,
+        "cal_slope_pred_on_true": 0.26924232265178977,
+        "mean_error_pred_minus_true": -0.185412419612919,
+        "prediction_sd": 6.446170478634331,
+        "target_sd": 9.913308439190537,
+        "residual_corr_with_true": -0.7770738735166363
+      },
+      "severity_quartiles": [
+        {
+          "group": "Q1_low",
+          "n": 26,
+          "mean_y": 13.384615384615385,
+          "mean_pred": 23.408891311799433,
+          "mean_residual_pred_minus_true": 10.024275927184046,
+          "mae": 10.318850530073593
+        },
+        {
+          "group": "Q2",
+          "n": 26,
+          "mean_y": 22.46153846153846,
+          "mean_pred": 21.944841036317744,
+          "mean_residual_pred_minus_true": -0.5166974252207157,
+          "mae": 4.597604768712322
+        },
+        {
+          "group": "Q3",
+          "n": 19,
+          "mean_y": 27.736842105263158,
+          "mean_pred": 25.418497605239008,
+          "mean_residual_pred_minus_true": -2.3183445000241503,
+          "mae": 3.906659665561464
+        },
+        {
+          "group": "Q4_high",
+          "n": 24,
+          "mean_y": 38.166666666666664,
+          "mean_pred": 28.968221857757708,
+          "mean_residual_pred_minus_true": -9.198444808908958,
+          "mae": 10.546158227607103
+        }
+      ]
+    },
+    "oof_level_leave_one_affine_y_on_pred": {
+      "metrics": {
+        "n": 95,
+        "ccc": 0.2572373291762949,
+        "mae": 7.479265527109699,
+        "r": 0.3637883448257019,
+        "cal_slope_pred_on_true": 0.15068697071882534,
+        "mean_error_pred_minus_true": -0.02081642292242498,
+        "prediction_sd": 4.1062514501906255,
+        "target_sd": 9.913308439190537,
+        "residual_corr_with_true": -0.9104539810481017
+      },
+      "severity_quartiles": [
+        {
+          "group": "Q1_low",
+          "n": 26,
+          "mean_y": 13.384615384615385,
+          "mean_pred": 24.306876464341638,
+          "mean_residual_pred_minus_true": 10.922261079726258,
+          "mae": 10.922261079726258
+        },
+        {
+          "group": "Q2",
+          "n": 26,
+          "mean_y": 22.46153846153846,
+          "mean_pred": 23.153372490311035,
+          "mean_residual_pred_minus_true": 0.6918340287725765,
+          "mae": 3.5719055191728737
+        },
+        {
+          "group": "Q3",
+          "n": 19,
+          "mean_y": 27.736842105263158,
+          "mean_pred": 25.349123196275,
+          "mean_residual_pred_minus_true": -2.387718908988158,
+          "mae": 3.111543428356004
+        },
+        {
+          "group": "Q4_high",
+          "n": 24,
+          "mean_y": 38.166666666666664,
+          "mean_pred": 27.39260942800729,
+          "mean_residual_pred_minus_true": -10.774057238659376,
+          "mae": 11.440107015219999
+        }
+      ],
+      "paired_bootstrap_vs_base": {
+        "n_boot": 10000,
+        "seed": 42,
+        "ccc_delta_mean": -0.11775072705318228,
+        "ccc_delta_ci95": [
+          -0.15862247145762057,
+          -0.07088794833557048
+        ],
+        "ccc_delta_frac_above_zero": 0.0,
+        "mae_delta_mean": -0.04987800317240801,
+        "mae_delta_ci95": [
+          -0.5040997575853805,
+          0.40913448024763616
+        ],
+        "mae_delta_frac_below_zero": 0.587
+      }
+    },
+    "oof_level_leave_one_variance_match": {
+      "metrics": {
+        "n": 95,
+        "ccc": 0.39958836828844163,
+        "mae": 8.667060513628945,
+        "r": 0.39966512969724244,
+        "cal_slope_pred_on_true": 0.4075525309179935,
+        "mean_error_pred_minus_true": 0.01507820944201015,
+        "prediction_sd": 10.108947826455035,
+        "target_sd": 9.913308439190537,
+        "residual_corr_with_true": -0.5353346247691646
+      },
+      "severity_quartiles": [
+        {
+          "group": "Q1_low",
+          "n": 26,
+          "mean_y": 13.384615384615385,
+          "mean_pred": 22.957061967179506,
+          "mean_residual_pred_minus_true": 9.572446582564117,
+          "mae": 10.765579678381508
+        },
+        {
+          "group": "Q2",
+          "n": 26,
+          "mean_y": 22.46153846153846,
+          "mean_pred": 20.51749206919419,
+          "mean_residual_pred_minus_true": -1.9440463923442677,
+          "mae": 6.640631414797171
+        },
+        {
+          "group": "Q3",
+          "n": 19,
+          "mean_y": 27.736842105263158,
+          "mean_pred": 25.91102956355607,
+          "mean_residual_pred_minus_true": -1.82581254170709,
+          "mae": 5.263655633739806
+        },
+        {
+          "group": "Q4_high",
+          "n": 24,
+          "mean_y": 38.166666666666664,
+          "mean_pred": 31.407685968487897,
+          "mean_residual_pred_minus_true": -6.7589806981787675,
+          "mae": 11.283325138793659
+        }
+      ],
+      "paired_bootstrap_vs_base": {
+        "n_boot": 10000,
+        "seed": 42,
+        "ccc_delta_mean": 0.02083504539467097,
+        "ccc_delta_ci95": [
+          -0.010409830297418992,
+          0.05780508581939268
+        ],
+        "ccc_delta_frac_above_zero": 0.8935,
+        "mae_delta_mean": 1.1398064461721245,
+        "mae_delta_ci95": [
+          0.4659292439569389,
+          1.8439729930773108
+        ],
+        "mae_delta_frac_below_zero": 0.0003
+      }
+    }
+  },
+  "methodology_guardrail": {
+    "not_fully_nested": true,
+    "reason": "Second-level transforms are fit on the saved OOF vector. For a held-out subject i, the calibration set includes predictions for other subjects generated by base models whose training folds included subject i. This is acceptable as a diagnostic but not as a reportable nested meta-model.",
+    "future_reportable_requirement": "A reportable rescaling/meta-calibration would need outer-fold base predictions and inner-OOF calibration predictions generated without the outer test subject."
+  },
+  "decision": {
+    "no_model_promotion": true,
+    "no_new_loocv": true,
+    "reason": "The best diagnostic CCC lift is small and non-reportable; variance matching raises CCC by +0.0212 but worsens MAE by +1.1390."
+  }
+}

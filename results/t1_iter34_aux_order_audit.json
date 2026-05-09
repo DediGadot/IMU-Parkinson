@@ -1,0 +1,586 @@
+{
+  "audit": "t1_iter34_auxiliary_random_chain_order",
+  "created_at_utc": "2026-05-09T05:32:07+00:00",
+  "mode": "screen",
+  "invalid_auxiliary_label": {
+    "sid": "NLS036",
+    "item": 15,
+    "stale_top_level_value": 18.0,
+    "valid_total_range": [
+      0.0,
+      8.0
+    ],
+    "source": "results/t1_iter48_aux_validrange_audit.json"
+  },
+  "order_audit": {
+    "item_columns_supplied_to_chain": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      18
+    ],
+    "implementation": {
+      "script": "run_t1_iter34_hybrid_8item_multibase.py",
+      "call": "RegressorChain(regr, order=\"random\", random_state=seed)",
+      "important_correction": "The supplied item column order is not the causal chain order. sklearn permutes the target order deterministically by seed."
+    },
+    "rows": [
+      {
+        "seed": 7,
+        "chain_order": [
+          11,
+          14,
+          9,
+          15,
+          12,
+          10,
+          13,
+          18
+        ],
+        "item15_position": 3,
+        "t1_items_after_item15": [
+          10,
+          12,
+          13
+        ],
+        "n_t1_items_after_item15": 3,
+        "aux_before_t1_items": {
+          "15": [
+            10,
+            12,
+            13
+          ],
+          "18": []
+        },
+        "iter34_lockbox_seed": true,
+        "iter46_decomp_seed": true
+      },
+      {
+        "seed": 42,
+        "chain_order": [
+          10,
+          14,
+          9,
+          18,
+          11,
+          13,
+          12,
+          15
+        ],
+        "item15_position": 7,
+        "t1_items_after_item15": [],
+        "n_t1_items_after_item15": 0,
+        "aux_before_t1_items": {
+          "15": [],
+          "18": [
+            11,
+            12,
+            13
+          ]
+        },
+        "iter34_lockbox_seed": true,
+        "iter46_decomp_seed": true
+      },
+      {
+        "seed": 1337,
+        "chain_order": [
+          15,
+          11,
+          10,
+          12,
+          9,
+          13,
+          14,
+          18
+        ],
+        "item15_position": 0,
+        "t1_items_after_item15": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "n_t1_items_after_item15": 6,
+        "aux_before_t1_items": {
+          "15": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "18": []
+        },
+        "iter34_lockbox_seed": true,
+        "iter46_decomp_seed": true
+      },
+      {
+        "seed": 2026,
+        "chain_order": [
+          13,
+          14,
+          12,
+          18,
+          9,
+          11,
+          15,
+          10
+        ],
+        "item15_position": 6,
+        "t1_items_after_item15": [
+          10
+        ],
+        "n_t1_items_after_item15": 1,
+        "aux_before_t1_items": {
+          "15": [
+            10
+          ],
+          "18": [
+            9,
+            10,
+            11
+          ]
+        },
+        "iter34_lockbox_seed": false,
+        "iter46_decomp_seed": true
+      },
+      {
+        "seed": 9001,
+        "chain_order": [
+          15,
+          11,
+          12,
+          18,
+          9,
+          14,
+          13,
+          10
+        ],
+        "item15_position": 0,
+        "t1_items_after_item15": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "n_t1_items_after_item15": 6,
+        "aux_before_t1_items": {
+          "15": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "18": [
+            9,
+            10,
+            13,
+            14
+          ]
+        },
+        "iter34_lockbox_seed": false,
+        "iter46_decomp_seed": true
+      }
+    ],
+    "summary": {
+      "iter34_lockbox_seeds": [
+        42,
+        1337,
+        7
+      ],
+      "iter34_lockbox_seeds_with_item15_upstream_of_any_t1": [
+        7,
+        1337
+      ],
+      "iter34_lockbox_seed_count_with_exposure": 2,
+      "iter34_lockbox_seed_count": 3,
+      "iter46_decomp_seed_count_with_exposure": 4,
+      "iter46_decomp_seed_count": 5,
+      "kimi_fixed_order_assumption_status": "falsified_by_code"
+    }
+  },
+  "decision_boundary": "Order exposure means the invalid auxiliary label is not structurally irrelevant. Any impact screen is claim-label evidence only; no post-hoc LOOCV or canonical promotion is allowed.",
+  "web_source": {
+    "mds_updrs_part_iii_items_scored_0_to_4": "https://www.apta.org/patient-care/evidence-based-practice-resources/test-measures/unified-parkinsons-disease-rating-scale-updrs-movement-disorders-society-mds-modified-unified-parkinsons-disease-rating-scale-mds-updrs"
+  },
+  "cohorts": {
+    "stale_n": 93,
+    "validated_n": 92,
+    "validated_excludes": [
+      "NLS036"
+    ],
+    "feat_cols_n": 1751
+  },
+  "impact_screen": {
+    "scope": "all_base_iter34_5fold_stale_vs_valid_auxiliary_screen",
+    "status": "screen_only_no_prereg_no_loocv_no_canonical_update",
+    "seeds": [
+      42,
+      1337,
+      7,
+      2026,
+      9001
+    ],
+    "bases": [
+      "lgb",
+      "xgb",
+      "et"
+    ],
+    "n_workers": 11,
+    "stale_unvalidated": {
+      "label_scope": "stale_unvalidated_item_totals",
+      "n": 93,
+      "sids": [
+        "NLS142",
+        "NLS179",
+        "NLS146",
+        "NLS157",
+        "NLS130",
+        "NLS175",
+        "WPD022",
+        "NLS121",
+        "NLS150",
+        "WPD020",
+        "NLS197",
+        "NLS184",
+        "NLS036",
+        "NLS143",
+        "NLS102",
+        "NLS183",
+        "NLS192",
+        "WPD018",
+        "NLS163",
+        "NLS189",
+        "NLS144",
+        "WPD024",
+        "WPD012",
+        "WPD010",
+        "NLS176",
+        "NLS160",
+        "NLS135",
+        "NLS190",
+        "NLS069",
+        "WPD023",
+        "WPD005",
+        "NLS198",
+        "WPD027",
+        "NLS149",
+        "NLS185",
+        "NLS172",
+        "NLS164",
+        "NLS182",
+        "WPD025",
+        "WPD003",
+        "NLS170",
+        "NLS127",
+        "WPD015",
+        "NLS167",
+        "NLS186",
+        "WPD016",
+        "NLS169",
+        "NLS035",
+        "NLS153",
+        "WPD021",
+        "NLS155",
+        "NLS166",
+        "NLS191",
+        "WPD004",
+        "WPD009",
+        "WPD029",
+        "NLS211",
+        "NLS201",
+        "NLS152",
+        "NLS174",
+        "NLS165",
+        "NLS148",
+        "NLS161",
+        "NLS159",
+        "WPD019",
+        "NLS208",
+        "WPD026",
+        "NLS154",
+        "NLS173",
+        "WPD006",
+        "NLS177",
+        "WPD008",
+        "NLS101",
+        "NLS033",
+        "NLS022",
+        "NLS124",
+        "NLS056",
+        "NLS209",
+        "NLS162",
+        "NLS195",
+        "NLS139",
+        "NLS002",
+        "NLS210",
+        "NLS141",
+        "WPD007",
+        "WPD001",
+        "NLS147",
+        "WPD011",
+        "WPD014",
+        "NLS158",
+        "NLS196",
+        "NLS140",
+        "NLS187"
+      ],
+      "per_seed": [
+        {
+          "seed": 42,
+          "ccc": 0.6972192999206667,
+          "mae": 1.8435048694094625,
+          "pred_mean": 4.019880071185463,
+          "pred_std": 3.0888223907235877,
+          "true_mean": 4.10752688172043,
+          "true_std": 2.830184330755078
+        },
+        {
+          "seed": 1337,
+          "ccc": 0.7277208309943128,
+          "mae": 1.8587233108720673,
+          "pred_mean": 3.948775484822888,
+          "pred_std": 3.245365018363289,
+          "true_mean": 4.10752688172043,
+          "true_std": 2.830184330755078
+        },
+        {
+          "seed": 7,
+          "ccc": 0.7154845045429243,
+          "mae": 1.7633327797621423,
+          "pred_mean": 4.190890021149131,
+          "pred_std": 3.2335303729222584,
+          "true_mean": 4.10752688172043,
+          "true_std": 2.830184330755078
+        },
+        {
+          "seed": 2026,
+          "ccc": 0.7034437086472233,
+          "mae": 1.8404599884864945,
+          "pred_mean": 4.175049055002722,
+          "pred_std": 3.100467639560841,
+          "true_mean": 4.10752688172043,
+          "true_std": 2.830184330755078
+        },
+        {
+          "seed": 9001,
+          "ccc": 0.7001958432284898,
+          "mae": 1.7847334960447523,
+          "pred_mean": 4.123020597777587,
+          "pred_std": 3.069147259240393,
+          "true_mean": 4.10752688172043,
+          "true_std": 2.830184330755078
+        }
+      ],
+      "mean_prediction_metrics": {
+        "ccc": 0.7228245680014487,
+        "mae": 1.7712349135542111,
+        "pred_mean": 4.091523045987559,
+        "pred_std": 3.095246583559611,
+        "true_mean": 4.10752688172043,
+        "true_std": 2.830184330755078
+      },
+      "seed_ccc_mean": 0.7088128374667233,
+      "seed_ccc_std": 0.011309408540051882
+    },
+    "validated": {
+      "label_scope": "validated_item_totals",
+      "n": 92,
+      "sids": [
+        "NLS142",
+        "NLS179",
+        "NLS146",
+        "NLS157",
+        "NLS130",
+        "NLS175",
+        "WPD022",
+        "NLS121",
+        "NLS150",
+        "WPD020",
+        "NLS197",
+        "NLS184",
+        "NLS143",
+        "NLS102",
+        "NLS183",
+        "NLS192",
+        "WPD018",
+        "NLS163",
+        "NLS189",
+        "NLS144",
+        "WPD024",
+        "WPD012",
+        "WPD010",
+        "NLS176",
+        "NLS160",
+        "NLS135",
+        "NLS190",
+        "NLS069",
+        "WPD023",
+        "WPD005",
+        "NLS198",
+        "WPD027",
+        "NLS149",
+        "NLS185",
+        "NLS172",
+        "NLS164",
+        "NLS182",
+        "WPD025",
+        "WPD003",
+        "NLS170",
+        "NLS127",
+        "WPD015",
+        "NLS167",
+        "NLS186",
+        "WPD016",
+        "NLS169",
+        "NLS035",
+        "NLS153",
+        "WPD021",
+        "NLS155",
+        "NLS166",
+        "NLS191",
+        "WPD004",
+        "WPD009",
+        "WPD029",
+        "NLS211",
+        "NLS201",
+        "NLS152",
+        "NLS174",
+        "NLS165",
+        "NLS148",
+        "NLS161",
+        "NLS159",
+        "WPD019",
+        "NLS208",
+        "WPD026",
+        "NLS154",
+        "NLS173",
+        "WPD006",
+        "NLS177",
+        "WPD008",
+        "NLS101",
+        "NLS033",
+        "NLS022",
+        "NLS124",
+        "NLS056",
+        "NLS209",
+        "NLS162",
+        "NLS195",
+        "NLS139",
+        "NLS002",
+        "NLS210",
+        "NLS141",
+        "WPD007",
+        "WPD001",
+        "NLS147",
+        "WPD011",
+        "WPD014",
+        "NLS158",
+        "NLS196",
+        "NLS140",
+        "NLS187"
+      ],
+      "per_seed": [
+        {
+          "seed": 42,
+          "ccc": 0.6898556324256484,
+          "mae": 1.7825129795704373,
+          "pred_mean": 4.0484108800191105,
+          "pred_std": 3.0411719397583883,
+          "true_mean": 4.032608695652174,
+          "true_std": 2.752276081625825
+        },
+        {
+          "seed": 1337,
+          "ccc": 0.709802859073275,
+          "mae": 1.7030859189978493,
+          "pred_mean": 3.862409727022789,
+          "pred_std": 2.8212921361258814,
+          "true_mean": 4.032608695652174,
+          "true_std": 2.752276081625825
+        },
+        {
+          "seed": 7,
+          "ccc": 0.6950817618621273,
+          "mae": 1.8607566170236332,
+          "pred_mean": 3.9654132764829044,
+          "pred_std": 3.2142555051868844,
+          "true_mean": 4.032608695652174,
+          "true_std": 2.752276081625825
+        },
+        {
+          "seed": 2026,
+          "ccc": 0.6902267941159078,
+          "mae": 1.9100758826790014,
+          "pred_mean": 3.8742344708866576,
+          "pred_std": 3.166568280390147,
+          "true_mean": 4.032608695652174,
+          "true_std": 2.752276081625825
+        },
+        {
+          "seed": 9001,
+          "ccc": 0.700512441011417,
+          "mae": 1.8536431259162616,
+          "pred_mean": 4.061540711259302,
+          "pred_std": 3.152915522867,
+          "true_mean": 4.032608695652174,
+          "true_std": 2.752276081625825
+        }
+      ],
+      "mean_prediction_metrics": {
+        "ccc": 0.7153961464323915,
+        "mae": 1.7528300217747144,
+        "pred_mean": 3.962401813134152,
+        "pred_std": 3.010892529867817,
+        "true_mean": 4.032608695652174,
+        "true_std": 2.752276081625825
+      },
+      "seed_ccc_mean": 0.6970958976976751,
+      "seed_ccc_std": 0.007440462405066821
+    },
+    "common_sid_comparison": {
+      "n_common": 92,
+      "excluded_from_validated": [
+        "NLS036"
+      ],
+      "validated_metrics_on_common": {
+        "ccc": 0.7153961464323915,
+        "mae": 1.7528300217747144,
+        "pred_mean": 3.962401813134152,
+        "pred_std": 3.010892529867817,
+        "true_mean": 4.032608695652174,
+        "true_std": 2.752276081625825
+      },
+      "stale_trained_metrics_on_common_sids": {
+        "ccc": 0.7162146804841036,
+        "mae": 1.7603009865760604,
+        "pred_mean": 4.046617385569425,
+        "pred_std": 3.0817449011954685,
+        "true_mean": 4.032608695652174,
+        "true_std": 2.752276081625825
+      },
+      "delta_valid_minus_stale_common_ccc": -0.000818534051712172,
+      "paired_bootstrap_delta_valid_minus_stale_common_ccc": {
+        "n_boot": 5000,
+        "delta_mean": -0.001792145262331955,
+        "ci_low": -0.027060842359901683,
+        "ci_high": 0.01964693668216511,
+        "frac_above_zero": 0.4548,
+        "frac_abs_ge_0_025": 0.0394
+      },
+      "materiality_threshold_abs_delta_ccc": 0.025,
+      "materiality_flag": false
+    }
+  }
+}

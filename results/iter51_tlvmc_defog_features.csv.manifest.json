@@ -1,0 +1,25 @@
+{
+  "created_at_utc": "2026-05-09T01:31:25+00:00",
+  "script": "run_t3_iter51_tlvmc_defog.py",
+  "mode": "extract",
+  "formula_sha256": "665479765911e8192e4db570babeb5fcef3e2b6553dfd6259187f76685ec08cd",
+  "row_mask": "primary",
+  "n_rows": 136,
+  "n_subjects": 45,
+  "n_off_rows": 68,
+  "n_on_rows": 68,
+  "elapsed_s": 14.72,
+  "output_csv": "/home/fiod/pd-imu/results/iter51_tlvmc_defog_features.csv",
+  "output_sha256": "4ef9905238ce3751b29e356d42deb10a49df5e7ffa4a59525bfce66e86612d83",
+  "skipped": [
+    {
+      "id": "02ab235146",
+      "reason": "Usecols do not match columns, columns expected but not found: ['Valid', 'Task']"
+    }
+  ],
+  "labels_used": [
+    "UPDRSIII_On",
+    "UPDRSIII_Off"
+  ],
+  "leakage_status": "external_feature_cache_for_preregistered_zero_shot_evaluation_only"
+}

@@ -41,6 +41,7 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from inductive_lib import full_metrics, ccc as ccc_fn, mae as mae_fn, pearson_r
 from project_paths import RESULTS_DIR, ensure_dir
+from updrs_columns import valid_updrs_item_total
 
 ensure_dir(RESULTS_DIR)
 N_CORES = int(os.getenv("PD_IMU_N_CORES", min(os.cpu_count() or 4, 4)))
@@ -89,7 +90,9 @@ def load_per_item_scores() -> dict:
             try:
                 ki = int(k)
                 if 1 <= ki <= 18:
-                    per_item[ki] = float(v)
+                    valid_value = valid_updrs_item_total(ki, v)
+                    if valid_value is not None:
+                        per_item[ki] = valid_value
             except ValueError:
                 continue
         out[sid] = per_item

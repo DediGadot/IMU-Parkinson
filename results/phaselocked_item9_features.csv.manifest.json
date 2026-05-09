@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "produced_by": "cache_phaselocked_item9.py",
+  "script_sha256": "8273f53be88c66a2719d347f9109eda4b6d49d04c02ab09af0a3f742e25e920b",
+  "git_sha": "unknown",
+  "iso_datetime_utc": "2026-05-08T06:06:03.718810+00:00",
+  "data_sha256": "cabf7331a4f213981d869af6f29c17b7abfb64f863dd739a93072ba3ed5b2129",
+  "n_subjects": 98,
+  "n_features": 11,
+  "labels_used": false,
+  "fold_scope": "global",
+  "leakage_status": "clean_by_construction",
+  "leakage_argument": "Phase-locked TUG sit-to-stand features are deterministic signal-processing aggregates of raw IMU channels (Lumbar Acc-Z trigger, Lumbar/Sternum/Shank Acc/Gyr/Pitch around seat-off event window). UPDRS-III labels never enter the extraction. Aggregation across recordings per subject uses mean only \u2014 no global statistics. Slot C of T1 ceiling push (axis 5).",
+  "constants_locked": {
+    "fs_hz": 100.0,
+    "event_pre_s": 0.8,
+    "event_post_s": 2.0,
+    "pre_quiet_s": 0.25,
+    "post_stable_s": 0.5,
+    "trigger": "Lumbar (LowerBack) Acc-Z absolute argmax in first 1/3 of TUG",
+    "task_filter": "TUG only (excludes TUG_mat, TUG_matTURN)"
+  },
+  "command": "cache_phaselocked_item9.py",
+  "csv_dir": "/home/fiod/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files",
+  "n_jobs_processed": 99,
+  "out_path": "/home/fiod/pd-imu/results/phaselocked_item9_features.csv"
+}

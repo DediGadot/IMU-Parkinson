@@ -1,0 +1,229 @@
+{
+  "generated_at_utc": "2026-05-09T04:30:51+00:00",
+  "script": "audit_cache_backfill_candidates.py",
+  "source_audit": "results/cache_manifest_audit_20260508.json",
+  "policy": "No manifests are modified. Backfill requires concrete evidence; current guards remain fail-closed.",
+  "counts": {
+    "do_not_backfill_for_internal_headline": 4,
+    "manual_backfill_candidate": 2,
+    "needs_commit_before_backfill": 2
+  },
+  "artifacts": [
+    {
+      "artifact": "results/indomain_ssl_embeddings.csv",
+      "manifest": "results/indomain_ssl_embeddings.csv.manifest.json",
+      "status": "partial_manifest_diagnostic_only",
+      "missing_required_fields": [
+        "script",
+        "git_sha",
+        "command",
+        "created_at_utc",
+        "fold_scope",
+        "cohort_statistics_used",
+        "normalization_scope",
+        "leakage_rationale"
+      ],
+      "nullish_required_fields": [],
+      "labels_used": false,
+      "leakage_status": "in_domain_pretrain_full_with_canary_required",
+      "script": "train_indomain_ssl.py",
+      "manifest_script_sha256": "79d9cd109b84b46b4b6194796a2481b8eb70dd02747a4ff073081c9be3b98a63",
+      "current_script_sha256": "79d9cd109b84b46b4b6194796a2481b8eb70dd02747a4ff073081c9be3b98a63",
+      "git_script_sha_matches": [
+        {
+          "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+          "short": "d281a0e",
+          "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+        }
+      ],
+      "recommendation": "do_not_backfill_for_internal_headline",
+      "rationale": "Manifest describes labels used or non-clean leakage status; this cache is external/diagnostic even if metadata is completed."
+    },
+    {
+      "artifact": "results/item_specific_features.csv",
+      "manifest": "results/item_specific_features.csv.manifest.json",
+      "status": "partial_manifest_diagnostic_only",
+      "missing_required_fields": [
+        "script",
+        "command",
+        "created_at_utc",
+        "fold_scope",
+        "cohort_statistics_used",
+        "normalization_scope",
+        "leakage_rationale"
+      ],
+      "nullish_required_fields": [
+        "git_sha"
+      ],
+      "labels_used": false,
+      "leakage_status": "clean_by_construction",
+      "script": "cache_item_specific_features.py",
+      "manifest_script_sha256": "4bf1462e934bfb2c282fd7c038331edf6f1bb257e1b67ad7bf747baa806f7553",
+      "current_script_sha256": "4bf1462e934bfb2c282fd7c038331edf6f1bb257e1b67ad7bf747baa806f7553",
+      "git_script_sha_matches": [
+        {
+          "commit": "4d0cc13e6bd284ff7471a37a058b5e95ce235f0d",
+          "short": "4d0cc13",
+          "subject": "result: iter19 per-item gated T3 composite \u2014 Phase B 5-fold gate FAIL"
+        }
+      ],
+      "recommendation": "manual_backfill_candidate",
+      "rationale": "Manifest script_sha256 matches committed script code. Backfill may be defensible if command/runtime evidence is also accepted."
+    },
+    {
+      "artifact": "results/iter49_cops_features_full.csv",
+      "manifest": "results/iter49_cops_features_full.csv.manifest.json",
+      "status": "partial_manifest_diagnostic_only",
+      "missing_required_fields": [
+        "git_sha",
+        "command",
+        "data_sha256",
+        "fold_scope",
+        "cohort_statistics_used",
+        "normalization_scope",
+        "leakage_rationale"
+      ],
+      "nullish_required_fields": [],
+      "labels_used": [
+        "UPDRS_OFF",
+        "UPDRS_ON"
+      ],
+      "leakage_status": "external_dataset_feature_cache_not_for_internal_headline",
+      "script": "run_t3_iter49_cops.py",
+      "manifest_script_sha256": null,
+      "current_script_sha256": "212dcd6d81767cb5f398f5c1036127ffd8b99d2735a2653a97354c7a62c791a1",
+      "git_script_sha_matches": [],
+      "recommendation": "do_not_backfill_for_internal_headline",
+      "rationale": "Manifest describes labels used or non-clean leakage status; this cache is external/diagnostic even if metadata is completed."
+    },
+    {
+      "artifact": "results/iter49_cops_features_smoke.csv",
+      "manifest": "results/iter49_cops_features_smoke.csv.manifest.json",
+      "status": "partial_manifest_diagnostic_only",
+      "missing_required_fields": [
+        "git_sha",
+        "command",
+        "data_sha256",
+        "fold_scope",
+        "cohort_statistics_used",
+        "normalization_scope",
+        "leakage_rationale"
+      ],
+      "nullish_required_fields": [],
+      "labels_used": [
+        "UPDRS_OFF",
+        "UPDRS_ON"
+      ],
+      "leakage_status": "external_dataset_feature_cache_not_for_internal_headline",
+      "script": "run_t3_iter49_cops.py",
+      "manifest_script_sha256": null,
+      "current_script_sha256": "212dcd6d81767cb5f398f5c1036127ffd8b99d2735a2653a97354c7a62c791a1",
+      "git_script_sha_matches": [],
+      "recommendation": "do_not_backfill_for_internal_headline",
+      "rationale": "Manifest describes labels used or non-clean leakage status; this cache is external/diagnostic even if metadata is completed."
+    },
+    {
+      "artifact": "results/iter51_tlvmc_defog_features.csv",
+      "manifest": "results/iter51_tlvmc_defog_features.csv.manifest.json",
+      "status": "partial_manifest_diagnostic_only",
+      "missing_required_fields": [
+        "git_sha",
+        "command",
+        "data_sha256",
+        "fold_scope",
+        "cohort_statistics_used",
+        "normalization_scope",
+        "leakage_rationale"
+      ],
+      "nullish_required_fields": [],
+      "labels_used": [
+        "UPDRSIII_On",
+        "UPDRSIII_Off"
+      ],
+      "leakage_status": "external_feature_cache_for_preregistered_zero_shot_evaluation_only",
+      "script": "run_t3_iter51_tlvmc_defog.py",
+      "manifest_script_sha256": null,
+      "current_script_sha256": "6dda102de0cf4a315fc10783c63f5bd80c47e0a72d589d17057206e5d45acded",
+      "git_script_sha_matches": [],
+      "recommendation": "do_not_backfill_for_internal_headline",
+      "rationale": "Manifest describes labels used or non-clean leakage status; this cache is external/diagnostic even if metadata is completed."
+    },
+    {
+      "artifact": "results/phaselocked_item12_features.csv",
+      "manifest": "results/phaselocked_item12_features.csv.manifest.json",
+      "status": "partial_manifest_diagnostic_only",
+      "missing_required_fields": [
+        "script",
+        "created_at_utc",
+        "cohort_statistics_used",
+        "normalization_scope",
+        "leakage_rationale"
+      ],
+      "nullish_required_fields": [
+        "git_sha"
+      ],
+      "labels_used": false,
+      "leakage_status": "clean_by_construction",
+      "script": "cache_phaselocked_item12.py",
+      "manifest_script_sha256": "93cf9632d27fc3f40a106dfe7cd1e50f9cf8f8a0d2751bc1272149bcbd86f8c8",
+      "current_script_sha256": "93cf9632d27fc3f40a106dfe7cd1e50f9cf8f8a0d2751bc1272149bcbd86f8c8",
+      "git_script_sha_matches": [],
+      "recommendation": "needs_commit_before_backfill",
+      "rationale": "Manifest script_sha256 matches the working-tree script, but no committed git SHA contains that exact file."
+    },
+    {
+      "artifact": "results/phaselocked_item9_features.csv",
+      "manifest": "results/phaselocked_item9_features.csv.manifest.json",
+      "status": "partial_manifest_diagnostic_only",
+      "missing_required_fields": [
+        "script",
+        "created_at_utc",
+        "cohort_statistics_used",
+        "normalization_scope",
+        "leakage_rationale"
+      ],
+      "nullish_required_fields": [
+        "git_sha"
+      ],
+      "labels_used": false,
+      "leakage_status": "clean_by_construction",
+      "script": "cache_phaselocked_item9.py",
+      "manifest_script_sha256": "8273f53be88c66a2719d347f9109eda4b6d49d04c02ab09af0a3f742e25e920b",
+      "current_script_sha256": "8273f53be88c66a2719d347f9109eda4b6d49d04c02ab09af0a3f742e25e920b",
+      "git_script_sha_matches": [],
+      "recommendation": "needs_commit_before_backfill",
+      "rationale": "Manifest script_sha256 matches the working-tree script, but no committed git SHA contains that exact file."
+    },
+    {
+      "artifact": "results/unused_channels_features.csv",
+      "manifest": "results/unused_channels_features.csv.manifest.json",
+      "status": "partial_manifest_diagnostic_only",
+      "missing_required_fields": [
+        "script",
+        "command",
+        "created_at_utc",
+        "fold_scope",
+        "cohort_statistics_used",
+        "normalization_scope",
+        "leakage_rationale"
+      ],
+      "nullish_required_fields": [
+        "git_sha"
+      ],
+      "labels_used": false,
+      "leakage_status": "clean_by_construction",
+      "script": "cache_unused_channels.py",
+      "manifest_script_sha256": "418e89919b6a467ca293f8d0c79201a388d8a1f4cea1f03ab5eb76260e8e0270",
+      "current_script_sha256": "418e89919b6a467ca293f8d0c79201a388d8a1f4cea1f03ab5eb76260e8e0270",
+      "git_script_sha_matches": [
+        {
+          "commit": "d281a0ea762dff234374f1c2d7f278314e5a2845",
+          "short": "d281a0e",
+          "subject": "feat: iter17 \u2014 two new per-item lockbox wins (items 15 + 18)"
+        }
+      ],
+      "recommendation": "manual_backfill_candidate",
+      "rationale": "Manifest script_sha256 matches committed script code. Backfill may be defensible if command/runtime evidence is also accepted."
+    }
+  ]
+}

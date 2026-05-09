@@ -1,0 +1,285 @@
+{
+  "created_at_local": "2026-05-08T17:08:40.150063",
+  "created_at_utc": "2026-05-08T14:08:40.150079Z",
+  "experiment": "T3 iter41 corrected-target fixed-battery audit",
+  "preregistration_file": "/home/fiod/pd-imu/results/preregistration_t3_iter41_targetfix_20260508_170021.json",
+  "formula_sha256": "bb5aa8b0d90778070e5d2198d5d93d48fd6ca25d166296c1dd3adae5b64248a7",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "cells": [
+    {
+      "cohort": "drop_allmissing",
+      "stage2_policy": "stage2_current",
+      "n": 95,
+      "excluded_sids": [
+        "NLS188",
+        "WPD013",
+        "NLS151"
+      ],
+      "excluded_raw_nonmissing": [
+        0,
+        0,
+        0
+      ],
+      "old_iter5_subset_metrics": {
+        "n": 95,
+        "ccc": 0.4413,
+        "cal_slope": 0.3388,
+        "mae": 7.5487,
+        "r": 0.463,
+        "pred_mean": 25.289,
+        "pred_std": 7.42,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "old_iter5_subset"
+      },
+      "new_refit_metrics": {
+        "n": 95,
+        "ccc": 0.3948,
+        "cal_slope": 0.2859,
+        "mae": 7.6079,
+        "r": 0.4271,
+        "pred_mean": 25.113,
+        "pred_std": 6.786,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "drop_allmissing_stage2_current_mean3"
+      },
+      "paired_boot_delta_new_minus_old_subset": {
+        "n_boot": 5000,
+        "mean_delta": -0.046758557357952514,
+        "ci95": [
+          -0.1021758445760285,
+          0.003898584701917914
+        ],
+        "frac_gt_0": 0.0358
+      },
+      "selected_cv_by_seed": {
+        "42": {
+          "cv_age": 19,
+          "cv_ht": 4,
+          "cv_wt": 6,
+          "cv_yrs": 13
+        },
+        "1337": {
+          "cv_age": 19,
+          "cv_ht": 4,
+          "cv_wt": 6,
+          "cv_yrs": 13
+        },
+        "7": {
+          "cv_age": 19,
+          "cv_ht": 4,
+          "cv_wt": 6,
+          "cv_yrs": 13
+        }
+      }
+    },
+    {
+      "cohort": "drop_allmissing",
+      "stage2_policy": "stage2_no_cv",
+      "n": 95,
+      "excluded_sids": [
+        "NLS188",
+        "WPD013",
+        "NLS151"
+      ],
+      "excluded_raw_nonmissing": [
+        0,
+        0,
+        0
+      ],
+      "old_iter5_subset_metrics": {
+        "n": 95,
+        "ccc": 0.4413,
+        "cal_slope": 0.3388,
+        "mae": 7.5487,
+        "r": 0.463,
+        "pred_mean": 25.289,
+        "pred_std": 7.42,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "old_iter5_subset"
+      },
+      "new_refit_metrics": {
+        "n": 95,
+        "ccc": 0.4017,
+        "cal_slope": 0.2935,
+        "mae": 7.7127,
+        "r": 0.4322,
+        "pred_mean": 25.163,
+        "pred_std": 6.885,
+        "true_mean": 25.189,
+        "true_std": 10.138,
+        "label": "drop_allmissing_stage2_no_cv_mean3"
+      },
+      "paired_boot_delta_new_minus_old_subset": {
+        "n_boot": 5000,
+        "mean_delta": -0.04025764709415447,
+        "ci95": [
+          -0.09304236091365478,
+          0.010177452309893925
+        ],
+        "frac_gt_0": 0.0594
+      },
+      "selected_cv_by_seed": {
+        "42": {},
+        "1337": {},
+        "7": {}
+      }
+    },
+    {
+      "cohort": "complete33",
+      "stage2_policy": "stage2_current",
+      "n": 89,
+      "excluded_sids": [
+        "NLS143",
+        "NLS188",
+        "NLS183",
+        "WPD013",
+        "WPD002",
+        "NLS151",
+        "WPD017",
+        "NLS002",
+        "NLS210"
+      ],
+      "excluded_raw_nonmissing": [
+        31,
+        0,
+        32,
+        0,
+        32,
+        0,
+        32,
+        32,
+        28
+      ],
+      "old_iter5_subset_metrics": {
+        "n": 89,
+        "ccc": 0.4606,
+        "cal_slope": 0.3541,
+        "mae": 7.5203,
+        "r": 0.483,
+        "pred_mean": 25.411,
+        "pred_std": 7.545,
+        "true_mean": 25.315,
+        "true_std": 10.292,
+        "label": "old_iter5_subset"
+      },
+      "new_refit_metrics": {
+        "n": 89,
+        "ccc": 0.3962,
+        "cal_slope": 0.2843,
+        "mae": 7.4696,
+        "r": 0.4319,
+        "pred_mean": 24.914,
+        "pred_std": 6.774,
+        "true_mean": 25.315,
+        "true_std": 10.292,
+        "label": "complete33_stage2_current_mean3"
+      },
+      "paired_boot_delta_new_minus_old_subset": {
+        "n_boot": 5000,
+        "mean_delta": -0.06443337137111176,
+        "ci95": [
+          -0.12450557860556569,
+          -0.005449991305800994
+        ],
+        "frac_gt_0": 0.0162
+      },
+      "selected_cv_by_seed": {
+        "42": {
+          "cv_age": 15,
+          "cv_dbs": 2,
+          "cv_ht": 12,
+          "cv_wt": 6,
+          "cv_yrs": 9
+        },
+        "1337": {
+          "cv_age": 15,
+          "cv_dbs": 2,
+          "cv_ht": 12,
+          "cv_wt": 6,
+          "cv_yrs": 9
+        },
+        "7": {
+          "cv_age": 15,
+          "cv_dbs": 2,
+          "cv_ht": 12,
+          "cv_wt": 6,
+          "cv_yrs": 9
+        }
+      }
+    },
+    {
+      "cohort": "complete33",
+      "stage2_policy": "stage2_no_cv",
+      "n": 89,
+      "excluded_sids": [
+        "NLS143",
+        "NLS188",
+        "NLS183",
+        "WPD013",
+        "WPD002",
+        "NLS151",
+        "WPD017",
+        "NLS002",
+        "NLS210"
+      ],
+      "excluded_raw_nonmissing": [
+        31,
+        0,
+        32,
+        0,
+        32,
+        0,
+        32,
+        32,
+        28
+      ],
+      "old_iter5_subset_metrics": {
+        "n": 89,
+        "ccc": 0.4606,
+        "cal_slope": 0.3541,
+        "mae": 7.5203,
+        "r": 0.483,
+        "pred_mean": 25.411,
+        "pred_std": 7.545,
+        "true_mean": 25.315,
+        "true_std": 10.292,
+        "label": "old_iter5_subset"
+      },
+      "new_refit_metrics": {
+        "n": 89,
+        "ccc": 0.4117,
+        "cal_slope": 0.2934,
+        "mae": 7.5652,
+        "r": 0.4515,
+        "pred_mean": 24.737,
+        "pred_std": 6.688,
+        "true_mean": 25.315,
+        "true_std": 10.292,
+        "label": "complete33_stage2_no_cv_mean3"
+      },
+      "paired_boot_delta_new_minus_old_subset": {
+        "n_boot": 5000,
+        "mean_delta": -0.04851034299724837,
+        "ci95": [
+          -0.10850639005064072,
+          0.010301169716496998
+        ],
+        "frac_gt_0": 0.0506
+      },
+      "selected_cv_by_seed": {
+        "42": {},
+        "1337": {},
+        "7": {}
+      }
+    }
+  ],
+  "rows_csv": "/home/fiod/pd-imu/results/iter41_targetfix_rows_20260508_170021.csv",
+  "subject_predictions_csv": "/home/fiod/pd-imu/results/iter41_targetfix_subject_preds_20260508_170021.csv"
+}

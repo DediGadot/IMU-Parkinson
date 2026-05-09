@@ -1,5 +1,7 @@
 # Experiment Results
 
+> **Archive status, 2026-05-09:** historical clean Paper3 split notes only. Current canonical numbers and manuscript routing are in `CLAUDE.md`, `paper.md`, `CURRENT_PAPER.html`, and `render_current_paper.py`; current T3 valid-range headline is iter47 CCC `0.3784` / LOSO `0.150`, while old Paper3 MAE/r and iter5 T3 `0.5227` values are not current deployment results.
+
 This file now tracks the clean post-audit state. Historical pre-audit experiment logs were removed because they repeatedly contradicted `CONT.md`.
 
 ## Canonical Sources

@@ -1,0 +1,129 @@
+{
+  "generated_at_utc": "2026-05-09T10:02:19+00:00",
+  "script": "audit_readme_claim_routing.py",
+  "policy": "README.md must route readers to current post-audit T1/T3 claims and may mention old SSL/XGBRanker numbers only when locally guarded as legacy/retracted/pre-audit or target-contaminated.",
+  "passed": true,
+  "decision": "readme_current_claim_route_guard_passed",
+  "readme_sha256": "f949f81bbd0197e04e2739991d4e2ff31b4b6d5fa153ec3b48f5f1d146b15d90",
+  "missing_required": [],
+  "forbidden_headline_hits": [],
+  "dangerous_hits": [
+    {
+      "line": 5,
+      "pattern": "0\\.868",
+      "line_text": "The old XGBRanker/healthy-control-anchor results, including T1 CCC `0.868` and T3 CCC `0.776`, are legacy/retracted/pre-audit archaeology. They were target-contaminated because the ranking representation was trained with all subjects before the reported LOOCV evaluation. Do not cite them as deployable or current results.",
+      "context": "This repository is a WearGait-PD Parkinson's motor-severity research codebase. It now functions as a leakage-audited benchmark and paper artifact store, not as evidence for the original healthy-control-anchored SSL/ranking claims. The old XGBRanker/healthy-control-anchor results, including T1 CCC `0.868` and T3 CCC `0.776`, are legacy/retracted/pre-audit archaeology. They were target-contaminated because the ranking representation was trained with all subjects before the reported LOOCV evaluation. Do not cite them as deployable or current results. ## Current Truth",
+      "guarded": true
+    },
+    {
+      "line": 5,
+      "pattern": "0\\.776",
+      "line_text": "The old XGBRanker/healthy-control-anchor results, including T1 CCC `0.868` and T3 CCC `0.776`, are legacy/retracted/pre-audit archaeology. They were target-contaminated because the ranking representation was trained with all subjects before the reported LOOCV evaluation. Do not cite them as deployable or current results.",
+      "context": "This repository is a WearGait-PD Parkinson's motor-severity research codebase. It now functions as a leakage-audited benchmark and paper artifact store, not as evidence for the original healthy-control-anchored SSL/ranking claims. The old XGBRanker/healthy-control-anchor results, including T1 CCC `0.868` and T3 CCC `0.776`, are legacy/retracted/pre-audit archaeology. They were target-contaminated because the ranking representation was trained with all subjects before the reported LOOCV evaluation. Do not cite them as deployable or current results. ## Current Truth",
+      "guarded": true
+    },
+    {
+      "line": 5,
+      "pattern": "\\bXGBRanker\\b",
+      "line_text": "The old XGBRanker/healthy-control-anchor results, including T1 CCC `0.868` and T3 CCC `0.776`, are legacy/retracted/pre-audit archaeology. They were target-contaminated because the ranking representation was trained with all subjects before the reported LOOCV evaluation. Do not cite them as deployable or current results.",
+      "context": "This repository is a WearGait-PD Parkinson's motor-severity research codebase. It now functions as a leakage-audited benchmark and paper artifact store, not as evidence for the original healthy-control-anchored SSL/ranking claims. The old XGBRanker/healthy-control-anchor results, including T1 CCC `0.868` and T3 CCC `0.776`, are legacy/retracted/pre-audit archaeology. They were target-contaminated because the ranking representation was trained with all subjects before the reported LOOCV evaluation. Do not cite them as deployable or current results. ## Current Truth",
+      "guarded": true
+    },
+    {
+      "line": 59,
+      "pattern": "\\bSSL ranking\\b",
+      "line_text": "\u251c\u2500\u2500 run_compression_ablation.py             # Historical pre-audit SSL ranking reproduction only",
+      "context": "\u251c\u2500\u2500 run_t3_iter5_clinical.py                # Historical iter5 T3 architecture, superseded target \u251c\u2500\u2500 run_t3_iter16_site_ipw.py               # Historical iter5 LOSO/IPW sensitivity, superseded target \u251c\u2500\u2500 run_compression_ablation.py             # Historical pre-audit SSL ranking reproduction only \u2502 \u251c\u2500\u2500 render_current_paper.py     # Current post-audit paper renderer -> CURRENT_PAPER.html",
+      "guarded": true
+    },
+    {
+      "line": 162,
+      "pattern": "\\bXGBRanker\\b",
+      "line_text": "- Do not use global XGBRanker ranks or leaf features for an inductive/deployment claim; that route is invalid/target-contaminated for current claims.",
+      "context": "- Fit imputers, scalers, feature selectors, rankers, bins, calibration parameters, and meta-learners inside the fold. - Treat healthy controls as diagnostic-only unless a new fold-clean experiment proves otherwise. - Do not use global XGBRanker ranks or leaf features for an inductive/deployment claim; that route is invalid/target-contaminated for current claims. - Do not promote sensitivity winners unless they survive the repo's pre-registration and lockbox rules. - Every reusable cache feeding an inductive headline must have a clean manifest sidecar.",
+      "guarded": true
+    },
+    {
+      "line": 170,
+      "pattern": "\\bSSL ranking\\b",
+      "line_text": "### Historical SSL Ranking Pipeline",
+      "context": "This section preserves the old route for reproducibility audits only. It is not the current paper route and not a deployable result. ### Historical SSL Ranking Pipeline The old two-stage semi-supervised learning (SSL) ranking pipeline trained an XGBRanker on all 178 subjects, including healthy controls and the held-out PD subject's rank label, then used the leaf features in a PD-only LOOCV LightGBM regressor. That transductive Stage 1 was later judged target-contaminated for deployment-style claims.",
+      "guarded": true
+    },
+    {
+      "line": 172,
+      "pattern": "\\bXGBRanker\\b",
+      "line_text": "The old two-stage semi-supervised learning (SSL) ranking pipeline trained an XGBRanker on all 178 subjects, including healthy controls and the held-out PD subject's rank label, then used the leaf features in a PD-only LOOCV LightGBM regressor. That transductive Stage 1 was later judged target-contaminated for deployment-style claims.",
+      "context": "### Historical SSL Ranking Pipeline The old two-stage semi-supervised learning (SSL) ranking pipeline trained an XGBRanker on all 178 subjects, including healthy controls and the held-out PD subject's rank label, then used the leaf features in a PD-only LOOCV LightGBM regressor. That transductive Stage 1 was later judged target-contaminated for deployment-style claims. Historical, retracted/pre-audit headline numbers from that route included:",
+      "guarded": true
+    },
+    {
+      "line": 178,
+      "pattern": "0\\.868",
+      "line_text": "| T1 direct observable | `0.868` | target-contaminated SSL/ranking route; superseded by T1 iter12 `0.6550` canonical floor and iter34 `0.7366` candidate |",
+      "context": "| Historical target | Historical CCC | Why not current | |-------------------|----------------|-----------------| | T1 direct observable | `0.868` | target-contaminated SSL/ranking route; superseded by T1 iter12 `0.6550` canonical floor and iter34 `0.7366` candidate | | T2 broad observable | `0.852` | target-contaminated SSL/ranking route | | T3 total UPDRS-III | `0.776` | target-contaminated SSL/ranking route; superseded by corrected T3 iter47 `0.3784` |",
+      "guarded": true
+    },
+    {
+      "line": 179,
+      "pattern": "0\\.852",
+      "line_text": "| T2 broad observable | `0.852` | target-contaminated SSL/ranking route |",
+      "context": "|-------------------|----------------|-----------------| | T1 direct observable | `0.868` | target-contaminated SSL/ranking route; superseded by T1 iter12 `0.6550` canonical floor and iter34 `0.7366` candidate | | T2 broad observable | `0.852` | target-contaminated SSL/ranking route | | T3 total UPDRS-III | `0.776` | target-contaminated SSL/ranking route; superseded by corrected T3 iter47 `0.3784` |",
+      "guarded": true
+    },
+    {
+      "line": 180,
+      "pattern": "0\\.776",
+      "line_text": "| T3 total UPDRS-III | `0.776` | target-contaminated SSL/ranking route; superseded by corrected T3 iter47 `0.3784` |",
+      "context": "| T1 direct observable | `0.868` | target-contaminated SSL/ranking route; superseded by T1 iter12 `0.6550` canonical floor and iter34 `0.7366` candidate | | T2 broad observable | `0.852` | target-contaminated SSL/ranking route | | T3 total UPDRS-III | `0.776` | target-contaminated SSL/ranking route; superseded by corrected T3 iter47 `0.3784` | The historical command sequence is retained only for archaeology:",
+      "guarded": true
+    },
+    {
+      "line": 189,
+      "pattern": "\\bSSL ranking\\b",
+      "line_text": "./gpu.sh run_compression_ablation.py --phase 5   # historical P5 SSL ranking, not current evidence",
+      "context": "./gpu.sh run_compression_ablation.py --phase 3   # historical P3 SMOGN ./gpu.sh run_compression_ablation.py --phase 4   # historical P4 NGBoost ./gpu.sh run_compression_ablation.py --phase 5   # historical P5 SSL ranking, not current evidence ```",
+      "guarded": true
+    },
+    {
+      "line": 189,
+      "pattern": "P5 SSL Ranking",
+      "line_text": "./gpu.sh run_compression_ablation.py --phase 5   # historical P5 SSL ranking, not current evidence",
+      "context": "./gpu.sh run_compression_ablation.py --phase 3   # historical P3 SMOGN ./gpu.sh run_compression_ablation.py --phase 4   # historical P4 NGBoost ./gpu.sh run_compression_ablation.py --phase 5   # historical P5 SSL ranking, not current evidence ```",
+      "guarded": true
+    },
+    {
+      "line": 196,
+      "pattern": "0\\.868",
+      "line_text": "Rows such as \"This work (T3, SSL)\" with CCC `0.776`, \"This work (T1, SSL)\" with CCC `0.868`, and T1 MAE `0.986` are legacy/retracted/pre-audit claims. They should appear only with local context saying historical, target-contaminated, not current, or do not cite.",
+      "context": "### Historical Cross-Dataset Comparison Tables Rows such as \"This work (T3, SSL)\" with CCC `0.776`, \"This work (T1, SSL)\" with CCC `0.868`, and T1 MAE `0.986` are legacy/retracted/pre-audit claims. They should appear only with local context saying historical, target-contaminated, not current, or do not cite. ## `gpu.sh` Reference",
+      "guarded": true
+    },
+    {
+      "line": 196,
+      "pattern": "0\\.776",
+      "line_text": "Rows such as \"This work (T3, SSL)\" with CCC `0.776`, \"This work (T1, SSL)\" with CCC `0.868`, and T1 MAE `0.986` are legacy/retracted/pre-audit claims. They should appear only with local context saying historical, target-contaminated, not current, or do not cite.",
+      "context": "### Historical Cross-Dataset Comparison Tables Rows such as \"This work (T3, SSL)\" with CCC `0.776`, \"This work (T1, SSL)\" with CCC `0.868`, and T1 MAE `0.986` are legacy/retracted/pre-audit claims. They should appear only with local context saying historical, target-contaminated, not current, or do not cite. ## `gpu.sh` Reference",
+      "guarded": true
+    },
+    {
+      "line": 196,
+      "pattern": "This work \\(T3, SSL\\)",
+      "line_text": "Rows such as \"This work (T3, SSL)\" with CCC `0.776`, \"This work (T1, SSL)\" with CCC `0.868`, and T1 MAE `0.986` are legacy/retracted/pre-audit claims. They should appear only with local context saying historical, target-contaminated, not current, or do not cite.",
+      "context": "### Historical Cross-Dataset Comparison Tables Rows such as \"This work (T3, SSL)\" with CCC `0.776`, \"This work (T1, SSL)\" with CCC `0.868`, and T1 MAE `0.986` are legacy/retracted/pre-audit claims. They should appear only with local context saying historical, target-contaminated, not current, or do not cite. ## `gpu.sh` Reference",
+      "guarded": true
+    },
+    {
+      "line": 196,
+      "pattern": "This work \\(T1, SSL\\)",
+      "line_text": "Rows such as \"This work (T3, SSL)\" with CCC `0.776`, \"This work (T1, SSL)\" with CCC `0.868`, and T1 MAE `0.986` are legacy/retracted/pre-audit claims. They should appear only with local context saying historical, target-contaminated, not current, or do not cite.",
+      "context": "### Historical Cross-Dataset Comparison Tables Rows such as \"This work (T3, SSL)\" with CCC `0.776`, \"This work (T1, SSL)\" with CCC `0.868`, and T1 MAE `0.986` are legacy/retracted/pre-audit claims. They should appear only with local context saying historical, target-contaminated, not current, or do not cite. ## `gpu.sh` Reference",
+      "guarded": true
+    }
+  ],
+  "unguarded_dangerous_hits": [],
+  "bad_current_route_hits": [],
+  "current_paper_route_ok": true,
+  "kimi_consult_summary": "Kimi confirmed README.md is un-audited for stale numerical/methodology claims; a README patch plus guard is non-redundant provided no canonical LOOCV is in flight.",
+  "hard_failures": []
+}

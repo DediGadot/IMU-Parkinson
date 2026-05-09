@@ -1,0 +1,340 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-05-06T14:00:03.214312Z",
+  "alpha": 0.05,
+  "purpose": "Family-wise-error-rate adjustment for iter33-class probes run on the same N=93/94 lockbox cohort on 2026-05-06. iter33-B 8-item multi-task aux-chain (frac>0=0.979) is the headline candidate.",
+  "p_value_construction": "p_i = max(1 - frac_above_zero_i, 1/(n_boot+1)) as one-sided test of H0: delta <= 0 vs H1: delta > 0.",
+  "probes": [
+    {
+      "id": "iter33a_5fold_7seed",
+      "file": "iter33a_v1_7seed_5fold_20260506_055936.json",
+      "scope": "5-fold",
+      "family": "iter33a",
+      "frac_above_zero": 0.9682,
+      "p_nominal": 0.03180000000000005,
+      "n_subjects": 94,
+      "notes": "5-fold screen, 7 seeds, V1_random multi-task chain"
+    },
+    {
+      "id": "iter33b_5fold_3seed",
+      "file": "iter33b_8item_5fold_20260506_060128.json",
+      "scope": "5-fold",
+      "family": "iter33b",
+      "frac_above_zero": 0.9368,
+      "p_nominal": 0.06320000000000003,
+      "n_subjects": 93,
+      "notes": "5-fold screen, 3 seeds, 8-item aux-chain (FAILED gate)"
+    },
+    {
+      "id": "iter33b_5fold_5seed",
+      "file": "iter33b_8item_5fold_20260506_061437.json",
+      "scope": "5-fold",
+      "family": "iter33b",
+      "frac_above_zero": 0.9586,
+      "p_nominal": 0.04139999999999999,
+      "n_subjects": 93,
+      "notes": "5-fold screen, 5 seeds, 8-item aux-chain (PASSED gate)"
+    },
+    {
+      "id": "iter33c_5fold_1seed",
+      "file": "iter33c_multibase_5fold_20260506_060437.json",
+      "scope": "5-fold",
+      "family": "iter33c",
+      "frac_above_zero": 0.9726,
+      "p_nominal": 0.02739999999999998,
+      "n_subjects": 94,
+      "notes": "5-fold screen, 1 seed, diverse-base-learner chain"
+    },
+    {
+      "id": "iter33c_5fold_3seed",
+      "file": "iter33c_multibase_5fold_20260506_061517.json",
+      "scope": "5-fold",
+      "family": "iter33c",
+      "frac_above_zero": 0.9656,
+      "p_nominal": 0.034399999999999986,
+      "n_subjects": 94,
+      "notes": "5-fold screen, 3 seeds, diverse-base-learner chain"
+    },
+    {
+      "id": "iter33a_LOOCV",
+      "file": "lockbox_t1_iter33a_v1_7seed_20260506_080627.json",
+      "scope": "LOOCV",
+      "family": "iter33a",
+      "frac_above_zero": 0.9146,
+      "p_nominal": 0.08540000000000003,
+      "n_subjects": 94,
+      "notes": "LOOCV bootstrap headline"
+    },
+    {
+      "id": "iter33b_LOOCV",
+      "file": "lockbox_t1_iter33b_8item_20260506_071631.json",
+      "scope": "LOOCV",
+      "family": "iter33b",
+      "frac_above_zero": 0.979,
+      "p_nominal": 0.02100000000000002,
+      "n_subjects": 93,
+      "notes": "LOOCV bootstrap HEADLINE (paper candidate)"
+    },
+    {
+      "id": "iter33c_LOOCV",
+      "file": "lockbox_t1_iter33c_multibase_20260506_085830.json",
+      "scope": "LOOCV",
+      "family": "iter33c",
+      "frac_above_zero": 0.937,
+      "p_nominal": 0.06299999999999994,
+      "n_subjects": 94,
+      "notes": "LOOCV bootstrap headline"
+    }
+  ],
+  "scenario_n8_full": {
+    "scenario": "All realized probes (5-fold + LOOCV)",
+    "n_tests": 8,
+    "probe_ids": [
+      "iter33a_5fold_7seed",
+      "iter33b_5fold_3seed",
+      "iter33b_5fold_5seed",
+      "iter33c_5fold_1seed",
+      "iter33c_5fold_3seed",
+      "iter33a_LOOCV",
+      "iter33b_LOOCV",
+      "iter33c_LOOCV"
+    ],
+    "p_nominal": [
+      0.03180000000000005,
+      0.06320000000000003,
+      0.04139999999999999,
+      0.02739999999999998,
+      0.034399999999999986,
+      0.08540000000000003,
+      0.02100000000000002,
+      0.06299999999999994
+    ],
+    "frac_above_zero": [
+      0.9682,
+      0.9368,
+      0.9586,
+      0.9726,
+      0.9656,
+      0.9146,
+      0.979,
+      0.937
+    ],
+    "bonferroni": {
+      "alpha_per_test": 0.00625,
+      "frac_above_zero_threshold": 0.99375,
+      "p_adj": [
+        0.2544000000000004,
+        0.5056000000000003,
+        0.33119999999999994,
+        0.21919999999999984,
+        0.2751999999999999,
+        0.6832000000000003,
+        0.16800000000000015,
+        0.5039999999999996
+      ],
+      "significant": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    "holm": {
+      "p_adj": [
+        0.19179999999999986,
+        0.19179999999999986,
+        0.19179999999999986,
+        0.19179999999999986,
+        0.19179999999999986,
+        0.19179999999999986,
+        0.16800000000000015,
+        0.19179999999999986
+      ],
+      "significant": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    "hochberg": {
+      "p_adj": [
+        0.08540000000000003,
+        0.08540000000000003,
+        0.08540000000000003,
+        0.08540000000000003,
+        0.08540000000000003,
+        0.08540000000000003,
+        0.08540000000000003,
+        0.08540000000000003
+      ],
+      "significant": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    "bh_fdr": {
+      "p_adj": [
+        0.06624,
+        0.07222857142857146,
+        0.06624,
+        0.06624,
+        0.06624,
+        0.08540000000000003,
+        0.06624,
+        0.07222857142857146
+      ],
+      "significant": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "cutoff_rank": 0
+    }
+  },
+  "scenario_n3_loocv_only": {
+    "scenario": "LOOCV-only (3 probes)",
+    "n_tests": 3,
+    "probe_ids": [
+      "iter33a_LOOCV",
+      "iter33b_LOOCV",
+      "iter33c_LOOCV"
+    ],
+    "p_nominal": [
+      0.08540000000000003,
+      0.02100000000000002,
+      0.06299999999999994
+    ],
+    "frac_above_zero": [
+      0.9146,
+      0.979,
+      0.937
+    ],
+    "bonferroni": {
+      "alpha_per_test": 0.016666666666666666,
+      "frac_above_zero_threshold": 0.9833333333333333,
+      "p_adj": [
+        0.2562000000000001,
+        0.06300000000000006,
+        0.18899999999999983
+      ],
+      "significant": [
+        false,
+        false,
+        false
+      ]
+    },
+    "holm": {
+      "p_adj": [
+        0.1259999999999999,
+        0.06300000000000006,
+        0.1259999999999999
+      ],
+      "significant": [
+        false,
+        false,
+        false
+      ]
+    },
+    "hochberg": {
+      "p_adj": [
+        0.08540000000000003,
+        0.06300000000000006,
+        0.08540000000000003
+      ],
+      "significant": [
+        false,
+        false,
+        false
+      ]
+    },
+    "bh_fdr": {
+      "p_adj": [
+        0.08540000000000003,
+        0.06300000000000006,
+        0.08540000000000003
+      ],
+      "significant": [
+        false,
+        false,
+        false
+      ],
+      "cutoff_rank": 0
+    }
+  },
+  "headline_iter33b_n8": {
+    "headline_in_scenario": true,
+    "p_nominal": 0.02100000000000002,
+    "frac_above_zero": 0.979,
+    "bonferroni_p_adj": 0.16800000000000015,
+    "bonferroni_sig": false,
+    "bonferroni_threshold_frac": 0.99375,
+    "holm_p_adj": 0.16800000000000015,
+    "holm_sig": false,
+    "hochberg_p_adj": 0.08540000000000003,
+    "hochberg_sig": false,
+    "bh_fdr_p_adj": 0.06624,
+    "bh_fdr_sig": false
+  },
+  "headline_iter33b_n3": {
+    "headline_in_scenario": true,
+    "p_nominal": 0.02100000000000002,
+    "frac_above_zero": 0.979,
+    "bonferroni_p_adj": 0.06300000000000006,
+    "bonferroni_sig": false,
+    "bonferroni_threshold_frac": 0.9833333333333333,
+    "holm_p_adj": 0.06300000000000006,
+    "holm_sig": false,
+    "hochberg_p_adj": 0.06300000000000006,
+    "hochberg_sig": false,
+    "bh_fdr_p_adj": 0.06300000000000006,
+    "bh_fdr_sig": false
+  },
+  "verdict_iter33b_significant": {
+    "n8_bonferroni": false,
+    "n8_holm": false,
+    "n8_hochberg": false,
+    "n8_bh_fdr": false,
+    "n3_bonferroni": false,
+    "n3_holm": false,
+    "n3_hochberg": false,
+    "n3_bh_fdr": false
+  },
+  "effective_frac_above_zero_thresholds": {
+    "scenario_n_full": {
+      "bonferroni_frac_above_zero_min": 0.99375,
+      "bh_fdr_rank1_frac_above_zero_min": 0.99375,
+      "bh_fdr_rank2_frac_above_zero_min": 0.9875
+    },
+    "scenario_n3": {
+      "bonferroni_frac_above_zero_min": 0.9833333333333333,
+      "bh_fdr_rank1_frac_above_zero_min": 0.9833333333333333,
+      "bh_fdr_rank2_frac_above_zero_min": 0.9666666666666667
+    }
+  },
+  "preregistration_files_excluded": [
+    "preregistration_t1_iter33b_8item_20260506_055603.json",
+    "preregistration_t1_iter33b_8item_<5seed_extension>.json"
+  ],
+  "preregistration_exclusion_rationale": "Preregistration files declare a hypothesis but do not produce a test result; counting them as comparisons would conflate registration with inference. Standard practice (Wasserstein 2018; Benjamin et al. 2018 'Redefine Statistical Significance') counts only realized inferential tests.",
+  "scenario_recommendation": "Report n=3 (LOOCV-only) as PRIMARY family-wise correction. The 5-fold screens are explicitly gated as SCREENING tests (the gate itself enforces escalation only when frac>0 >= 0.95), not as independent inferential claims. Counting them inflates n and does not reflect the actual decision rule used. Report n=9 as a sensitivity check (most-conservative bound)."
+}

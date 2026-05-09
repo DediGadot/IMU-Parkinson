@@ -1,0 +1,138 @@
+{
+  "checks": {
+    "access_path": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "author/cns data-owner approval",
+        "corresponding authors",
+        "row-level schema"
+      ]
+    },
+    "clinical_linkage_inventory": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "mds-updrs part iii total per session",
+        "item-level scores",
+        "items 9-14",
+        "hoehn & yahr",
+        "medication state",
+        "assessment date"
+      ]
+    },
+    "cns_specific_guardrails": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "left-out 10% window result",
+        "context only",
+        "window-level rows",
+        "aggregate to session/subject",
+        "repeated sessions",
+        "external-validity / transportability evidence only"
+      ]
+    },
+    "methodology_guardrails": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "read-only schema probe",
+        "zero-shot external validation",
+        "cns-only subject-grouped loso sanity",
+        "subject-level splits",
+        "pre-registration",
+        "valid-range",
+        "manifest sidecar"
+      ]
+    },
+    "no_premature_compute_boundary": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "do not create a probe scaffold",
+        "no cns label peeking",
+        "no endpoint switching",
+        "stop before modeling",
+        "will not present cns portugal metrics as internal weargait-pd canonical"
+      ]
+    },
+    "official_source_and_public_facts": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "techandpeople.github.io/downloads/updrs_is22.pdf",
+        "74 parkinson's disease patients",
+        "campus neurologico",
+        "axivity ax3",
+        "wrist",
+        "lower back",
+        "100 hz",
+        "267 gait instances",
+        "104 evaluation sessions",
+        "10-meter walk",
+        "mds-updrs part iii",
+        "hoehn & yahr"
+      ]
+    },
+    "required_packet_fields": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "scientific rationale",
+        "specific data requested",
+        "intended use",
+        "analysis synopsis",
+        "named research team",
+        "data custodian"
+      ]
+    },
+    "security_publication_terms": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "encrypted",
+        "access-controlled",
+        "do not commit",
+        "consumer cloud",
+        "gdpr",
+        "aggregate, non-identifiable"
+      ]
+    },
+    "specific_data_inventory": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "raw axivity ax3 files",
+        "per-session accelerometer exports",
+        "subject identifiers",
+        "session identifiers",
+        "trial identifiers",
+        "gait-instance identifiers",
+        "annotated timestamps",
+        "sensor placement",
+        "units",
+        "axis convention",
+        "2.5-second and 5-second window definitions",
+        "59 features"
+      ]
+    }
+  },
+  "created_at_utc": "2026-05-09T12:09:54.378105+00:00",
+  "decision": "cns_portugal_request_packet_ready",
+  "goal_complete": false,
+  "hard_failures": [],
+  "missing": [],
+  "not_a_model_result": true,
+  "packet": "scripts/cns_portugal_request_packet.md",
+  "packet_exists": true,
+  "passed": true,
+  "public_requirements_encoded": {
+    "route": "Request-gated CNS Portugal AX3 gait route with 74 PD patients, wrist/lower-back 100 Hz AX3, 267 gait instances, 104 sessions, direct MDS-UPDRS Part III labels.",
+    "source": "Lobo et al. IS2022 PDF from techandpeople.github.io.",
+    "validation_boundary": "The published left-out 10% window benchmark is context only; subject/session-grouped validation is required for deployable claims."
+  },
+  "runbook": "scripts/cns_portugal_request_setup.md",
+  "runbook_exists": true,
+  "runbook_mentions_packet": true
+}

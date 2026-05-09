@@ -1,0 +1,13 @@
+cohort,stage2_policy,seed,n,ccc,mae,r,cal_slope,wall_s
+drop_allmissing,stage2_current,42,95,0.401,7.8292,0.4292,0.2957,44.7
+drop_allmissing,stage2_current,1337,95,0.3933,7.441,0.4248,0.2854,44.3
+drop_allmissing,stage2_current,7,95,0.373,7.8123,0.3982,0.2765,44.2
+drop_allmissing,stage2_no_cv,42,95,0.4014,7.878,0.43,0.2957,44.5
+drop_allmissing,stage2_no_cv,1337,95,0.381,7.7882,0.4063,0.2827,44.5
+drop_allmissing,stage2_no_cv,7,95,0.4042,7.6797,0.4295,0.3021,44.1
+complete33,stage2_current,42,89,0.3984,7.6483,0.4309,0.2903,39.4
+complete33,stage2_current,1337,89,0.3881,7.5169,0.4198,0.2811,38.0
+complete33,stage2_current,7,89,0.387,7.6551,0.4185,0.2814,38.5
+complete33,stage2_no_cv,42,89,0.4074,7.6574,0.4472,0.2914,38.3
+complete33,stage2_no_cv,1337,89,0.4123,7.7084,0.441,0.3051,37.9
+complete33,stage2_no_cv,7,89,0.3991,7.6986,0.4383,0.2837,38.2

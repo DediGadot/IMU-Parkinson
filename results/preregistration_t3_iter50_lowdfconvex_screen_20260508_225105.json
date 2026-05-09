@@ -1,0 +1,23 @@
+{
+  "experiment": "T3 iter50 low-degree nested convex mix screen",
+  "cohort": "drop_allmissing_validrange",
+  "target": "iter47 valid-range corrected T3; exclude all-missing Part III rows and treat raw subitem values outside 0-4 as missing",
+  "base_predictors": {
+    "clinical_only": "A3 Ridge on H&Y + cv_yrs + cv_sex + cv_dbs",
+    "imu_only_no_cv": "direct LGB on V2 features with cv_* columns removed"
+  },
+  "baseline": "iter47-style A3 clinical Stage 1 -> current V2 residual LGB",
+  "mixing_rule": "For each outer fold, learn alpha in [0,1] step 0.01 on inner 4-fold OOF predictions from the outer training subjects; predict outer test as alpha*clinical + (1-alpha)*imu.",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "outer_cv": "5-fold KFold(shuffle=True, random_state=seed)",
+  "inner_cv": "4-fold KFold inside each outer-train fold",
+  "promotion_gate": "5-fold seed-mean delta >= +0.05 vs baseline and seed delta std < 0.02 before any LOOCV lockbox",
+  "no_loocv_in_this_script": true,
+  "created_at_utc": "2026-05-08T22:51:05+00:00",
+  "git_sha": "b82d6a67c4e775f8e4256c83217d4d149a5f6f24",
+  "formula_sha256": "64d85ad663d71561882711a37a3443f0de2a975ddcd24f94ec827e87d8bda29d"
+}

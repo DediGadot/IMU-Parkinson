@@ -1,0 +1,82 @@
+{
+  "experiment": "T1 Probe D chain-pool phase-locked injection \u2014 5-fold screen",
+  "n_subjects": 92,
+  "item_order": [
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    18
+  ],
+  "auxiliary_items_used": [
+    15,
+    18
+  ],
+  "v2_dim": 1751,
+  "pl_dim": 23,
+  "x_aug_dim": 1774,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "per_seed": [
+    {
+      "seed": 42,
+      "ccc_probeD": 0.6968,
+      "ccc_iter34": 0.7026,
+      "ccc_iter5": 0.6083,
+      "delta_vs_iter34": -0.0057,
+      "delta_vs_iter5": 0.0886,
+      "wall_s": 42.2
+    },
+    {
+      "seed": 1337,
+      "ccc_probeD": 0.7465,
+      "ccc_iter34": 0.7289,
+      "ccc_iter5": 0.7286,
+      "delta_vs_iter34": 0.0176,
+      "delta_vs_iter5": 0.0179,
+      "wall_s": 42.6
+    },
+    {
+      "seed": 7,
+      "ccc_probeD": 0.7463,
+      "ccc_iter34": 0.7354,
+      "ccc_iter5": 0.6842,
+      "delta_vs_iter34": 0.0109,
+      "delta_vs_iter5": 0.0621,
+      "wall_s": 42.6
+    }
+  ],
+  "ccc_probeD_meanof_seeds": 0.7422,
+  "ccc_iter34_meanof_seeds": 0.7322,
+  "ccc_iter5_meanof_seeds": 0.6961,
+  "delta_seed_mean_vs_iter34": 0.0076,
+  "delta_seed_std_vs_iter34": 0.009794215980192936,
+  "delta_seed_mean_vs_iter5": 0.0562,
+  "paired_bootstrap_vs_iter34": {
+    "n_boot": 5000,
+    "delta_mean": 0.01027334500410231,
+    "delta_ci_low": -0.0034168130256527736,
+    "delta_ci_high": 0.02598424587208494,
+    "frac_above_zero": 0.9252,
+    "frac_above_0.025": 0.0314,
+    "frac_above_0.99_strict": 0.0
+  },
+  "paired_bootstrap_vs_iter5": {
+    "n_boot": 5000,
+    "delta_mean": 0.04869177670094468,
+    "delta_ci_low": -0.011471759837178566,
+    "delta_ci_high": 0.12334554305900969,
+    "frac_above_zero": 0.9386,
+    "frac_above_0.025": 0.746,
+    "frac_above_0.99_strict": 0.0
+  },
+  "gate_pass": false,
+  "gate_threshold": "\u0394\u0304_seed_vs_iter34 \u2265 +0.025 AND paired_bootstrap_frac>0 vs iter34 \u2265 0.95",
+  "wall_total_s": 128.2
+}

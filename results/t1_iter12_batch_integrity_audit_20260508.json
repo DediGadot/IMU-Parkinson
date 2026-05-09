@@ -1,0 +1,968 @@
+{
+  "audit": "t1_iter12_batch_integrity",
+  "created_at_utc": "2026-05-08",
+  "pass": true,
+  "hard_failures": [],
+  "warnings": [],
+  "batch": {
+    "timestamp": "20260430_143044",
+    "items": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "variants": {
+      "9": "hy_residual_item",
+      "10": "item_plus_v2",
+      "11": "item_dedicated",
+      "12": "item_plus_v2",
+      "13": "item_plus_v2",
+      "14": "item_plus_v2"
+    },
+    "single_coherent_batch": true,
+    "uses_swaps": false,
+    "source_file_timestamps_all_expected": true
+  },
+  "subjects": {
+    "n": 94,
+    "first_sid": "NLS142",
+    "last_sid": "NLS187"
+  },
+  "composite": {
+    "metrics": {
+      "n": 94,
+      "ccc": 0.655,
+      "cal_slope": 0.4827,
+      "mae": 1.5614,
+      "r": 0.7012,
+      "pred_mean": 4.081,
+      "pred_std": 1.938,
+      "true_mean": 4.106,
+      "true_std": 2.815,
+      "label": "t1_iter12_batch_integrity"
+    },
+    "stored_metrics": {
+      "n": 94,
+      "ccc": 0.655,
+      "mae": 1.5614,
+      "r": 0.7012,
+      "cal_slope": 0.4827
+    },
+    "expected_metrics": {
+      "ccc": 0.655,
+      "mae": 1.5614,
+      "n": 94
+    },
+    "max_abs_diff_vs_stored_oof": 0.0,
+    "preregistration_file": "preregistration_t1_iter12_honest_20260503_053105.json"
+  },
+  "item_checks": [
+    {
+      "item": 9,
+      "variant": "hy_residual_item",
+      "shape": [
+        94
+      ],
+      "recomputed_ccc": 0.448612,
+      "recomputed_mae": 0.337579,
+      "json_ccc_mean": 0.443667,
+      "json_mae_mean": 0.3415,
+      "summary_ccc": 0.443667,
+      "target_min": 0.0,
+      "target_max": 2.0,
+      "target_expected_max": 4.0,
+      "preregistration": "preregistration_peritem_9_20260430_143044.json",
+      "json": "lockbox_peritem_9_hy_residual_item_20260430_143044.json",
+      "oof": "lockbox_peritem_9_hy_residual_item_20260430_143044.oof.npy"
+    },
+    {
+      "item": 10,
+      "variant": "item_plus_v2",
+      "shape": [
+        94
+      ],
+      "recomputed_ccc": 0.482155,
+      "recomputed_mae": 0.502919,
+      "json_ccc_mean": 0.475533,
+      "json_mae_mean": 0.508767,
+      "summary_ccc": 0.475533,
+      "target_min": 0.0,
+      "target_max": 4.0,
+      "target_expected_max": 4.0,
+      "preregistration": "preregistration_peritem_10_20260430_143044.json",
+      "json": "lockbox_peritem_10_item_plus_v2_20260430_143044.json",
+      "oof": "lockbox_peritem_10_item_plus_v2_20260430_143044.oof.npy"
+    },
+    {
+      "item": 11,
+      "variant": "item_dedicated",
+      "shape": [
+        94
+      ],
+      "recomputed_ccc": 0.382597,
+      "recomputed_mae": 0.359475,
+      "json_ccc_mean": 0.3794,
+      "json_mae_mean": 0.363367,
+      "summary_ccc": 0.3794,
+      "target_min": 0.0,
+      "target_max": 3.0,
+      "target_expected_max": 4.0,
+      "preregistration": "preregistration_peritem_11_20260430_143044.json",
+      "json": "lockbox_peritem_11_item_dedicated_20260430_143044.json",
+      "oof": "lockbox_peritem_11_item_dedicated_20260430_143044.oof.npy"
+    },
+    {
+      "item": 12,
+      "variant": "item_plus_v2",
+      "shape": [
+        94
+      ],
+      "recomputed_ccc": 0.597499,
+      "recomputed_mae": 0.516431,
+      "json_ccc_mean": 0.5928,
+      "json_mae_mean": 0.5231,
+      "summary_ccc": 0.5928,
+      "target_min": 0.0,
+      "target_max": 4.0,
+      "target_expected_max": 4.0,
+      "preregistration": "preregistration_peritem_12_20260430_143044.json",
+      "json": "lockbox_peritem_12_item_plus_v2_20260430_143044.json",
+      "oof": "lockbox_peritem_12_item_plus_v2_20260430_143044.oof.npy"
+    },
+    {
+      "item": 13,
+      "variant": "item_plus_v2",
+      "shape": [
+        94
+      ],
+      "recomputed_ccc": 0.119657,
+      "recomputed_mae": 0.614604,
+      "json_ccc_mean": 0.116933,
+      "json_mae_mean": 0.621133,
+      "summary_ccc": 0.116933,
+      "target_min": 0.0,
+      "target_max": 3.0,
+      "target_expected_max": 4.0,
+      "preregistration": "preregistration_peritem_13_20260430_143044.json",
+      "json": "lockbox_peritem_13_item_plus_v2_20260430_143044.json",
+      "oof": "lockbox_peritem_13_item_plus_v2_20260430_143044.oof.npy"
+    },
+    {
+      "item": 14,
+      "variant": "item_plus_v2",
+      "shape": [
+        94
+      ],
+      "recomputed_ccc": 0.385705,
+      "recomputed_mae": 0.513686,
+      "json_ccc_mean": 0.378833,
+      "json_mae_mean": 0.523633,
+      "summary_ccc": 0.378833,
+      "target_min": 0.0,
+      "target_max": 3.0,
+      "target_expected_max": 4.0,
+      "preregistration": "preregistration_peritem_14_20260430_143044.json",
+      "json": "lockbox_peritem_14_item_plus_v2_20260430_143044.json",
+      "oof": "lockbox_peritem_14_item_plus_v2_20260430_143044.oof.npy"
+    }
+  ],
+  "checks": [
+    {
+      "name": "composer_timestamp_constant",
+      "passed": true,
+      "severity": "hard",
+      "detail": "compose_t1_iter12_honest.ITER8_TS must equal 20260430_143044.",
+      "observed": "20260430_143044"
+    },
+    {
+      "name": "composer_t1_items_constant",
+      "passed": true,
+      "severity": "hard",
+      "detail": "compose_t1_iter12_honest.T1_ITEMS must stay fixed to items 9-14.",
+      "observed": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "name": "composer_variant_map_constant",
+      "passed": true,
+      "severity": "hard",
+      "detail": "compose_t1_iter12_honest.ITER8_VARIANTS must match the iter8 batch map.",
+      "observed": {
+        "9": "hy_residual_item",
+        "10": "item_plus_v2",
+        "11": "item_dedicated",
+        "12": "item_plus_v2",
+        "13": "item_plus_v2",
+        "14": "item_plus_v2"
+      }
+    },
+    {
+      "name": "target_subject_count",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Canonical T1 iter12 target loader must resolve 94 PD subjects.",
+      "observed": 94
+    },
+    {
+      "name": "target_finite_t1",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Summed T1 target must be finite for all loaded subjects.",
+      "observed": {
+        "n_finite": 94,
+        "n_total": 94
+      }
+    },
+    {
+      "name": "peritem_composite_timestamp",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Per-item composite metadata must identify the iter8 lockbox timestamp.",
+      "observed": "20260430_143044"
+    },
+    {
+      "name": "canonical_json_selection_map",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Stored T1 iter12 composite selections must match the fixed iter8 variant map.",
+      "observed": {
+        "9": "hy_residual_item",
+        "10": "item_plus_v2",
+        "11": "item_dedicated",
+        "12": "item_plus_v2",
+        "13": "item_plus_v2",
+        "14": "item_plus_v2"
+      }
+    },
+    {
+      "name": "stored_composite_oof_shape",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Stored T1 iter12 composite OOF must align with the canonical 94-subject SID order.",
+      "observed": [
+        94
+      ]
+    },
+    {
+      "name": "stored_composite_oof_finite",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Stored T1 iter12 composite OOF must be finite.",
+      "observed": {
+        "n_finite": 94,
+        "n_total": 94
+      }
+    },
+    {
+      "name": "composite_preregistration_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Stored T1 iter12 composite JSON must point to an existing preregistration file.",
+      "observed": "preregistration_t1_iter12_honest_20260503_053105.json"
+    },
+    {
+      "name": "composite_preregistration_selection_map",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Composite preregistration selections must match the fixed iter8 variant map.",
+      "observed": {
+        "9": "hy_residual_item",
+        "10": "item_plus_v2",
+        "11": "item_dedicated",
+        "12": "item_plus_v2",
+        "13": "item_plus_v2",
+        "14": "item_plus_v2"
+      }
+    },
+    {
+      "name": "composite_preregistration_source_files",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Composite preregistration must cite exactly the six expected iter8 OOF files.",
+      "observed": {
+        "9": "lockbox_peritem_9_hy_residual_item_20260430_143044.oof.npy",
+        "10": "lockbox_peritem_10_item_plus_v2_20260430_143044.oof.npy",
+        "11": "lockbox_peritem_11_item_dedicated_20260430_143044.oof.npy",
+        "12": "lockbox_peritem_12_item_plus_v2_20260430_143044.oof.npy",
+        "13": "lockbox_peritem_13_item_plus_v2_20260430_143044.oof.npy",
+        "14": "lockbox_peritem_14_item_plus_v2_20260430_143044.oof.npy"
+      }
+    },
+    {
+      "name": "item_9_preregistration_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 9 must have a preregistration JSON from the iter8 batch.",
+      "observed": "preregistration_peritem_9_20260430_143044.json"
+    },
+    {
+      "name": "item_9_lockbox_json_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 9 must have a lockbox result JSON for the expected variant.",
+      "observed": "lockbox_peritem_9_hy_residual_item_20260430_143044.json"
+    },
+    {
+      "name": "item_9_oof_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 9 must have an OOF array for the expected variant.",
+      "observed": "lockbox_peritem_9_hy_residual_item_20260430_143044.oof.npy"
+    },
+    {
+      "name": "item_9_prereg_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 9 preregistration must match item, variant, eval, timestamp, and N.",
+      "observed": {
+        "item": 9,
+        "variant": "hy_residual_item",
+        "eval": "loocv",
+        "timestamp_prereg": "20260430_143044",
+        "n_subjects": 94
+      }
+    },
+    {
+      "name": "item_9_json_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 9 lockbox JSON must match item, variant, eval, N, and prereg pointer.",
+      "observed": {
+        "item": 9,
+        "variant": "hy_residual_item",
+        "eval": "loocv",
+        "n_subjects": 94,
+        "pre_registration": "preregistration_peritem_9_20260430_143044.json"
+      }
+    },
+    {
+      "name": "item_9_oof_shape",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 9 OOF must align with the canonical SID order.",
+      "observed": [
+        94
+      ]
+    },
+    {
+      "name": "item_9_oof_finite",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 9 OOF must be finite.",
+      "observed": {
+        "n_finite": 94,
+        "n_total": 94
+      }
+    },
+    {
+      "name": "item_9_target_range",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 9 target values must stay within UPDRS item range 0-4.",
+      "observed": {
+        "min": 0.0,
+        "max": 2.0,
+        "expected_max": 4.0
+      }
+    },
+    {
+      "name": "item_9_json_metric_match",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 9 JSON CCC must match summary JSON and CSV lockbox records.",
+      "observed": {
+        "item_json_ccc_mean": 0.44366666666666665,
+        "summary_json_ccc": 0.44366666666666665,
+        "summary_csv_ccc": 0.44366666666666665
+      }
+    },
+    {
+      "name": "item_9_recomputed_metric_near_seed_mean",
+      "passed": true,
+      "severity": "warning",
+      "detail": "Item 9 recomputed CCC from averaged OOF should be near the reported mean-of-seed CCC; this is a warning because the historical JSON stores mean-of-seed metrics while the OOF stores averaged predictions.",
+      "observed": {
+        "recomputed_oof_ccc": 0.44861182612431894,
+        "json_ccc_mean": 0.44366666666666665
+      }
+    },
+    {
+      "name": "item_10_preregistration_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 10 must have a preregistration JSON from the iter8 batch.",
+      "observed": "preregistration_peritem_10_20260430_143044.json"
+    },
+    {
+      "name": "item_10_lockbox_json_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 10 must have a lockbox result JSON for the expected variant.",
+      "observed": "lockbox_peritem_10_item_plus_v2_20260430_143044.json"
+    },
+    {
+      "name": "item_10_oof_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 10 must have an OOF array for the expected variant.",
+      "observed": "lockbox_peritem_10_item_plus_v2_20260430_143044.oof.npy"
+    },
+    {
+      "name": "item_10_prereg_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 10 preregistration must match item, variant, eval, timestamp, and N.",
+      "observed": {
+        "item": 10,
+        "variant": "item_plus_v2",
+        "eval": "loocv",
+        "timestamp_prereg": "20260430_143044",
+        "n_subjects": 94
+      }
+    },
+    {
+      "name": "item_10_json_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 10 lockbox JSON must match item, variant, eval, N, and prereg pointer.",
+      "observed": {
+        "item": 10,
+        "variant": "item_plus_v2",
+        "eval": "loocv",
+        "n_subjects": 94,
+        "pre_registration": "preregistration_peritem_10_20260430_143044.json"
+      }
+    },
+    {
+      "name": "item_10_oof_shape",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 10 OOF must align with the canonical SID order.",
+      "observed": [
+        94
+      ]
+    },
+    {
+      "name": "item_10_oof_finite",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 10 OOF must be finite.",
+      "observed": {
+        "n_finite": 94,
+        "n_total": 94
+      }
+    },
+    {
+      "name": "item_10_target_range",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 10 target values must stay within UPDRS item range 0-4.",
+      "observed": {
+        "min": 0.0,
+        "max": 4.0,
+        "expected_max": 4.0
+      }
+    },
+    {
+      "name": "item_10_json_metric_match",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 10 JSON CCC must match summary JSON and CSV lockbox records.",
+      "observed": {
+        "item_json_ccc_mean": 0.4755333333333333,
+        "summary_json_ccc": 0.4755333333333333,
+        "summary_csv_ccc": 0.4755333333333333
+      }
+    },
+    {
+      "name": "item_10_recomputed_metric_near_seed_mean",
+      "passed": true,
+      "severity": "warning",
+      "detail": "Item 10 recomputed CCC from averaged OOF should be near the reported mean-of-seed CCC; this is a warning because the historical JSON stores mean-of-seed metrics while the OOF stores averaged predictions.",
+      "observed": {
+        "recomputed_oof_ccc": 0.4821548126508255,
+        "json_ccc_mean": 0.4755333333333333
+      }
+    },
+    {
+      "name": "item_11_preregistration_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 11 must have a preregistration JSON from the iter8 batch.",
+      "observed": "preregistration_peritem_11_20260430_143044.json"
+    },
+    {
+      "name": "item_11_lockbox_json_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 11 must have a lockbox result JSON for the expected variant.",
+      "observed": "lockbox_peritem_11_item_dedicated_20260430_143044.json"
+    },
+    {
+      "name": "item_11_oof_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 11 must have an OOF array for the expected variant.",
+      "observed": "lockbox_peritem_11_item_dedicated_20260430_143044.oof.npy"
+    },
+    {
+      "name": "item_11_prereg_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 11 preregistration must match item, variant, eval, timestamp, and N.",
+      "observed": {
+        "item": 11,
+        "variant": "item_dedicated",
+        "eval": "loocv",
+        "timestamp_prereg": "20260430_143044",
+        "n_subjects": 94
+      }
+    },
+    {
+      "name": "item_11_json_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 11 lockbox JSON must match item, variant, eval, N, and prereg pointer.",
+      "observed": {
+        "item": 11,
+        "variant": "item_dedicated",
+        "eval": "loocv",
+        "n_subjects": 94,
+        "pre_registration": "preregistration_peritem_11_20260430_143044.json"
+      }
+    },
+    {
+      "name": "item_11_oof_shape",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 11 OOF must align with the canonical SID order.",
+      "observed": [
+        94
+      ]
+    },
+    {
+      "name": "item_11_oof_finite",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 11 OOF must be finite.",
+      "observed": {
+        "n_finite": 94,
+        "n_total": 94
+      }
+    },
+    {
+      "name": "item_11_target_range",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 11 target values must stay within UPDRS item range 0-4.",
+      "observed": {
+        "min": 0.0,
+        "max": 3.0,
+        "expected_max": 4.0
+      }
+    },
+    {
+      "name": "item_11_json_metric_match",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 11 JSON CCC must match summary JSON and CSV lockbox records.",
+      "observed": {
+        "item_json_ccc_mean": 0.37939999999999996,
+        "summary_json_ccc": 0.37939999999999996,
+        "summary_csv_ccc": 0.37939999999999996
+      }
+    },
+    {
+      "name": "item_11_recomputed_metric_near_seed_mean",
+      "passed": true,
+      "severity": "warning",
+      "detail": "Item 11 recomputed CCC from averaged OOF should be near the reported mean-of-seed CCC; this is a warning because the historical JSON stores mean-of-seed metrics while the OOF stores averaged predictions.",
+      "observed": {
+        "recomputed_oof_ccc": 0.38259725885517726,
+        "json_ccc_mean": 0.37939999999999996
+      }
+    },
+    {
+      "name": "item_12_preregistration_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 12 must have a preregistration JSON from the iter8 batch.",
+      "observed": "preregistration_peritem_12_20260430_143044.json"
+    },
+    {
+      "name": "item_12_lockbox_json_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 12 must have a lockbox result JSON for the expected variant.",
+      "observed": "lockbox_peritem_12_item_plus_v2_20260430_143044.json"
+    },
+    {
+      "name": "item_12_oof_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 12 must have an OOF array for the expected variant.",
+      "observed": "lockbox_peritem_12_item_plus_v2_20260430_143044.oof.npy"
+    },
+    {
+      "name": "item_12_prereg_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 12 preregistration must match item, variant, eval, timestamp, and N.",
+      "observed": {
+        "item": 12,
+        "variant": "item_plus_v2",
+        "eval": "loocv",
+        "timestamp_prereg": "20260430_143044",
+        "n_subjects": 94
+      }
+    },
+    {
+      "name": "item_12_json_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 12 lockbox JSON must match item, variant, eval, N, and prereg pointer.",
+      "observed": {
+        "item": 12,
+        "variant": "item_plus_v2",
+        "eval": "loocv",
+        "n_subjects": 94,
+        "pre_registration": "preregistration_peritem_12_20260430_143044.json"
+      }
+    },
+    {
+      "name": "item_12_oof_shape",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 12 OOF must align with the canonical SID order.",
+      "observed": [
+        94
+      ]
+    },
+    {
+      "name": "item_12_oof_finite",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 12 OOF must be finite.",
+      "observed": {
+        "n_finite": 94,
+        "n_total": 94
+      }
+    },
+    {
+      "name": "item_12_target_range",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 12 target values must stay within UPDRS item range 0-4.",
+      "observed": {
+        "min": 0.0,
+        "max": 4.0,
+        "expected_max": 4.0
+      }
+    },
+    {
+      "name": "item_12_json_metric_match",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 12 JSON CCC must match summary JSON and CSV lockbox records.",
+      "observed": {
+        "item_json_ccc_mean": 0.5928,
+        "summary_json_ccc": 0.5928,
+        "summary_csv_ccc": 0.5928
+      }
+    },
+    {
+      "name": "item_12_recomputed_metric_near_seed_mean",
+      "passed": true,
+      "severity": "warning",
+      "detail": "Item 12 recomputed CCC from averaged OOF should be near the reported mean-of-seed CCC; this is a warning because the historical JSON stores mean-of-seed metrics while the OOF stores averaged predictions.",
+      "observed": {
+        "recomputed_oof_ccc": 0.5974994297652818,
+        "json_ccc_mean": 0.5928
+      }
+    },
+    {
+      "name": "item_13_preregistration_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 13 must have a preregistration JSON from the iter8 batch.",
+      "observed": "preregistration_peritem_13_20260430_143044.json"
+    },
+    {
+      "name": "item_13_lockbox_json_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 13 must have a lockbox result JSON for the expected variant.",
+      "observed": "lockbox_peritem_13_item_plus_v2_20260430_143044.json"
+    },
+    {
+      "name": "item_13_oof_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 13 must have an OOF array for the expected variant.",
+      "observed": "lockbox_peritem_13_item_plus_v2_20260430_143044.oof.npy"
+    },
+    {
+      "name": "item_13_prereg_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 13 preregistration must match item, variant, eval, timestamp, and N.",
+      "observed": {
+        "item": 13,
+        "variant": "item_plus_v2",
+        "eval": "loocv",
+        "timestamp_prereg": "20260430_143044",
+        "n_subjects": 94
+      }
+    },
+    {
+      "name": "item_13_json_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 13 lockbox JSON must match item, variant, eval, N, and prereg pointer.",
+      "observed": {
+        "item": 13,
+        "variant": "item_plus_v2",
+        "eval": "loocv",
+        "n_subjects": 94,
+        "pre_registration": "preregistration_peritem_13_20260430_143044.json"
+      }
+    },
+    {
+      "name": "item_13_oof_shape",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 13 OOF must align with the canonical SID order.",
+      "observed": [
+        94
+      ]
+    },
+    {
+      "name": "item_13_oof_finite",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 13 OOF must be finite.",
+      "observed": {
+        "n_finite": 94,
+        "n_total": 94
+      }
+    },
+    {
+      "name": "item_13_target_range",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 13 target values must stay within UPDRS item range 0-4.",
+      "observed": {
+        "min": 0.0,
+        "max": 3.0,
+        "expected_max": 4.0
+      }
+    },
+    {
+      "name": "item_13_json_metric_match",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 13 JSON CCC must match summary JSON and CSV lockbox records.",
+      "observed": {
+        "item_json_ccc_mean": 0.11693333333333333,
+        "summary_json_ccc": 0.11693333333333333,
+        "summary_csv_ccc": 0.11693333333333333
+      }
+    },
+    {
+      "name": "item_13_recomputed_metric_near_seed_mean",
+      "passed": true,
+      "severity": "warning",
+      "detail": "Item 13 recomputed CCC from averaged OOF should be near the reported mean-of-seed CCC; this is a warning because the historical JSON stores mean-of-seed metrics while the OOF stores averaged predictions.",
+      "observed": {
+        "recomputed_oof_ccc": 0.11965660926457955,
+        "json_ccc_mean": 0.11693333333333333
+      }
+    },
+    {
+      "name": "item_14_preregistration_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 14 must have a preregistration JSON from the iter8 batch.",
+      "observed": "preregistration_peritem_14_20260430_143044.json"
+    },
+    {
+      "name": "item_14_lockbox_json_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 14 must have a lockbox result JSON for the expected variant.",
+      "observed": "lockbox_peritem_14_item_plus_v2_20260430_143044.json"
+    },
+    {
+      "name": "item_14_oof_exists",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 14 must have an OOF array for the expected variant.",
+      "observed": "lockbox_peritem_14_item_plus_v2_20260430_143044.oof.npy"
+    },
+    {
+      "name": "item_14_prereg_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 14 preregistration must match item, variant, eval, timestamp, and N.",
+      "observed": {
+        "item": 14,
+        "variant": "item_plus_v2",
+        "eval": "loocv",
+        "timestamp_prereg": "20260430_143044",
+        "n_subjects": 94
+      }
+    },
+    {
+      "name": "item_14_json_fields",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 14 lockbox JSON must match item, variant, eval, N, and prereg pointer.",
+      "observed": {
+        "item": 14,
+        "variant": "item_plus_v2",
+        "eval": "loocv",
+        "n_subjects": 94,
+        "pre_registration": "preregistration_peritem_14_20260430_143044.json"
+      }
+    },
+    {
+      "name": "item_14_oof_shape",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 14 OOF must align with the canonical SID order.",
+      "observed": [
+        94
+      ]
+    },
+    {
+      "name": "item_14_oof_finite",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 14 OOF must be finite.",
+      "observed": {
+        "n_finite": 94,
+        "n_total": 94
+      }
+    },
+    {
+      "name": "item_14_target_range",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 14 target values must stay within UPDRS item range 0-4.",
+      "observed": {
+        "min": 0.0,
+        "max": 3.0,
+        "expected_max": 4.0
+      }
+    },
+    {
+      "name": "item_14_json_metric_match",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Item 14 JSON CCC must match summary JSON and CSV lockbox records.",
+      "observed": {
+        "item_json_ccc_mean": 0.3788333333333333,
+        "summary_json_ccc": 0.3788333333333333,
+        "summary_csv_ccc": 0.3788333333333333
+      }
+    },
+    {
+      "name": "item_14_recomputed_metric_near_seed_mean",
+      "passed": true,
+      "severity": "warning",
+      "detail": "Item 14 recomputed CCC from averaged OOF should be near the reported mean-of-seed CCC; this is a warning because the historical JSON stores mean-of-seed metrics while the OOF stores averaged predictions.",
+      "observed": {
+        "recomputed_oof_ccc": 0.3857054838824132,
+        "json_ccc_mean": 0.3788333333333333
+      }
+    },
+    {
+      "name": "all_six_item_oofs_loaded",
+      "passed": true,
+      "severity": "hard",
+      "detail": "All six expected T1 item OOF arrays must load successfully.",
+      "observed": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "name": "summed_oof_equals_stored_composite_oof",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Summing the six item OOF arrays must exactly reproduce the stored T1 composite OOF.",
+      "observed": 0.0
+    },
+    {
+      "name": "recomputed_composite_metric_matches_json",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Recomputed composite metrics must match the stored canonical T1 iter12 JSON.",
+      "observed": {
+        "recomputed": {
+          "n": 94,
+          "ccc": 0.655,
+          "cal_slope": 0.4827,
+          "mae": 1.5614,
+          "r": 0.7012,
+          "pred_mean": 4.081,
+          "pred_std": 1.938,
+          "true_mean": 4.106,
+          "true_std": 2.815,
+          "label": "t1_iter12_batch_integrity"
+        },
+        "stored": {
+          "n": 94,
+          "ccc": 0.655,
+          "mae": 1.5614
+        }
+      }
+    },
+    {
+      "name": "recomputed_composite_metric_matches_canonical_expected",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Recomputed composite metrics must match the canonical AGENTS.md / CLAUDE.md T1 iter12 numbers.",
+      "observed": {
+        "n": 94,
+        "ccc": 0.655,
+        "cal_slope": 0.4827,
+        "mae": 1.5614,
+        "r": 0.7012,
+        "pred_mean": 4.081,
+        "pred_std": 1.938,
+        "true_mean": 4.106,
+        "true_std": 2.815,
+        "label": "t1_iter12_batch_integrity"
+      }
+    },
+    {
+      "name": "single_coherent_iter8_batch",
+      "passed": true,
+      "severity": "hard",
+      "detail": "Composite preregistration must use only one timestamped iter8 batch.",
+      "observed": {
+        "9": "lockbox_peritem_9_hy_residual_item_20260430_143044.oof.npy",
+        "10": "lockbox_peritem_10_item_plus_v2_20260430_143044.oof.npy",
+        "11": "lockbox_peritem_11_item_dedicated_20260430_143044.oof.npy",
+        "12": "lockbox_peritem_12_item_plus_v2_20260430_143044.oof.npy",
+        "13": "lockbox_peritem_13_item_plus_v2_20260430_143044.oof.npy",
+        "14": "lockbox_peritem_14_item_plus_v2_20260430_143044.oof.npy"
+      }
+    }
+  ],
+  "interpretation": "PASS means the canonical T1 iter12 composite is exactly reproducible from six fixed per-item OOF arrays in the single iter8 batch 20260430_143044. It does not upgrade the metric; it confirms coherent provenance for the current honest T1 floor."
+}

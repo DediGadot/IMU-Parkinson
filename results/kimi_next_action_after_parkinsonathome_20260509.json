@@ -1,0 +1,35 @@
+{
+  "created_at_utc": "2026-05-09T11:42:52Z",
+  "advisor": "kimi",
+  "context": "Post-Parkinson@Home hard stop and remaining-blocker audit",
+  "input_summary": {
+    "local_weargait_only_model_actions_remaining": 0,
+    "blockers_classified": 36,
+    "public_external_routes_status": "exhausted_or_document_only_or_scoring_hard_stopped",
+    "active_goal_complete": false
+  },
+  "recommendation": {
+    "model_action_justified": false,
+    "single_next_non_redundant_action": "Submit the PPMI / Verily Study Watch qualified-researcher DUA application.",
+    "runbook": "scripts/ppmi_verily_setup.md",
+    "rationale": [
+      "PPMI / Verily is the top-ranked gated external route in the external access readiness audit.",
+      "It is wrist-native and linked to MDS-UPDRS Part III labels, making it the highest-value remaining route to new labeled data.",
+      "All local WearGait-only and currently public external modeling routes are closed, failed, document-only, or hard-stopped for the active ceiling-break objective.",
+      "No scaffold, preregistration, download, or remote job is justified until access and row-level schema are confirmed."
+    ],
+    "fallback_if_ppmi_already_pending": {
+      "action": "Submit the WATCH-PD C-Path 3DT or Steering Committee access request.",
+      "runbook": "scripts/watchpd_request_setup.md"
+    }
+  },
+  "negative_guidance": [
+    "Do not launch another WearGait-only T1/T3 model family without new data or a pre-registered new target representation.",
+    "Do not rerun dead screens or the Parkinson@Home iter53 policy under the same preregistration.",
+    "Do not synthesize clean cache manifests without raw-data restoration."
+  ],
+  "tool_friction": {
+    "claude": "available but failed due low credit",
+    "glmcode": "not found on PATH"
+  }
+}

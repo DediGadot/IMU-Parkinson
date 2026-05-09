@@ -1,9 +1,11 @@
 ---
-description: Generate or update the academic paper targeting Nature journals. Asks whether to start from scratch or update the existing manuscript. Reads memory files and all experiment results, generates publication-quality figures with deep statistical analysis, writes self-contained HTML manuscript, and runs 3 peer-review improvement cycles. ALWAYS use this skill when the user asks to update the paper, regenerate the paper, improve the paper, work on the manuscript, prepare for submission, or mentions the paper in any context requiring manuscript work. This is the primary paper generation pipeline — use it proactively even if the user just says something like "paper" or "let's work on the write-up".
+description: LEGACY PRE-AUDIT paper workflow. Do not use for current manuscript work. Current paper work must use render_current_paper.py, paper.md, CURRENT_PAPER.html, and results/current_paper_export/manifest.json.
 allowed-tools: [Read, Write, Edit, Bash, Grep, Glob, Agent, AskUserQuestion]
 ---
 
-# Update Paper — Subagent-Orchestrated Manuscript Generator
+# Update Paper — Legacy Pre-Audit Manuscript Generator
+
+> **Current-route warning:** This command is retained only for historical archaeology. It contains stale pre-leakage assumptions and `NEW.html` / `generate_paper.py` routing. For current post-audit manuscript work, edit `paper.md` and run `uv run python render_current_paper.py`, which writes `CURRENT_PAPER.html` and validates `results/current_paper_export/manifest.json`. Do not use this file as the current manuscript pipeline.
 
 You are the ORCHESTRATOR. You do NOT do the heavy lifting yourself. You spawn focused subagents for each phase, collect their outputs, and chain them together. This prevents token exhaustion.
 
@@ -27,7 +29,7 @@ The paper's core contributions:
 
 **Source:** `results/temperature_per_target.json`
 
-**Manuscript file: `/home/fiod/medical/NEW.html`** — this is the authoritative manuscript. Always read and edit this file.
+**Legacy manuscript file: `/home/fiod/medical/NEW.html`** — historical/pre-audit archaeology only. The authoritative current manuscript export is `/home/fiod/medical/CURRENT_PAPER.html`, generated from `paper.md` by `render_current_paper.py`.
 
 ## ORCHESTRATION PLAN
 

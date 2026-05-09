@@ -1,0 +1,184 @@
+{
+  "headline": {
+    "n": 98,
+    "ccc": 0.5227,
+    "mae": 7.525,
+    "r": 0.5485,
+    "cal_slope": 0.4018
+  },
+  "artifact_sources": {
+    "lockbox": "results/lockbox_t3_iter5_A3_tier1_20260502_171604.json",
+    "loso": "results/t3_iter16_site_ipw_lockbox.json",
+    "conformal": "results/t3_conformal_abstention_20260505.json"
+  },
+  "residual_corr_with_true": -0.698731305814378,
+  "overall": {
+    "n": 98,
+    "ccc": 0.5227196905523989,
+    "mae": 7.524970579083728,
+    "r": 0.5485304056695832,
+    "bias_pred_minus_true": 0.30375911088833213,
+    "pred_std": 7.972688083310188,
+    "true_std": 10.884292623127722
+  },
+  "quartile_rows": [
+    {
+      "quartile": "Q1 low",
+      "n": 26,
+      "true_mean": 11.307692307692308,
+      "pred_mean": 21.064345320010503,
+      "residual_mean": 9.756653012318193,
+      "mae": 9.756653012318193
+    },
+    {
+      "quartile": "Q2",
+      "n": 29,
+      "true_mean": 22.0,
+      "pred_mean": 22.26896755340263,
+      "residual_mean": 0.268967553402629,
+      "mae": 5.797736743919358
+    },
+    {
+      "quartile": "Q3",
+      "n": 18,
+      "true_mean": 27.72222222222222,
+      "pred_mean": 25.421802435015138,
+      "residual_mean": -2.3004197872070815,
+      "mae": 4.4112068397725785
+    },
+    {
+      "quartile": "Q4 high",
+      "n": 25,
+      "true_mean": 38.48,
+      "pred_mean": 30.868116466713392,
+      "residual_mean": -7.611883533286609,
+      "mae": 9.449521989614588
+    }
+  ],
+  "site_rows": [
+    {
+      "site": "NLS",
+      "n": 70,
+      "ccc": 0.5536237012088352,
+      "mae": 7.591341662149928,
+      "r": 0.5967007588473072,
+      "bias_pred_minus_true": 0.3976156221917995,
+      "pred_std": 7.979750067076566,
+      "true_std": 11.784458807588708
+    },
+    {
+      "site": "WPD",
+      "n": 28,
+      "ccc": 0.2604502719635073,
+      "mae": 7.359042871418232,
+      "r": 0.2609046895562477,
+      "bias_pred_minus_true": 0.06911783262966338,
+      "pred_std": 7.048232546324122,
+      "true_std": 7.471288581043065
+    }
+  ],
+  "loso": {
+    "NLS_to_WPD_mean_ccc": 0.4192,
+    "WPD_to_NLS_mean_ccc": 0.2627,
+    "two_way_mean": 0.341,
+    "loocv_minus_loso_two_way": 0.18170000000000003
+  },
+  "largest_errors": [
+    {
+      "sid": "NLS201",
+      "site": "NLS",
+      "y_true": 59.0,
+      "y_pred": 34.153596833377215,
+      "residual": -24.846403166622785,
+      "abs_error": 24.846403166622785
+    },
+    {
+      "sid": "WPD019",
+      "site": "WPD",
+      "y_true": 25.0,
+      "y_pred": 1.5398743972267885,
+      "residual": -23.46012560277321,
+      "abs_error": 23.46012560277321
+    },
+    {
+      "sid": "NLS121",
+      "site": "NLS",
+      "y_true": 11.0,
+      "y_pred": 32.0995210729671,
+      "residual": 21.0995210729671,
+      "abs_error": 21.0995210729671
+    },
+    {
+      "sid": "NLS173",
+      "site": "NLS",
+      "y_true": 38.0,
+      "y_pred": 18.367883883968634,
+      "residual": -19.632116116031366,
+      "abs_error": 19.632116116031366
+    },
+    {
+      "sid": "NLS141",
+      "site": "NLS",
+      "y_true": 17.0,
+      "y_pred": 36.58580194922762,
+      "residual": 19.585801949227623,
+      "abs_error": 19.585801949227623
+    },
+    {
+      "sid": "NLS033",
+      "site": "NLS",
+      "y_true": 31.0,
+      "y_pred": 49.59346894681812,
+      "residual": 18.59346894681812,
+      "abs_error": 18.59346894681812
+    },
+    {
+      "sid": "WPD023",
+      "site": "WPD",
+      "y_true": 13.0,
+      "y_pred": 30.482241537361215,
+      "residual": 17.482241537361215,
+      "abs_error": 17.482241537361215
+    },
+    {
+      "sid": "NLS146",
+      "site": "NLS",
+      "y_true": 10.0,
+      "y_pred": 26.328117763006272,
+      "residual": 16.328117763006272,
+      "abs_error": 16.328117763006272
+    },
+    {
+      "sid": "NLS172",
+      "site": "NLS",
+      "y_true": 10.0,
+      "y_pred": 25.483946822507964,
+      "residual": 15.483946822507964,
+      "abs_error": 15.483946822507964
+    },
+    {
+      "sid": "NLS101",
+      "site": "NLS",
+      "y_true": 14.0,
+      "y_pred": 28.747030799130496,
+      "residual": 14.747030799130496,
+      "abs_error": 14.747030799130496
+    },
+    {
+      "sid": "NLS183",
+      "site": "NLS",
+      "y_true": 14.0,
+      "y_pred": 28.718227711479415,
+      "residual": 14.718227711479415,
+      "abs_error": 14.718227711479415
+    },
+    {
+      "sid": "NLS159",
+      "site": "NLS",
+      "y_true": 39.0,
+      "y_pred": 24.593109802758438,
+      "residual": -14.406890197241562,
+      "abs_error": 14.406890197241562
+    }
+  ]
+}

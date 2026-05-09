@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-05-06T05:15:22.705868",
+  "n": 94,
+  "seed": 42,
+  "P0_baseline": {
+    "ccc": 0.7049185493678503,
+    "expected_iter30b_seed42": 0.7049
+  },
+  "P1_sid_permutation": {
+    "ccc": 0.37409966594717453,
+    "leak_threshold": 0.15,
+    "leaks": true
+  },
+  "P2_noisy_test_x": {
+    "ccc": 0.5529502640671813
+  },
+  "P3_stage1_only": {
+    "ccc": 0.5724059961407503
+  },
+  "stage2_contribution": 0.13251255322709998,
+  "verdict": {
+    "P1_pass": false,
+    "P2_pass": true,
+    "stage2_lift": 0.13251255322709998
+  }
+}

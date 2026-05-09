@@ -1,0 +1,15 @@
+
+=== T1 iter29-C SCREEN: CCC-direct LGB (F50 v2 fixes) on T1 (5-fold, feature_set=A3_tier1, 3 seeds) ===
+
+  variant=with_stage1 seed=42: ccc-direct CCC=0.5864 | iter5-direct CCC=0.6579 | Δ=-0.0715 | MAE=1.717 | r=0.6163 | 605.1s
+  variant=with_stage1 seed=1337: ccc-direct CCC=0.5466 | iter5-direct CCC=0.6773 | Δ=-0.1307 | MAE=1.799 | r=0.5717 | 732.3s
+  variant=with_stage1 seed=7: ccc-direct CCC=0.5674 | iter5-direct CCC=0.6364 | Δ=-0.0690 | MAE=1.728 | r=0.5931 | 783.1s
+  variant=no_stage1 seed=42: ccc-direct CCC=0.1647 | iter5-direct CCC=0.6579 | Δ=-0.4932 | MAE=1.986 | r=0.3735 | 770.9s
+  variant=no_stage1 seed=1337: ccc-direct CCC=0.1998 | iter5-direct CCC=0.6773 | Δ=-0.4775 | MAE=2.040 | r=0.4118 | 796.6s
+  variant=no_stage1 seed=7: ccc-direct CCC=0.2089 | iter5-direct CCC=0.6364 | Δ=-0.4276 | MAE=1.939 | r=0.4803 | 779.0s
+
+[with_stage1] Mean ccc-direct CCC = 0.5668 ± 0.0199; Mean iter5-direct CCC = 0.6572 ± 0.0205; Δ̄ = -0.0904
+
+[no_stage1] Mean ccc-direct CCC = 0.1911 ± 0.0233; Mean iter5-direct CCC = 0.6572 ± 0.0205; Δ̄ = -0.4661
+Wrote /root/pd-imu/results/iter29c_ccc_direct_5fold_20260505_204606.csv
+      /root/pd-imu/results/iter29c_ccc_direct_5fold_20260505_204606.oof.json

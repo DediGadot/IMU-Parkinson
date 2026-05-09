@@ -1,0 +1,105 @@
+{
+  "timestamp": "20260508_110847",
+  "iso_datetime": "2026-05-08T11:08:47.123174",
+  "experiment": "T1 iter36 Probe D \u2014 chain-pool phase-locked injection LOCKBOX",
+  "git_head": "unknown",
+  "formula_sha256": "169d280f8a00546918a9e592b59ab756e17a39ff2ad95454cca42ec30dd6ce11",
+  "formula": {
+    "experiment": "T1 iter36 Probe D \u2014 chain-pool phase-locked injection. 8-item auxiliary chain \u00d7 multi-base ensemble {LGB, XGB-hist, ExtraTrees} operating on V2 \u2295 phase-locked-item9 \u2295 phase-locked-item12 augmented pool.",
+    "is_post_publication_replication_target": false,
+    "family_membership": "iter36 Probe D first slot. Family budget = ceiling-push set; pre-publication probe of iter34 0.7366 ceiling. Single config per slot.",
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects_min": 88,
+      "filter": "PD with full items 9-14, 15, 18 (iter33-B 8-item filter, N=93) INTERSECT subjects present in BOTH phase-locked caches (NLS056 dropped \u2014 slot-C extraction missed it). Final N=92."
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "T1 (sum items 9-14)"
+    },
+    "stage2": {
+      "model_ensemble": [
+        "RegressorChain(LGBMRegressor n=500, lr=0.05, num_leaves=15, min_data=10)",
+        "RegressorChain(XGBRegressor hist, n=500, lr=0.05, depth=4, min_child=5)",
+        "RegressorChain(ExtraTreesRegressor n=300, max_depth=10, min_leaf=5)"
+      ],
+      "ensemble_method": "average chain-output across 3 bases per fold per seed",
+      "items_targets_chain": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18
+      ],
+      "items_summed_for_t1": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "auxiliary_items": [
+        15,
+        18
+      ],
+      "item_target_centering": "subtract per-fold train_mean(item)",
+      "feature_pool_augmentation": "X_aug = hstack(X_v2 [1751 cols], phaselocked_item9_features.csv [11 cols], phaselocked_item12_features.csv [12 cols]) \u2192 1774 cols total. Phase-locked features manifest-clean (label-free; deterministic from raw IMU).",
+      "feature_select_method": "lgb_importance_top_k_per_fold",
+      "feature_select_k": 500,
+      "feature_select_input_dim": 1774,
+      "imputation": "fold_local_median",
+      "post_combine_formula": "Stage1_pred + (sum_over_T1_SUM_ITEMS(mean_over_bases(item_pred) + train_mean) - sum(train_mean[T1_SUM_ITEMS]))  -- aux items 15,18 used in chain fit only",
+      "decorrelation_argument": "iter34 hybrid (F70) gives 0.7366 LOOCV via 8-item chain \u00d7 3-base ensemble. Slot-C 5-fold per-item screens confirmed pl9 \u2192 item-9 +0.382 and pl12 \u2192 item-12 +0.543 (huge per-item lifts), but slot-C COMPOSITE failed because REPLACEMENT broke chain coupling. Probe D INJECTS phase-locked features into the V2 pool inside the chain \u2014 chain coupling preserved, K=500 selector decides per-fold whether the new features dominate. Independent from F35-C (replacement) and from F19/F44/F45/F48/F51 wall (those were wide additions in V2-only architectures, NOT chain-aware injection).",
+      "phase_locked_caches": {
+        "pl9_csv": "results/phaselocked_item9_features.csv",
+        "pl12_csv": "results/phaselocked_item12_features.csv",
+        "n_pl9_cols": 11,
+        "n_pl12_cols": 12,
+        "manifest_clean": true
+      }
+    },
+    "eval": {
+      "loocv_n_min": 90,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "bases": [
+        "lgb",
+        "xgb",
+        "et"
+      ],
+      "headline_metric": "CCC of mean-of-3-seed predictions vs y_t1",
+      "comparator_iter5_direct_loocv": "computed live in same SID-aligned LOOCV",
+      "comparator_iter34_loocv_oof": "results/lockbox_t1_iter34_hybrid_20260506_141720.json (per_subject block)",
+      "comparator_iter12_honest": "results/lockbox_t1_iter12_honest_*.json or recompute on N=93 cohort"
+    },
+    "lockbox_rules": [
+      "Single pre-registered config; ONE 5-fold screen + ONE LOOCV run.",
+      "Promotion gate: \u0394\u0304 vs iter34 5-fold \u2265 +0.025 across 3 seeds AND scrambled-label P1 z>3.",
+      "If screen passes: run LOOCV; paired bootstrap vs iter34 lockbox + iter12-honest-N=93.",
+      "Strict gate (Bonferroni n=6, alpha 0.05): paired-bootstrap frac>0 \u2265 0.99 vs BOTH baselines.",
+      "Nominal gate: paired-bootstrap frac>0 \u2265 0.95 vs BOTH baselines.",
+      "PASS-canonical: strict gate clears. PASS-candidate: nominal clears. FAIL otherwise."
+    ]
+  },
+  "variant": "probeD_chainpool_phaselocked",
+  "is_post_publication_replication_target": false,
+  "family_membership": "iter36 ceiling-push first probe; pre-publication; single config per slot.",
+  "eval_protocol": "5-fold screen \u00d7 3 seeds first (gate \u0394\u0304 vs iter34 \u2265 +0.025). If gate passes, LOOCV on T1\u2229{15,18} cohort (N\u224893) \u00d7 3 seeds. Stage-1 Ridge (alpha=1.0) on H&Y + cv_yrs + cv_sex + cv_dbs with per-fold standardisation. Stage-2 = mean chain prediction over 3 base learners (LGB, XGB-hist, ExtraTrees), each RegressorChain with random order over 8 items {9,10,11,12,13,14,15,18}, on V2 \u2295 phase-locked-item9 \u2295 phase-locked-item12 augmented pool (1774 cols). T1 = sum predictions for items 9-14; items 15+18 auxiliary in fit only. K=500 LGB-importance feature selection per fold. 3-seed mean preds = headline."
+}

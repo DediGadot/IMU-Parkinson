@@ -1,4 +1,12 @@
-"""generate_paper_v6.py — Honest cautionary-benchmark paper for WearGait-PD UPDRS-III regression.
+"""STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.
+
+This legacy generator predates the iter47 target correction and README/current
+paper route. Use render_current_paper.py -> CURRENT_PAPER.html for current
+claims. Current anchors live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1
+candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims
+are target-contaminated or superseded.
+
+generate_paper_v6.py — Honest cautionary-benchmark paper for WearGait-PD UPDRS-III regression.
 
 Builds the manuscript NEW6.html around the user-approved framing in
 .paper_build/narrative_alignment.md. Reads the three canonical pre-registered

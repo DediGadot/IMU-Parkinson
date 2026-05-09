@@ -2,7 +2,7 @@
 for items {9, 10, 12, 14}; items {11, 13} reuse iter8 OOFs unchanged.
 
 Hypothesis: 2048-d frozen HARNet embeddings (mean ⊕ std across walking-task
-recordings, manifest-verified leakage-clean by construction) concatenated to
+recordings; now requires concrete manifest provenance before reuse) concatenated to
 the V2-augmented X for the 4 most observable T1 items raises the T1 sum
 5-fold CCC by ≥ +0.025 with sum seed std < 0.020 across 5 seeds.
 
@@ -26,6 +26,12 @@ Usage (remote):
   python3 compose_t1_iter15_harnet.py --mode lockbox
       LOOCV (5 seeds, mean preds) on items 9, 10, 12, 14 with HARNet aug.
       Items 11, 13 reuse iter8 OOFs. Writes pre-reg JSON + lockbox files.
+
+2026-05-08 provenance hardening/backfill: the historical local
+results/harnet_subj_embeddings.csv.manifest.json initially had git_sha="unknown".
+It was later backfilled from matching script_sha256 evidence at commit d281a0e,
+so require_cache_manifest can validate it again. Historical iter15 results
+remain negative.
 """
 from __future__ import annotations
 
@@ -49,6 +55,7 @@ REPO_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from inductive_lib import ccc as ccc_fn, full_metrics
+from cache_provenance import require_cache_manifest
 from project_paths import RESULTS_DIR, ensure_dir
 from run_t1_iter4 import (
     feature_select_fold,
@@ -85,20 +92,7 @@ GATE_T1_SUM_STD = 0.020    # required maximum seed std at 5-fold for fog_aug
 
 
 def _verify_harnet_manifest() -> dict:
-    if not HARNET_MANIFEST.exists():
-        raise FileNotFoundError(
-            f"Missing manifest sidecar: {HARNET_MANIFEST}. "
-            "Per skill rule, caches without manifests cannot feed inductive headlines."
-        )
-    with open(HARNET_MANIFEST) as f:
-        m = json.load(f)
-    if m.get("labels_used", True):
-        raise RuntimeError("HARNet manifest reports labels_used=True; cache is not feature-safe.")
-    if m.get("leakage_status") != "clean_by_construction":
-        raise RuntimeError(
-            f"HARNet manifest leakage_status={m.get('leakage_status')!r} != clean_by_construction."
-        )
-    return m
+    return require_cache_manifest(HARNET_CACHE)
 
 
 def load_harnet_features(sids: np.ndarray) -> np.ndarray:
@@ -328,8 +322,7 @@ def lockbox(d: dict, harnet_features: np.ndarray, out_json: Path) -> None:
 
     # Pre-registration FIRST (per skill rule).
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    with open(HARNET_MANIFEST) as f:
-        harnet_data_sha = json.load(f)["data_sha256"]
+    harnet_data_sha = _verify_harnet_manifest()["declared_data_sha256"]
     prereg = {
         "timestamp": ts,
         "iso_datetime": datetime.now().isoformat(),

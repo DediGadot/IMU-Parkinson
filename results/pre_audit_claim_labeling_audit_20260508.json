@@ -1,0 +1,28 @@
+{
+  "generated_at_utc": "2026-05-09T07:52:17+00:00",
+  "script": "audit_pre_audit_claim_labeling.py",
+  "policy": "Old held-out/stacking/ceiling claims must be locally labeled as pre-audit, historical, original, retained, or no longer deployment evidence.",
+  "passed": true,
+  "claim_patterns": [
+    "approaching_clinical_utility",
+    "ceiling_6_43",
+    "ceiling_r_0_848",
+    "mae_6_89",
+    "most_rigorous",
+    "proper_held_out",
+    "r_0_860"
+  ],
+  "findings": [],
+  "docs": [
+    {
+      "path": "paper.md",
+      "findings": [],
+      "n_findings": 0
+    },
+    {
+      "path": "CURRENT_PAPER.html",
+      "findings": [],
+      "n_findings": 0
+    }
+  ]
+}

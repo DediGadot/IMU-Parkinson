@@ -1,0 +1,15 @@
+
+=== T1 iter32 ENSEMBLE LOCKBOX LOOCV (3 seeds, N=94, orders=('random', 'clinical', 'correlation')) ===
+    seed=42 fold 10/94  elapsed=178s
+    seed=42 fold 20/94  elapsed=357s
+    seed=42 fold 30/94  elapsed=535s
+    seed=42 fold 40/94  elapsed=713s
+    seed=42 fold 50/94  elapsed=892s
+    seed=42 fold 60/94  elapsed=1070s
+    seed=42 fold 70/94  elapsed=1248s
+    seed=42 fold 80/94  elapsed=1426s
+    seed=42 fold 90/94  elapsed=1604s
+  seed=42: ENS=0.7089 | i5=0.6698 | Δ=+0.0391 | 1946s
+    seed=1337 fold 10/94  elapsed=185s
+    seed=1337 fold 20/94  elapsed=368s
+    seed=1337 fold 30/94  elapsed=552s

@@ -1,0 +1,84 @@
+{
+  "generated_at_utc": "2026-05-09T11:37:30+00:00",
+  "script": "audit_canonical_claim_consistency.py",
+  "policy": "Old T3 numbers may appear only when labelled historical, superseded, target-contaminated, retracted, archived, or time-local.",
+  "current_expected": {
+    "t1_canonical_ccc": "0.6550",
+    "t1_candidate_ccc": "0.7366",
+    "t3_current_ccc": "0.3784",
+    "t3_loso_ccc": "0.150"
+  },
+  "stale_numbers": {
+    "0.5227": "old iter5 T3 target-contaminated LOOCV",
+    "0.341": "old iter16 target-contaminated/historical LOSO",
+    "0.3948": "iter41 all-missing-only correction superseded by iter47"
+  },
+  "passed": true,
+  "stale_findings": [],
+  "missing_required_snippets": [],
+  "docs": [
+    {
+      "path": "CLAUDE.md",
+      "bytes": 104111,
+      "current_scope_lines": 357,
+      "stale_findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 77314,
+      "current_scope_lines": 154,
+      "stale_findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "paper.md",
+      "bytes": 126332,
+      "current_scope_lines": 715,
+      "stale_findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "CURRENT_PAPER.html",
+      "bytes": 152163,
+      "current_scope_lines": 3191,
+      "stale_findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "task_plan.md",
+      "bytes": 210495,
+      "current_scope_lines": 295,
+      "stale_findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "progress.md",
+      "bytes": 294736,
+      "current_scope_lines": 148,
+      "stale_findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "findings.md",
+      "bytes": 458594,
+      "current_scope_lines": 1973,
+      "stale_findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "results/thread_goal_completion_audit_20260508.md",
+      "bytes": 60069,
+      "current_scope_lines": 151,
+      "stale_findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "results/current_best_pipeline_artifact_index_20260508.md",
+      "bytes": 69087,
+      "current_scope_lines": 433,
+      "stale_findings": [],
+      "missing_required_snippets": []
+    }
+  ]
+}

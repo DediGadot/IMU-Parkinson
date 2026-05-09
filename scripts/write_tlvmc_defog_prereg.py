@@ -1,0 +1,364 @@
+"""Write the pre-model TLVMC/DeFOG zero-shot preregistration.
+
+This is deliberately a preregistration-only helper. It does not download raw
+sensor files and does not train or score a model.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+import subprocess
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+
+ROOT = Path(__file__).resolve().parents[1]
+RESULTS = ROOT / "results"
+STABLE_PREREG = RESULTS / "preregistration_t3_iter51_tlvmc_defog_zeroshot.json"
+
+
+def canonical_sha(payload: dict[str, Any]) -> str:
+    body = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str)
+    return hashlib.sha256(body.encode("utf-8")).hexdigest()
+
+
+def git_sha() -> str:
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except Exception:
+        return "unknown"
+
+
+def build_formula() -> dict[str, Any]:
+    return {
+        "experiment": "t3_iter51_tlvmc_defog_external_zeroshot",
+        "purpose": (
+            "External transportability and paper-rigor evidence only. This does "
+            "not update WearGait-PD internal T3 CCC and does not create a "
+            "deployment headline."
+        ),
+        "current_internal_anchor": {
+            "target": "T3 valid-range corrected total MDS-UPDRS Part III",
+            "script": "run_t3_iter47_invalid_code_fix.py --mode run",
+            "loocv_ccc": 0.3784,
+            "loocv_mae": 7.5280,
+            "n": 95,
+            "note": "This remains the internal WearGait-PD T3 truth regardless of TLVMC/DeFOG outcome.",
+        },
+        "external_dataset": {
+            "name": "TLVMC / DeFOG Parkinson's Freezing of Gait Prediction",
+            "zenodo_record": "10959560",
+            "zenodo_doi": "10.5281/zenodo.10959560",
+            "kaggle_competition": "tlvmc-parkinsons-freezing-gait-prediction",
+            "license": "CC-BY-4.0",
+            "publication": "Nature Communications 2024 TLVMC FoG competition paper",
+            "metadata_probe": "results/tlvmc_fog_route_probe_20260509.json",
+            "public_raw_subset_for_primary": "train/defog/*.csv",
+            "sensor": "lower-back/trunk tri-axial accelerometer",
+            "raw_columns": [
+                "Time",
+                "AccV",
+                "AccML",
+                "AccAP",
+                "StartHesitation",
+                "Turn",
+                "Walking",
+                "Valid",
+                "Task",
+            ],
+            "available_clinical_columns": [
+                "Subject",
+                "Visit",
+                "Age",
+                "Sex",
+                "YearsSinceDx",
+                "UPDRSIII_On",
+                "UPDRSIII_Off",
+                "NFOGQ",
+            ],
+        },
+        "probe_counts_frozen_before_modeling": {
+            "subjects_csv_rows": 173,
+            "unique_subjects": 136,
+            "rows_with_any_updrsiii": 173,
+            "updrsiii_on_n": 172,
+            "updrsiii_off_n": 132,
+            "defog_recordings_with_medication_matched_target": 137,
+            "defog_subjects": 45,
+            "defog_subject_visits": 70,
+            "defog_on_records": 69,
+            "defog_off_records": 68,
+            "defog_on_subjects": 45,
+            "defog_off_subjects": 44,
+            "defog_on_subject_visits": 69,
+            "defog_off_subject_visits": 68,
+            "daily_visit_level_targets_excluded_primary": 65,
+            "tdcsfog_joined_updrsiii_targets": 0,
+        },
+        "fixed_battery": {
+            "primary_external_target": {
+                "name": "DeFOG OFF-state T3",
+                "definition": (
+                    "Use only defog_metadata rows with Medication == 'off' and "
+                    "non-missing UPDRSIII_Off after Subject/Visit join."
+                ),
+                "expected_n_records": 68,
+                "expected_n_subjects": 44,
+                "unit_of_analysis": (
+                    "Subject/Visit/Medication. If a future raw-data parse yields "
+                    "multiple files for the same unit, aggregate predictions by median "
+                    "before computing headline metrics."
+                ),
+            },
+            "predeclared_sensitivities": [
+                {
+                    "name": "ON-state T3",
+                    "definition": "Medication == 'on' scored against UPDRSIII_On.",
+                    "expected_n_records": 69,
+                    "expected_n_subjects": 45,
+                },
+                {
+                    "name": "Medication-matched pooled T3",
+                    "definition": "Pool ON and OFF subject/visit/medication rows; use ON labels for ON rows and OFF labels for OFF rows.",
+                    "expected_n_records": 137,
+                    "expected_n_subjects": 45,
+                },
+                {
+                    "name": "Subject-visit mean-state T3",
+                    "definition": (
+                        "Within each Subject/Visit, average available ON/OFF predictions "
+                        "and average available ON/OFF targets; report as a robustness "
+                        "summary, not the primary metric."
+                    ),
+                    "expected_n_subject_visits": 70,
+                },
+            ],
+            "weargait_training_source": {
+                "cohort": "WearGait-PD valid-range corrected T3 PD cohort",
+                "expected_n": 95,
+                "labels": "valid-range corrected MDS-UPDRS Part III total from iter47",
+                "tasks": ["TUG", "SelfPace", "HurriedPace"],
+                "sensor_primary": "LowerBack_Acc_X/Y/Z",
+                "sensor_stress_test": "R_Wrist_Acc_X/Y/Z only if lower-back extraction succeeds",
+                "training_side_qc": (
+                    "Any WearGait-only CV metric for this low-dimensional feature "
+                    "schema is a training-side QC diagnostic, not a new internal "
+                    "ceiling-break result."
+                ),
+            },
+            "raw_signal_policy": {
+                "defog_axes": {
+                    "AccV": "vertical",
+                    "AccML": "mediolateral",
+                    "AccAP": "anteroposterior",
+                },
+                "sampling_rate_hz": 100,
+                "unit_assertion": (
+                    "Infer acceleration units before feature extraction. If median "
+                    "raw magnitude over Valid rows is 0.5-2.0, convert g to m/s^2 "
+                    "with 9.80665. If it is 5-15, treat as m/s^2. Otherwise stop "
+                    "and document the preflight failure."
+                ),
+                "row_mask_primary": "Valid == 1 and Task == 1",
+                "row_mask_sensitivity": "Valid == 1 regardless of Task",
+                "excluded_privileged_columns": ["StartHesitation", "Turn", "Walking"],
+                "excluded_clinical_columns_for_zero_shot": ["NFOGQ", "UPDRSIII_On", "UPDRSIII_Off"],
+            },
+            "feature_policy": {
+                "primary": (
+                    "Magnitude-only lower-back accelerometry features shared with "
+                    "WearGait: time-domain and frequency-domain summaries over "
+                    "non-overlapping 5-second windows, then median/IQR aggregation "
+                    "to the subject/visit/medication unit."
+                ),
+                "allowed_primary_feature_families": [
+                    "mean",
+                    "std",
+                    "rms",
+                    "iqr",
+                    "range",
+                    "skew",
+                    "kurtosis",
+                    "jerk_rms",
+                    "dominant_frequency",
+                    "spectral_entropy",
+                    "bandpower_0p5_3hz",
+                    "bandpower_3_8hz",
+                    "bandpower_8_20hz",
+                ],
+                "axis_features_sensitivity": (
+                    "Axis-specific V/ML/AP versus WearGait X/Y/Z features may be "
+                    "reported only as a predeclared sensitivity. Magnitude-only "
+                    "features remain the primary headline because sensor frames "
+                    "are not guaranteed to align."
+                ),
+                "normalization": (
+                    "Fit imputers/scalers only on WearGait training data for "
+                    "zero-shot tracks. No DeFOG distribution fitting except the "
+                    "predeclared target-free unit conversion check."
+                ),
+            },
+            "tracks": {
+                "A_zero_shot_lumbar_acc_magnitude": {
+                    "train": "WearGait-PD only, LowerBack accelerometer magnitude features",
+                    "test": "DeFOG lower-back accelerometer magnitude features",
+                    "model": "Ridge regression and LightGBM with fixed seeds [42, 1337, 7]; mean prediction reported if both models are retained by predeclared training-side QC",
+                    "labels_used_for_training": False,
+                    "primary_metric": "CCC on DeFOG OFF-state subject/visit/medication units",
+                    "claim": "WearGait-to-DeFOG zero-shot lower-back transportability",
+                },
+                "B_zero_shot_wrist_to_lumbar_stress": {
+                    "train": "WearGait-PD only, right-wrist accelerometer magnitude features",
+                    "test": "DeFOG lower-back accelerometer magnitude features",
+                    "model": "same fixed model class/seeds as Track A",
+                    "labels_used_for_training": False,
+                    "primary_metric": "CCC on DeFOG OFF-state subject/visit/medication units",
+                    "claim": "cross-sensor stress test only; expected to underperform Track A",
+                },
+                "C_defog_only_loso_sanity": {
+                    "train": "DeFOG training subjects only",
+                    "test": "held-out DeFOG subjects",
+                    "model": "subject-grouped leave-one-subject-out Ridge on the same primary magnitude features",
+                    "labels_used_for_training": True,
+                    "primary_metric": "CCC on DeFOG OFF-state units",
+                    "claim": "within-DeFOG feasibility ceiling, not external transportability",
+                },
+            },
+        },
+        "metrics_and_intervals": {
+            "primary_metric": "Concordance correlation coefficient (CCC)",
+            "secondary_metrics": ["MAE", "Pearson r", "calibration slope"],
+            "confidence_intervals": "10,000-iteration subject-cluster bootstrap; cluster key = Subject",
+            "record_level_metrics": "diagnostic only; never the headline if repeated subject/visit/medication units appear",
+        },
+        "null_sanity_checks": [
+            "Scrambled-label null for Track C: permute DeFOG OFF targets before subject-grouped LOSO; expected CCC near 0.",
+            "Subject/visit target-shuffle null for Tracks A/B after prediction; expected CCC near 0.",
+            "SID-shuffle-before-join audit: shuffle DeFOG Subject identifiers before joining subjects.csv and verify target linkage collapses or metrics become null.",
+            "Test-only canary feature: append one random normal feature to DeFOG only and verify zero-shot model ignores it because it is absent from WearGait training columns.",
+            "Transductive sanity variant for DeFOG: train and test on all DeFOG OFF units only to verify feature extraction is nonblank; label explicitly transductive and diagnostic.",
+        ],
+        "leakage_guards": [
+            "DeFOG labels never enter WearGait model training, hyperparameter selection, feature selection, scaling, or calibration for Tracks A/B.",
+            "No DeFOG fine-tuning, calibration, threshold tuning, outlier trimming, task cherry-picking, or axis flipping based on Track A/B metrics.",
+            "No target-driven filtering beyond the predeclared Subject/Visit/Medication join and missing-target exclusion.",
+            "FoG event labels StartHesitation, Turn, and Walking are never used as model features for zero-shot tracks.",
+            "NFOGQ is not used in zero-shot tracks because it is an external clinical FoG questionnaire and target-adjacent.",
+            "Track C and transductive variants are explicitly diagnostic and must not be described as external transportability.",
+            "No internal WearGait-PD T3 canonical update is allowed from this experiment under any outcome.",
+        ],
+        "preflight_stop_rules": [
+            "Stop if Kaggle metadata cannot be parsed without manual clinical-label inference.",
+            "Stop if DeFOG OFF usable units after row masking fall below 40.",
+            "Stop if acceleration unit/scale cannot be classified as g or m/s^2 by the predeclared magnitude check.",
+            "Stop if fewer than 20 common magnitude feature columns are produced for WearGait and DeFOG.",
+        ],
+        "interpretation_gates": {
+            "transportability_cliff": "Track A OFF-state CCC <= 0.10 or bootstrap upper CI <= 0.",
+            "partial_external_validity": "Track A OFF-state CCC > 0.20 with bootstrap lower CI > 0.",
+            "unexpected_high_signal_audit_trigger": "Track A OFF-state CCC > 0.38 must be treated as a leakage/grouping/unit audit trigger before any narrative use.",
+            "within_defog_feasibility_floor": "If Track C OFF-state CCC <= 0 with CI including 0, report DeFOG sensor-only T3 regression as non-viable at this N.",
+            "no_internal_canonical_change": True,
+        },
+        "expected_failure_mode": (
+            "Protocol and representation shift: WearGait structured gait/balance "
+            "tasks versus DeFOG lower-back FoG-provoking walking/turning tasks, "
+            "different target state distribution, no gyroscope in public DeFOG raw "
+            "files, and small effective OFF-state N. A weak or null zero-shot "
+            "result is expected and publishable as transportability evidence."
+        ),
+        "consult_notes": {
+            "gemini": "Recommended strict medication matching, subject/visit aggregation, target-free scale checks, no DeFOG tuning, and interpreting CCC > 0.38 as an audit trigger.",
+            "kimi": "Converged on OFF-state primary, subject-level grouping, exclusion of event-label features, DeFOG-only sanity checks, and no internal canonical update.",
+            "claude": "CLI unavailable due credit balance.",
+            "glmcode": "CLI unavailable on PATH.",
+        },
+        "decision_after_preregistration": (
+            "Only after this preregistration exists may a separate iter51 runner "
+            "download/parse full DeFOG raw files and score the fixed battery."
+        ),
+    }
+
+
+def render_markdown(payload: dict[str, Any]) -> str:
+    formula = payload["formula"]
+    fixed = formula["fixed_battery"]
+    target = fixed["primary_external_target"]
+    gates = formula["interpretation_gates"]
+    return "\n".join(
+        [
+            "# T3 iter51 TLVMC/DeFOG Zero-Shot Preregistration",
+            "",
+            f"- Created UTC: `{payload['created_at_utc']}`",
+            f"- Formula SHA256: `{payload['formula_sha256']}`",
+            f"- Git SHA: `{payload['git_sha']}`",
+            f"- External dataset: {formula['external_dataset']['name']} ({formula['external_dataset']['zenodo_doi']})",
+            f"- Internal anchor unchanged: CCC `{formula['current_internal_anchor']['loocv_ccc']}`, MAE `{formula['current_internal_anchor']['loocv_mae']}`, N `{formula['current_internal_anchor']['n']}`",
+            "",
+            "## Primary Analysis",
+            "",
+            f"- Target: {target['definition']}",
+            f"- Expected primary N: {target['expected_n_records']} records from {target['expected_n_subjects']} subjects.",
+            f"- Unit: {target['unit_of_analysis']}",
+            f"- Sensor policy: {fixed['raw_signal_policy']['defog_axes']}",
+            f"- Feature policy: {fixed['feature_policy']['primary']}",
+            "",
+            "## Tracks",
+            "",
+            *[
+                f"- `{name}`: {track['claim']}; train = {track['train']}; test = {track['test']}."
+                for name, track in fixed["tracks"].items()
+            ],
+            "",
+            "## Interpretation Gates",
+            "",
+            f"- Transportability cliff: {gates['transportability_cliff']}",
+            f"- Partial external validity: {gates['partial_external_validity']}",
+            f"- Unexpected high-signal audit trigger: {gates['unexpected_high_signal_audit_trigger']}",
+            f"- No internal canonical change: `{gates['no_internal_canonical_change']}`",
+            "",
+        ]
+    )
+
+
+def main() -> None:
+    RESULTS.mkdir(exist_ok=True)
+    formula = build_formula()
+    formula_sha = canonical_sha(formula)
+    created = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+    payload = {
+        "created_at_utc": created,
+        "script": "scripts/write_tlvmc_defog_prereg.py",
+        "mode": "write_prereg",
+        "git_sha": git_sha(),
+        "formula_sha256": formula_sha,
+        "formula": formula,
+    }
+
+    timestamped = RESULTS / f"preregistration_t3_iter51_tlvmc_defog_zeroshot_{stamp}.json"
+    timestamped_md = timestamped.with_suffix(".md")
+    stable_md = STABLE_PREREG.with_suffix(".md")
+
+    text = json.dumps(payload, indent=2) + "\n"
+    timestamped.write_text(text, encoding="utf-8")
+    STABLE_PREREG.write_text(text, encoding="utf-8")
+    md = render_markdown(payload)
+    timestamped_md.write_text(md, encoding="utf-8")
+    stable_md.write_text(md, encoding="utf-8")
+
+    print(f"Wrote {timestamped.relative_to(ROOT)}")
+    print(f"Wrote {STABLE_PREREG.relative_to(ROOT)}")
+    print(f"Wrote {timestamped_md.relative_to(ROOT)}")
+    print(f"Wrote {stable_md.relative_to(ROOT)}")
+    print(f"formula_sha256={formula_sha}")
+
+
+if __name__ == "__main__":
+    main()

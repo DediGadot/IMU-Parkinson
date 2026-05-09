@@ -1,5 +1,7 @@
 # NEXTNEXT: Step-Function Ablation Study
 
+> **Archive status, 2026-05-09:** historical ablation proposal only. Current canonical numbers and manuscript routing are in `CLAUDE.md`, `paper.md`, `CURRENT_PAPER.html`, and `render_current_paper.py`; current T3 valid-range headline is iter47 CCC `0.3784` / LOSO `0.150`, while old Paper3 MAE/r and iter5 T3 `0.5227` values are not current deployment results.
+
 **Objective:** Break MAE < 8.0 on WearGait-PD UPDRS-III regression (currently MAE=9.47 baseline, H&Y ceiling=8.22).
 
 **Key insight:** The existing `run_ablation_v2.py` already extracts FreeAcc, Euler, foot contact, event-conditioned, asymmetry, turn, transition, insole, and walkway features. These features reached MAE~7.97 on a contaminated split. The clean rerun gives MAE=9.47. The gap is NOT "add more features" alone — it requires fundamentally better **signal extraction**, **model architecture**, **target decomposition**, and **feature selection**. This document specifies a rigorous ablation study to isolate which interventions produce genuine lift.

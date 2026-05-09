@@ -1,0 +1,78 @@
+{
+  "experiment": "T1 iter33-A V1_random 7-seed \u2014 5-fold screen",
+  "n_subjects": 94,
+  "seeds": [
+    42,
+    1337,
+    7,
+    5,
+    11,
+    17,
+    23
+  ],
+  "per_seed": [
+    {
+      "seed": 42,
+      "ccc_mt": 0.7049,
+      "ccc_i5": 0.6579,
+      "delta": 0.047,
+      "wall_time_s": 27.8
+    },
+    {
+      "seed": 1337,
+      "ccc_mt": 0.7061,
+      "ccc_i5": 0.6773,
+      "delta": 0.0288,
+      "wall_time_s": 27.8
+    },
+    {
+      "seed": 7,
+      "ccc_mt": 0.7146,
+      "ccc_i5": 0.6364,
+      "delta": 0.0782,
+      "wall_time_s": 27.6
+    },
+    {
+      "seed": 5,
+      "ccc_mt": 0.6864,
+      "ccc_i5": 0.6005,
+      "delta": 0.0859,
+      "wall_time_s": 27.9
+    },
+    {
+      "seed": 11,
+      "ccc_mt": 0.6934,
+      "ccc_i5": 0.6406,
+      "delta": 0.0528,
+      "wall_time_s": 27.7
+    },
+    {
+      "seed": 17,
+      "ccc_mt": 0.7206,
+      "ccc_i5": 0.6415,
+      "delta": 0.0791,
+      "wall_time_s": 28.0
+    },
+    {
+      "seed": 23,
+      "ccc_mt": 0.7204,
+      "ccc_i5": 0.6454,
+      "delta": 0.075,
+      "wall_time_s": 28.6
+    }
+  ],
+  "ccc_mt_meanof_seeds": 0.7276,
+  "ccc_i5_meanof_seeds": 0.6655,
+  "delta_meanof_seeds": 0.0621,
+  "delta_seed_mean": 0.06382857142857143,
+  "delta_seed_std": 0.019579633316697397,
+  "paired_bootstrap_vs_iter5": {
+    "delta_mean": 0.0640772755839278,
+    "ci_low": -0.002685958538385116,
+    "ci_high": 0.14073199196273894,
+    "frac_above_zero": 0.9682,
+    "frac_above_0.025": 0.8602
+  },
+  "gate_pass": true,
+  "gate_threshold": "\u0394\u0304_seed \u2265 +0.025 AND paired_bootstrap_frac>0 \u2265 0.95"
+}

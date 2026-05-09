@@ -1,0 +1,457 @@
+{
+  "generated_at_utc": "2026-05-08T20:55:18+00:00",
+  "script": "audit_dst_walkway_leakage.py",
+  "git_sha": "b82d6a67c4e775f8e4256c83217d4d149a5f6f24",
+  "declaration": {
+    "experiment": "dst walkway-distillation leakage audit",
+    "trigger": "runtime/provenance audit found ablation_v3_features.csv is the live missing-manifest cache; schema inspection found dst_* columns are included by V2 filters",
+    "cohort": "iter47 drop_allmissing_validrange N=95",
+    "target": "valid-range corrected MDS-UPDRS Part III",
+    "stage1": "iter5 A3_tier1 = H&Y + cv_yrs + cv_sex + cv_dbs",
+    "stage2_policies": [
+      "stage2_current",
+      "stage2_no_dst"
+    ],
+    "seeds": [
+      42
+    ],
+    "evaluation": "LOOCV, mean of seed predictions; no winner selection",
+    "interpretation_rule": "If no-dst changes metrics materially, report as leakage/provenance sensitivity, not as a tuned model family.",
+    "formula_sha256": "d255f010b13b83933e99684133aac7e237574976f83ac73af44d5908b52a02cb"
+  },
+  "schema_audit": {
+    "v2_path": "/home/fiod/medical/results/ablation_v3_features.csv",
+    "n_columns_total": 1877,
+    "n_v2_selected_by_current_filters": 1752,
+    "prefix_counts_total": {
+      "dst_": 31,
+      "cv_": 6,
+      "nl_": 30,
+      "sv_": 22,
+      "pa_": 8,
+      "fq_": 44,
+      "hr_": 2,
+      "ix_": 7,
+      "ext_": 8
+    },
+    "dst_columns_total": [
+      "dst_wk_absolute_step_length",
+      "dst_wk_cisp_ap",
+      "dst_wk_cisp_time",
+      "dst_wk_dop",
+      "dst_wk_ds_cop_dist",
+      "dst_wk_ds_cop_path_eff.%.1",
+      "dst_wk_foot_angle",
+      "dst_wk_gait_cycle_time",
+      "dst_wk_initial_d._support_%.1",
+      "dst_wk_integ._pressure",
+      "dst_wk_single_support_%.1",
+      "dst_wk_ss_cop_dist",
+      "dst_wk_ss_cop_dist._%.1",
+      "dst_wk_ss_cop_path_eff._%.1",
+      "dst_wk_stance_%.1",
+      "dst_wk_stance_cop_dist",
+      "dst_wk_stance_cop_dist._%.1",
+      "dst_wk_stance_cop_path_eff._%.1",
+      "dst_wk_stance_time",
+      "dst_wk_step_length",
+      "dst_wk_step_ratio",
+      "dst_wk_step_time",
+      "dst_wk_stride_length",
+      "dst_wk_stride_time",
+      "dst_wk_stride_velocity",
+      "dst_wk_stride_width",
+      "dst_wk_swing_%.1",
+      "dst_wk_swing_time",
+      "dst_wk_terminal_d._support_%.1",
+      "dst_wk_toe_in/out_angle",
+      "dst_wk_total_d._support_%.1"
+    ],
+    "dst_columns_selected_by_current_filters": [
+      "dst_wk_absolute_step_length",
+      "dst_wk_cisp_ap",
+      "dst_wk_cisp_time",
+      "dst_wk_dop",
+      "dst_wk_ds_cop_dist",
+      "dst_wk_ds_cop_path_eff.%.1",
+      "dst_wk_foot_angle",
+      "dst_wk_gait_cycle_time",
+      "dst_wk_initial_d._support_%.1",
+      "dst_wk_integ._pressure",
+      "dst_wk_single_support_%.1",
+      "dst_wk_ss_cop_dist",
+      "dst_wk_ss_cop_dist._%.1",
+      "dst_wk_ss_cop_path_eff._%.1",
+      "dst_wk_stance_%.1",
+      "dst_wk_stance_cop_dist",
+      "dst_wk_stance_cop_dist._%.1",
+      "dst_wk_stance_cop_path_eff._%.1",
+      "dst_wk_stance_time",
+      "dst_wk_step_length",
+      "dst_wk_step_ratio",
+      "dst_wk_step_time",
+      "dst_wk_stride_length",
+      "dst_wk_stride_time",
+      "dst_wk_stride_velocity",
+      "dst_wk_stride_width",
+      "dst_wk_swing_%.1",
+      "dst_wk_swing_time",
+      "dst_wk_terminal_d._support_%.1",
+      "dst_wk_toe_in/out_angle",
+      "dst_wk_total_d._support_%.1"
+    ],
+    "cv_columns_selected_by_current_filters": [
+      "cv_age",
+      "cv_dbs",
+      "cv_ht",
+      "cv_sex",
+      "cv_wt",
+      "cv_yrs"
+    ],
+    "distillation_source": "run_ablation_v3.py build_v3_features() calls run_ablation_v2.distill_walkway(df, wk, dev_sids)",
+    "distillation_leakage_risk": "distill_walkway trains XGBRegressor on historical dev_sids once and writes predictions for all subjects; later LOOCV folds do not refit that distiller inside the fold."
+  },
+  "cohort": {
+    "n": 95,
+    "excluded_sids": [
+      "NLS188",
+      "WPD013",
+      "NLS151"
+    ],
+    "target_changed_sids": [
+      "NLS036"
+    ]
+  },
+  "policy_results": {
+    "stage2_current": {
+      "mean_metrics": {
+        "n": 95,
+        "ccc": 0.3506,
+        "cal_slope": 0.2537,
+        "mae": 7.7946,
+        "r": 0.3797,
+        "pred_mean": 24.729,
+        "pred_std": 6.622,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "stage2_current_mean"
+      },
+      "seed_details": {
+        "42": {
+          "metrics": {
+            "n": 95,
+            "ccc": 0.3506,
+            "cal_slope": 0.2537,
+            "mae": 7.7946,
+            "r": 0.3797,
+            "pred_mean": 24.729,
+            "pred_std": 6.622,
+            "true_mean": 25.0,
+            "true_std": 9.913,
+            "label": "stage2_current_seed42"
+          },
+          "n_stage2_features": 1752,
+          "selected_prefix_counts": {
+            "dst_": 537,
+            "cv_": 37
+          },
+          "top_selected_features": [
+            [
+              "L_Wrist_ay_loco_r",
+              95
+            ],
+            [
+              "L_Wrist_ro_skew",
+              95
+            ],
+            [
+              "LowerBack_ay_dom",
+              95
+            ],
+            [
+              "R_LatShank_ya_kurt",
+              95
+            ],
+            [
+              "L_MidLatThigh_ya_rms",
+              93
+            ],
+            [
+              "R_MidLatThigh_pi_skew",
+              93
+            ],
+            [
+              "Forehead_ay_loco_r",
+              92
+            ],
+            [
+              "d_tg_LowerBack_fi",
+              92
+            ],
+            [
+              "L_Ankle_ax_dom",
+              91
+            ],
+            [
+              "L_Ankle_ax_loco_r",
+              91
+            ],
+            [
+              "R_LatShank_ro_range",
+              91
+            ],
+            [
+              "Forehead_ro_skew",
+              90
+            ],
+            [
+              "d_hp_LowerBack_g_step_t",
+              90
+            ],
+            [
+              "r_tug_R_Wrist_ay_rms",
+              90
+            ],
+            [
+              "R_Ankle_ax_zcr",
+              89
+            ],
+            [
+              "R_Ankle_az_skew",
+              89
+            ],
+            [
+              "R_LatShank_ya_std",
+              89
+            ],
+            [
+              "dv_L_DorsalFoot_g_step_t_rng",
+              89
+            ],
+            [
+              "L_Ankle_ax_skew",
+              88
+            ],
+            [
+              "L_Wrist_ax_loco_r",
+              88
+            ],
+            [
+              "R_LatShank_az_trem_r",
+              88
+            ],
+            [
+              "R_MidLatThigh_ya_rms",
+              88
+            ],
+            [
+              "Xiphoid_am_dom",
+              88
+            ],
+            [
+              "asy_LatShank_m",
+              88
+            ],
+            [
+              "d_hp_LowerBack_pi_rms",
+              88
+            ],
+            [
+              "d_tug_LowerBack_g_cadence",
+              88
+            ],
+            [
+              "Forehead_ro_kurt",
+              87
+            ],
+            [
+              "L_Wrist_ay_iqr",
+              87
+            ],
+            [
+              "LowerBack_ro_skew",
+              87
+            ],
+            [
+              "LowerBack_ya_iqr",
+              87
+            ]
+          ],
+          "wall_s": 205.8
+        }
+      }
+    },
+    "stage2_no_dst": {
+      "mean_metrics": {
+        "n": 95,
+        "ccc": 0.3343,
+        "cal_slope": 0.2472,
+        "mae": 7.9882,
+        "r": 0.3583,
+        "pred_mean": 24.474,
+        "pred_std": 6.84,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "stage2_no_dst_mean"
+      },
+      "seed_details": {
+        "42": {
+          "metrics": {
+            "n": 95,
+            "ccc": 0.3343,
+            "cal_slope": 0.2472,
+            "mae": 7.9882,
+            "r": 0.3583,
+            "pred_mean": 24.474,
+            "pred_std": 6.84,
+            "true_mean": 25.0,
+            "true_std": 9.913,
+            "label": "stage2_no_dst_seed42"
+          },
+          "n_stage2_features": 1721,
+          "selected_prefix_counts": {
+            "dst_": 0,
+            "cv_": 33
+          },
+          "top_selected_features": [
+            [
+              "L_Wrist_ay_loco_r",
+              95
+            ],
+            [
+              "L_Wrist_ro_skew",
+              95
+            ],
+            [
+              "LowerBack_ay_dom",
+              95
+            ],
+            [
+              "R_LatShank_ya_kurt",
+              95
+            ],
+            [
+              "Forehead_ay_loco_r",
+              94
+            ],
+            [
+              "L_MidLatThigh_ya_rms",
+              94
+            ],
+            [
+              "R_MidLatThigh_pi_skew",
+              93
+            ],
+            [
+              "L_Ankle_ax_dom",
+              92
+            ],
+            [
+              "L_Ankle_ax_loco_r",
+              92
+            ],
+            [
+              "d_tg_LowerBack_fi",
+              91
+            ],
+            [
+              "Forehead_ro_kurt",
+              90
+            ],
+            [
+              "Forehead_ro_skew",
+              90
+            ],
+            [
+              "LowerBack_ro_skew",
+              90
+            ],
+            [
+              "Xiphoid_am_dom",
+              90
+            ],
+            [
+              "d_hp_LowerBack_g_step_t",
+              90
+            ],
+            [
+              "L_MidLatThigh_az_zcr",
+              89
+            ],
+            [
+              "R_Ankle_az_skew",
+              89
+            ],
+            [
+              "R_LatShank_az_trem_r",
+              89
+            ],
+            [
+              "d_tg_R_Wrist_ay_rms",
+              89
+            ],
+            [
+              "r_tug_R_Wrist_ay_rms",
+              89
+            ],
+            [
+              "L_Wrist_ax_loco_r",
+              88
+            ],
+            [
+              "R_Ankle_ax_se",
+              88
+            ],
+            [
+              "R_LatShank_ro_range",
+              88
+            ],
+            [
+              "R_MidLatThigh_ya_rms",
+              88
+            ],
+            [
+              "d_hp_LowerBack_pi_rms",
+              88
+            ],
+            [
+              "R_Ankle_am_jerk",
+              87
+            ],
+            [
+              "asy_LatShank_m",
+              87
+            ],
+            [
+              "dv_L_DorsalFoot_g_step_t_rng",
+              87
+            ],
+            [
+              "Forehead_ay_high_r",
+              86
+            ],
+            [
+              "Forehead_pi_kurt",
+              86
+            ]
+          ],
+          "wall_s": 197.3
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "stage2_no_dst_minus_current": {
+      "n_boot": 5000,
+      "mean_delta": -0.014196039750587792,
+      "ci95": [
+        -0.07121939337721815,
+        0.048969875588745375
+      ],
+      "frac_gt_0": 0.3062
+    }
+  },
+  "rows_csv": "/home/fiod/medical/results/dst_walkway_leakage_audit_rows_20260508_fast.csv",
+  "subject_rows_csv": "/home/fiod/medical/results/dst_walkway_leakage_audit_subject_rows_20260508_fast.csv",
+  "verdict": "dst_* columns are included by current V2 filters and were generated by a once-trained historical dev-split walkway distiller, so they are not fold-local for LOOCV. The no-dst rows are the leakage/provenance sensitivity for corrected T3; use the measured deltas, not this audit, as a new tuned model claim."
+}

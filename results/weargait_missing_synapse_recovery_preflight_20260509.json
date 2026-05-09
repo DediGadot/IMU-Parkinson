@@ -1,0 +1,154 @@
+{
+  "created_at_utc": "2026-05-09T02:49:30+00:00",
+  "mode": "preflight",
+  "status": "missing_inputs",
+  "data_dir": "/home/fiod/pd-imu/data/raw/weargait-pd",
+  "project": {
+    "synapse_id": "syn52540892",
+    "url": "https://www.synapse.org/Synapse:syn52540892/wiki/623751",
+    "scientific_data_url": "https://www.nature.com/articles/s41597-026-06806-2"
+  },
+  "credential_status": {
+    "synapse_auth_token_env_present": false,
+    "synapse_config_present": false,
+    "synapse_config_path": "/home/fiod/.synapseConfig",
+    "can_attempt_download": false
+  },
+  "synapseclient_import_error": null,
+  "synapse_login_error": null,
+  "missing": [
+    "control_clinical",
+    "control_csv_folder",
+    "walkway_metrics"
+  ],
+  "entities": {
+    "control_clinical": {
+      "synapse_id": "syn55105521",
+      "kind": "file",
+      "expected_name": "CONTROLS - Demographic+Clinical - datasetV1.csv",
+      "large_transfer": false,
+      "required_for": [
+        "ablation_v3_full_regeneration"
+      ],
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/weargait-pd/CONTROLS - Demographic+Clinical - datasetV1.csv",
+        "relative_path": "data/raw/weargait-pd/CONTROLS - Demographic+Clinical - datasetV1.csv",
+        "exists": false,
+        "bytes": 0,
+        "complete": false
+      },
+      "synapse_probe": {
+        "status": "ok",
+        "synapse_id": "syn55105521",
+        "name": "CONTROLS - Demographic+Clinical - datasetV1.csv",
+        "class": "File"
+      }
+    },
+    "control_csv_folder": {
+      "synapse_id": "syn61370552",
+      "kind": "folder",
+      "expected_name": "CSV files",
+      "large_transfer": true,
+      "required_for": [
+        "ablation_v3_full_regeneration"
+      ],
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/weargait-pd/CONTROL PARTICIPANTS/CSV files",
+        "relative_path": "data/raw/weargait-pd/CONTROL PARTICIPANTS/CSV files",
+        "exists": false,
+        "csv_count": 0,
+        "expected_csv_count": 680,
+        "complete": false
+      },
+      "synapse_probe": {
+        "status": "ok",
+        "synapse_id": "syn61370552",
+        "name": "CSV files",
+        "class": "Folder",
+        "children_count": 680,
+        "csv_children_count": 680,
+        "first_children": [
+          {
+            "id": "syn61498244",
+            "name": "HC100_Balance.csv",
+            "type": "org.sagebionetworks.repo.model.FileEntity"
+          },
+          {
+            "id": "syn61498246",
+            "name": "HC100_HurriedPace.csv",
+            "type": "org.sagebionetworks.repo.model.FileEntity"
+          },
+          {
+            "id": "syn61498248",
+            "name": "HC100_HurriedPace_mat.csv",
+            "type": "org.sagebionetworks.repo.model.FileEntity"
+          },
+          {
+            "id": "syn61498251",
+            "name": "HC100_SelfPace.csv",
+            "type": "org.sagebionetworks.repo.model.FileEntity"
+          },
+          {
+            "id": "syn61498255",
+            "name": "HC100_SelfPace_mat.csv",
+            "type": "org.sagebionetworks.repo.model.FileEntity"
+          },
+          {
+            "id": "syn61498258",
+            "name": "HC100_SelfPace_matTURN.csv",
+            "type": "org.sagebionetworks.repo.model.FileEntity"
+          },
+          {
+            "id": "syn61498265",
+            "name": "HC100_TUG.csv",
+            "type": "org.sagebionetworks.repo.model.FileEntity"
+          },
+          {
+            "id": "syn61498262",
+            "name": "HC100_TandemGait.csv",
+            "type": "org.sagebionetworks.repo.model.FileEntity"
+          },
+          {
+            "id": "syn61498269",
+            "name": "HC101_Balance.csv",
+            "type": "org.sagebionetworks.repo.model.FileEntity"
+          },
+          {
+            "id": "syn61498272",
+            "name": "HC101_HurriedPace.csv",
+            "type": "org.sagebionetworks.repo.model.FileEntity"
+          }
+        ]
+      }
+    },
+    "walkway_metrics": {
+      "synapse_id": "syn64589881",
+      "kind": "file",
+      "expected_name": "PKMAS Walkway Gait Metrics - HP+SP.csv",
+      "large_transfer": false,
+      "required_for": [
+        "ablation_v3_full_regeneration"
+      ],
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/weargait-pd/Walkway-derived metrics/PKMAS Walkway Gait Metrics - HP+SP.csv",
+        "relative_path": "data/raw/weargait-pd/Walkway-derived metrics/PKMAS Walkway Gait Metrics - HP+SP.csv",
+        "exists": false,
+        "bytes": 0,
+        "complete": false
+      },
+      "synapse_probe": {
+        "status": "ok",
+        "synapse_id": "syn64589881",
+        "name": "PKMAS Walkway Gait Metrics - HP+SP.csv",
+        "class": "File"
+      }
+    }
+  },
+  "downloads": {},
+  "guardrails": {
+    "preflight_downloads": false,
+    "large_control_csv_download_requires_confirm_flag": true,
+    "does_not_promote_ablation_v3_cache": true,
+    "next_after_full_restore": "./gpu.sh audit_ablation_v3_regeneration.py --mode probe --tag <timestamp>"
+  }
+}

@@ -1,0 +1,16 @@
+
+=== iter28-B EXTRACT (seeds=[42, 1337, 7], num_kernels=10000) ===
+
+  backend=aeon.MultiRocket, num_kernels=10000, seed=42
+Loading 490 (sid,task) pairs from /root/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files...
+  loaded 485 recordings → (485, 26, 2000) in 34s
+Traceback (most recent call last):
+  File "/root/pd-imu/run_t3_iter28b_multirocket.py", line 680, in <module>
+    main()
+  File "/root/pd-imu/run_t3_iter28b_multirocket.py", line 646, in main
+    mode_extract(
+  File "/root/pd-imu/run_t3_iter28b_multirocket.py", line 306, in mode_extract
+    feats = extract_multirocket_per_subject(
+  File "/root/pd-imu/run_t3_iter28b_multirocket.py", line 200, in extract_multirocket_per_subject
+    transformer = RocketCls(num_kernels=num_kernels, random_state=seed)
+TypeError: MultiRocket.__init__() got an unexpected keyword argument 'num_kernels'

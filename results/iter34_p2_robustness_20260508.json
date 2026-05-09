@@ -1,0 +1,323 @@
+{
+  "timestamp_utc": "2026-05-08T15:07:48.229591+00:00",
+  "audit": "t1_iter34_p2_robustness",
+  "n": 93,
+  "seeds": [
+    42,
+    1337,
+    7,
+    2026,
+    9001
+  ],
+  "one_sided_margin": 0.05,
+  "n_boot_per_seed": 2000,
+  "n_workers": 11,
+  "interpretation": "P2 is a one-sided leakage canary. Noisy test X is suspicious only if it improves over Stage1-only by more than the margin; performing worse than Stage1 indicates out-of-distribution fragility, not leakage.",
+  "rows": [
+    {
+      "seed": 42,
+      "baseline_ccc": 0.6972192999206667,
+      "stage1_ccc": 0.5100201366339613,
+      "p2_noisy_test_ccc": 0.44878463964016824,
+      "delta_p2_minus_stage1": -0.06123549699379305,
+      "one_sided_pass": true,
+      "bootstrap_delta": {
+        "n_boot": 2000,
+        "delta_mean": -0.060962698809266185,
+        "ci_low": -0.11109851176601745,
+        "ci_high": -0.012618589514719183,
+        "frac_above_zero": 0.0045,
+        "frac_above_margin": 0.0
+      },
+      "bootstrap_one_sided_pass": true,
+      "baseline_stage2_residual_corr": 0.3953864386931931,
+      "p2_stage2_residual_corr": -0.1608936167662676,
+      "per_fold": [
+        {
+          "fold": 0,
+          "n": 19,
+          "stage1_ccc": 0.5450986195739809,
+          "p2_ccc": 0.5384329683246145,
+          "delta_p2_minus_stage1": -0.0066656512493663556
+        },
+        {
+          "fold": 1,
+          "n": 19,
+          "stage1_ccc": 0.363959691468411,
+          "p2_ccc": 0.2785849565613051,
+          "delta_p2_minus_stage1": -0.0853747349071059
+        },
+        {
+          "fold": 2,
+          "n": 19,
+          "stage1_ccc": 0.5670821869644621,
+          "p2_ccc": 0.5188697944840975,
+          "delta_p2_minus_stage1": -0.048212392480364574
+        },
+        {
+          "fold": 3,
+          "n": 18,
+          "stage1_ccc": 0.3212805224699462,
+          "p2_ccc": 0.1734710579219198,
+          "delta_p2_minus_stage1": -0.1478094645480264
+        },
+        {
+          "fold": 4,
+          "n": 18,
+          "stage1_ccc": 0.5975096292380138,
+          "p2_ccc": 0.5085067618367872,
+          "delta_p2_minus_stage1": -0.08900286740122654
+        }
+      ],
+      "max_per_fold_delta": -0.0066656512493663556,
+      "wall_time_s": 42.89651012420654
+    },
+    {
+      "seed": 1337,
+      "baseline_ccc": 0.7277208309943128,
+      "stage1_ccc": 0.6091195583886564,
+      "p2_noisy_test_ccc": 0.587221245212289,
+      "delta_p2_minus_stage1": -0.021898313176367368,
+      "one_sided_pass": true,
+      "bootstrap_delta": {
+        "n_boot": 2000,
+        "delta_mean": -0.02218457298004172,
+        "ci_low": -0.05914477223409444,
+        "ci_high": 0.014829115641277065,
+        "frac_above_zero": 0.119,
+        "frac_above_margin": 0.0
+      },
+      "bootstrap_one_sided_pass": true,
+      "baseline_stage2_residual_corr": 0.3359354144157944,
+      "p2_stage2_residual_corr": -0.04901691659750852,
+      "per_fold": [
+        {
+          "fold": 0,
+          "n": 19,
+          "stage1_ccc": 0.7275228675980245,
+          "p2_ccc": 0.7322986365395895,
+          "delta_p2_minus_stage1": 0.004775768941564951
+        },
+        {
+          "fold": 1,
+          "n": 19,
+          "stage1_ccc": 0.46732797434368145,
+          "p2_ccc": 0.4000464659305539,
+          "delta_p2_minus_stage1": -0.06728150841312758
+        },
+        {
+          "fold": 2,
+          "n": 19,
+          "stage1_ccc": 0.6756735204916274,
+          "p2_ccc": 0.6590795758496514,
+          "delta_p2_minus_stage1": -0.016593944641976055
+        },
+        {
+          "fold": 3,
+          "n": 18,
+          "stage1_ccc": 0.44845531408160194,
+          "p2_ccc": 0.44233929498449165,
+          "delta_p2_minus_stage1": -0.006116019097110292
+        },
+        {
+          "fold": 4,
+          "n": 18,
+          "stage1_ccc": 0.718422221122871,
+          "p2_ccc": 0.669213517024476,
+          "delta_p2_minus_stage1": -0.04920870409839506
+        }
+      ],
+      "max_per_fold_delta": 0.004775768941564951,
+      "wall_time_s": 42.1623215675354
+    },
+    {
+      "seed": 7,
+      "baseline_ccc": 0.7154845045429243,
+      "stage1_ccc": 0.5844776500757048,
+      "p2_noisy_test_ccc": 0.5511672234745031,
+      "delta_p2_minus_stage1": -0.03331042660120176,
+      "one_sided_pass": true,
+      "bootstrap_delta": {
+        "n_boot": 2000,
+        "delta_mean": -0.03245884908179842,
+        "ci_low": -0.08644887222481949,
+        "ci_high": 0.022189144230395825,
+        "frac_above_zero": 0.1115,
+        "frac_above_margin": 0.0015
+      },
+      "bootstrap_one_sided_pass": true,
+      "baseline_stage2_residual_corr": 0.32660015149893556,
+      "p2_stage2_residual_corr": 0.016780848394542844,
+      "per_fold": [
+        {
+          "fold": 0,
+          "n": 19,
+          "stage1_ccc": 0.6711223112003653,
+          "p2_ccc": 0.6806336632445346,
+          "delta_p2_minus_stage1": 0.009511352044169308
+        },
+        {
+          "fold": 1,
+          "n": 19,
+          "stage1_ccc": 0.7538464795016975,
+          "p2_ccc": 0.6236723866890755,
+          "delta_p2_minus_stage1": -0.13017409281262193
+        },
+        {
+          "fold": 2,
+          "n": 19,
+          "stage1_ccc": 0.3076462015690359,
+          "p2_ccc": 0.3045240435364446,
+          "delta_p2_minus_stage1": -0.0031221580325913045
+        },
+        {
+          "fold": 3,
+          "n": 18,
+          "stage1_ccc": 0.6138361797986106,
+          "p2_ccc": 0.629703551879754,
+          "delta_p2_minus_stage1": 0.015867372081143416
+        },
+        {
+          "fold": 4,
+          "n": 18,
+          "stage1_ccc": 0.4804832263759973,
+          "p2_ccc": 0.4328942798279667,
+          "delta_p2_minus_stage1": -0.047588946548030586
+        }
+      ],
+      "max_per_fold_delta": 0.015867372081143416,
+      "wall_time_s": 41.64638805389404
+    },
+    {
+      "seed": 2026,
+      "baseline_ccc": 0.7034437086472233,
+      "stage1_ccc": 0.5063664676829354,
+      "p2_noisy_test_ccc": 0.49801860494488837,
+      "delta_p2_minus_stage1": -0.008347862738046996,
+      "one_sided_pass": true,
+      "bootstrap_delta": {
+        "n_boot": 2000,
+        "delta_mean": -0.009049530628722524,
+        "ci_low": -0.04518962378761827,
+        "ci_high": 0.024905872021664274,
+        "frac_above_zero": 0.303,
+        "frac_above_margin": 0.0005
+      },
+      "bootstrap_one_sided_pass": true,
+      "baseline_stage2_residual_corr": 0.4078404295459854,
+      "p2_stage2_residual_corr": 0.03367974584414419,
+      "per_fold": [
+        {
+          "fold": 0,
+          "n": 19,
+          "stage1_ccc": 0.7301357369088646,
+          "p2_ccc": 0.6954134567241581,
+          "delta_p2_minus_stage1": -0.03472228018470647
+        },
+        {
+          "fold": 1,
+          "n": 19,
+          "stage1_ccc": 0.5104089896222747,
+          "p2_ccc": 0.48655563555454934,
+          "delta_p2_minus_stage1": -0.02385335406772532
+        },
+        {
+          "fold": 2,
+          "n": 19,
+          "stage1_ccc": 0.7571579487778661,
+          "p2_ccc": 0.7363762303555846,
+          "delta_p2_minus_stage1": -0.020781718422281492
+        },
+        {
+          "fold": 3,
+          "n": 18,
+          "stage1_ccc": 0.3855943937326023,
+          "p2_ccc": 0.4078985062678992,
+          "delta_p2_minus_stage1": 0.022304112535296905
+        },
+        {
+          "fold": 4,
+          "n": 18,
+          "stage1_ccc": -0.09488254209967621,
+          "p2_ccc": -0.049692072216202,
+          "delta_p2_minus_stage1": 0.045190469883474214
+        }
+      ],
+      "max_per_fold_delta": 0.045190469883474214,
+      "wall_time_s": 41.33350992202759
+    },
+    {
+      "seed": 9001,
+      "baseline_ccc": 0.7001958432284898,
+      "stage1_ccc": 0.4883410026174531,
+      "p2_noisy_test_ccc": 0.5272413916610501,
+      "delta_p2_minus_stage1": 0.038900389043596995,
+      "one_sided_pass": true,
+      "bootstrap_delta": {
+        "n_boot": 2000,
+        "delta_mean": 0.039555494818482036,
+        "ci_low": -0.005769547766046947,
+        "ci_high": 0.08570285489201622,
+        "frac_above_zero": 0.957,
+        "frac_above_margin": 0.3115
+      },
+      "bootstrap_one_sided_pass": false,
+      "baseline_stage2_residual_corr": 0.43496814258489463,
+      "p2_stage2_residual_corr": 0.14788691596855733,
+      "per_fold": [
+        {
+          "fold": 0,
+          "n": 19,
+          "stage1_ccc": 0.3262743917526034,
+          "p2_ccc": 0.4212701522843346,
+          "delta_p2_minus_stage1": 0.0949957605317312
+        },
+        {
+          "fold": 1,
+          "n": 19,
+          "stage1_ccc": 0.45299137792236416,
+          "p2_ccc": 0.41957436703072387,
+          "delta_p2_minus_stage1": -0.033417010891640286
+        },
+        {
+          "fold": 2,
+          "n": 19,
+          "stage1_ccc": 0.5501525291666577,
+          "p2_ccc": 0.5844758193943265,
+          "delta_p2_minus_stage1": 0.03432329022766878
+        },
+        {
+          "fold": 3,
+          "n": 18,
+          "stage1_ccc": 0.4880372470408622,
+          "p2_ccc": 0.5047706076353909,
+          "delta_p2_minus_stage1": 0.016733360594528734
+        },
+        {
+          "fold": 4,
+          "n": 18,
+          "stage1_ccc": 0.6613055987559214,
+          "p2_ccc": 0.7157480178134856,
+          "delta_p2_minus_stage1": 0.054442419057564195
+        }
+      ],
+      "max_per_fold_delta": 0.0949957605317312,
+      "wall_time_s": 43.05575132369995
+    }
+  ],
+  "summary": {
+    "delta_mean": -0.017178342093162435,
+    "delta_min": -0.06123549699379305,
+    "delta_max": 0.038900389043596995,
+    "bootstrap_ci_high_max": 0.08570285489201622,
+    "all_point_deltas_pass_one_sided": true,
+    "all_bootstrap_upper_bounds_pass_one_sided": false,
+    "baseline_stage2_residual_corr_mean": 0.38014611534776066,
+    "p2_stage2_residual_corr_mean": -0.002312604631306353
+  },
+  "verdict": {
+    "p2_leakage_signal": false,
+    "p2_robust_one_sided_pass": false,
+    "absolute_threshold_reinterpreted": "The prior absolute-threshold soft-fail was caused by negative delta, not positive above-Stage1 performance."
+  }
+}

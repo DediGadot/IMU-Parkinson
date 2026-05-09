@@ -1,0 +1,121 @@
+{
+  "checks": {
+    "access_path": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "cpp_3dt_stage2_member_or_steering_committee_proposal",
+        "watch-pd steering committee",
+        "de-identified baseline"
+      ]
+    },
+    "clinical_linkage_inventory": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "mds-updrs part iii",
+        "mds-updrs part ii",
+        "items 9-14",
+        "hoehn & yahr",
+        "treatment status"
+      ]
+    },
+    "methodology_guardrails": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "read-only schema probe",
+        "zero-shot external validation",
+        "subject-level splits",
+        "pre-registration",
+        "valid-range",
+        "manifest sidecar"
+      ]
+    },
+    "no_premature_compute_boundary": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "do not create a probe scaffold",
+        "will not present watch-pd metrics as internal weargait-pd canonical",
+        "no watch-pd label peeking",
+        "no endpoint switching"
+      ]
+    },
+    "official_sources": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "c-path.org/program/critical-path-for-parkinsons",
+        "mdsabstracts.org/abstract/watch-pd",
+        "nature.com/articles/s41531-023-00497-x",
+        "critical-path-for-parkinsons-3dt-initiative"
+      ]
+    },
+    "required_packet_fields": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "scientific rationale",
+        "specific data requested",
+        "intended use",
+        "analysis synopsis",
+        "named research team",
+        "data custodian"
+      ]
+    },
+    "security_publication_terms": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "encrypted",
+        "access-controlled",
+        "do not commit",
+        "consumer cloud",
+        "citation and publication terms",
+        "aggregate, non-identifiable"
+      ]
+    },
+    "specific_data_inventory": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "apdm opal",
+        "accelerometer",
+        "gyroscope",
+        "magnetometer",
+        "apple watch",
+        "iphone brainbaseline",
+        "site identifiers"
+      ]
+    },
+    "watchpd_specific_guardrails": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "apple watch and iphone data are diagnostic-only",
+        "healthy controls are diagnostic-only",
+        "below 20",
+        "repeated visits from the same subject must stay in the same fold",
+        "external-validity / transportability evidence only"
+      ]
+    }
+  },
+  "created_at_utc": "2026-05-09T12:04:03.875414+00:00",
+  "decision": "watchpd_request_packet_ready",
+  "goal_complete": false,
+  "hard_failures": [],
+  "missing": [],
+  "not_a_model_result": true,
+  "official_requirements_encoded": {
+    "access_path": "WATCH-PD data are available to CPP 3DT Stage 2 members; non-members may propose to the WATCH-PD Steering Committee via the corresponding author for de-identified baseline datasets.",
+    "cpath_boundary": "The C-Path Integrated Parkinson's Database does not include digital health technology data, so the ordinary IPD route is insufficient for WATCH-PD sensors.",
+    "watchpd_route": "WATCH-PD includes Apple Watch, iPhone BrainBaseline, and APDM Opal data plus MDS-UPDRS Parts I-III and H&Y in early untreated PD."
+  },
+  "packet": "scripts/watchpd_request_packet.md",
+  "packet_exists": true,
+  "passed": true,
+  "runbook": "scripts/watchpd_request_setup.md",
+  "runbook_exists": true,
+  "runbook_mentions_packet": true
+}

@@ -1,0 +1,42 @@
+[skip] tabr library not installed. Install with: pip install rtdl-revisiting-models  # ships TabR
+
+=== iter28c TABULAR-DL 5-FOLD SCREEN ===
+  feature_set=A3_tier1 alpha=1.0 seeds=[42, 1337, 7]
+  iter5 5-fold reference ≈ 0.40; canonical LOOCV=0.5227
+  library availability: {'tabm': True, 'tabpfn': True, 'tabr': False, 'torch': True}
+  methods queued: ['tabm', 'tabpfn']
+  [ERR] tabm     seed=   42 CCC=nan  (3.0s)  TypeError: TabM.__init__() missing 1 required keyword-only argument: 'd_out'
+  [ERR] tabm     seed=    7 CCC=nan  (3.0s)  TypeError: TabM.__init__() missing 1 required keyword-only argument: 'd_out'
+  [ERR] tabm     seed= 1337 CCC=nan  (3.2s)  TypeError: TabM.__init__() missing 1 required keyword-only argument: 'd_out'
+  [ERR] tabpfn   seed=    7 CCC=nan  (5.9s)  TabPFNLicenseError: TabPFN requires a one-time license acceptance to download
+model weights for local inference, but no interactive terminal
+is available.
+
+To authenticate in a non-interactive environment:
+  1. Open https://ux.priorlabs.ai in a browser and log in (or register)
+  2. Accept the license on the Licenses tab
+  3. Copy your API Key from https://ux.priorlabs.ai/account
+  4. Set the environment variable: export TABPFN_TOKEN="<your-api-key>"
+     or in Python (before calling .fit()): import os; os.environ["TABPFN_TOKEN"] = "<your-api-key>"
+  [ERR] tabpfn   seed= 1337 CCC=nan  (7.3s)  TabPFNLicenseError: TabPFN requires a one-time license acceptance to download
+model weights for local inference, but no interactive terminal
+is available.
+
+To authenticate in a non-interactive environment:
+  1. Open https://ux.priorlabs.ai in a browser and log in (or register)
+  2. Accept the license on the Licenses tab
+  3. Copy your API Key from https://ux.priorlabs.ai/account
+  4. Set the environment variable: export TABPFN_TOKEN="<your-api-key>"
+     or in Python (before calling .fit()): import os; os.environ["TABPFN_TOKEN"] = "<your-api-key>"
+  [ERR] tabpfn   seed=   42 CCC=nan  (8.6s)  TabPFNLicenseError: TabPFN requires a one-time license acceptance to download
+model weights for local inference, but no interactive terminal
+is available.
+
+To authenticate in a non-interactive environment:
+  1. Open https://ux.priorlabs.ai in a browser and log in (or register)
+  2. Accept the license on the Licenses tab
+  3. Copy your API Key from https://ux.priorlabs.ai/account
+  4. Set the environment variable: export TABPFN_TOKEN="<your-api-key>"
+     or in Python (before calling .fit()): import os; os.environ["TABPFN_TOKEN"] = "<your-api-key>"
+
+Wrote /root/pd-imu/results/iter28c_tabular_5fold_20260505_152235.csv

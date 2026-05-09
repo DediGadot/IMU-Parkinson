@@ -1,0 +1,87 @@
+{
+  "timestamp": "20260506_055603",
+  "iso_datetime": "2026-05-06T05:56:03.312673",
+  "experiment": "T1 iter33-B 8-item auxiliary-task chain LOCKBOX",
+  "git_head": "unknown",
+  "formula_sha256": "fea93e336105735942340009fe33fab8ac21d67f6e4964743e532fe503f7f662",
+  "formula": {
+    "experiment": "T1 iter33-B \u2014 8-item auxiliary-task multi-task LGB chain",
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects_min": 90,
+      "filter": "PD with full items 9-14, 15, 18"
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "T1 (sum items 9-14)"
+    },
+    "stage2": {
+      "model": "sklearn.multioutput.RegressorChain over LGBMRegressor",
+      "variant": "V1_random_8item",
+      "lgb_params": {
+        "n_estimators": 500,
+        "learning_rate": 0.05,
+        "num_leaves": 15,
+        "min_data_in_leaf": 10,
+        "n_jobs": 1,
+        "verbose": -1
+      },
+      "items_targets_chain": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18
+      ],
+      "items_summed_for_t1": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "auxiliary_items": [
+        15,
+        18
+      ],
+      "item_target_centering": "subtract per-fold train_mean(item)",
+      "feature_select_method": "lgb_importance_top_k_per_fold",
+      "feature_select_k": 500,
+      "imputation": "fold_local_median",
+      "post_combine_formula": "Stage1_pred + (sum(item_pred[T1_SUM_ITEMS] + train_mean[T1_SUM_ITEMS]) - sum(train_mean[T1_SUM_ITEMS]))  -- aux items 15,18 used in fit only"
+    },
+    "eval": {
+      "loocv_n_min": 90,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "fold_construction_5fold": "KFold(shuffle=True, random_state=seed)",
+      "headline_metric": "CCC of mean-of-3-seed predictions vs y_t1",
+      "comparator_iter5_direct_loocv": "computed live in same SID-aligned LOOCV"
+    },
+    "lockbox_rules": [
+      "ONE pre-registered config. ONE LOOCV run.",
+      "Headline = CCC of mean-of-3-seed preds on filter cohort.",
+      "Pass-canonical: paired-bootstrap (n=5000) vs iter5-direct frac>0 \u2265 0.95 AND headline > 0.6550.",
+      "Mechanism: auxiliary items 15+18 (F50 lockbox wins) regularize chain via shared latent severity."
+    ]
+  },
+  "variant": "V1_random_8item",
+  "eval_protocol": "LOOCV on T1\u2229aux-items cohort. Stage-1 Ridge (alpha=1.0) on H&Y + cv_yrs + cv_sex + cv_dbs. Stage-2 RegressorChain(LGBMRegressor) random order over 8 items {9,10,11,12,13,14,15,18}. T1 = sum predictions for items 9-14 only; items 15+18 used as auxiliary chain targets. 3-seed mean preds = headline."
+}

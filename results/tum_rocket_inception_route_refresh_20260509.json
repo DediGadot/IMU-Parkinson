@@ -1,0 +1,35 @@
+{
+  "created_at_utc": "2026-05-09T14:55:00Z",
+  "route": "TUM Donie 2025 ROCKET/InceptionTime wrist symptom-classification alias",
+  "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+  "status": "document_only_hssayeni_alias_algorithm_dead_no_scaffold",
+  "n_pd": 27,
+  "direct_t1_t3_eligible": false,
+  "underlying_data_route": "MJFF Levodopa Response / Hssayeni syn20681023",
+  "code_available": true,
+  "rationale": [
+    "The Scientific Reports 2025 paper uses a 27-patient subset of MJFF Levodopa Response Study syn20681023, which is already represented locally as the Hssayeni/MJFF route and remains Synapse DUA-gated.",
+    "The public endpoint is task-level symptom classification for tremor severity plus bradykinesia and dyskinesia presence/absence, not WearGait-PD T1 items 9-14 or total MDS-UPDRS Part III regression.",
+    "The paper's public code does not remove the data-access gate; its README still requires each user to download Synapse data with credentials.",
+    "The relevant algorithm families have already been tested or closed locally: ROCKET/MultiROCKET Stage-2 routes were negative, and small-N learned time-series fine-tuning failed in the HARNet pilot.",
+    "No leak-free lockbox path exists without DUA-approved data, a compatible T1/T3 target, and a non-negative 5-fold gate."
+  ],
+  "consults": {
+    "kimi": "document_only_alias_no_scaffold; same syn20681023 DUA gate, target mismatch, ROCKET/InceptionTime family already exhausted",
+    "claude": "failed_credit_balance_too_low",
+    "glmcode": "not_found_on_path"
+  },
+  "methodology_caveats": [
+    "The source study is classification-oriented, using balanced accuracy, average precision, AUROC, F1, and macro-averaged MAE; it is not a CCC regression benchmark.",
+    "A public code repository is useful related work, but cloning or porting it would not create an eligible WearGait-PD T1/T3 route before Synapse DUA approval and target/schema inspection.",
+    "The paper itself reports that InceptionTime/ROCKET do not reach clinically relevant performance and that customized manual features can still outperform automated time-series classifiers for PD symptom severity prediction."
+  ],
+  "sources": [
+    "https://www.nature.com/articles/s41598-025-04263-2",
+    "https://pubmed.ncbi.nlm.nih.gov/40450120/",
+    "https://github.com/cedricdonie/tsc-for-wrist-motion-pd-detection",
+    "https://doi.org/10.7303/syn20681023",
+    "results/external_dataset_route_audit_20260508.json",
+    "findings.md"
+  ]
+}

@@ -1,0 +1,3127 @@
+{
+  "created_at_utc": "2026-05-09T12:40:28+00:00",
+  "objective": "Act as a careful researcher; use web/CLI/remote evidence; inspect data; find methodology bugs; and try to break T1/T3 CCC ceilings.",
+  "checks": [
+    {
+      "requirement": "Act slowly/analytically and follow repo leakage discipline",
+      "passed": true,
+      "status": "covered",
+      "evidence": {
+        "files": [
+          "task_plan.md",
+          "AGENTS.md"
+        ]
+      }
+    },
+    {
+      "requirement": "Use web search / current SOTA context",
+      "passed": true,
+      "status": "covered",
+      "evidence": {
+        "files": [
+          "findings.md",
+          "results/external_dataset_route_audit_20260508.md"
+        ]
+      }
+    },
+    {
+      "requirement": "Use Kimi, Claude, GLMCode, and Gemini where available",
+      "passed": true,
+      "status": "covered_with_tool_friction",
+      "evidence": {
+        "tool_paths": {
+          "kimi": "/home/fiod/.local/bin/kimi",
+          "claude": "/home/fiod/.local/bin/claude",
+          "glmcode": null,
+          "gemini": "/usr/bin/gemini"
+        },
+        "persisted_evidence": "thread_goal_completion_audit_20260508.md records Kimi/Gemini use plus Claude low-credit and glmcode unavailable."
+      }
+    },
+    {
+      "requirement": "Use remote server and inspect utilization",
+      "passed": true,
+      "status": "covered",
+      "evidence": {
+        "remote_status": {
+          "cmd": [
+            "./gpu.sh",
+            "--status"
+          ],
+          "returncode": 0,
+          "output_tail": "Sat May  9 15:40:28 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 590.57                 Driver Version: 591.86         CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 4060        On  |   00000000:01:00.0 Off |                  N/A |\n|  0%   42C    P8            N/A  /  115W |     724MiB /   8188MiB |      1%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A             442      G   /Xwayland                             N/A      |\n+-----------------------------------------------------------------------------------------+\n\nno jobs running\n"
+        }
+      }
+    },
+    {
+      "requirement": "Create logs/visualizations of the best T1 and T3 pipelines",
+      "passed": true,
+      "status": "covered",
+      "evidence": {
+        "t1_missing": [],
+        "t3_missing": [],
+        "dashboard": "results/current_best_pipeline_dashboard.html"
+      }
+    },
+    {
+      "requirement": "Keep artifact, claim-labeling, and reproducibility guards current",
+      "passed": true,
+      "status": "covered",
+      "evidence": {
+        "dashboard_artifacts": 336,
+        "dashboard_missing": [],
+        "paper_export": {
+          "status": "passed",
+          "validation_issues": []
+        },
+        "canonical_claim_consistency": {
+          "passed": true,
+          "stale_findings": 0
+        },
+        "metric_recompute": {
+          "passed": true,
+          "checks": 9
+        },
+        "ccc_metric_integrity": {
+          "passed": true,
+          "headline_checks": 7,
+          "implementation_checks": 7,
+          "max_abs_sample_minus_population_headline": 2.7023203458265144e-06,
+          "warnings": [
+            {
+              "id": "degenerate_n2_policy_returns_zero",
+              "message": "Shared helpers intentionally return 0.0 for fewer than three finite pairs; headline vectors are unaffected.",
+              "values": {
+                "population_reference": 0.923076923077,
+                "sample_convention": 0.0,
+                "inductive_lib.ccc": 0.0,
+                "eval_utils.lins_ccc": 0.0
+              }
+            }
+          ]
+        },
+        "oof_integrity": {
+          "passed": true,
+          "checks": 4
+        },
+        "prereg_temporal": {
+          "passed": true,
+          "hard_failures": 0,
+          "warnings": 11
+        },
+        "pre_audit_claim_labeling": {
+          "passed": true,
+          "findings": 0
+        },
+        "historical_subdomain_claim_labeling": {
+          "passed": true,
+          "findings": 0
+        },
+        "t1_candidate_claim_labeling": {
+          "passed": true,
+          "findings": 0,
+          "missing_required_snippets": 0
+        },
+        "t3_complete33_claim_labeling": {
+          "passed": true,
+          "findings": 0,
+          "missing_required_snippets": 0
+        },
+        "external_result_claim_labeling": {
+          "passed": true,
+          "findings": 0,
+          "missing_required_snippets": 0,
+          "artifact_failures": 0
+        },
+        "remaining_blocker_actions": {
+          "passed": true,
+          "source_blocker_count": 36,
+          "local_model_actions": 0,
+          "unmatched_blockers": 0,
+          "action_type_counts": {
+            "candidate_disclosure_no_posthoc_lockbox": 2,
+            "disclosure_only_no_model_run": 5,
+            "monitor_or_request_no_scaffold": 1,
+            "no_local_weargait_model_run": 8,
+            "no_prereg_no_download": 3,
+            "no_prereg_no_rerun_same_policy": 1,
+            "paper_transportability_only": 4,
+            "paper_uncertainty_only": 1,
+            "requires_user_credentials_or_confirmation": 1,
+            "requires_user_or_data_owner_access": 8,
+            "requires_weargait_raw_data_restore": 2
+          }
+        },
+        "external_access_readiness": {
+          "passed": true,
+          "route_count": 9,
+          "application_packet_ready_count": 6,
+          "compute_ready_route_count": 0,
+          "top_priority_route": "PPMI / Verily Study Watch",
+          "hard_failure_count": 0
+        },
+        "weargait_raw_data_recovery_runbook": {
+          "passed": true,
+          "decision": "raw_data_recovery_runbook_ready_no_download",
+          "current_status": {
+            "can_attempt_download": false,
+            "credentials_present": false,
+            "frozen_cache_unchanged": true,
+            "preflight_status": "missing_inputs",
+            "regeneration_probe_missing": [
+              "control_clinical",
+              "control_csv_dir",
+              "walkway_metrics"
+            ],
+            "regeneration_probe_status": "blocked_missing_regeneration_inputs"
+          },
+          "entity_checks": {
+            "control_clinical": {
+              "large_transfer": false,
+              "large_transfer_ok": true,
+              "local_complete": false,
+              "present": true,
+              "synapse_id": "syn55105521",
+              "synapse_id_ok": true,
+              "synapse_probe_status": "ok"
+            },
+            "control_csv_folder": {
+              "large_transfer": true,
+              "large_transfer_ok": true,
+              "local_complete": false,
+              "present": true,
+              "synapse_id": "syn61370552",
+              "synapse_id_ok": true,
+              "synapse_probe_status": "ok"
+            },
+            "walkway_metrics": {
+              "large_transfer": false,
+              "large_transfer_ok": true,
+              "local_complete": false,
+              "present": true,
+              "synapse_id": "syn64589881",
+              "synapse_id_ok": true,
+              "synapse_probe_status": "ok"
+            }
+          }
+        },
+        "task_plan_current_scope": {
+          "passed": true,
+          "decision": "task_plan_current_scope_guard_passed",
+          "historical_boundary": {
+            "found": true,
+            "line": 305,
+            "heading_line": 307,
+            "heading": "# ACTIVE MISSION \u2014 iter26 Hssayeni MJFF Acquisition (2026-05-05 PM) \u2014 BLOCKED at Synapse DUA gate (F62)",
+            "offset": 70621
+          },
+          "hard_failures": 0,
+          "legacy_success_findings": 0
+        },
+        "paper_generator_routing": {
+          "passed": true,
+          "decision": "current_paper_renderer_route_guard_passed",
+          "hard_failures": 0,
+          "active_doc_count": 8,
+          "legacy_new4_transductive_hits": 17
+        },
+        "readme_claim_routing": {
+          "passed": true,
+          "decision": "readme_current_claim_route_guard_passed",
+          "hard_failures": 0,
+          "unguarded_stale_hits": 0,
+          "missing_required": 0,
+          "bad_current_route_hits": 0
+        },
+        "legacy_manuscript_surface_audit": {
+          "passed": true,
+          "decision": "legacy_manuscript_surfaces_quarantined",
+          "hard_failures": 0,
+          "legacy_surfaces": 16,
+          "total_dangerous_hits": 651
+        },
+        "historical_archive_surface_audit": {
+          "passed": true,
+          "decision": "historical_archive_surfaces_quarantined",
+          "hard_failures": 0,
+          "surfaces_checked": 11,
+          "stale_pattern_hits_retained_under_archive_banners": 30
+        },
+        "secret_hygiene_audit": {
+          "passed": true,
+          "decision": "secret_hygiene_guard_passed",
+          "findings": 0,
+          "hard_failures": 0,
+          "scanned_file_count": 1447,
+          "sensitive_local_files": {
+            "TOKEN.md": {
+              "exists": false,
+              "bytes": 0
+            },
+            "GPU.md": {
+              "exists": true,
+              "bytes": 56
+            },
+            ".env": {
+              "exists": false,
+              "bytes": 0
+            },
+            "synapse_credentials.json": {
+              "exists": false,
+              "bytes": 0
+            }
+          }
+        },
+        "reportable_artifact_flags": {
+          "passed": true,
+          "checks": 5,
+          "stale_raw_flags": 3,
+          "hard_failures": 0
+        },
+        "cache_manifest_status_counts": {
+          "missing_manifest_diagnostic_only": 33,
+          "manifest_complete_clean_by_construction": 4,
+          "partial_manifest_diagnostic_only": 8
+        },
+        "missing_cache_origin_counts": {
+          "blocked_by_upstream_diagnostic_cache": 5,
+          "insufficient_producer_evidence": 9,
+          "manual_backfill_candidate_needs_human_patch": 5,
+          "manual_review_label_or_clinical_tokens": 14
+        },
+        "manual_cache_backfill_decisions": {
+          "leave_missing_no_patch": 5
+        },
+        "per_item_evidence_map": {
+          "passed": true,
+          "status_counts": {
+            "missing_or_backfill_only_unobservable": 3,
+            "historical_iter8_per_item_lockbox_supplementary": 7,
+            "current_t1_iter12_component": 6,
+            "iter17_reportable_per_item_win": 2
+          },
+          "missing_artifacts": 0
+        },
+        "per_item_oof_companion_scope": {
+          "passed": true,
+          "oof_backed_rows": 15,
+          "row_level_json_comparison_available_count": 0,
+          "warnings": 1
+        },
+        "t1_iter12_batch_integrity": {
+          "passed": true,
+          "hard_failures": 0,
+          "warnings": 0,
+          "ccc": 0.655,
+          "mae": 1.5614,
+          "max_abs_diff_vs_stored_oof": 0.0
+        },
+        "t3_iter47_target_integrity": {
+          "passed": true,
+          "hard_failures": 0,
+          "warnings": 0,
+          "invalid_raw_values": 2,
+          "target_changed_rows": 1
+        },
+        "t3_iter47_residual_anatomy": {
+          "scope": "diagnostic_only_no_model_selection",
+          "residual_corr_with_true": -0.7770738735166363,
+          "q1_mean_residual": 10.024275927184046,
+          "q4_mean_residual": -9.198444808908958,
+          "wpd_within_site_ccc": 0.05146167615096947,
+          "top_abs_residual_feature_corr": 0.28994771858567786
+        },
+        "t3_iter47_ccc_rescale_sanity": {
+          "scope": "diagnostic_only_not_reportable_model",
+          "not_fully_nested": true,
+          "decision": {
+            "no_model_promotion": true,
+            "no_new_loocv": true,
+            "reason": "The best diagnostic CCC lift is small and non-reportable; variance matching raises CCC by +0.0212 but worsens MAE by +1.1390."
+          },
+          "variance_match_metrics": {
+            "n": 95,
+            "ccc": 0.39958836828844163,
+            "mae": 8.667060513628945,
+            "r": 0.39966512969724244,
+            "cal_slope_pred_on_true": 0.4075525309179935,
+            "mean_error_pred_minus_true": 0.01507820944201015,
+            "prediction_sd": 10.108947826455035,
+            "target_sd": 9.913308439190537,
+            "residual_corr_with_true": -0.5353346247691646
+          },
+          "variance_bootstrap_vs_base": {
+            "n_boot": 10000,
+            "seed": 42,
+            "ccc_delta_mean": 0.02083504539467097,
+            "ccc_delta_ci95": [
+              -0.010409830297418992,
+              0.05780508581939268
+            ],
+            "ccc_delta_frac_above_zero": 0.8935,
+            "mae_delta_mean": 1.1398064461721245,
+            "mae_delta_ci95": [
+              0.4659292439569389,
+              1.8439729930773108
+            ],
+            "mae_delta_frac_below_zero": 0.0003
+          }
+        },
+        "current_headline_influence": {
+          "decision": {
+            "scope": "diagnostic_only_no_model_selection",
+            "no_model_promotion": true,
+            "no_new_loocv": true,
+            "redline_summary": {
+              "single_subject_abs_delta_threshold": 0.05,
+              "top5_share_threshold": 0.5,
+              "single_subject_redline_hit": false,
+              "top5_share_redline_hit": false,
+              "tail_leverage_warning": true
+            },
+            "summary": "No single-subject influence pattern justifies a model update. T3 max |leave-one CCC delta| is 0.0381; T1 iter34-minus-iter12 matched delta stays positive under all leave-one deletions (minimum 0.0629). Influence is still severity-tail concentrated, so this is a claim-fragility caveat rather than a filtering rule."
+          },
+          "t3_top1_abs_delta_ccc": 0.038144933823653915,
+          "t3_top5_fraction_of_sum_abs_delta": 0.28404712252966785,
+          "t3_tail_leverage_corr": 0.6778513439016619,
+          "t1_leave_one_delta_min": 0.06292134687538109
+        },
+        "t3_iter47_domain_residual": {
+          "decision": {
+            "scope": "diagnostic_only_privileged_ground_truth_domains",
+            "no_model_promotion": true,
+            "no_new_loocv": true,
+            "no_subject_filtering": true,
+            "redlines": {
+              "observable_domain_abs_residual_corr_threshold": 0.5,
+              "observable_domain_oracle_delta_ccc_threshold": 0.05,
+              "observable_domain_route_flag": false,
+              "best_overall_domain": "unobservable_non_gait",
+              "best_deployable_proxy_domain": "gait_balance_7_14"
+            },
+            "summary": "Current iter47 T3 residuals are most associated with unobservable_non_gait (r=-0.8004). The best single-domain privileged oracle is unobservable_non_gait (delta CCC +0.4716); the best gait-observable proxy is gait_balance_7_14 (delta CCC +0.2083). Because these corrections use true clinical domain labels, they are explanation only."
+          },
+          "unobservable_non_gait": {
+            "domain": "unobservable_non_gait",
+            "items": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              15,
+              16,
+              17,
+              18
+            ],
+            "deployable_proxy_candidate": false,
+            "mean": 16.74736842105263,
+            "sd": 7.134745849569566,
+            "max": 36.0,
+            "corr_domain_with_true_t3": 0.8904268990123366,
+            "corr_domain_with_pred_t3": 0.2118179173462229,
+            "corr_domain_with_residual_pred_minus_true": -0.8003977872431429,
+            "corr_domain_with_abs_error": -0.02333095007445266,
+            "leave_one_privileged_oracle_ccc": 0.8500105549923321,
+            "leave_one_privileged_oracle_mae": 4.530411515535674,
+            "oracle_delta_ccc_vs_base": 0.47164343719694224,
+            "oracle_delta_mae_vs_base": -2.997611314745087,
+            "oracle_mean_slope_per_domain_sd": -7.461090525692133
+          },
+          "upper_limb_brady": {
+            "domain": "upper_limb_brady_4_6",
+            "items": [
+              4,
+              5,
+              6
+            ],
+            "deployable_proxy_candidate": false,
+            "mean": 6.347368421052631,
+            "sd": 3.8244873644853414,
+            "max": 15.0,
+            "corr_domain_with_true_t3": 0.7643473369743142,
+            "corr_domain_with_pred_t3": 0.27533350377384846,
+            "corr_domain_with_residual_pred_minus_true": -0.6224081731735964,
+            "corr_domain_with_abs_error": 0.000936022774810714,
+            "leave_one_privileged_oracle_ccc": 0.7155581808553294,
+            "leave_one_privileged_oracle_mae": 6.151081924075574,
+            "oracle_delta_ccc_vs_base": 0.3371910630599395,
+            "oracle_delta_mae_vs_base": -1.3769409062051867,
+            "oracle_mean_slope_per_domain_sd": -5.802066244165626
+          },
+          "multidomain_oracle": {
+            "alpha": 10.0,
+            "features": [
+              "t1_items_9_14",
+              "gait_balance_7_14",
+              "pigdf_like_9_13",
+              "appendicular_brady_4_8_14",
+              "upper_limb_brady_4_6",
+              "lower_limb_brady_7_8",
+              "rigidity_3",
+              "tremor_15_18",
+              "speech_face_1_2",
+              "unobservable_non_gait"
+            ],
+            "metrics": {
+              "n": 95,
+              "ccc": 0.8532769281061139,
+              "mae": 4.486986333643812,
+              "r": 0.8602944931381241,
+              "target_mean": 25.0,
+              "target_sd": 9.913308439190537,
+              "prediction_mean": 25.039290917965538,
+              "prediction_sd": 11.268242290346532,
+              "mean_residual_pred_minus_true": 0.03929091796554152
+            },
+            "delta_ccc_vs_base": 0.474909810310724,
+            "delta_mae_vs_base": -3.0410364966369485
+          }
+        },
+        "ablation_v3_regeneration_probe": {
+          "status": "blocked_missing_regeneration_inputs",
+          "frozen_cache_unchanged": true,
+          "missing_inputs": [
+            "control_clinical",
+            "control_csv_dir",
+            "walkway_metrics"
+          ]
+        },
+        "weargait_missing_synapse_recovery_preflight": {
+          "status": "missing_inputs",
+          "missing": [
+            "control_clinical",
+            "control_csv_folder",
+            "walkway_metrics"
+          ],
+          "credential_status": {
+            "synapse_auth_token_env_present": false,
+            "synapse_config_present": false,
+            "synapse_config_path": "/home/fiod/.synapseConfig",
+            "can_attempt_download": false
+          },
+          "control_csv_synapse_count": 680
+        }
+      }
+    },
+    {
+      "requirement": "Sit with the data and derive methodology fixes",
+      "passed": true,
+      "status": "covered",
+      "evidence": {
+        "t1_aux_validrange": {
+          "primary_t1_target_valid": true,
+          "invalid_auxiliary_items": [
+            {
+              "sid": "NLS036",
+              "item": 15,
+              "value": 18.0,
+              "valid_min": 0.0,
+              "valid_max": 8.0,
+              "subparts": {
+                "(15, 'a')": 9.0,
+                "(15, 'b')": 9.0
+              }
+            }
+          ]
+        },
+        "t1_aux_order": {
+          "order_summary": {
+            "iter34_lockbox_seeds": [
+              42,
+              1337,
+              7
+            ],
+            "iter34_lockbox_seeds_with_item15_upstream_of_any_t1": [
+              7,
+              1337
+            ],
+            "iter34_lockbox_seed_count_with_exposure": 2,
+            "iter34_lockbox_seed_count": 3,
+            "iter46_decomp_seed_count_with_exposure": 4,
+            "iter46_decomp_seed_count": 5,
+            "kimi_fixed_order_assumption_status": "falsified_by_code"
+          },
+          "impact": {
+            "n_common": 92,
+            "excluded_from_validated": [
+              "NLS036"
+            ],
+            "validated_metrics_on_common": {
+              "ccc": 0.7153961464323915,
+              "mae": 1.7528300217747144,
+              "pred_mean": 3.962401813134152,
+              "pred_std": 3.010892529867817,
+              "true_mean": 4.032608695652174,
+              "true_std": 2.752276081625825
+            },
+            "stale_trained_metrics_on_common_sids": {
+              "ccc": 0.7162146804841036,
+              "mae": 1.7603009865760604,
+              "pred_mean": 4.046617385569425,
+              "pred_std": 3.0817449011954685,
+              "true_mean": 4.032608695652174,
+              "true_std": 2.752276081625825
+            },
+            "delta_valid_minus_stale_common_ccc": -0.000818534051712172,
+            "paired_bootstrap_delta_valid_minus_stale_common_ccc": {
+              "n_boot": 5000,
+              "delta_mean": -0.001792145262331955,
+              "ci_low": -0.027060842359901683,
+              "ci_high": 0.01964693668216511,
+              "frac_above_zero": 0.4548,
+              "frac_abs_ge_0_025": 0.0394
+            },
+            "materiality_threshold_abs_delta_ccc": 0.025,
+            "materiality_flag": false
+          }
+        },
+        "t3_iter47_minimal": {
+          "n": 95,
+          "ccc": 0.3784,
+          "cal_slope": 0.2692,
+          "mae": 7.528,
+          "r": 0.4141,
+          "pred_mean": 24.815,
+          "pred_std": 6.446,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "drop_allmissing_validrange_stage2_current_mean3"
+        },
+        "per_item_evidence_map": {
+          "status_counts": {
+            "missing_or_backfill_only_unobservable": 3,
+            "historical_iter8_per_item_lockbox_supplementary": 7,
+            "current_t1_iter12_component": 6,
+            "iter17_reportable_per_item_win": 2
+          },
+          "t3_per_item_sum_historical": {
+            "status": "historical_dead_route_not_current_t3",
+            "ccc": 0.2646,
+            "mae": 7.4819,
+            "n": 94,
+            "items_used": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18
+            ],
+            "source_artifact": "results/peritem_composite_20260430_143044.json"
+          }
+        },
+        "per_item_oof_companion_scope": {
+          "oof_backed_rows": 15,
+          "row_level_json_comparison_available_count": 0,
+          "warnings": [
+            {
+              "item": 18,
+              "warning": "json_reported_valid_n_differs_from_oof_slot_len",
+              "artifact": "results/lockbox_peritem_18_iter17hyp_hy_residual_item_v2_20260503_221544.json",
+              "json_reported_n": 93,
+              "oof_slot_len": 94,
+              "interpretation": "companion array has full 94-slot cohort shape; JSON reports valid target/evaluation count."
+            }
+          ]
+        },
+        "t1_iter12_batch_integrity": {
+          "single_coherent_batch": true,
+          "uses_swaps": false,
+          "max_abs_diff_vs_stored_oof": 0.0
+        },
+        "t3_iter47_target_integrity": {
+          "minimal_n": 95,
+          "complete33_n": 88,
+          "target_changed_rows": [
+            {
+              "sid": "NLS036",
+              "original_sum33": 46.0,
+              "validrange_sum33": 28.0,
+              "target_delta_original_minus_validrange": 18.0,
+              "original_nonmissing": 33,
+              "validrange_nonmissing": 31,
+              "invalid_part3_count": 2
+            }
+          ]
+        },
+        "t3_iter47_residual_anatomy": {
+          "overall": {
+            "n": 95,
+            "ccc": 0.3783671177953899,
+            "mae": 7.528022830280761,
+            "r": 0.4140570278396842,
+            "cal_slope_pred_on_true": 0.26924232265178977,
+            "mean_error_pred_minus_true": -0.185412419612919,
+            "prediction_sd": 6.446170478634331,
+            "target_sd": 9.913308439190537,
+            "residual_corr_with_true": -0.7770738735166363,
+            "residual_corr_with_pred": 0.25116760252743836
+          },
+          "top_feature": {
+            "feature": "fq_R_Wris_dw5",
+            "corr_with_residual": -0.28994771858567786,
+            "abs_corr_with_residual": 0.28994771858567786,
+            "corr_with_target": 0.34025589096828474,
+            "corr_with_prediction": 0.1039440017896262,
+            "nonmissing": 95
+          },
+          "decision": {
+            "no_model_promotion": true,
+            "no_new_loocv": true,
+            "recommended_next": "Do not launch another WearGait-only scalar feature addition. Use this audit to justify either data access/restoration or a fresh preregistered target-representation hypothesis."
+          }
+        },
+        "t3_iter47_ccc_rescale_sanity": {
+          "variance_match_metrics": {
+            "n": 95,
+            "ccc": 0.39958836828844163,
+            "mae": 8.667060513628945,
+            "r": 0.39966512969724244,
+            "cal_slope_pred_on_true": 0.4075525309179935,
+            "mean_error_pred_minus_true": 0.01507820944201015,
+            "prediction_sd": 10.108947826455035,
+            "target_sd": 9.913308439190537,
+            "residual_corr_with_true": -0.5353346247691646
+          },
+          "variance_bootstrap_vs_base": {
+            "n_boot": 10000,
+            "seed": 42,
+            "ccc_delta_mean": 0.02083504539467097,
+            "ccc_delta_ci95": [
+              -0.010409830297418992,
+              0.05780508581939268
+            ],
+            "ccc_delta_frac_above_zero": 0.8935,
+            "mae_delta_mean": 1.1398064461721245,
+            "mae_delta_ci95": [
+              0.4659292439569389,
+              1.8439729930773108
+            ],
+            "mae_delta_frac_below_zero": 0.0003
+          },
+          "guardrail": {
+            "not_fully_nested": true,
+            "reason": "Second-level transforms are fit on the saved OOF vector. For a held-out subject i, the calibration set includes predictions for other subjects generated by base models whose training folds included subject i. This is acceptable as a diagnostic but not as a reportable nested meta-model.",
+            "future_reportable_requirement": "A reportable rescaling/meta-calibration would need outer-fold base predictions and inner-OOF calibration predictions generated without the outer test subject."
+          },
+          "decision": {
+            "no_model_promotion": true,
+            "no_new_loocv": true,
+            "reason": "The best diagnostic CCC lift is small and non-reportable; variance matching raises CCC by +0.0212 but worsens MAE by +1.1390."
+          }
+        },
+        "current_headline_influence": {
+          "decision": {
+            "scope": "diagnostic_only_no_model_selection",
+            "no_model_promotion": true,
+            "no_new_loocv": true,
+            "redline_summary": {
+              "single_subject_abs_delta_threshold": 0.05,
+              "top5_share_threshold": 0.5,
+              "single_subject_redline_hit": false,
+              "top5_share_redline_hit": false,
+              "tail_leverage_warning": true
+            },
+            "summary": "No single-subject influence pattern justifies a model update. T3 max |leave-one CCC delta| is 0.0381; T1 iter34-minus-iter12 matched delta stays positive under all leave-one deletions (minimum 0.0629). Influence is still severity-tail concentrated, so this is a claim-fragility caveat rather than a filtering rule."
+          },
+          "t3_influence_concentration": {
+            "sum_abs_delta_ccc": 0.5099563310842219,
+            "top1_abs_delta_ccc": 0.038144933823653915,
+            "top1_fraction_of_sum_abs_delta": 0.07480039269745645,
+            "top5_fraction_of_sum_abs_delta": 0.28404712252966785,
+            "gini_abs_delta_ccc": 0.600862555984697
+          },
+          "t3_influence_correlations": {
+            "target_value_vs_delta_ccc": -0.4087149536642297,
+            "abs_target_minus_median_vs_abs_delta_ccc": 0.6778513439016619,
+            "abs_target_minus_median_vs_abs_error": 0.5486472512551133,
+            "abs_error_vs_abs_delta_ccc": 0.4200474925558198
+          },
+          "t1_matched_delta": {
+            "matched_n": 93,
+            "iter12_matched_ccc": 0.6553577807632204,
+            "iter34_matched_ccc": 0.7365943676137858,
+            "base_delta_iter34_minus_iter12": 0.08123658685056545,
+            "leave_one_delta_min": 0.06292134687538109,
+            "leave_one_delta_max": 0.09844455262045537,
+            "leave_one_delta_mean": 0.0812305655563625,
+            "leave_one_delta_jackknife_se": 0.044645670869235515,
+            "iter34_leave_one_ccc_min": 0.6997278807733609,
+            "iter34_leave_one_ccc_max": 0.7475717293661939,
+            "comparison_sign_flips": false,
+            "iter34_leave_one_below_iter12_canonical_0_6550": false,
+            "top_delta_loss_subjects": [
+              {
+                "sid": "NLS196",
+                "site": "NLS",
+                "y_true": 14.0,
+                "iter12_pred": 9.044886605528845,
+                "iter34_pred": 14.299651003485442,
+                "iter34_minus_iter12_error_abs_delta": -4.655462390985713,
+                "iter12_ccc_without_subject": 0.6368065338979798,
+                "iter34_ccc_without_subject": 0.6997278807733609,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.06292134687538109,
+                "change_from_matched_base_delta": -0.01831523997518436
+              },
+              {
+                "sid": "NLS036",
+                "site": "NLS",
+                "y_true": 11.0,
+                "iter12_pred": 5.851641229772496,
+                "iter34_pred": 7.889498877330127,
+                "iter34_minus_iter12_error_abs_delta": -2.0378576475576313,
+                "iter12_ccc_without_subject": 0.6638791527048776,
+                "iter34_ccc_without_subject": 0.7323278816874144,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.06844872898253673,
+                "change_from_matched_base_delta": -0.012787857868028718
+              },
+              {
+                "sid": "NLS154",
+                "site": "NLS",
+                "y_true": 0.0,
+                "iter12_pred": 3.74273502581324,
+                "iter34_pred": 0.9841865326808281,
+                "iter34_minus_iter12_error_abs_delta": -2.758548493132412,
+                "iter12_ccc_without_subject": 0.662935116400248,
+                "iter34_ccc_without_subject": 0.732875884197822,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.06994076779757397,
+                "change_from_matched_base_delta": -0.011295819052991485
+              },
+              {
+                "sid": "NLS191",
+                "site": "NLS",
+                "y_true": 9.0,
+                "iter12_pred": 3.709902463759546,
+                "iter34_pred": 4.7449367426228095,
+                "iter34_minus_iter12_error_abs_delta": -1.0350342788632636,
+                "iter12_ccc_without_subject": 0.6736628752725509,
+                "iter34_ccc_without_subject": 0.743698178480183,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.07003530320763218,
+                "change_from_matched_base_delta": -0.011201283642933269
+              },
+              {
+                "sid": "NLS165",
+                "site": "NLS",
+                "y_true": 7.0,
+                "iter12_pred": 3.803062757232268,
+                "iter34_pred": 5.848706570723631,
+                "iter34_minus_iter12_error_abs_delta": -2.045643813491363,
+                "iter12_ccc_without_subject": 0.6620436315659053,
+                "iter34_ccc_without_subject": 0.735543611950308,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.07349998038440275,
+                "change_from_matched_base_delta": -0.007736606466162699
+              },
+              {
+                "sid": "NLS155",
+                "site": "NLS",
+                "y_true": 1.0,
+                "iter12_pred": 5.399185699630705,
+                "iter34_pred": 4.710785915953468,
+                "iter34_minus_iter12_error_abs_delta": -0.6883997836772364,
+                "iter12_ccc_without_subject": 0.6696466076581645,
+                "iter34_ccc_without_subject": 0.7433580192196194,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.07371141156145489,
+                "change_from_matched_base_delta": -0.007525175289110564
+              },
+              {
+                "sid": "NLS144",
+                "site": "NLS",
+                "y_true": 7.0,
+                "iter12_pred": 3.420752964502772,
+                "iter34_pred": 4.695270359172156,
+                "iter34_minus_iter12_error_abs_delta": -1.2745173946693837,
+                "iter12_ccc_without_subject": 0.6643141419246298,
+                "iter34_ccc_without_subject": 0.7383971140941257,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.07408297216949589,
+                "change_from_matched_base_delta": -0.0071536146810695644
+              },
+              {
+                "sid": "NLS185",
+                "site": "NLS",
+                "y_true": 7.0,
+                "iter12_pred": 4.393331413931091,
+                "iter34_pred": 7.057837919785304,
+                "iter34_minus_iter12_error_abs_delta": -2.548830666283605,
+                "iter12_ccc_without_subject": 0.6588883010059463,
+                "iter34_ccc_without_subject": 0.7338148230938308,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.07492652208788453,
+                "change_from_matched_base_delta": -0.0063100647626809225
+              },
+              {
+                "sid": "NLS174",
+                "site": "NLS",
+                "y_true": 4.0,
+                "iter12_pred": 7.739663907412758,
+                "iter34_pred": 6.371821400026502,
+                "iter34_minus_iter12_error_abs_delta": -1.3678425073862552,
+                "iter12_ccc_without_subject": 0.6640661995998174,
+                "iter34_ccc_without_subject": 0.739174940707882,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.07510874110806465,
+                "change_from_matched_base_delta": -0.006127845742500804
+              },
+              {
+                "sid": "NLS140",
+                "site": "NLS",
+                "y_true": 8.0,
+                "iter12_pred": 5.724776608618765,
+                "iter34_pred": 8.474210799714868,
+                "iter34_minus_iter12_error_abs_delta": -1.8010125916663675,
+                "iter12_ccc_without_subject": 0.6543943273982236,
+                "iter34_ccc_without_subject": 0.7311089389741806,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.07671461157595705,
+                "change_from_matched_base_delta": -0.004521975274608403
+              }
+            ],
+            "top_delta_gain_subjects": [
+              {
+                "sid": "NLS033",
+                "site": "NLS",
+                "y_true": 11.0,
+                "iter12_pred": 11.433425473983425,
+                "iter34_pred": 15.538591102085022,
+                "iter34_minus_iter12_error_abs_delta": 4.105165628101597,
+                "iter12_ccc_without_subject": 0.6200238723424336,
+                "iter34_ccc_without_subject": 0.718468424962889,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.09844455262045537,
+                "change_from_matched_base_delta": 0.01720796576988992
+              },
+              {
+                "sid": "NLS056",
+                "site": "NLS",
+                "y_true": 8.0,
+                "iter12_pred": 7.362917838998682,
+                "iter34_pred": 4.380774502756968,
+                "iter34_minus_iter12_error_abs_delta": 2.9821433362417133,
+                "iter12_ccc_without_subject": 0.6473185710720504,
+                "iter34_ccc_without_subject": 0.7420887525684232,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.09477018149637284,
+                "change_from_matched_base_delta": 0.01353359464580739
+              },
+              {
+                "sid": "NLS146",
+                "site": "NLS",
+                "y_true": 2.0,
+                "iter12_pred": 3.519488370703054,
+                "iter34_pred": 6.29787034352582,
+                "iter34_minus_iter12_error_abs_delta": 2.778381972822766,
+                "iter12_ccc_without_subject": 0.6559752128608638,
+                "iter34_ccc_without_subject": 0.7463282411763583,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.09035302831549452,
+                "change_from_matched_base_delta": 0.00911644146492907
+              },
+              {
+                "sid": "WPD009",
+                "site": "WPD",
+                "y_true": 8.0,
+                "iter12_pred": 9.972280012789833,
+                "iter34_pred": 8.12827856268448,
+                "iter34_minus_iter12_error_abs_delta": -1.8440014501053525,
+                "iter12_ccc_without_subject": 0.642554942266532,
+                "iter34_ccc_without_subject": 0.7314646038923255,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.0889096616257935,
+                "change_from_matched_base_delta": 0.00767307477522805
+              },
+              {
+                "sid": "NLS124",
+                "site": "NLS",
+                "y_true": 9.0,
+                "iter12_pred": 8.366086680593192,
+                "iter34_pred": 13.408914888642874,
+                "iter34_minus_iter12_error_abs_delta": 3.775001569236066,
+                "iter12_ccc_without_subject": 0.6417839971383179,
+                "iter34_ccc_without_subject": 0.7301661721910306,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.08838217505271273,
+                "change_from_matched_base_delta": 0.007145588202147279
+              },
+              {
+                "sid": "NLS121",
+                "site": "NLS",
+                "y_true": 2.0,
+                "iter12_pred": 4.390472857172681,
+                "iter34_pred": 6.348125001415002,
+                "iter34_minus_iter12_error_abs_delta": 1.9576521442423207,
+                "iter12_ccc_without_subject": 0.6591883210756185,
+                "iter34_ccc_without_subject": 0.7465573844313138,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.08736906335569528,
+                "change_from_matched_base_delta": 0.006132476505129825
+              },
+              {
+                "sid": "NLS201",
+                "site": "NLS",
+                "y_true": 12.0,
+                "iter12_pred": 8.879998141218351,
+                "iter34_pred": 10.143580516249768,
+                "iter34_minus_iter12_error_abs_delta": -1.263582375031417,
+                "iter12_ccc_without_subject": 0.6356140827258744,
+                "iter34_ccc_without_subject": 0.7219238696271374,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.08630978690126301,
+                "change_from_matched_base_delta": 0.005073200050697557
+              },
+              {
+                "sid": "NLS179",
+                "site": "NLS",
+                "y_true": 5.0,
+                "iter12_pred": 4.040625688258103,
+                "iter34_pred": 8.927417576615275,
+                "iter34_minus_iter12_error_abs_delta": 2.968043264873378,
+                "iter12_ccc_without_subject": 0.6559363930027391,
+                "iter34_ccc_without_subject": 0.7421290372957763,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.08619264429303719,
+                "change_from_matched_base_delta": 0.00495605744247174
+              },
+              {
+                "sid": "NLS149",
+                "site": "NLS",
+                "y_true": 4.0,
+                "iter12_pred": 4.35361784920704,
+                "iter34_pred": 7.253670918944475,
+                "iter34_minus_iter12_error_abs_delta": 2.900053069737435,
+                "iter12_ccc_without_subject": 0.6554504480608533,
+                "iter34_ccc_without_subject": 0.7414254135987721,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.08597496553791883,
+                "change_from_matched_base_delta": 0.004738378687353384
+              },
+              {
+                "sid": "WPD006",
+                "site": "WPD",
+                "y_true": 6.0,
+                "iter12_pred": 3.880867154069125,
+                "iter34_pred": 2.3367671449334604,
+                "iter34_minus_iter12_error_abs_delta": 1.5441000091356645,
+                "iter12_ccc_without_subject": 0.6583024996013539,
+                "iter34_ccc_without_subject": 0.7436349892949756,
+                "delta_ccc_iter34_minus_iter12_without_subject": 0.08533248969362173,
+                "change_from_matched_base_delta": 0.004095902843056276
+              }
+            ]
+          }
+        },
+        "t3_iter47_domain_residual": {
+          "decision": {
+            "scope": "diagnostic_only_privileged_ground_truth_domains",
+            "no_model_promotion": true,
+            "no_new_loocv": true,
+            "no_subject_filtering": true,
+            "redlines": {
+              "observable_domain_abs_residual_corr_threshold": 0.5,
+              "observable_domain_oracle_delta_ccc_threshold": 0.05,
+              "observable_domain_route_flag": false,
+              "best_overall_domain": "unobservable_non_gait",
+              "best_deployable_proxy_domain": "gait_balance_7_14"
+            },
+            "summary": "Current iter47 T3 residuals are most associated with unobservable_non_gait (r=-0.8004). The best single-domain privileged oracle is unobservable_non_gait (delta CCC +0.4716); the best gait-observable proxy is gait_balance_7_14 (delta CCC +0.2083). Because these corrections use true clinical domain labels, they are explanation only."
+          },
+          "guardrails": {
+            "clinical_domain_labels_are_ground_truth": true,
+            "oracle_corrections_are_privileged_and_non_deployable": true,
+            "domain_scores_validrange_subitems_only": true,
+            "parsed_total_max_abs_diff_vs_iter47_target": 0.0
+          },
+          "unobservable_non_gait": {
+            "domain": "unobservable_non_gait",
+            "items": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              15,
+              16,
+              17,
+              18
+            ],
+            "deployable_proxy_candidate": false,
+            "mean": 16.74736842105263,
+            "sd": 7.134745849569566,
+            "max": 36.0,
+            "corr_domain_with_true_t3": 0.8904268990123366,
+            "corr_domain_with_pred_t3": 0.2118179173462229,
+            "corr_domain_with_residual_pred_minus_true": -0.8003977872431429,
+            "corr_domain_with_abs_error": -0.02333095007445266,
+            "leave_one_privileged_oracle_ccc": 0.8500105549923321,
+            "leave_one_privileged_oracle_mae": 4.530411515535674,
+            "oracle_delta_ccc_vs_base": 0.47164343719694224,
+            "oracle_delta_mae_vs_base": -2.997611314745087,
+            "oracle_mean_slope_per_domain_sd": -7.461090525692133
+          },
+          "upper_limb_brady": {
+            "domain": "upper_limb_brady_4_6",
+            "items": [
+              4,
+              5,
+              6
+            ],
+            "deployable_proxy_candidate": false,
+            "mean": 6.347368421052631,
+            "sd": 3.8244873644853414,
+            "max": 15.0,
+            "corr_domain_with_true_t3": 0.7643473369743142,
+            "corr_domain_with_pred_t3": 0.27533350377384846,
+            "corr_domain_with_residual_pred_minus_true": -0.6224081731735964,
+            "corr_domain_with_abs_error": 0.000936022774810714,
+            "leave_one_privileged_oracle_ccc": 0.7155581808553294,
+            "leave_one_privileged_oracle_mae": 6.151081924075574,
+            "oracle_delta_ccc_vs_base": 0.3371910630599395,
+            "oracle_delta_mae_vs_base": -1.3769409062051867,
+            "oracle_mean_slope_per_domain_sd": -5.802066244165626
+          },
+          "multidomain_oracle": {
+            "alpha": 10.0,
+            "features": [
+              "t1_items_9_14",
+              "gait_balance_7_14",
+              "pigdf_like_9_13",
+              "appendicular_brady_4_8_14",
+              "upper_limb_brady_4_6",
+              "lower_limb_brady_7_8",
+              "rigidity_3",
+              "tremor_15_18",
+              "speech_face_1_2",
+              "unobservable_non_gait"
+            ],
+            "metrics": {
+              "n": 95,
+              "ccc": 0.8532769281061139,
+              "mae": 4.486986333643812,
+              "r": 0.8602944931381241,
+              "target_mean": 25.0,
+              "target_sd": 9.913308439190537,
+              "prediction_mean": 25.039290917965538,
+              "prediction_sd": 11.268242290346532,
+              "mean_residual_pred_minus_true": 0.03929091796554152
+            },
+            "delta_ccc_vs_base": 0.474909810310724,
+            "delta_mae_vs_base": -3.0410364966369485
+          }
+        },
+        "t3_iter47_item_residual": {
+          "scope": "diagnostic_only_saved_oof_no_model_selection_no_prereg_no_loocv",
+          "decision": {
+            "ceiling_broken": false,
+            "no_model_promotion": true,
+            "recommended_next": "Do not launch another WearGait-only T3 scalar-feature or calibration screen. The residual is item/domain target anatomy, not an uncovered deployable feature block."
+          },
+          "target_reconstruction": {
+            "max_abs_parsed_total_minus_iter47_target": 0.0,
+            "n_nonzero_diffs": 0
+          },
+          "top_residual_item": {
+            "item": 6,
+            "name": "pronation_supination",
+            "weargait_observable": false,
+            "t1_item": false,
+            "n_valid_item_scores": 95,
+            "n_missing_item_scores": 0,
+            "mean": 1.9578947368421054,
+            "sd": 1.4932535264257125,
+            "max": 5.0,
+            "nonzero_fraction": 0.8,
+            "corr_item_with_t3_target": 0.6350028663821272,
+            "corr_item_with_t3_prediction": 0.15144723783120098,
+            "corr_item_with_residual_pred_minus_true": -0.5705291019290375,
+            "abs_corr_item_with_residual": 0.5705291019290375,
+            "corr_item_with_abs_error": 0.0022104777461639433,
+            "residual_corr_bootstrap": {
+              "n": 95,
+              "corr": -0.5705291019290375,
+              "ci_low": -0.6833769537582056,
+              "ci_high": -0.44331903740886774
+            },
+            "loo_privileged_oracle": {
+              "ccc": 0.6600684229455746,
+              "mae": 6.3448600109424085,
+              "delta_ccc_vs_base": 0.28170130515018466,
+              "delta_mae_vs_base": -1.183162819338352,
+              "mean_slope_per_item_sd": -5.318357053432066
+            }
+          },
+          "observable_summary": {
+            "observable_items": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "mean_abs_residual_corr_observable": 0.246962138355727,
+            "mean_abs_residual_corr_unobservable": 0.371210245408891,
+            "best_observable_oracle_delta_ccc": 0.14847903649349226,
+            "best_unobservable_oracle_delta_ccc": 0.28170130515018466
+          }
+        }
+      }
+    },
+    {
+      "requirement": "Attempt to break T1 CCC ceiling",
+      "passed": true,
+      "status": "attempted_with_caveated_candidate",
+      "evidence": {
+        "canonical_t1": {
+          "ccc": 0.655,
+          "n": 94
+        },
+        "strongest_candidate": {
+          "ccc": 0.7366,
+          "n": 93
+        },
+        "iter46": {
+          "ccc": 0.7269,
+          "n": 93
+        },
+        "p2_summary": {
+          "delta_mean": -0.017178342093162435,
+          "delta_min": -0.06123549699379305,
+          "delta_max": 0.038900389043596995,
+          "bootstrap_ci_high_max": 0.08570285489201622,
+          "all_point_deltas_pass_one_sided": true,
+          "all_bootstrap_upper_bounds_pass_one_sided": false,
+          "baseline_stage2_residual_corr_mean": 0.38014611534776066,
+          "p2_stage2_residual_corr_mean": -0.002312604631306353
+        }
+      }
+    },
+    {
+      "requirement": "Attempt to break T3 CCC ceiling",
+      "passed": true,
+      "status": "attempted_no_breakthrough",
+      "evidence": {
+        "iter47_minimal": {
+          "n": 95,
+          "ccc": 0.3784,
+          "cal_slope": 0.2692,
+          "mae": 7.528,
+          "r": 0.4141,
+          "pred_mean": 24.815,
+          "pred_std": 6.446,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "drop_allmissing_validrange_stage2_current_mean3"
+        },
+        "iter47_loso": {
+          "cohort": "drop_allmissing_validrange",
+          "stage2_policy": "stage2_current",
+          "n": 95,
+          "excluded_sids": [
+            "NLS188",
+            "WPD013",
+            "NLS151"
+          ],
+          "target_change_subjects": [
+            {
+              "sid": "NLS036",
+              "old_target": 46.0,
+              "validrange_target": 28.0,
+              "delta_old_minus_validrange": 18.0,
+              "valid_subitems": 31
+            }
+          ],
+          "NLS_to_WPD_mean_ccc": 0.19369999999999998,
+          "WPD_to_NLS_mean_ccc": 0.1059,
+          "two_way_mean_ccc": 0.1498,
+          "per_seed": [
+            {
+              "train_site": "NLS",
+              "test_site": "WPD",
+              "n_train": 68,
+              "n_test": 27,
+              "seed": 42,
+              "metrics": {
+                "n": 27,
+                "ccc": 0.2431,
+                "cal_slope": 0.212,
+                "mae": 5.8788,
+                "r": 0.2463,
+                "pred_mean": 22.688,
+                "pred_std": 5.448,
+                "true_mean": 22.333,
+                "true_std": 6.33,
+                "label": "drop_allmissing_validrange_stage2_current_NLS_to_WPD_seed42"
+              },
+              "selected_cv_counts": {
+                "cv_age": 1
+              }
+            },
+            {
+              "train_site": "WPD",
+              "test_site": "NLS",
+              "n_train": 27,
+              "n_test": 68,
+              "seed": 42,
+              "metrics": {
+                "n": 68,
+                "ccc": 0.1027,
+                "cal_slope": 0.0776,
+                "mae": 10.079,
+                "r": 0.1615,
+                "pred_mean": 20.333,
+                "pred_std": 5.203,
+                "true_mean": 26.059,
+                "true_std": 10.837,
+                "label": "drop_allmissing_validrange_stage2_current_WPD_to_NLS_seed42"
+              },
+              "selected_cv_counts": {
+                "cv_age": 1,
+                "cv_sex": 1,
+                "cv_wt": 1,
+                "cv_yrs": 1
+              }
+            },
+            {
+              "train_site": "NLS",
+              "test_site": "WPD",
+              "n_train": 68,
+              "n_test": 27,
+              "seed": 1337,
+              "metrics": {
+                "n": 27,
+                "ccc": 0.1703,
+                "cal_slope": 0.1422,
+                "mae": 6.541,
+                "r": 0.1751,
+                "pred_mean": 22.969,
+                "pred_std": 5.141,
+                "true_mean": 22.333,
+                "true_std": 6.33,
+                "label": "drop_allmissing_validrange_stage2_current_NLS_to_WPD_seed1337"
+              },
+              "selected_cv_counts": {
+                "cv_age": 1
+              }
+            },
+            {
+              "train_site": "WPD",
+              "test_site": "NLS",
+              "n_train": 27,
+              "n_test": 68,
+              "seed": 1337,
+              "metrics": {
+                "n": 68,
+                "ccc": 0.1094,
+                "cal_slope": 0.0836,
+                "mae": 10.1965,
+                "r": 0.1705,
+                "pred_mean": 20.243,
+                "pred_std": 5.314,
+                "true_mean": 26.059,
+                "true_std": 10.837,
+                "label": "drop_allmissing_validrange_stage2_current_WPD_to_NLS_seed1337"
+              },
+              "selected_cv_counts": {
+                "cv_age": 1,
+                "cv_sex": 1,
+                "cv_wt": 1,
+                "cv_yrs": 1
+              }
+            },
+            {
+              "train_site": "NLS",
+              "test_site": "WPD",
+              "n_train": 68,
+              "n_test": 27,
+              "seed": 7,
+              "metrics": {
+                "n": 27,
+                "ccc": 0.1677,
+                "cal_slope": 0.1649,
+                "mae": 6.9638,
+                "r": 0.1677,
+                "pred_mean": 22.235,
+                "pred_std": 6.224,
+                "true_mean": 22.333,
+                "true_std": 6.33,
+                "label": "drop_allmissing_validrange_stage2_current_NLS_to_WPD_seed7"
+              },
+              "selected_cv_counts": {
+                "cv_age": 1
+              }
+            },
+            {
+              "train_site": "WPD",
+              "test_site": "NLS",
+              "n_train": 27,
+              "n_test": 68,
+              "seed": 7,
+              "metrics": {
+                "n": 68,
+                "ccc": 0.1056,
+                "cal_slope": 0.0822,
+                "mae": 10.2733,
+                "r": 0.1607,
+                "pred_mean": 20.173,
+                "pred_std": 5.546,
+                "true_mean": 26.059,
+                "true_std": 10.837,
+                "label": "drop_allmissing_validrange_stage2_current_WPD_to_NLS_seed7"
+              },
+              "selected_cv_counts": {
+                "cv_age": 1,
+                "cv_sex": 1,
+                "cv_wt": 1,
+                "cv_yrs": 1
+              }
+            }
+          ]
+        },
+        "clinical_dependency_intercept_only": {
+          "n": 95,
+          "ccc": 0.2449,
+          "cal_slope": 0.1537,
+          "mae": 7.8363,
+          "r": 0.3043,
+          "pred_mean": 25.221,
+          "pred_std": 5.119,
+          "true_mean": 25.189,
+          "true_std": 10.138,
+          "label": "intercept_only"
+        },
+        "iter50_lowdf_convex": {
+          "baseline": {
+            "n": 95,
+            "ccc": 0.3759,
+            "cal_slope": 0.2585,
+            "mae": 7.2682,
+            "r": 0.4219,
+            "pred_mean": 24.942,
+            "pred_std": 6.074,
+            "true_mean": 25.0,
+            "true_std": 9.913,
+            "label": "iter50_baseline_seq_current_mean3"
+          },
+          "nested_convex": {
+            "n": 95,
+            "ccc": 0.3083,
+            "cal_slope": 0.1875,
+            "mae": 7.1959,
+            "r": 0.4033,
+            "pred_mean": 25.163,
+            "pred_std": 4.61,
+            "true_mean": 25.0,
+            "true_std": 9.913,
+            "label": "iter50_nested_convex_mean3"
+          },
+          "gate": {
+            "strict_t3_gate_pass": false,
+            "delta_seed_mean_predictions": -0.06756384356648298,
+            "mean_seed_delta": -0.07029999999999999,
+            "seed_delta_std": 0.031901880822296357,
+            "required_delta": 0.05,
+            "required_seed_delta_std_lt": 0.02
+          },
+          "decision": "screen_fail_no_loocv_no_canonical_change"
+        }
+      }
+    },
+    {
+      "requirement": "Evaluate public external routes and avoid dead-end repeats",
+      "passed": true,
+      "status": "covered",
+      "evidence": {
+        "missing": [],
+        "paradigma_yin": [
+          {
+            "name": "ParaDigMa open PD digital biomarker toolbox",
+            "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+            "status": "local_feature_addition_dead_at_n94",
+            "type": "open_software_toolbox",
+            "direct_t1_t3_eligible": false,
+            "code_available": true,
+            "data_available": false,
+            "rationale": [
+              "ParaDigMa is a feature-extraction toolbox (arm swing, tremor, pulse rate from wrist IMU), not a new labeled cohort.",
+              "Applying it to WearGait would constitute a local scalar handcrafted feature addition.",
+              "The repo explicitly closes handcrafted scalar feature additions at N=94 (iter14 FoG-summary scalars NULL on items 9, 12).",
+              "T3 IMU feature additions to the iter5 clinical-augmented architecture are also dead (iter6 unsigned-asymmetry NULL, iter6 event-axial NULL).",
+              "verify_current_goal_state.py records '0 local model actions remain'.",
+              "No orthogonal advantage over already-dead local routes; the N=94 wall is structural (K=500 absorption or gate failure)."
+            ],
+            "sources": [
+              "https://github.com/biomarkersParkinson/paradigma",
+              "https://doi.org/10.21105/joss.09502",
+              "https://doi.org/10.5281/zenodo.19207320"
+            ]
+          },
+          {
+            "name": "Yin et al Frontiers Neurology 2025 gait-parameter regression",
+            "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+            "status": "request_only_underpowered_no_public_schema",
+            "type": "paper_with_request_only_data",
+            "n_pd": 20,
+            "n_hc": 17,
+            "direct_t1_t3_eligible": false,
+            "code_available": false,
+            "data_available": false,
+            "rationale": [
+              "Raw data is available by author request only. Repo constraint: no scaffold before data/schema for request-only routes.",
+              "N=20 PD is below the external augmentation variance floor.",
+              "Stronger public routes already tested and failed to advance internal canonicals: FoG-STAR N=22 (iter38 augmentation gate FAIL), COPS N=62 (iter49 partial external validity only).",
+              "Input 'gait parameters' are plantar flexion/dorsiflexion angles, stride length, foot clearance, velocity, cadence \u2014 likely motion-capture or instrumented-walkway derived, not WearGait-aligned raw wearable IMU.",
+              "Small-N LOOCV R2 of 0.675 is not directly comparable to the repo's inductive CCC metric; no fold-clean replication path exists without raw data and schema."
+            ],
+            "sources": [
+              "https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2025.1527020/full",
+              "https://pmc.ncbi.nlm.nih.gov/articles/PMC12435819/"
+            ]
+          }
+        ],
+        "paradigma": {
+          "name": "ParaDigMa PD digital biomarker toolbox",
+          "access_status": "public GitHub/JOSS 2026/Zenodo software; no dataset rows",
+          "label": "No cohort or clinical labels; feature-extraction software only",
+          "modality": "wrist accelerometer, gyroscope, and PPG feature-extraction pipelines during daily-life passive monitoring",
+          "direct_t1_t3_eligible": false,
+          "status": "local_feature_addition_dead_at_n94",
+          "code_available": true,
+          "data_available": false,
+          "verdict": "Document-only standardized wrist-IMU biomarker toolbox. The route is software, not a labeled cohort; applying it to WearGait would be a local scalar handcrafted feature addition, and that category is already closed at N=94. Do not create a preregistration, scaffold, download job, or remote run for the active T1/T3 CCC objective.",
+          "consults": {
+            "kimi": "document_only_dead_local_feature_fishing",
+            "claude": "failed_credit_balance_too_low",
+            "glmcode": "not_found_on_path"
+          },
+          "sources": [
+            "https://github.com/biomarkersParkinson/paradigma",
+            "https://doi.org/10.21105/joss.09502",
+            "https://doi.org/10.5281/zenodo.19207320",
+            "results/paradigma_yin_route_refresh_20260509.json",
+            "results/paradigma_yin_route_refresh_20260509.md"
+          ]
+        },
+        "yin": {
+          "name": "Yin et al Frontiers Neurology 2025 gait-parameter regression",
+          "access_status": "paper public; raw data corresponding-author request only; no public row-level schema",
+          "label": "Total MDS-UPDRS III, tremor part score, and non-tremor part score in OFF/ON medication states",
+          "modality": "plantar angles, stride length, foot clearance, velocity, cadence, and stride time; likely motion-capture or instrumented-walkway gait parameters rather than raw wearable IMU",
+          "direct_t1_t3_eligible": false,
+          "status": "request_only_underpowered_no_public_schema",
+          "n_pd": 20,
+          "n_controls": 17,
+          "n_hc": 17,
+          "code_available": false,
+          "data_available": false,
+          "verdict": "Document-only small-N gait-parameter correlation study. The route is request-only, has no public row-level schema, is underpowered versus already-tested public external rows, and does not expose a WearGait-aligned raw IMU feature path. Do not create an access runbook, preregistration, scaffold, download job, or remote run for the active T1/T3 CCC objective.",
+          "consults": {
+            "kimi": "document_only_request_only_underpowered_no_schema",
+            "claude": "failed_credit_balance_too_low",
+            "glmcode": "not_found_on_path"
+          },
+          "sources": [
+            "https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2025.1527020/full",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12435819/",
+            "results/paradigma_yin_route_refresh_20260509.json",
+            "results/paradigma_yin_route_refresh_20260509.md"
+          ]
+        },
+        "parkinsonathome": {
+          "route": {
+            "name": "Parkinson@Home arm-swing validation",
+            "access_status": "public Radboud WebDAV / DOI route; metadata, clinical CSV, and prepared per-subject parquet files are directly downloadable",
+            "label": "OFF/ON MDS-UPDRS Part III subitems in patient_info.csv; OFF total Part III is computable under valid-range handling",
+            "modality": "bilateral wrist accelerometer and gyroscope at 200 Hz, prepared per-subject parquet files with gait and arm-activity labels",
+            "direct_t1_t3_eligible": true,
+            "status": "probe_passed_zero_shot_hard_stop_n18_no_scoring",
+            "n_pd": 25,
+            "n_controls": 25,
+            "n_patient_info_rows": 50,
+            "n_pd_off_valid_target_rows": 25,
+            "n_feature_readable_off_subjects": 18,
+            "n_required_feature_readable_off_subjects": 20,
+            "completed_result": false,
+            "metrics_available": false,
+            "track_b_status": "skipped_public_non_target_clinical_covariates_absent",
+            "formula_sha256": "417fdfe0bd2f07c8c5415bd49c87b70725979a26517fe353ca376e2b85387888",
+            "verdict": "Public direct T3 external route, but iter53 stopped before scoring because the pre-registered feature-readability hard stop retained only 18 valid OFF PD subjects versus the minimum of 20. No zero-shot, within-dataset LOOCV, or OFF/ON response metric exists; no internal WearGait-PD T1/T3 canonical can change. Do not rerun under the same preregistration; any shorter-window or fallback policy requires a fresh preregistration and remains external-validity-only.",
+            "consults": {
+              "kimi": "probe_gated_preregistration; run only if public labels/features pass hard stops; no internal canonical update under any outcome",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://doi.org/10.34973/fr4z-a489",
+              "https://webdav.data.ru.nl/dcmn/DSC_pdhasq_t0000123a_971_v1/",
+              "https://github.com/biomarkersParkinson/pdathome_gait",
+              "https://jneuroengrehab.biomedcentral.com/articles/10.1186/s12984-025-01625-x",
+              "results/iter53_parkinsonathome_probe.json",
+              "results/preregistration_t3_iter53_parkinsonathome_zeroshot.json",
+              "results/iter53_parkinsonathome_features.csv.manifest.json"
+            ]
+          },
+          "refresh": {
+            "created_at_utc": "2026-05-09T11:30:25Z",
+            "route": "Parkinson@Home arm-swing validation",
+            "decision": "probe_passed_but_zero_shot_hard_stop_n18_no_scoring",
+            "status": "probe_passed_zero_shot_hard_stop_n18_no_scoring",
+            "type": "public_external_t3_route_stopped_before_scoring",
+            "public": true,
+            "direct_t1_t3_eligible": true,
+            "internal_canonical_update_allowed": false,
+            "ceiling_break_framing_allowed": false,
+            "dataset": {
+              "name": "Parkinson@Home IMU sensor data and video annotations for arm swing quantification in free-living gait",
+              "doi": "10.34973/fr4z-a489",
+              "landing_page": "https://doi.org/10.34973/fr4z-a489",
+              "distribution": "https://webdav.data.ru.nl/dcmn/DSC_pdhasq_t0000123a_971_v1",
+              "sensor": "bilateral wrist accelerometer and gyroscope at 200 Hz",
+              "labels": "OFF/ON MDS-UPDRS Part III subitems in patient_info.csv",
+              "cohort": "25 PD with motor fluctuations and 25 controls; PD recorded OFF and ON medication"
+            },
+            "probe": {
+              "n_patient_info_rows": 50,
+              "n_pd_off_valid_target_rows": 25,
+              "off_target_summary": {
+                "mean": 42.16,
+                "min": 17.0,
+                "max": 67.0
+              },
+              "clinical_covariates_public": [],
+              "track_b_status": "skipped_public_non_target_clinical_covariates_absent",
+              "sample_prepared_parquet": {
+                "sid": "hbv002",
+                "side_label": "MAS",
+                "status": "ok",
+                "shape": [
+                  876535,
+                  6
+                ],
+                "columns": [
+                  "accelerometer_x",
+                  "accelerometer_y",
+                  "accelerometer_z",
+                  "free_living_label",
+                  "arm_label",
+                  "pre_or_post"
+                ],
+                "unit": "g_converted_to_mps2",
+                "median_raw_mag": 1.0089667097312143,
+                "mean_raw_mag": 1.0150137498736127
+              }
+            },
+            "pre_registration": {
+              "path": "results/preregistration_t3_iter53_parkinsonathome_zeroshot.json",
+              "formula_sha256": "417fdfe0bd2f07c8c5415bd49c87b70725979a26517fe353ca376e2b85387888",
+              "created_at_utc": "2026-05-09T11:22:18+00:00",
+              "git_sha": "b82d6a67c4e775f8e4256c83217d4d149a5f6f24",
+              "hard_stop_min_off_subjects": 20,
+              "hard_stops": [
+                "patient_info.csv must expose all OFF_UPDRS_3_* subitems needed for valid-range T3.",
+                "At least 20 PD OFF subjects must remain after valid-target and feature-readability filtering.",
+                "Prepared parquet reading must work with pyarrow or fastparquet on the execution host.",
+                "External accelerometry scale must be classifiable as g or m/s^2 from magnitude distribution.",
+                "No Parkinson@Home labels enter WearGait-trained Tracks A/D."
+              ]
+            },
+            "extraction": {
+              "feature_csv": "results/iter53_parkinsonathome_features.csv",
+              "feature_manifest": "results/iter53_parkinsonathome_features.csv.manifest.json",
+              "n_rows": 36,
+              "n_subjects": 18,
+              "n_pre_valid_target_subjects": 18,
+              "n_required_pre_valid_target_subjects": 20,
+              "feature_csv_sha256": "6d45795cdafe12a5c78b29913a2280115449473b810a194040a30ec62a6af100",
+              "skipped_subject_count": 7,
+              "skipped_subjects": [
+                {
+                  "sid": "hbv013",
+                  "reason": "cannot reshape array of size 382 into shape (1,600)",
+                  "side_label": "LAS"
+                },
+                {
+                  "sid": "hbv039",
+                  "reason": "cannot reshape array of size 347 into shape (1,600)",
+                  "side_label": "LAS"
+                },
+                {
+                  "sid": "hbv054",
+                  "reason": "cannot reshape array of size 114 into shape (1,600)",
+                  "side_label": "MAS"
+                },
+                {
+                  "sid": "hbv080",
+                  "reason": "right_wrist_side_not_found_in_distribution"
+                },
+                {
+                  "sid": "hbv018",
+                  "reason": "cannot reshape array of size 413 into shape (1,600)",
+                  "side_label": "MAS"
+                },
+                {
+                  "sid": "hbv051",
+                  "reason": "right_wrist_side_not_found_in_distribution"
+                },
+                {
+                  "sid": "hbv074",
+                  "reason": "right_wrist_side_not_found_in_distribution"
+                }
+              ],
+              "short_clean_gait_segment_skips": 4,
+              "right_wrist_mapping_missing_skips": 3
+            },
+            "tracks": {
+              "A_zero_shot_wrist_direct": "not_run_hard_stop_before_scoring",
+              "B_clinical_plus_wrist": "skipped_public_non_target_clinical_covariates_absent",
+              "C_parkinsonathome_loocv_sanity": "not_run_hard_stop_before_scoring",
+              "D_off_on_response_sensitivity": "not_run_hard_stop_before_scoring"
+            },
+            "metrics": null,
+            "result_artifact": null,
+            "hard_stop": {
+              "fired": true,
+              "reason": "pre-registered minimum of 20 valid OFF PD subjects was not met after right-wrist clean-gait feature extraction",
+              "observed_valid_off_subjects": 18,
+              "required_valid_off_subjects": 20,
+              "scoring_started": false
+            },
+            "rationale": [
+              "Parkinson@Home is a material public direct T3 external route: patient_info.csv exposes OFF/ON MDS-UPDRS Part III subitems and the prepared parquet files expose wrist accelerometry with gait/arm labels.",
+              "The pre-registered battery required at least 20 valid OFF PD subjects after target and feature-readability filtering before any Track A/C/D score could be reported.",
+              "Extraction retained 18 OFF PD subjects, then the hard stop fired before WearGait-to-Parkinson@Home scoring, Parkinson@Home-only LOOCV, or OFF/ON response scoring.",
+              "The stopped route must be recorded as no-score/no-canonical-change. A shorter-window or alternate fallback policy would be a new pre-registration, not a continuation of iter53."
+            ],
+            "consults": {
+              "kimi": "probe_gated_preregistration; run only if public labels/features pass hard stops; no internal canonical update under any outcome",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://doi.org/10.34973/fr4z-a489",
+              "https://webdav.data.ru.nl/dcmn/DSC_pdhasq_t0000123a_971_v1/",
+              "https://github.com/biomarkersParkinson/pdathome_gait",
+              "https://jneuroengrehab.biomedcentral.com/articles/10.1186/s12984-025-01625-x",
+              "results/iter53_parkinsonathome_probe.json",
+              "results/preregistration_t3_iter53_parkinsonathome_zeroshot.json",
+              "results/iter53_parkinsonathome_features.csv.manifest.json"
+            ]
+          }
+        },
+        "ppmi": {
+          "name": "PPMI / Verily Study Watch",
+          "access_status": "PPMI DUA/application required; no local credentials configured",
+          "label": "MDS-UPDRS Part III and Hoehn & Yahr in PPMI clinical data; npj 2025 analysis linked MDS-UPDRS within 90 days of wearable data",
+          "modality": "Verily Study Watch wrist accelerometer, 100 Hz, free-living longitudinal monitoring",
+          "direct_t1_t3_eligible": true,
+          "status": "access_gated_no_scaffold_until_credentials",
+          "verdict": "Priority gated direct external T3 route. Kimi advised documenting it and waiting for user PPMI DUA/account action before building a probe scaffold; do not launch a remote job without credentials.",
+          "consults": {
+            "kimi": "document_as_access_gated_priority_route_no_scaffold_until_credentials",
+            "claude": "failed_credit_balance_too_low",
+            "glmcode": "not_found_on_path"
+          },
+          "access_runbook": "scripts/ppmi_verily_setup.md",
+          "sources": [
+            "https://www.ppmi-info.org/access-data-specimens/download-data",
+            "https://www.ppmi-info.org/help-and-resources/faqs",
+            "https://www.nature.com/articles/s41531-025-01034-8",
+            "scripts/ppmi_verily_setup.md"
+          ]
+        },
+        "watchpd": {
+          "name": "WATCH-PD",
+          "access_status": "C-Path 3DT Stage 2 membership or WATCH-PD Steering Committee proposal required; no local access or schema; C-Path Integrated Parkinson's Database does not include DHT data",
+          "label": "MDS-UPDRS Parts I-III; APDM sensors worn during MDS-UPDRS Part III; mean PD Part III 24.1 at baseline",
+          "modality": "Apple Watch, iPhone BrainBaseline, and APDM Opal inertial sensors during in-clinic MDS-UPDRS Part III plus at-home longitudinal digital assessments",
+          "direct_t1_t3_eligible": true,
+          "status": "request_gated_document_only_no_scaffold_until_access_schema",
+          "n_subjects": 132,
+          "n_pd": 82,
+          "n_controls": 50,
+          "duration_months": 12,
+          "verdict": "Direct and protocol-relevant external T3 route, but request-gated and schema-hidden. Add to access queue only; do not create a scaffold, preregistration, download job, or remote run until C-Path 3DT membership or WATCH-PD Steering Committee approval provides row-level sensor files, labels, and schema. PPMI remains higher priority because it is larger and already has a Verily/MDS-UPDRS publication trail.",
+          "consults": {
+            "kimi": "request_gated_document_only_no_scaffold_until_access_schema",
+            "gemini": "request_gated_document_only_no_scaffold_ppmi_priority",
+            "claude": "failed_credit_balance_too_low",
+            "glmcode": "not_found_on_path"
+          },
+          "access_runbook": "scripts/watchpd_request_setup.md",
+          "sources": [
+            "https://www.mdsabstracts.org/abstract/watch-pd-wearable-assessments-in-the-clinic-and-home-in-parkinsons-disease-baseline-analyses/",
+            "https://www.nature.com/articles/s41531-024-00721-2",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC11381495/",
+            "https://c-path.org/tools-platforms/integrated-parkisons-database/",
+            "https://watchpdstudy.org/technologies",
+            "scripts/watchpd_request_setup.md"
+          ]
+        },
+        "icicle": {
+          "name": "ICICLE-PD / ICICLE-GAIT",
+          "access_status": "request-gated via Newcastle / data available on request; no local agreement or files",
+          "label": "MDS-UPDRS Part III and Hoehn & Yahr at clinical visits",
+          "modality": "lower-back Axivity AX3 triaxial accelerometer, 100 Hz, +/-8g, 7-day free-living real-world gait at 18-month visits over 6 years",
+          "direct_t1_t3_eligible": true,
+          "status": "request_gated_document_only_no_scaffold_until_data",
+          "n_subjects": 89,
+          "n_pd": 89,
+          "n_daily_samples": 1476,
+          "published_benchmark": {
+            "traditional_ml_mae": 10.43,
+            "traditional_ml_r": 0.26,
+            "traditional_ml_icc": 0.389,
+            "global_fl_mae": 10.22,
+            "local_personalized_mae": 4.83,
+            "best_global_fl_mae": 9.26,
+            "best_global_fl_r": 0.43,
+            "best_global_fl_icc": 0.438
+          },
+          "verdict": "Direct longitudinal external T3 route with clinician MDS-UPDRS Part III labels, but request-gated and lower-back rather than wrist-native. Document and pursue access only; do not create a scaffold, preregistration, download job, or remote run until files and schema are available.",
+          "consults": {
+            "kimi": "document_as_request_gated_route_no_scaffold_until_data",
+            "gemini": "document_and_request_access_no_scaffold_until_schema",
+            "claude": "failed_credit_balance_too_low",
+            "glmcode": "not_found_on_path"
+          },
+          "access_runbook": "scripts/icicle_request_setup.md",
+          "sources": [
+            "https://www.frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2026.1766599/full",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC13006630/",
+            "scripts/icicle_request_setup.md"
+          ]
+        },
+        "cns_portugal": {
+          "name": "CNS Portugal / Lobo IS2022 AX3 gait",
+          "access_status": "request-gated through authors/CNS; related CNS Sensors 2022 article states raw data available from authors on request",
+          "label": "MDS-UPDRS Part III total and Hoehn & Yahr 2-4",
+          "modality": "Axivity AX3 triaxial accelerometers on wrist and lower back, 100 Hz, structured 10-meter walk",
+          "direct_t1_t3_eligible": true,
+          "status": "request_gated_document_only_no_scaffold_until_data",
+          "n_subjects": 74,
+          "n_pd": 74,
+          "n_sessions": 104,
+          "n_gait_instances": 267,
+          "published_benchmark": {
+            "best_10pct_leftout_mae": 4.26,
+            "best_loso_mae": 9.99,
+            "reported_average_t3": 40.92,
+            "reported_average_hy": 2.57,
+            "best_10pct_model": "Random Forest, 2.5 s window, wrist + lower back",
+            "best_loso_model": "SVM, 5 s window, wrist + lower back",
+            "validation_caution": "10% heldout result is window-level/patient-already-seen optimistic; require subject/session-grouped validation"
+          },
+          "verdict": "Direct request-gated T3 external route with wrist+lower-back AX3 and structured 10 m walk. Do not scaffold before schema and access are confirmed. Treat as external-validity evidence only; not an internal WearGait-PD ceiling-breaker.",
+          "consults": {
+            "kimi": "add_request_gated_direct_t3_no_scaffold_subject_level",
+            "gemini": "add_request_gated_direct_t3_no_scaffold_strict_subject_split",
+            "claude": "failed_credit_balance_too_low",
+            "glmcode": "not_found_on_path"
+          },
+          "access_runbook": "scripts/cns_portugal_request_setup.md",
+          "sources": [
+            "https://techandpeople.github.io/downloads/updrs_is22.pdf",
+            "https://techandpeople.github.io/publications/",
+            "https://www.mdpi.com/1424-8220/22/11/3980",
+            "scripts/cns_portugal_request_setup.md"
+          ]
+        },
+        "mobilised": {
+          "name": "Mobilise-D TVS / CVS",
+          "access_status": "TVS public on Zenodo; CVS row-level public wearable/clinical release or schema not found",
+          "label": "TVS includes demographic/clinical variables but is explicitly for algorithm validation, not clinical inference; CVS reports MDS-UPDRS in a 600+ PD longitudinal cohort",
+          "modality": "TVS lower-back McRoberts MM+ IMU plus reference systems, with some wrist-worn recordings; CVS lower-back wearable worn for seven days after study visits",
+          "direct_t1_t3_eligible": false,
+          "status": "watchlist_no_scaffold_until_cvs_release_or_schema",
+          "n_tvs_subjects_total": 108,
+          "n_cvs_pd_baseline_reported": 600,
+          "n_cvs_pd_hra_reported": 602,
+          "verdict": "Do not preregister/download for the active WearGait-PD T1/T3 CCC objective. The open TVS is an algorithm-validation dataset and not a clinical UPDRS-III regression target. CVS is potentially useful future lower-back longitudinal T3 evidence, but remains a release/access/schema watch route; no scaffold, preregistration, download, or remote job is justified until row-level wearable plus MDS-UPDRS III data access is confirmed.",
+          "consults": {
+            "kimi": "skip_tvs_watchlist_request_cvs_no_scaffold_until_schema",
+            "gemini": "skip_tvs_watchlist_request_cvs_no_scaffold_until_row_level_release",
+            "claude": "failed_credit_balance_too_low",
+            "glmcode": "not_found_on_path"
+          },
+          "sources": [
+            "https://zenodo.org/records/15861907",
+            "https://www.mdsabstracts.org/abstract/baseline-data-of-the-mobilise-d-parkinson-cohort/",
+            "https://www.hra.nhs.uk/planning-and-improving-research/application-summaries/research-summaries/mobilise-d-clinical-validation-study/",
+            "https://mobilise-d.eu/data/"
+          ]
+        },
+        "tlvmc_defog": {
+          "route": {
+            "name": "TLVMC / DeFOG Parkinson's Freezing of Gait Prediction",
+            "access_status": "public via Kaggle competition files and Zenodo archived competition dataset; iter51 full public raw-data run completed on remote",
+            "label": "subjects.csv contains UPDRSIII_On, UPDRSIII_Off, and NFOGQ; DeFOG metadata joins recordings to Subject/Visit/Medication",
+            "modality": "lower-back/trunk accelerometry with AccV/AccML/AccAP axes for DeFOG structured FoG tasks plus daily free-living recordings; tdcsfog metadata exists but did not join to UPDRS-III targets in this probe",
+            "direct_t1_t3_eligible": true,
+            "status": "zero_shot_complete_external_validity_only",
+            "n_subjects_with_updrsiii": 136,
+            "n_subject_visits_with_updrsiii": 173,
+            "n_defog_subjects": 45,
+            "n_defog_subject_visits": 70,
+            "n_defog_recordings": 137,
+            "n_defog_medication_matched_targets": 137,
+            "n_daily_recordings_with_visit_targets": 65,
+            "n_tdcsfog_joined_updrsiii_targets": 0,
+            "verdict": "Direct public T3 external route; iter51 zero-shot is complete. WearGait lower-back magnitude features transfer weakly but positively to OFF-state DeFOG, wrist-to-lumbar stress transfer is near-null, DeFOG-only LOSO sanity is modest, and no internal WearGait-PD T3 canonical change is allowed from this external result.",
+            "probe_artifacts": [
+              "scripts/probe_tlvmc_fog_route.py",
+              "results/tlvmc_fog_route_probe_20260509.json",
+              "results/tlvmc_fog_route_probe_20260509.md"
+            ],
+            "sources": [
+              "https://zenodo.org/records/10959560",
+              "https://zenodo.org/api/records/10959560",
+              "https://www.kaggle.com/competitions/tlvmc-parkinsons-freezing-gait-prediction",
+              "https://www.nature.com/articles/s41467-024-49027-0",
+              "results/tlvmc_fog_route_probe_20260509.json",
+              "results/preregistration_t3_iter51_tlvmc_defog_zeroshot.json",
+              "results/preregistration_t3_iter51_tlvmc_defog_zeroshot.md",
+              "results/iter51_tlvmc_defog_zeroshot.json",
+              "results/iter51_tlvmc_defog_features.csv.manifest.json"
+            ],
+            "raw_schema_sample": {
+              "source_file": "train/defog/02ea782681.csv",
+              "rows": 162907,
+              "columns": [
+                "Time",
+                "AccV",
+                "AccML",
+                "AccAP",
+                "StartHesitation",
+                "Turn",
+                "Walking",
+                "Valid",
+                "Task"
+              ],
+              "time_start": 0,
+              "time_end": 162906
+            },
+            "n_defog_off_records": 68,
+            "n_defog_off_subjects": 44,
+            "n_defog_on_records": 69,
+            "n_defog_on_subjects": 45,
+            "preregistration_artifacts": [
+              "scripts/write_tlvmc_defog_prereg.py",
+              "results/preregistration_t3_iter51_tlvmc_defog_zeroshot.json",
+              "results/preregistration_t3_iter51_tlvmc_defog_zeroshot_20260509_010408.json",
+              "results/preregistration_t3_iter51_tlvmc_defog_zeroshot.md"
+            ],
+            "preregistration": {
+              "experiment": "t3_iter51_tlvmc_defog_external_zeroshot",
+              "formula_sha256": "665479765911e8192e4db570babeb5fcef3e2b6553dfd6259187f76685ec08cd",
+              "created_at_utc": "2026-05-09T01:04:08+00:00",
+              "primary_target": "OFF-state DeFOG UPDRSIII_Off",
+              "primary_expected_n_records": 68,
+              "primary_expected_n_subjects": 44,
+              "primary_track": "A_zero_shot_lumbar_acc_magnitude",
+              "interpretation": "external transportability evidence only; no internal canonical change"
+            },
+            "n_defog_model_rows": 136,
+            "n_defog_model_subjects": 45,
+            "n_defog_off_records_modeled": 68,
+            "n_defog_on_records_modeled": 68,
+            "n_common_magnitude_features": 54,
+            "full_run_artifacts": [
+              "run_t3_iter51_tlvmc_defog.py",
+              "results/iter51_tlvmc_defog_download_manifest.json",
+              "results/iter51_tlvmc_defog_features.csv",
+              "results/iter51_tlvmc_defog_features.csv.manifest.json",
+              "results/iter51_tlvmc_defog_zeroshot_20260509_013357.json",
+              "results/iter51_tlvmc_defog_zeroshot.json",
+              "results/iter51_tlvmc_defog_zeroshot_rows_20260509_013357.csv"
+            ],
+            "zero_shot_result": {
+              "n_weargait_lowerback_train": 95,
+              "n_weargait_wrist_train": 95,
+              "n_defog_rows_total": 136,
+              "n_defog_subjects": 45,
+              "n_defog_off_labeled": 68,
+              "n_defog_on_labeled": 68,
+              "n_common_magnitude_features": 54,
+              "track_a_lowerback_magnitude_off_ccc": 0.2695,
+              "track_a_lowerback_magnitude_off_ci95": [
+                0.1693,
+                0.36
+              ],
+              "track_a_lowerback_magnitude_off_mae": 8.0688,
+              "track_a_lowerback_magnitude_off_r": 0.5635,
+              "track_b_wrist_to_lumbar_off_ccc": 0.0485,
+              "track_b_wrist_to_lumbar_off_ci95": [
+                0.0141,
+                0.0868
+              ],
+              "track_c_defog_only_loso_off_ccc": 0.345,
+              "track_c_defog_only_loso_off_ci95": [
+                0.1229,
+                0.5557
+              ],
+              "on_sensitivity_track_a_ccc": 0.0548,
+              "pooled_medication_matched_track_a_ccc": 0.166,
+              "subject_visit_mean_state_track_a_ccc": 0.1731,
+              "null_target_shuffle_track_a_off_ccc": 0.0404,
+              "null_scrambled_label_track_c_off_ccc": 0.1206,
+              "transductive_defog_off_diagnostic_ccc": 0.5969,
+              "skipped_raw_files": [
+                {
+                  "id": "02ab235146",
+                  "reason": "Usecols do not match columns, columns expected but not found: ['Valid', 'Task']"
+                }
+              ],
+              "interpretation": "partial external-validity evidence only; no internal WearGait-PD T3 canonical change"
+            }
+          },
+          "preregistration": {
+            "formula_sha256": "665479765911e8192e4db570babeb5fcef3e2b6553dfd6259187f76685ec08cd",
+            "primary": {
+              "name": "DeFOG OFF-state T3",
+              "definition": "Use only defog_metadata rows with Medication == 'off' and non-missing UPDRSIII_Off after Subject/Visit join.",
+              "expected_n_records": 68,
+              "expected_n_subjects": 44,
+              "unit_of_analysis": "Subject/Visit/Medication. If a future raw-data parse yields multiple files for the same unit, aggregate predictions by median before computing headline metrics."
+            }
+          },
+          "result": {
+            "decision": "external_zero_shot_only_no_internal_t3_canonical_change",
+            "n_defog_rows": 136,
+            "n_common_magnitude_features": 54,
+            "track_a_mean_off": {
+              "n": 68,
+              "ccc": 0.2695,
+              "mae": 8.0688,
+              "r": 0.5635,
+              "cal_slope": 0.1451,
+              "pred_mean": 45.0052,
+              "pred_std": 3.0758,
+              "true_mean": 43.7794,
+              "true_std": 11.9458,
+              "n_boot": 10000,
+              "cluster_key": "subject",
+              "ccc_ci95": [
+                0.1693,
+                0.36
+              ],
+              "ccc_frac_gt_0": 1.0,
+              "ccc_frac_gt_02": 0.9118,
+              "ccc_frac_gt_038": 0.0098
+            },
+            "track_b_mean_off": {
+              "n": 68,
+              "ccc": 0.0485,
+              "mae": 10.9345,
+              "r": 0.2792,
+              "cal_slope": 0.0345,
+              "pred_mean": 36.1662,
+              "pred_std": 1.4761,
+              "true_mean": 43.7794,
+              "true_std": 11.9458,
+              "n_boot": 10000,
+              "cluster_key": "subject",
+              "ccc_ci95": [
+                0.0141,
+                0.0868
+              ],
+              "ccc_frac_gt_0": 0.9975,
+              "ccc_frac_gt_02": 0.0,
+              "ccc_frac_gt_038": 0.0
+            },
+            "track_c_defog_loso": {
+              "n": 68,
+              "ccc": 0.345,
+              "mae": 8.6113,
+              "r": 0.4005,
+              "cal_slope": 0.2288,
+              "pred_mean": 43.8081,
+              "pred_std": 6.8234,
+              "true_mean": 43.7794,
+              "true_std": 11.9458,
+              "n_boot": 10000,
+              "cluster_key": "subject",
+              "ccc_ci95": [
+                0.1229,
+                0.5557
+              ],
+              "ccc_frac_gt_0": 0.9992,
+              "ccc_frac_gt_02": 0.8972,
+              "ccc_frac_gt_038": 0.3885
+            }
+          },
+          "probe_subjects": {
+            "rows": 173,
+            "unique_subjects": 136,
+            "unique_subject_visits": 173,
+            "columns": [
+              "Subject",
+              "Visit",
+              "Age",
+              "Sex",
+              "YearsSinceDx",
+              "UPDRSIII_On",
+              "UPDRSIII_Off",
+              "NFOGQ"
+            ],
+            "rows_with_any_updrsiii_target": 173,
+            "unique_subjects_with_any_updrsiii_target": 136,
+            "updrsiii_on": {
+              "n": 172,
+              "min": 5.0,
+              "median": 35.0,
+              "max": 79.0
+            },
+            "updrsiii_off": {
+              "n": 132,
+              "min": 15.0,
+              "median": 43.0,
+              "max": 91.0
+            },
+            "nfogq": {
+              "n": 173,
+              "min": 0.0,
+              "median": 19.0,
+              "max": 29.0
+            }
+          },
+          "probe_defog": {
+            "rows": 137,
+            "unique_subjects": 45,
+            "unique_subject_visits": 70,
+            "rows_joining_subjects": 137,
+            "rows_with_any_updrsiii_target": 137,
+            "rows_with_matching_medication_updrsiii_target": 137,
+            "medication_counts": {
+              "on": 69,
+              "off": 68
+            },
+            "columns": [
+              "Id",
+              "Subject",
+              "Visit",
+              "Medication"
+            ]
+          },
+          "probe_tdcsfog": {
+            "rows": 833,
+            "unique_subjects": 62,
+            "unique_subject_visits": 197,
+            "rows_joining_subjects": 0,
+            "rows_with_any_updrsiii_target": 0,
+            "rows_with_matching_medication_updrsiii_target": 0,
+            "medication_counts": {
+              "on": 536,
+              "off": 297
+            },
+            "columns": [
+              "Id",
+              "Subject",
+              "Visit",
+              "Test",
+              "Medication"
+            ]
+          },
+          "raw_schema_sample": {
+            "source_file": "train/defog/02ea782681.csv",
+            "downloaded_name": "02ea782681.csv",
+            "rows": 162907,
+            "columns": [
+              "Time",
+              "AccV",
+              "AccML",
+              "AccAP",
+              "StartHesitation",
+              "Turn",
+              "Walking",
+              "Valid",
+              "Task"
+            ],
+            "time_start": 0,
+            "time_end": 162906,
+            "AccV": {
+              "dtype": "float64",
+              "min": -2.76459465199688,
+              "max": 0.156228838417905,
+              "mean": -0.9813525867466732
+            },
+            "AccML": {
+              "dtype": "float64",
+              "min": -1.06325007429161,
+              "max": 1.50162861930944,
+              "mean": 0.03256588464348971
+            },
+            "AccAP": {
+              "dtype": "float64",
+              "min": -1.27062637531325,
+              "max": 0.34375,
+              "mean": -0.18777189170546016
+            },
+            "Valid": {
+              "dtype": "bool",
+              "min": 0.0,
+              "max": 1.0,
+              "mean": 0.22634386490451608
+            },
+            "Task": {
+              "dtype": "bool",
+              "min": 0.0,
+              "max": 1.0,
+              "mean": 0.226472772809026
+            },
+            "StartHesitation": {
+              "dtype": "int64",
+              "min": 0.0,
+              "max": 0.0,
+              "mean": 0.0
+            },
+            "Turn": {
+              "dtype": "int64",
+              "min": 0.0,
+              "max": 1.0,
+              "mean": 0.0007918628419896015
+            },
+            "Walking": {
+              "dtype": "int64",
+              "min": 0.0,
+              "max": 0.0,
+              "mean": 0.0
+            }
+          }
+        },
+        "pdfe_turning": {
+          "route": {
+            "name": "PDFE turning-in-place",
+            "access_status": "public Figshare CC-BY 4.0",
+            "label": "session-level UPDRS-III total in PDFEinfo.csv; session 1 used for iter52 primary external scoring",
+            "modality": "shank IMU acceleration and gyroscope during turning-in-place; video files also public but not used",
+            "direct_t1_t3_eligible": true,
+            "status": "zero_shot_complete_external_validity_only",
+            "n_metadata_rows": 41,
+            "n_session1_targets": 35,
+            "n_session2_targets": 23,
+            "n_session3_targets": 13,
+            "verdict": "Direct public T3 external route; iter52 zero-shot is complete. WearGait lateral-shank transfer is negative, clinical+shank transfer is weak and CI-crossing-zero, PDFE-only LOOCV sanity is positive, and no internal WearGait-PD T3 canonical change is allowed from this external result.",
+            "preregistration_artifacts": [
+              "results/preregistration_t3_iter52_pdfe_turning_zeroshot.json",
+              "results/preregistration_t3_iter52_pdfe_turning_zeroshot.md"
+            ],
+            "preregistration": {
+              "experiment": "T3 iter52 PDFE turning-in-place external zero-shot validation",
+              "formula_sha256": "f0eb5985a15b271a333b3d9e1d093e32889814a0f48d0ca4f5131b9674c7b2f2",
+              "primary_rows": "one row per PDFE subject: trial/session 1 only, target = Session 1 UPDRS-III",
+              "primary_track": "A_primary_weargait_shank_magnitude_to_pdfe",
+              "interpretation": "external transportability evidence only; no internal canonical change"
+            },
+            "probe_artifacts": [
+              "results/iter52_pdfe_turning_probe.json"
+            ],
+            "download_artifacts": [
+              "results/iter52_pdfe_turning_download_manifest.json"
+            ],
+            "full_run_artifacts": [
+              "run_t3_iter52_pdfe_turning.py",
+              "results/iter52_pdfe_turning_features.csv",
+              "results/iter52_pdfe_turning_features.csv.manifest.json",
+              "results/iter52_pdfe_turning_zeroshot.json",
+              "results/iter52_pdfe_turning_zeroshot_20260509_092223.json",
+              "results/iter52_pdfe_turning_zeroshot_rows_20260509_092223.csv"
+            ],
+            "zero_shot_result": {
+              "n_weargait_train": 95,
+              "n_pdfe": 35,
+              "n_common_magnitude_features": 54,
+              "track_a_weargait_shank_to_pdfe_ccc": -0.1008,
+              "track_a_ci95": [
+                -0.2877,
+                0.0554
+              ],
+              "track_a_mae": 14.1539,
+              "track_a_r": -0.1935,
+              "track_b_clinical_plus_shank_ccc": 0.134,
+              "track_b_ci95": [
+                -0.0426,
+                0.3369
+              ],
+              "track_b_mae": 12.5851,
+              "track_b_r": 0.2515,
+              "track_c_pdfe_only_loo_ccc": 0.402,
+              "track_c_ci95": [
+                0.1569,
+                0.6519
+              ],
+              "track_c_mae": 10.2833,
+              "track_c_r": 0.4387,
+              "null_track_a_wg_target_shuffle_ccc": -0.0866,
+              "interpretation": "external-validity evidence only; no internal WearGait-PD T3 canonical change"
+            },
+            "consults": {
+              "kimi": "document_only_conservative_due_shank_protocol_mismatch; empirical iter52 run recorded as external-only negative/weak transfer",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://api.figshare.com/v2/articles/14984667",
+              "https://figshare.com/articles/dataset/A_public_dataset_of_video_acceleration_and_angular_velocity_in_individuals_with_Parkinson_s_disease_during_the_turning-in-place_task/14984667",
+              "https://www.frontiersin.org/articles/10.3389/fnins.2022.832463/full",
+              "results/preregistration_t3_iter52_pdfe_turning_zeroshot.json",
+              "results/iter52_pdfe_turning_probe.json",
+              "results/iter52_pdfe_turning_zeroshot.json"
+            ]
+          },
+          "probe": {
+            "created_at_utc": "2026-05-09T06:19:44+00:00",
+            "dataset": "PDFE turning-in-place / Figshare 14984667",
+            "n_metadata_rows": 41,
+            "n_session1_targets": 35,
+            "n_session2_targets": 23,
+            "n_session3_targets": 13,
+            "has_imu_zip": true,
+            "decision": "direct_public_external_t3_route_for_zero_shot_only"
+          },
+          "result": {
+            "track_a": {
+              "ccc": -0.10084245728642342,
+              "mae": 14.153890736098464,
+              "r": -0.19350139119302562,
+              "cal_slope": -0.05992529403565716,
+              "y_mean": 31.82857142857143,
+              "pred_mean": 36.32266554665124,
+              "y_sd": 14.769632385957564,
+              "pred_sd": 4.573995866748932,
+              "ccc_bootstrap": {
+                "mean": -0.10466548112403976,
+                "ci95_low": -0.2876746024571642,
+                "ci95_high": 0.05535547413594727
+              }
+            },
+            "track_b": {
+              "ccc": 0.13399171303173568,
+              "mae": 12.585079393596189,
+              "r": 0.25146634993573286,
+              "cal_slope": 0.08295119877451582,
+              "y_mean": 31.82857142857143,
+              "pred_mean": 37.14030219070411,
+              "y_sd": 14.769632385957564,
+              "pred_sd": 4.872058278124326,
+              "ccc_bootstrap": {
+                "mean": 0.13949083345566973,
+                "ci95_low": -0.0425861740607722,
+                "ci95_high": 0.3369256373985999
+              }
+            },
+            "track_c": {
+              "ccc": 0.40201456112749495,
+              "mae": 10.283324398360866,
+              "r": 0.4387010866944529,
+              "cal_slope": 0.2879898416379238,
+              "y_mean": 31.82857142857143,
+              "pred_mean": 31.203120439608497,
+              "y_sd": 14.769632385957564,
+              "pred_sd": 9.695677127065705,
+              "ccc_bootstrap": {
+                "mean": 0.40481198558373654,
+                "ci95_low": 0.15694304291100514,
+                "ci95_high": 0.6519114891610069
+              }
+            }
+          }
+        },
+        "public_gait_biomechanics": {
+          "name": "Public overground walking full-body biomechanics",
+          "access_status": "public Figshare CC-BY 4.0",
+          "label": "ON/OFF UPDRS-III total and item columns in PDGinfo.xlsx",
+          "modality": "3D motion capture and force plates during overground walking; no wearable IMU feature space",
+          "direct_t1_t3_eligible": false,
+          "status": "document_only_wrong_modality_motion_capture_force_plates",
+          "n_pd_subjects": 26,
+          "verdict": "Public target-bearing gait-biomechanics dataset, but not a WearGait-PD T1/T3 CCC route because the modality is laboratory motion capture and force plates rather than wearable IMU.",
+          "sources": [
+            "https://api.figshare.com/v2/articles/14896881",
+            "https://figshare.com/articles/dataset/A_dataset_of_overground_walking_full-body_kinematics_and_kinetics_in_individuals_with_Parkinson_s_disease/14896881",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9978741/"
+          ]
+        },
+        "phone_call_tremor": {
+          "route": {
+            "name": "Papadopoulos phone-call tremor",
+            "access_status": "public on Zenodo, CC-BY 4.0",
+            "label": "tremor-specific annotations only: UPDRS II item 16 plus Part III item 20/21 left/right hand tremor in the clinically examined group",
+            "modality": "smartphone embedded IMU acceleration recorded during phone calls, in-the-wild",
+            "direct_t1_t3_eligible": false,
+            "n_clinically_examined_subjects": 45,
+            "n_self_reported_subjects": 454,
+            "archive_size_gb": 4.8,
+            "status": "skipped_tremor_subitem_phone_not_t1_t3",
+            "verdict": "Public tremor-subitem/free-living context only. It lacks total MDS-UPDRS Part III and T1 items 9-14, uses smartphone phone-call accelerometry rather than WearGait gait/balance IMU tasks, and should not receive a preregistration, download, or remote job for the active T1/T3 CCC objective.",
+            "consults": {
+              "kimi": "stop_new_modeling_update_route_audit_paper_hardening",
+              "gemini": "update_external_route_audit_only_no_new_probe",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://zenodo.org/records/7273759",
+              "https://doi.org/10.5281/zenodo.7273759"
+            ]
+          },
+          "consult": {
+            "created_at_utc": "2026-05-09T05:12:00Z",
+            "purpose": "Persist external-consult evidence for the Papadopoulos phone-call tremor route decision.",
+            "route": {
+              "name": "Papadopoulos phone-call tremor",
+              "source": "https://zenodo.org/records/7273759",
+              "n_clinically_examined_subjects": 45,
+              "n_self_reported_subjects": 454,
+              "modality": "smartphone embedded-IMU acceleration captured during phone calls",
+              "labels": [
+                "UPDRS II item 16 tremor",
+                "UPDRS Part III item 20 right/left rest hand tremor",
+                "UPDRS Part III item 21 right/left action/postural hand tremor",
+                "binary signal-expert tremor annotation",
+                "PD status"
+              ],
+              "direct_t1_t3_eligible": false,
+              "eligibility_failure": "No total MDS-UPDRS Part III target, no T1 items 9-14, and no WearGait-aligned gait/balance protocol."
+            },
+            "consults": {
+              "kimi": {
+                "status": "completed",
+                "recommendation": "stop_at_provenance_paper_hardening",
+                "summary": "Do not launch another model experiment or access-gated scaffold until genuinely new data or credentials exist; record the negative web-search result and keep the paper/provenance story tight."
+              },
+              "gemini": {
+                "status": "completed",
+                "recommendation": "update_external_route_audit_only_no_probe",
+                "summary": "Stop new modeling; formally reject the smartphone tremor dataset for this objective because it lacks total UPDRS-III labels."
+              },
+              "claude": {
+                "status": "failed",
+                "error": "Credit balance is too low"
+              },
+              "glmcode": {
+                "status": "not_available",
+                "error": "glmcode not found on PATH"
+              }
+            },
+            "decision": "No preregistration, download, scaffold, or remote job. Keep as tremor-subitem / free-living context only."
+          }
+        },
+        "harmonized_accelerometry": {
+          "route": {
+            "name": "Harmonized Upper/Lower Limb Accelerometry",
+            "access_status": "NICHD DASH controlled access Part1/Part2; processing code public on GitHub/Zenodo",
+            "label": "demographic/clinical survey fields; no confirmed total MDS-UPDRS Part III or T1 items 9-14",
+            "modality": "daily-life ActiGraph upper/lower-limb accelerometry and processed summary variables",
+            "direct_t1_t3_eligible": false,
+            "n_subjects_total": 790,
+            "n_recording_days": 2885,
+            "pd_fraction_reported": 0.07,
+            "approx_n_pd": 55,
+            "status": "skipped_rehab_activity_summaries_no_t1_t3_targets",
+            "verdict": "Document-only route. The dataset is a valuable rehab/free-living accelerometry resource, but it lacks confirmed total MDS-UPDRS Part III or T1 items 9-14, is controlled-access through DASH, and exposes daily-life ActiGraph summaries rather than WearGait-aligned gait/balance raw IMU. No preregistration, download, scaffold, or remote job is justified for the active T1/T3 CCC objective.",
+            "consults": {
+              "kimi": "no_prereg_no_download_no_scaffold_target_gap_and_modality_mismatch",
+              "gemini": "document_no_prereg_no_download_target_and_method_risk",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://pmc.ncbi.nlm.nih.gov/articles/PMC12681975/",
+              "https://www.sciencedirect.com/science/article/pii/S2352340925009928",
+              "https://dash.nichd.nih.gov/study/426315",
+              "https://dash.nichd.nih.gov/study/426433",
+              "https://github.com/keithlohse/HarmonizedAccelData",
+              "https://zenodo.org/records/10999195"
+            ]
+          },
+          "consult": {
+            "created_at_utc": "2026-05-09T05:32:00Z",
+            "purpose": "Persist external-consult evidence for the Harmonized Upper/Lower Limb Accelerometry route decision.",
+            "route": {
+              "name": "Harmonized Upper/Lower Limb Accelerometry",
+              "primary_source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12681975/",
+              "dash_part1": "https://dash.nichd.nih.gov/study/426315",
+              "dash_part2": "https://dash.nichd.nih.gov/study/426433",
+              "code_repository": "https://github.com/keithlohse/HarmonizedAccelData",
+              "n_subjects_total": 790,
+              "n_recording_days": 2885,
+              "pd_fraction_reported": 0.07,
+              "approx_n_pd": 55,
+              "modality": "daily-life ActiGraph upper/lower-limb accelerometry with processed summary variables",
+              "labels": [
+                "demographic and clinical survey fields",
+                "no confirmed total MDS-UPDRS Part III",
+                "no confirmed T1 items 9-14"
+              ],
+              "direct_t1_t3_eligible": false,
+              "eligibility_failure": "No confirmed total MDS-UPDRS Part III or T1 items 9-14; daily-life ActiGraph summaries are not aligned to WearGait-PD structured gait/balance raw IMU features."
+            },
+            "consults": {
+              "kimi": {
+                "status": "completed",
+                "recommendation": "no_prereg_no_download_no_scaffold",
+                "summary": "Hard target gap is disqualifying; H&Y alone is not a T1/T3 target. Daily-life ActiGraph summaries and small PD N make the route incompatible with the current ceiling-break objective."
+              },
+              "gemini": {
+                "status": "completed",
+                "recommendation": "document_no_prereg_no_download",
+                "summary": "Dataset lacks confirmed MDS-UPDRS III total or T1 subitems and has severe modality mismatch versus structured WearGait raw IMU."
+              },
+              "claude": {
+                "status": "failed",
+                "error": "Credit balance is too low"
+              },
+              "glmcode": {
+                "status": "not_available",
+                "error": "glmcode not found on PATH"
+              }
+            },
+            "decision": "No preregistration, download, scaffold, or remote job. Keep only as rehab/free-living accelerometry context."
+          }
+        },
+        "monipar": {
+          "route": {
+            "name": "Monipar",
+            "access_status": "public on Zenodo, CC-BY 4.0",
+            "label": "exercise-level MDS-UPDRS subitem labels for the supervised group only; no confirmed total Part III",
+            "modality": "single consumer-smartwatch triaxial accelerometer at 50 Hz during eight structured exercises",
+            "direct_t1_t3_eligible": false,
+            "n_pd": 21,
+            "n_controls": 7,
+            "n_supervised_pd": 6,
+            "n_supervised_trials": 46,
+            "covered_items": [
+              "3.17",
+              "3.15",
+              "3.4",
+              "3.5",
+              "3.6",
+              "3.10"
+            ],
+            "status": "skipped_public_subitem_only_tiny_supervised_n",
+            "verdict": "Public consumer-smartwatch subitem dataset. It lacks total MDS-UPDRS Part III, lacks a full T1 9-14 composite, and has only six supervised PD subjects with item labels. No preregistration, download, scaffold, or remote job is justified for the active WearGait-PD T1/T3 CCC objective.",
+            "consults": {
+              "kimi": "document_only_no_prereg_no_download_no_remote_job",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://zenodo.org/records/8104853",
+              "https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2023.1326640/full",
+              "results/smartwatch_subitem_route_refresh_20260509.json",
+              "results/external_route_audit_monipar_bioclite_20260509.md"
+            ]
+          },
+          "refresh": {
+            "name": "Monipar",
+            "zenodo": "10.5281/zenodo.8104853",
+            "access_status": "public",
+            "n_pd": 21,
+            "n_controls": 7,
+            "n_supervised_pd": 6,
+            "n_supervised_trials": 46,
+            "modality": "single consumer smartwatch triaxial accelerometer at 50 Hz",
+            "labels": "exercise-level MDS-UPDRS subitem scores for the supervised group only; no confirmed total Part III",
+            "covered_items": [
+              "3.17",
+              "3.15",
+              "3.4",
+              "3.5",
+              "3.6",
+              "3.10"
+            ],
+            "missing_for_t1": [
+              "3.11",
+              "3.12",
+              "3.13",
+              "3.14"
+            ],
+            "direct_t1_t3_eligible": false,
+            "status": "skipped_public_subitem_only_tiny_supervised_n",
+            "verdict": "Public consumer-smartwatch subitem dataset. It lacks total MDS-UPDRS Part III, lacks a full T1 9-14 composite, and has only six supervised PD subjects with item labels. No preregistration, download, scaffold, or remote job is justified for the active WearGait-PD T1/T3 CCC objective.",
+            "sources": [
+              "https://zenodo.org/records/8104853",
+              "https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2023.1326640/full"
+            ]
+          }
+        },
+        "bioclite": {
+          "route": {
+            "name": "BIOCLITE",
+            "access_status": "public on Zenodo, CC-BY 4.0",
+            "label": "per-exercise MDS-UPDRS score 0-4 when a clinical evaluation is available; no total Part III endpoint",
+            "modality": "single consumer-smartwatch triaxial accelerometer and gyroscope at 50 Hz across supervised and unsupervised exercise sessions",
+            "direct_t1_t3_eligible": false,
+            "n_pd": 24,
+            "n_controls": 16,
+            "covered_items": [
+              "3.17",
+              "3.15",
+              "3.4",
+              "3.5",
+              "3.6",
+              "3.9",
+              "3.10"
+            ],
+            "status": "skipped_public_subitem_only_no_t1_t3_endpoint",
+            "verdict": "Public smartwatch follow-up to Monipar with acc+gyro and supervised/unsupervised sessions. It is useful related work for exercise-level motor subitems, but it cannot support total T3 or the full T1 items 9-14 composite. No preregistration, download, scaffold, or remote job is justified for the active WearGait-PD T1/T3 CCC objective.",
+            "consults": {
+              "kimi": "document_only_no_prereg_no_download_no_remote_job",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://zenodo.org/records/16408199",
+              "https://zenodo.org/records/16408199/preview/Bioclite_README.txt?include_deleted=0",
+              "https://doi.org/10.2196/72820",
+              "results/smartwatch_subitem_route_refresh_20260509.json",
+              "results/external_route_audit_monipar_bioclite_20260509.md"
+            ]
+          },
+          "refresh": {
+            "name": "BIOCLITE",
+            "zenodo": "10.5281/zenodo.16408199",
+            "access_status": "public",
+            "n_pd": 24,
+            "n_controls": 16,
+            "modality": "single consumer smartwatch triaxial accelerometer and gyroscope at 50 Hz",
+            "labels": "per-exercise MDS-UPDRS score 0-4 when a clinical evaluation is available; no total Part III endpoint",
+            "covered_items": [
+              "3.17",
+              "3.15",
+              "3.4",
+              "3.5",
+              "3.6",
+              "3.9",
+              "3.10"
+            ],
+            "missing_for_t1": [
+              "3.11",
+              "3.12",
+              "3.13",
+              "3.14"
+            ],
+            "direct_t1_t3_eligible": false,
+            "status": "skipped_public_subitem_only_no_t1_t3_endpoint",
+            "verdict": "Public smartwatch follow-up to Monipar with acc+gyro and supervised/unsupervised sessions. It is useful related work for exercise-level motor subitems, but it cannot support total T3 or the full T1 items 9-14 composite. No preregistration, download, scaffold, or remote job is justified for the active WearGait-PD T1/T3 CCC objective.",
+            "sources": [
+              "https://zenodo.org/records/16408199",
+              "https://zenodo.org/records/16408199/preview/Bioclite_README.txt?include_deleted=0",
+              "https://doi.org/10.2196/72820"
+            ]
+          }
+        },
+        "ppp_pd_vme": {
+          "route": {
+            "name": "Personalized Parkinson Project / PD Virtual Motor Exam",
+            "access_status": "RDSRC request-gated; no local access or schema; data release fees may apply",
+            "label": "MDS-UPDRS Part III at clinic visits and consensus subitem ratings for PD-VME validation subsets",
+            "modality": "Verily Study Watch wrist sensors during passive monitoring and self-guided active motor tasks",
+            "direct_t1_t3_eligible": true,
+            "status": "access_gated_document_only_no_scaffold_until_access",
+            "n_subjects": 517,
+            "n_vme_participants": 388,
+            "verdict": "Strong gated Verily-watch external route and useful peer to PPMI/Verily, but not public or locally approved. Do not create a scaffold, preregistration, download job, or remote run until RDSRC access is approved and row-level sensor/label schema is available.",
+            "access_runbook": "scripts/ppp_pd_vme_request_setup.md",
+            "sources": [
+              "https://pmc.ncbi.nlm.nih.gov/articles/PMC9126938/",
+              "https://www.personalizedparkinsonproject.com/data-sharing/available-data/overview-of-the-project-and-available-data/ppp",
+              "https://www.personalizedparkinsonproject.com/data-sharing/requesting-data",
+              "https://www.personalizedparkinsonproject.com/data-sharing/requesting-data/additional-information-on-the-procedure/costs-of-data-release",
+              "scripts/ppp_pd_vme_request_setup.md"
+            ]
+          },
+          "refresh": {
+            "name": "Personalized Parkinson Project / PD Virtual Motor Exam",
+            "access_status": "RDSRC request-gated; data release fees may apply",
+            "n_pd": 517,
+            "n_vme_participants": 388,
+            "modality": "Verily Study Watch wrist sensors during passive monitoring and PD-VME active tasks",
+            "labels": "MDS-UPDRS Part III at clinic visits and consensus subitem ratings for PD-VME validation subsets",
+            "direct_t1_t3_eligible": true,
+            "status": "access_gated_document_only_no_scaffold_until_access",
+            "verdict": "Strong gated Verily-watch external route and a useful peer to PPMI/Verily. It is not public or locally approved, so no scaffold, preregistration, download, or remote job is justified until a data request is approved and row-level schema is available.",
+            "sources": [
+              "https://pmc.ncbi.nlm.nih.gov/articles/PMC9126938/",
+              "https://www.personalizedparkinsonproject.com/data-sharing/available-data/overview-of-the-project-and-available-data/ppp",
+              "https://www.personalizedparkinsonproject.com/data-sharing/requesting-data/additional-information-on-the-procedure/costs-of-data-release"
+            ]
+          }
+        },
+        "derivative_multimodal": {
+          "route": {
+            "name": "Comprehensive Multi-Modal Dataset for Parkinson's Disease Prediction",
+            "access_status": "public on Zenodo",
+            "label": "UPDRS part totals and scalar gait summaries in a derived table; no item-level Part III raw subitems",
+            "modality": "CSF protein/peptide features plus scalar gait summaries (gait_time, gait_steps, freezing), not raw wearable IMU",
+            "direct_t1_t3_eligible": false,
+            "n_clinical_gait_rows": 2223,
+            "n_unique_patients": 771,
+            "n_integrated_rows": 1113,
+            "n_integrated_columns": 1196,
+            "status": "skipped_derived_summary_table_not_raw_wearable_or_subject_aligned_t1_t3",
+            "verdict": "Public derived benchmark table, not a contemporaneous wearable sensor cohort. It mixes Kaggle AMP clinical/CSF data with a Mendeley gait repository, exposes only scalar gait summaries rather than raw IMU, and lacks T1 item-level labels or a trustworthy subject-aligned wearable-to-UPDRS schema. No preregistration, download, scaffold, or remote job is justified.",
+            "consults": {
+              "kimi": "no_prereg_document_only_due_synthetic_alignment_and_no_raw_wearable_imu",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://zenodo.org/records/14848598",
+              "https://zenodo.org/api/records/14848598",
+              "results/derivative_multimodal_route_refresh_20260509.json"
+            ]
+          },
+          "refresh": {
+            "created_at_utc": "2026-05-09T07:58:00Z",
+            "purpose": "Fresh public-route check for Zenodo 10.5281/zenodo.14848598 after the smartwatch subitem route refresh.",
+            "decision": "no_prereg_no_download_no_scaffold_no_remote_job_for_active_t1_t3_ccc_objective",
+            "route": {
+              "name": "Comprehensive Multi-Modal Dataset for Parkinson's Disease Prediction",
+              "zenodo": "10.5281/zenodo.14848598",
+              "access_status": "public on Zenodo",
+              "publication_date": "2025-02-11",
+              "files": [
+                {
+                  "name": "Updated_Clinical_Gait_Dataset.csv",
+                  "size_bytes": 81091,
+                  "md5": "ada6e5b19225f5c504aea29de100b285",
+                  "inspection": {
+                    "rows": 2223,
+                    "unique_patients": 771,
+                    "columns": [
+                      "visit_id",
+                      "patient_id",
+                      "visit_month",
+                      "updrs_1",
+                      "updrs_2",
+                      "updrs_3",
+                      "updrs_4",
+                      "upd23b_clinical_state_on_medication",
+                      "gait_time",
+                      "gait_steps",
+                      "freezing"
+                    ],
+                    "updrs3_missing_rows": 5,
+                    "updrs3_zero_rows": 42
+                  }
+                },
+                {
+                  "name": "Final_Integrated_MultiModal_Dataset.csv",
+                  "size_bytes": 10532710,
+                  "md5": "4b6b7cffbc4ad99b4a237adb3457da22",
+                  "inspection": {
+                    "rows": 1113,
+                    "columns": 1196,
+                    "primary_columns": "visit_id plus CSF protein/peptide features; no raw wearable IMU columns"
+                  }
+                }
+              ],
+              "source_lineage": [
+                "AMP Parkinson's Disease Progression Prediction Data (Kaggle)",
+                "Gait Data Repository (Mendeley)"
+              ],
+              "label": "UPDRS part totals and scalar gait summaries in a derived table; no item-level Part III raw subitems",
+              "modality": "CSF protein/peptide features plus scalar gait summaries (gait_time, gait_steps, freezing), not raw wearable IMU",
+              "direct_t1_t3_eligible": false,
+              "status": "skipped_derived_summary_table_not_raw_wearable_or_subject_aligned_t1_t3",
+              "verdict": "Public derived benchmark table, not a contemporaneous wearable sensor cohort. It mixes Kaggle AMP clinical/CSF data with a Mendeley gait repository, exposes only scalar gait summaries rather than raw IMU, and lacks T1 item-level labels or a trustworthy subject-aligned wearable-to-UPDRS schema. No preregistration, download, scaffold, or remote job is justified.",
+              "consults": {
+                "kimi": "no_prereg_document_only_due_synthetic_alignment_and_no_raw_wearable_imu",
+                "claude": "failed_credit_balance_too_low",
+                "glmcode": "not_found_on_path"
+              },
+              "sources": [
+                "https://zenodo.org/records/14848598",
+                "https://zenodo.org/api/records/14848598"
+              ]
+            }
+          }
+        },
+        "request_only_actigraphy": {
+          "advanced_smartwatch_route": {
+            "name": "Advanced PD smartwatch home monitoring / Fay-Karmon 2024",
+            "access_status": "data available from corresponding author upon reasonable request; no local files or row-level schema",
+            "label": "MDS-UPDRS Part II and Part III in ON/OFF states plus Part IV, daily motor-task labels and diaries",
+            "modality": "Intel Pharma Analytics Platform smartwatch plus iPhone/app during approximately two weeks of home-based monitoring with proprietary SWA algorithm outputs",
+            "direct_t1_t3_eligible": false,
+            "potential_external_t3_if_access_and_schema_approved": true,
+            "status": "request_only_document_only_no_scaffold",
+            "n_pd_subjects": 21,
+            "verdict": "Request-only small advanced-PD smartwatch route. It is not actionable for the active T1/T3 CCC objective because the row-level files/schema are not public, SWA scoring is proprietary, N=21 is below stronger already-tested external rows, and no T1 item-level target is visible. Do not create a scaffold, preregistration, download job, or remote run unless data-owner approval and schema are obtained.",
+            "consults": {
+              "kimi": "no_prereg_document_only_access_request_only",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://www.nature.com/articles/s41598-023-48209-y",
+              "results/request_only_actigraphy_route_refresh_20260509.json",
+              "results/request_only_actigraphy_route_refresh_20260509.md"
+            ]
+          },
+          "dyad_actigraphy_route": {
+            "name": "Marital-dyad social actigraphy / Sensors 2023",
+            "access_status": "source data available to researchers upon author request; no local files or row-level schema",
+            "label": "clinician MDS-UPDRS Part III total for the PD participant",
+            "modality": "non-dominant wrist GeneActiv triaxial accelerometry at 100 Hz for seven days in PD participants and spouses",
+            "direct_t1_t3_eligible": false,
+            "potential_external_t3_if_access_and_schema_approved": true,
+            "status": "request_only_document_only_no_scaffold",
+            "n_dyads": 27,
+            "n_individuals": 54,
+            "n_pd_subjects": 27,
+            "verdict": "Request-only small daily-life/social-actigraphy route. It is not actionable for the active T1/T3 CCC objective because the row-level files/schema are not public, the protocol is dyad/social activity rather than structured WearGait-like gait/balance, N=27 PD participants is underpowered after stronger external rows, and no T1 item-level target is visible. Do not create a scaffold, preregistration, download job, or remote run unless data-owner approval and schema are obtained.",
+            "consults": {
+              "kimi": "no_prereg_document_only_access_request_only",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://pmc.ncbi.nlm.nih.gov/articles/PMC9921738/",
+              "results/request_only_actigraphy_route_refresh_20260509.json",
+              "results/request_only_actigraphy_route_refresh_20260509.md"
+            ]
+          },
+          "refresh": {
+            "created_at_utc": "2026-05-09T08:35:00Z",
+            "purpose": "Fresh route check for two newly surfaced request-only Parkinson wearable studies with MDS-UPDRS Part III context.",
+            "decision": "no_prereg_no_download_no_scaffold_no_remote_job_access_request_only",
+            "consults": {
+              "kimi": {
+                "status": "completed",
+                "verdict": "no_prereg_document_only_access_request_only_for_both_routes",
+                "plan_path": "/home/fiod/.kimi/plans/forge-doctor-mid-nite-wiccan.md",
+                "notes": [
+                  "Fay-Karmon advanced-PD smartwatch home monitoring is N=21, request-only, proprietary Intel SWA/scoring, and schema-hidden.",
+                  "Marital-dyad social actigraphy is N=27 PD dyads, request-only, daily-life/social-actigraphy rather than structured gait/balance, and dyad design complicates subject independence.",
+                  "Neither route should receive a preregistration, scaffold, download, or remote job without data-owner access and row-level schema."
+                ]
+              },
+              "claude": {
+                "status": "failed",
+                "error": "Credit balance is too low"
+              },
+              "glmcode": {
+                "status": "not_available",
+                "error": "command not found on PATH"
+              }
+            },
+            "routes": [
+              {
+                "name": "Advanced PD smartwatch home monitoring / Fay-Karmon 2024",
+                "source": "https://www.nature.com/articles/s41598-023-48209-y",
+                "access_status": "data available from corresponding author upon reasonable request; no local files or schema",
+                "label": "MDS-UPDRS Part II and Part III in ON/OFF states plus Part IV, daily motor-task labels and symptom diaries",
+                "modality": "Intel Pharma Analytics Platform smartwatch plus iPhone/app during approximately two weeks of home-based monitoring with proprietary SWA algorithm outputs",
+                "n_pd_subjects": 21,
+                "direct_t1_t3_eligible": false,
+                "potential_external_t3_if_access_and_schema_approved": true,
+                "status": "request_only_document_only_no_scaffold",
+                "verdict": "Potentially relevant as a small external T3/advanced-PD home-monitoring context only after data-owner approval, but not actionable for the active ceiling-break objective. N=21 is below stronger already-tested external rows, SWA algorithms are proprietary/schema-hidden, no T1 item-level route is visible, and no public row-level sensor/label files exist."
+              },
+              {
+                "name": "Marital-dyad social actigraphy / Sensors 2023",
+                "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9921738/",
+                "access_status": "source data available to researchers upon author request; no local files or schema",
+                "label": "clinician MDS-UPDRS Part III total for the PD participant",
+                "modality": "non-dominant wrist GeneActiv triaxial accelerometry at 100 Hz for seven days in PD participants and spouses",
+                "n_dyads": 27,
+                "n_individuals": 54,
+                "n_pd_subjects": 27,
+                "direct_t1_t3_eligible": false,
+                "potential_external_t3_if_access_and_schema_approved": true,
+                "status": "request_only_document_only_no_scaffold",
+                "verdict": "Potentially relevant as small request-only daily-life actigraphy context, but not actionable for the active ceiling-break objective. The study is N=27 PD participants, social/dyad-focused, not a structured WearGait-like gait/balance protocol, has no T1 item-level endpoint, and exposes no public row-level sensor/label files."
+              }
+            ],
+            "sources": [
+              "https://www.nature.com/articles/s41598-023-48209-y",
+              "https://pmc.ncbi.nlm.nih.gov/articles/PMC9921738/"
+            ]
+          }
+        },
+        "luxembourg_upper_limb": {
+          "route": {
+            "name": "Luxembourg upper-limb MDS-UPDRS III subitem study",
+            "access_status": "paper public; datasets not publicly available and only available upon reasonable request under national/institutional regulations",
+            "label": "MDS-UPDRS III upper-limb subitems; no total Part III endpoint for current objective",
+            "modality": "two compact hand IMUs during elicited upper-limb tasks",
+            "direct_t1_t3_eligible": false,
+            "status": "skipped_request_only_subitem_only_observability_context",
+            "n_pd": 33,
+            "n_controls": 12,
+            "verdict": "Document-only upper-limb observability context. The route maps to residual-burden items 4/5/6, but it is request-only, ON-medication, subitem-only, and not a total T3 or full T1 endpoint. Do not create an access runbook, preregistration, scaffold, download job, or remote run for the active T1/T3 CCC objective.",
+            "consults": {
+              "kimi": "skip_runbook_document_only_upper_limb_observability_context",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://www.mdpi.com/1424-8220/24/7/2195",
+              "https://pubmed.ncbi.nlm.nih.gov/38610406/",
+              "results/luxembourg_upper_limb_route_refresh_20260509.json",
+              "results/luxembourg_upper_limb_route_refresh_20260509.md"
+            ]
+          },
+          "refresh": {
+            "created_at_utc": "2026-05-09T13:20:00Z",
+            "route": "Luxembourg / NCER-PD Sensors 2024 upper-limb MDS-UPDRS III subitem IMU study",
+            "decision": "document_only_no_runbook_no_scaffold_no_preregistration",
+            "status": "skipped_request_only_subitem_only_observability_context",
+            "rationale": [
+              "The public paper describes 33 PD patients and 12 controls, six elicited hand/arm MDS-UPDRS III tasks, and bilateral compact hand IMUs.",
+              "The route targets upper-limb subitems, not total MDS-UPDRS Part III and not the full T1 items 9-14 composite.",
+              "The data are not publicly downloadable; the data-availability statement says datasets are available only upon reasonable request under national and institutional regulations.",
+              "The current T3 residual audits already identify upper-limb items as non-WearGait-observable burden, so this route supports the observability-ceiling argument rather than creating a WearGait-PD internal ceiling-break path.",
+              "Prior per-item T3 composition failed at this N, so external upper-limb subitem data do not escape the known variance-compounding failure mode."
+            ],
+            "consults": {
+              "kimi": "skip_runbook_document_only; use as upper-limb observability context only",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "methodology_caveats": [
+              "Medication state is ON in the public Sensors 2024 study.",
+              "The public paper does not expose row-level raw files or schema.",
+              "The task and sensor geometry are bilateral hand IMUs during elicited upper-limb tasks, not WearGait-PD gait/balance wrist/ankle/lumbar recordings.",
+              "No preregistration, download, scaffold, remote job, or request packet is justified for the active T1/T3 CCC objective."
+            ],
+            "sources": [
+              "https://www.mdpi.com/1424-8220/24/7/2195",
+              "https://pubmed.ncbi.nlm.nih.gov/38610406/",
+              "results/external_dataset_route_audit_20260508.json",
+              "findings.md"
+            ]
+          }
+        },
+        "prequantipark": {
+          "route": {
+            "name": "Pre-QuantiPark / ActiMyo levodopa-challenge wearable IMU pilot",
+            "access_status": "paper public; data request-gated for academic non-commercial use after written proposal review and data access agreement",
+            "label": "Repeated MDS-UPDRS Part III total during a 90-minute levodopa challenge; no visible T1 items 9-14 endpoint",
+            "modality": "ActiMyo magneto-inertial sensors on the most affected wrist and ankle, 130.69 Hz, controlled levodopa-challenge setting",
+            "direct_t1_t3_eligible": false,
+            "potential_external_t3_if_access_and_schema_approved": true,
+            "status": "skipped_request_only_tiny_lct_no_scaffold",
+            "n_pd": 10,
+            "verdict": "Document-only levodopa-challenge wearable-IMU context. The route has repeated MDS-UPDRS Part III during a within-subject L-dopa challenge, but it is request-only, N=10, highly selected, schema-hidden, and not a stable cross-sectional WearGait-PD T1/T3 ceiling-break route. Do not create an access runbook, preregistration, scaffold, download job, request packet, or remote run for the active T1/T3 CCC objective.",
+            "consults": {
+              "kimi": "document_only_no_runbook_no_prereg_no_scaffold_tiny_lct",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://www.nature.com/articles/s41598-025-28927-1",
+              "https://pmc.ncbi.nlm.nih.gov/articles/PMC12748983/",
+              "results/prequantipark_route_refresh_20260509.json",
+              "results/prequantipark_route_refresh_20260509.md"
+            ]
+          },
+          "refresh": {
+            "created_at_utc": "2026-05-09T14:35:00Z",
+            "route": "Pre-QuantiPark / ActiMyo levodopa-challenge wearable IMU pilot",
+            "decision": "document_only_no_runbook_no_scaffold_no_preregistration",
+            "status": "skipped_request_only_tiny_lct_no_scaffold",
+            "n_pd": 10,
+            "direct_t1_t3_eligible": false,
+            "potential_external_t3_if_access_and_schema_approved": true,
+            "rationale": [
+              "The public Scientific Reports 2025 paper describes only 10 PD patients undergoing a 90-minute levodopa challenge test, not a stable cross-sectional WearGait-PD severity cohort.",
+              "The data are not public-download; access may be granted only for academic non-commercial research after written proposal review and a data access agreement.",
+              "MDS-UPDRS Part III total scores were collected repeatedly during the challenge, so a T3-style endpoint is possible in principle only after access and schema review, but a subject-level N=10 external CCC would be dominated by variance.",
+              "The route does not visibly expose a full T1 items 9-14 label path, and no row-level raw files or schema are locally available.",
+              "At N=10, a subject-level 5-fold screen would have about two subjects per fold, so it cannot satisfy the repo's promotion/lockbox gate before any LOOCV or zero-shot claim."
+            ],
+            "consults": {
+              "kimi": "document_only_no_runbook_no_prereg_no_scaffold; N=10 and levodopa-challenge design make a lockbox incoherent",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "methodology_caveats": [
+              "The public protocol is a single-dose levodopa challenge with repeated within-subject ratings, not a one-row-per-subject cross-sectional severity endpoint.",
+              "Sensors are ActiMyo units on the most affected wrist and ankle, sampled at 130.69 Hz.",
+              "Participants were DBS candidates with motor fluctuations and dyskinesia, so the cohort is highly selected.",
+              "No access runbook, preregistration, download, scaffold, remote job, or request packet is justified for the active T1/T3 CCC objective."
+            ],
+            "sources": [
+              "https://www.nature.com/articles/s41598-025-28927-1",
+              "https://pmc.ncbi.nlm.nih.gov/articles/PMC12748983/",
+              "results/external_dataset_route_audit_20260508.json",
+              "findings.md"
+            ]
+          }
+        },
+        "tum_rocket_inception": {
+          "route": {
+            "name": "TUM Donie 2025 ROCKET/InceptionTime wrist symptom-classification alias",
+            "access_status": "paper and code public; underlying data are MJFF Levodopa Response syn20681023 and remain Synapse DUA-gated",
+            "label": "Task-level tremor severity plus bradykinesia/dyskinesia presence labels; not total MDS-UPDRS Part III and not T1 items 9-14",
+            "modality": "GENEActiv smartwatch/wrist accelerometer on most affected limb, 50 Hz, predefined motor tasks",
+            "direct_t1_t3_eligible": false,
+            "status": "document_only_hssayeni_alias_algorithm_dead_no_scaffold",
+            "n_pd": 27,
+            "underlying_route": "MJFF Levodopa Response / Hssayeni syn20681023",
+            "code_available": true,
+            "verdict": "Document-only alias to the existing Hssayeni/MJFF DUA gate and already-negative ROCKET/InceptionTime-style algorithm families. The public code is useful related work, but the data source is still syn20681023, the labels are task-level symptom classifications rather than T1/T3 regression targets, and local ROCKET/MultiROCKET plus learned time-series fine-tuning routes have already failed. Do not create an access runbook, clone/scaffold, preregistration, download job, or remote run for the active T1/T3 CCC objective.",
+            "consults": {
+              "kimi": "document_only_alias_no_scaffold_hssayeni_gate_rocket_inception_dead",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "sources": [
+              "https://www.nature.com/articles/s41598-025-04263-2",
+              "https://pubmed.ncbi.nlm.nih.gov/40450120/",
+              "https://github.com/cedricdonie/tsc-for-wrist-motion-pd-detection",
+              "https://doi.org/10.7303/syn20681023",
+              "results/tum_rocket_inception_route_refresh_20260509.json",
+              "results/tum_rocket_inception_route_refresh_20260509.md"
+            ]
+          },
+          "refresh": {
+            "created_at_utc": "2026-05-09T14:55:00Z",
+            "route": "TUM Donie 2025 ROCKET/InceptionTime wrist symptom-classification alias",
+            "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+            "status": "document_only_hssayeni_alias_algorithm_dead_no_scaffold",
+            "n_pd": 27,
+            "direct_t1_t3_eligible": false,
+            "underlying_data_route": "MJFF Levodopa Response / Hssayeni syn20681023",
+            "code_available": true,
+            "rationale": [
+              "The Scientific Reports 2025 paper uses a 27-patient subset of MJFF Levodopa Response Study syn20681023, which is already represented locally as the Hssayeni/MJFF route and remains Synapse DUA-gated.",
+              "The public endpoint is task-level symptom classification for tremor severity plus bradykinesia and dyskinesia presence/absence, not WearGait-PD T1 items 9-14 or total MDS-UPDRS Part III regression.",
+              "The paper's public code does not remove the data-access gate; its README still requires each user to download Synapse data with credentials.",
+              "The relevant algorithm families have already been tested or closed locally: ROCKET/MultiROCKET Stage-2 routes were negative, and small-N learned time-series fine-tuning failed in the HARNet pilot.",
+              "No leak-free lockbox path exists without DUA-approved data, a compatible T1/T3 target, and a non-negative 5-fold gate."
+            ],
+            "consults": {
+              "kimi": "document_only_alias_no_scaffold; same syn20681023 DUA gate, target mismatch, ROCKET/InceptionTime family already exhausted",
+              "claude": "failed_credit_balance_too_low",
+              "glmcode": "not_found_on_path"
+            },
+            "methodology_caveats": [
+              "The source study is classification-oriented, using balanced accuracy, average precision, AUROC, F1, and macro-averaged MAE; it is not a CCC regression benchmark.",
+              "A public code repository is useful related work, but cloning or porting it would not create an eligible WearGait-PD T1/T3 route before Synapse DUA approval and target/schema inspection.",
+              "The paper itself reports that InceptionTime/ROCKET do not reach clinically relevant performance and that customized manual features can still outperform automated time-series classifiers for PD symptom severity prediction."
+            ],
+            "sources": [
+              "https://www.nature.com/articles/s41598-025-04263-2",
+              "https://pubmed.ncbi.nlm.nih.gov/40450120/",
+              "https://github.com/cedricdonie/tsc-for-wrist-motion-pd-detection",
+              "https://doi.org/10.7303/syn20681023",
+              "results/external_dataset_route_audit_20260508.json",
+              "findings.md"
+            ]
+          }
+        },
+        "hssayeni": {
+          "name": "MJFF Levodopa Response / Hssayeni",
+          "access_status": "Synapse DUA/READ-gated",
+          "label": "MDS-UPDRS and symptom labels",
+          "modality": "wearable accelerometers, including wrist/waist/forearm/shank/back",
+          "direct_t1_t3_eligible": true,
+          "status": "synapse_dua_gated_no_scaffold_until_access",
+          "verdict": "Larger direct external wearable UPDRS-III route, but blocked until DUA approval.",
+          "access_runbook": "scripts/synapse_hssayeni_setup.md",
+          "sources": [
+            "https://www.synapse.org/Synapse%3Asyn20681023/wiki/597164",
+            "https://www.synapse.org/Synapse%3Asyn20681939",
+            "results/iter26_dua_status_20260508.json",
+            "https://doi.org/10.1038/s41597-021-00830-0",
+            "https://doi.org/10.1038/s41597-021-00831-z",
+            "https://github.com/BLopo20/Parkinson-s-Disease-Datasets",
+            "scripts/synapse_hssayeni_setup.md"
+          ],
+          "alias_note": "Scientific Data 2021 minimum-set and limb/trunk accelerometry papers are the same Synapse syn20681023 MJFF/Hssayeni route, not separate unblocked datasets."
+        },
+        "external_access_readiness": {
+          "application_packet_ready_count": 6,
+          "compute_ready_route_count": 0,
+          "hard_failure_count": 0,
+          "no_local_weargait_model_actions_remaining": 8,
+          "passed": true,
+          "provenance_recovery_class": "raw_data_recovery_credentials_needed",
+          "route_count": 9,
+          "top_priority_route": "PPMI / Verily Study Watch",
+          "verifier_access_required_blockers": 8,
+          "warning_count": 3
+        }
+      }
+    },
+    {
+      "requirement": "Handle uncertainty / clinical utility",
+      "passed": true,
+      "status": "covered_no_rescue",
+      "evidence": {
+        "conformal": {
+          "label": "T3 iter47 valid-range current",
+          "target": "T3_total_UPDRS_III_validrange",
+          "status": "corrected_audit_truth",
+          "source": "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+          "n": 95,
+          "base_ccc": 0.3783671177953899,
+          "base_mae": 7.528022830280761,
+          "base_r": 0.4140570278396842,
+          "conformal": {
+            "50pct": {
+              "empirical_coverage": 0.5052631578947369,
+              "mean_interval_width": 13.99187022309385
+            },
+            "80pct": {
+              "empirical_coverage": 0.8,
+              "mean_interval_width": 25.941425497468146
+            },
+            "95pct": {
+              "empirical_coverage": 0.9578947368421052,
+              "mean_interval_width": 34.72410274521873
+            }
+          },
+          "abstention_at_50pct_discard": {
+            "prediction_tail_distance_ccc": 0.010758228591281109,
+            "prediction_tail_distance_mae": 6.9161987383924055,
+            "oracle_abs_error_ccc": 0.848266647645428,
+            "oracle_abs_error_mae": 2.9984213927427636
+          }
+        }
+      }
+    },
+    {
+      "requirement": "Completion condition: break T1 and/or T3 ceiling",
+      "passed": false,
+      "status": "not_complete",
+      "evidence": {
+        "reason": "T1 strongest candidate remains caveated; T3 valid-range corrected CCC is 0.3784 and no improved corrected lockbox exists.",
+        "verifier_goal_complete": false
+      }
+    }
+  ],
+  "goal_complete": false,
+  "hard_gaps": [
+    {
+      "requirement": "Completion condition: break T1 and/or T3 ceiling",
+      "passed": false,
+      "status": "not_complete",
+      "evidence": {
+        "reason": "T1 strongest candidate remains caveated; T3 valid-range corrected CCC is 0.3784 and no improved corrected lockbox exists.",
+        "verifier_goal_complete": false
+      }
+    }
+  ],
+  "next_non_redundant_actions": [
+    "Remaining blocker action audit classifies all 35 current blockers with 0 local WearGait-only model actions remaining.",
+    "External access readiness audit passes with six access/request packets ready and zero compute-ready routes before approval.",
+    "WearGait raw-data recovery runbook is ready for user-side Synapse credentials and explicit large-transfer confirmation; no download/cache promotion/model run has occurred.",
+    "Task-plan current-scope audit passes and keeps post-iter47 completion criteria active while old success-tier thresholds remain archive-bound.",
+    "User-side PPMI DUA/application, then read-only schema probe per scripts/ppmi_verily_setup.md.",
+    "User-side Personalized Parkinson Project / PD-VME RDSRC request, then read-only schema probe only after approval.",
+    "User-side WATCH-PD C-Path 3DT membership or Steering Committee proposal, then schema inspection; no scaffold before access exists.",
+    "User-side ICICLE-PD/ICICLE-GAIT data request, then read-only schema probe per scripts/icicle_request_setup.md.",
+    "User-side CNS Portugal/Lobo data request, then read-only schema probe per scripts/cns_portugal_request_setup.md.",
+    "Optional author-side data requests for Fay-Karmon advanced-PD smartwatch monitoring or marital-dyad GeneActiv actigraphy; no scaffold before row-level files/schema exist.",
+    "Monitor/request Mobilise-D CVS row-level wearable plus MDS-UPDRS release/schema; no scaffold before access exists.",
+    "User-side Hssayeni/MJFF Synapse DUA approval, then run existing iter26 probe.",
+    "Continue provenance/paper hardening only; do not launch another WearGait-only model family without new data or a new target representation."
+  ]
+}

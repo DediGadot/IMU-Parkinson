@@ -1,0 +1,97 @@
+{
+  "timestamp": "20260506_135932",
+  "iso_datetime": "2026-05-06T13:59:32.531124",
+  "experiment": "T1 iter34 HYBRID 8-item \u00d7 multi-base LOCKBOX",
+  "git_head": "b82d6a67c4e775f8e4256c83217d4d149a5f6f24",
+  "formula_sha256": "df89b9bbb711e267bd1db1847022ab843f4e37c3c0a7df0310eb004d63287edf",
+  "formula": {
+    "experiment": "T1 iter34 HYBRID \u2014 8-item auxiliary-task chain \u00d7 multi-base ensemble {LGB, XGB-hist, ExtraTrees}",
+    "is_post_publication_replication_target": true,
+    "family_wise_independence_claim": "Single pre-registered post-publication run; not part of iter33-B canonical-update family of comparisons (council 2026-05-06).",
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects_min": 90,
+      "filter": "PD with full items 9-14, 15, 18 (matches iter33-B 8-item filter)"
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "T1 (sum items 9-14)"
+    },
+    "stage2": {
+      "model_ensemble": [
+        "RegressorChain(LGBMRegressor n=500, lr=0.05, num_leaves=15, min_data=10)",
+        "RegressorChain(XGBRegressor hist, n=500, lr=0.05, depth=4, min_child=5)",
+        "RegressorChain(ExtraTreesRegressor n=300, max_depth=10, min_leaf=5)"
+      ],
+      "ensemble_method": "average chain-output across 3 bases per fold per seed",
+      "items_targets_chain": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18
+      ],
+      "items_summed_for_t1": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "auxiliary_items": [
+        15,
+        18
+      ],
+      "item_target_centering": "subtract per-fold train_mean(item)",
+      "feature_select_method": "lgb_importance_top_k_per_fold",
+      "feature_select_k": 500,
+      "imputation": "fold_local_median",
+      "post_combine_formula": "Stage1_pred + (sum_over_T1_SUM_ITEMS(mean_over_bases(item_pred) + train_mean) - sum(train_mean[T1_SUM_ITEMS]))  -- aux items 15,18 used in chain fit only",
+      "decorrelation_argument": "F68 (iter33-B) 8-item auxiliary chain regularizes via shared latent severity. F69 (iter33-C) different base learners produce decorrelated chain OOFs. Hybrid combines both \u2014 auxiliary regularization (variance via cross-task signal) \u00d7 base diversity (variance via algorithmic decorrelation). Independent levers, multiplicative effect predicted."
+    },
+    "eval": {
+      "loocv_n_min": 90,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "bases": [
+        "lgb",
+        "xgb",
+        "et"
+      ],
+      "headline_metric": "CCC of mean-of-3-seed predictions vs y_t1",
+      "comparator_iter5_direct_loocv": "computed live in same SID-aligned LOOCV",
+      "comparator_iter33b_8item_loocv_oof": "results/lockbox_t1_iter33b_8item_20260506_071631.oof.npy",
+      "comparator_iter30b_v1_loocv_oof": "results/lockbox_t1_iter30b_V1_random_20260505_211112.oof.npy"
+    },
+    "lockbox_rules": [
+      "ONE pre-registered config. ONE LOOCV run. POST-PUBLICATION REPLICATION TARGET.",
+      "Headline = CCC of mean-of-3-seed preds (each seed averages 3 base learners).",
+      "Verdict frame: replication target \u2014 interpret in light of family-wise iter33 priors.",
+      "Bonferroni adjustment trivial (n_tests=1) since this is a SINGLE replication run.",
+      "Verdict 'lift' if paired-bootstrap (n=5000) frac>0 vs iter33-B \u2265 0.95.",
+      "Verdict 'wash' if frac>0 vs iter33-B < 0.50.",
+      "Verdict 'tied' otherwise (within sampling noise \u2014 interpret as no improvement)."
+    ]
+  },
+  "variant": "hybrid_8item_multibase",
+  "is_post_publication_replication_target": true,
+  "family_wise_independence_claim": "Single pre-registered post-publication run; not part of iter33-B canonical-update family of comparisons (council 2026-05-06).",
+  "eval_protocol": "LOOCV on T1\u2229{15,18} cohort (N\u224893). Stage-1 Ridge (alpha=1.0) on H&Y + cv_yrs + cv_sex + cv_dbs with per-fold standardisation. Stage-2 = mean chain prediction over 3 base learners (LGB, XGB-hist, ExtraTrees), each RegressorChain with random order over 8 items {9,10,11,12,13,14,15,18}. T1 = sum predictions for items 9-14; items 15+18 auxiliary in fit only. K=500 LGB-importance feature selection per fold. 3-seed mean preds = headline."
+}

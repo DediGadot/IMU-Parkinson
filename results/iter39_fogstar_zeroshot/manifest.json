@@ -1,0 +1,11 @@
+{
+  "generated_at_utc": "2026-05-08T11:42:59+00:00",
+  "script": "visualize_fogstar_iter39.py",
+  "result_json": "results/iter39_fogstar_zeroshot_20260508_143717.json",
+  "rows_csv": "results/iter39_fogstar_zeroshot_rows_20260508_143717.csv",
+  "figures": [
+    "results/iter39_fogstar_zeroshot/fig1_iter39_fogstar_scatter.png",
+    "results/iter39_fogstar_zeroshot/fig2_iter39_fogstar_ccc_ci.png"
+  ],
+  "html": "results/iter39_fogstar_zeroshot.html"
+}

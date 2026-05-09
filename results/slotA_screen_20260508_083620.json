@@ -1,0 +1,39 @@
+{
+  "timestamp": "20260508_083620",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "n_subjects": 93,
+  "per_seed": [
+    {
+      "seed": 42,
+      "ccc_slot_a": 0.6301462691746493,
+      "ccc_i5_direct": 0.5957363802146995,
+      "delta_vs_i5": 0.034409888959949786,
+      "delta_vs_iter34_baseline": -0.1064537308253507,
+      "wall_s": 177.5201358795166
+    },
+    {
+      "seed": 1337,
+      "ccc_slot_a": 0.6830607856304197,
+      "ccc_i5_direct": 0.6808766527922347,
+      "delta_vs_i5": 0.002184132838184971,
+      "delta_vs_iter34_baseline": -0.05353921436958031,
+      "wall_s": 187.29788303375244
+    },
+    {
+      "seed": 7,
+      "ccc_slot_a": 0.6256512121194832,
+      "ccc_i5_direct": 0.6465502624898819,
+      "delta_vs_i5": -0.020899050370398742,
+      "delta_vs_iter34_baseline": -0.11094878788051687,
+      "wall_s": 180.36867880821228
+    }
+  ],
+  "delta_mean_vs_iter34_5fold": -0.0903139110251493,
+  "delta_std_vs_iter34_5fold": 0.031927028049352435,
+  "promote_to_loocv": false,
+  "iter34_loocv_anchor": 0.7366
+}

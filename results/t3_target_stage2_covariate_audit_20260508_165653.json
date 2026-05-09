@@ -1,0 +1,231 @@
+{
+  "created_at_local": "2026-05-08T16:57:27.772909",
+  "created_at_utc": "2026-05-08T13:57:27.772921Z",
+  "audit": "t3_target_stage2_covariates",
+  "target_summary": {
+    "clinical_source": "/home/fiod/pd-imu/data/raw/weargait-pd/PD - Demographic+Clinical - datasetV1.csv",
+    "n_v2_pd": 98,
+    "n_raw_clinical_pd": 100,
+    "n_part3_raw_columns": 33,
+    "feature_vs_raw33": {
+      "n_compared": 98,
+      "max_abs_diff": 0.0,
+      "n_nonzero_gt_1e_9": 0,
+      "diff_describe": {
+        "count": 98.0,
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "25%": 0.0,
+        "50%": 0.0,
+        "75%": 0.0,
+        "max": 0.0
+      }
+    },
+    "missing_raw_part3_subitems_among_v2_pd": {
+      "max_missing": 33,
+      "subjects_with_any_missing": 9,
+      "missing_count_hist": {
+        "0": 89,
+        "1": 4,
+        "2": 1,
+        "5": 1,
+        "33": 3
+      }
+    },
+    "feature_vs_cached_18_item_sum": {
+      "n_compared": 95,
+      "mean_diff": 1.5789473684210527,
+      "std_diff": 1.6280712212479422,
+      "min_diff": 0.0,
+      "max_diff": 10.0,
+      "n_nonzero_gt_1e_9": 66,
+      "diff_describe": {
+        "count": 95.0,
+        "mean": 1.5789473684210527,
+        "std": 1.6280712212479422,
+        "min": 0.0,
+        "25%": 0.0,
+        "50%": 1.0,
+        "75%": 2.0,
+        "max": 10.0
+      }
+    }
+  },
+  "stage2_covariate_summary": {
+    "n_subjects": 98,
+    "stage2_current_n_features": 1752,
+    "stage2_current_cv_columns": [
+      "cv_age",
+      "cv_dbs",
+      "cv_ht",
+      "cv_sex",
+      "cv_wt",
+      "cv_yrs"
+    ],
+    "seeds": [
+      42,
+      1337,
+      7
+    ],
+    "variants": {
+      "hy_only_stage2_current": {
+        "stage1_cols": [],
+        "drop_cv_stage2": false
+      },
+      "hy_only_stage2_no_cv": {
+        "stage1_cols": [],
+        "drop_cv_stage2": true
+      },
+      "A3_stage1_stage2_current": {
+        "stage1_cols": [
+          "cv_yrs",
+          "cv_sex",
+          "cv_dbs"
+        ],
+        "drop_cv_stage2": false
+      },
+      "A3_stage1_stage2_no_cv": {
+        "stage1_cols": [
+          "cv_yrs",
+          "cv_sex",
+          "cv_dbs"
+        ],
+        "drop_cv_stage2": true
+      },
+      "all_cv_stage1_stage2_current": {
+        "stage1_cols": [
+          "cv_age",
+          "cv_dbs",
+          "cv_ht",
+          "cv_sex",
+          "cv_wt",
+          "cv_yrs"
+        ],
+        "drop_cv_stage2": false
+      },
+      "all_cv_stage1_stage2_no_cv": {
+        "stage1_cols": [
+          "cv_age",
+          "cv_dbs",
+          "cv_ht",
+          "cv_sex",
+          "cv_wt",
+          "cv_yrs"
+        ],
+        "drop_cv_stage2": true
+      }
+    },
+    "per_variant": [
+      {
+        "variant": "hy_only_stage2_current",
+        "ccc_mean": 0.3994716120503887,
+        "ccc_std": 0.04927061213740288,
+        "mae_mean": 8.279512680187702,
+        "r_mean": 0.42331065845830923,
+        "mean_pred_ccc": 0.4178206853700113,
+        "selected_cv_counts_all_seeds": {
+          "cv_age": 3,
+          "cv_ht": 3,
+          "cv_wt": 2,
+          "cv_yrs": 4
+        }
+      },
+      {
+        "variant": "hy_only_stage2_no_cv",
+        "ccc_mean": 0.39961960538753266,
+        "ccc_std": 0.05333173936757767,
+        "mae_mean": 8.222653392899266,
+        "r_mean": 0.427650602678711,
+        "mean_pred_ccc": 0.42025806703343893,
+        "selected_cv_counts_all_seeds": {}
+      },
+      {
+        "variant": "A3_stage1_stage2_current",
+        "ccc_mean": 0.4674667540732898,
+        "ccc_std": 0.03853149086780299,
+        "mae_mean": 8.064468046700226,
+        "r_mean": 0.48808724762717715,
+        "mean_pred_ccc": 0.4888202266480305,
+        "selected_cv_counts_all_seeds": {
+          "cv_age": 4,
+          "cv_ht": 4,
+          "cv_wt": 2,
+          "cv_yrs": 3
+        }
+      },
+      {
+        "variant": "A3_stage1_stage2_no_cv",
+        "ccc_mean": 0.4846206379805904,
+        "ccc_std": 0.023281422272536354,
+        "mae_mean": 7.823484685807299,
+        "r_mean": 0.5072328084933927,
+        "mean_pred_ccc": 0.503414317215678,
+        "selected_cv_counts_all_seeds": {}
+      },
+      {
+        "variant": "all_cv_stage1_stage2_current",
+        "ccc_mean": 0.4686024027684292,
+        "ccc_std": 0.02618872855250611,
+        "mae_mean": 8.007298037727775,
+        "r_mean": 0.4846495220365341,
+        "mean_pred_ccc": 0.48734551588886366,
+        "selected_cv_counts_all_seeds": {
+          "cv_age": 5,
+          "cv_ht": 1,
+          "cv_wt": 3,
+          "cv_yrs": 1
+        }
+      },
+      {
+        "variant": "all_cv_stage1_stage2_no_cv",
+        "ccc_mean": 0.4605525803458066,
+        "ccc_std": 0.034595357052386436,
+        "mae_mean": 7.863894111680534,
+        "r_mean": 0.47806858063108454,
+        "mean_pred_ccc": 0.47909720859566846,
+        "selected_cv_counts_all_seeds": {}
+      }
+    ],
+    "mean_prediction_metrics": {
+      "hy_only_stage2_current": {
+        "ccc_mean_of_seed_preds": 0.4178206853700113,
+        "mae_mean_of_seed_preds": 8.024216340357935,
+        "r_mean_of_seed_preds": 0.45177540834503743
+      },
+      "hy_only_stage2_no_cv": {
+        "ccc_mean_of_seed_preds": 0.42025806703343893,
+        "mae_mean_of_seed_preds": 7.882611550919187,
+        "r_mean_of_seed_preds": 0.4601890292083117
+      },
+      "A3_stage1_stage2_current": {
+        "ccc_mean_of_seed_preds": 0.4888202266480305,
+        "mae_mean_of_seed_preds": 7.809271122061174,
+        "r_mean_of_seed_preds": 0.5200482789212382
+      },
+      "A3_stage1_stage2_no_cv": {
+        "ccc_mean_of_seed_preds": 0.503414317215678,
+        "mae_mean_of_seed_preds": 7.6055795333048755,
+        "r_mean_of_seed_preds": 0.5350541047710039
+      },
+      "all_cv_stage1_stage2_current": {
+        "ccc_mean_of_seed_preds": 0.48734551588886366,
+        "mae_mean_of_seed_preds": 7.692524573788585,
+        "r_mean_of_seed_preds": 0.510231379778533
+      },
+      "all_cv_stage1_stage2_no_cv": {
+        "ccc_mean_of_seed_preds": 0.47909720859566846,
+        "mae_mean_of_seed_preds": 7.628473982266049,
+        "r_mean_of_seed_preds": 0.5046918904328678
+      }
+    },
+    "interpretation_guardrails": [
+      "This is a 5-fold audit screen, not a lockbox headline.",
+      "Dropping cv_* from Stage 2 tests whether the current 'V2 residual' pool hides clinical covariates.",
+      "If current > no_cv, the canonical iter5 number remains fold-clean but should be described as clinical+IMU with duplicated clinical access, not a pure IMU residual Stage 2.",
+      "If no_cv >= current by the promotion gate, a separate pre-registration would be required before any LOOCV claim."
+    ]
+  },
+  "stage2_rows_csv": "/home/fiod/pd-imu/results/t3_target_stage2_covariate_audit_stage2_rows_20260508_165653.csv",
+  "target_rows_csv": "/home/fiod/pd-imu/results/t3_target_stage2_covariate_audit_target_rows_20260508_165653.csv"
+}

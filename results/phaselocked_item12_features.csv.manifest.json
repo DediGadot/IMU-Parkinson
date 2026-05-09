@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "produced_by": "cache_phaselocked_item12.py",
+  "script_sha256": "93cf9632d27fc3f40a106dfe7cd1e50f9cf8f8a0d2751bc1272149bcbd86f8c8",
+  "git_sha": "unknown",
+  "iso_datetime_utc": "2026-05-08T06:06:08.364306+00:00",
+  "data_sha256": "5df4ba373cd2a353fa4f612536bd196d27064fb819e76462e4ee599cecd2109c",
+  "n_subjects": 98,
+  "n_features": 12,
+  "labels_used": false,
+  "fold_scope": "global",
+  "leakage_status": "clean_by_construction",
+  "leakage_argument": "Phase-locked TUG-turn features are deterministic signal-processing aggregates of raw IMU channels (Lumbar Gyr-Z trigger in second half, then Lumbar/Sternum/Forehead/Shank Acc/Gyr/Roll/Yaw around the turn peak window). UPDRS-III labels never enter the extraction. Per-subject mean across recordings is the only aggregation; no global statistics fit. Slot C of T1 ceiling push (axis 5).",
+  "constants_locked": {
+    "fs_hz": 100.0,
+    "turn_pre_s": 1.0,
+    "turn_post_s": 1.5,
+    "pre_quiet_s": 0.5,
+    "post_recovery_s": 1.0,
+    "trigger": "Lumbar (LowerBack) Gyr-Z absolute argmax in second half of TUG",
+    "task_filter": "TUG only (excludes TUG_mat, TUG_matTURN)"
+  },
+  "command": "cache_phaselocked_item12.py",
+  "csv_dir": "/home/fiod/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files",
+  "n_jobs_processed": 99,
+  "out_path": "/home/fiod/pd-imu/results/phaselocked_item12_features.csv"
+}

@@ -58,7 +58,11 @@ def parse_clinical():
             sid = str(row.get("Subject ID", "")).strip()
             if not sid or sid == "nan":
                 continue
-            u3 = pd.to_numeric(row[u3cols], errors="coerce").sum()
+            u3_values = pd.to_numeric(row[u3cols], errors="coerce")
+            u3_values = u3_values.mask((u3_values < 0) | (u3_values > 4))
+            if int(u3_values.notna().sum()) == 0:
+                continue
+            u3 = u3_values.sum()
             if np.isnan(u3):
                 continue
             subjects[sid] = {

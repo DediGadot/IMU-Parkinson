@@ -1,0 +1,10 @@
+
+=== T3 iter30-A SCREEN: multi-task LGB on items 1-18 (5-fold, feature_set=A3_tier1, 3 seeds, N=98) ===
+
+  seed=42: MT-T3 CCC=0.5101 | iter5-direct-T3 CCC=0.4850 | Δ=+0.0251 | MAE=8.576 | r=0.5106 | 76.6s
+  seed=1337: MT-T3 CCC=0.5170 | iter5-direct-T3 CCC=0.4492 | Δ=+0.0679 | MAE=8.078 | r=0.5245 | 76.7s
+  seed=7: MT-T3 CCC=0.5093 | iter5-direct-T3 CCC=0.5227 | Δ=-0.0134 | MAE=8.754 | r=0.5095 | 78.5s
+
+Mean MT-T3 CCC = 0.5121 ± 0.0042; Mean iter5-direct-T3 CCC = 0.4856 ± 0.0368; Δ̄ = +0.0265
+Wrote /root/pd-imu/results/iter30a_multitask_t3_5fold_20260505_201048.csv
+      /root/pd-imu/results/iter30a_multitask_t3_5fold_20260505_201048.oof.json

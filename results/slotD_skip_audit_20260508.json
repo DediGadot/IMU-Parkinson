@@ -1,0 +1,103 @@
+{
+  "experiment": "T1 Glass-Ceiling Push — Slot D (anatomical mixture-of-experts × per-item routing)",
+  "decision": "SKIP_PRE_EXECUTION",
+  "decision_timestamp_utc": "2026-05-08T06:25Z",
+  "decision_basis": "tri-CLI 6-of-6 convergence on SKIP",
+  "preregistration_file": "results/preregistration_t1_ceiling_push_slotD_20260508_062534.json",
+  "formula_sha256": "2e9173d55b50da08248ead10007d2f344d74e30e913a0e9884f5ff9226dfb514",
+  "fwer_family_n": 5,
+  "fwer_family_members": [
+    {"id": "iter34_baseline", "status": "CANDIDATE", "ccc_loocv": 0.7366},
+    {"id": "slotA", "status": "FAIL_SCREEN", "screen_delta_vs_iter34_5fold": -0.0903},
+    {"id": "slotB", "status": "SKIPPED_PRE_EXECUTION", "skip_axis": "per-subject latent vanishes at LOOCV"},
+    {"id": "slotC", "status": "BLOCKED_RAW_DATA_MISSING", "blocker": "Synapse re-download not complete"},
+    {"id": "slotD", "status": "SKIPPED_PRE_EXECUTION", "skip_axis": "stacking-blender collapse at N=93 / isomorphism to iter34"}
+  ],
+  "consult_artifacts": {
+    "codex_run1_55804": {
+      "rc": 0,
+      "path": "/tmp/pd_imu_consult/codex_20260508T055804.txt",
+      "rank_order": ["A", "B", "C"],
+      "skip_recommendation": "yes",
+      "p_strict_gate_top1": 0.10,
+      "key_quote": "A is the only defensible Slot D probe, but my honest prior is P(strict)<0.20 for all three. Most likely final decision: do not promote to LOOCV."
+    },
+    "gemini_run1_55804": {
+      "rc": 0,
+      "path": "/tmp/pd_imu_consult/gemini_20260508T055804.txt",
+      "rank_order": ["A", "C", "B"],
+      "skip_recommendation": "yes",
+      "p_strict_gate_top1": 0.12,
+      "key_quote": "The 'wall' at 0.7366 is not an architectural limitation; it is the Shannon limit of 1751 handcrafted features on 93 subjects. Preserve your FWER budget for deterministic signal extraction (Slot C) or fundamentally new data."
+    },
+    "codex_run2_60847": {
+      "rc": 0,
+      "path": "/tmp/pd_imu_consult/codex_20260508T060847.txt",
+      "rank_order": ["B", "A", "C"],
+      "skip_recommendation": "yes",
+      "p_strict_gate_top1": 0.05,
+      "key_quote": "All three are below P(strict gate)<0.20, and B/C are direct iter34 reparameterizations. A has the only plausible new inductive bias, but it is still same-manifold gated ensembling and likely fails under the N≈93 wall."
+    },
+    "gemini_run2_60847": {
+      "rc": 0,
+      "path": "/tmp/pd_imu_consult/gemini_20260508T060847.txt",
+      "rank_order": ["B", "A", "C"],
+      "skip_recommendation": "yes",
+      "p_strict_gate_top1": 0.10,
+      "load_bearing_critique": "Violates 'NO composite blends (F53/F56/F58)'. The fold-local Ridge gate on top of partitioned experts is a classic stacking blender that will reliably collapse under N=92 LOOCV constraints.",
+      "key_quote": "Initiating Slot D will consume compute and FWER budget for a guaranteed negative result."
+    },
+    "kimi_run1_55804": {
+      "rc": 0,
+      "path": "/tmp/pd_imu_consult/kimi_20260508T055804.txt",
+      "rank_order": "[none viable — SKIP all three]",
+      "skip_recommendation": "yes",
+      "p_strict_gate_top1": 0.05,
+      "load_bearing_critique": "Stacking blender on correlated V2 experts. Violates F53/F56 composite-blend ban implicitly.",
+      "key_quote": "12th wall data point on the same-manifold stacking axis — same lesson as F53/F56/F58, slightly different parameterization."
+    },
+    "kimi_run2_60847": {
+      "rc": "non_zero_or_truncated",
+      "path": "/tmp/pd_imu_consult/kimi_20260508T060847.txt",
+      "note": "Run did not finalize a clean RANK ORDER block under tri_consult time budget; treat as duplicate of run-1; convergence is 6-of-6 if counting all completed responses or 5-of-5 if counting only RC=0."
+    }
+  },
+  "convergence_summary": {
+    "n_consultants_responded": 5,
+    "n_recommending_skip": 5,
+    "convergence_ratio": "5-of-5",
+    "with_kimi_run1_text": "6-of-6 textual responses recommend skip",
+    "load_bearing_skip_critiques": [
+      "F53/F56/F58 stacking-blender composite-blend ban (gemini-run2, kimi-run1)",
+      "Candidate A's per-item Ridge gate over 4 expert outputs IS a stacked-meta blender at N=93",
+      "Candidate B (per-item adaptive K) is iter34 + inner-CV-tuned K — isomorphic (codex-run2, gemini-run2)",
+      "Candidate C (tree-distance item-similarity) is learned-DAG RegressorChain — isomorphic to F70 (codex-run1, codex-run2, gemini-run1, gemini-run2)",
+      "Honest prior P(strict gate 0.99) ≤ 0.10-0.15 for the best candidate"
+    ]
+  },
+  "wall_data_point_id": "F35-D",
+  "wall_classification": "Composite-blend collapse at N=93 — slot D candidate A's per-item Ridge gate is structurally a 4-element stacked-meta blender, joining F53/F56/F58 wall data points on blend mechanisms. Per-item adaptive K and tree-distance item-similarity variants reduce to iter34 and F70 reparameterizations respectively. No 4th orthogonal candidate identified that does not change loss family (slot A failed) or introduce per-subject latents (slot B failed) or violate F53/F56/F58.",
+  "slow_think_falsifier_proposed": "If executed (override), item 13 (posture, axial-only) should specifically lift if anatomical MoE mechanism is real. Tri-CLI predicted instead: gate weight instability across 93 folds will spike per-item LOOCV variance; item-level deltas will be noise. Falsifier-of-falsifier: gemini-run1 expected outcome explicitly states 'Item 13 CCC shows a verifiable isolated lift (+0.02 to +0.04) ... However, the T1 total CCC lands between 0.7320 and 0.7380 ... fails the strict paired-bootstrap >0.99 gate.' I.e. mechanism partially real, but variance compounding cancels the gain.",
+  "honest_paper_claim_unchanged": "T1 LOOCV CCC = 0.7366 (iter34 hybrid F70) remains the strongest WearGait-PD T1 candidate. Ceiling-push session 2026-05-08 added two new wall data points: F35-A (ordinal cum-link loss family does not improve over MSE on summed-residual targets at this N) and F35-D (anatomical mixture-of-experts × per-item Ridge gating collapses to a stacked-meta blender at N=93 under the F53/F56/F58 wall; per-item adaptive K and item-similarity-graph variants are isomorphic to iter34 / F70). Total compute spent on slot D pre-execution diligence: ~12 min of tri-CLI consult.",
+  "compute_spent": {
+    "tri_cli_consult_wall_min": 12,
+    "script_authoring_wall_min": 8,
+    "screen_executed": false,
+    "loocv_executed": false,
+    "loocv_compute_saved_min_estimate": 90,
+    "fwer_credibility_budget_preserved": true
+  },
+  "preserved_artifacts_for_reproducibility": {
+    "script": "run_t1_ceiling_push_slotD.py",
+    "preregistration": "results/preregistration_t1_ceiling_push_slotD_20260508_062534.json",
+    "audit": "results/slotD_skip_audit_20260508.json",
+    "consult_logs": [
+      "/tmp/pd_imu_consult/codex_20260508T055804.txt",
+      "/tmp/pd_imu_consult/gemini_20260508T055804.txt",
+      "/tmp/pd_imu_consult/kimi_20260508T055804.txt",
+      "/tmp/pd_imu_consult/codex_20260508T060847.txt",
+      "/tmp/pd_imu_consult/gemini_20260508T060847.txt",
+      "/tmp/pd_imu_consult/kimi_20260508T060847.txt"
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "generated_at_utc": "2026-05-09T08:04:57+00:00",
+  "script": "audit_t3_complete33_claim_labeling.py",
+  "policy": "T3 iter47 complete33/N=88 values may appear only as sensitivity-only complete-case or partial-missing target-hygiene context. The current T3 internal headline remains the N=95 minimal valid-range CCC 0.3784.",
+  "passed": true,
+  "claim_patterns": [
+    "complete33",
+    "0.4281",
+    "0.4010",
+    "N=88"
+  ],
+  "findings": [],
+  "missing_required_snippets": [],
+  "docs": [
+    {
+      "path": "paper.md",
+      "current_scope_lines": 713,
+      "mentions": 3,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "CURRENT_PAPER.html",
+      "current_scope_lines": 2101,
+      "mentions": 8,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "CLAUDE.md",
+      "current_scope_lines": 331,
+      "mentions": 5,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "AGENTS.md",
+      "current_scope_lines": 141,
+      "mentions": 5,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "task_plan.md",
+      "current_scope_lines": 4,
+      "mentions": 0,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "progress.md",
+      "current_scope_lines": 128,
+      "mentions": 0,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "findings.md",
+      "current_scope_lines": 1735,
+      "mentions": 16,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "results/thread_goal_completion_audit_20260508.md",
+      "current_scope_lines": 133,
+      "mentions": 4,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "results/current_best_pipeline_artifact_index_20260508.md",
+      "current_scope_lines": 412,
+      "mentions": 6,
+      "findings": [],
+      "missing_required_snippets": []
+    }
+  ]
+}

@@ -1,0 +1,573 @@
+{
+  "created_at_utc": "2026-05-09T11:24:40+00:00",
+  "script": "run_t3_iter53_parkinsonathome.py",
+  "mode": "extract",
+  "formula_sha256": "417fdfe0bd2f07c8c5415bd49c87b70725979a26517fe353ca376e2b85387888",
+  "feature_csv": "/home/fiod/pd-imu/results/iter53_parkinsonathome_features.csv",
+  "feature_csv_sha256": "6d45795cdafe12a5c78b29913a2280115449473b810a194040a30ec62a6af100",
+  "n_rows": 36,
+  "n_subjects": 18,
+  "n_pre_valid_target_subjects": 18,
+  "file_meta": [
+    {
+      "sid": "hbv002",
+      "side_label": "MAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv002_MAS.parquet",
+      "size_bytes": 13572930,
+      "sha256": "a4018595d8733116578ada30ef90bec34aed1a38b569e6b6f513cdf5d6b33946",
+      "states": {
+        "pre": {
+          "rows_total_state": 554507,
+          "rows_clean_gait": 65892,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0112666715674872,
+          "mean_raw_mag": 1.0181762655725293,
+          "mag_mean_mps2": 9.984898274776846
+        },
+        "post": {
+          "rows_total_state": 322028,
+          "rows_clean_gait": 39675,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0387468626337113,
+          "mean_raw_mag": 1.100740928284943,
+          "mag_mean_mps2": 10.794581024365533
+        }
+      }
+    },
+    {
+      "sid": "hbv014",
+      "side_label": "LAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv014_LAS.parquet",
+      "size_bytes": 12578136,
+      "sha256": "1413b9503ce4f7d7558c46a5403f641d67ad13f530777b52a7d19a0a407bc9e4",
+      "states": {
+        "pre": {
+          "rows_total_state": 505079,
+          "rows_clean_gait": 68540,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9653533660894716,
+          "mean_raw_mag": 1.0117708611446719,
+          "mag_mean_mps2": 9.922082715444393
+        },
+        "post": {
+          "rows_total_state": 299788,
+          "rows_clean_gait": 21635,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0092119585276176,
+          "mean_raw_mag": 1.0291602166457128,
+          "mag_mean_mps2": 10.092614038568678
+        }
+      }
+    },
+    {
+      "sid": "hbv015",
+      "side_label": "LAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv015_LAS.parquet",
+      "size_bytes": 14164879,
+      "sha256": "fd0b0839f5c0d3dc063eac08ca7ca18ec37eb6314fbe9928bd8f518aa2998a1a",
+      "states": {
+        "pre": {
+          "rows_total_state": 482156,
+          "rows_clean_gait": 6748,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9962183376472701,
+          "mean_raw_mag": 1.0132658595547175,
+          "mag_mean_mps2": 9.93674364160227
+        },
+        "post": {
+          "rows_total_state": 405247,
+          "rows_clean_gait": 7316,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.108233962587706,
+          "mean_raw_mag": 1.2168868508653685,
+          "mag_mean_mps2": 11.933583436038864
+        }
+      }
+    },
+    {
+      "sid": "hbv017",
+      "side_label": "LAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv017_LAS.parquet",
+      "size_bytes": 13234765,
+      "sha256": "2c3dd760a2b19d373594e940d1b1506dd155c3ed63d0f48950fd9e4da2f418bc",
+      "states": {
+        "pre": {
+          "rows_total_state": 544792,
+          "rows_clean_gait": 12069,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.993751050776762,
+          "mean_raw_mag": 1.020821029368657,
+          "mag_mean_mps2": 10.01083454765814
+        },
+        "post": {
+          "rows_total_state": 298558,
+          "rows_clean_gait": 37057,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9620601269230376,
+          "mean_raw_mag": 1.043436894896458,
+          "mag_mean_mps2": 10.232620425336352
+        }
+      }
+    },
+    {
+      "sid": "hbv022",
+      "side_label": "LAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv022_LAS.parquet",
+      "size_bytes": 12014392,
+      "sha256": "3b4ac415980c9d11c4477ff3190371d83210e0dfe5eec5f6867f3f1da76855d7",
+      "states": {
+        "pre": {
+          "rows_total_state": 623930,
+          "rows_clean_gait": 17973,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.99795996718748,
+          "mean_raw_mag": 1.0099604806216511,
+          "mag_mean_mps2": 9.904328947288315
+        },
+        "post": {
+          "rows_total_state": 163007,
+          "rows_clean_gait": 11058,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9952138770968306,
+          "mean_raw_mag": 1.0097528072524262,
+          "mag_mean_mps2": 9.902292367242005
+        }
+      }
+    },
+    {
+      "sid": "hbv023",
+      "side_label": "MAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv023_MAS.parquet",
+      "size_bytes": 21758909,
+      "sha256": "925124495356c491635319ed5cd11f3558db2f3e346dc2b3fea909c9d3c3eaa6",
+      "states": {
+        "pre": {
+          "rows_total_state": 847306,
+          "rows_clean_gait": 86011,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9725721792189158,
+          "mean_raw_mag": 1.0187058895837005,
+          "mag_mean_mps2": 9.990092112085994
+        },
+        "post": {
+          "rows_total_state": 519152,
+          "rows_clean_gait": 75327,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9712009188368418,
+          "mean_raw_mag": 1.0201516723253847,
+          "mag_mean_mps2": 10.004270397409735
+        }
+      }
+    },
+    {
+      "sid": "hbv024",
+      "side_label": "LAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv024_LAS.parquet",
+      "size_bytes": 19111597,
+      "sha256": "af994fd8491f823ea624613dec7c1ad2ceadfb6b0b540d4642eba423cd1bd065",
+      "states": {
+        "pre": {
+          "rows_total_state": 568521,
+          "rows_clean_gait": 34504,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0483430374794496,
+          "mean_raw_mag": 1.0746591155564746,
+          "mag_mean_mps2": 10.538805815571903
+        },
+        "post": {
+          "rows_total_state": 646186,
+          "rows_clean_gait": 42900,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0478282161108785,
+          "mean_raw_mag": 1.0924195591906922,
+          "mag_mean_mps2": 10.712976270137402
+        }
+      }
+    },
+    {
+      "sid": "hbv043",
+      "side_label": "LAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv043_LAS.parquet",
+      "size_bytes": 13236304,
+      "sha256": "d0e43aa4b114eea4f8d3f2d25b3afc5ab492ed01ac3f7af98e7717f45fa896ce",
+      "states": {
+        "pre": {
+          "rows_total_state": 508246,
+          "rows_clean_gait": 35373,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.998853125125252,
+          "mean_raw_mag": 1.0402025149113034,
+          "mag_mean_mps2": 10.200901992854936
+        },
+        "post": {
+          "rows_total_state": 355791,
+          "rows_clean_gait": 18856,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0193829228623414,
+          "mean_raw_mag": 1.0600000333060475,
+          "mag_mean_mps2": 10.395049326620748
+        }
+      }
+    },
+    {
+      "sid": "hbv047",
+      "side_label": "LAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv047_LAS.parquet",
+      "size_bytes": 15123681,
+      "sha256": "97dcdf748c8ccc22e8d5faaf93ba0fa659f3450e217fdcae8c4270de7c14e74e",
+      "states": {
+        "pre": {
+          "rows_total_state": 581734,
+          "rows_clean_gait": 28613,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9975811075214039,
+          "mean_raw_mag": 1.0223962788802443,
+          "mag_mean_mps2": 10.026282468280948
+        },
+        "post": {
+          "rows_total_state": 374592,
+          "rows_clean_gait": 27921,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0110868065419114,
+          "mean_raw_mag": 1.0451827242591825,
+          "mag_mean_mps2": 10.24974116285631
+        }
+      }
+    },
+    {
+      "sid": "hbv058",
+      "side_label": "MAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv058_MAS.parquet",
+      "size_bytes": 11896652,
+      "sha256": "22aab3568cb324bcc567a69f7378161d2337c0f77a56fbfbb96048ddceb11309",
+      "states": {
+        "pre": {
+          "rows_total_state": 478015,
+          "rows_clean_gait": 41178,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0596866873718789,
+          "mean_raw_mag": 1.0599305839155846,
+          "mag_mean_mps2": 10.394368260755767
+        },
+        "post": {
+          "rows_total_state": 295296,
+          "rows_clean_gait": 83594,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0944510060752255,
+          "mean_raw_mag": 1.0924043941650388,
+          "mag_mean_mps2": 10.712827552038576
+        }
+      }
+    },
+    {
+      "sid": "hbv063",
+      "side_label": "MAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv063_MAS.parquet",
+      "size_bytes": 12731987,
+      "sha256": "520ca2f96bfcb9e5f67238b3428945c4c2808655caeb3ebe426b9c8f590bde99",
+      "states": {
+        "pre": {
+          "rows_total_state": 563944,
+          "rows_clean_gait": 68589,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0187686185850255,
+          "mean_raw_mag": 1.0410480251146406,
+          "mag_mean_mps2": 10.20919361549049
+        },
+        "post": {
+          "rows_total_state": 251631,
+          "rows_clean_gait": 51940,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.1336106662360095,
+          "mean_raw_mag": 1.1362616292630914,
+          "mag_mean_mps2": 11.142920106612896
+        }
+      }
+    },
+    {
+      "sid": "hbv077",
+      "side_label": "LAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv077_LAS.parquet",
+      "size_bytes": 13127377,
+      "sha256": "13d2cfe13f65fc32ded4d8772de14a5b2603a2e1849cfade2bf5329a47627792",
+      "states": {
+        "pre": {
+          "rows_total_state": 398729,
+          "rows_clean_gait": 83079,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9848900582881246,
+          "mean_raw_mag": 1.0187882083810282,
+          "mag_mean_mps2": 9.99089938371981
+        },
+        "post": {
+          "rows_total_state": 439176,
+          "rows_clean_gait": 78749,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.005736248934162,
+          "mean_raw_mag": 1.0247513831812007,
+          "mag_mean_mps2": 10.049378151873924
+        }
+      }
+    },
+    {
+      "sid": "hbv079",
+      "side_label": "MAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv079_MAS.parquet",
+      "size_bytes": 14832783,
+      "sha256": "4234bd2ef464609e0638fd993115c290f2b70519d605b15346418b11455465e1",
+      "states": {
+        "pre": {
+          "rows_total_state": 625060,
+          "rows_clean_gait": 79717,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9982748263033898,
+          "mean_raw_mag": 1.0358942964841857,
+          "mag_mean_mps2": 10.15865280261664
+        },
+        "post": {
+          "rows_total_state": 319867,
+          "rows_clean_gait": 51689,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.1133953457922299,
+          "mean_raw_mag": 1.1571926836078223,
+          "mag_mean_mps2": 11.348183630702648
+        }
+      }
+    },
+    {
+      "sid": "hbv090",
+      "side_label": "MAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv090_MAS.parquet",
+      "size_bytes": 17194057,
+      "sha256": "d0131fbb06f42fc4ce977e1d122f4e105129e24cb8971cc6064a53049e34270b",
+      "states": {
+        "pre": {
+          "rows_total_state": 723934,
+          "rows_clean_gait": 119975,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0252234468563313,
+          "mean_raw_mag": 1.022055028588965,
+          "mag_mean_mps2": 10.022935946111973
+        },
+        "post": {
+          "rows_total_state": 377793,
+          "rows_clean_gait": 103779,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0487847612542833,
+          "mean_raw_mag": 1.104024597002575,
+          "mag_mean_mps2": 10.826782814195301
+        }
+      }
+    },
+    {
+      "sid": "hbv012",
+      "side_label": "MAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv012_MAS.parquet",
+      "size_bytes": 15148572,
+      "sha256": "6077200f987fa02ab316454ecd77d1c6f633e1f9d5944463b12305e4bbfdf5a0",
+      "states": {
+        "pre": {
+          "rows_total_state": 572524,
+          "rows_clean_gait": 21628,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0029874105722927,
+          "mean_raw_mag": 1.0297672904299886,
+          "mag_mean_mps2": 10.098567398695248
+        },
+        "post": {
+          "rows_total_state": 377552,
+          "rows_clean_gait": 15575,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.061194363862805,
+          "mean_raw_mag": 1.098072086344591,
+          "mag_mean_mps2": 10.768408625551183
+        }
+      }
+    },
+    {
+      "sid": "hbv016",
+      "side_label": "LAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv016_LAS.parquet",
+      "size_bytes": 14095484,
+      "sha256": "8f9c36459a3dba063e0c869a66eed9e5e52d1a431729246ccd9c914ef02ad188",
+      "states": {
+        "pre": {
+          "rows_total_state": 522285,
+          "rows_clean_gait": 15661,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9927253139335837,
+          "mean_raw_mag": 1.0153908417583177,
+          "mag_mean_mps2": 9.957582598329205
+        },
+        "post": {
+          "rows_total_state": 413161,
+          "rows_clean_gait": 22813,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9888452922144264,
+          "mean_raw_mag": 1.0146416430303842,
+          "mag_mean_mps2": 9.950235468623916
+        }
+      }
+    },
+    {
+      "sid": "hbv038",
+      "side_label": "MAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv038_MAS.parquet",
+      "size_bytes": 15867233,
+      "sha256": "2f18c9d0229282dcd39b9caa2841029bcc750a572ea02367386a735112af093d",
+      "states": {
+        "pre": {
+          "rows_total_state": 672684,
+          "rows_clean_gait": 14932,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9907107763008427,
+          "mean_raw_mag": 1.016257247691781,
+          "mag_mean_mps2": 9.966079138076605
+        },
+        "post": {
+          "rows_total_state": 357679,
+          "rows_clean_gait": 11927,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0178312951443473,
+          "mean_raw_mag": 1.0411059455066054,
+          "mag_mean_mps2": 10.209761620502352
+        }
+      }
+    },
+    {
+      "sid": "hbv065",
+      "side_label": "MAS",
+      "path": "/home/fiod/pd-imu/data/raw/parkinsonathome/preprocessed_data/0.prepared_data/hbv065_MAS.parquet",
+      "size_bytes": 11882604,
+      "sha256": "4fee8a8c147140945abd925272c92facf9dd6970917e40b78b47fb5abc50ce9f",
+      "states": {
+        "pre": {
+          "rows_total_state": 510012,
+          "rows_clean_gait": 26927,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 0.9970184995647703,
+          "mean_raw_mag": 1.0135239719071878,
+          "mag_mean_mps2": 9.939274859103623
+        },
+        "post": {
+          "rows_total_state": 268669,
+          "rows_clean_gait": 9764,
+          "fallback_walking_label_used": false,
+          "status": "ok",
+          "unit": "g_converted_to_mps2",
+          "median_raw_mag": 1.0069531825289104,
+          "mean_raw_mag": 1.0235794699517657,
+          "mag_mean_mps2": 10.037885609002485
+        }
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "sid": "hbv013",
+      "reason": "cannot reshape array of size 382 into shape (1,600)",
+      "side_label": "LAS"
+    },
+    {
+      "sid": "hbv039",
+      "reason": "cannot reshape array of size 347 into shape (1,600)",
+      "side_label": "LAS"
+    },
+    {
+      "sid": "hbv054",
+      "reason": "cannot reshape array of size 114 into shape (1,600)",
+      "side_label": "MAS"
+    },
+    {
+      "sid": "hbv080",
+      "reason": "right_wrist_side_not_found_in_distribution"
+    },
+    {
+      "sid": "hbv018",
+      "reason": "cannot reshape array of size 413 into shape (1,600)",
+      "side_label": "MAS"
+    },
+    {
+      "sid": "hbv051",
+      "reason": "right_wrist_side_not_found_in_distribution"
+    },
+    {
+      "sid": "hbv074",
+      "reason": "right_wrist_side_not_found_in_distribution"
+    }
+  ],
+  "labels_used": "External labels used only for scoring and Track C within-Parkinson@Home LOOCV sanity.",
+  "fold_scope": "Tracks A/D train on WearGait only; Track C uses Parkinson@Home LOOCV.",
+  "normalization_scope": "WearGait train-only for Tracks A/D; Parkinson@Home fold-train-only for Track C.",
+  "leakage_status": "external_dataset_feature_cache_not_for_internal_headline"
+}

@@ -1,0 +1,38 @@
+{
+  "name": "item11_multiscale_recordings.csv",
+  "script": "cache_item11_multiscale.py",
+  "script_sha256": "aa80e893923535837e5cd22890637475b6bd30d54ffe27c8b9a6b52b9df7764e",
+  "git_sha": "ce4edc005446f7381cd5894eb082e4a8f91840dc",
+  "command": "python3 cache_item11_multiscale.py --workers 16 --csv_dir 'data/raw/weargait-pd/PD PARTICIPANTS/CSV files' --out results/item11_multiscale.csv --out_recordings results/item11_multiscale_recordings.csv",
+  "created_at_utc": "2026-04-30T20:05:00Z",
+  "data_sha256": "5754677419448d3e0471d4338d13f8250d8db7ce265640674cb1db291d28be71",
+  "n_rows": 396,
+  "n_columns": 82,
+  "n_feature_columns": 79,
+  "included_sids_hash": "all_pd_with_walking_recordings_v0",
+  "labels_used": false,
+  "label_columns": [],
+  "fold_scope": "global",
+  "cohort_statistics_used": false,
+  "normalization_scope": "none",
+  "source_artifacts": [
+    {
+      "path": "data/raw/weargait-pd/PD PARTICIPANTS/CSV files/*.csv",
+      "scope": "all PD subjects with walking-task recordings"
+    }
+  ],
+  "leakage_status": "clean_by_construction",
+  "leakage_rationale": "Per-recording companion cache emitted by the same deterministic signal-processing command as results/item11_multiscale.csv. The script computes fixed multi-scale Freeze Index, freeze-window, wavelet-entropy, and stride-variability features from each walking recording. UPDRS-III labels never enter the script; all constants are fixed before downstream modeling.",
+  "downstream_safe_for": [
+    "screening",
+    "lockbox_features",
+    "external_transfer"
+  ],
+  "downstream_unsafe_for": [],
+  "provenance_backfill": {
+    "backfilled_at_utc": "2026-05-09T07:05:00Z",
+    "backfilled_by": "manual companion-sidecar audit",
+    "evidence": "The existing clean subject-level manifest results/item11_multiscale.csv.manifest.json records the producing script, git SHA, command, creation time, and label-free leakage rationale. cache_item11_multiscale.py defines results/item11_multiscale_recordings.csv as the default --out_recordings value, and the recording-level file mtime 2026-04-30T20:05:19Z matches the same extraction run immediately before the subject-level file mtime 2026-04-30T20:05:22Z.",
+    "note": "This sidecar covers only the recording-level companion artifact. It does not change any modeling result."
+  }
+}

@@ -1,0 +1,421 @@
+{
+  "blocker_audit": "results/remaining_blocker_action_audit_20260509.json",
+  "created_at_utc": "2026-05-09T12:40:19.312051+00:00",
+  "decision": "access_packets_ready_no_compute",
+  "hard_failures": [],
+  "provenance_recovery": {
+    "credential_status": {
+      "can_attempt_download": false,
+      "synapse_auth_token_env_present": false,
+      "synapse_config_path": "/home/fiod/.synapseConfig",
+      "synapse_config_present": false
+    },
+    "id": "weargait_raw_input_recovery",
+    "missing_inputs": [
+      "control_clinical",
+      "control_csv_folder",
+      "walkway_metrics"
+    ],
+    "next_action": "Provide Synapse credentials/config and explicit large-download confirmation before control/walkway recovery.",
+    "present": true,
+    "readiness_class": "raw_data_recovery_credentials_needed",
+    "remote_job_allowed_now": false,
+    "runbook": "scripts/weargait_raw_data_recovery_runbook.md",
+    "runbook_audit": "results/weargait_raw_data_recovery_runbook_audit_20260509.json",
+    "runbook_ready": true,
+    "status": "missing_inputs"
+  },
+  "purpose": "Operationalize remaining gated external-data and raw-data-restoration blockers without launching new local model runs.",
+  "routes": [
+    {
+      "access_blocker": "PPMI qualified-researcher account, DUA, online application, and DPC approval.",
+      "action_packet_ready": true,
+      "current_allowed_action": "access_request_only",
+      "direct_required": true,
+      "direct_t1_t3_eligible": true,
+      "first_allowed_action_after_access": "Read-only schema probe; no pre-registration until subject/visit/sensor/label fields are known.",
+      "id": "ppmi_verily",
+      "name": "PPMI / Verily Study Watch",
+      "priority": 1,
+      "readiness_class": "application_packet_ready_after_user_dua",
+      "remote_job_allowed_now": false,
+      "request_packet": {
+        "audit": "results/ppmi_verily_request_packet_audit_20260509.json",
+        "audit_decision": "ppmi_verily_tier3_request_packet_ready",
+        "audit_exists": true,
+        "exists": true,
+        "passed": true,
+        "path": "scripts/ppmi_verily_tier3_request_packet.md",
+        "required": true
+      },
+      "route_json_runbook": "scripts/ppmi_verily_setup.md",
+      "route_present": true,
+      "runbook": {
+        "checks": {
+          "no_scaffold_boundary": true,
+          "part3_label": true,
+          "post_access_probe": true,
+          "stop_conditions": true,
+          "subject_linkage": true
+        },
+        "exists": true,
+        "missing_checks": [],
+        "passed": true,
+        "path": "scripts/ppmi_verily_setup.md"
+      },
+      "runbook_matches_json": true,
+      "scaffold_allowed_now": false,
+      "source_count": 4,
+      "status": "access_gated_no_scaffold_until_credentials",
+      "why": "Largest priority wrist-native Verily route with clinical/sensor data and MDS-UPDRS III/H&Y."
+    },
+    {
+      "access_blocker": "PPP RDSRC/request approval, Qualified Researcher Agreement, fees, and PEP repository access.",
+      "action_packet_ready": true,
+      "current_allowed_action": "access_request_only",
+      "direct_required": true,
+      "direct_t1_t3_eligible": true,
+      "first_allowed_action_after_access": "Read-only schema probe; no loader until raw/exportable sensor and label linkage is visible.",
+      "id": "ppp_pd_vme",
+      "name": "Personalized Parkinson Project / PD Virtual Motor Exam",
+      "priority": 2,
+      "readiness_class": "request_packet_ready_after_rdsrc",
+      "remote_job_allowed_now": false,
+      "request_packet": {
+        "audit": "results/ppp_pd_vme_request_packet_audit_20260509.json",
+        "audit_decision": "ppp_pd_vme_request_packet_ready",
+        "audit_exists": true,
+        "exists": true,
+        "passed": true,
+        "path": "scripts/ppp_pd_vme_request_packet.md",
+        "required": true
+      },
+      "route_json_runbook": "scripts/ppp_pd_vme_request_setup.md",
+      "route_present": true,
+      "runbook": {
+        "checks": {
+          "no_scaffold_boundary": true,
+          "part3_label": true,
+          "post_access_probe": true,
+          "stop_conditions": true,
+          "subject_linkage": true
+        },
+        "exists": true,
+        "missing_checks": [],
+        "passed": true,
+        "path": "scripts/ppp_pd_vme_request_setup.md"
+      },
+      "runbook_matches_json": true,
+      "scaffold_allowed_now": false,
+      "source_count": 5,
+      "status": "access_gated_document_only_no_scaffold_until_access",
+      "why": "Strong Verily Study Watch peer route with PD-VME active tasks and MDS-UPDRS Part III/subitem labels."
+    },
+    {
+      "access_blocker": "C-Path 3DT Stage 2 membership or accepted WATCH-PD Steering Committee proposal.",
+      "action_packet_ready": true,
+      "current_allowed_action": "access_request_only",
+      "direct_required": true,
+      "direct_t1_t3_eligible": true,
+      "first_allowed_action_after_access": "Read-only APDM/Apple/iPhone schema probe with subject and visit linkage checks.",
+      "id": "watchpd",
+      "name": "WATCH-PD",
+      "priority": 3,
+      "readiness_class": "proposal_packet_ready_after_cpath_or_steering_committee",
+      "remote_job_allowed_now": false,
+      "request_packet": {
+        "audit": "results/watchpd_request_packet_audit_20260509.json",
+        "audit_decision": "watchpd_request_packet_ready",
+        "audit_exists": true,
+        "exists": true,
+        "passed": true,
+        "path": "scripts/watchpd_request_packet.md",
+        "required": true
+      },
+      "route_json_runbook": "scripts/watchpd_request_setup.md",
+      "route_present": true,
+      "runbook": {
+        "checks": {
+          "no_scaffold_boundary": true,
+          "part3_label": true,
+          "post_access_probe": true,
+          "stop_conditions": true,
+          "subject_linkage": true
+        },
+        "exists": true,
+        "missing_checks": [],
+        "passed": true,
+        "path": "scripts/watchpd_request_setup.md"
+      },
+      "runbook_matches_json": true,
+      "scaffold_allowed_now": false,
+      "source_count": 6,
+      "status": "request_gated_document_only_no_scaffold_until_access_schema",
+      "why": "Protocol-relevant route: APDM sensors during MDS-UPDRS Part III plus Apple Watch/iPhone longitudinal data."
+    },
+    {
+      "access_blocker": "Author/CNS data-owner approval and row-level AX3 plus Part III schema.",
+      "action_packet_ready": true,
+      "current_allowed_action": "access_request_only",
+      "direct_required": true,
+      "direct_t1_t3_eligible": true,
+      "first_allowed_action_after_access": "Read-only schema probe; require subject/session-grouped validation only.",
+      "id": "cns_portugal_lobo",
+      "name": "CNS Portugal / Lobo IS2022 AX3 gait",
+      "priority": 4,
+      "readiness_class": "author_request_packet_ready_after_data_owner_approval",
+      "remote_job_allowed_now": false,
+      "request_packet": {
+        "audit": "results/cns_portugal_request_packet_audit_20260509.json",
+        "audit_decision": "cns_portugal_request_packet_ready",
+        "audit_exists": true,
+        "exists": true,
+        "passed": true,
+        "path": "scripts/cns_portugal_request_packet.md",
+        "required": true
+      },
+      "route_json_runbook": "scripts/cns_portugal_request_setup.md",
+      "route_present": true,
+      "runbook": {
+        "checks": {
+          "no_scaffold_boundary": true,
+          "part3_label": true,
+          "post_access_probe": true,
+          "stop_conditions": true,
+          "subject_linkage": true
+        },
+        "exists": true,
+        "missing_checks": [],
+        "passed": true,
+        "path": "scripts/cns_portugal_request_setup.md"
+      },
+      "runbook_matches_json": true,
+      "scaffold_allowed_now": false,
+      "source_count": 4,
+      "status": "request_gated_document_only_no_scaffold_until_data",
+      "why": "Structured 10-meter walk route with wrist and lower-back AX3 plus direct MDS-UPDRS Part III."
+    },
+    {
+      "access_blocker": "Synapse DUA/READ approval for syn20681023.",
+      "action_packet_ready": true,
+      "current_allowed_action": "access_request_only",
+      "direct_required": true,
+      "direct_t1_t3_eligible": true,
+      "first_allowed_action_after_access": "Read-only Synapse child-tree and schema probe before any cache/model run.",
+      "id": "hssayeni_mjff",
+      "name": "MJFF Levodopa Response / Hssayeni",
+      "priority": 5,
+      "readiness_class": "synapse_dua_packet_ready_after_approval",
+      "remote_job_allowed_now": false,
+      "request_packet": {
+        "audit": "results/hssayeni_mjff_dua_request_packet_audit_20260509.json",
+        "audit_decision": "hssayeni_mjff_dua_request_packet_ready",
+        "audit_exists": true,
+        "exists": true,
+        "passed": true,
+        "path": "scripts/hssayeni_mjff_dua_request_packet.md",
+        "required": true
+      },
+      "route_json_runbook": "scripts/synapse_hssayeni_setup.md",
+      "route_present": true,
+      "runbook": {
+        "checks": {
+          "no_scaffold_boundary": true,
+          "part3_label": true,
+          "post_access_probe": true,
+          "stop_conditions": true,
+          "subject_linkage": true
+        },
+        "exists": true,
+        "missing_checks": [],
+        "passed": true,
+        "path": "scripts/synapse_hssayeni_setup.md"
+      },
+      "runbook_matches_json": true,
+      "scaffold_allowed_now": false,
+      "source_count": 7,
+      "status": "synapse_dua_gated_no_scaffold_until_access",
+      "why": "Small but direct MJFF wearable-UPDRS route; existing iter26 scaffold remains DUA-blocked."
+    },
+    {
+      "access_blocker": "Newcastle/data-owner request approval and lower-back AX3 plus MDS-UPDRS schema.",
+      "action_packet_ready": true,
+      "current_allowed_action": "access_request_only",
+      "direct_required": true,
+      "direct_t1_t3_eligible": true,
+      "first_allowed_action_after_access": "Read-only schema probe; freeze visit/day aggregation before modeling.",
+      "id": "icicle_gait",
+      "name": "ICICLE-PD / ICICLE-GAIT",
+      "priority": 6,
+      "readiness_class": "request_packet_ready_after_newcastle_approval",
+      "remote_job_allowed_now": false,
+      "request_packet": {
+        "audit": "results/icicle_request_packet_audit_20260509.json",
+        "audit_decision": "icicle_request_packet_ready",
+        "audit_exists": true,
+        "exists": true,
+        "passed": true,
+        "path": "scripts/icicle_request_packet.md",
+        "required": true
+      },
+      "route_json_runbook": "scripts/icicle_request_setup.md",
+      "route_present": true,
+      "runbook": {
+        "checks": {
+          "no_scaffold_boundary": true,
+          "part3_label": true,
+          "post_access_probe": true,
+          "stop_conditions": true,
+          "subject_linkage": true
+        },
+        "exists": true,
+        "missing_checks": [],
+        "passed": true,
+        "path": "scripts/icicle_request_setup.md"
+      },
+      "runbook_matches_json": true,
+      "scaffold_allowed_now": false,
+      "source_count": 3,
+      "status": "request_gated_document_only_no_scaffold_until_data",
+      "why": "Longitudinal lower-back gait route with MDS-UPDRS Part III and H&Y; not wrist-native."
+    },
+    {
+      "access_blocker": "CVS row-level wearable plus MDS-UPDRS release/access/schema is not visible; public TVS is not a clinical-inference target.",
+      "action_packet_ready": false,
+      "current_allowed_action": "monitor_or_document_only",
+      "direct_required": false,
+      "direct_t1_t3_eligible": false,
+      "first_allowed_action_after_access": "Monitor or request CVS row-level release; no scaffold until label and wearable schema exist.",
+      "id": "mobilised_cvs",
+      "name": "Mobilise-D TVS / CVS",
+      "priority": 7,
+      "readiness_class": "watch_release_schema_only",
+      "remote_job_allowed_now": false,
+      "request_packet": {
+        "audit": null,
+        "audit_exists": false,
+        "exists": false,
+        "passed": true,
+        "path": null,
+        "required": false
+      },
+      "route_json_runbook": null,
+      "route_present": true,
+      "runbook": {
+        "checks": {},
+        "exists": false,
+        "missing_checks": [
+          "runbook_not_required_or_not_configured"
+        ],
+        "passed": false,
+        "path": null
+      },
+      "runbook_matches_json": true,
+      "scaffold_allowed_now": false,
+      "source_count": 4,
+      "status": "watchlist_no_scaffold_until_cvs_release_or_schema",
+      "why": "Plausible future lower-back longitudinal T3 row, but not compute-ready from current public TVS."
+    },
+    {
+      "access_blocker": "Corresponding-author request; proprietary/schema-hidden smartwatch route and N=21.",
+      "action_packet_ready": false,
+      "current_allowed_action": "monitor_or_document_only",
+      "direct_required": false,
+      "direct_t1_t3_eligible": false,
+      "first_allowed_action_after_access": "Schema review only; no WearGait comparison before raw/exportable sensors and labels are confirmed.",
+      "id": "fay_karmon",
+      "name": "Advanced PD smartwatch home monitoring / Fay-Karmon 2024",
+      "priority": 8,
+      "readiness_class": "low_priority_author_request_only",
+      "remote_job_allowed_now": false,
+      "request_packet": {
+        "audit": null,
+        "audit_exists": false,
+        "exists": false,
+        "passed": true,
+        "path": null,
+        "required": false
+      },
+      "route_json_runbook": null,
+      "route_present": true,
+      "runbook": {
+        "checks": {},
+        "exists": false,
+        "missing_checks": [
+          "runbook_not_required_or_not_configured"
+        ],
+        "passed": false,
+        "path": null
+      },
+      "runbook_matches_json": true,
+      "scaffold_allowed_now": false,
+      "source_count": 3,
+      "status": "request_only_document_only_no_scaffold",
+      "why": "Potential T3 context only after data-owner approval; not an active application-ready route."
+    },
+    {
+      "access_blocker": "Author request; small daily-life/social-actigraphy schema-hidden route and no T1 endpoint.",
+      "action_packet_ready": false,
+      "current_allowed_action": "monitor_or_document_only",
+      "direct_required": false,
+      "direct_t1_t3_eligible": false,
+      "first_allowed_action_after_access": "Schema review only; no scaffold before subject IDs, sensor windows, and Part III labels are visible.",
+      "id": "marital_dyad",
+      "name": "Marital-dyad social actigraphy / Sensors 2023",
+      "priority": 9,
+      "readiness_class": "low_priority_author_request_only",
+      "remote_job_allowed_now": false,
+      "request_packet": {
+        "audit": null,
+        "audit_exists": false,
+        "exists": false,
+        "passed": true,
+        "path": null,
+        "required": false
+      },
+      "route_json_runbook": null,
+      "route_present": true,
+      "runbook": {
+        "checks": {},
+        "exists": false,
+        "missing_checks": [
+          "runbook_not_required_or_not_configured"
+        ],
+        "passed": false,
+        "path": null
+      },
+      "runbook_matches_json": true,
+      "scaffold_allowed_now": false,
+      "source_count": 3,
+      "status": "request_only_document_only_no_scaffold",
+      "why": "Potential low-priority T3 context only, after stronger direct routes."
+    }
+  ],
+  "source_audit": "results/external_dataset_route_audit_20260508.json",
+  "summary": {
+    "application_packet_ready_count": 6,
+    "compute_ready_route_count": 0,
+    "hard_failure_count": 0,
+    "no_local_weargait_model_actions_remaining": 8,
+    "passed": true,
+    "provenance_recovery_class": "raw_data_recovery_credentials_needed",
+    "route_count": 9,
+    "top_priority_route": "PPMI / Verily Study Watch",
+    "verifier_access_required_blockers": 8,
+    "warning_count": 3
+  },
+  "warnings": [
+    {
+      "issue": "low_priority_or_watchlist_route_has_no_runbook_by_design",
+      "route": "Mobilise-D TVS / CVS"
+    },
+    {
+      "issue": "low_priority_or_watchlist_route_has_no_runbook_by_design",
+      "route": "Advanced PD smartwatch home monitoring / Fay-Karmon 2024"
+    },
+    {
+      "issue": "low_priority_or_watchlist_route_has_no_runbook_by_design",
+      "route": "Marital-dyad social actigraphy / Sensors 2023"
+    }
+  ]
+}

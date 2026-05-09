@@ -4,7 +4,12 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from updrs_columns import normalize_updrs_column, candidate_updrs_columns, find_updrs_value
+from updrs_columns import (
+    normalize_updrs_column,
+    candidate_updrs_columns,
+    find_updrs_value,
+    valid_updrs_item_total,
+)
 
 
 # ── normalize_updrs_column ──────────────────────────────────────────
@@ -151,6 +156,12 @@ class TestFindUpdrsValue:
         row = {"MDSUPDRS_3-1": "N/A"}
         assert find_updrs_value(row, columns, 1, None) is None
 
+    def test_invalid_missing_code_returns_none(self):
+        columns = ["MDSUPDRS_3-15-R", "MDSUPDRS_3-10"]
+        row = {"MDSUPDRS_3-15-R": "9", "MDSUPDRS_3-10": "9"}
+        assert find_updrs_value(row, columns, 15, "a") is None
+        assert find_updrs_value(row, columns, 10, None) is None
+
     def test_item3_neck_alias(self):
         columns = ["MDSUPDRS_3-3neck"]
         row = {"MDSUPDRS_3-3neck": 2.0}
@@ -166,3 +177,17 @@ class TestFindUpdrsValue:
         row = {"MDSUPDRS_3-1": 2}
         result = find_updrs_value(row, columns, 1, None)
         assert isinstance(result, float)
+
+
+class TestValidUpdrsItemTotal:
+    def test_single_item_total_range(self):
+        assert valid_updrs_item_total(9, 4) == 4.0
+        assert valid_updrs_item_total(9, 5) is None
+
+    def test_two_side_item_total_range(self):
+        assert valid_updrs_item_total(15, 8) == 8.0
+        assert valid_updrs_item_total(15, 18) is None
+
+    def test_five_subitem_total_range(self):
+        assert valid_updrs_item_total(17, 18) == 18.0
+        assert valid_updrs_item_total(17, 21) is None

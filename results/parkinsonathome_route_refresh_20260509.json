@@ -1,0 +1,146 @@
+{
+  "created_at_utc": "2026-05-09T11:30:25Z",
+  "route": "Parkinson@Home arm-swing validation",
+  "decision": "probe_passed_but_zero_shot_hard_stop_n18_no_scoring",
+  "status": "probe_passed_zero_shot_hard_stop_n18_no_scoring",
+  "type": "public_external_t3_route_stopped_before_scoring",
+  "public": true,
+  "direct_t1_t3_eligible": true,
+  "internal_canonical_update_allowed": false,
+  "ceiling_break_framing_allowed": false,
+  "dataset": {
+    "name": "Parkinson@Home IMU sensor data and video annotations for arm swing quantification in free-living gait",
+    "doi": "10.34973/fr4z-a489",
+    "landing_page": "https://doi.org/10.34973/fr4z-a489",
+    "distribution": "https://webdav.data.ru.nl/dcmn/DSC_pdhasq_t0000123a_971_v1",
+    "sensor": "bilateral wrist accelerometer and gyroscope at 200 Hz",
+    "labels": "OFF/ON MDS-UPDRS Part III subitems in patient_info.csv",
+    "cohort": "25 PD with motor fluctuations and 25 controls; PD recorded OFF and ON medication"
+  },
+  "probe": {
+    "n_patient_info_rows": 50,
+    "n_pd_off_valid_target_rows": 25,
+    "off_target_summary": {
+      "mean": 42.16,
+      "min": 17.0,
+      "max": 67.0
+    },
+    "clinical_covariates_public": [],
+    "track_b_status": "skipped_public_non_target_clinical_covariates_absent",
+    "sample_prepared_parquet": {
+      "sid": "hbv002",
+      "side_label": "MAS",
+      "status": "ok",
+      "shape": [
+        876535,
+        6
+      ],
+      "columns": [
+        "accelerometer_x",
+        "accelerometer_y",
+        "accelerometer_z",
+        "free_living_label",
+        "arm_label",
+        "pre_or_post"
+      ],
+      "unit": "g_converted_to_mps2",
+      "median_raw_mag": 1.0089667097312143,
+      "mean_raw_mag": 1.0150137498736127
+    }
+  },
+  "pre_registration": {
+    "path": "results/preregistration_t3_iter53_parkinsonathome_zeroshot.json",
+    "formula_sha256": "417fdfe0bd2f07c8c5415bd49c87b70725979a26517fe353ca376e2b85387888",
+    "created_at_utc": "2026-05-09T11:22:18+00:00",
+    "git_sha": "b82d6a67c4e775f8e4256c83217d4d149a5f6f24",
+    "hard_stop_min_off_subjects": 20,
+    "hard_stops": [
+      "patient_info.csv must expose all OFF_UPDRS_3_* subitems needed for valid-range T3.",
+      "At least 20 PD OFF subjects must remain after valid-target and feature-readability filtering.",
+      "Prepared parquet reading must work with pyarrow or fastparquet on the execution host.",
+      "External accelerometry scale must be classifiable as g or m/s^2 from magnitude distribution.",
+      "No Parkinson@Home labels enter WearGait-trained Tracks A/D."
+    ]
+  },
+  "extraction": {
+    "feature_csv": "results/iter53_parkinsonathome_features.csv",
+    "feature_manifest": "results/iter53_parkinsonathome_features.csv.manifest.json",
+    "n_rows": 36,
+    "n_subjects": 18,
+    "n_pre_valid_target_subjects": 18,
+    "n_required_pre_valid_target_subjects": 20,
+    "feature_csv_sha256": "6d45795cdafe12a5c78b29913a2280115449473b810a194040a30ec62a6af100",
+    "skipped_subject_count": 7,
+    "skipped_subjects": [
+      {
+        "sid": "hbv013",
+        "reason": "cannot reshape array of size 382 into shape (1,600)",
+        "side_label": "LAS"
+      },
+      {
+        "sid": "hbv039",
+        "reason": "cannot reshape array of size 347 into shape (1,600)",
+        "side_label": "LAS"
+      },
+      {
+        "sid": "hbv054",
+        "reason": "cannot reshape array of size 114 into shape (1,600)",
+        "side_label": "MAS"
+      },
+      {
+        "sid": "hbv080",
+        "reason": "right_wrist_side_not_found_in_distribution"
+      },
+      {
+        "sid": "hbv018",
+        "reason": "cannot reshape array of size 413 into shape (1,600)",
+        "side_label": "MAS"
+      },
+      {
+        "sid": "hbv051",
+        "reason": "right_wrist_side_not_found_in_distribution"
+      },
+      {
+        "sid": "hbv074",
+        "reason": "right_wrist_side_not_found_in_distribution"
+      }
+    ],
+    "short_clean_gait_segment_skips": 4,
+    "right_wrist_mapping_missing_skips": 3
+  },
+  "tracks": {
+    "A_zero_shot_wrist_direct": "not_run_hard_stop_before_scoring",
+    "B_clinical_plus_wrist": "skipped_public_non_target_clinical_covariates_absent",
+    "C_parkinsonathome_loocv_sanity": "not_run_hard_stop_before_scoring",
+    "D_off_on_response_sensitivity": "not_run_hard_stop_before_scoring"
+  },
+  "metrics": null,
+  "result_artifact": null,
+  "hard_stop": {
+    "fired": true,
+    "reason": "pre-registered minimum of 20 valid OFF PD subjects was not met after right-wrist clean-gait feature extraction",
+    "observed_valid_off_subjects": 18,
+    "required_valid_off_subjects": 20,
+    "scoring_started": false
+  },
+  "rationale": [
+    "Parkinson@Home is a material public direct T3 external route: patient_info.csv exposes OFF/ON MDS-UPDRS Part III subitems and the prepared parquet files expose wrist accelerometry with gait/arm labels.",
+    "The pre-registered battery required at least 20 valid OFF PD subjects after target and feature-readability filtering before any Track A/C/D score could be reported.",
+    "Extraction retained 18 OFF PD subjects, then the hard stop fired before WearGait-to-Parkinson@Home scoring, Parkinson@Home-only LOOCV, or OFF/ON response scoring.",
+    "The stopped route must be recorded as no-score/no-canonical-change. A shorter-window or alternate fallback policy would be a new pre-registration, not a continuation of iter53."
+  ],
+  "consults": {
+    "kimi": "probe_gated_preregistration; run only if public labels/features pass hard stops; no internal canonical update under any outcome",
+    "claude": "failed_credit_balance_too_low",
+    "glmcode": "not_found_on_path"
+  },
+  "sources": [
+    "https://doi.org/10.34973/fr4z-a489",
+    "https://webdav.data.ru.nl/dcmn/DSC_pdhasq_t0000123a_971_v1/",
+    "https://github.com/biomarkersParkinson/pdathome_gait",
+    "https://jneuroengrehab.biomedcentral.com/articles/10.1186/s12984-025-01625-x",
+    "results/iter53_parkinsonathome_probe.json",
+    "results/preregistration_t3_iter53_parkinsonathome_zeroshot.json",
+    "results/iter53_parkinsonathome_features.csv.manifest.json"
+  ]
+}

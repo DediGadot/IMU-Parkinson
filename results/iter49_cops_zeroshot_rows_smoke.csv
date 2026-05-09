@@ -1,0 +1,2 @@
+sid,updrs3_off,updrs3_on,updrs3_off_on_mean,hy,cv_yrs,cv_sex,cv_dbs,right_hours_used,left_hours_used,right_raw_mag_mean_mps2,left_raw_mag_mean_mps2,track_a_right_wrist_direct,track_a_left_wrist_sensitivity,track_d_bilateral_direct,track_b_right_clinical_plus_wrist,track_b_left_clinical_plus_wrist_sensitivity,track_d_bilateral_clinical_plus_wrist,track_c_cops_only_loo_sanity
+COPS-11,27.0,22.0,24.5,2.0,19.0,0.0,1.0,2,2,9.853815601693164,9.762408808114865,32.6877065495643,30.57067693760308,31.62919174358369,21.08819471738013,22.399829249788443,21.744011983584286,

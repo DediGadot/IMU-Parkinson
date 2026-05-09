@@ -1,0 +1,89 @@
+{
+  "experiment": "T3 iter26 — Hssayeni MJFF cross-dataset bridge — DUA probe 2026-05-08",
+  "synapse_project": "syn20681023",
+  "synapse_project_name": "MJFF Levodopa Response Study",
+  "user_logged_in": "dedigadot",
+  "user_owner_id": 3577986,
+  "auth_status": "OK",
+  "project_metadata_visible": true,
+  "children_count": 21,
+  "data_table_dl_status": "BLOCKED",
+  "data_table_error": "403 Client Error: There are unmet access requirements that must be met to read content in the requested container.",
+  "access_requirements": [
+    {
+      "id": 9604905,
+      "name": "Levodopa Response Trial - DREAM Challenge",
+      "concrete_type": "ManagedACTAccessRequirement",
+      "is_certified_user_required": true,
+      "is_validated_profile_required": true,
+      "is_duc_required": false,
+      "is_irb_approval_required": false,
+      "is_idu_public": true,
+      "is_idu_required": true,
+      "is_two_fa_required": false,
+      "is_approved_for_user": false,
+      "subject_count": 17
+    },
+    {
+      "id": 9604906,
+      "name": "9604906",
+      "concrete_type": "BasicAccessRequirement",
+      "is_approved_for_user": false,
+      "subject_count": 16
+    }
+  ],
+  "data_files_visible_no_dl": [
+    {"id": "syn20681931", "name": "Sensor Data - Part I", "type": "TableEntity", "cols": 8},
+    {"id": "syn20681932", "name": "Sensor Data - Part II", "type": "TableEntity", "cols": 8},
+    {"id": "syn20681937", "name": "Task Scores - Part I", "type": "TableEntity", "cols": 11},
+    {"id": "syn20681938", "name": "Task Scores - Part II", "type": "TableEntity", "cols": 11},
+    {"id": "syn20681939", "name": "UPDRS Responses", "type": "TableEntity", "cols": 6},
+    {"id": "syn20681894", "name": "Metadata of Patient Onboarding", "type": "TableEntity", "cols": 45},
+    {"id": "syn20681892", "name": "Metadata of Laboratory Visits", "type": "TableEntity", "cols": 12},
+    {"id": "syn20681891", "name": "Medication Diary", "type": "TableEntity", "cols": 7},
+    {"id": "syn20681035", "name": "Home Tasks", "type": "TableEntity", "cols": 7}
+  ],
+  "data_folders_visible_no_dl": [
+    {"id": "syn20681037", "name": "GENEActiv", "parent": "syn20681036"},
+    {"id": "syn20681180", "name": "Pebble", "parent": "syn20681036"},
+    {"id": "syn20681318", "name": "Phone", "parent": "syn20681036"},
+    {"id": "syn20681458", "name": "Shimmer_Back", "parent": "syn20681036"},
+    {"id": "syn20681544", "name": "Shimmer_LeftAnkle", "parent": "syn20681036"},
+    {"id": "syn20681630", "name": "Shimmer_LeftWrist", "parent": "syn20681036"},
+    {"id": "syn20681717", "name": "Shimmer_RightAnkle", "parent": "syn20681036"},
+    {"id": "syn20681805", "name": "Shimmer_RightWrist", "parent": "syn20681036"}
+  ],
+  "dummy_data_dl_ok": true,
+  "dummy_sample": {
+    "id": "syn20681026",
+    "name": "dummyGeneActiveData_Day1.txt",
+    "size_bytes": 90254,
+    "schema": "tab-separated: timestamp, GENEActiv_X, GENEActiv_Y, GENEActiv_Z, GENEActiv_Magnitude",
+    "fs_estimate_hz_from_dt": 50,
+    "first_row": "1429522244.5, 1.195, -8.535, -6.840, 11.037",
+    "interpretation": "GeneActive accelerometer (m/s^2 with gravity) at 50 Hz; magnitude is sqrt(x^2+y^2+z^2)"
+  },
+  "schema_findings": {
+    "Sensor Data Part I/II": "subject_id, device, device_position, participant_day, timestamp_start/end, source_file (FileEntity), data_file_handle_id — IMPORTANT: each row points to a separate FileEntity holding the timeseries.",
+    "UPDRS Responses": "long-format key-value: subject_id, visit, item_code, item_desc, item_value, is_scored — UPDRS-III items as item_code rows; need pivot to wide.",
+    "Patient Onboarding": "45 cols incl. cohort, gender, birth_year, dominant_hand, geneactive_hand, pebble_hand — has updrs_score_p1, updrs_score_p2 (and likely _p3) on disk.",
+    "LDOPA_DATA folders": "GENEActiv (wrist), Pebble, Phone, Shimmer_{Back, LeftAnkle, LeftWrist, RightAnkle, RightWrist} — each device has its own folder. Hssayeni 2021 paper used GENEActiv at 50Hz."
+  },
+  "next_action_required": "USER must apply for DUA on ARs 9604905 + 9604906 via the Synapse portal.",
+  "dua_application_steps": [
+    "1. Visit https://www.synapse.org/Synapse:syn20681023 (project page).",
+    "2. Click 'Request Access' button — opens the DREAM Challenge AR wizard.",
+    "3. Fill IDU (Intended Data Use) statement — required since isIDURequired=true; isIDUPublic=true means it will be shown publicly.",
+    "4. Submit. ManagedACTAccessRequirement reviewed by ACT team — typically 1-3 business days.",
+    "5. Once approved, the existing token at SYNAPSE_TOKEN already has download permission; no token rotation needed.",
+    "6. Re-run probe: ./gpu.sh run_t3_iter26_hssayeni.py --mode probe — should now show isApproved=true."
+  ],
+  "wizard_urls": {
+    "project_page": "https://www.synapse.org/Synapse:syn20681023",
+    "ar_9604905_page": "https://www.synapse.org/AccessRequirement:AR_ID=9604905",
+    "ar_9604906_page": "https://www.synapse.org/AccessRequirement:AR_ID=9604906",
+    "personal_access_tokens": "https://www.synapse.org/PersonalAccessTokens"
+  },
+  "estimated_dataset_size": "Hssayeni 2021 paper reports 13 PD subjects, ~50 Hz GeneActive wrist accelerometer over ~5-7 day home sessions. Total raw size estimated 1-5 GB compressed (per-file FileEntity model — must walk Sensor Data Part I/II tables to enumerate file_handle_ids).",
+  "iter26_pipeline_status": "BLOCKED at DUA gate. Architecture frozen per pre-reg scaffolding. Awaiting user DUA approval on ARs 9604905 + 9604906."
+}

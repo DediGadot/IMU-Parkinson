@@ -1,0 +1,77 @@
+{
+  "created_at_utc": "2026-05-09T04:45:00Z",
+  "purpose": "Fresh public-route refresh for small smartwatch Parkinson datasets with MDS-UPDRS subitem labels after TLVMC/DeFOG and cache-provenance branches.",
+  "decision": "no_prereg_no_download_no_remote_job_for_active_t1_t3_ccc_objective",
+  "consults": {
+    "kimi": {
+      "status": "completed",
+      "artifact": "results/external_route_audit_monipar_bioclite_20260509.md",
+      "decision": "document_only_no_prereg_for_monipar_bioclite"
+    },
+    "claude": {
+      "status": "failed",
+      "error": "Credit balance is too low"
+    },
+    "glmcode": {
+      "status": "not_available",
+      "error": "command not found"
+    }
+  },
+  "routes": [
+    {
+      "name": "Monipar",
+      "zenodo": "10.5281/zenodo.8104853",
+      "access_status": "public",
+      "n_pd": 21,
+      "n_controls": 7,
+      "n_supervised_pd": 6,
+      "n_supervised_trials": 46,
+      "modality": "single consumer smartwatch triaxial accelerometer at 50 Hz",
+      "labels": "exercise-level MDS-UPDRS subitem scores for the supervised group only; no confirmed total Part III",
+      "covered_items": ["3.17", "3.15", "3.4", "3.5", "3.6", "3.10"],
+      "missing_for_t1": ["3.11", "3.12", "3.13", "3.14"],
+      "direct_t1_t3_eligible": false,
+      "status": "skipped_public_subitem_only_tiny_supervised_n",
+      "verdict": "Public consumer-smartwatch subitem dataset. It lacks total MDS-UPDRS Part III, lacks a full T1 9-14 composite, and has only six supervised PD subjects with item labels. No preregistration, download, scaffold, or remote job is justified for the active WearGait-PD T1/T3 CCC objective.",
+      "sources": [
+        "https://zenodo.org/records/8104853",
+        "https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2023.1326640/full"
+      ]
+    },
+    {
+      "name": "BIOCLITE",
+      "zenodo": "10.5281/zenodo.16408199",
+      "access_status": "public",
+      "n_pd": 24,
+      "n_controls": 16,
+      "modality": "single consumer smartwatch triaxial accelerometer and gyroscope at 50 Hz",
+      "labels": "per-exercise MDS-UPDRS score 0-4 when a clinical evaluation is available; no total Part III endpoint",
+      "covered_items": ["3.17", "3.15", "3.4", "3.5", "3.6", "3.9", "3.10"],
+      "missing_for_t1": ["3.11", "3.12", "3.13", "3.14"],
+      "direct_t1_t3_eligible": false,
+      "status": "skipped_public_subitem_only_no_t1_t3_endpoint",
+      "verdict": "Public smartwatch follow-up to Monipar with acc+gyro and supervised/unsupervised sessions. It is useful related work for exercise-level motor subitems, but it cannot support total T3 or the full T1 items 9-14 composite. No preregistration, download, scaffold, or remote job is justified for the active WearGait-PD T1/T3 CCC objective.",
+      "sources": [
+        "https://zenodo.org/records/16408199",
+        "https://zenodo.org/records/16408199/preview/Bioclite_README.txt?include_deleted=0",
+        "https://doi.org/10.2196/72820"
+      ]
+    },
+    {
+      "name": "Personalized Parkinson Project / PD Virtual Motor Exam",
+      "access_status": "RDSRC request-gated; data release fees may apply",
+      "n_pd": 517,
+      "n_vme_participants": 388,
+      "modality": "Verily Study Watch wrist sensors during passive monitoring and PD-VME active tasks",
+      "labels": "MDS-UPDRS Part III at clinic visits and consensus subitem ratings for PD-VME validation subsets",
+      "direct_t1_t3_eligible": true,
+      "status": "access_gated_document_only_no_scaffold_until_access",
+      "verdict": "Strong gated Verily-watch external route and a useful peer to PPMI/Verily. It is not public or locally approved, so no scaffold, preregistration, download, or remote job is justified until a data request is approved and row-level schema is available.",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9126938/",
+        "https://www.personalizedparkinsonproject.com/data-sharing/available-data/overview-of-the-project-and-available-data/ppp",
+        "https://www.personalizedparkinsonproject.com/data-sharing/requesting-data/additional-information-on-the-procedure/costs-of-data-release"
+      ]
+    }
+  ]
+}

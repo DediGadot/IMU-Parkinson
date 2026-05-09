@@ -1,0 +1,334 @@
+{
+  "created_at_local": "2026-05-08T19:54:15.048053",
+  "created_at_utc": "2026-05-08T16:54:15+00:00",
+  "experiment": "T3 iter47 invalid-code target correction fixed-battery audit",
+  "preregistration_file": "/home/fiod/pd-imu/results/preregistration_t3_iter47_invalidcode_20260508_194605.json",
+  "formula_sha256": "0107b7297073900785692a0cfee28f44b2abaad8094a9a371a20f12e03efa439",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "target_audit": {
+    "clinical_path": "/home/fiod/pd-imu/data/raw/weargait-pd/PD - Demographic+Clinical - datasetV1.csv",
+    "n_part3_columns": 33,
+    "invalid_raw_subitem_values": [
+      {
+        "sid": "NLS036",
+        "column": "MDSUPDRS_3-15-R",
+        "value": 9.0
+      },
+      {
+        "sid": "NLS036",
+        "column": "MDSUPDRS_3-15-L",
+        "value": 9.0
+      }
+    ],
+    "target_changed_rows": [
+      {
+        "sid": "NLS036",
+        "original_sum33": 46.0,
+        "validrange_sum33": 28.0,
+        "target_delta_original_minus_validrange": 18.0,
+        "original_nonmissing": 33,
+        "validrange_nonmissing": 31,
+        "invalid_part3_count": 2
+      }
+    ]
+  },
+  "cells": [
+    {
+      "cohort": "drop_allmissing_validrange",
+      "stage2_policy": "stage2_current",
+      "n": 95,
+      "excluded_sids": [
+        "NLS188",
+        "WPD013",
+        "NLS151"
+      ],
+      "excluded_raw_nonmissing": [
+        0,
+        0,
+        0
+      ],
+      "target_change_subjects": [
+        {
+          "sid": "NLS036",
+          "old_target": 46.0,
+          "validrange_target": 28.0,
+          "delta_old_minus_validrange": 18.0,
+          "valid_subitems": 31
+        }
+      ],
+      "old_iter5_subset_metrics_against_validrange_target": {
+        "n": 95,
+        "ccc": 0.4264,
+        "cal_slope": 0.3328,
+        "mae": 7.5377,
+        "r": 0.4446,
+        "pred_mean": 25.289,
+        "pred_std": 7.42,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "old_iter5_subset_against_validrange_target"
+      },
+      "new_refit_metrics": {
+        "n": 95,
+        "ccc": 0.3784,
+        "cal_slope": 0.2692,
+        "mae": 7.528,
+        "r": 0.4141,
+        "pred_mean": 24.815,
+        "pred_std": 6.446,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "drop_allmissing_validrange_stage2_current_mean3"
+      },
+      "paired_boot_delta_new_minus_old_subset": {
+        "n_boot": 5000,
+        "mean_delta": -0.049204112568657664,
+        "ci95": [
+          -0.12559426988632277,
+          0.02223876589011697
+        ],
+        "frac_gt_0": 0.094
+      },
+      "selected_cv_by_seed": {
+        "42": {
+          "cv_age": 14,
+          "cv_ht": 7,
+          "cv_wt": 3,
+          "cv_yrs": 13
+        },
+        "1337": {
+          "cv_age": 14,
+          "cv_ht": 7,
+          "cv_wt": 3,
+          "cv_yrs": 13
+        },
+        "7": {
+          "cv_age": 14,
+          "cv_ht": 7,
+          "cv_wt": 3,
+          "cv_yrs": 13
+        }
+      }
+    },
+    {
+      "cohort": "drop_allmissing_validrange",
+      "stage2_policy": "stage2_no_cv",
+      "n": 95,
+      "excluded_sids": [
+        "NLS188",
+        "WPD013",
+        "NLS151"
+      ],
+      "excluded_raw_nonmissing": [
+        0,
+        0,
+        0
+      ],
+      "target_change_subjects": [
+        {
+          "sid": "NLS036",
+          "old_target": 46.0,
+          "validrange_target": 28.0,
+          "delta_old_minus_validrange": 18.0,
+          "valid_subitems": 31
+        }
+      ],
+      "old_iter5_subset_metrics_against_validrange_target": {
+        "n": 95,
+        "ccc": 0.4264,
+        "cal_slope": 0.3328,
+        "mae": 7.5377,
+        "r": 0.4446,
+        "pred_mean": 25.289,
+        "pred_std": 7.42,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "old_iter5_subset_against_validrange_target"
+      },
+      "new_refit_metrics": {
+        "n": 95,
+        "ccc": 0.3771,
+        "cal_slope": 0.2745,
+        "mae": 7.6798,
+        "r": 0.4067,
+        "pred_mean": 24.789,
+        "pred_std": 6.691,
+        "true_mean": 25.0,
+        "true_std": 9.913,
+        "label": "drop_allmissing_validrange_stage2_no_cv_mean3"
+      },
+      "paired_boot_delta_new_minus_old_subset": {
+        "n_boot": 5000,
+        "mean_delta": -0.050497347273321454,
+        "ci95": [
+          -0.12219200167924549,
+          0.01668521969707691
+        ],
+        "frac_gt_0": 0.0728
+      },
+      "selected_cv_by_seed": {
+        "42": {},
+        "1337": {},
+        "7": {}
+      }
+    },
+    {
+      "cohort": "complete33_validrange",
+      "stage2_policy": "stage2_current",
+      "n": 88,
+      "excluded_sids": [
+        "NLS036",
+        "NLS143",
+        "NLS188",
+        "NLS183",
+        "WPD013",
+        "WPD002",
+        "NLS151",
+        "WPD017",
+        "NLS002",
+        "NLS210"
+      ],
+      "excluded_raw_nonmissing": [
+        31,
+        31,
+        0,
+        32,
+        0,
+        32,
+        0,
+        32,
+        32,
+        28
+      ],
+      "target_change_subjects": [],
+      "old_iter5_subset_metrics_against_validrange_target": {
+        "n": 88,
+        "ccc": 0.4457,
+        "cal_slope": 0.3454,
+        "mae": 7.4975,
+        "r": 0.4659,
+        "pred_mean": 25.285,
+        "pred_std": 7.495,
+        "true_mean": 25.08,
+        "true_std": 10.11,
+        "label": "old_iter5_subset_against_validrange_target"
+      },
+      "new_refit_metrics": {
+        "n": 88,
+        "ccc": 0.4281,
+        "cal_slope": 0.3019,
+        "mae": 7.3131,
+        "r": 0.4713,
+        "pred_mean": 24.977,
+        "pred_std": 6.476,
+        "true_mean": 25.08,
+        "true_std": 10.11,
+        "label": "complete33_validrange_stage2_current_mean3"
+      },
+      "paired_boot_delta_new_minus_old_subset": {
+        "n_boot": 5000,
+        "mean_delta": -0.0176292178155344,
+        "ci95": [
+          -0.099577487138942,
+          0.06348004606577083
+        ],
+        "frac_gt_0": 0.3418
+      },
+      "selected_cv_by_seed": {
+        "42": {
+          "cv_age": 21,
+          "cv_ht": 8,
+          "cv_wt": 15,
+          "cv_yrs": 13
+        },
+        "1337": {
+          "cv_age": 21,
+          "cv_ht": 8,
+          "cv_wt": 15,
+          "cv_yrs": 13
+        },
+        "7": {
+          "cv_age": 21,
+          "cv_ht": 8,
+          "cv_wt": 15,
+          "cv_yrs": 13
+        }
+      }
+    },
+    {
+      "cohort": "complete33_validrange",
+      "stage2_policy": "stage2_no_cv",
+      "n": 88,
+      "excluded_sids": [
+        "NLS036",
+        "NLS143",
+        "NLS188",
+        "NLS183",
+        "WPD013",
+        "WPD002",
+        "NLS151",
+        "WPD017",
+        "NLS002",
+        "NLS210"
+      ],
+      "excluded_raw_nonmissing": [
+        31,
+        31,
+        0,
+        32,
+        0,
+        32,
+        0,
+        32,
+        32,
+        28
+      ],
+      "target_change_subjects": [],
+      "old_iter5_subset_metrics_against_validrange_target": {
+        "n": 88,
+        "ccc": 0.4457,
+        "cal_slope": 0.3454,
+        "mae": 7.4975,
+        "r": 0.4659,
+        "pred_mean": 25.285,
+        "pred_std": 7.495,
+        "true_mean": 25.08,
+        "true_std": 10.11,
+        "label": "old_iter5_subset_against_validrange_target"
+      },
+      "new_refit_metrics": {
+        "n": 88,
+        "ccc": 0.401,
+        "cal_slope": 0.2849,
+        "mae": 7.4838,
+        "r": 0.4391,
+        "pred_mean": 25.117,
+        "pred_std": 6.559,
+        "true_mean": 25.08,
+        "true_std": 10.11,
+        "label": "complete33_validrange_stage2_no_cv_mean3"
+      },
+      "paired_boot_delta_new_minus_old_subset": {
+        "n_boot": 5000,
+        "mean_delta": -0.0448424135067166,
+        "ci95": [
+          -0.12925634439624525,
+          0.039182888804778
+        ],
+        "frac_gt_0": 0.1506
+      },
+      "selected_cv_by_seed": {
+        "42": {},
+        "1337": {},
+        "7": {}
+      }
+    }
+  ],
+  "rows_csv": "/home/fiod/pd-imu/results/iter47_invalidcode_rows_20260508_194605.csv",
+  "subject_predictions_csv": "/home/fiod/pd-imu/results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+  "decision": "fixed_battery_target_audit_no_selection"
+}

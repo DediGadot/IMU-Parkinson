@@ -1,0 +1,24 @@
+
+=== T1 iter32 ENSEMBLE LOCKBOX LOOCV (3 seeds, N=94, orders=('random', 'clinical', 'correlation')) ===
+    seed=42 20/94 folds done  elapsed=41s
+    seed=42 40/94 folds done  elapsed=62s
+    seed=42 60/94 folds done  elapsed=100s
+    seed=42 80/94 folds done  elapsed=121s
+  seed=42: ENS=0.7089 | i5=0.6698 | Δ=+0.0391 | 170s
+    seed=1337 20/94 folds done  elapsed=41s
+    seed=1337 40/94 folds done  elapsed=62s
+    seed=1337 60/94 folds done  elapsed=99s
+    seed=1337 80/94 folds done  elapsed=121s
+  seed=1337: ENS=0.7077 | i5=0.6602 | Δ=+0.0475 | 170s
+    seed=7 20/94 folds done  elapsed=41s
+    seed=7 40/94 folds done  elapsed=62s
+    seed=7 60/94 folds done  elapsed=100s
+    seed=7 80/94 folds done  elapsed=121s
+  seed=7: ENS=0.7085 | i5=0.6688 | Δ=+0.0396 | 170s
+
+=== HEADLINE: CCC=0.7084, MAE=1.934, r=0.7232, slope=0.886 ===
+  iter5-direct LOOCV: Δ=+0.0375, frac>0=0.852
+  vs iter30b V1 single-order: ccc_v1=0.7087, Δ̄=-0.0003, frac>0=0.318
+  is_canonical_update = False
+Wrote /root/pd-imu/results/lockbox_t1_iter32_ensemble_20260506_050714.json
+      /root/pd-imu/results/lockbox_t1_iter32_ensemble_20260506_050714.oof.npy

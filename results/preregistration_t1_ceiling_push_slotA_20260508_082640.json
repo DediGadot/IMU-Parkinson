@@ -1,0 +1,101 @@
+{
+  "timestamp": "20260508_082640",
+  "iso_datetime": "2026-05-08T08:26:40.700905",
+  "experiment": "T1 Ceiling Push Slot A \u2014 ordinal chain \u00d7 3-base ensemble LOCKBOX",
+  "git_head": "unknown",
+  "formula_sha256": "c32cbe1aea73a24712c15b2ef504681be27838f1a4e00923f3a897c3e7e0c9c2",
+  "formula": {
+    "experiment": "T1 Glass-Ceiling Push \u2014 Slot A: ordinal cumulative-link multi-task chain \u00d7 3-base ensemble",
+    "ceiling_push_master_prereg": "results/preregistration_t1_ceiling_push_20260508_051417.json",
+    "family_member": "slotA",
+    "fwer_family_n": 4,
+    "fwer_method": "Bonferroni 0.9875 strict per-slot gate",
+    "mechanism_axis": 1,
+    "axis_description": "different loss family \u2014 ordinal cumulative-link logit replaces MSE in iter34's RegressorChain bases; chain + ensemble structure preserved",
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects_min": 90,
+      "filter": "PD with full items 9-14, 15, 18 (matches iter33-B / iter34)"
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "T1 (sum items 9-14)"
+    },
+    "stage2": {
+      "model_ensemble": [
+        "RegressorChain(OrdinalRegressor(method='mord_at', alpha=1.0))",
+        "RegressorChain(OrdinalRegressor(method='lgb_decomp', n_est=500, lr=0.05, num_leaves=15, min_data=10, isotonic_monotone=True))",
+        "RegressorChain(OrdinalRegressor(method='ngb_logit', Dist=k_categorical(5), n_est=300, lr=0.05))"
+      ],
+      "ensemble_method": "average expected-score predictions across 3 ordinal bases per fold per seed",
+      "items_targets_chain": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18
+      ],
+      "items_summed_for_t1": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "auxiliary_items": [
+        15,
+        18
+      ],
+      "item_target_format": "integer 0-4 (round + clip fold-local)",
+      "feature_select_method": "lgb_importance_top_k_per_fold",
+      "feature_select_k": 500,
+      "imputation": "fold_local_median",
+      "post_combine_formula": "Stage1_pred + (sum_over_T1_SUM_ITEMS(mean_over_bases(E[item|X])) - sum(train_mean[T1_SUM_ITEMS]))",
+      "ordinal_cut_point_strategy": "Per-base, per-item, fold-local fit (no test-fold info). Degenerate folds (single observed class) fall back to constant prediction = train mean. lgb_decomp degenerate cut-points (no positive or no negative samples) fall back to constant probability.",
+      "expected_p2_robustness_argument": "iter34 audit P2 (noisy-test-X) borderline soft-fail \u0394=\u22120.065. Cumulative-link probabilities cap at [0,1] and E[item] caps at [0,4], so noise inputs cannot drive predictions far from the empirical mean. Slot A is expected to PASS P2 strictly."
+    },
+    "eval": {
+      "loocv_n_min": 90,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "methods": [
+        "mord_at",
+        "lgb_decomp",
+        "ngb_logit"
+      ],
+      "headline_metric": "CCC of mean-of-3-seed predictions vs y_t1",
+      "comparator_iter5_direct_loocv": "computed live in same SID-aligned LOOCV",
+      "comparator_iter34_loocv_json": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "comparator_iter12_honest_path": "compose_t1_iter12_honest.py output"
+    },
+    "lockbox_rules": [
+      "ONE pre-registered config. ONE LOOCV run. NO seed shopping.",
+      "Headline = CCC of mean-of-3-seed preds (each seed avgs 3 ordinal bases).",
+      "Slot verdict per FWER strict gate: paired-bootstrap (n=5000) frac>0 vs iter12-honest-on-N=93 AND vs iter34-on-N=93, Bonferroni-adjusted threshold 0.9875.",
+      "Verdict CANDIDATE if frac>0 in [0.95, 0.9875).",
+      "Verdict FAIL if frac>0 < 0.95.",
+      "Verdict CANONICAL only if frac>0 >= 0.9875 against BOTH baselines."
+    ]
+  },
+  "variant": "slot_a_ordinal_chain",
+  "ceiling_push_master_prereg": "results/preregistration_t1_ceiling_push_20260508_051417.json",
+  "fwer_family_n": 4,
+  "eval_protocol": "LOOCV on T1\u2229{15,18} cohort (N\u224893). Stage-1 Ridge (alpha=1.0) on H&Y + cv_yrs + cv_sex + cv_dbs with per-fold standardisation. Stage-2 = mean expected-score over 3 ordinal bases (mord.LogisticAT, LGB 4-binary cum-link, NGBoost k_categorical), each RegressorChain with random order over 8 items {9-14, 15, 18}. T1 = sum E[item|X] for items 9-14; items 15+18 auxiliary. K=500 LGB-importance per fold. 3-seed mean preds = headline."
+}

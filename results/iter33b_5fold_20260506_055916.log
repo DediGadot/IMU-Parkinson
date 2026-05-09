@@ -1,0 +1,12 @@
+
+=== T1 iter33-B 8-item chain SCREEN: 5-fold × 3 seeds ===
+  cohort: T1-only N=94 | with-aux N=93 (aux items used: [15, 18])
+  chain item_order = [9, 10, 11, 12, 13, 14, 15, 18] (T1 sum over [9, 10, 11, 12, 13, 14])
+  seed=42: mt=0.6854 | i5=0.6036 | Δ=+0.0818 | 42.1s
+  seed=1337: mt=0.6914 | i5=0.6914 | Δ=-0.0000 | 41.5s
+  seed=7: mt=0.7137 | i5=0.6416 | Δ=+0.0721 | 41.4s
+
+  Δ̄_seed = +0.0513 ± 0.0365
+  bootstrap Δ̄ = +0.0527, frac>0 = 0.937
+  GATE_PASS = False
+Wrote /root/pd-imu/results/iter33b_8item_5fold_20260506_060128.json

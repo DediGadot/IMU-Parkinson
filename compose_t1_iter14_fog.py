@@ -61,6 +61,7 @@ REPO_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from inductive_lib import ccc as ccc_fn, full_metrics, mae as mae_fn, pearson_r
+from cache_provenance import require_cache_manifest
 from project_paths import RESULTS_DIR, ensure_dir
 from run_t1_iter4 import (
     feature_select_fold,
@@ -109,20 +110,7 @@ GATE_SEED_STD = 0.02      # required maximum seed std at 5-fold
 
 
 def _verify_manifest() -> dict:
-    if not ITEM11_MANIFEST.exists():
-        raise FileNotFoundError(
-            f"Missing manifest sidecar: {ITEM11_MANIFEST}. "
-            "Per skill rule, caches without manifests cannot feed inductive headlines."
-        )
-    with open(ITEM11_MANIFEST) as f:
-        m = json.load(f)
-    if m.get("labels_used", True):
-        raise RuntimeError("Manifest reports labels_used=True; cache is not feature-safe.")
-    if m.get("leakage_status") != "clean_by_construction":
-        raise RuntimeError(
-            f"Manifest leakage_status={m.get('leakage_status')!r} != 'clean_by_construction'."
-        )
-    return m
+    return require_cache_manifest(ITEM11_MULTISCALE_CACHE)
 
 
 def load_fog_features(sids: np.ndarray) -> np.ndarray:
@@ -345,7 +333,7 @@ def lockbox(d: dict, fog_features: np.ndarray, out_json: Path) -> None:
         ),
         "fog_feature_cols": FOG_FEATURE_COLS,
         "fog_cache_path": str(ITEM11_MULTISCALE_CACHE),
-        "fog_cache_sha256": json.load(open(ITEM11_MANIFEST))["data_sha256"],
+        "fog_cache_sha256": _verify_manifest()["declared_data_sha256"],
         "fog_manifest_path": str(ITEM11_MANIFEST),
         "items_modified": list(FOG_AUGMENTED_ITEMS),
         "items_kept_from_iter8": [it for it in T1_ITEMS if it not in FOG_AUGMENTED_ITEMS],

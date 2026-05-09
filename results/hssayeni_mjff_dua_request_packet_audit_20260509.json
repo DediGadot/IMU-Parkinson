@@ -1,0 +1,155 @@
+{
+  "checks": {
+    "access_path": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "synapse request access",
+        "controlled-access request",
+        "individual authorization",
+        "conditions for use"
+      ]
+    },
+    "clinical_linkage_inventory": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "mds-updrs part iii total",
+        "item/subitem responses",
+        "tremor",
+        "bradykinesia",
+        "dyskinesia",
+        "freezing-of-gait",
+        "medication-state",
+        "medication-timing"
+      ]
+    },
+    "hssayeni_specific_guardrails": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "medication state is a protocol variable",
+        "aggregate task/window/repetition predictions",
+        "below 20",
+        "if only limb-specific symptom labels are available",
+        "route becomes external subitem/symptom context only",
+        "existing iter26 scripts remain scaffolding only"
+      ]
+    },
+    "methodology_guardrails": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "read-only schema probe",
+        "zero-shot external validation",
+        "subject-level splits",
+        "pre-registration",
+        "valid-range",
+        "manifest sidecar",
+        "external-validity / transportability evidence only"
+      ]
+    },
+    "no_premature_compute_boundary": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "do not create a new probe",
+        "no mjff label peeking",
+        "no endpoint switching",
+        "stop before modeling",
+        "will not present mjff metrics as internal weargait-pd canonical"
+      ]
+    },
+    "official_sources_and_public_facts": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "syn20681023",
+        "mjff levodopa response study",
+        "help.synapse.org/docs/data-access-types",
+        "help.synapse.org/docs/sharing-settings",
+        "nature.com/articles/s41597-021-00830-0",
+        "nature.com/articles/s41597-021-00831-z",
+        "raw accelerometer",
+        "mds-updrs"
+      ]
+    },
+    "scientific_data_facts": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "31 recruited pd subjects",
+        "two wrist-worn accelerometers",
+        "waist-worn smartphone",
+        "days 1 and 4",
+        "clinician symptom-severity ratings",
+        "home/community recordings",
+        "hoehn & yahr ii-iv",
+        "excluding dbs"
+      ]
+    },
+    "security_publication_terms": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "encrypted",
+        "access-controlled",
+        "do not commit",
+        "consumer cloud",
+        "no-redistribution",
+        "aggregate, non-identifiable"
+      ]
+    },
+    "specific_data_inventory": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "raw or exportable wrist accelerometer data",
+        "geneactiv",
+        "pebble os",
+        "subject and visit/session identifiers",
+        "task windows",
+        "timestamps",
+        "sampling rate",
+        "units",
+        "axis convention",
+        "sensor-failure notes"
+      ]
+    },
+    "synapse_metadata": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "29 participants",
+        "wrist",
+        "waist",
+        "forearm",
+        "shank",
+        "back",
+        "shimmer",
+        "geneactiv",
+        "android",
+        "pebble os",
+        "medication report",
+        "feedback survey"
+      ]
+    }
+  },
+  "created_at_utc": "2026-05-09T12:17:35.226923+00:00",
+  "decision": "hssayeni_mjff_dua_request_packet_ready",
+  "goal_complete": false,
+  "hard_failures": [],
+  "missing": [],
+  "not_a_model_result": true,
+  "packet": "scripts/hssayeni_mjff_dua_request_packet.md",
+  "packet_exists": true,
+  "passed": true,
+  "public_requirements_encoded": {
+    "route": "Controlled-access MJFF Levodopa Response Study with raw accelerometer and MDS-UPDRS-related outcomes.",
+    "source": "Synapse syn20681023 metadata plus Scientific Data minimum-sensor and limb/trunk descriptors.",
+    "validation_boundary": "No model/probe before DUA approval and child tree/schema visibility; hard-stop if total Part III or valid item/subitem linkage is absent."
+  },
+  "runbook": "scripts/synapse_hssayeni_setup.md",
+  "runbook_exists": true,
+  "runbook_mentions_packet": true
+}

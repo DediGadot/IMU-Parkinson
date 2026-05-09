@@ -1,0 +1,229 @@
+{
+  "created_at_utc": "2026-05-09T00:52:48+00:00",
+  "script": "scripts/probe_tlvmc_fog_route.py",
+  "sources": {
+    "zenodo_record": "https://zenodo.org/records/10959560",
+    "zenodo_api": "https://zenodo.org/api/records/10959560",
+    "kaggle_competition": "https://www.kaggle.com/competitions/tlvmc-parkinsons-freezing-gait-prediction",
+    "nature_communications": "https://www.nature.com/articles/s41467-024-49027-0"
+  },
+  "zenodo": {
+    "record_id": 10959560,
+    "doi": "10.5281/zenodo.10959560",
+    "title": "A machine learning contest enhances automated freezing of gait detection and reveals time-of-day effects",
+    "license": "cc-by-4.0",
+    "files": [
+      {
+        "key": "Source_Data.zip",
+        "size_bytes": 260281414,
+        "checksum": "md5:3e979157984e43b7cf9415fbadf69fce"
+      },
+      {
+        "key": "Competition Dataset.zip",
+        "size_bytes": 1087656136,
+        "checksum": "md5:35512a51d7169706109bd490e4fab9af"
+      },
+      {
+        "key": "Competition Code.zip",
+        "size_bytes": 6137218085,
+        "checksum": "md5:29c59eebff8d80a97f44b8a1852ad9e6"
+      }
+    ]
+  },
+  "downloaded_metadata_files": [
+    "subjects.csv",
+    "defog_metadata.csv",
+    "tdcsfog_metadata.csv",
+    "daily_metadata.csv",
+    "tasks.csv"
+  ],
+  "row_level_metadata_persisted_in_repo": false,
+  "subjects": {
+    "rows": 173,
+    "unique_subjects": 136,
+    "unique_subject_visits": 173,
+    "columns": [
+      "Subject",
+      "Visit",
+      "Age",
+      "Sex",
+      "YearsSinceDx",
+      "UPDRSIII_On",
+      "UPDRSIII_Off",
+      "NFOGQ"
+    ],
+    "rows_with_any_updrsiii_target": 173,
+    "unique_subjects_with_any_updrsiii_target": 136,
+    "updrsiii_on": {
+      "n": 172,
+      "min": 5.0,
+      "median": 35.0,
+      "max": 79.0
+    },
+    "updrsiii_off": {
+      "n": 132,
+      "min": 15.0,
+      "median": 43.0,
+      "max": 91.0
+    },
+    "nfogq": {
+      "n": 173,
+      "min": 0.0,
+      "median": 19.0,
+      "max": 29.0
+    }
+  },
+  "recording_metadata": {
+    "defog": {
+      "rows": 137,
+      "unique_subjects": 45,
+      "unique_subject_visits": 70,
+      "rows_joining_subjects": 137,
+      "rows_with_any_updrsiii_target": 137,
+      "rows_with_matching_medication_updrsiii_target": 137,
+      "medication_counts": {
+        "on": 69,
+        "off": 68
+      },
+      "columns": [
+        "Id",
+        "Subject",
+        "Visit",
+        "Medication"
+      ]
+    },
+    "tdcsfog": {
+      "rows": 833,
+      "unique_subjects": 62,
+      "unique_subject_visits": 197,
+      "rows_joining_subjects": 0,
+      "rows_with_any_updrsiii_target": 0,
+      "rows_with_matching_medication_updrsiii_target": 0,
+      "medication_counts": {
+        "on": 536,
+        "off": 297
+      },
+      "columns": [
+        "Id",
+        "Subject",
+        "Visit",
+        "Test",
+        "Medication"
+      ]
+    },
+    "daily": {
+      "rows": 65,
+      "unique_subjects": 65,
+      "unique_subject_visits": 65,
+      "rows_joining_subjects": 65,
+      "rows_with_any_updrsiii_target": 65,
+      "rows_with_matching_medication_updrsiii_target": 0,
+      "medication_counts": {},
+      "columns": [
+        "Id",
+        "Subject",
+        "Visit",
+        "Beginning of recording [00:00-23:59]"
+      ]
+    },
+    "tasks": {
+      "rows": 2817,
+      "unique_recording_ids": 137,
+      "unique_tasks": 31,
+      "columns": [
+        "Id",
+        "Begin",
+        "End",
+        "Task"
+      ],
+      "top_tasks": {
+        "TUG-ST": 278,
+        "TUG-DT": 267,
+        "4MW": 137,
+        "Turning-ST": 137,
+        "Turning-DT": 137,
+        "Hotspot1": 130,
+        "Hotspot2": 130,
+        "MB3-R": 124,
+        "MB3-L": 120,
+        "TUG-C": 119,
+        "MB12": 70,
+        "MB4": 69
+      }
+    }
+  },
+  "raw_schema_samples": {
+    "defog": {
+      "source_file": "train/defog/02ea782681.csv",
+      "downloaded_name": "02ea782681.csv",
+      "rows": 162907,
+      "columns": [
+        "Time",
+        "AccV",
+        "AccML",
+        "AccAP",
+        "StartHesitation",
+        "Turn",
+        "Walking",
+        "Valid",
+        "Task"
+      ],
+      "time_start": 0,
+      "time_end": 162906,
+      "AccV": {
+        "dtype": "float64",
+        "min": -2.76459465199688,
+        "max": 0.156228838417905,
+        "mean": -0.9813525867466732
+      },
+      "AccML": {
+        "dtype": "float64",
+        "min": -1.06325007429161,
+        "max": 1.50162861930944,
+        "mean": 0.03256588464348971
+      },
+      "AccAP": {
+        "dtype": "float64",
+        "min": -1.27062637531325,
+        "max": 0.34375,
+        "mean": -0.18777189170546016
+      },
+      "Valid": {
+        "dtype": "bool",
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.22634386490451608
+      },
+      "Task": {
+        "dtype": "bool",
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.226472772809026
+      },
+      "StartHesitation": {
+        "dtype": "int64",
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Turn": {
+        "dtype": "int64",
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.0007918628419896015
+      },
+      "Walking": {
+        "dtype": "int64",
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      }
+    }
+  },
+  "t3_route_classification": {
+    "direct_t3_eligible": true,
+    "reason": "Public metadata includes Subject/Visit rows with UPDRSIII_On and UPDRSIII_Off totals. DeFOG recording metadata links sensor file ids to Subject/Visit plus medication state, yielding medication-matched UPDRS-III targets for all 137 DeFOG recordings. Daily metadata also joins to visit-level UPDRS-III targets but lacks medication state. tdcsfog metadata does not join to subjects.csv targets in this public metadata probe and is not counted as a direct T3 target route.",
+    "not_internal_ceiling_break": true,
+    "recommended_next_step": "Write a separate zero-shot external-validation preregistration/probe before any model run; do not use this as another WearGait internal variant screen."
+  }
+}

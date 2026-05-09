@@ -1,0 +1,3483 @@
+{
+  "generated_at_utc": "2026-05-09T12:40:50+00:00",
+  "script": "visualize_current_best_pipeline.py",
+  "outputs": {
+    "html": "results/current_best_pipeline_dashboard.html",
+    "manifest": "results/current_best_pipeline_dashboard/manifest.json"
+  },
+  "headline": {
+    "t1_canonical_floor": {
+      "ccc": 0.655,
+      "mae": 1.5614,
+      "n": 94
+    },
+    "t1_strongest_candidate_iter34": {
+      "ccc": 0.7366,
+      "mae": 1.731,
+      "n": 93,
+      "audit_all_pass": false,
+      "loso_two_way_mean_ccc": 0.4564,
+      "n93_gap_material": false,
+      "n94_grid_optimal_ccc": 0.736598,
+      "aux_validrange_caveat": {
+        "historical_chain_n": 93,
+        "validated_chain_n": 92,
+        "affected_sids": [
+          "NLS036"
+        ],
+        "invalid_auxiliary_item": {
+          "sid": "NLS036",
+          "item": 15,
+          "value": 18.0,
+          "valid_min": 0.0,
+          "valid_max": 8.0,
+          "subparts": {
+            "(15, 'a')": 9.0,
+            "(15, 'b')": 9.0
+          }
+        },
+        "primary_t1_target_valid": true,
+        "recommended_status": "document_only_no_posthoc_rerun_future_loader_fail_closed",
+        "random_chain_order_exposure": {
+          "iter34_lockbox_seeds": [
+            42,
+            1337,
+            7
+          ],
+          "iter34_lockbox_seeds_with_item15_upstream_of_any_t1": [
+            7,
+            1337
+          ],
+          "iter34_lockbox_seed_count_with_exposure": 2,
+          "iter34_lockbox_seed_count": 3,
+          "iter46_decomp_seed_count_with_exposure": 4,
+          "iter46_decomp_seed_count": 5,
+          "kimi_fixed_order_assumption_status": "falsified_by_code"
+        },
+        "stale_vs_valid_common_delta_ccc": -0.000818534051712172,
+        "materiality_flag": false
+      },
+      "p2_leakage_signal": false,
+      "p2_robust_one_sided_pass": false
+    },
+    "t1_iter37_harnet_finetune_negative": {
+      "mean_ccc": 0.1324,
+      "mean_mae": 2.1949,
+      "min_fold_ccc": -0.1199,
+      "gate_pass": false
+    },
+    "t1_iter46_et_robustification_negative": {
+      "ccc": 0.7269,
+      "mae": 1.7578,
+      "n": 93,
+      "delta_vs_iter34": -0.009708673707736537,
+      "delta_vs_iter12": 0.07152791314282936,
+      "frac_above_iter12": 0.9388,
+      "et_screen_p2_bootstrap_high": 0.04421608888623165,
+      "decision": "diagnostic_only_not_canonical"
+    },
+    "t3_corrected_validrange_iter47": {
+      "ccc": 0.3784,
+      "mae": 7.528,
+      "n": 95,
+      "stage2_no_cv_sensitivity_ccc": 0.3771,
+      "stage2_no_dst_sensitivity_ccc": 0.3766,
+      "stage2_no_dst_sensitivity_mae": 7.5795,
+      "stage2_no_dst_delta_mean": -0.00042923548816437636,
+      "stage2_no_dst_delta_ci95": [
+        -0.04792128652462331,
+        0.05232472713798538
+      ],
+      "loso_two_way_mean_ccc": 0.1498,
+      "loso_NLS_to_WPD_ccc": 0.19369999999999998,
+      "loso_WPD_to_NLS_ccc": 0.1059,
+      "target_change_subjects": [
+        {
+          "sid": "NLS036",
+          "old_target": 46.0,
+          "validrange_target": 28.0,
+          "delta_old_minus_validrange": 18.0,
+          "valid_subitems": 31
+        }
+      ],
+      "dst_walkway_distiller_caveat": "31 non-fold-local dst_* columns are included by current V2 filters; no-dst sensitivity is non-material but should be disclosed.",
+      "residual_anatomy": {
+        "scope": "diagnostic_only_no_model_selection",
+        "decision": {
+          "no_model_promotion": true,
+          "no_new_loocv": true,
+          "recommended_next": "Do not launch another WearGait-only scalar feature addition. Use this audit to justify either data access/restoration or a fresh preregistered target-representation hypothesis."
+        },
+        "residual_corr_with_true": -0.7770738735166363,
+        "cal_slope_pred_on_true": 0.26924232265178977,
+        "q1_mean_residual": 10.024275927184046,
+        "q4_mean_residual": -9.198444808908958,
+        "wpd_within_site_ccc": 0.05146167615096947,
+        "top_global_posthoc_residual_feature_abs_r": 0.28994771858567786,
+        "top_global_posthoc_residual_feature": "fq_R_Wris_dw5"
+      },
+      "item_residual_audit": {
+        "scope": "diagnostic_only_saved_oof_no_model_selection_no_prereg_no_loocv",
+        "decision": {
+          "ceiling_broken": false,
+          "no_model_promotion": true,
+          "recommended_next": "Do not launch another WearGait-only T3 scalar-feature or calibration screen. The residual is item/domain target anatomy, not an uncovered deployable feature block."
+        },
+        "target_reconstruction": {
+          "max_abs_parsed_total_minus_iter47_target": 0.0,
+          "n_nonzero_diffs": 0
+        },
+        "top_residual_item": {
+          "item": 6,
+          "name": "pronation_supination",
+          "weargait_observable": false,
+          "t1_item": false,
+          "n_valid_item_scores": 95,
+          "n_missing_item_scores": 0,
+          "mean": 1.9578947368421054,
+          "sd": 1.4932535264257125,
+          "max": 5.0,
+          "nonzero_fraction": 0.8,
+          "corr_item_with_t3_target": 0.6350028663821272,
+          "corr_item_with_t3_prediction": 0.15144723783120098,
+          "corr_item_with_residual_pred_minus_true": -0.5705291019290375,
+          "abs_corr_item_with_residual": 0.5705291019290375,
+          "corr_item_with_abs_error": 0.0022104777461639433,
+          "residual_corr_bootstrap": {
+            "n": 95,
+            "corr": -0.5705291019290375,
+            "ci_low": -0.6833769537582056,
+            "ci_high": -0.44331903740886774
+          },
+          "loo_privileged_oracle": {
+            "ccc": 0.6600684229455746,
+            "mae": 6.3448600109424085,
+            "delta_ccc_vs_base": 0.28170130515018466,
+            "delta_mae_vs_base": -1.183162819338352,
+            "mean_slope_per_item_sd": -5.318357053432066
+          }
+        },
+        "top_privileged_oracle_item": {
+          "item": 6,
+          "name": "pronation_supination",
+          "weargait_observable": false,
+          "t1_item": false,
+          "n_valid_item_scores": 95,
+          "n_missing_item_scores": 0,
+          "mean": 1.9578947368421054,
+          "sd": 1.4932535264257125,
+          "max": 5.0,
+          "nonzero_fraction": 0.8,
+          "corr_item_with_t3_target": 0.6350028663821272,
+          "corr_item_with_t3_prediction": 0.15144723783120098,
+          "corr_item_with_residual_pred_minus_true": -0.5705291019290375,
+          "abs_corr_item_with_residual": 0.5705291019290375,
+          "corr_item_with_abs_error": 0.0022104777461639433,
+          "residual_corr_bootstrap": {
+            "n": 95,
+            "corr": -0.5705291019290375,
+            "ci_low": -0.6833769537582056,
+            "ci_high": -0.44331903740886774
+          },
+          "loo_privileged_oracle": {
+            "ccc": 0.6600684229455746,
+            "mae": 6.3448600109424085,
+            "delta_ccc_vs_base": 0.28170130515018466,
+            "delta_mae_vs_base": -1.183162819338352,
+            "mean_slope_per_item_sd": -5.318357053432066
+          }
+        },
+        "observable_vs_unobservable_summary": {
+          "observable_items": [
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "mean_abs_residual_corr_observable": 0.246962138355727,
+          "mean_abs_residual_corr_unobservable": 0.371210245408891,
+          "best_observable_oracle_delta_ccc": 0.14847903649349226,
+          "best_unobservable_oracle_delta_ccc": 0.28170130515018466
+        }
+      },
+      "ccc_rescale_sanity": {
+        "scope": "diagnostic_only_not_reportable_model",
+        "methodology_guardrail": {
+          "not_fully_nested": true,
+          "reason": "Second-level transforms are fit on the saved OOF vector. For a held-out subject i, the calibration set includes predictions for other subjects generated by base models whose training folds included subject i. This is acceptable as a diagnostic but not as a reportable nested meta-model.",
+          "future_reportable_requirement": "A reportable rescaling/meta-calibration would need outer-fold base predictions and inner-OOF calibration predictions generated without the outer test subject."
+        },
+        "decision": {
+          "no_model_promotion": true,
+          "no_new_loocv": true,
+          "reason": "The best diagnostic CCC lift is small and non-reportable; variance matching raises CCC by +0.0212 but worsens MAE by +1.1390."
+        },
+        "base_ccc": 0.3783671177953899,
+        "base_mae": 7.528022830280761,
+        "variance_match_ccc": 0.39958836828844163,
+        "variance_match_mae": 8.667060513628945,
+        "variance_match_ccc_delta_mean": 0.02083504539467097,
+        "variance_match_ccc_delta_ci95": [
+          -0.010409830297418992,
+          0.05780508581939268
+        ],
+        "variance_match_mae_delta_mean": 1.1398064461721245,
+        "variance_match_mae_delta_ci95": [
+          0.4659292439569389,
+          1.8439729930773108
+        ]
+      },
+      "headline_influence": {
+        "decision": {
+          "scope": "diagnostic_only_no_model_selection",
+          "no_model_promotion": true,
+          "no_new_loocv": true,
+          "redline_summary": {
+            "single_subject_abs_delta_threshold": 0.05,
+            "top5_share_threshold": 0.5,
+            "single_subject_redline_hit": false,
+            "top5_share_redline_hit": false,
+            "tail_leverage_warning": true
+          },
+          "summary": "No single-subject influence pattern justifies a model update. T3 max |leave-one CCC delta| is 0.0381; T1 iter34-minus-iter12 matched delta stays positive under all leave-one deletions (minimum 0.0629). Influence is still severity-tail concentrated, so this is a claim-fragility caveat rather than a filtering rule."
+        },
+        "t3_leave_one_ccc_min": 0.340222183971736,
+        "t3_leave_one_ccc_max": 0.40559206578722456,
+        "t3_top1_abs_delta_ccc": 0.038144933823653915,
+        "t3_top5_fraction_of_sum_abs_delta": 0.28404712252966785,
+        "t3_gini_abs_delta_ccc": 0.600862555984697,
+        "t3_abs_target_minus_median_vs_abs_delta_ccc": 0.6778513439016619,
+        "t1_iter34_minus_iter12_leave_one_delta_min": 0.06292134687538109,
+        "t1_iter34_leave_one_ccc_min": 0.6997278807733609
+      },
+      "ablation_v3_cache_provenance": {
+        "cache_sha256": "b405d90a6a35808d556d726b58bf7d9361d26e020a79091e52c868ee98f9c2b4",
+        "manifest_status": "missing_manifest_diagnostic_only",
+        "decision": "do_not_synthesize_clean_manifest",
+        "selected_columns": 1752,
+        "selected_dst": 31,
+        "selected_cv": 6
+      },
+      "ablation_v3_regeneration_probe": {
+        "status": "blocked_missing_regeneration_inputs",
+        "frozen_cache_unchanged": true,
+        "missing_inputs": [
+          "control_clinical",
+          "control_csv_dir",
+          "walkway_metrics"
+        ],
+        "promotion_decision": "No regenerated cache was written. The current remote lacks the full WearGait raw-data inputs needed to reproduce the frozen 178-subject cache. Do not synthesize a clean manifest or promote the historical cache; keep using the existing provenance caveats until the full raw data are restored and a non-destructive regeneration succeeds."
+      },
+      "weargait_missing_synapse_recovery_preflight": {
+        "status": "missing_inputs",
+        "missing": [
+          "control_clinical",
+          "control_csv_folder",
+          "walkway_metrics"
+        ],
+        "credential_status": {
+          "synapse_auth_token_env_present": false,
+          "synapse_config_present": false,
+          "synapse_config_path": "/home/fiod/.synapseConfig",
+          "can_attempt_download": false
+        },
+        "control_csv_synapse_count": 680
+      }
+    },
+    "t3_historical_iter5_target_contaminated": {
+      "ccc": 0.5227,
+      "mae": 7.525,
+      "n": 98,
+      "residual_corr_with_true": -0.698731305814378,
+      "loso_two_way_mean_ccc": 0.341,
+      "target_audit_all_missing_zero_labels": 3
+    },
+    "t3_iter42_prorate_negative": {
+      "primary_prorate_le3_current_ccc": 0.3468,
+      "primary_prorate_le3_no_cv_ccc": 0.3643,
+      "primary_prorate_le3_loso_two_way": 0.14391666666666666,
+      "sensitivity_prorate_le7_current_ccc": 0.4165,
+      "sensitivity_prorate_le7_loso_two_way": 0.19056666666666666,
+      "decision": "primary_le3_failed_loose_le7_sensitivity_not_promotable"
+    },
+    "t3_clinical_dependency_audit": {
+      "stage2_policy": "stage2_no_cv",
+      "a3_hy_cv_ccc": 0.4017,
+      "cv_only_ccc": 0.3871,
+      "hy_only_ccc": 0.2899,
+      "intercept_only_imu_only_ccc": 0.2449,
+      "a3_minus_cv_only": {
+        "n_boot": 5000,
+        "delta_mean": 0.013616336005336903,
+        "ci_low": -0.09836665616638482,
+        "ci_high": 0.12033919721858859,
+        "frac_above_zero": 0.6068
+      },
+      "canonical_t3_changed": false
+    },
+    "current_conformal_abstention": {
+      "t1_iter12_width80": 4.99227020974402,
+      "t1_iter12_width95": 9.078489911479231,
+      "t1_iter34_width80": 5.740832961958572,
+      "t1_iter34_width95": 8.812600539674749,
+      "t3_iter47_current_width80": 25.941425497468146,
+      "t3_iter47_current_width95": 34.72410274521873,
+      "t3_iter47_current_deployable_50pct_ccc": 0.010758228591281109,
+      "verdict": "intervals_are_wide_and_deployable_abstention_does_not_break_t3_or_canonicalize_t1"
+    },
+    "t3_iter38_fogstar_stage1_negative": {
+      "baseline_seed_mean_ccc": 0.4888,
+      "augmented_seed_mean_ccc": 0.4896,
+      "delta_seed_mean_predictions": 0.0008,
+      "gate_pass": false
+    },
+    "t3_iter39_fogstar_zeroshot_partial": {
+      "track_a_wrist_direct_ccc": -0.018,
+      "track_b_clinical_plus_wrist_ccc": 0.2499,
+      "track_c_fogstar_only_loo_ccc": 0.0821,
+      "decision": "zero_shot_external_validation_only_no_internal_canonical_change"
+    },
+    "t3_iter40_local_residual_negative": {
+      "baseline_seed_mean_ccc": 0.4888,
+      "wildcard_seed_mean_ccc": 0.4332,
+      "delta_ccc": -0.0556,
+      "strict_gate_pass": false
+    },
+    "t3_iter50_lowdf_convex_negative": {
+      "formula_sha256": "64d85ad663d71561882711a37a3443f0de2a975ddcd24f94ec827e87d8bda29d",
+      "baseline_ccc": 0.3759,
+      "clinical_only_ccc": 0.3068,
+      "imu_only_no_cv_ccc": 0.2322,
+      "nested_convex_ccc": 0.3083,
+      "delta_seed_mean_predictions": -0.06756384356648298,
+      "seed_delta_std": 0.031901880822296357,
+      "strict_gate_pass": false,
+      "bootstrap_frac_gt_0": 0.0348,
+      "alpha_summary": {
+        "values": [
+          0.68,
+          0.58,
+          0.89,
+          1.0,
+          1.0,
+          0.26,
+          0.4,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.15,
+          1.0,
+          0.8
+        ],
+        "mean": 0.5840000000000001,
+        "std": 0.41102311370530004,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "decision": "screen_fail_no_loocv_no_canonical_change"
+    },
+    "t3_iter49_cops_zeroshot_partial_external": {
+      "formula_sha256": "0bc80ef0b6bd9c40da6a7a1282ce9f8898273c6e2dc01e7987ea2ecaa4715b15",
+      "n_probe_zip_records": 66,
+      "total_probe_zip_size_bytes": 47891946414,
+      "demographics_rows": 66,
+      "n_weargait_train": 95,
+      "n_cops_rows_total": 64,
+      "n_cops_off_labeled": 62,
+      "n_common_magnitude_features": 60,
+      "track_a_right_wrist_direct_ccc": -0.0193,
+      "track_b_right_clinical_plus_wrist_ccc": 0.2412,
+      "track_d_bilateral_clinical_plus_wrist_ccc": 0.2535,
+      "track_c_cops_only_loo_ccc": 0.31,
+      "scale_checks": {
+        "weargait_mag_feature_source": "raw R_Wrist_Acc magnitude",
+        "cops_right_raw_mag_mean_mps2_mean": 9.873478585554126,
+        "cops_left_raw_mag_mean_mps2_mean": 9.857329786861008,
+        "cops_right_hours_used_mean": 148.0,
+        "cops_left_hours_used_mean": 150.7741935483871
+      },
+      "decision": "external_zero_shot_only_no_internal_t3_canonical_change"
+    },
+    "tlvmc_defog_route_probe": {
+      "record_id": 10959560,
+      "doi": "10.5281/zenodo.10959560",
+      "license": "cc-by-4.0",
+      "row_level_metadata_persisted_in_repo": false,
+      "unique_subjects_with_updrsiii": 136,
+      "subject_visit_rows": 173,
+      "updrsiii_on_n": 172,
+      "updrsiii_off_n": 132,
+      "defog_recordings": 137,
+      "defog_subjects": 45,
+      "defog_subject_visits": 70,
+      "defog_medication_matched_targets": 137,
+      "daily_visit_level_targets": 65,
+      "tdcsfog_joined_targets": 0,
+      "preregistration_formula_sha256": "665479765911e8192e4db570babeb5fcef3e2b6553dfd6259187f76685ec08cd",
+      "preregistration_created_at_utc": "2026-05-09T01:04:08+00:00",
+      "primary_expected_n_records": 68,
+      "primary_expected_n_subjects": 44,
+      "primary_track": "A_zero_shot_lumbar_acc_magnitude",
+      "decision": "public_direct_t3_route_preregistered_and_modeled_external_only"
+    },
+    "tlvmc_defog_iter51_zeroshot_partial_external": {
+      "decision": "external_zero_shot_only_no_internal_t3_canonical_change",
+      "preregistration_formula_sha256": "665479765911e8192e4db570babeb5fcef3e2b6553dfd6259187f76685ec08cd",
+      "n_defog_rows": 136,
+      "n_defog_subjects": 45,
+      "n_defog_off_rows": 68,
+      "n_defog_on_rows": 68,
+      "n_common_magnitude_features": 54,
+      "track_a_mean_off_ccc": 0.2695,
+      "track_a_mean_off_ci95": [
+        0.1693,
+        0.36
+      ],
+      "track_a_mean_off_mae": 8.0688,
+      "track_b_mean_off_ccc": 0.0485,
+      "track_c_defog_only_loso_ccc": 0.345,
+      "interpretation": {
+        "primary_track_a_mean_off_ccc": 0.2695,
+        "primary_track_a_mean_off_ci95": [
+          0.1693,
+          0.36
+        ],
+        "verdict": "partial_external_validity",
+        "no_internal_canonical_change": true
+      }
+    },
+    "pdfe_turning_iter52_zeroshot_external": {
+      "decision": null,
+      "formula_sha256": "f0eb5985a15b271a333b3d9e1d093e32889814a0f48d0ca4f5131b9674c7b2f2",
+      "preregistration_formula_sha256": "f0eb5985a15b271a333b3d9e1d093e32889814a0f48d0ca4f5131b9674c7b2f2",
+      "n_metadata_rows": 41,
+      "n_session1_targets": 35,
+      "n_weargait_train": 95,
+      "n_pdfe": 35,
+      "n_common_magnitude_features": 54,
+      "track_a_weargait_shank_to_pdfe_ccc": -0.10084245728642342,
+      "track_a_weargait_shank_to_pdfe_ci95": [
+        -0.2876746024571642,
+        0.05535547413594727
+      ],
+      "track_b_clinical_plus_shank_ccc": 0.13399171303173568,
+      "track_b_clinical_plus_shank_ci95": [
+        -0.0425861740607722,
+        0.3369256373985999
+      ],
+      "track_c_pdfe_only_loocv_ccc": 0.40201456112749495,
+      "track_c_pdfe_only_loocv_ci95": [
+        0.15694304291100514,
+        0.6519114891610069
+      ],
+      "interpretation": "external-validity evidence only; no internal WearGait-PD T3 canonical change"
+    },
+    "luxembourg_upper_limb_route_refresh": {
+      "decision": "document_only_no_runbook_no_scaffold_no_preregistration",
+      "status": "skipped_request_only_subitem_only_observability_context",
+      "route": "Luxembourg / NCER-PD Sensors 2024 upper-limb MDS-UPDRS III subitem IMU study",
+      "consults": {
+        "kimi": "skip_runbook_document_only; use as upper-limb observability context only",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "interpretation": "document-only upper-limb subitem observability context; no runbook, scaffold, preregistration, download, or remote job"
+    },
+    "prequantipark_route_refresh": {
+      "decision": "document_only_no_runbook_no_scaffold_no_preregistration",
+      "status": "skipped_request_only_tiny_lct_no_scaffold",
+      "route": "Pre-QuantiPark / ActiMyo levodopa-challenge wearable IMU pilot",
+      "n_pd": 10,
+      "consults": {
+        "kimi": "document_only_no_runbook_no_prereg_no_scaffold; N=10 and levodopa-challenge design make a lockbox incoherent",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "interpretation": "document-only levodopa-challenge context; N=10/request-only/schema-hidden, no runbook, scaffold, preregistration, download, or remote job"
+    },
+    "tum_rocket_inception_route_refresh": {
+      "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+      "status": "document_only_hssayeni_alias_algorithm_dead_no_scaffold",
+      "route": "TUM Donie 2025 ROCKET/InceptionTime wrist symptom-classification alias",
+      "n_pd": 27,
+      "underlying_data_route": "MJFF Levodopa Response / Hssayeni syn20681023",
+      "consults": {
+        "kimi": "document_only_alias_no_scaffold; same syn20681023 DUA gate, target mismatch, ROCKET/InceptionTime family already exhausted",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "interpretation": "document-only alias to the Hssayeni/MJFF DUA gate and already-negative ROCKET/InceptionTime-style local routes; no clone, scaffold, preregistration, download, or remote job"
+    },
+    "paradigma_yin_route_refresh": {
+      "routes": [
+        {
+          "name": "ParaDigMa open PD digital biomarker toolbox",
+          "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+          "status": "local_feature_addition_dead_at_n94",
+          "direct_t1_t3_eligible": false,
+          "n_pd": null
+        },
+        {
+          "name": "Yin et al Frontiers Neurology 2025 gait-parameter regression",
+          "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+          "status": "request_only_underpowered_no_public_schema",
+          "direct_t1_t3_eligible": false,
+          "n_pd": 20
+        }
+      ],
+      "consults": {
+        "kimi": "document_only_for_both; ParaDigMa is dead local feature fishing, Yin is request-only and underpowered",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "interpretation": "document-only route refresh; ParaDigMa is software-only local feature fishing and Yin et al is request-only/small-N/schema-hidden"
+    },
+    "parkinsonathome_route_refresh": {
+      "decision": "probe_passed_but_zero_shot_hard_stop_n18_no_scoring",
+      "status": "probe_passed_zero_shot_hard_stop_n18_no_scoring",
+      "direct_t1_t3_eligible": true,
+      "hard_stop": {
+        "fired": true,
+        "reason": "pre-registered minimum of 20 valid OFF PD subjects was not met after right-wrist clean-gait feature extraction",
+        "observed_valid_off_subjects": 18,
+        "required_valid_off_subjects": 20,
+        "scoring_started": false
+      },
+      "n_pd_off_valid_target_rows": 25,
+      "n_feature_readable_off_subjects": 18,
+      "consults": {
+        "kimi": "probe_gated_preregistration; run only if public labels/features pass hard stops; no internal canonical update under any outcome",
+        "claude": "failed_credit_balance_too_low",
+        "glmcode": "not_found_on_path"
+      },
+      "interpretation": "public direct T3 route that hard-stopped before scoring at N=18 vs the preregistered N>=20 feature-readability rule; no metric or internal canonical update"
+    },
+    "kimi_next_action_after_parkinsonathome": {
+      "created_at_utc": "2026-05-09T11:42:52Z",
+      "model_action_justified": false,
+      "single_next_non_redundant_action": "Submit the PPMI / Verily Study Watch qualified-researcher DUA application.",
+      "runbook": "scripts/ppmi_verily_setup.md",
+      "fallback": {
+        "action": "Submit the WATCH-PD C-Path 3DT or Steering Committee access request.",
+        "runbook": "scripts/watchpd_request_setup.md"
+      },
+      "interpretation": "advisor decision artifact; no local model action is justified, and the next non-redundant action is user/data-owner access for PPMI/Verily before any read-only schema probe"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "compose_t1_iter12_honest.py",
+      "role": "T1 canonical floor script",
+      "exists": true,
+      "bytes": 10459,
+      "sha256": "451794c218e282199a1207c99f8b4b08339efeb69b1f8ac2a1d7f30766219243"
+    },
+    {
+      "path": "results/preregistration_t1_iter12_honest_20260503_053105.json",
+      "role": "T1 canonical preregistration",
+      "exists": true,
+      "bytes": 2297,
+      "sha256": "d713b6f3767c8c5824fbe0e3885d10d3dcc707c543721e0e7665da48dd0efc69"
+    },
+    {
+      "path": "results/t1_iter12_honest_composite.json",
+      "role": "T1 canonical lockbox JSON",
+      "exists": true,
+      "bytes": 5772,
+      "sha256": "b160ff6071209902863ce3eb7ac7449f8429c3efccbd5f5679c52b6e8dbdf3f3"
+    },
+    {
+      "path": "results/t1_iter12_honest_composite.oof.npy",
+      "role": "T1 canonical OOF",
+      "exists": true,
+      "bytes": 880,
+      "sha256": "1f7a8b0b42c3a279b66d2914dbaa0c952b5f693c313ee446ea1a204070d14841"
+    },
+    {
+      "path": "audit_t1_iter12_batch_integrity.py",
+      "role": "T1 iter12 batch-integrity audit script",
+      "exists": true,
+      "bytes": 21334,
+      "sha256": "1e0d4c0abd2133681d2ccb2f2fc8536533910ed0aa1c5c9a828e4463e32da338"
+    },
+    {
+      "path": "results/t1_iter12_batch_integrity_audit_20260508.json",
+      "role": "T1 iter12 batch-integrity audit JSON",
+      "exists": true,
+      "bytes": 29730,
+      "sha256": "2f4a6af1115b43bd08611b7d1ee9d508f2752257146bf6a6ef095e6ac1aee385"
+    },
+    {
+      "path": "results/t1_iter12_batch_integrity_audit_20260508.md",
+      "role": "T1 iter12 batch-integrity audit Markdown",
+      "exists": true,
+      "bytes": 1372,
+      "sha256": "cb49308e6143fecd31807a9bb575d1a773430f2f43c309dd6b5e555292879d3a"
+    },
+    {
+      "path": "run_t1_iter34_hybrid_8item_multibase.py",
+      "role": "T1 strongest-candidate script",
+      "exists": true,
+      "bytes": 25386,
+      "sha256": "341849539b3bd43b25bd41593e3d437662cc0d617b5e796f1918041184ca2677"
+    },
+    {
+      "path": "results/preregistration_t1_iter34_hybrid_20260506_135932.json",
+      "role": "T1 iter34 preregistration",
+      "exists": true,
+      "bytes": 4559,
+      "sha256": "1033d4ab7d5192c178133f1574b80673d379c94d29763322d455bde58d1828c8"
+    },
+    {
+      "path": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "role": "T1 iter34 lockbox JSON",
+      "exists": true,
+      "bytes": 7419,
+      "sha256": "b363e85b87bf270ae15f8d3f2490c03eb9312a60e5311a3ef546b96982e5a043"
+    },
+    {
+      "path": "results/lockbox_t1_iter34_hybrid_20260506_141720.oof.npy",
+      "role": "T1 iter34 OOF",
+      "exists": true,
+      "bytes": 872,
+      "sha256": "61c01398b35267bf12b778362e67f8421a401ba7accaaca92249ebdbd7f30885"
+    },
+    {
+      "path": "results/iter34_leakage_audit_20260506_143922.json",
+      "role": "T1 iter34 leakage audit",
+      "exists": true,
+      "bytes": 3157,
+      "sha256": "34be9443ed95244700812b6af3f14461c12783fa19009269fa04e6dd648fe49d"
+    },
+    {
+      "path": "results/iter34_loso_2026_05_06.json",
+      "role": "T1 iter34 LOSO",
+      "exists": true,
+      "bytes": 8491,
+      "sha256": "36beb834378346abfe6cc0a2b16b986e693593ee75b9bfc469307b045bdd693b"
+    },
+    {
+      "path": "audit_t1_iter34_n93_gap.py",
+      "role": "T1 iter34 N=93 caveat audit script",
+      "exists": true,
+      "bytes": 6408,
+      "sha256": "1052511673223154c68b1af2b03deecdd421711492ebd3d0cf802325a49695f1"
+    },
+    {
+      "path": "results/audit_t1_iter34_n93_gap_20260508.json",
+      "role": "T1 iter34 N=93 caveat audit JSON",
+      "exists": true,
+      "bytes": 3657,
+      "sha256": "9d54d5b60aed0c2d8390a51543699e1dd57b62ec6c3f89c9321f4499797c5b8d"
+    },
+    {
+      "path": "audit_t1_iter48_aux_validrange.py",
+      "role": "T1 iter34 auxiliary-label valid-range audit script",
+      "exists": true,
+      "bytes": 8529,
+      "sha256": "d4264b0627fad38e27d6accd70752a6cde47a49a7ad9ac9070a4b2706aed7fc5"
+    },
+    {
+      "path": "results/t1_iter48_aux_validrange_audit.json",
+      "role": "T1 iter34 auxiliary-label valid-range audit JSON",
+      "exists": true,
+      "bytes": 1943,
+      "sha256": "d6509295f46be6221373e6f07fb72df329c13388302ffd9d844b65c8b23bd9eb"
+    },
+    {
+      "path": "audit_t1_iter34_aux_order.py",
+      "role": "T1 iter34 auxiliary random-chain order audit script",
+      "exists": true,
+      "bytes": 16758,
+      "sha256": "ccc8ec26c853355131204c11b83aa64d020f6edfa4f811d772505a78bf2b78b2"
+    },
+    {
+      "path": "results/t1_iter34_aux_order_audit.json",
+      "role": "T1 iter34 auxiliary random-chain order audit JSON",
+      "exists": true,
+      "bytes": 13475,
+      "sha256": "2c51732f69a622811a433728665da686c77b845aa7452ba96b8596ccd7b10fc4"
+    },
+    {
+      "path": "results/t1_iter34_aux_order_audit.md",
+      "role": "T1 iter34 auxiliary random-chain order audit Markdown",
+      "exists": true,
+      "bytes": 1196,
+      "sha256": "7b74fd18f9c0604ab943e8bb6044c8c399c0defd405caec16676a57ea511f3b4"
+    },
+    {
+      "path": "tests/test_run_t1_iter4_labels.py",
+      "role": "T1 valid item-total loader regression test",
+      "exists": true,
+      "bytes": 890,
+      "sha256": "0b4f1972f11be058a6c4e4d05753e7a0acbe99be63c8c08d71bd64964db2e620"
+    },
+    {
+      "path": "audit_t1_iter34_p2_robustness.py",
+      "role": "T1 iter34 P2 robustness audit script",
+      "exists": true,
+      "bytes": 8673,
+      "sha256": "9a6d1caca7a75665cacfaa1fcc1b8ac8922a8fdfbf4baa74f0121a97dfedb832"
+    },
+    {
+      "path": "results/iter34_p2_robustness_20260508.json",
+      "role": "T1 iter34 P2 robustness audit JSON",
+      "exists": true,
+      "bytes": 10024,
+      "sha256": "a27492b5ebbd8c2e852fc048f4764fa9cb65b7524733e854c1478244badafb53"
+    },
+    {
+      "path": "audit_t1_iter34_base_item_decomp.py",
+      "role": "T1 iter34 base/item/P2 decomposition script",
+      "exists": true,
+      "bytes": 15500,
+      "sha256": "71a1c83e6715518af33fe3614a415020f1d10aff480e7ee0a53b8407dc207718"
+    },
+    {
+      "path": "results/iter34_base_item_decomp_20260508.json",
+      "role": "T1 iter34 base/item/P2 decomposition JSON",
+      "exists": true,
+      "bytes": 120781,
+      "sha256": "a32001c92bde0ae0ad37a68f7f4dd7ea7a4619435e1c618b603d2ab61809ceb6"
+    },
+    {
+      "path": "run_t1_iter46_et_robust.py",
+      "role": "T1 iter46 ET-only robustification script",
+      "exists": true,
+      "bytes": 15946,
+      "sha256": "8f99253176a16492993b05616c6d255e359fe482add1cd61cb379866913bc360"
+    },
+    {
+      "path": "results/preregistration_t1_iter46_etrobust_20260508_160501.json",
+      "role": "T1 iter46 preregistration",
+      "exists": true,
+      "bytes": 2687,
+      "sha256": "f7ffed48224f7d63793cf40775d36b27152168ee075a983cf92a8ea7327c844f"
+    },
+    {
+      "path": "results/lockbox_t1_iter46_etrobust_20260508_162825.json",
+      "role": "T1 iter46 lockbox JSON",
+      "exists": true,
+      "bytes": 8526,
+      "sha256": "eda680ae55e26f1026540e784502e1c5d804e9bcdde09082e19b8736849bcf4c"
+    },
+    {
+      "path": "results/lockbox_t1_iter46_etrobust_20260508_162825.oof.npy",
+      "role": "T1 iter46 OOF",
+      "exists": true,
+      "bytes": 872,
+      "sha256": "09022e053688fe2695801141f7ff92a0ef6870bfebdbf2a85c79a9c168edcd63"
+    },
+    {
+      "path": "results/iter46_etrobust_local_comparisons_20260508.json",
+      "role": "T1 iter46 local comparator alignment",
+      "exists": true,
+      "bytes": 1506,
+      "sha256": "bb86844fa0d708a54761f8a20ff58b176473a6532b0b36718b9d8953cb81b827"
+    },
+    {
+      "path": "run_t1_iter37_harnet_finetune.py",
+      "role": "T1 iter37 HARNet fine-tuning pilot script",
+      "exists": true,
+      "bytes": 26574,
+      "sha256": "4599ffadb10fa2807c8446bdc58f41d2e34d9b17c0eab29269d8591a0710991f"
+    },
+    {
+      "path": "results/iter37_harnet_finetune_screen_20260508_110641.json",
+      "role": "T1 iter37 HARNet fine-tuning screen JSON",
+      "exists": true,
+      "bytes": 12660,
+      "sha256": "a2e769de4d6a181993a0326aa4034756833065952144e2b879e2315c79d92f86"
+    },
+    {
+      "path": "results/iter37_harnet_finetune_rows_20260508_110641.csv",
+      "role": "T1 iter37 HARNet fine-tuning OOF rows",
+      "exists": true,
+      "bytes": 3445,
+      "sha256": "68f52c8596d5bfed8f5b5c6c3ad53c968cc9eb0d7855696e13db58d6b65a91c6"
+    },
+    {
+      "path": "results/iter37_harnet_wrist_windows.npz",
+      "role": "T1 iter37 raw wrist-window cache",
+      "exists": true,
+      "bytes": 5063931,
+      "sha256": "9d32394a18aecf5a83c99511355736eff2f67feb114dcfc3e78a3cf1f245c8b4"
+    },
+    {
+      "path": "audit_t3_target_stage2_covariates.py",
+      "role": "T3 target and Stage-2 covariate audit script",
+      "exists": true,
+      "bytes": 15042,
+      "sha256": "cf7a5647354e2fd173cb0ae10b00abfa066b1c7d468bf5868a9b7789d1fe6302"
+    },
+    {
+      "path": "results/t3_target_stage2_covariate_audit_20260508_165653.json",
+      "role": "T3 target and Stage-2 covariate audit JSON",
+      "exists": true,
+      "bytes": 6859,
+      "sha256": "00ab45c03e75bf8669c665a7afa669ee2b2e9715153a80d4131f1996c11eb53b"
+    },
+    {
+      "path": "run_t3_iter41_target_fix.py",
+      "role": "T3 corrected-target audit-truth script",
+      "exists": true,
+      "bytes": 20740,
+      "sha256": "8c385da1ecdf1c23b55975aaed3c1b24da4e16a863a2aef5464b290dc3ce9458"
+    },
+    {
+      "path": "results/preregistration_t3_iter41_targetfix_20260508_170021.json",
+      "role": "T3 iter41 corrected-target preregistration",
+      "exists": true,
+      "bytes": 1019,
+      "sha256": "d65c6ea7b49e3b4c3e4d4daf04ac0224e184497904aa7fdb17999afbb8d4391a"
+    },
+    {
+      "path": "results/iter41_targetfix_20260508_170021.json",
+      "role": "T3 iter41 corrected-target LOOCV JSON",
+      "exists": true,
+      "bytes": 6557,
+      "sha256": "f60b07c6ca2bcdd4cc0590854bb4c5e6c0571399662294cec8be22ace363be76"
+    },
+    {
+      "path": "results/iter41_targetfix_subject_preds_20260508_170021.csv",
+      "role": "T3 iter41 corrected-target OOF rows",
+      "exists": true,
+      "bytes": 22166,
+      "sha256": "ebe151f14649d2fcd008ffe591f069483f1464382e9f97a12e186504ff0bd495"
+    },
+    {
+      "path": "results/preregistration_t3_iter41_targetfix_loso_20260508_171003.json",
+      "role": "T3 iter41 corrected-target LOSO preregistration",
+      "exists": true,
+      "bytes": 801,
+      "sha256": "08e5bb01ecb2eaab72bf29ddb31618de5669fdac75e94abe2f0ef0940d098233"
+    },
+    {
+      "path": "results/iter41_targetfix_loso_20260508_171003.json",
+      "role": "T3 iter41 corrected-target LOSO JSON",
+      "exists": true,
+      "bytes": 16110,
+      "sha256": "21c7f1d187353aacd1162b835b1604d46e1f32fbba6a4be092dbf6cf226440c5"
+    },
+    {
+      "path": "run_t3_iter47_invalid_code_fix.py",
+      "role": "T3 iter47 invalid-code target correction script",
+      "exists": true,
+      "bytes": 18531,
+      "sha256": "67d2ff8b78fe4c4c46476a7c88e7343e3ffa932262d1d8674d73d0579c3ba4c3"
+    },
+    {
+      "path": "results/preregistration_t3_iter47_invalidcode_20260508_194605.json",
+      "role": "T3 iter47 invalid-code target correction preregistration",
+      "exists": true,
+      "bytes": 814,
+      "sha256": "7706e7bc442d09138ad89aa9681e6d150852b261afec61abfa89541872b4d2d5"
+    },
+    {
+      "path": "results/iter47_invalidcode_20260508_194605.json",
+      "role": "T3 iter47 invalid-code LOOCV JSON",
+      "exists": true,
+      "bytes": 8136,
+      "sha256": "af8df030692c2650b0d265b9cdb233d421f6c07f7cd25397c0b64eb217f5fefc"
+    },
+    {
+      "path": "results/iter47_invalidcode_rows_20260508_194605.csv",
+      "role": "T3 iter47 invalid-code seed rows",
+      "exists": true,
+      "bytes": 917,
+      "sha256": "b8866c92a9ece242657f0b0932c777ce11a9e2dd4ed62b9c17839b46e3bea66f"
+    },
+    {
+      "path": "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+      "role": "T3 iter47 invalid-code subject predictions",
+      "exists": true,
+      "bytes": 29440,
+      "sha256": "87b0df5e9e83188f5d3d9ebe66d3bf980daef59ee77a05286baeaa7c421c9c03"
+    },
+    {
+      "path": "results/preregistration_t3_iter47_invalidcode_loso_20260508_195424.json",
+      "role": "T3 iter47 invalid-code LOSO preregistration",
+      "exists": true,
+      "bytes": 824,
+      "sha256": "f66c9e0f4750718588e59129d514cd0bf82c697225ba442b5f06696614d7d5d7"
+    },
+    {
+      "path": "results/iter47_invalidcode_loso_20260508_195424.json",
+      "role": "T3 iter47 invalid-code LOSO JSON",
+      "exists": true,
+      "bytes": 17606,
+      "sha256": "065f9242605c8aa17b65165f7eb1b80b314e488e8dcb743ed6e20d71640b3668"
+    },
+    {
+      "path": "results/iter47_invalidcode_loso_rows_20260508_195424.csv",
+      "role": "T3 iter47 invalid-code LOSO rows",
+      "exists": true,
+      "bytes": 2173,
+      "sha256": "bbe5cacb2371f2b602904acb106eb68eed49c6f1ffd3173f01650d4457ee08d4"
+    },
+    {
+      "path": "audit_t3_iter47_target_integrity.py",
+      "role": "T3 iter47 target-integrity audit script",
+      "exists": true,
+      "bytes": 23223,
+      "sha256": "95e00b38c92db6c8889ac7f44503ce0230fa4c9641c479fced2827e03a0c3bda"
+    },
+    {
+      "path": "results/t3_iter47_target_integrity_audit_20260508.json",
+      "role": "T3 iter47 target-integrity audit JSON",
+      "exists": true,
+      "bytes": 53574,
+      "sha256": "f5ff69113e81687b0f6da0bd5378af01f1dd352dc71f72c2b38b67af28f40d1e"
+    },
+    {
+      "path": "results/t3_iter47_target_integrity_audit_20260508.md",
+      "role": "T3 iter47 target-integrity audit Markdown",
+      "exists": true,
+      "bytes": 1692,
+      "sha256": "b45bbef44d640ccf091465343dc3ae6afac6fb86b2fce9bd24aa5a79e6b2baf3"
+    },
+    {
+      "path": "audit_t3_complete33_claim_labeling.py",
+      "role": "T3 complete33/N=88 claim labeling audit script",
+      "exists": true,
+      "bytes": 9525,
+      "sha256": "591105d33d5444168bd897539a57be129db18a978f841e8847515ab1e71b26d2"
+    },
+    {
+      "path": "results/t3_complete33_claim_labeling_audit_20260509.json",
+      "role": "T3 complete33/N=88 claim labeling audit JSON",
+      "exists": true,
+      "bytes": 1998,
+      "sha256": "07ed2fe8d93b3ebec7844787c52f9cf4c43d8682a0ad7b670bb64b2e41165b06"
+    },
+    {
+      "path": "results/t3_complete33_claim_labeling_audit_20260509.md",
+      "role": "T3 complete33/N=88 claim labeling audit Markdown",
+      "exists": true,
+      "bytes": 1113,
+      "sha256": "9649ef3cc9055d8a6d1278f3eb9af1d94b0e3bdd083ff2a1b5ea701e6fd5fc6e"
+    },
+    {
+      "path": "audit_external_result_claim_labeling.py",
+      "role": "External-result claim labeling audit script",
+      "exists": true,
+      "bytes": 14383,
+      "sha256": "7501673114b1a0ed3d786a1ebe44eef4a643b57357d683051f61ddbdb847dd22"
+    },
+    {
+      "path": "results/external_result_claim_labeling_audit_20260509.json",
+      "role": "External-result claim labeling audit JSON",
+      "exists": true,
+      "bytes": 3822,
+      "sha256": "f44e5fae31b7d5a6e359cb0499f38a01f041ee07b8fbbeafb77bb10c423060d8"
+    },
+    {
+      "path": "results/external_result_claim_labeling_audit_20260509.md",
+      "role": "External-result claim labeling audit Markdown",
+      "exists": true,
+      "bytes": 1594,
+      "sha256": "c2343a2fa8e25a620fa64ca37ffcb7871555c3221a2db5ca4bf902e020ae2e6a"
+    },
+    {
+      "path": "audit_remaining_blocker_actions.py",
+      "role": "Remaining blocker action audit script",
+      "exists": true,
+      "bytes": 24848,
+      "sha256": "e6f163cd3a4a73f1b3b870027ca37eb18c6e78f6209bfeab1fd02ebf92f155f8"
+    },
+    {
+      "path": "results/remaining_blocker_action_audit_20260509.json",
+      "role": "Remaining blocker action audit JSON",
+      "exists": true,
+      "bytes": 36443,
+      "sha256": "4ccc01cef489afc365cc0ea923466597a2035d0f58485593f49ba9b3e584271a"
+    },
+    {
+      "path": "results/remaining_blocker_action_audit_20260509.md",
+      "role": "Remaining blocker action audit Markdown",
+      "exists": true,
+      "bytes": 11343,
+      "sha256": "dd377031ce297f025263bfa732ad7b045253d7ca7bf9232b13c372a548c342a1"
+    },
+    {
+      "path": "audit_external_access_readiness.py",
+      "role": "External access readiness audit script",
+      "exists": true,
+      "bytes": 22257,
+      "sha256": "9fbf8af0c5c23d3e6033a0f85f49185b5ea9dc1c10b6f1a33c0c7c82fdb8bfd5"
+    },
+    {
+      "path": "results/external_access_readiness_audit_20260509.json",
+      "role": "External access readiness audit JSON",
+      "exists": true,
+      "bytes": 16337,
+      "sha256": "3c97f313b5cc0d22594ee5b4aca436e8f97c3c83246f9ec34f7989397203f294"
+    },
+    {
+      "path": "results/external_access_readiness_audit_20260509.md",
+      "role": "External access readiness audit Markdown",
+      "exists": true,
+      "bytes": 4292,
+      "sha256": "a681b9c046d2e208afe90a009a33181a675f6bfb152c95e25762033a7736af94"
+    },
+    {
+      "path": "audit_access_submission_tracker.py",
+      "role": "External access submission tracker script",
+      "exists": true,
+      "bytes": 16291,
+      "sha256": "1e90daac7eab0b3ef8aeefa3f50934b4b8c6bd0a544b3d90b7aa08ea3adcf497"
+    },
+    {
+      "path": "results/access_submission_tracker_20260509.json",
+      "role": "External access submission tracker JSON",
+      "exists": true,
+      "bytes": 21325,
+      "sha256": "48ea902ced5534118a1aa4cc4b9ec9962167cccebd9dd7154dea5c0ea82ca4c5"
+    },
+    {
+      "path": "results/access_submission_tracker_20260509.md",
+      "role": "External access submission tracker Markdown",
+      "exists": true,
+      "bytes": 14639,
+      "sha256": "eb9bd04cc327303b6ae38e9518737eba6cb5864deebe676a84aa3064fae3cd9a"
+    },
+    {
+      "path": "scripts/weargait_raw_data_recovery_runbook.md",
+      "role": "WearGait raw-data recovery runbook",
+      "exists": true,
+      "bytes": 7253,
+      "sha256": "0dceadb2d79b00f710ba0660bfef2ab0b94d298b58f84a8afa142bc84357e7eb"
+    },
+    {
+      "path": "audit_weargait_raw_data_recovery_runbook.py",
+      "role": "WearGait raw-data recovery runbook audit script",
+      "exists": true,
+      "bytes": 9201,
+      "sha256": "c605156c65a62c61d1021804aeb9743ebd888aa711815758ebef65e312ed7e1e"
+    },
+    {
+      "path": "results/weargait_raw_data_recovery_runbook_audit_20260509.json",
+      "role": "WearGait raw-data recovery runbook audit JSON",
+      "exists": true,
+      "bytes": 2517,
+      "sha256": "d38ffa1a2d1d099a46b7db7ecb120a02ec3f1ac3f2cd2de46faba91c7e39bd9e"
+    },
+    {
+      "path": "results/weargait_raw_data_recovery_runbook_audit_20260509.md",
+      "role": "WearGait raw-data recovery runbook audit Markdown",
+      "exists": true,
+      "bytes": 959,
+      "sha256": "3bada8ba1a0246589bf55d192d68d9b9fb4cbe42f7027fbc00256e3ef7d9b140"
+    },
+    {
+      "path": "audit_task_plan_current_scope.py",
+      "role": "Task-plan current-scope guard script",
+      "exists": true,
+      "bytes": 10048,
+      "sha256": "afb1771b5fe79c54c72084cd612590f81ba5381b60eb1a9f06ce115701497612"
+    },
+    {
+      "path": "results/task_plan_current_scope_audit_20260509.json",
+      "role": "Task-plan current-scope guard JSON",
+      "exists": true,
+      "bytes": 2131,
+      "sha256": "2570b38a126bbf6077a1597758fea43fe1ceda3a691c02dbb4e0d0f1ca4037c7"
+    },
+    {
+      "path": "results/task_plan_current_scope_audit_20260509.md",
+      "role": "Task-plan current-scope guard Markdown",
+      "exists": true,
+      "bytes": 799,
+      "sha256": "5e5e4a19c9860eea39340f8af4e8458c273ba224cc58a3985c688503782f7e2e"
+    },
+    {
+      "path": "audit_paper_generator_routing.py",
+      "role": "Current-paper renderer routing audit script",
+      "exists": true,
+      "bytes": 13119,
+      "sha256": "2178828de3be79ae9e159e6a7b0d879c1e390b84a31bedd4a9ac3a79a2b48cf9"
+    },
+    {
+      "path": "results/paper_generator_routing_audit_20260509.json",
+      "role": "Current-paper renderer routing audit JSON",
+      "exists": true,
+      "bytes": 10352,
+      "sha256": "014b1a8dc5c4536a1c97619d71fdb66901bc8ade4bfd6243a05b7052de7d947c"
+    },
+    {
+      "path": "results/paper_generator_routing_audit_20260509.md",
+      "role": "Current-paper renderer routing audit Markdown",
+      "exists": true,
+      "bytes": 2320,
+      "sha256": "ea0ece50b00eaff46dab4074c3c0637afa47f9007554b7fc38bb91f389da7ba5"
+    },
+    {
+      "path": "audit_readme_claim_routing.py",
+      "role": "README current-claim routing audit script",
+      "exists": true,
+      "bytes": 9371,
+      "sha256": "130741cb0d1326e3dbd4a5cc1f82e149e47910f37785a4004f5fb1af939a56c9"
+    },
+    {
+      "path": "results/readme_claim_routing_audit_20260509.json",
+      "role": "README current-claim routing audit JSON",
+      "exists": true,
+      "bytes": 12939,
+      "sha256": "63eaf70437c2fded26ec5a4ca0d930912600ba976638eeb9daf42206bbe47551"
+    },
+    {
+      "path": "results/readme_claim_routing_audit_20260509.md",
+      "role": "README current-claim routing audit Markdown",
+      "exists": true,
+      "bytes": 4680,
+      "sha256": "72f9975fd663b63bf0ef25cac80229834fb4478ef8f5d599e5d5ebc80af175e5"
+    },
+    {
+      "path": "audit_legacy_manuscript_surfaces.py",
+      "role": "Legacy manuscript-surface quarantine audit script",
+      "exists": true,
+      "bytes": 8206,
+      "sha256": "e8f327e571cb925f078b9b495e8f660d2be4e2769aa29bb7d8aabf49bbd1e21f"
+    },
+    {
+      "path": "results/legacy_manuscript_surface_audit_20260509.json",
+      "role": "Legacy manuscript-surface quarantine audit JSON",
+      "exists": true,
+      "bytes": 114949,
+      "sha256": "5289f2047e886afdab238722d0564338a78d72b758925e0c5f9375d4689631fb"
+    },
+    {
+      "path": "results/legacy_manuscript_surface_audit_20260509.md",
+      "role": "Legacy manuscript-surface quarantine audit Markdown",
+      "exists": true,
+      "bytes": 1340,
+      "sha256": "5a9d4f285cc34a78c196ee9757c4139814320a196a166a2b807bd6eba4c34d0a"
+    },
+    {
+      "path": "audit_historical_archive_surfaces.py",
+      "role": "Historical archive-surface quarantine audit script",
+      "exists": true,
+      "bytes": 5666,
+      "sha256": "85a7a3292cebe4ff481b3363ac36e729144270057dbcf832b6b87638820a50ca"
+    },
+    {
+      "path": "results/historical_archive_surface_audit_20260509.json",
+      "role": "Historical archive-surface quarantine audit JSON",
+      "exists": true,
+      "bytes": 2368,
+      "sha256": "d82745614038ca897efff9405128aa216dded7b297c5cf0e20fec6d03ce8402e"
+    },
+    {
+      "path": "results/historical_archive_surface_audit_20260509.md",
+      "role": "Historical archive-surface quarantine audit Markdown",
+      "exists": true,
+      "bytes": 741,
+      "sha256": "b295269c462991c2af1a1b6076a9247fba6a8a20acc26758c20085e6e80d11bf"
+    },
+    {
+      "path": "audit_secret_hygiene.py",
+      "role": "Secret hygiene audit script",
+      "exists": true,
+      "bytes": 7171,
+      "sha256": "a56994a0ce38ddf8ceacd7533eb07a690e617858e650b18e958b33dd2d659267"
+    },
+    {
+      "path": "results/secret_hygiene_audit_20260509.json",
+      "role": "Secret hygiene audit JSON",
+      "exists": true,
+      "bytes": 75459,
+      "sha256": "c29071b929bec595543c5569c79c9e3c0eed29f88a09e7fc133f2a174c34e1a8"
+    },
+    {
+      "path": "results/secret_hygiene_audit_20260509.md",
+      "role": "Secret hygiene audit Markdown",
+      "exists": true,
+      "bytes": 842,
+      "sha256": "6f34646339629a0fa2487f9a29a626811cb688bfdce4a6dfd03418eb9c023a64"
+    },
+    {
+      "path": "audit_t3_iter47_residual_anatomy.py",
+      "role": "T3 iter47 residual-anatomy audit script",
+      "exists": true,
+      "bytes": 13560,
+      "sha256": "5c7dcaf3bb9c7c15f3404874f8ec15fa401b00a99c3e2c961a18450b0eae454d"
+    },
+    {
+      "path": "results/t3_iter47_residual_anatomy_20260509.json",
+      "role": "T3 iter47 residual-anatomy audit JSON",
+      "exists": true,
+      "bytes": 17470,
+      "sha256": "d9db1a77b6b892276a0fead8fe738f6eece286fbd0ad0cff5656d8d7e7f01046"
+    },
+    {
+      "path": "results/t3_iter47_residual_anatomy_20260509.md",
+      "role": "T3 iter47 residual-anatomy audit Markdown",
+      "exists": true,
+      "bytes": 2344,
+      "sha256": "c2de5ccf2ea50cd5e7621ef335ef86194b710b0ea2e7616f2d554706a78886fe"
+    },
+    {
+      "path": "audit_t3_iter47_ccc_rescale_sanity.py",
+      "role": "T3 iter47 CCC-rescale sanity audit script",
+      "exists": true,
+      "bytes": 8827,
+      "sha256": "d55bd242edc4d4c21fa24ae7bb436ebcb7aa8abbb87710d3918b95c3dea6537c"
+    },
+    {
+      "path": "results/t3_iter47_ccc_rescale_sanity_20260509.json",
+      "role": "T3 iter47 CCC-rescale sanity audit JSON",
+      "exists": true,
+      "bytes": 6559,
+      "sha256": "a28a936c6b153f24158df180256d5e247735ea04532e4ccdf8e93588dc38fe15"
+    },
+    {
+      "path": "results/t3_iter47_ccc_rescale_sanity_20260509.md",
+      "role": "T3 iter47 CCC-rescale sanity audit Markdown",
+      "exists": true,
+      "bytes": 1337,
+      "sha256": "835f4670dcd5bb8c59c8be6cf37418d2a66c5c37a6dfa2f66bae07588b640ae5"
+    },
+    {
+      "path": "audit_current_headline_influence.py",
+      "role": "Current headline leave-one influence audit script",
+      "exists": true,
+      "bytes": 18385,
+      "sha256": "a29cbc4b486f18c79cb4261712b6f33b1bce482be9cab96a3f58c62b683fe2aa"
+    },
+    {
+      "path": "results/current_headline_influence_audit_20260509.json",
+      "role": "Current headline leave-one influence audit JSON",
+      "exists": true,
+      "bytes": 72867,
+      "sha256": "510e4111c1439e543a6444de548eaf72b29aace503c99b760b8209be7b7db061"
+    },
+    {
+      "path": "results/current_headline_influence_audit_20260509.md",
+      "role": "Current headline leave-one influence audit Markdown",
+      "exists": true,
+      "bytes": 2791,
+      "sha256": "696f5b245281afce6b31dac43dcbefd8dc6597a88ef81579a425605a9694ab2c"
+    },
+    {
+      "path": "audit_t3_iter47_domain_residuals.py",
+      "role": "T3 iter47 domain residual audit script",
+      "exists": true,
+      "bytes": 18602,
+      "sha256": "2cd6a9ef28ec9d167d9d06263c176e0db3c7d07e0586db8ad94948ef63f0c4f1"
+    },
+    {
+      "path": "results/t3_iter47_domain_residual_audit_20260509.json",
+      "role": "T3 iter47 domain residual audit JSON",
+      "exists": true,
+      "bytes": 23673,
+      "sha256": "afe0ea8103715d544459673a67fd347d4720ce67fd4ed8cf179fd6249044abeb"
+    },
+    {
+      "path": "results/t3_iter47_domain_residual_audit_20260509.md",
+      "role": "T3 iter47 domain residual audit Markdown",
+      "exists": true,
+      "bytes": 2436,
+      "sha256": "cf58ce263a9ac924c69201d0bb8655c892a028d4e479eaf45768056d9097c726"
+    },
+    {
+      "path": "audit_t3_iter47_item_residuals.py",
+      "role": "T3 iter47 item-level residual audit script",
+      "exists": true,
+      "bytes": 18509,
+      "sha256": "2f1d7ff28873e7052cac69f3aa57d0ced4175e26dc09e97ae3dd7fc27c039de1"
+    },
+    {
+      "path": "results/t3_iter47_item_residual_audit_20260509.json",
+      "role": "T3 iter47 item-level residual audit JSON",
+      "exists": true,
+      "bytes": 38701,
+      "sha256": "c8b0481551419362479cb1b8d292aeb8f7e5a27c42b612db639a2d8b1207b8c6"
+    },
+    {
+      "path": "results/t3_iter47_item_residual_audit_20260509.md",
+      "role": "T3 iter47 item-level residual audit Markdown",
+      "exists": true,
+      "bytes": 2767,
+      "sha256": "8cd154b596fa1c3aaac8ba9449462dcd0893b023ca58059094b8bf75a65bd23d"
+    },
+    {
+      "path": "audit_dst_walkway_leakage.py",
+      "role": "T3 dst walkway-distillation provenance audit script",
+      "exists": true,
+      "bytes": 14374,
+      "sha256": "1a079d15f6cbec685d8f9571c134086f38d9afe8518ccd3d512f036650dc6178"
+    },
+    {
+      "path": "results/dst_walkway_leakage_audit_20260508_multiseed.json",
+      "role": "T3 dst walkway-distillation multiseed audit JSON",
+      "exists": true,
+      "bytes": 23675,
+      "sha256": "6908f414cc973235b12021faf07aefe5872b6e769c8cb2d41afd832a4c848b3d"
+    },
+    {
+      "path": "results/dst_walkway_leakage_audit_20260508_multiseed.md",
+      "role": "T3 dst walkway-distillation multiseed audit Markdown",
+      "exists": true,
+      "bytes": 1204,
+      "sha256": "6fd62398e4fee75eb5086242004885b005ac5c56370f7e6868ec7d67e0fdd8c2"
+    },
+    {
+      "path": "results/dst_walkway_leakage_audit_subject_rows_20260508_multiseed.csv",
+      "role": "T3 dst walkway-distillation subject rows",
+      "exists": true,
+      "bytes": 8593,
+      "sha256": "a3e39e2ea37ce01c046c02a5b07ff49b919ffed163b5dd54f22d8639af71ec92"
+    },
+    {
+      "path": "audit_ablation_v3_cache_provenance.py",
+      "role": "Ablation V3 live-cache provenance audit script",
+      "exists": true,
+      "bytes": 15908,
+      "sha256": "0ac6b7e16fbe3d3443f977e3cac66b88e80e2b9a68f35ba368604f944ea7a2ea"
+    },
+    {
+      "path": "results/ablation_v3_cache_provenance_audit_20260508.json",
+      "role": "Ablation V3 live-cache provenance audit JSON",
+      "exists": true,
+      "bytes": 13831,
+      "sha256": "174455f635d4794f8f7d37f3843ea809341dfbfbb42946f3aa599e34392e8d46"
+    },
+    {
+      "path": "results/ablation_v3_cache_provenance_audit_20260508.md",
+      "role": "Ablation V3 live-cache provenance audit Markdown",
+      "exists": true,
+      "bytes": 3546,
+      "sha256": "2e5de21a0da9e37b2d22f333037b78bf5c4968dc2594d1550d933fc2d781d383"
+    },
+    {
+      "path": "audit_ablation_v3_regeneration.py",
+      "role": "Ablation V3 non-destructive regeneration probe script",
+      "exists": true,
+      "bytes": 14468,
+      "sha256": "f0d1e2e22aa59c41dcb99f70303056bc2306f1439a7416d4feda08adc581060e"
+    },
+    {
+      "path": "results/ablation_v3_regeneration_probe_20260509.json",
+      "role": "Ablation V3 regeneration probe JSON",
+      "exists": true,
+      "bytes": 2846,
+      "sha256": "a75e71ff254ac36bdba5ce645ffc81f96b6c0a9f45720c8460b2045d11724503"
+    },
+    {
+      "path": "results/ablation_v3_regeneration_probe_20260509.md",
+      "role": "Ablation V3 regeneration probe Markdown",
+      "exists": true,
+      "bytes": 1547,
+      "sha256": "468b74a4265fbe9edd2759fc5e700a2ba364f321e36eb5278262b9d0a7213d2c"
+    },
+    {
+      "path": "scripts/download_weargait_missing_synapse.py",
+      "role": "WearGait missing Synapse input recovery helper",
+      "exists": true,
+      "bytes": 15452,
+      "sha256": "5833b90e530f6f08427efb2a91a4e2060246691a9838e73a992b152bd5cb6365"
+    },
+    {
+      "path": "results/weargait_missing_synapse_recovery_preflight_20260509.json",
+      "role": "WearGait missing Synapse input recovery preflight JSON",
+      "exists": true,
+      "bytes": 5008,
+      "sha256": "4e5a6026a631ae1c3e3be2afbcb11f984c80bf10e9e81a6e53b6491c91512ac6"
+    },
+    {
+      "path": "results/weargait_missing_synapse_recovery_preflight_20260509.md",
+      "role": "WearGait missing Synapse input recovery preflight Markdown",
+      "exists": true,
+      "bytes": 2199,
+      "sha256": "b6c3bd26eef0c2d6e3a933b082a92dc993bdf15198619687f396b9d17023322b"
+    },
+    {
+      "path": "audit_cache_consumer_guards.py",
+      "role": "Cache consumer guard audit script",
+      "exists": true,
+      "bytes": 8273,
+      "sha256": "ed5450731e28e425b6da14c6f7d8e04ec4090c42c9bd3c6f4f0620157c3d7fa4"
+    },
+    {
+      "path": "results/cache_consumer_guard_audit_20260508.json",
+      "role": "Cache consumer guard audit JSON",
+      "exists": true,
+      "bytes": 113792,
+      "sha256": "607d62eb22f8e76be516e4e1fdfb50b6704e52ab08daeb891a5014581d23a921"
+    },
+    {
+      "path": "results/cache_consumer_guard_audit_20260508.md",
+      "role": "Cache consumer guard audit Markdown",
+      "exists": true,
+      "bytes": 11047,
+      "sha256": "f877cdd98ae682fe527ddf343ce1a96e74303baa99420122f7107bc99156efa3"
+    },
+    {
+      "path": "audit_transitive_cache_dependencies.py",
+      "role": "Transitive cache dependency audit script",
+      "exists": true,
+      "bytes": 15712,
+      "sha256": "4917ad7295292766eab8a8dd6b2f07f6516066c2feac865f5931f07174d20466"
+    },
+    {
+      "path": "results/transitive_cache_dependency_audit_20260508.json",
+      "role": "Transitive cache dependency audit JSON",
+      "exists": true,
+      "bytes": 75191,
+      "sha256": "eac7c2c273c571d9485b3bb70c8900a434ebacad36ed616bc901108181ac1430"
+    },
+    {
+      "path": "results/transitive_cache_dependency_audit_20260508.md",
+      "role": "Transitive cache dependency audit Markdown",
+      "exists": true,
+      "bytes": 8388,
+      "sha256": "a7d291a48d245668a7b56e8515ff8116f0a06bed342f157f7aad12360b46e1ff"
+    },
+    {
+      "path": "audit_runtime_cache_dependencies.py",
+      "role": "Runtime cache dependency audit script",
+      "exists": true,
+      "bytes": 11115,
+      "sha256": "95df4ff7fec37e4dac0098494c850652a1765d99b3b06600084649f1a98443ed"
+    },
+    {
+      "path": "results/runtime_cache_dependency_audit_20260508.json",
+      "role": "Runtime cache dependency audit JSON",
+      "exists": true,
+      "bytes": 4089,
+      "sha256": "8c4dccd3526daabc1fd296562cf6ed85acbc0430b1358378dfc5cba0bf63543b"
+    },
+    {
+      "path": "results/runtime_cache_dependency_audit_20260508.md",
+      "role": "Runtime cache dependency audit Markdown",
+      "exists": true,
+      "bytes": 2120,
+      "sha256": "516605ad8aefa075e591958b317d717899dcee4130700d6881673e134c548115"
+    },
+    {
+      "path": "audit_canonical_claim_consistency.py",
+      "role": "Canonical claim consistency audit script",
+      "exists": true,
+      "bytes": 8321,
+      "sha256": "510dfb5d13bd525ed67a6821d6310b08f96c82c1a6f686d8ee4447ebd5eeae13"
+    },
+    {
+      "path": "results/canonical_claim_consistency_audit_20260508.json",
+      "role": "Canonical claim consistency audit JSON",
+      "exists": true,
+      "bytes": 2280,
+      "sha256": "56088546fbbdfaf74069b7feb57ed7b970cf3d2034568ac0b4ad2d7dc44f48f1"
+    },
+    {
+      "path": "results/canonical_claim_consistency_audit_20260508.md",
+      "role": "Canonical claim consistency audit Markdown",
+      "exists": true,
+      "bytes": 489,
+      "sha256": "5f617814693ce0d5424147a6dd3b1edc980a0d23952b1f3bec4c906afe99c89e"
+    },
+    {
+      "path": "audit_headline_metric_recompute.py",
+      "role": "Headline metric recompute audit script",
+      "exists": true,
+      "bytes": 9871,
+      "sha256": "5c18476d8e76a4391923c028d2b2e85efea63534d60a1ca03a9135c1bfba58a3"
+    },
+    {
+      "path": "results/headline_metric_recompute_audit_20260508.json",
+      "role": "Headline metric recompute audit JSON",
+      "exists": true,
+      "bytes": 14326,
+      "sha256": "5942cd7ee97f4c4c0fa8a3fe1dc566fe43c1036d587956d071d1dc49370a74ae"
+    },
+    {
+      "path": "results/headline_metric_recompute_audit_20260508.md",
+      "role": "Headline metric recompute audit Markdown",
+      "exists": true,
+      "bytes": 5147,
+      "sha256": "45e20ab8e5404761764eb435c97b7ed6f97cbaf29f9cdecd5df2887f8ddc1930"
+    },
+    {
+      "path": "audit_ccc_metric_integrity.py",
+      "role": "CCC metric integrity audit script",
+      "exists": true,
+      "bytes": 16758,
+      "sha256": "e3da2988d2be6f589a669ac7187afc4d6603113cd61c65d3bebd3c5ab0d52d42"
+    },
+    {
+      "path": "results/ccc_metric_integrity_audit_20260509.json",
+      "role": "CCC metric integrity audit JSON",
+      "exists": true,
+      "bytes": 11032,
+      "sha256": "b03699016aca182fb06063058d0033181831c7d49496c8885796f23e0106291b"
+    },
+    {
+      "path": "results/ccc_metric_integrity_audit_20260509.md",
+      "role": "CCC metric integrity audit Markdown",
+      "exists": true,
+      "bytes": 3837,
+      "sha256": "84ecfa9a3aa4cc0d32d2ac7dccb6c15d329dde4307e7de8dc16fd4cc6e202675"
+    },
+    {
+      "path": "audit_oof_artifact_integrity.py",
+      "role": "OOF artifact integrity audit script",
+      "exists": true,
+      "bytes": 4399,
+      "sha256": "3d2ba9fc8393816f5da6a5f7a2b2c408d30fb86e2ee7d4ac924ae4b6c26f61d3"
+    },
+    {
+      "path": "results/oof_artifact_integrity_audit_20260508.json",
+      "role": "OOF artifact integrity audit JSON",
+      "exists": true,
+      "bytes": 1911,
+      "sha256": "bb35233352f28288b3387fc749eb8618085241fc5d0443f462dfc3e2bbfce9f0"
+    },
+    {
+      "path": "results/oof_artifact_integrity_audit_20260508.md",
+      "role": "OOF artifact integrity audit Markdown",
+      "exists": true,
+      "bytes": 1399,
+      "sha256": "16e9104aa6ee6cfa04853ed28c731ae73a564c06e2fc64d345ae547239381096"
+    },
+    {
+      "path": "audit_preregistration_temporal_integrity.py",
+      "role": "Pre-registration temporal integrity audit script",
+      "exists": true,
+      "bytes": 10658,
+      "sha256": "55f83276dcc9245833cb5215a9c0b5060cbba08464447dcbe982a6984fdf4293"
+    },
+    {
+      "path": "results/preregistration_temporal_integrity_audit_20260508.json",
+      "role": "Pre-registration temporal integrity audit JSON",
+      "exists": true,
+      "bytes": 9896,
+      "sha256": "01a98663aa228ac8ba9b7cb5acfd62bedbc1aceb19e24198fdfbc35dcd1a7f02"
+    },
+    {
+      "path": "results/preregistration_temporal_integrity_audit_20260508.md",
+      "role": "Pre-registration temporal integrity audit Markdown",
+      "exists": true,
+      "bytes": 5035,
+      "sha256": "bd4b5c75317f58b97b19009f8680b2adc4c2fa64193f936a45e14387d074c1c0"
+    },
+    {
+      "path": "audit_pre_audit_claim_labeling.py",
+      "role": "Pre-audit claim labeling audit script",
+      "exists": true,
+      "bytes": 6157,
+      "sha256": "09a364a58c25bccfaafa360601ae206f3e331f0076b27ab842f763fc16d584de"
+    },
+    {
+      "path": "results/pre_audit_claim_labeling_audit_20260508.json",
+      "role": "Pre-audit claim labeling audit JSON",
+      "exists": true,
+      "bytes": 667,
+      "sha256": "27b06fc3544673bfa2cab59f1fa07a2a06b2351fd8a519e6cdb708282cea34f2"
+    },
+    {
+      "path": "results/pre_audit_claim_labeling_audit_20260508.md",
+      "role": "Pre-audit claim labeling audit Markdown",
+      "exists": true,
+      "bytes": 304,
+      "sha256": "df510b2a5a11721f3f8e0e46dbff33c78cef324e1aa6ce4c946d3d92ffd7e88c"
+    },
+    {
+      "path": "audit_historical_subdomain_claim_labeling.py",
+      "role": "Historical subdomain/sensor claim labeling audit script",
+      "exists": true,
+      "bytes": 6016,
+      "sha256": "248728ea60498549585978fc5739ae9d39d42ee0f5dc1bb1bdc1cc16b0b3c59a"
+    },
+    {
+      "path": "results/historical_subdomain_claim_labeling_audit_20260509.json",
+      "role": "Historical subdomain/sensor claim labeling audit JSON",
+      "exists": true,
+      "bytes": 795,
+      "sha256": "a604f55c3b76a5faa33c1e08d5e16534fb87ff1bdbcff110ed289c30b3b65cf7"
+    },
+    {
+      "path": "results/historical_subdomain_claim_labeling_audit_20260509.md",
+      "role": "Historical subdomain/sensor claim labeling audit Markdown",
+      "exists": true,
+      "bytes": 373,
+      "sha256": "1e8575eb35a64ab8c1519fe9d6446059d06fb344b8f78f733e570219e870af8c"
+    },
+    {
+      "path": "audit_t1_candidate_claim_labeling.py",
+      "role": "T1 candidate claim labeling audit script",
+      "exists": true,
+      "bytes": 8756,
+      "sha256": "e1d7038352172e753f408f2041ecb9f43ecafedd76d6b33ed5b07bbc45785bfa"
+    },
+    {
+      "path": "results/t1_candidate_claim_labeling_audit_20260508.json",
+      "role": "T1 candidate claim labeling audit JSON",
+      "exists": true,
+      "bytes": 1724,
+      "sha256": "a5b62b72e21bb7a2da790175b33c44362b83f8cbc1e35997ba314411ff37273f"
+    },
+    {
+      "path": "results/t1_candidate_claim_labeling_audit_20260508.md",
+      "role": "T1 candidate claim labeling audit Markdown",
+      "exists": true,
+      "bytes": 411,
+      "sha256": "4c2681d41b62866a4f37e84ba40cf22bdd2e8f1972d2b80997f4e6bb952fd060"
+    },
+    {
+      "path": "audit_reportable_artifact_flags.py",
+      "role": "Reportable artifact raw-flag policy audit script",
+      "exists": true,
+      "bytes": 11978,
+      "sha256": "dc5d45918a13e37a2cbb3dd85c2943c416a3213d6e8f87fb6c4fc43d4a91845b"
+    },
+    {
+      "path": "results/reportable_artifact_flag_audit_20260509.json",
+      "role": "Reportable artifact raw-flag policy audit JSON",
+      "exists": true,
+      "bytes": 7373,
+      "sha256": "4bbcd8c6e3b6659904a7b6e69047fe462d23032c4f72965ea1f025c777e0310f"
+    },
+    {
+      "path": "results/reportable_artifact_flag_audit_20260509.md",
+      "role": "Reportable artifact raw-flag policy audit Markdown",
+      "exists": true,
+      "bytes": 2142,
+      "sha256": "64e94c41baaa34d577f4c640f57e46cc3835f284e703f5effa0ac30555fd4b49"
+    },
+    {
+      "path": "audit_per_item_evidence_map.py",
+      "role": "Per-item evidence map audit script",
+      "exists": true,
+      "bytes": 15242,
+      "sha256": "a352b2d47a8c135682b8a1ed89dec517d1df6f00bc8b98020b36d7de1e6df175"
+    },
+    {
+      "path": "results/per_item_evidence_map_20260508.json",
+      "role": "Per-item evidence map JSON",
+      "exists": true,
+      "bytes": 22207,
+      "sha256": "4d802b760c94e082d134b2adb37455e44d7e4ecb87740d1e109ac12323583b5d"
+    },
+    {
+      "path": "results/per_item_evidence_map_20260508.md",
+      "role": "Per-item evidence map Markdown",
+      "exists": true,
+      "bytes": 4542,
+      "sha256": "f73934efba9a60b0fa15b6a20bdaa5ad7a78c228ad10559787b0b2076bc2dbb1"
+    },
+    {
+      "path": "audit_per_item_oof_companion_scope.py",
+      "role": "Per-item OOF companion scope audit script",
+      "exists": true,
+      "bytes": 16801,
+      "sha256": "d245a63b4303f4f0205aaa07beed0e902c509bbe344099398059582c0f18a9c9"
+    },
+    {
+      "path": "results/per_item_oof_companion_scope_audit_20260508.json",
+      "role": "Per-item OOF companion scope audit JSON",
+      "exists": true,
+      "bytes": 19854,
+      "sha256": "350e46a4fb4b7d7c92d48953084680dc6fd8c436250b0b48de31fbe68a11c913"
+    },
+    {
+      "path": "results/per_item_oof_companion_scope_audit_20260508.md",
+      "role": "Per-item OOF companion scope audit Markdown",
+      "exists": true,
+      "bytes": 4249,
+      "sha256": "e6974bd123ddeadd049df78cdadba510b4bfcda141ccf7b7190cef7f0e0a6b27"
+    },
+    {
+      "path": "run_t3_iter42_target_prorate.py",
+      "role": "T3 iter42 partial-missing proration audit script",
+      "exists": true,
+      "bytes": 14229,
+      "sha256": "931e50ef5da63c8a04f9ef8b39479141cb337165397987bbddb0ec8453bfab18"
+    },
+    {
+      "path": "results/preregistration_t3_iter42_prorate_20260508_173412.json",
+      "role": "T3 iter42 proration preregistration",
+      "exists": true,
+      "bytes": 1169,
+      "sha256": "86b7c088190a8d5cf1be8be0303b8a07d3f2263a460db9b69061975409074aff"
+    },
+    {
+      "path": "results/iter42_prorate_20260508_173412.json",
+      "role": "T3 iter42 proration LOOCV JSON",
+      "exists": true,
+      "bytes": 6816,
+      "sha256": "38c56bfb486caf4be1d8bc763dcac9ebaab69bb136b9db54953d9c53d9acc5e1"
+    },
+    {
+      "path": "results/iter42_prorate_subject_preds_20260508_173412.csv",
+      "role": "T3 iter42 proration OOF rows",
+      "exists": true,
+      "bytes": 25874,
+      "sha256": "bdd88c6d850d6eb30e44056e24043cbb8b6fe60d85b881ba239a9937076bda99"
+    },
+    {
+      "path": "results/preregistration_t3_iter42_prorate_loso_20260508_174349.json",
+      "role": "T3 iter42 proration LOSO preregistration",
+      "exists": true,
+      "bytes": 734,
+      "sha256": "94a8acd81120bfb25507d3650422bd8cd72240583cc6108656e4b065be500f10"
+    },
+    {
+      "path": "results/iter42_prorate_loso_20260508_174349.json",
+      "role": "T3 iter42 proration LOSO JSON",
+      "exists": true,
+      "bytes": 16142,
+      "sha256": "8a86e4e8733d5bee31f237858239c0e5eb72b1cb13470383c29402f8a7798a35"
+    },
+    {
+      "path": "audit_t3_clinical_dependency.py",
+      "role": "T3 corrected clinical-dependency audit script",
+      "exists": true,
+      "bytes": 9043,
+      "sha256": "373b1d727d1d1ef2a5ac2bcfde0a564566f2008e0dfddd4279f291be8e0bf0d1"
+    },
+    {
+      "path": "results/t3_clinical_dependency_20260508.json",
+      "role": "T3 corrected clinical-dependency audit JSON",
+      "exists": true,
+      "bytes": 76919,
+      "sha256": "b9647cc75d5f85ebd43d765d908cce497beb6f99d2fa9ad33aca485556a0f94d"
+    },
+    {
+      "path": "results/t3_clinical_dependency_20260508_subject_rows.csv",
+      "role": "T3 corrected clinical-dependency subject rows",
+      "exists": true,
+      "bytes": 22453,
+      "sha256": "43f9bd6056d06132c5d383bde53523e51c331dbfdecf9e3ae5b907d516f24002"
+    },
+    {
+      "path": "run_t3_iter5_clinical.py",
+      "role": "T3 historical iter5 script",
+      "exists": true,
+      "bytes": 17442,
+      "sha256": "be8fe18e4b296423776fa7775580e7ce7ad8a5f7b8a74e97beb7fed01775395c"
+    },
+    {
+      "path": "results/preregistration_t3_iter5_20260502_171604.json",
+      "role": "T3 historical iter5 preregistration",
+      "exists": true,
+      "bytes": 1495,
+      "sha256": "1a65331b5edc9ec840f0207e04819be6df8074ab9584408d7be7c653e7e31670"
+    },
+    {
+      "path": "results/lockbox_t3_iter5_A3_tier1_20260502_171604.json",
+      "role": "T3 historical target-contaminated iter5 JSON",
+      "exists": true,
+      "bytes": 6326,
+      "sha256": "dbee24fa29dc1962d1a97b3719ac47330f71a8bdb0a3e1b13a5d699f05ebea95"
+    },
+    {
+      "path": "results/lockbox_t3_iter5_A3_tier1_20260502_171604.oof.npy",
+      "role": "T3 historical target-contaminated iter5 OOF",
+      "exists": true,
+      "bytes": 912,
+      "sha256": "723da7e53e9e11ff06a3fdbb26063610d3f4f6af618d05dd875e125759eab3e3"
+    },
+    {
+      "path": "visualize_t3_iter5.py",
+      "role": "T3 historical deep-dive generator",
+      "exists": true,
+      "bytes": 16324,
+      "sha256": "3fa52ec3752fd2491f98bca88a66a915996c18e64a023b1a7bfb50ae91b415f7"
+    },
+    {
+      "path": "results/t3_iter5_deepdive/summary.json",
+      "role": "T3 historical deep-dive summary",
+      "exists": true,
+      "bytes": 4483,
+      "sha256": "9fa1dbb3d16b2e94de33e0b50028c826f2d5deebe5069d053e1cd951f68743e5"
+    },
+    {
+      "path": "results/t3_iter16_site_ipw_lockbox.json",
+      "role": "T3 historical site-IPW and LOSO",
+      "exists": true,
+      "bytes": 23528,
+      "sha256": "182768f26d97b28a939c8b618616aa310a2d07bdd5b6dbd73c3140009e310447"
+    },
+    {
+      "path": "results/t3_conformal_abstention_20260505.json",
+      "role": "T3 historical conformal and abstention",
+      "exists": true,
+      "bytes": 2644,
+      "sha256": "7083aff5088eaefa7eb395ae3d62b8ca06dd31c0c280cd1c98f2a6ed0dcd06c5"
+    },
+    {
+      "path": "run_current_conformal_abstention.py",
+      "role": "Current conformal and abstention script",
+      "exists": true,
+      "bytes": 16586,
+      "sha256": "a3cc3101b2fab409c2280c5de4083d22f83443a1dca246e021356cbc100000ab"
+    },
+    {
+      "path": "results/current_conformal_abstention_20260508.json",
+      "role": "Current conformal and abstention JSON",
+      "exists": true,
+      "bytes": 5077,
+      "sha256": "9bd4f4da3587e86ba89aa549cdd0ce8f59c30365b5c47ef54a32fdf528bd594a"
+    },
+    {
+      "path": "results/current_conformal_abstention_intervals_20260508.csv",
+      "role": "Current conformal interval rows",
+      "exists": true,
+      "bytes": 9339,
+      "sha256": "77ee8cc4f81d4bfdc85c98bb849446b2e0b47a0e378ca2969048d186d9c8d54a"
+    },
+    {
+      "path": "results/current_conformal_abstention_curves_20260508.csv",
+      "role": "Current abstention curve rows",
+      "exists": true,
+      "bytes": 15416,
+      "sha256": "481ae683dd41f3bd846f44adcae3a492056a3fbcd0e232791f1a65a1f34e7d49"
+    },
+    {
+      "path": "results/current_conformal_abstention.html",
+      "role": "Current conformal and abstention HTML",
+      "exists": true,
+      "bytes": 6066,
+      "sha256": "146ecfdda634a3cb4af33b3ca311d57f93e1c188ae21141ba15d281dc68a1572"
+    },
+    {
+      "path": "run_t3_iter38_fogstar_stage1.py",
+      "role": "T3 iter38 FoG-STAR Stage-1 augmentation screen script",
+      "exists": true,
+      "bytes": 15327,
+      "sha256": "e3d6ad4a872a415bb8c25b2eb5e94d9c0c529b897ab7c5bd7448e6d9768ab353"
+    },
+    {
+      "path": "results/iter38_fogstar_probe_20260508_112546.json",
+      "role": "T3 iter38 FoG-STAR schema probe",
+      "exists": true,
+      "bytes": 603,
+      "sha256": "b77d5800b95aa4a161094540ccecc1d299486c022433af15eee44ac22c7dd7a9"
+    },
+    {
+      "path": "results/iter38_fogstar_stage1_screen_20260508_142623.json",
+      "role": "T3 iter38 FoG-STAR Stage-1 augmentation screen JSON",
+      "exists": true,
+      "bytes": 2344,
+      "sha256": "a34aec0d3f9e2ba77e09e0ae0d71f41b83bbe8a2808f16bb20b0210a3c0457a0"
+    },
+    {
+      "path": "results/iter38_fogstar_stage1_screen_rows_20260508_142623.csv",
+      "role": "T3 iter38 FoG-STAR Stage-1 augmentation rows",
+      "exists": true,
+      "bytes": 206,
+      "sha256": "213866e728f0fc586ad621c3cb98114485b9bfd761a1de024182aebbc8ccd98d"
+    },
+    {
+      "path": "run_t3_iter39_fogstar_zeroshot.py",
+      "role": "T3 iter39 FoG-STAR zero-shot script",
+      "exists": true,
+      "bytes": 20330,
+      "sha256": "5a1e445013a3a2d237f679e47cffc154a4e04d226b13dd48093d490f1745d76f"
+    },
+    {
+      "path": "results/preregistration_t3_iter39_fogstar_zeroshot_20260508_143717.json",
+      "role": "T3 iter39 FoG-STAR zero-shot preregistration",
+      "exists": true,
+      "bytes": 1537,
+      "sha256": "1058cc9a7ab3cab12c578c20a494d0a2a15d5e66c38cd20dd9695bdbd37f9726"
+    },
+    {
+      "path": "results/iter39_fogstar_zeroshot_20260508_143717.json",
+      "role": "T3 iter39 FoG-STAR zero-shot result JSON",
+      "exists": true,
+      "bytes": 5204,
+      "sha256": "9518c5940cec46cd1e1b4112381100d3df16ae4655d3b0751cf1c96861888771"
+    },
+    {
+      "path": "results/iter39_fogstar_zeroshot_rows_20260508_143717.csv",
+      "role": "T3 iter39 FoG-STAR zero-shot rows",
+      "exists": true,
+      "bytes": 1873,
+      "sha256": "e2c141f48fb8cff9048e73468ab3753c05378e1d31d84f76bf23d1b0e736bfc8"
+    },
+    {
+      "path": "visualize_fogstar_iter39.py",
+      "role": "T3 iter39 FoG-STAR visualization generator",
+      "exists": true,
+      "bytes": 6757,
+      "sha256": "8eeee00cda9b5bc993234f4ef12d90587890469de270bee6a7642428e5fe2c40"
+    },
+    {
+      "path": "results/iter39_fogstar_zeroshot.html",
+      "role": "T3 iter39 FoG-STAR zero-shot visualization",
+      "exists": true,
+      "bytes": 2478,
+      "sha256": "7df0cc10a5454c6e88651d3ce48e52523cd5cb5d75dbd08a2b47c75a1f910cde"
+    },
+    {
+      "path": "results/openrouter_grok43_iter39_20260508.json",
+      "role": "OpenRouter Grok 4.3 iter39 consult",
+      "exists": true,
+      "bytes": 6258,
+      "sha256": "dcea41925598cf9ab332e2b38344d61170f118e545f230f77f8cdb8171f6760e"
+    },
+    {
+      "path": "results/openrouter_deepseekv4pro_iter39_retry_20260508.json",
+      "role": "OpenRouter DeepSeek V4 Pro iter39 consult",
+      "exists": true,
+      "bytes": 1321,
+      "sha256": "0b442a976c6ecb01e015bc4251acbb720387d1a66399efdee824e4ef82161210"
+    },
+    {
+      "path": "run_t3_iter40_local_residual.py",
+      "role": "T3 iter40 local-residual wildcard script",
+      "exists": true,
+      "bytes": 10670,
+      "sha256": "6870732b56a4b9d8f1a02eb8a8e703352772990dfdaf66858b83d8e442927f02"
+    },
+    {
+      "path": "results/iter40_local_residual_screen_20260508_144905.json",
+      "role": "T3 iter40 local-residual wildcard screen JSON",
+      "exists": true,
+      "bytes": 10328,
+      "sha256": "07609d8b5b38670281001b8751b9de434fd65ee0e8f1340b8d4ac354cd67d3cf"
+    },
+    {
+      "path": "results/iter40_local_residual_screen_rows_20260508_144905.csv",
+      "role": "T3 iter40 local-residual wildcard screen rows",
+      "exists": true,
+      "bytes": 183,
+      "sha256": "6567e86c1b57353f2a42a323240e7dc29e6a85477c7eb77de75b7ec509b57c5f"
+    },
+    {
+      "path": "run_t3_iter50_lowdf_convex.py",
+      "role": "T3 iter50 low-degree nested convex-mix script",
+      "exists": true,
+      "bytes": 16340,
+      "sha256": "25972c757be37ef36d123850b3f61b253601c92a7413c38138dc7056acf6e256"
+    },
+    {
+      "path": "results/preregistration_t3_iter50_lowdfconvex_screen_20260508_225105.json",
+      "role": "T3 iter50 low-degree convex-mix screen declaration",
+      "exists": true,
+      "bytes": 1195,
+      "sha256": "ddebee41b203049b0b0fb682a2270dff0f63896ba1072bee955ed7c23db5a728"
+    },
+    {
+      "path": "results/iter50_lowdf_convex_screen_20260508_225105.json",
+      "role": "T3 iter50 low-degree convex-mix screen JSON",
+      "exists": true,
+      "bytes": 28418,
+      "sha256": "e7a7e8b0c15e92719d69d8c6c1b89c5bc63caf1c5865bce5a4d115399656484f"
+    },
+    {
+      "path": "results/iter50_lowdf_convex_screen_rows_20260508_225105.csv",
+      "role": "T3 iter50 low-degree convex-mix fold rows",
+      "exists": true,
+      "bytes": 3245,
+      "sha256": "debfbc716ae5bf299ef288c12d089ffbfb770d3c5516f1f3476e22bcab8b849e"
+    },
+    {
+      "path": "results/iter50_lowdf_convex_subject_preds_20260508_225105.csv",
+      "role": "T3 iter50 low-degree convex-mix subject predictions",
+      "exists": true,
+      "bytes": 8285,
+      "sha256": "d8db104bd1190ceb5f7c9a370ad8c8fc52a6cfe538a99061f25781879bf569e2"
+    },
+    {
+      "path": "run_t3_iter49_cops.py",
+      "role": "T3 iter49 COPS external route script",
+      "exists": true,
+      "bytes": 42785,
+      "sha256": "212dcd6d81767cb5f398f5c1036127ffd8b99d2735a2653a97354c7a62c791a1"
+    },
+    {
+      "path": "results/preregistration_t3_iter49_cops.json",
+      "role": "T3 iter49 COPS stable preregistration",
+      "exists": true,
+      "bytes": 3977,
+      "sha256": "04c3ca885f58ba2c26bcb7141eab9a25038015f6d450d1034120081593a6c2c1"
+    },
+    {
+      "path": "results/preregistration_t3_iter49_cops_20260508_173452.json",
+      "role": "T3 iter49 COPS local preregistration",
+      "exists": true,
+      "bytes": 3977,
+      "sha256": "04c3ca885f58ba2c26bcb7141eab9a25038015f6d450d1034120081593a6c2c1"
+    },
+    {
+      "path": "results/iter49_cops_probe.json",
+      "role": "T3 iter49 COPS route probe JSON",
+      "exists": true,
+      "bytes": 22321,
+      "sha256": "3aed7e69f1a79f4fb96a46e69dd486c7a5aadfadd6315e9eeba0385a37fa5251"
+    },
+    {
+      "path": "results/iter49_cops_probe_20260508_173929.json",
+      "role": "T3 iter49 COPS route probe timestamped JSON",
+      "exists": true,
+      "bytes": 22321,
+      "sha256": "3aed7e69f1a79f4fb96a46e69dd486c7a5aadfadd6315e9eeba0385a37fa5251"
+    },
+    {
+      "path": "results/iter49_cops_download_manifest.json",
+      "role": "T3 iter49 COPS download manifest",
+      "exists": true,
+      "bytes": 40279,
+      "sha256": "e5457968cdd81c63ff037587d8b700e41085e85818d3b1f903f98a87b16d605b"
+    },
+    {
+      "path": "results/iter49_cops_features_full.csv",
+      "role": "T3 iter49 COPS full feature cache",
+      "exists": true,
+      "bytes": 162404,
+      "sha256": "dac140eea8df690112416e639a836839f71ef566dbfaa81ce7bd73c064c663a4"
+    },
+    {
+      "path": "results/iter49_cops_features_full.csv.manifest.json",
+      "role": "T3 iter49 COPS feature-cache manifest",
+      "exists": true,
+      "bytes": 502,
+      "sha256": "79eae6a0c112ebee9b90f349269cca44ec077eef60685f2aa05a3679950d83fa"
+    },
+    {
+      "path": "results/iter49_cops_zeroshot_20260508_185226.json",
+      "role": "T3 iter49 COPS zero-shot result JSON",
+      "exists": true,
+      "bytes": 11233,
+      "sha256": "fbe1330891d72492215e4670c0b887e41c4f2acba948202b1869feda806a0e52"
+    },
+    {
+      "path": "results/iter49_cops_zeroshot.json",
+      "role": "T3 iter49 COPS stable zero-shot result JSON",
+      "exists": true,
+      "bytes": 11233,
+      "sha256": "fbe1330891d72492215e4670c0b887e41c4f2acba948202b1869feda806a0e52"
+    },
+    {
+      "path": "results/iter49_cops_zeroshot_rows_20260508_185226.csv",
+      "role": "T3 iter49 COPS zero-shot row predictions",
+      "exists": true,
+      "bytes": 13426,
+      "sha256": "c5bfead595da9b1d1842c26882da1b57277c7000ac5b2639de60ce5b9894767c"
+    },
+    {
+      "path": "scripts/probe_tlvmc_fog_route.py",
+      "role": "TLVMC/DeFOG route probe script",
+      "exists": true,
+      "bytes": 14329,
+      "sha256": "71b027ac1ce341a027b1023ad47084f9320d34278d779581bcc1ac41aad5637c"
+    },
+    {
+      "path": "results/tlvmc_fog_route_probe_20260509.json",
+      "role": "TLVMC/DeFOG route probe JSON",
+      "exists": true,
+      "bytes": 6016,
+      "sha256": "fa28513c9a60d8afd8acc3226ff7f356b8755ec0e4a4a9c40f802315c0a26998"
+    },
+    {
+      "path": "results/tlvmc_fog_route_probe_20260509.md",
+      "role": "TLVMC/DeFOG route probe Markdown",
+      "exists": true,
+      "bytes": 1731,
+      "sha256": "74b82899974babdd739fab4febe7f5102271a3702ee463e1c32565ebff86a42f"
+    },
+    {
+      "path": "scripts/write_tlvmc_defog_prereg.py",
+      "role": "TLVMC/DeFOG iter51 preregistration writer",
+      "exists": true,
+      "bytes": 18168,
+      "sha256": "54a275fbde3e7bf638401bf936b6ef3bad62c67d8d34fbffc2f6f68cdfc8e9ca"
+    },
+    {
+      "path": "results/preregistration_t3_iter51_tlvmc_defog_zeroshot.json",
+      "role": "TLVMC/DeFOG iter51 stable preregistration",
+      "exists": true,
+      "bytes": 11938,
+      "sha256": "9e86631d8548b07dfee346fbfbfac5af862abcc1532cbc748cab334798161431"
+    },
+    {
+      "path": "results/preregistration_t3_iter51_tlvmc_defog_zeroshot_20260509_010408.json",
+      "role": "TLVMC/DeFOG iter51 timestamped preregistration",
+      "exists": true,
+      "bytes": 11938,
+      "sha256": "9e86631d8548b07dfee346fbfbfac5af862abcc1532cbc748cab334798161431"
+    },
+    {
+      "path": "results/preregistration_t3_iter51_tlvmc_defog_zeroshot.md",
+      "role": "TLVMC/DeFOG iter51 preregistration summary",
+      "exists": true,
+      "bytes": 2108,
+      "sha256": "70d524ce91274fe6d1552cd8a1f5271cec695a6b4ab58d98183b44ea60d4132a"
+    },
+    {
+      "path": "run_t3_iter51_tlvmc_defog.py",
+      "role": "TLVMC/DeFOG iter51 zero-shot runner",
+      "exists": true,
+      "bytes": 33956,
+      "sha256": "6dda102de0cf4a315fc10783c63f5bd80c47e0a72d589d17057206e5d45acded"
+    },
+    {
+      "path": "results/iter51_tlvmc_defog_download_manifest.json",
+      "role": "TLVMC/DeFOG iter51 download manifest",
+      "exists": true,
+      "bytes": 49990,
+      "sha256": "d6dfca261e20b40890859c0c4594cd620302e8020129d76406cea1b4ce76edc2"
+    },
+    {
+      "path": "results/iter51_tlvmc_defog_features.csv",
+      "role": "TLVMC/DeFOG iter51 feature cache",
+      "exists": true,
+      "bytes": 115627,
+      "sha256": "4ef9905238ce3751b29e356d42deb10a49df5e7ffa4a59525bfce66e86612d83"
+    },
+    {
+      "path": "results/iter51_tlvmc_defog_features.csv.manifest.json",
+      "role": "TLVMC/DeFOG iter51 feature manifest",
+      "exists": true,
+      "bytes": 800,
+      "sha256": "8137c4d38c3bb78b13ca2f5595a908586fb0b860c3e5106eb2692e592cb6655b"
+    },
+    {
+      "path": "results/iter51_tlvmc_defog_zeroshot.json",
+      "role": "TLVMC/DeFOG iter51 stable zero-shot result JSON",
+      "exists": true,
+      "bytes": 16980,
+      "sha256": "61ee03eb279e6e5fa26bb5ec52d96e9c2be5f00cf6bf62bf87438e6d32012f11"
+    },
+    {
+      "path": "results/iter51_tlvmc_defog_zeroshot_20260509_013357.json",
+      "role": "TLVMC/DeFOG iter51 timestamped zero-shot result JSON",
+      "exists": true,
+      "bytes": 16980,
+      "sha256": "61ee03eb279e6e5fa26bb5ec52d96e9c2be5f00cf6bf62bf87438e6d32012f11"
+    },
+    {
+      "path": "results/iter51_tlvmc_defog_zeroshot_rows_20260509_013357.csv",
+      "role": "TLVMC/DeFOG iter51 row predictions",
+      "exists": true,
+      "bytes": 130730,
+      "sha256": "f04d005c4655c8c579d4a8db7cc198eb3361094ab122d8f1317999efb1699600"
+    },
+    {
+      "path": "run_t3_iter52_pdfe_turning.py",
+      "role": "PDFE iter52 turning-in-place external zero-shot runner",
+      "exists": true,
+      "bytes": 19796,
+      "sha256": "c2c83f06251c9d9a08cc7c85043d23459e2d5ae9bbc4ab62523dfb33b6c6a45c"
+    },
+    {
+      "path": "results/preregistration_t3_iter52_pdfe_turning_zeroshot.json",
+      "role": "PDFE iter52 stable preregistration",
+      "exists": true,
+      "bytes": 1592,
+      "sha256": "4a3e573a8f8675cb91fb4e9335ba054d23195cdc9909c06900ca45ace60f28b3"
+    },
+    {
+      "path": "results/preregistration_t3_iter52_pdfe_turning_zeroshot.md",
+      "role": "PDFE iter52 preregistration summary",
+      "exists": true,
+      "bytes": 257,
+      "sha256": "5a9e922d5d71a21e553904350c0fc0796c717847f85618d60d45df3bc0853206"
+    },
+    {
+      "path": "results/iter52_pdfe_turning_probe.json",
+      "role": "PDFE iter52 route probe JSON",
+      "exists": true,
+      "bytes": 310,
+      "sha256": "ae9ecc7639edc4229390307a3159ece76b499e6b8b3a66518ccec2cde2c2a97b"
+    },
+    {
+      "path": "results/iter52_pdfe_turning_download_manifest.json",
+      "role": "PDFE iter52 download manifest",
+      "exists": true,
+      "bytes": 537,
+      "sha256": "7c2bfc30d065363879d029427245852908f8537e9bb094a4f0c83bfe8b9fbd52"
+    },
+    {
+      "path": "results/iter52_pdfe_turning_features.csv",
+      "role": "PDFE iter52 feature cache",
+      "exists": true,
+      "bytes": 26027,
+      "sha256": "de5f1e222682be647143c6b986f4b64069d93cd1003d5f4d22ae7e4e21485d5b"
+    },
+    {
+      "path": "results/iter52_pdfe_turning_features.csv.manifest.json",
+      "role": "PDFE iter52 feature manifest",
+      "exists": true,
+      "bytes": 929,
+      "sha256": "90a3cb738271cc1cd32a7f819fbad69422d21afd5ef72b363aa345b08b930ca1"
+    },
+    {
+      "path": "results/iter52_pdfe_turning_zeroshot.json",
+      "role": "PDFE iter52 stable zero-shot result JSON",
+      "exists": true,
+      "bytes": 3937,
+      "sha256": "a29efdee3023188f5a603c7b89f3094015ad892ba4c3a0402c1ccd4bd6649f07"
+    },
+    {
+      "path": "results/iter52_pdfe_turning_zeroshot_20260509_092223.json",
+      "role": "PDFE iter52 timestamped zero-shot result JSON",
+      "exists": true,
+      "bytes": 3937,
+      "sha256": "a29efdee3023188f5a603c7b89f3094015ad892ba4c3a0402c1ccd4bd6649f07"
+    },
+    {
+      "path": "results/iter52_pdfe_turning_zeroshot_rows_20260509_092223.csv",
+      "role": "PDFE iter52 row predictions",
+      "exists": true,
+      "bytes": 3070,
+      "sha256": "a9371f5e5ffbc6a3a2d7680190d84a7d9ee5311c06f0ebb1247db91d265cf110"
+    },
+    {
+      "path": "results/phone_tremor_route_consult_20260509.json",
+      "role": "Papadopoulos phone-call tremor route consult JSON",
+      "exists": true,
+      "bytes": 1773,
+      "sha256": "44d3fb4f89fd8d36c7899d508fe6ce0f84826650bfff2c18f9fc0826373eec51"
+    },
+    {
+      "path": "results/phone_tremor_route_consult_20260509.md",
+      "role": "Papadopoulos phone-call tremor route consult Markdown",
+      "exists": true,
+      "bytes": 986,
+      "sha256": "2d5c38213f16d2012d3656642d6a48a20530e64cc0e682e1b90b52376665e43e"
+    },
+    {
+      "path": "results/harmonized_accel_route_consult_20260509.json",
+      "role": "Harmonized accelerometry route consult JSON",
+      "exists": true,
+      "bytes": 2018,
+      "sha256": "b614eea03243d367b6033a65ed60bbeb50e1ebe310ecd6c5582dcb7062c4db79"
+    },
+    {
+      "path": "results/harmonized_accel_route_consult_20260509.md",
+      "role": "Harmonized accelerometry route consult Markdown",
+      "exists": true,
+      "bytes": 1091,
+      "sha256": "1610c837b841d474b1d1edbdfd960dd18ca7f74863a4352ff54accc9734510f4"
+    },
+    {
+      "path": "results/smartwatch_subitem_route_refresh_20260509.json",
+      "role": "Monipar/BIOCLITE smartwatch subitem route refresh JSON",
+      "exists": true,
+      "bytes": 4174,
+      "sha256": "8d7c73d98049f0a2f4b2efdfab0d6683ae6e2563939882ee3ecf8f098d710c05"
+    },
+    {
+      "path": "results/smartwatch_subitem_route_refresh_20260509.md",
+      "role": "Monipar/BIOCLITE smartwatch subitem route refresh Markdown",
+      "exists": true,
+      "bytes": 2821,
+      "sha256": "289af18bb1b0981da8fceabc606ee8cb355616c507d1eb4bd6cb086206779729"
+    },
+    {
+      "path": "results/external_route_audit_monipar_bioclite_20260509.md",
+      "role": "Kimi Monipar/BIOCLITE route consult Markdown",
+      "exists": true,
+      "bytes": 2612,
+      "sha256": "26fdabe66a51cafb7cfc92546b23f433e98668612561376f978ebcc836daf219"
+    },
+    {
+      "path": "results/derivative_multimodal_route_refresh_20260509.json",
+      "role": "Derivative multimodal route refresh JSON",
+      "exists": true,
+      "bytes": 2704,
+      "sha256": "e10f6b86eb9125e7dc3138ae5fd708583c8e088fddf6c11fbac7374bb9f9d540"
+    },
+    {
+      "path": "results/derivative_multimodal_route_refresh_20260509.md",
+      "role": "Derivative multimodal route refresh Markdown",
+      "exists": true,
+      "bytes": 1709,
+      "sha256": "8700c616a893cc781e2b985b8f931c1af9f660a6591527bf404cc1c7a8ce398d"
+    },
+    {
+      "path": "results/request_only_actigraphy_route_refresh_20260509.json",
+      "role": "Request-only actigraphy route refresh JSON",
+      "exists": true,
+      "bytes": 3501,
+      "sha256": "8da4b8e7258361ebc3ae268fc12c7ea7c933b3823d75edf8b4d01153642cfb68"
+    },
+    {
+      "path": "results/request_only_actigraphy_route_refresh_20260509.md",
+      "role": "Request-only actigraphy route refresh Markdown",
+      "exists": true,
+      "bytes": 2584,
+      "sha256": "4b0c0a71b0729afebb5b400b0ce5d4e7d0892ab626abb4998cef76009a0946a1"
+    },
+    {
+      "path": "results/luxembourg_upper_limb_route_refresh_20260509.json",
+      "role": "Luxembourg upper-limb route refresh JSON",
+      "exists": true,
+      "bytes": 1953,
+      "sha256": "7834b3d0359bd90302e3ad4839c535e1df177d93cfafb68495f0d9e376c48b3a"
+    },
+    {
+      "path": "results/luxembourg_upper_limb_route_refresh_20260509.md",
+      "role": "Luxembourg upper-limb route refresh Markdown",
+      "exists": true,
+      "bytes": 1265,
+      "sha256": "67192d8fe3215dbe215079ae579ec95d43857f53d7c193256d91658b0ba71ec1"
+    },
+    {
+      "path": "results/prequantipark_route_refresh_20260509.json",
+      "role": "Pre-QuantiPark route refresh JSON",
+      "exists": true,
+      "bytes": 2269,
+      "sha256": "cbcb9db61c469819b9ba3249e115a56bc0583c91f643ad3e978e9ad5c2f36def"
+    },
+    {
+      "path": "results/prequantipark_route_refresh_20260509.md",
+      "role": "Pre-QuantiPark route refresh Markdown",
+      "exists": true,
+      "bytes": 1540,
+      "sha256": "18336d60d4d4a9a72df9f3842d2089c9de94c910aec6faa07048c72e5cfe5d4e"
+    },
+    {
+      "path": "results/tum_rocket_inception_route_refresh_20260509.json",
+      "role": "TUM ROCKET/InceptionTime route refresh JSON",
+      "exists": true,
+      "bytes": 2521,
+      "sha256": "6edd03223706dceec24d3460912fa74e8fb2dedea9992dc55221cba323b00043"
+    },
+    {
+      "path": "results/tum_rocket_inception_route_refresh_20260509.md",
+      "role": "TUM ROCKET/InceptionTime route refresh Markdown",
+      "exists": true,
+      "bytes": 1506,
+      "sha256": "0ae3593f296853064197df53f811550cd94c24569aed0bda58ea0de07e044e65"
+    },
+    {
+      "path": "results/paradigma_yin_route_refresh_20260509.json",
+      "role": "ParaDigMa/Yin route refresh JSON",
+      "exists": true,
+      "bytes": 2975,
+      "sha256": "0f8bfdeb0fc4abe42ba71f6f979508b2a77696e59ad42b4af7eaef858d848e41"
+    },
+    {
+      "path": "results/paradigma_yin_route_refresh_20260509.md",
+      "role": "ParaDigMa/Yin route refresh Markdown",
+      "exists": true,
+      "bytes": 5482,
+      "sha256": "c51e26da4cec3570f4d51d09f65d0d56a06a30866165853f9b125b33d8b74d94"
+    },
+    {
+      "path": "run_t3_iter53_parkinsonathome.py",
+      "role": "Parkinson@Home iter53 route runner",
+      "exists": true,
+      "bytes": 32786,
+      "sha256": "593d4a996ddb493f407f7619715dd36a9e910bec470839308bd4dec135707242"
+    },
+    {
+      "path": "results/preregistration_t3_iter53_parkinsonathome_zeroshot.json",
+      "role": "Parkinson@Home iter53 stable preregistration",
+      "exists": true,
+      "bytes": 3415,
+      "sha256": "e4376821d910af471544854ad28732ed071723c1aa75d5fee8b776b4192f7c13"
+    },
+    {
+      "path": "results/preregistration_t3_iter53_parkinsonathome_zeroshot.md",
+      "role": "Parkinson@Home iter53 preregistration summary",
+      "exists": true,
+      "bytes": 341,
+      "sha256": "38aa1f2dab8b38d6cccac84605c74013c68a458ae035eb74b75242eba5b7bd4a"
+    },
+    {
+      "path": "results/iter53_parkinsonathome_probe.json",
+      "role": "Parkinson@Home iter53 probe JSON",
+      "exists": true,
+      "bytes": 3277,
+      "sha256": "77a2f75f8f90f26a879faec7163564391a73402d38dd631b5e1aecb74939ce7f"
+    },
+    {
+      "path": "results/iter53_parkinsonathome_features.csv",
+      "role": "Parkinson@Home iter53 feature cache",
+      "exists": true,
+      "bytes": 26970,
+      "sha256": "6d45795cdafe12a5c78b29913a2280115449473b810a194040a30ec62a6af100"
+    },
+    {
+      "path": "results/iter53_parkinsonathome_features.csv.manifest.json",
+      "role": "Parkinson@Home iter53 feature manifest",
+      "exists": true,
+      "bytes": 20210,
+      "sha256": "47fc7ea6ee092736c660e10e45fba847dd54833e191a8ca31586dd2a0faf89e2"
+    },
+    {
+      "path": "results/parkinsonathome_route_refresh_20260509.json",
+      "role": "Parkinson@Home route refresh JSON",
+      "exists": true,
+      "bytes": 6102,
+      "sha256": "fedf73d8002881c099e3e3d9e57e4fb3c8daf6ec198d87e410ae0a74ec03810e"
+    },
+    {
+      "path": "results/parkinsonathome_route_refresh_20260509.md",
+      "role": "Parkinson@Home route refresh Markdown",
+      "exists": true,
+      "bytes": 2175,
+      "sha256": "0cfb53ca24af4b63636a4a405228fe72360072dcef452c88e9aee6cbef1b63d0"
+    },
+    {
+      "path": "results/kimi_next_action_after_parkinsonathome_20260509.json",
+      "role": "Kimi post-Parkinson@Home next-action consult JSON",
+      "exists": true,
+      "bytes": 1798,
+      "sha256": "846b51519f61dcaab0359c315791fc03a83ff74a2be803f3c9f0752f2d903b36"
+    },
+    {
+      "path": "results/kimi_next_action_after_parkinsonathome_20260509.md",
+      "role": "Kimi post-Parkinson@Home next-action consult Markdown",
+      "exists": true,
+      "bytes": 1760,
+      "sha256": "a01b393afd31838cd9f45d12f328b77326584ee38939693a41b57097855152fe"
+    },
+    {
+      "path": "audit_recent_external_web_leads.py",
+      "role": "Recent external web-leads audit script",
+      "exists": true,
+      "bytes": 10652,
+      "sha256": "73457a7ef32a7f2efef1991674561b7297431300feb6e149e638ffdae16a0576"
+    },
+    {
+      "path": "results/recent_external_web_leads_20260509.json",
+      "role": "Recent external web-leads audit JSON",
+      "exists": true,
+      "bytes": 4815,
+      "sha256": "f509a0649e58952142980a60e27832ddfdeed5a67612414932c8904eb55a437c"
+    },
+    {
+      "path": "results/recent_external_web_leads_20260509.md",
+      "role": "Recent external web-leads audit Markdown",
+      "exists": true,
+      "bytes": 3473,
+      "sha256": "441032d3407d34f730af6eae341ee4a46f2e5cae75d7b706bada74441bff224b"
+    },
+    {
+      "path": "results/kimi_recent_external_web_leads_20260509.md",
+      "role": "Kimi recent external web-leads advice Markdown",
+      "exists": true,
+      "bytes": 1459,
+      "sha256": "347f8743d4c98a4e55fc4c06b7d2d2cdbbf51cbd8874784e768a1bfea5e062c0"
+    },
+    {
+      "path": "results/kimi_ppmi_packet_advice_20260509.md",
+      "role": "Kimi PPMI request-packet advice Markdown",
+      "exists": true,
+      "bytes": 1759,
+      "sha256": "63d685ad429003c85aa3d5503ea66b0ec3a3a5b901bfee3b8cf9b2de5a1a742a"
+    },
+    {
+      "path": "results/external_dataset_route_audit_20260508.json",
+      "role": "External dataset route audit JSON",
+      "exists": true,
+      "bytes": 60994,
+      "sha256": "5e0be33a09a7daa425dbf1f6e400c8aaa7e3d73ea60a731405b46eda9a4bc03b"
+    },
+    {
+      "path": "results/external_dataset_route_audit_20260508.md",
+      "role": "External dataset route audit Markdown",
+      "exists": true,
+      "bytes": 62524,
+      "sha256": "c5fb9a2bbbff9592a0cf86762a5719fff678901a25131efd27b1b187a82070c1"
+    },
+    {
+      "path": "scripts/ppmi_verily_setup.md",
+      "role": "PPMI/Verily access runbook",
+      "exists": true,
+      "bytes": 6914,
+      "sha256": "e54ea8633a22e6b0d33de6b306aef018eeddaee4f707faa6f3b6411163323de9"
+    },
+    {
+      "path": "scripts/ppmi_verily_tier3_request_packet.md",
+      "role": "PPMI/Verily Tier-3 request packet template",
+      "exists": true,
+      "bytes": 8865,
+      "sha256": "46201727a4cac2057c74767ec3320d458ba8da63d0dbda249de9faf742965270"
+    },
+    {
+      "path": "audit_ppmi_verily_request_packet.py",
+      "role": "PPMI/Verily Tier-3 request packet audit script",
+      "exists": true,
+      "bytes": 6788,
+      "sha256": "4f500d2c34f6415985394c65b2ecdcf75a429d57ec7b9b6d02ad11e6044d5d82"
+    },
+    {
+      "path": "results/ppmi_verily_request_packet_audit_20260509.json",
+      "role": "PPMI/Verily Tier-3 request packet audit JSON",
+      "exists": true,
+      "bytes": 3341,
+      "sha256": "250959fbfdad09993fb8036e86bccf59326292255acf1297954c2218d9a14b0e"
+    },
+    {
+      "path": "results/ppmi_verily_request_packet_audit_20260509.md",
+      "role": "PPMI/Verily Tier-3 request packet audit Markdown",
+      "exists": true,
+      "bytes": 1001,
+      "sha256": "c2da9f45abcc6cbf5f051a250959351e300f443662a1083800bb9db472ab48ae"
+    },
+    {
+      "path": "scripts/ppp_pd_vme_request_setup.md",
+      "role": "PPP/PD-VME access runbook",
+      "exists": true,
+      "bytes": 6679,
+      "sha256": "8d856080f1a64a6a8e181cbf0411d5b1aef5da189bfb4c15a1509470cbc21131"
+    },
+    {
+      "path": "scripts/ppp_pd_vme_request_packet.md",
+      "role": "PPP/PD-VME request packet template",
+      "exists": true,
+      "bytes": 9758,
+      "sha256": "f454f1b65d12fadd5cb393dbbbced499728052486675d3c359c190b71130afe4"
+    },
+    {
+      "path": "audit_ppp_pd_vme_request_packet.py",
+      "role": "PPP/PD-VME request packet audit script",
+      "exists": true,
+      "bytes": 7196,
+      "sha256": "a6bcdeba6a4067dd6c468003182598eec1152a42006423ad2ea4db587b3857e1"
+    },
+    {
+      "path": "results/ppp_pd_vme_request_packet_audit_20260509.json",
+      "role": "PPP/PD-VME request packet audit JSON",
+      "exists": true,
+      "bytes": 3835,
+      "sha256": "8e16d460acdd1de7141ef2720bd7ed0050622a3859e6afcdd4f1c4b8e4f4c8b3"
+    },
+    {
+      "path": "results/ppp_pd_vme_request_packet_audit_20260509.md",
+      "role": "PPP/PD-VME request packet audit Markdown",
+      "exists": true,
+      "bytes": 998,
+      "sha256": "99556aaa7ad274144d0e6b0183a596f7642ba0702a546e1fc8a41fbc922f70df"
+    },
+    {
+      "path": "results/kimi_ppp_packet_advice_20260509.md",
+      "role": "Kimi PPP/PD-VME request-packet advice Markdown",
+      "exists": true,
+      "bytes": 1692,
+      "sha256": "27688efeae819bedabd76007cc41566bdfc83cf9a47a12071b430e130f474db3"
+    },
+    {
+      "path": "scripts/watchpd_request_setup.md",
+      "role": "WATCH-PD access runbook",
+      "exists": true,
+      "bytes": 4924,
+      "sha256": "369aafec2acf45f595071309c80c62fefcb5278e93121336257985691a865be1"
+    },
+    {
+      "path": "scripts/watchpd_request_packet.md",
+      "role": "WATCH-PD proposal packet template",
+      "exists": true,
+      "bytes": 9054,
+      "sha256": "069d042a0f0d9e2e8014bafa0de106e833352f32bb000bac8a35399a98f01ded"
+    },
+    {
+      "path": "audit_watchpd_request_packet.py",
+      "role": "WATCH-PD proposal packet audit script",
+      "exists": true,
+      "bytes": 7095,
+      "sha256": "0d78ca8afc510ba145ff49908dd45b13e220716e2054c8be111428ad9a55987a"
+    },
+    {
+      "path": "results/watchpd_request_packet_audit_20260509.json",
+      "role": "WATCH-PD proposal packet audit JSON",
+      "exists": true,
+      "bytes": 3748,
+      "sha256": "6e833e4c94a536a5837b34e834d197c0041059f977d7ee35b1336bedd2f15cc7"
+    },
+    {
+      "path": "results/watchpd_request_packet_audit_20260509.md",
+      "role": "WATCH-PD proposal packet audit Markdown",
+      "exists": true,
+      "bytes": 994,
+      "sha256": "1b3901cf9245437879ec48d79c13509b96faddbfae7fbfde9539cb045b31396b"
+    },
+    {
+      "path": "results/kimi_watchpd_packet_advice_20260509.md",
+      "role": "Kimi WATCH-PD proposal-packet advice Markdown",
+      "exists": true,
+      "bytes": 2335,
+      "sha256": "98d4e2ba50481524d09e3e1efd0f5ef2f4629c960b689b2eb04a3b1a051a7c43"
+    },
+    {
+      "path": "scripts/cns_portugal_request_setup.md",
+      "role": "CNS Portugal access runbook",
+      "exists": true,
+      "bytes": 2932,
+      "sha256": "6a5b992f340dc0ad3b08ef9542960b0a1abd0c57a2a05a4d7c5e4c62810a93ef"
+    },
+    {
+      "path": "scripts/cns_portugal_request_packet.md",
+      "role": "CNS Portugal author request packet template",
+      "exists": true,
+      "bytes": 11140,
+      "sha256": "df7cda126ab6b9d13348f9b8b7cc83644ae7d80b1ce29bfbb1080ee8ce323c9e"
+    },
+    {
+      "path": "audit_cns_portugal_request_packet.py",
+      "role": "CNS Portugal request packet audit script",
+      "exists": true,
+      "bytes": 7446,
+      "sha256": "48d76d126eb457a83063399d93bc0d9584960c8032ac7e99cbcfcc76c55fedc4"
+    },
+    {
+      "path": "results/cns_portugal_request_packet_audit_20260509.json",
+      "role": "CNS Portugal request packet audit JSON",
+      "exists": true,
+      "bytes": 4023,
+      "sha256": "96b02f324fad4e790084487fb739a88319f647c824eca1268fceb6ac220c7523"
+    },
+    {
+      "path": "results/cns_portugal_request_packet_audit_20260509.md",
+      "role": "CNS Portugal request packet audit Markdown",
+      "exists": true,
+      "bytes": 1039,
+      "sha256": "fce3cde54d1c45b12e0917d287a717f335dc9594c6fe7de34e349713c09833fc"
+    },
+    {
+      "path": "results/kimi_cns_portugal_packet_advice_20260509.md",
+      "role": "Kimi CNS Portugal request-packet advice Markdown",
+      "exists": true,
+      "bytes": 1814,
+      "sha256": "e54d9d8ed60d5698861cae460bdd41e7e287381a490166f294737e56f93fd5eb"
+    },
+    {
+      "path": "scripts/icicle_request_setup.md",
+      "role": "ICICLE access runbook",
+      "exists": true,
+      "bytes": 3326,
+      "sha256": "97d96ca3f1ecbfbbf67ce9846c784fddc9977913e339f83f3d7b825c757e2edc"
+    },
+    {
+      "path": "scripts/icicle_request_packet.md",
+      "role": "ICICLE request packet template",
+      "exists": true,
+      "bytes": 12587,
+      "sha256": "252e293e6cfa41f5350b2d102a4d7adc5854670eae73ba58d7bd81d6ac367e4e"
+    },
+    {
+      "path": "audit_icicle_request_packet.py",
+      "role": "ICICLE request packet audit script",
+      "exists": true,
+      "bytes": 7672,
+      "sha256": "4b992595522d5ae35d8bb9a762cb3710d6dc5f67ab4bf18526cf0056e320cf8b"
+    },
+    {
+      "path": "results/icicle_request_packet_audit_20260509.json",
+      "role": "ICICLE request packet audit JSON",
+      "exists": true,
+      "bytes": 4287,
+      "sha256": "7069901eb5beb0709e7b348ede379c7b9b1875a812e1c8fb28e94ad61725a51e"
+    },
+    {
+      "path": "results/icicle_request_packet_audit_20260509.md",
+      "role": "ICICLE request packet audit Markdown",
+      "exists": true,
+      "bytes": 1037,
+      "sha256": "1b8c507464b0df0deb4b4d7b5a6bb1520cc3198c25420b21b40a3e467125714e"
+    },
+    {
+      "path": "results/kimi_icicle_packet_advice_20260509.md",
+      "role": "Kimi ICICLE request-packet advice Markdown",
+      "exists": true,
+      "bytes": 1908,
+      "sha256": "a566838dbeacd97f9432326c296c1cead04e3718234e5b2f86111eb1918429c9"
+    },
+    {
+      "path": "scripts/synapse_hssayeni_setup.md",
+      "role": "Hssayeni Synapse access runbook",
+      "exists": true,
+      "bytes": 14302,
+      "sha256": "723324b499dcec3e037ca4123cf84d149360596bf278f0f80c0a9385e7586695"
+    },
+    {
+      "path": "scripts/hssayeni_mjff_dua_request_packet.md",
+      "role": "Hssayeni/MJFF Synapse DUA request packet template",
+      "exists": true,
+      "bytes": 12583,
+      "sha256": "18755332764343ebdb3dc46138351584273bbde40178cd7f958d1c2127acaeeb"
+    },
+    {
+      "path": "audit_hssayeni_mjff_dua_request_packet.py",
+      "role": "Hssayeni/MJFF DUA request packet audit script",
+      "exists": true,
+      "bytes": 7917,
+      "sha256": "88343bd6c75ab557fd02e47588760d55a2e3dbd4da9947b8b2a96f5444b5eed2"
+    },
+    {
+      "path": "results/hssayeni_mjff_dua_request_packet_audit_20260509.json",
+      "role": "Hssayeni/MJFF DUA request packet audit JSON",
+      "exists": true,
+      "bytes": 4523,
+      "sha256": "45413ad48240c499518d9d647afb1ffb3492a09f2fde737491f1e8875461854f"
+    },
+    {
+      "path": "results/hssayeni_mjff_dua_request_packet_audit_20260509.md",
+      "role": "Hssayeni/MJFF DUA request packet audit Markdown",
+      "exists": true,
+      "bytes": 1135,
+      "sha256": "a3c50a62e1f2f86075cf537a53bc2327d6a810b30606becff8898511e6840c41"
+    },
+    {
+      "path": "results/kimi_hssayeni_packet_advice_20260509.md",
+      "role": "Kimi Hssayeni/MJFF DUA request-packet advice Markdown",
+      "exists": true,
+      "bytes": 2036,
+      "sha256": "a67a3e8f3c7c2ba5c9f4f3e24691e8e1ce7ca72f7788121956e2d83eac1aed10"
+    },
+    {
+      "path": "run_t3_iter26_hssayeni.py",
+      "role": "Hssayeni/MJFF acquisition scaffold",
+      "exists": true,
+      "bytes": 13973,
+      "sha256": "326aab371ceaeb311f15c76fbe3e582505b699a4fbfe130e7e31e8cf715bbc59"
+    },
+    {
+      "path": "results/iter26_dua_status_20260508.json",
+      "role": "Hssayeni DUA status",
+      "exists": true,
+      "bytes": 5509,
+      "sha256": "3ae387500673a619e015d1f6ff48f2f6078d698c374c2e77439df9d18c68e8cd"
+    },
+    {
+      "path": "results/current_best_pipeline_artifact_index_20260508.md",
+      "role": "Best-pipeline artifact index",
+      "exists": true,
+      "bytes": 69087,
+      "sha256": "cfa5720cf063834c741c62867684a30645f1551abe1028c05b1e1280ca37bffb"
+    },
+    {
+      "path": "results/thread_goal_completion_audit_20260508.md",
+      "role": "Thread completion audit",
+      "exists": true,
+      "bytes": 60069,
+      "sha256": "ba55135ed4e9d15515b4ae6efeb7a69be117f08c0a26eff51ff3f6be43b26ce5"
+    },
+    {
+      "path": "render_current_paper.py",
+      "role": "Current manuscript renderer",
+      "exists": true,
+      "bytes": 10357,
+      "sha256": "7e4e5d75886130d5866c52c4e1bb7433aad54c96fd7780652e1a476f6a947150"
+    },
+    {
+      "path": "CURRENT_PAPER.html",
+      "role": "Current manuscript HTML export",
+      "exists": true,
+      "bytes": 153207,
+      "sha256": "868f4179a6c676f1b17ea5f713f0c62a3a2bbea3f35d1f87e5edac11ffb1eb7a"
+    },
+    {
+      "path": "results/current_paper_export/manifest.json",
+      "role": "Current manuscript export manifest",
+      "exists": true,
+      "bytes": 5932,
+      "sha256": "dd8dd64819fdd7764d1841f9c6ba4885188586f2f6e7f9f6efb75a3ce62e4c01"
+    },
+    {
+      "path": "verify_current_goal_state.py",
+      "role": "Current goal-state verifier",
+      "exists": true,
+      "bytes": 193201,
+      "sha256": "1fd9796c1ad54714b3d38af5f87ebdb29b3d4e15d300bcee4a8df5dbe7c10285"
+    },
+    {
+      "path": "results/current_goal_state_verification_20260508.json",
+      "role": "Current goal-state verification report",
+      "exists": true,
+      "bytes": 300396,
+      "sha256": "b431136fbbc43491ee0f01a0333a3e227e569deeff7884e6e67a99b67bbe2742"
+    },
+    {
+      "path": "audit_prompt_objective_evidence.py",
+      "role": "Prompt-to-artifact objective audit script",
+      "exists": true,
+      "bytes": 95048,
+      "sha256": "0c51c00fda3aea554250c646f72be481fdf351a232d469fdbeccbc507eaab376"
+    },
+    {
+      "path": "results/prompt_objective_evidence_audit_20260508.json",
+      "role": "Prompt-to-artifact objective audit JSON",
+      "exists": true,
+      "bytes": 151629,
+      "sha256": "ac54dcd4de58cf19cbbdc1988d09bcfe0bbdc4f0381edce5340c45418fa68f44"
+    },
+    {
+      "path": "results/prompt_objective_evidence_audit_20260508.md",
+      "role": "Prompt-to-artifact objective audit Markdown",
+      "exists": true,
+      "bytes": 9428,
+      "sha256": "96a5b33aa467462097d6ce7993cee010b75a06cd8021273d3fdeec7e2b3507e6"
+    },
+    {
+      "path": "audit_cache_manifests.py",
+      "role": "Cache manifest audit script",
+      "exists": true,
+      "bytes": 7437,
+      "sha256": "7dac0a8ef0b4e9ca9623f9f5db71ac1a4f5e2e2724782675d6f50c77302d2c90"
+    },
+    {
+      "path": "results/cache_manifest_audit_20260508.json",
+      "role": "Cache manifest audit JSON",
+      "exists": true,
+      "bytes": 34918,
+      "sha256": "c98abfcac715e3805498d0e840f0d99834cb78db9d249d425c2088db647e4bb5"
+    },
+    {
+      "path": "results/cache_manifest_audit_20260508.md",
+      "role": "Cache manifest audit Markdown",
+      "exists": true,
+      "bytes": 6195,
+      "sha256": "fb87d963a6919b69e64fef1efc77a3d77cc76eaef5e2ba5956c4c71410a3cc25"
+    },
+    {
+      "path": "results/item11_multiscale_recordings.csv.manifest.json",
+      "role": "Item11 recording companion manifest",
+      "exists": true,
+      "bytes": 2310,
+      "sha256": "5c02551f8b258e3fefe066f23014f583c9760852aa92d1f32a303df7ea835a60"
+    },
+    {
+      "path": "audit_missing_cache_manifest_origins.py",
+      "role": "Missing cache-manifest origin audit script",
+      "exists": true,
+      "bytes": 12977,
+      "sha256": "53d72525b7d8748b1c99d0ce03a90892bf1c1a2cc9a4b3677f7b4953431ed102"
+    },
+    {
+      "path": "results/missing_cache_manifest_origin_audit_20260509.json",
+      "role": "Missing cache-manifest origin audit JSON",
+      "exists": true,
+      "bytes": 47936,
+      "sha256": "44209a865d4406c2934fc9e00928777622c5d7c0aef67512d2102a50bbb13020"
+    },
+    {
+      "path": "results/missing_cache_manifest_origin_audit_20260509.md",
+      "role": "Missing cache-manifest origin audit Markdown",
+      "exists": true,
+      "bytes": 10582,
+      "sha256": "a2a1ef69416887c74bad1a4510ce71c5683c4ecf9a9190d47e599945597418fc"
+    },
+    {
+      "path": "audit_manual_cache_backfill_evidence.py",
+      "role": "Manual missing-cache backfill evidence script",
+      "exists": true,
+      "bytes": 15728,
+      "sha256": "7611d3936b7110a654622e9714018cd9c7d7f40e99c7484418ad7cfc41b9637c"
+    },
+    {
+      "path": "results/manual_cache_backfill_evidence_20260509.json",
+      "role": "Manual missing-cache backfill evidence JSON",
+      "exists": true,
+      "bytes": 27693,
+      "sha256": "1544efa2366d10a52545f10bddc910f67070669c46441331524e1c688dbf4a26"
+    },
+    {
+      "path": "results/manual_cache_backfill_evidence_20260509.md",
+      "role": "Manual missing-cache backfill evidence Markdown",
+      "exists": true,
+      "bytes": 2604,
+      "sha256": "a0bc82d0112d6337f997a69bc7a93df13736af9264c4c3316c172850ce0183e8"
+    },
+    {
+      "path": "cache_provenance.py",
+      "role": "Shared cache provenance guard",
+      "exists": true,
+      "bytes": 5876,
+      "sha256": "0c6e66fda402625e82bd481c281f071f01d3e966421c4ee3b0941251d8c89e1c"
+    },
+    {
+      "path": "tests/test_cache_provenance.py",
+      "role": "Cache provenance guard tests",
+      "exists": true,
+      "bytes": 3036,
+      "sha256": "4a1ca571efbd2595b26a26b571f2dd41f2d5c9ac96bf9bfc31aea60a6b73a130"
+    },
+    {
+      "path": "compose_t1_iter14_fog.py",
+      "role": "FoG cache consumer using shared guard",
+      "exists": true,
+      "bytes": 25492,
+      "sha256": "624da8c0dfb57603dfb6da69f9d939a49acbc38ad4fbda548212c6e3b8a28383"
+    },
+    {
+      "path": "compose_t1_iter15_harnet.py",
+      "role": "HARNet cache consumer using shared guard",
+      "exists": true,
+      "bytes": 22968,
+      "sha256": "9d61798cd7638b323e89dd2555751495512135ded06fed3d43ec66c68506e8bb"
+    },
+    {
+      "path": "run_t3_iter23_clinical_ablation.py",
+      "role": "Clinical-extras cache consumer using shared guard",
+      "exists": true,
+      "bytes": 29412,
+      "sha256": "ba83ebc0a3c35f9639a7340a57b6fbcb9c29d431b3f15623176e1d2cb45ce5bf"
+    },
+    {
+      "path": "run_t3_iter24_stage2_forced.py",
+      "role": "Clinical-extras forced-stage2 consumer using shared guard",
+      "exists": true,
+      "bytes": 24947,
+      "sha256": "e48a7c7a51f79fc74720d151dc0bce919a63c1e7b03e58ac0b34c63b4f51ec04"
+    }
+  ],
+  "canonical_claim_consistency_audit": {
+    "passed": true,
+    "stale_findings": 0,
+    "missing_required_snippets": 0
+  },
+  "headline_metric_recompute_audit": {
+    "passed": true,
+    "checks": 9,
+    "tolerance": 0.0005
+  },
+  "ccc_metric_integrity_audit": {
+    "passed": true,
+    "headline_checks": 7,
+    "implementation_checks": 7,
+    "max_abs_sample_minus_population_headline": 2.7023203458265144e-06,
+    "warnings": 1
+  },
+  "oof_artifact_integrity_audit": {
+    "passed": true,
+    "checks": 4,
+    "max_abs_diff_max": 0.0
+  },
+  "cache_dependency_audits": {
+    "cache_manifest_status": {
+      "status_counts": {
+        "missing_manifest_diagnostic_only": 33,
+        "manifest_complete_clean_by_construction": 4,
+        "partial_manifest_diagnostic_only": 8
+      },
+      "headline_safe_artifacts": [
+        "results/clinical_extras.csv",
+        "results/harnet_subj_embeddings.csv",
+        "results/item11_multiscale.csv",
+        "results/item11_multiscale_recordings.csv"
+      ]
+    },
+    "partial_manifest_backfill_candidates": {
+      "counts": {
+        "do_not_backfill_for_internal_headline": 4,
+        "manual_backfill_candidate": 2,
+        "needs_commit_before_backfill": 2
+      }
+    },
+    "missing_manifest_origin_audit": {
+      "n_missing_manifests": 33,
+      "decision_counts": {
+        "blocked_by_upstream_diagnostic_cache": 5,
+        "insufficient_producer_evidence": 9,
+        "manual_backfill_candidate_needs_human_patch": 5,
+        "manual_review_label_or_clinical_tokens": 14
+      },
+      "policy": "Non-mutating origin map. Do not create clean manifests from this audit alone; exact command/runtime/git/data-hash evidence must still be concrete."
+    },
+    "manual_missing_manifest_backfill_evidence": {
+      "n_candidates": 5,
+      "decision_counts": {
+        "leave_missing_no_patch": 5
+      },
+      "remote_recovery_probe": {
+        "enabled": true,
+        "remote": "fiod@165.22.71.91",
+        "port": "2243",
+        "returncode": 0,
+        "output": [
+          "REMOTE_ROOT /home/fiod/pd-imu",
+          "BROKEN_SYMLINK results/rocket_recordings.npz -> /home/fiod/medical/results/results/rocket_recordings.npz 56 bytes mtime=2026-04-28 13:26:14.356989943 +0300",
+          "MISSING results/hc_ssl_subj_embeddings.csv",
+          "MISSING results/moment_subj_embeddings.csv",
+          "MISSING results/joints_v2_subj.csv",
+          "MISSING results/stride_locked_subj.csv",
+          "MISSING results/tug_transition_features.csv",
+          "MISSING results/cache_features.log"
+        ]
+      }
+    },
+    "cache_consumer_guard": {
+      "classification_counts": {
+        "non_model_or_cache_producer_reference": 32,
+        "diagnostic_only_consumer_block_reportable_use": 53,
+        "current_safe_consumer_guarded": 4
+      },
+      "current_guarded_consumers": [
+        "compose_t1_iter14_fog.py",
+        "compose_t1_iter15_harnet.py",
+        "run_t3_iter23_clinical_ablation.py",
+        "run_t3_iter24_stage2_forced.py"
+      ],
+      "diagnostic_only_model_consumers": 53
+    },
+    "transitive_import_closure": {
+      "classification_counts": {
+        "entrypoint_direct_diagnostic_cache_reference": 5,
+        "import_closure_contains_diagnostic_cache_reference": 7
+      },
+      "entrypoints": [
+        "compose_t1_iter12_honest.py",
+        "run_t1_iter34_hybrid_8item_multibase.py",
+        "run_t1_iter46_et_robust.py",
+        "run_t3_iter47_invalid_code_fix.py",
+        "run_t3_iter41_target_fix.py",
+        "run_t3_iter5_clinical.py",
+        "run_t3_iter16_site_ipw.py",
+        "compose_t1_iter14_fog.py",
+        "compose_t1_iter15_harnet.py",
+        "run_t3_iter23_clinical_ablation.py",
+        "run_t3_iter24_stage2_forced.py",
+        "run_t3_iter49_cops.py"
+      ],
+      "direct_diagnostic_entrypoints": [
+        "compose_t1_iter12_honest.py",
+        "run_t3_iter41_target_fix.py",
+        "run_t3_iter5_clinical.py",
+        "run_t3_iter16_site_ipw.py",
+        "run_t3_iter49_cops.py"
+      ]
+    },
+    "runtime_cache_reads": {
+      "target_count": 3,
+      "opened_diagnostic_or_partial_cache_artifacts": [
+        "results/ablation_v3_features.csv"
+      ],
+      "method": "Python sys.addaudithook('open') around lightweight in-process data-load/recompute paths"
+    }
+  },
+  "t3_iter47_target_integrity_audit": {
+    "passed": true,
+    "hard_failures": 0,
+    "warnings": 0,
+    "minimal_n": 95,
+    "complete33_n": 88,
+    "invalid_raw_values": 2,
+    "target_changed_rows": 1
+  },
+  "t3_complete33_claim_labeling_audit": {
+    "passed": true,
+    "findings": 0,
+    "missing_required_snippets": 0,
+    "docs": [
+      "paper.md",
+      "CURRENT_PAPER.html",
+      "CLAUDE.md",
+      "AGENTS.md",
+      "task_plan.md",
+      "progress.md",
+      "findings.md",
+      "results/thread_goal_completion_audit_20260508.md",
+      "results/current_best_pipeline_artifact_index_20260508.md"
+    ]
+  },
+  "external_result_claim_labeling_audit": {
+    "passed": true,
+    "findings": 0,
+    "missing_required_snippets": 0,
+    "artifact_failures": 0,
+    "artifact_checks": [
+      "results/iter39_fogstar_zeroshot_20260508_143717.json",
+      "results/iter49_cops_zeroshot.json",
+      "results/iter51_tlvmc_defog_zeroshot.json",
+      "results/iter52_pdfe_turning_zeroshot.json"
+    ],
+    "docs": [
+      "paper.md",
+      "CURRENT_PAPER.html",
+      "CLAUDE.md",
+      "AGENTS.md",
+      "task_plan.md",
+      "progress.md",
+      "findings.md",
+      "results/thread_goal_completion_audit_20260508.md",
+      "results/current_best_pipeline_artifact_index_20260508.md"
+    ]
+  },
+  "remaining_blocker_action_audit": {
+    "passed": true,
+    "source_blocker_count": 36,
+    "local_model_actions": 0,
+    "unmatched_blockers": 0,
+    "action_type_counts": {
+      "candidate_disclosure_no_posthoc_lockbox": 2,
+      "disclosure_only_no_model_run": 5,
+      "monitor_or_request_no_scaffold": 1,
+      "no_local_weargait_model_run": 8,
+      "no_prereg_no_download": 3,
+      "no_prereg_no_rerun_same_policy": 1,
+      "paper_transportability_only": 4,
+      "paper_uncertainty_only": 1,
+      "requires_user_credentials_or_confirmation": 1,
+      "requires_user_or_data_owner_access": 8,
+      "requires_weargait_raw_data_restore": 2
+    },
+    "recommended_next_actions": [
+      "Pursue user/data-owner access for gated external cohorts before any new external scaffold: Hssayeni/MJFF, PPMI/Verily, WATCH-PD, ICICLE-PD/ICICLE-GAIT, CNS Portugal/Lobo, Personalized Parkinson Project / PD-VME, or optional small request-only cohorts.",
+      "Restore WearGait raw/control inputs and Synapse credentials only if the goal is V2 cache provenance regeneration; this is not a new CCC-breaking model action by itself.",
+      "Continue paper/provenance hardening and claim guards as needed.",
+      "Do not launch another WearGait-only T1/T3 model family from the current evidence without new labeled data or a new pre-registered target representation."
+    ]
+  },
+  "external_access_readiness_audit": {
+    "passed": true,
+    "route_count": 9,
+    "application_packet_ready_count": 6,
+    "compute_ready_route_count": 0,
+    "top_priority_route": "PPMI / Verily Study Watch",
+    "hard_failure_count": 0,
+    "warning_count": 3,
+    "decision": "access_packets_ready_no_compute"
+  },
+  "access_submission_tracker": {
+    "passed": true,
+    "decision": "access_submission_tracker_ready",
+    "submit_ready_route_count": 6,
+    "compute_ready_route_count": 0,
+    "hard_failure_count": 0,
+    "top_priority_route": "PPMI / Verily Study Watch"
+  },
+  "recent_external_web_leads": {
+    "decision": "recent_external_web_leads_documented_no_compute_route",
+    "routes_checked": 3,
+    "new_compute_ready_routes": 0,
+    "new_scaffold_or_preregistration_actions": 0,
+    "master_routes_changed": [
+      "Perioperative MDS-UPDRS-III tremor accelerometry / Smid 2026",
+      "PDAssist de novo smartphone UPDRS Part III / Guo 2025"
+    ],
+    "already_present_routes": [
+      "Yin et al Frontiers Neurology 2025 gait-parameter regression"
+    ]
+  },
+  "ppmi_verily_request_packet_audit": {
+    "passed": true,
+    "decision": "ppmi_verily_tier3_request_packet_ready",
+    "packet": "scripts/ppmi_verily_tier3_request_packet.md",
+    "hard_failures": 0,
+    "checks": 9,
+    "missing": 0
+  },
+  "ppp_pd_vme_request_packet_audit": {
+    "passed": true,
+    "decision": "ppp_pd_vme_request_packet_ready",
+    "packet": "scripts/ppp_pd_vme_request_packet.md",
+    "hard_failures": 0,
+    "checks": 9,
+    "missing": 0
+  },
+  "watchpd_request_packet_audit": {
+    "passed": true,
+    "decision": "watchpd_request_packet_ready",
+    "packet": "scripts/watchpd_request_packet.md",
+    "hard_failures": 0,
+    "checks": 9,
+    "missing": 0
+  },
+  "cns_portugal_request_packet_audit": {
+    "passed": true,
+    "decision": "cns_portugal_request_packet_ready",
+    "packet": "scripts/cns_portugal_request_packet.md",
+    "hard_failures": 0,
+    "checks": 9,
+    "missing": 0
+  },
+  "hssayeni_mjff_dua_request_packet_audit": {
+    "passed": true,
+    "decision": "hssayeni_mjff_dua_request_packet_ready",
+    "packet": "scripts/hssayeni_mjff_dua_request_packet.md",
+    "hard_failures": 0,
+    "checks": 10,
+    "missing": 0
+  },
+  "icicle_request_packet_audit": {
+    "passed": true,
+    "decision": "icicle_request_packet_ready",
+    "packet": "scripts/icicle_request_packet.md",
+    "hard_failures": 0,
+    "checks": 9,
+    "missing": 0
+  },
+  "weargait_raw_data_recovery_runbook_audit": {
+    "passed": true,
+    "decision": "raw_data_recovery_runbook_ready_no_download",
+    "preflight_status": "missing_inputs",
+    "credentials_present": false,
+    "regeneration_probe_status": "blocked_missing_regeneration_inputs",
+    "hard_failures": 0,
+    "warnings": 0
+  },
+  "task_plan_current_scope_audit": {
+    "passed": true,
+    "decision": "task_plan_current_scope_guard_passed",
+    "historical_boundary_line": 305,
+    "current_scope_lines": 304,
+    "archive_scope_lines": 1706,
+    "hard_failures": 0,
+    "legacy_success_findings": 0
+  },
+  "paper_generator_routing_audit": {
+    "passed": true,
+    "decision": "current_paper_renderer_route_guard_passed",
+    "hard_failures": 0,
+    "active_doc_count": 8,
+    "current_renderer_status": "passed",
+    "current_renderer_validation_issues": 0,
+    "legacy_new4_transductive_hits": 17
+  },
+  "readme_claim_routing_audit": {
+    "passed": true,
+    "decision": "readme_current_claim_route_guard_passed",
+    "hard_failures": 0,
+    "unguarded_stale_hits": 0,
+    "missing_required": 0,
+    "bad_current_route_hits": 0
+  },
+  "legacy_manuscript_surface_audit": {
+    "passed": true,
+    "decision": "legacy_manuscript_surfaces_quarantined",
+    "hard_failures": 0,
+    "legacy_surfaces": 16,
+    "total_dangerous_hits": 651
+  },
+  "historical_archive_surface_audit": {
+    "passed": true,
+    "decision": "historical_archive_surfaces_quarantined",
+    "hard_failures": 0,
+    "surfaces_checked": 11,
+    "stale_pattern_hits_retained_under_archive_banners": 30
+  },
+  "secret_hygiene_audit": {
+    "passed": true,
+    "decision": "secret_hygiene_guard_passed",
+    "findings": 0,
+    "hard_failures": 0,
+    "scanned_file_count": 1447,
+    "sensitive_local_files": {
+      "TOKEN.md": {
+        "exists": false,
+        "bytes": 0
+      },
+      "GPU.md": {
+        "exists": true,
+        "bytes": 56
+      },
+      ".env": {
+        "exists": false,
+        "bytes": 0
+      },
+      "synapse_credentials.json": {
+        "exists": false,
+        "bytes": 0
+      }
+    }
+  },
+  "t3_iter47_ccc_rescale_sanity": {
+    "scope": "diagnostic_only_not_reportable_model",
+    "not_fully_nested": true,
+    "no_model_promotion": true,
+    "base_ccc": 0.3783671177953899,
+    "variance_match_ccc": 0.39958836828844163,
+    "variance_match_mae": 8.667060513628945,
+    "variance_match_bootstrap": {
+      "n_boot": 10000,
+      "seed": 42,
+      "ccc_delta_mean": 0.02083504539467097,
+      "ccc_delta_ci95": [
+        -0.010409830297418992,
+        0.05780508581939268
+      ],
+      "ccc_delta_frac_above_zero": 0.8935,
+      "mae_delta_mean": 1.1398064461721245,
+      "mae_delta_ci95": [
+        0.4659292439569389,
+        1.8439729930773108
+      ],
+      "mae_delta_frac_below_zero": 0.0003
+    }
+  },
+  "current_headline_influence_audit": {
+    "decision": {
+      "scope": "diagnostic_only_no_model_selection",
+      "no_model_promotion": true,
+      "no_new_loocv": true,
+      "redline_summary": {
+        "single_subject_abs_delta_threshold": 0.05,
+        "top5_share_threshold": 0.5,
+        "single_subject_redline_hit": false,
+        "top5_share_redline_hit": false,
+        "tail_leverage_warning": true
+      },
+      "summary": "No single-subject influence pattern justifies a model update. T3 max |leave-one CCC delta| is 0.0381; T1 iter34-minus-iter12 matched delta stays positive under all leave-one deletions (minimum 0.0629). Influence is still severity-tail concentrated, so this is a claim-fragility caveat rather than a filtering rule."
+    },
+    "t3_leave_one_ccc_min": 0.340222183971736,
+    "t3_leave_one_ccc_max": 0.40559206578722456,
+    "t3_top1_abs_delta_ccc": 0.038144933823653915,
+    "t3_top5_fraction_of_sum_abs_delta": 0.28404712252966785,
+    "t3_gini_abs_delta_ccc": 0.600862555984697,
+    "t3_abs_target_minus_median_vs_abs_delta_ccc": 0.6778513439016619,
+    "t1_iter34_minus_iter12_leave_one_delta_min": 0.06292134687538109,
+    "t1_iter34_leave_one_ccc_min": 0.6997278807733609
+  },
+  "t3_iter47_domain_residual_audit": {
+    "decision": {
+      "scope": "diagnostic_only_privileged_ground_truth_domains",
+      "no_model_promotion": true,
+      "no_new_loocv": true,
+      "no_subject_filtering": true,
+      "redlines": {
+        "observable_domain_abs_residual_corr_threshold": 0.5,
+        "observable_domain_oracle_delta_ccc_threshold": 0.05,
+        "observable_domain_route_flag": false,
+        "best_overall_domain": "unobservable_non_gait",
+        "best_deployable_proxy_domain": "gait_balance_7_14"
+      },
+      "summary": "Current iter47 T3 residuals are most associated with unobservable_non_gait (r=-0.8004). The best single-domain privileged oracle is unobservable_non_gait (delta CCC +0.4716); the best gait-observable proxy is gait_balance_7_14 (delta CCC +0.2083). Because these corrections use true clinical domain labels, they are explanation only."
+    },
+    "parsed_total_max_abs_diff_vs_iter47_target": 0.0,
+    "unobservable_non_gait_residual_r": -0.8003977872431429,
+    "unobservable_non_gait_oracle_delta_ccc": 0.47164343719694224,
+    "upper_limb_brady_residual_r": -0.6224081731735964,
+    "upper_limb_brady_oracle_delta_ccc": 0.3371910630599395,
+    "gait_balance_residual_r": -0.41353808399398284,
+    "gait_balance_oracle_delta_ccc": 0.20828858781007298,
+    "multidomain_privileged_oracle_ccc": 0.8532769281061139,
+    "multidomain_privileged_oracle_delta_ccc": 0.474909810310724
+  },
+  "t3_iter47_item_residual_audit": {
+    "scope": "diagnostic_only_saved_oof_no_model_selection_no_prereg_no_loocv",
+    "no_model_promotion": true,
+    "target_reconstruction_max_abs_diff": 0.0,
+    "top_residual_item": {
+      "item": 6,
+      "name": "pronation_supination",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.9578947368421054,
+      "sd": 1.4932535264257125,
+      "max": 5.0,
+      "nonzero_fraction": 0.8,
+      "corr_item_with_t3_target": 0.6350028663821272,
+      "corr_item_with_t3_prediction": 0.15144723783120098,
+      "corr_item_with_residual_pred_minus_true": -0.5705291019290375,
+      "abs_corr_item_with_residual": 0.5705291019290375,
+      "corr_item_with_abs_error": 0.0022104777461639433,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.5705291019290375,
+        "ci_low": -0.6833769537582056,
+        "ci_high": -0.44331903740886774
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.6600684229455746,
+        "mae": 6.3448600109424085,
+        "delta_ccc_vs_base": 0.28170130515018466,
+        "delta_mae_vs_base": -1.183162819338352,
+        "mean_slope_per_item_sd": -5.318357053432066
+      }
+    },
+    "top_privileged_oracle_item": {
+      "item": 6,
+      "name": "pronation_supination",
+      "weargait_observable": false,
+      "t1_item": false,
+      "n_valid_item_scores": 95,
+      "n_missing_item_scores": 0,
+      "mean": 1.9578947368421054,
+      "sd": 1.4932535264257125,
+      "max": 5.0,
+      "nonzero_fraction": 0.8,
+      "corr_item_with_t3_target": 0.6350028663821272,
+      "corr_item_with_t3_prediction": 0.15144723783120098,
+      "corr_item_with_residual_pred_minus_true": -0.5705291019290375,
+      "abs_corr_item_with_residual": 0.5705291019290375,
+      "corr_item_with_abs_error": 0.0022104777461639433,
+      "residual_corr_bootstrap": {
+        "n": 95,
+        "corr": -0.5705291019290375,
+        "ci_low": -0.6833769537582056,
+        "ci_high": -0.44331903740886774
+      },
+      "loo_privileged_oracle": {
+        "ccc": 0.6600684229455746,
+        "mae": 6.3448600109424085,
+        "delta_ccc_vs_base": 0.28170130515018466,
+        "delta_mae_vs_base": -1.183162819338352,
+        "mean_slope_per_item_sd": -5.318357053432066
+      }
+    },
+    "mean_abs_residual_corr_observable": 0.246962138355727,
+    "mean_abs_residual_corr_unobservable": 0.371210245408891,
+    "best_observable_oracle_delta_ccc": 0.14847903649349226,
+    "best_unobservable_oracle_delta_ccc": 0.28170130515018466
+  },
+  "preregistration_temporal_integrity_audit": {
+    "passed": true,
+    "checks": 9,
+    "warnings": 11,
+    "hard_failures": 0
+  },
+  "pre_audit_claim_labeling_audit": {
+    "passed": true,
+    "findings": 0,
+    "docs": [
+      "paper.md",
+      "CURRENT_PAPER.html"
+    ]
+  },
+  "historical_subdomain_claim_labeling_audit": {
+    "passed": true,
+    "findings": 0,
+    "docs": [
+      "paper.md",
+      "CURRENT_PAPER.html"
+    ]
+  },
+  "t1_candidate_claim_labeling_audit": {
+    "passed": true,
+    "findings": 0,
+    "missing_required_snippets": 0
+  },
+  "reportable_artifact_flag_audit": {
+    "passed": true,
+    "checks": 5,
+    "stale_raw_flags": 3,
+    "hard_failures": 0,
+    "iter34_raw_canonical_flag_superseded": true
+  },
+  "per_item_evidence_map": {
+    "passed": true,
+    "status_counts": {
+      "missing_or_backfill_only_unobservable": 3,
+      "historical_iter8_per_item_lockbox_supplementary": 7,
+      "current_t1_iter12_component": 6,
+      "iter17_reportable_per_item_win": 2
+    },
+    "t1_iter12_sum_ccc": 0.655,
+    "t3_per_item_sum_historical_ccc": 0.2646,
+    "missing_artifacts": 0
+  },
+  "per_item_oof_companion_scope_audit": {
+    "passed": true,
+    "oof_backed_rows": 15,
+    "row_level_json_comparison_available_count": 0,
+    "warnings": 1,
+    "hard_warnings": 0,
+    "t1_max_abs_diff_vs_composite_oof": 0.0
+  },
+  "t1_iter12_batch_integrity_audit": {
+    "passed": true,
+    "hard_failures": 0,
+    "warnings": 0,
+    "ccc": 0.655,
+    "mae": 1.5614,
+    "max_abs_diff_vs_stored_oof": 0.0,
+    "single_coherent_batch": true,
+    "uses_swaps": false
+  },
+  "completion_verdict": "not_complete_t3_validrange_ceiling_unbroken_and_hssayeni_dua_blocked"
+}

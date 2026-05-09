@@ -56,6 +56,7 @@ from inductive_lib import (
     pearson_r,
 )
 from project_paths import RESULTS_DIR, ensure_dir
+from cache_provenance import require_cache_manifest
 from run_t3_iter5_clinical import (
     CLINICAL_COLS_BINARY,
     CLINICAL_COLS_CONTINUOUS,
@@ -138,29 +139,7 @@ ABLATION_SETS: dict[str, list[str]] = {
 
 def _validate_manifest() -> dict:
     """Refuse to start if cache or manifest is missing/unsafe."""
-    if not CLINICAL_EXTRAS_CSV.exists():
-        raise FileNotFoundError(
-            f"Missing clinical extras cache: {CLINICAL_EXTRAS_CSV}. The parallel agent must "
-            "build this via cache_clinical_extras.py before iter23 can run."
-        )
-    if not CLINICAL_EXTRAS_MANIFEST.exists():
-        raise FileNotFoundError(
-            f"Missing clinical extras manifest: {CLINICAL_EXTRAS_MANIFEST}. "
-            "Cannot verify leakage status; refusing to compute."
-        )
-    with open(CLINICAL_EXTRAS_MANIFEST) as f:
-        mani = json.load(f)
-    if mani.get("labels_used", True):
-        raise RuntimeError(
-            f"Manifest reports labels_used=True; clinical extras may be derived from UPDRS-III "
-            f"ratings. Refusing to use as Stage-1 covariates. Manifest: {CLINICAL_EXTRAS_MANIFEST}"
-        )
-    if mani.get("leakage_status") != "clean_by_construction":
-        raise RuntimeError(
-            f"Manifest leakage_status={mani.get('leakage_status')!r}, expected "
-            f"'clean_by_construction'. Refusing. Manifest: {CLINICAL_EXTRAS_MANIFEST}"
-        )
-    return mani
+    return require_cache_manifest(CLINICAL_EXTRAS_CSV)
 
 
 def _manifest_sha256() -> str:

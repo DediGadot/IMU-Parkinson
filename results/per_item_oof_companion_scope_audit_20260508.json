@@ -1,0 +1,672 @@
+{
+  "generated_at_utc": "2026-05-08T22:41:11+00:00",
+  "script": "audit_per_item_oof_companion_scope.py",
+  "policy": "Per-item OOF companions are scope/integrity checked as finite one-dimensional arrays whose length matches either the JSON-reported evaluation N or the current 94-slot T1 cohort. Per-item JSON row-level equality cannot be checked because the JSON artifacts do not contain per_subject.y_pred. For current T1 items 9-14, the companion arrays must sum exactly to the canonical iter12 T1 OOF vector.",
+  "passed": true,
+  "source_per_item_map": "results/per_item_evidence_map_20260508.json",
+  "current_t1_oof_slots": 94,
+  "oof_backed_rows": 15,
+  "row_level_json_comparison_available_count": 0,
+  "checks": [
+    {
+      "item": 4,
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "variant": "v2_baseline",
+      "json": "results/lockbox_peritem_4_v2_baseline_20260430_143044.json",
+      "oof": "results/lockbox_peritem_4_v2_baseline_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 5,
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "variant": "v2_baseline",
+      "json": "results/lockbox_peritem_5_v2_baseline_20260430_143044.json",
+      "oof": "results/lockbox_peritem_5_v2_baseline_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 6,
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "variant": "lr_multitask",
+      "json": "results/lockbox_peritem_6_lr_multitask_20260430_143044.json",
+      "oof": "results/lockbox_peritem_6_lr_multitask_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 7,
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "variant": "item_plus_v2",
+      "json": "results/lockbox_peritem_7_item_plus_v2_20260430_143044.json",
+      "oof": "results/lockbox_peritem_7_item_plus_v2_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 8,
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "variant": "item_plus_v2",
+      "json": "results/lockbox_peritem_8_item_plus_v2_20260430_143044.json",
+      "oof": "results/lockbox_peritem_8_item_plus_v2_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 9,
+      "status": "current_t1_iter12_component",
+      "variant": "hy_residual_item",
+      "json": "results/lockbox_peritem_9_hy_residual_item_20260430_143044.json",
+      "oof": "results/lockbox_peritem_9_hy_residual_item_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 10,
+      "status": "current_t1_iter12_component",
+      "variant": "item_plus_v2",
+      "json": "results/lockbox_peritem_10_item_plus_v2_20260430_143044.json",
+      "oof": "results/lockbox_peritem_10_item_plus_v2_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 11,
+      "status": "current_t1_iter12_component",
+      "variant": "item_dedicated",
+      "json": "results/lockbox_peritem_11_item_dedicated_20260430_143044.json",
+      "oof": "results/lockbox_peritem_11_item_dedicated_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 12,
+      "status": "current_t1_iter12_component",
+      "variant": "item_plus_v2",
+      "json": "results/lockbox_peritem_12_item_plus_v2_20260430_143044.json",
+      "oof": "results/lockbox_peritem_12_item_plus_v2_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 13,
+      "status": "current_t1_iter12_component",
+      "variant": "item_plus_v2",
+      "json": "results/lockbox_peritem_13_item_plus_v2_20260430_143044.json",
+      "oof": "results/lockbox_peritem_13_item_plus_v2_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 14,
+      "status": "current_t1_iter12_component",
+      "variant": "item_plus_v2",
+      "json": "results/lockbox_peritem_14_item_plus_v2_20260430_143044.json",
+      "oof": "results/lockbox_peritem_14_item_plus_v2_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 15,
+      "status": "iter17_reportable_per_item_win",
+      "variant": "item_only",
+      "json": "results/lockbox_peritem_15_iter17hyp_item_only_20260503_221544.json",
+      "oof": "results/lockbox_peritem_15_iter17hyp_item_only_20260503_221544.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "baseline_ccc",
+        "cal_slope",
+        "ccc",
+        "delta_vs_baseline",
+        "is_lockbox_headline",
+        "item",
+        "label",
+        "mae",
+        "n",
+        "n_subjects_valid",
+        "pred_mean",
+        "pred_std",
+        "r",
+        "seed_cccs",
+        "seed_std",
+        "true_mean",
+        "true_std",
+        "variant"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 16,
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "variant": "lr_multitask",
+      "json": "results/lockbox_peritem_16_lr_multitask_20260430_143044.json",
+      "oof": "results/lockbox_peritem_16_lr_multitask_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 17,
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "variant": "v2_baseline",
+      "json": "results/lockbox_peritem_17_v2_baseline_20260430_143044.json",
+      "oof": "results/lockbox_peritem_17_v2_baseline_20260430_143044.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 93,
+      "oof_shape": [
+        93
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": true,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "ccc_mean",
+        "ccc_std",
+        "eval",
+        "item",
+        "mae_mean",
+        "n_subjects",
+        "per_seed",
+        "pre_registration",
+        "seeds",
+        "variant",
+        "wall_time_s"
+      ],
+      "load_error": null,
+      "passed": true
+    },
+    {
+      "item": 18,
+      "status": "iter17_reportable_per_item_win",
+      "variant": "hy_residual_item_v2",
+      "json": "results/lockbox_peritem_18_iter17hyp_hy_residual_item_v2_20260503_221544.json",
+      "oof": "results/lockbox_peritem_18_iter17hyp_hy_residual_item_v2_20260503_221544.oof.npy",
+      "json_exists": true,
+      "oof_exists": true,
+      "json_reported_n": 93,
+      "oof_shape": [
+        94
+      ],
+      "oof_dtype": "float64",
+      "oof_numeric": true,
+      "oof_finite": true,
+      "expected_slot_shape": true,
+      "reported_n_matches_slots": false,
+      "row_level_json_comparison_available": false,
+      "json_top_level_keys": [
+        "baseline_ccc",
+        "cal_slope",
+        "ccc",
+        "delta_vs_baseline",
+        "is_lockbox_headline",
+        "item",
+        "label",
+        "mae",
+        "n",
+        "n_subjects_valid",
+        "pred_mean",
+        "pred_std",
+        "r",
+        "seed_cccs",
+        "seed_std",
+        "true_mean",
+        "true_std",
+        "variant"
+      ],
+      "load_error": null,
+      "passed": true
+    }
+  ],
+  "key_checks": [
+    {
+      "name": "per_item_map_source_passed",
+      "passed": true,
+      "evidence": {
+        "source": "results/per_item_evidence_map_20260508.json"
+      }
+    },
+    {
+      "name": "all_15_oof_backed_rows_have_finite_expected_slot_arrays",
+      "passed": true,
+      "evidence": {
+        "n_oof_backed": 15,
+        "failed": []
+      }
+    },
+    {
+      "name": "row_level_json_prediction_comparison_unavailable_for_per_item_artifacts",
+      "passed": true,
+      "evidence": {
+        "n_unavailable": 15,
+        "policy": "Per-item JSONs lack per_subject.y_pred; this audit checks companion scope and T1 summation instead."
+      }
+    },
+    {
+      "name": "t1_iter12_item_oofs_sum_to_canonical_oof",
+      "passed": true,
+      "items": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "summed_shape": [
+        94
+      ],
+      "composite_oof_shape": [
+        94
+      ],
+      "max_abs_diff_vs_t1_composite_oof": 0.0,
+      "tolerance": 1e-09,
+      "t1_metrics_from_summed_item_oofs": {
+        "n": 94,
+        "ccc": 0.6549835213947802,
+        "mae": 1.5614339199332312
+      },
+      "t1_json_metrics": {
+        "n": 94,
+        "ccc": 0.655,
+        "mae": 1.5614
+      },
+      "per_item_oof_companion_metrics": [
+        {
+          "item": 9,
+          "valid_target_n": 94,
+          "oof_companion_ccc": 0.44861182612431894,
+          "oof_companion_mae": 0.33757872402204403,
+          "map_summary_ccc": 0.44366666666666665,
+          "map_summary_mae": 0.3415000000000001,
+          "metric_relation": "OOF companion metric is not expected to equal map summary metric because the per-item JSON stores seed-summary metrics, not row-level ensemble predictions."
+        },
+        {
+          "item": 10,
+          "valid_target_n": 94,
+          "oof_companion_ccc": 0.4821548126508255,
+          "oof_companion_mae": 0.5029185171035185,
+          "map_summary_ccc": 0.4755333333333333,
+          "map_summary_mae": 0.5087666666666667,
+          "metric_relation": "OOF companion metric is not expected to equal map summary metric because the per-item JSON stores seed-summary metrics, not row-level ensemble predictions."
+        },
+        {
+          "item": 11,
+          "valid_target_n": 94,
+          "oof_companion_ccc": 0.38259725885517726,
+          "oof_companion_mae": 0.3594749183262824,
+          "map_summary_ccc": 0.37939999999999996,
+          "map_summary_mae": 0.36336666666666667,
+          "metric_relation": "OOF companion metric is not expected to equal map summary metric because the per-item JSON stores seed-summary metrics, not row-level ensemble predictions."
+        },
+        {
+          "item": 12,
+          "valid_target_n": 94,
+          "oof_companion_ccc": 0.5974994297652818,
+          "oof_companion_mae": 0.5164314138287794,
+          "map_summary_ccc": 0.5928,
+          "map_summary_mae": 0.5231,
+          "metric_relation": "OOF companion metric is not expected to equal map summary metric because the per-item JSON stores seed-summary metrics, not row-level ensemble predictions."
+        },
+        {
+          "item": 13,
+          "valid_target_n": 94,
+          "oof_companion_ccc": 0.11965660926457955,
+          "oof_companion_mae": 0.6146036478995899,
+          "map_summary_ccc": 0.11693333333333333,
+          "map_summary_mae": 0.6211333333333334,
+          "metric_relation": "OOF companion metric is not expected to equal map summary metric because the per-item JSON stores seed-summary metrics, not row-level ensemble predictions."
+        },
+        {
+          "item": 14,
+          "valid_target_n": 94,
+          "oof_companion_ccc": 0.3857054838824132,
+          "oof_companion_mae": 0.5136859473512526,
+          "map_summary_ccc": 0.3788333333333333,
+          "map_summary_mae": 0.5236333333333333,
+          "metric_relation": "OOF companion metric is not expected to equal map summary metric because the per-item JSON stores seed-summary metrics, not row-level ensemble predictions."
+        }
+      ]
+    },
+    {
+      "name": "item18_valid_n_mismatch_recorded_as_warning_not_failure",
+      "passed": true,
+      "evidence": [
+        {
+          "item": 18,
+          "warning": "json_reported_valid_n_differs_from_oof_slot_len",
+          "artifact": "results/lockbox_peritem_18_iter17hyp_hy_residual_item_v2_20260503_221544.json",
+          "json_reported_n": 93,
+          "oof_slot_len": 94,
+          "interpretation": "companion array has full 94-slot cohort shape; JSON reports valid target/evaluation count."
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    {
+      "item": 18,
+      "warning": "json_reported_valid_n_differs_from_oof_slot_len",
+      "artifact": "results/lockbox_peritem_18_iter17hyp_hy_residual_item_v2_20260503_221544.json",
+      "json_reported_n": 93,
+      "oof_slot_len": 94,
+      "interpretation": "companion array has full 94-slot cohort shape; JSON reports valid target/evaluation count."
+    }
+  ],
+  "hard_warnings": []
+}

@@ -1,0 +1,10 @@
+
+=== T1 iter33-C multi-base SCREEN: bases=('lgb', 'xgb', 'et'), 5-fold × 3 seeds ===
+  seed=42: mt=0.7232 | i5=0.6579 | Δ=+0.0653 | 130.9s
+  seed=1337: mt=0.7252 | i5=0.6773 | Δ=+0.0479 | 131.4s
+  seed=7: mt=0.7344 | i5=0.6364 | Δ=+0.0980 | 129.8s
+
+  Δ̄_seed = +0.0704 ± 0.0208
+  bootstrap Δ̄ = +0.0650, frac>0 = 0.966
+  GATE_PASS = True
+Wrote /root/pd-imu/results/iter33c_multibase_5fold_20260506_061517.json

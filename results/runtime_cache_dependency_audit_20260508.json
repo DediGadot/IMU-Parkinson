@@ -1,0 +1,128 @@
+{
+  "generated_at_utc": "2026-05-08T21:15:23+00:00",
+  "script": "audit_runtime_cache_dependencies.py",
+  "source_manifest_audit": "results/cache_manifest_audit_20260508.json",
+  "method": "Python sys.addaudithook('open') around lightweight in-process data-load/recompute paths",
+  "limitations": [
+    "Diagnostic only: a negative trace is not proof for unexercised branches or future flags.",
+    "Does not replace static import cleanliness or concrete cache manifests.",
+    "In-process audit hook does not trace subprocesses spawned outside this interpreter."
+  ],
+  "targets": [
+    "t1_iter12_recompute",
+    "t1_iter34_loader",
+    "t3_iter47_filter_minimal"
+  ],
+  "opened_diagnostic_or_partial_cache_artifacts": [
+    "results/ablation_v3_features.csv"
+  ],
+  "target_reports": [
+    {
+      "target": "t1_iter12_recompute",
+      "description": "Recompute the iter12 honest composite metrics with the narrowed local target loader; no prereg/write path.",
+      "status": "ok",
+      "error": null,
+      "duration_s": 5.263,
+      "result": {
+        "n": 94,
+        "n_sids": 94,
+        "ccc": 0.655,
+        "mae": 1.5614
+      },
+      "n_open_events": 1040,
+      "opened_cache_artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "event_count": 1
+        }
+      ],
+      "opened_diagnostic_or_partial_cache_artifacts": [
+        "results/ablation_v3_features.csv"
+      ]
+    },
+    {
+      "target": "t1_iter34_loader",
+      "description": "Load the iter34/iter46 T1 cohort plus Stage-1 clinical design without fitting folds.",
+      "status": "ok",
+      "error": null,
+      "duration_s": 0.811,
+      "result": {
+        "n": 92,
+        "x_cols": 1751,
+        "stage1_cols": 9,
+        "stage1_names": [
+          "hy_0",
+          "hy_1",
+          "hy_2",
+          "hy_3",
+          "hy_4",
+          "hy_5",
+          "cv_yrs",
+          "cv_sex",
+          "cv_dbs"
+        ],
+        "available_aux": [
+          15,
+          18
+        ],
+        "t1_mean": 4.0326,
+        "item_keys": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          18
+        ]
+      },
+      "n_open_events": 8,
+      "opened_cache_artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "event_count": 2
+        }
+      ],
+      "opened_diagnostic_or_partial_cache_artifacts": [
+        "results/ablation_v3_features.csv"
+      ]
+    },
+    {
+      "target": "t3_iter47_filter_minimal",
+      "description": "Load the current T3 valid-range minimal cohort without fitting LOOCV.",
+      "status": "ok",
+      "error": null,
+      "duration_s": 0.344,
+      "result": {
+        "n": 95,
+        "x_cols": 1752,
+        "excluded_sids": [
+          "NLS188",
+          "WPD013",
+          "NLS151"
+        ],
+        "target_changed_sids": [
+          "NLS036"
+        ]
+      },
+      "n_open_events": 4,
+      "opened_cache_artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "event_count": 1
+        }
+      ],
+      "opened_diagnostic_or_partial_cache_artifacts": [
+        "results/ablation_v3_features.csv"
+      ]
+    }
+  ],
+  "verdict": "The narrowed T1 iter12 recompute executes only the V2 SID-order cache among cache-like artifacts, eliminating the previous executed per-item/MOMENT/HC-SSL/walkway cache reads. T1 iter34's current fail-closed loader now produces N=92 after the auxiliary valid-range fix, so it is not a reproduction path for the historical N=93 lockbox; it still executes ablation_v3_features.csv. T3 iter47 also executes ablation_v3_features.csv. Static velinc reachability did not execute in these lightweight paths. Runtime tracing is diagnostic and does not make missing manifests headline-safe."
+}

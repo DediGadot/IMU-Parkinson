@@ -1,0 +1,35 @@
+{
+  "experiment": "T1 iter33-C diverse-base-learner chain ensemble \u2014 5-fold screen",
+  "n_subjects": 94,
+  "bases": [
+    "lgb",
+    "xgb",
+    "et"
+  ],
+  "seeds": [
+    42
+  ],
+  "per_seed": [
+    {
+      "seed": 42,
+      "ccc_mt": 0.7238,
+      "ccc_i5": 0.6579,
+      "delta": 0.0659,
+      "wall_time_s": 135.9
+    }
+  ],
+  "ccc_mt_meanof_seeds": 0.7238,
+  "ccc_i5_meanof_seeds": 0.6579,
+  "delta_meanof_seeds": 0.0659,
+  "delta_seed_mean": 0.0659,
+  "delta_seed_std": 0.0,
+  "paired_bootstrap_vs_iter5": {
+    "delta_mean": 0.06860939621913643,
+    "ci_low": -0.00208009913632614,
+    "ci_high": 0.1536700555407676,
+    "frac_above_zero": 0.9726,
+    "frac_above_0.025": 0.8686
+  },
+  "gate_pass": true,
+  "gate_threshold": "\u0394\u0304_seed \u2265 +0.025 AND paired_bootstrap_frac>0 \u2265 0.95"
+}

@@ -25,15 +25,19 @@ from datetime import datetime
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 
 REPO_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from inductive_lib import ccc as ccc_fn, full_metrics, mae as mae_fn, pearson_r
 from project_paths import RESULTS_DIR, ensure_dir
+from updrs_columns import valid_updrs_item_total
 
 ITER8_TS = "20260430_143044"
 T1_ITEMS = [9, 10, 11, 12, 13, 14]
+V2_FEATURES = RESULTS_DIR / "ablation_v3_features.csv"
+PER_ITEM_SCORES = RESULTS_DIR / "per_item_scores.json"
 
 # The pre-registered iter8 winners per item (single batch).
 ITER8_VARIANTS: dict[int, str] = {
@@ -44,6 +48,69 @@ ITER8_VARIANTS: dict[int, str] = {
     13: "item_plus_v2",
     14: "item_plus_v2",
 }
+
+
+def _is_pd_sid(sid: str) -> bool:
+    sid_upper = str(sid).upper()
+    return sid_upper.startswith("NLS") or sid_upper.startswith("WPD")
+
+
+def _load_per_item_scores() -> dict[str, dict[int, float]]:
+    with PER_ITEM_SCORES.open("r", encoding="utf-8") as f:
+        raw = json.load(f)
+    out: dict[str, dict[int, float]] = {}
+    for sid, scores in raw.items():
+        item_scores: dict[int, float] = {}
+        for key, value in scores.items():
+            if str(key).startswith("("):
+                continue
+            try:
+                item_num = int(key)
+            except ValueError:
+                continue
+            if not 1 <= item_num <= 18:
+                continue
+            valid_value = valid_updrs_item_total(item_num, value)
+            if valid_value is not None:
+                item_scores[item_num] = valid_value
+        out[str(sid)] = item_scores
+    return out
+
+
+def load_composite_target_data() -> dict[str, object]:
+    """Load only the SID order and item targets needed by the iter12 composer.
+
+    The original composer imported ``run_per_item_v2.load_data()``, which loaded
+    diagnostic feature caches that are not used by the fixed iter8 OOF summation.
+    This local loader preserves the same V2-cache PD/T1-complete SID ordering
+    while avoiding per-item feature-cache reads.
+    """
+    df = pd.read_csv(V2_FEATURES)
+    per_item = _load_per_item_scores()
+    sids: list[str] = []
+    item_rows = {item: [] for item in range(1, 19)}
+    for _, row in df.iterrows():
+        sid = str(row["sid"])
+        if not _is_pd_sid(sid):
+            continue
+        scores = per_item.get(sid)
+        if scores is None:
+            continue
+        if not all(item in scores for item in T1_ITEMS):
+            continue
+        sids.append(sid)
+        for item in range(1, 19):
+            item_rows[item].append(scores.get(item, np.nan))
+    items = {
+        item: np.asarray(values, dtype=np.float64)
+        for item, values in item_rows.items()
+    }
+    t1 = np.sum([items[item] for item in T1_ITEMS], axis=0)
+    return {
+        "sids": np.asarray(sids),
+        "items": items,
+        "t1": t1,
+    }
 
 
 def main() -> None:
@@ -93,10 +160,8 @@ def main() -> None:
     print(f"PRE-REGISTRATION WRITTEN: {prereg_path}", flush=True)
 
     # ── Load per-item OOFs + true scores via canonical SID order ──────────────
-    from run_per_item_v2 import load_data as load_peritem_data
-
     print("\nLoading per-item canonical data (SID order from V2_FEATURES PD filter)...", flush=True)
-    d = load_peritem_data()
+    d = load_composite_target_data()
     sids = d["sids"]
     n = len(sids)
     print(f"  N = {n} PD subjects", flush=True)

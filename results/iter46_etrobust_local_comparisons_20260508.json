@@ -1,0 +1,46 @@
+{
+  "audit": "t1_iter46_local_comparator_alignment",
+  "source": "local comparator alignment because remote lacked iter12 artifacts",
+  "new_json": "results/lockbox_t1_iter46_etrobust_20260508_162825.json",
+  "new_ccc": 0.7269,
+  "n": 93,
+  "comparisons": {
+    "iter12": {
+      "path": "results/t1_iter12_honest_composite.json",
+      "ccc_comparator_same_sids": 0.65535778076322,
+      "mae_comparator_same_sids": 1.569017814022674,
+      "delta_new_minus_comparator": 0.07152791314282936,
+      "bootstrap_delta": {
+        "n_boot": 5000,
+        "delta_mean": 0.07067747889159555,
+        "ci_low": -0.019173666972426565,
+        "ci_high": 0.15702995585128865,
+        "frac_above_zero": 0.9388,
+        "frac_above_0025": 0.8508
+      },
+      "reported_ccc": 0.655,
+      "reported_n": 94
+    },
+    "iter34": {
+      "path": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "ccc_comparator_same_sids": 0.7365943676137859,
+      "mae_comparator_same_sids": 1.7310042704168862,
+      "delta_new_minus_comparator": -0.009708673707736537,
+      "bootstrap_delta": {
+        "n_boot": 5000,
+        "delta_mean": -0.010140271706271043,
+        "ci_low": -0.033508864731703114,
+        "ci_high": 0.00915660577371418,
+        "frac_above_zero": 0.166,
+        "frac_above_0025": 0.0004
+      },
+      "reported_ccc": 0.7366,
+      "reported_n": 93
+    }
+  },
+  "verdict": {
+    "above_iter12_same_sids": false,
+    "above_iter34_same_sids": false,
+    "decision": "see_comparisons"
+  }
+}

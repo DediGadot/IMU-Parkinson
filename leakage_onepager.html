@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WearGait-PD UPDRS-III: Leakage Audit & Publication Choices</title>
+<style>
+  :root {
+    --ink: #1a1d24;
+    --muted: #5b6370;
+    --rule: #d8dde4;
+    --paper: #fbfbf9;
+    --accent: #1f4e7a;
+    --leak: #b3331c;
+    --clean: #2f6b3a;
+    --soft: #f3f1ec;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink); background: var(--paper);
+    font-size: 13.5px; line-height: 1.45;
+  }
+  .page {
+    max-width: 920px; margin: 0 auto; padding: 36px 44px;
+  }
+  header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 14px; margin-bottom: 22px;
+  }
+  header .eyebrow {
+    font-size: 10.5px; letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 4px;
+  }
+  header h1 {
+    font-size: 22px; margin: 0 0 6px 0; font-weight: 700; letter-spacing: -0.2px;
+  }
+  header .summary {
+    font-size: 13px; color: var(--ink);
+  }
+  header .summary strong { color: var(--accent); }
+  h2 {
+    font-size: 13.5px; letter-spacing: 1px; text-transform: uppercase;
+    margin: 26px 0 8px 0; color: var(--accent);
+    border-bottom: 1px solid var(--rule); padding-bottom: 3px;
+  }
+  h3 {
+    font-size: 12.5px; margin: 14px 0 4px 0; font-weight: 600;
+  }
+  p { margin: 4px 0 8px 0; }
+  table {
+    width: 100%; border-collapse: collapse; margin: 8px 0 12px 0;
+    font-size: 12px;
+  }
+  th, td {
+    text-align: left; padding: 5px 8px; vertical-align: top;
+    border-bottom: 1px solid var(--rule);
+  }
+  th {
+    background: var(--soft); font-weight: 600;
+    border-bottom: 2px solid var(--ink);
+    text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.5px;
+    color: var(--muted);
+  }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .leak { color: var(--leak); font-weight: 600; }
+  .clean { color: var(--clean); font-weight: 600; }
+  .muted { color: var(--muted); font-size: 11.5px; }
+  code, .mono {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11.5px;
+    background: var(--soft); padding: 1px 4px; border-radius: 2px;
+  }
+  ul, ol { margin: 4px 0 8px 22px; padding: 0; }
+  li { margin: 2px 0; }
+  .grid2 {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    margin: 6px 0;
+  }
+  .grid2 > div { font-size: 12.5px; }
+  .alt-card {
+    border: 1px solid var(--rule); border-radius: 4px;
+    padding: 10px 12px; margin: 8px 0;
+    background: white;
+  }
+  .alt-card h3 {
+    margin-top: 0; color: var(--accent);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .alt-card h3 .venue {
+    font-size: 10px; color: var(--muted); font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .alt-card .pros, .alt-card .cons {
+    font-size: 11.5px; margin: 4px 0;
+  }
+  .alt-card .pros::before {
+    content: "+ "; color: var(--clean); font-weight: 700;
+  }
+  .alt-card .cons::before {
+    content: "− "; color: var(--leak); font-weight: 700;
+  }
+  .alt-card .verdict {
+    font-size: 11.5px; margin-top: 6px; padding-top: 6px;
+    border-top: 1px dashed var(--rule); color: var(--muted);
+  }
+  .verdict strong { color: var(--ink); }
+  .footer {
+    margin-top: 28px; padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    font-size: 10.5px; color: var(--muted);
+  }
+  .archive-banner {
+    border: 2px solid var(--leak);
+    background: #fff2ee;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    font-size: 12px;
+    color: var(--ink);
+  }
+  .archive-banner strong { color: var(--leak); }
+  .severity-bar {
+    display: inline-block; width: 90px; height: 8px;
+    border-radius: 2px; background: var(--rule); vertical-align: middle;
+    margin-right: 6px; position: relative; overflow: hidden;
+  }
+  .severity-bar::after {
+    content: ""; position: absolute; left: 0; top: 0; height: 100%;
+    background: var(--leak);
+  }
+  .sev-high::after   { width: 92%; }
+  .sev-med::after    { width: 38%; background: #c08a2a; }
+  .sev-low::after    { width: 12%; background: #c08a2a; }
+  @media print {
+    body { font-size: 10.5px; }
+    .page { padding: 20px 24px; max-width: 100%; }
+    .alt-card { break-inside: avoid; }
+    h2 { break-after: avoid; }
+    table { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="archive-banner">
+    <strong>Archive status, 2026-05-09:</strong> this one-pager is retained as historical planning archaeology, not as a current manuscript or canonical-number source. Current routing is <span class="mono">CLAUDE.md</span>, <span class="mono">paper.md</span>, <span class="mono">CURRENT_PAPER.html</span>, and <span class="mono">render_current_paper.py</span>. Current T3 valid-range headline is iter47 CCC = 0.3784 / LOSO = 0.150; the older iter5 CCC = 0.5227 is superseded and must not be cited as the current T3 result.
+  </div>
+
+  <header>
+    <div class="eyebrow">WearGait-PD UPDRS-III regression — methodology one-pager</div>
+    <h1>Leakage Audit, Severity Comparison, and Publication Choices</h1>
+    <div class="summary">
+      The 2026-04-28 audit found <strong>+0.343 CCC of T1 inflation</strong> in our pre-submission pipeline, dominated by transductive XGBRanker leaf-index features. This archived planning page predates later iter47 T3 target-range correction and final claim-routing guards; use it only for methodology history, not for current headline extraction.
+    </div>
+  </header>
+
+  <h2>1. Original (pre-audit) results</h2>
+  <table>
+    <thead>
+      <tr><th>Pipeline</th><th>Target</th><th>Cohort</th><th>Headline</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>SSL ranking (P5, <span class="mono">run_compression_ablation.py</span>)</td>
+        <td>T1 (axial, items 9–14)</td>
+        <td class="num">5-fold, N=98 PD</td>
+        <td class="num leak">CCC = 0.878</td>
+        <td class="leak">Retracted</td>
+      </tr>
+      <tr>
+        <td>SSL ranking (same)</td>
+        <td>T3 (total Part III)</td>
+        <td class="num">5-fold, N=98 PD</td>
+        <td class="num leak">CCC = 0.776</td>
+        <td class="leak">Retracted</td>
+      </tr>
+      <tr>
+        <td>Stacking + temperature calibration</td>
+        <td>Total UPDRS-III</td>
+        <td class="num">N=178, held-out test (n=36)</td>
+        <td class="num leak">r = 0.860, MAE = 6.89</td>
+        <td class="leak">Retracted (held-out)</td>
+      </tr>
+      <tr>
+        <td>Per-target temperature scaling (E7)</td>
+        <td>T1 / T2 / T3</td>
+        <td class="num">N=94 LOOCV</td>
+        <td class="num leak">slope ≡ 1.000 / 1.014 / 1.008</td>
+        <td class="leak">Tautological</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="muted">All four numbers were defended in the pre-audit manuscript via an HC ablation that did not test the actual leak. Detailed code citations: <span class="mono">run_compression_ablation.py:1015</span>, <span class="mono">run_calibration_v2.py:861</span>.</p>
+
+  <h2>2. What leaked, mechanically</h2>
+  <table>
+    <thead>
+      <tr><th>Leak</th><th>Mechanism</th><th>Code</th><th>ΔCCC inflation</th><th>Severity</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>H1 — Transductive ranker</strong></td>
+        <td>XGBRanker.fit called on all 178 subjects with rank labels precomputed from full-cohort target ordering; leaf indices fed into Stage-2 LGB as features. Test subject's leaf pattern encodes its own rank.</td>
+        <td><span class="mono">run_compression_ablation.py:1015–1106</span></td>
+        <td class="num leak">+0.343 (T1, 5-fold)</td>
+        <td><span class="severity-bar sev-high"></span><span class="leak">Severe</span></td>
+      </tr>
+      <tr>
+        <td><strong>H2 — Test-vector hyperparameter tuning</strong></td>
+        <td>Temperature T swept over a grid; T selected to minimize <span class="mono">|slope − 1|</span> on the same N=94 LOOCV vector then evaluated. Slopes pin to 1.000 by construction.</td>
+        <td><span class="mono">run_calibration_v2.py:861–921</span></td>
+        <td class="num leak">+0.002 numerical, optical catastrophe</td>
+        <td><span class="severity-bar sev-low"></span>Low magnitude / high optics</td>
+      </tr>
+      <tr>
+        <td><strong>H3 — Centering on global label mean</strong></td>
+        <td>Pre-/post-T centering uses <span class="mono">mean(y_true)</span> over all 94 held-outs. Variable name <span class="mono">mean_train</span> is misleading.</td>
+        <td><span class="mono">run_calibration_v2.py:884</span></td>
+        <td class="num">≈ 0</td>
+        <td><span class="severity-bar sev-low"></span>Optical only</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Severity vs the wearable-IMU UPDRS literature</h2>
+  <div class="grid2">
+    <div>
+      <h3>What's unusual about our H1</h3>
+      <p>Most published wearable-IMU UPDRS papers do <em>not</em> deploy SSL ranking with leaf-index features. H1 was particularly aggressive — a 0.34 CCC inflation is on the high end for a single leakage path. In that sense, our pre-audit pipeline was <em>more</em> leaky than the typical published paper.</p>
+    </div>
+    <div>
+      <h3>What's typical of the literature</h3>
+      <p>Patterns in the H2-class — global preprocessing (imputation / scaling / feature selection on full X), single-vector hyperparameter tuning, calibration tuned on the test set, retrieval pools that include the test subject — are widespread and rarely audited. Each typically inflates CCC by 0.01–0.15. Compounded, a paper without an explicit 5-null gate could plausibly carry +0.05 to +0.20 CCC of unattributed inflation.</p>
+    </div>
+  </div>
+  <p>So: <strong>our largest single leak (H1) was unusually severe, but the broader leakage class is endemic to the field.</strong> The closest published comparators (Hssayeni 2021 r=0.79 on N=24 LOOCV total Part III; D'Cruz 2023 r=0.82 / ICC=0.76) report no formal audit, so the headline numbers should be read as <em>upper bounds</em> on the true inductive performance under their protocols.</p>
+
+  <h2>4. Superseded post-fix result snapshot</h2>
+  <table>
+    <thead>
+      <tr><th>Pipeline</th><th>Target</th><th>Cohort</th><th>Headline</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="mono">compose_t1_iter12_honest.py</span></td>
+        <td>T1 (axial)</td>
+        <td class="num">N=94, LOOCV</td>
+        <td class="num clean">CCC = 0.6550, MAE = 1.561</td>
+        <td class="clean">Canonical floor</td>
+      </tr>
+      <tr>
+        <td><span class="mono">run_t1_iter34_hybrid_8item_multibase.py</span> (F70)</td>
+        <td>T1 (axial)</td>
+        <td class="num">N=93, LOOCV, post-pub replication</td>
+        <td class="num clean">CCC = 0.7366, r = 0.7406, MAE = 1.731</td>
+        <td class="clean">Strongest candidate</td>
+      </tr>
+      <tr>
+        <td><span class="mono">run_t3_iter47_invalid_code_fix.py</span></td>
+        <td>T3 (total Part III)</td>
+        <td class="num">N=95 valid-range, LOOCV</td>
+        <td class="num clean">CCC = 0.3784, MAE = 7.528</td>
+        <td class="clean">Current valid-range headline; not pure IMU</td>
+      </tr>
+      <tr>
+        <td><span class="mono">run_t1_iter34_loso.py</span> (F72)</td>
+        <td>T1, leave-one-site-out</td>
+        <td class="num">2 sites, two-way mean</td>
+        <td class="num">CCC = 0.4564 (NLS→WPD 0.629; WPD→NLS 0.284)</td>
+        <td>First published T1 LOSO</td>
+      </tr>
+      <tr>
+        <td><span class="mono">iter25b</span> on PADS (F60b)</td>
+        <td>Cross-dataset zero-shot</td>
+        <td class="num">PADS, 355 subjects</td>
+        <td class="num">AUROC = 0.4975 (chance)</td>
+        <td>Cross-dataset cliff</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="muted">Archive note: the T1 candidate row is retained with its N=93, P2, and auxiliary-label/order caveats. The T3 row has been corrected to the later iter47 valid-range headline; old iter5 T3 CCC = 0.5227 is superseded.</p>
+
+  <h2>5. Publication choices</h2>
+
+  <div class="alt-card">
+    <h3>A — Cautionary benchmark (current framing) <span class="venue">Sci Reports / npj Parkinson's / Sci Data</span></h3>
+    <p>Lead with: first published WearGait-PD UPDRS-III strict-inductive regression + negative findings catalog + structural learning-curve ceiling + LOOCV→LOSO→cross-dataset transportability cliff. Current framing uses T1 iter34 only as a caveated candidate (CCC = 0.7366, N=93) and T3 iter47 valid-range as the current headline (CCC = 0.3784, LOSO = 0.150).</p>
+    <p class="pros">Methodologically defensible end-to-end. Novel contribution to the field. Leverages F65/F73 audits as differentiation. Aligns with FDA-CDRH framing of WearGait-PD as a benchmark.</p>
+    <p class="cons">Absolute numbers below published wearable-IMU SOTA. Reviewer 2 may push for external validation (Hssayeni MJFF) which is currently DUA-blocked.</p>
+    <div class="verdict"><strong>Best fit when:</strong> the goal is a citable benchmark contribution and the journal values methodological honesty. Lowest scientific risk; moderate clinical impact.</div>
+  </div>
+
+  <div class="alt-card">
+    <h3>B — Methods-first audit paper <span class="venue">Nature Machine Intelligence / JMLR / TMLR</span></h3>
+    <p>Lead with: empirical scenario-A vs scenario-C comparison on the same dataset; quantify each leakage class. Position the +0.343 CCC of H1 inflation as the central finding, not the post-audit benchmark.</p>
+    <p class="pros">High-impact venue. Generalizes beyond Parkinson's — leakage taxonomy applies to any wearable-target regression task. Pre-existing audit infrastructure (P1–P5 5-null gate) is the methodological deliverable.</p>
+    <p class="cons">Harder pitch: needs at least one additional dataset to argue generalizability. Clinical readers may see it as a niche-methods paper. Longer review cycle.</p>
+    <div class="verdict"><strong>Best fit when:</strong> we can replicate the audit on at least one external dataset (Hssayeni MJFF, MJFF Levodopa Response, mPower) within 2–3 months.</div>
+  </div>
+
+  <div class="alt-card">
+    <h3>C — Norm-strict headline + audit appendix <span class="venue">Movement Disorders / Lancet Digital Health</span></h3>
+    <p>Lead with Pearson r (literature norm) on T1 and T3, while explicitly labeling T1 as a caveated candidate and T3 as the lower valid-range corrected result. Audit relegated to a methods supplement.</p>
+    <p class="pros">Numbers comparable to Hssayeni 2021 r=0.79 and D'Cruz 2023 r=0.82 — competitive on the same metric. Easier acceptance at a clinical journal. Faster path.</p>
+    <p class="cons">Erases the cautionary-benchmark contribution. Methodological work becomes a footnote. Clinically oriented reviewers may not value the pre-registration / multi-comparisons rigor and will compare on absolute number alone (where we lose).</p>
+    <div class="verdict"><strong>Best fit when:</strong> the priority is fastest possible publication and we accept losing the audit narrative as a primary contribution.</div>
+  </div>
+
+  <div class="alt-card">
+    <h3>D — Wait for external validation, then dual-submit <span class="venue">npj Parkinson's (clinical) + JMLR (methods)</span></h3>
+    <p>Apply for Synapse DUA on Hssayeni MJFF or MJFF Levodopa Response (typical 1–3 day approval), run cross-cohort iter34, then submit a clinical paper anchored on within+across cohort numbers AND a methods paper anchored on the audit. Reuse the same audit infrastructure across both.</p>
+    <p class="pros">Strongest possible evidence. External validation defuses the transportability concern that's the largest weakness of options A/B/C. Two papers from one body of work.</p>
+    <p class="cons">2–3 months minimum delay. DUA approval is not guaranteed. Risk of overlap concerns between the two papers. External cohort may not transfer cleanly (per F60b PADS evidence).</p>
+    <div class="verdict"><strong>Best fit when:</strong> there is no near-term submission deadline and the budget supports two parallel writing efforts.</div>
+  </div>
+
+  <div class="alt-card">
+    <h3>E — Preprint + arXiv only (priority claim) <span class="venue">arXiv / medRxiv</span></h3>
+    <p>Skip peer review for now. Post the cautionary-benchmark version to medRxiv with full audit. Establishes priority on the leakage taxonomy and the iter34 result while we decide between A–D.</p>
+    <p class="pros">Immediate; no reviewer cycle. Establishes priority. Allows community feedback before formal submission. Compatible with later submission to A, B, C, or D.</p>
+    <p class="cons">No peer-review imprimatur. May reduce eventual journal interest if the preprint reaches saturation in citations / community discussion before submission.</p>
+    <div class="verdict"><strong>Best fit when:</strong> the priority claim matters and we want public review feedback before committing to a journal target.</div>
+  </div>
+
+  <h2>6. Recommendation</h2>
+  <p>The dominant question is whether external validation is achievable in the next 60–90 days. If yes, <strong>option D (wait + dual-submit)</strong> dominates: it converts the current single-cohort cautionary paper into a stronger clinical paper plus a separable methods paper. If external validation is blocked indefinitely (Synapse DUA denied), <strong>option A (cautionary benchmark)</strong> is the safest single-paper outcome and preserves the audit contribution. <strong>Option E (preprint)</strong> is compatible with all of A/B/C/D and reduces priority risk with no downside; recommended in parallel with whichever path is chosen.</p>
+  <p>Option C is <em>not recommended</em> as a primary path because it sacrifices the contribution that makes the work distinctive. Option B is recommended only if D is infeasible <em>and</em> we can secure at least one external benchmark dataset within the methods-paper review window.</p>
+
+  <div class="footer">
+    Sources: <span class="mono">findings.md</span> F65/F70/F71/F72/F73; <span class="mono">CLAUDE.md</span> headline tables; <span class="mono">run_compression_ablation.py:1015</span> (H1); <span class="mono">run_calibration_v2.py:861</span> (H2); <span class="mono">run_inductive_ablation.py</span> (post-audit). External: Hssayeni 2021 BMC BME (r=0.79, N=24 LOOCV); D'Cruz 2023 npj Parkinson's (r=0.82, ICC=0.76); WearGait-PD original (Anderson 2026 Sci Data, MAE=4.26 RF baseline).
+  </div>
+
+</div>
+</body>
+</html>

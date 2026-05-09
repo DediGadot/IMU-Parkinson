@@ -1,0 +1,22 @@
+{
+  "iso_datetime_utc": "2026-05-08T06:08:36.517397+00:00",
+  "summaries": [
+    {
+      "item": 9,
+      "best_variant": "hy_residual_item_v2",
+      "best_mean": 0.3819,
+      "best_std": 0.0249
+    },
+    {
+      "item": 12,
+      "best_variant": "item_plus_v2",
+      "best_mean": 0.543,
+      "best_std": 0.0375
+    }
+  ],
+  "best_per_item": {
+    "9": "hy_residual_item_v2",
+    "12": "item_plus_v2"
+  },
+  "screen_csv": "slotC_screen_20260508_090836.csv"
+}

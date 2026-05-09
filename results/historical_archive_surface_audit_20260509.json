@@ -1,0 +1,98 @@
+{
+  "created_at_utc": "2026-05-09T10:04:20.851781+00:00",
+  "decision": "historical_archive_surfaces_quarantined",
+  "hard_failures": 0,
+  "passed": true,
+  "surfaces": [
+    {
+      "exists": true,
+      "forbidden_hits": [],
+      "missing_required": [],
+      "path": "CONT.md",
+      "stale_pattern_hits": 6,
+      "unguarded_stale_lines": []
+    },
+    {
+      "exists": true,
+      "forbidden_hits": [],
+      "missing_required": [],
+      "path": "EXP.md",
+      "stale_pattern_hits": 2,
+      "unguarded_stale_lines": []
+    },
+    {
+      "exists": true,
+      "forbidden_hits": [],
+      "missing_required": [],
+      "path": "EXP-SUMMARY.md",
+      "stale_pattern_hits": 5,
+      "unguarded_stale_lines": []
+    },
+    {
+      "exists": true,
+      "forbidden_hits": [],
+      "missing_required": [],
+      "path": "LEARNINGS.md",
+      "stale_pattern_hits": 2,
+      "unguarded_stale_lines": []
+    },
+    {
+      "exists": true,
+      "forbidden_hits": [],
+      "missing_required": [],
+      "path": "VNEXT.md",
+      "stale_pattern_hits": 2,
+      "unguarded_stale_lines": []
+    },
+    {
+      "exists": true,
+      "forbidden_hits": [],
+      "missing_required": [],
+      "path": "NEXTNEXT.md",
+      "stale_pattern_hits": 3,
+      "unguarded_stale_lines": []
+    },
+    {
+      "exists": true,
+      "forbidden_hits": [],
+      "missing_required": [],
+      "path": "literature_review.md",
+      "stale_pattern_hits": 1,
+      "unguarded_stale_lines": []
+    },
+    {
+      "exists": true,
+      "forbidden_hits": [],
+      "missing_required": [],
+      "path": "paper_supplement_iter33_gate_demo.md",
+      "stale_pattern_hits": 4,
+      "unguarded_stale_lines": []
+    },
+    {
+      "exists": true,
+      "forbidden_hits": [],
+      "missing_required": [],
+      "path": "CODEX-PROPOSALS.md",
+      "stale_pattern_hits": 0,
+      "unguarded_stale_lines": []
+    },
+    {
+      "exists": true,
+      "forbidden_hits": [],
+      "missing_required": [],
+      "path": "PROPOSALS.md",
+      "stale_pattern_hits": 0,
+      "unguarded_stale_lines": []
+    },
+    {
+      "exists": true,
+      "forbidden_hits": [],
+      "missing_required": [],
+      "path": "leakage_onepager.html",
+      "stale_pattern_hits": 5,
+      "unguarded_stale_lines": []
+    }
+  ],
+  "surfaces_checked": 11,
+  "total_stale_pattern_hits_retained_under_archive_banners": 30
+}

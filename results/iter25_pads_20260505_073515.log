@@ -1,0 +1,6 @@
+
+Loaded pre-reg preregistration_t3_iter25_pads_20260505_073324.json
+  seeds = [42, 1337, 7], formula_sha256 = 9972a6d163382174...
+
+=== Extract WearGait wrist features (PD-only, matches canonical iter5) ===
+  WG SIDs: 98 PD (HC not available locally — see F31 download notes)

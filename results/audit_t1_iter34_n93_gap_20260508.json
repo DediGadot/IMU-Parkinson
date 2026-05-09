@@ -1,0 +1,143 @@
+{
+  "audit": "t1_iter34_n93_gap",
+  "source_artifacts": {
+    "iter34": "/home/fiod/medical/results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+    "iter12": "/home/fiod/medical/results/t1_iter12_honest_composite.json"
+  },
+  "missing_from_iter34": {
+    "sid": "WPD002",
+    "reason": "T1 target complete, but auxiliary item 18 is missing; iter34 requires complete auxiliary items 15 and 18.",
+    "t1_true": 4.0,
+    "iter12_honest_prediction": 3.1438682303849825,
+    "iter12_honest_error": -0.8561317696150175,
+    "t1_items_complete": true,
+    "missing_items": [
+      "18"
+    ],
+    "item_values": {
+      "1": 1.0,
+      "2": 2.0,
+      "3": 1.0,
+      "4": 2.0,
+      "5": 0.0,
+      "6": 1.0,
+      "7": 0.0,
+      "8": 0.0,
+      "9": 0.0,
+      "10": 1.0,
+      "11": 0.0,
+      "12": 0.0,
+      "13": 1.0,
+      "14": 2.0,
+      "15": 1.0,
+      "16": 0.0,
+      "17": 7.0,
+      "18": NaN
+    }
+  },
+  "scenarios": {
+    "iter34_n93_locked": {
+      "n": 93,
+      "ccc": 0.736594,
+      "mae": 1.731004,
+      "r": 0.74057,
+      "cal_slope": 0.82147,
+      "true_mean": 4.107527,
+      "true_std": 2.830184,
+      "pred_mean": 4.089375,
+      "pred_std": 3.139352
+    },
+    "iter12_honest_n94_locked": {
+      "n": 94,
+      "ccc": 0.654984,
+      "mae": 1.561434,
+      "r": 0.701229,
+      "cal_slope": 0.482697,
+      "true_mean": 4.106383,
+      "true_std": 2.815112,
+      "pred_mean": 4.080552,
+      "pred_std": 1.937805
+    },
+    "iter34_plus_excluded_iter12_prediction": {
+      "n": 94,
+      "ccc": 0.736301,
+      "mae": 1.721697,
+      "r": 0.740329,
+      "cal_slope": 0.821592,
+      "true_mean": 4.106383,
+      "true_std": 2.815112,
+      "pred_mean": 4.079317,
+      "pred_std": 3.124115
+    },
+    "iter34_plus_excluded_perfect_prediction": {
+      "n": 94,
+      "ccc": 0.736597,
+      "mae": 1.712589,
+      "r": 0.740573,
+      "cal_slope": 0.82147,
+      "true_mean": 4.106383,
+      "true_std": 2.815112,
+      "pred_mean": 4.088424,
+      "pred_std": 3.122622
+    },
+    "iter34_plus_excluded_iter34_pred_mean": {
+      "n": 94,
+      "ccc": 0.736591,
+      "mae": 1.71354,
+      "r": 0.740564,
+      "cal_slope": 0.821457,
+      "true_mean": 4.106383,
+      "true_std": 2.815112,
+      "pred_mean": 4.089375,
+      "pred_std": 3.122609
+    },
+    "iter34_plus_excluded_iter34_true_mean": {
+      "n": 94,
+      "ccc": 0.736589,
+      "mae": 1.713733,
+      "r": 0.740562,
+      "cal_slope": 0.821454,
+      "true_mean": 4.106383,
+      "true_std": 2.815112,
+      "pred_mean": 4.089568,
+      "pred_std": 3.122609
+    },
+    "iter34_plus_excluded_grid_optimal_prediction": {
+      "n": 94,
+      "ccc": 0.736598,
+      "mae": 1.712994,
+      "r": 0.740574,
+      "cal_slope": 0.821475,
+      "true_mean": 4.106383,
+      "true_std": 2.815112,
+      "pred_mean": 4.08802,
+      "pred_std": 3.122636
+    }
+  },
+  "one_subject_upper_bound": {
+    "grid_range": [
+      -20.0,
+      30.0
+    ],
+    "grid_points": 200001,
+    "best_prediction": 3.962,
+    "metrics": {
+      "n": 94,
+      "ccc": 0.736598,
+      "mae": 1.712994,
+      "r": 0.740574,
+      "cal_slope": 0.821475,
+      "true_mean": 4.106383,
+      "true_std": 2.815112,
+      "pred_mean": 4.08802,
+      "pred_std": 3.122636
+    }
+  },
+  "verdict": {
+    "n93_gap_material": false,
+    "max_ccc_after_adding_excluded_subject": 0.736598,
+    "locked_iter34_n93_ccc": 0.736594,
+    "rounded_headline_changes": false,
+    "rationale": "The excluded subject has T1=4.0, essentially at the cohort mean. Holding all locked iter34 OOF predictions fixed, even the grid-optimal prediction for that single subject changes CCC by less than 0.00001."
+  }
+}

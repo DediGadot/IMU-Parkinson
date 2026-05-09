@@ -16,11 +16,14 @@
 set -euo pipefail
 
 # === SLAVE CONFIG (change these two lines to swap servers) ===
-REMOTE="${GPU_REMOTE:-root@142.171.48.138}"
-PORT="${GPU_PORT:-26843}"
+REMOTE="${GPU_REMOTE:-fiod@165.22.71.91}"
+PORT="${GPU_PORT:-2243}"
 # =============================================================
 
-REMOTE_DIR="/root/pd-imu"
+REMOTE_DIR="/home/fiod/pd-imu"
+VENV="$REMOTE_DIR/.venv"
+PY="$VENV/bin/python3"
+PIP="$VENV/bin/pip"
 SSH="ssh -p $PORT $REMOTE"
 
 deploy() {
@@ -46,9 +49,15 @@ case "${1:-}" in
         echo "=== Provisioning GPU slave: $REMOTE ==="
         $SSH "mkdir -p $REMOTE_DIR/results"
 
+        # 0. Create venv (Ubuntu 24.04+ enforces PEP 668 externally-managed env)
+        echo "--- Creating Python venv at $VENV ---"
+        $SSH "command -v python3 >/dev/null && python3 -m venv --help >/dev/null 2>&1 || (echo 'installing python3-venv'; sudo apt-get update -qq && sudo apt-get install -y python3-venv python3-full)"
+        $SSH "[ -d $VENV ] || python3 -m venv $VENV"
+        $SSH "$PIP install --quiet --upgrade pip wheel setuptools"
+
         # 1. Install PyTorch with CUDA support
         echo "--- Installing PyTorch (CUDA 12.8) ---"
-        $SSH "pip install --quiet torch torchvision torchaudio \
+        $SSH "$PIP install --quiet torch torchvision torchaudio \
             --index-url https://download.pytorch.org/whl/nightly/cu128"
 
         # 2. Deploy code + requirements file
@@ -56,11 +65,11 @@ case "${1:-}" in
 
         # 3. Install all other dependencies from pinned requirements
         echo "--- Installing dependencies from requirements-gpu.txt ---"
-        $SSH "cd $REMOTE_DIR && pip install --quiet -r requirements-gpu.txt"
+        $SSH "cd $REMOTE_DIR && $PIP install --quiet -r requirements-gpu.txt"
 
         # 4. Verify critical imports
         echo "--- Verifying installation ---"
-        $SSH "python3 -c '
+        $SSH "$PY -c '
 import torch, lightgbm, xgboost, catboost, momentfm, shap, aeon
 print(f\"torch {torch.__version__}, CUDA: {torch.cuda.is_available()}\")
 print(f\"lightgbm {lightgbm.__version__}, xgboost {xgboost.__version__}\")
@@ -140,6 +149,6 @@ print(\"All imports OK\")
         deploy
         SCRIPT="$1"; shift
         echo "running: python3 -u $SCRIPT $*"
-        $SSH "cd $REMOTE_DIR && python3 -u $SCRIPT $*"
+        $SSH "cd $REMOTE_DIR && $PY -u $SCRIPT $*"
         ;;
 esac

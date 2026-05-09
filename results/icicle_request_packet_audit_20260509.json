@@ -1,0 +1,140 @@
+{
+  "checks": {
+    "access_path": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "newcastle / icicle investigator request",
+        "data owner grants access",
+        "row-level file schema"
+      ]
+    },
+    "clinical_linkage_inventory": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "mds-updrs part iii total per visit",
+        "item/subitem scores",
+        "items 9-14",
+        "hoehn & yahr",
+        "age",
+        "sex",
+        "bmi",
+        "medication state",
+        "121-participant",
+        "89-participant"
+      ]
+    },
+    "icicle_specific_guardrails": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "visit-level part iii labels repeated across daily rows are not independent observations",
+        "published local-model results are context only",
+        "test-data median imputation is prohibited",
+        "aggregate daily row predictions to visit/participant",
+        "daily-row metrics are diagnostic only",
+        "below 20"
+      ]
+    },
+    "methodology_guardrails": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "read-only schema probe",
+        "zero-shot external validation",
+        "participant-level splits",
+        "pre-registration",
+        "valid-range",
+        "manifest sidecar",
+        "external-validity / transportability evidence only"
+      ]
+    },
+    "no_premature_compute_boundary": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "do not create a probe scaffold",
+        "no icicle label peeking",
+        "no endpoint switching",
+        "stop before modeling",
+        "will not present icicle metrics as internal weargait-pd canonical"
+      ]
+    },
+    "official_source_and_public_facts": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2026.1766599/full",
+        "newcastle-upon-tyne",
+        "121 pd participants",
+        "five assessments 18 months apart",
+        "89 pd participants",
+        "1,476 daily samples",
+        "lower-back axivity ax3",
+        "100 hz",
+        "+/-8 g",
+        "mds-updrs part iii",
+        "hoehn & yahr",
+        "88 daily digital gait measures",
+        "lisa alcock"
+      ]
+    },
+    "required_packet_fields": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "scientific rationale",
+        "specific data requested",
+        "intended use",
+        "analysis synopsis",
+        "named research team",
+        "data custodian"
+      ]
+    },
+    "security_publication_terms": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "encrypted",
+        "access-controlled",
+        "do not commit",
+        "consumer cloud",
+        "uk/institutional",
+        "aggregate, non-identifiable"
+      ]
+    },
+    "specific_data_inventory": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "raw lower-back axivity ax3 files",
+        "88 daily digital gait measures",
+        "participant identifiers",
+        "visit identifiers",
+        "recording dates",
+        "clinical assessment dates",
+        "day-level row identifiers",
+        "walking-bout definitions",
+        "wear-time flags"
+      ]
+    }
+  },
+  "created_at_utc": "2026-05-09T12:24:31.566877+00:00",
+  "decision": "icicle_request_packet_ready",
+  "goal_complete": false,
+  "hard_failures": [],
+  "missing": [],
+  "not_a_model_result": true,
+  "packet": "scripts/icicle_request_packet.md",
+  "packet_exists": true,
+  "passed": true,
+  "public_requirements_encoded": {
+    "route": "Request-gated Newcastle lower-back AX3 free-living gait route with MDS-UPDRS Part III and Hoehn & Yahr visit labels.",
+    "source": "Hinchliffe et al. Frontiers in Aging Neuroscience 2026 ICICLE-PD / ICICLE-GAIT paper.",
+    "validation_boundary": "No code before data-owner approval and row-level schema; daily rows must be grouped/aggregated because one visit-level Part III label can cover up to seven days."
+  },
+  "runbook": "scripts/icicle_request_setup.md",
+  "runbook_exists": true,
+  "runbook_mentions_packet": true
+}

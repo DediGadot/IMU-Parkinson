@@ -1,0 +1,140 @@
+{
+  "generated_at_utc": "2026-05-09T07:09:45+00:00",
+  "script": "run_current_conformal_abstention.py",
+  "method": {
+    "conformal": "leave-one-subject-out residual quantiles over existing OOF predictions",
+    "abstention_deployable": "discard predictions farthest from the prediction median",
+    "abstention_oracle": "saved as non-deployable diagnostic upper bound using true absolute error",
+    "model_refit": false,
+    "new_hyperparameter_tuning": false
+  },
+  "outputs": {
+    "json": "results/current_conformal_abstention_20260508.json",
+    "conformal_csv": "results/current_conformal_abstention_intervals_20260508.csv",
+    "abstention_csv": "results/current_conformal_abstention_curves_20260508.csv",
+    "html": "results/current_conformal_abstention.html"
+  },
+  "models": {
+    "t1_iter12_honest": {
+      "label": "T1 iter12 honest floor",
+      "target": "T1_items_9_14",
+      "status": "canonical_floor",
+      "source": "results/t1_iter12_honest_composite.json",
+      "n": 94,
+      "base_ccc": 0.6549835213947802,
+      "base_mae": 1.5614339199332312,
+      "base_r": 0.7012294353910614,
+      "conformal": {
+        "50pct": {
+          "empirical_coverage": 0.5,
+          "mean_interval_width": 2.7682673369000232
+        },
+        "80pct": {
+          "empirical_coverage": 0.8085106382978723,
+          "mean_interval_width": 4.99227020974402
+        },
+        "95pct": {
+          "empirical_coverage": 0.9574468085106383,
+          "mean_interval_width": 9.078489911479231
+        }
+      },
+      "abstention_at_50pct_discard": {
+        "prediction_tail_distance_ccc": 0.10578906923162895,
+        "prediction_tail_distance_mae": 1.4756396602198898,
+        "oracle_abs_error_ccc": 0.9438768390770657,
+        "oracle_abs_error_mae": 0.578512805232383
+      }
+    },
+    "t1_iter34_hybrid": {
+      "label": "T1 iter34 hybrid candidate",
+      "target": "T1_items_9_14",
+      "status": "candidate_caveated",
+      "source": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "n": 93,
+      "base_ccc": 0.7365943676137859,
+      "base_mae": 1.7310042704168862,
+      "base_r": 0.7405701806544314,
+      "conformal": {
+        "50pct": {
+          "empirical_coverage": 0.5053763440860215,
+          "mean_interval_width": 3.1054779501750787
+        },
+        "80pct": {
+          "empirical_coverage": 0.8064516129032258,
+          "mean_interval_width": 5.740832961958572
+        },
+        "95pct": {
+          "empirical_coverage": 0.956989247311828,
+          "mean_interval_width": 8.812600539674749
+        }
+      },
+      "abstention_at_50pct_discard": {
+        "prediction_tail_distance_ccc": 0.14200491879684482,
+        "prediction_tail_distance_mae": 1.4112592632022065,
+        "oracle_abs_error_ccc": 0.953329400845825,
+        "oracle_abs_error_mae": 0.6392061753603958
+      }
+    },
+    "t3_iter47_stage2_current": {
+      "label": "T3 iter47 valid-range current",
+      "target": "T3_total_UPDRS_III_validrange",
+      "status": "corrected_audit_truth",
+      "source": "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+      "n": 95,
+      "base_ccc": 0.3783671177953899,
+      "base_mae": 7.528022830280761,
+      "base_r": 0.4140570278396842,
+      "conformal": {
+        "50pct": {
+          "empirical_coverage": 0.5052631578947369,
+          "mean_interval_width": 13.99187022309385
+        },
+        "80pct": {
+          "empirical_coverage": 0.8,
+          "mean_interval_width": 25.941425497468146
+        },
+        "95pct": {
+          "empirical_coverage": 0.9578947368421052,
+          "mean_interval_width": 34.72410274521873
+        }
+      },
+      "abstention_at_50pct_discard": {
+        "prediction_tail_distance_ccc": 0.010758228591281109,
+        "prediction_tail_distance_mae": 6.9161987383924055,
+        "oracle_abs_error_ccc": 0.848266647645428,
+        "oracle_abs_error_mae": 2.9984213927427636
+      }
+    },
+    "t3_iter47_stage2_no_cv": {
+      "label": "T3 iter47 valid-range no-cv",
+      "target": "T3_total_UPDRS_III_validrange",
+      "status": "sensitivity",
+      "source": "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+      "n": 95,
+      "base_ccc": 0.37708496765212285,
+      "base_mae": 7.6797754818480035,
+      "base_r": 0.4067329830627762,
+      "conformal": {
+        "50pct": {
+          "empirical_coverage": 0.5052631578947369,
+          "mean_interval_width": 13.90576010832708
+        },
+        "80pct": {
+          "empirical_coverage": 0.8,
+          "mean_interval_width": 26.217714652899335
+        },
+        "95pct": {
+          "empirical_coverage": 0.9578947368421052,
+          "mean_interval_width": 35.34522994442901
+        }
+      },
+      "abstention_at_50pct_discard": {
+        "prediction_tail_distance_ccc": 0.05498420016848803,
+        "prediction_tail_distance_mae": 7.094588095005739,
+        "oracle_abs_error_ccc": 0.8343613564512362,
+        "oracle_abs_error_mae": 3.147591160494855
+      }
+    }
+  },
+  "verdict": "intervals_are_wide_and_deployable_abstention_does_not_break_t3_or_canonicalize_t1"
+}

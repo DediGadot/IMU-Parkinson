@@ -1,0 +1,35 @@
+Learning curve: 600 jobs (4 N-levels × 50 subsamples × 3 seeds)
+Workers: 16
+  [25/600] last: n=30 sub=8 seed=42 CCC=+0.2697  elapsed=0.6min  ETA=13.0min
+  [50/600] last: n=30 sub=16 seed=1337 CCC=+0.3932  elapsed=1.1min  ETA=12.0min
+  [75/600] last: n=30 sub=25 seed=1337 CCC=+0.1992  elapsed=1.4min  ETA=9.9min
+  [100/600] last: n=30 sub=33 seed=42 CCC=+0.0771  elapsed=1.9min  ETA=9.6min
+  [125/600] last: n=30 sub=41 seed=7 CCC=+0.5697  elapsed=2.3min  ETA=8.6min
+  [150/600] last: n=30 sub=49 seed=1337 CCC=+0.3160  elapsed=2.8min  ETA=8.3min
+  [175/600] last: n=50 sub=7 seed=1337 CCC=+0.4201  elapsed=4.6min  ETA=11.2min
+  [200/600] last: n=50 sub=16 seed=1337 CCC=+0.3812  elapsed=6.5min  ETA=13.0min
+  [225/600] last: n=50 sub=25 seed=42 CCC=+0.5379  elapsed=7.7min  ETA=12.8min
+  [250/600] last: n=50 sub=33 seed=42 CCC=+0.4882  elapsed=9.5min  ETA=13.3min
+  [275/600] last: n=50 sub=41 seed=1337 CCC=+0.5965  elapsed=10.8min  ETA=12.7min
+  [300/600] last: n=50 sub=49 seed=7 CCC=+0.4458  elapsed=12.6min  ETA=12.6min
+  [325/600] last: n=70 sub=7 seed=7 CCC=+0.3433  elapsed=17.2min  ETA=14.5min
+  [350/600] last: n=70 sub=16 seed=1337 CCC=+0.4242  elapsed=21.8min  ETA=15.6min
+  [375/600] last: n=70 sub=25 seed=7 CCC=+0.5085  elapsed=25.1min  ETA=15.1min
+  [400/600] last: n=70 sub=33 seed=1337 CCC=+0.3956  elapsed=29.8min  ETA=14.9min
+  [425/600] last: n=70 sub=41 seed=1337 CCC=+0.5519  elapsed=33.2min  ETA=13.7min
+  [450/600] last: n=70 sub=49 seed=7 CCC=+0.4110  elapsed=37.7min  ETA=12.6min
+  [475/600] last: n=89 sub=8 seed=7 CCC=+0.5056  elapsed=47.2min  ETA=12.4min
+  [500/600] last: n=89 sub=17 seed=42 CCC=+0.4651  elapsed=56.6min  ETA=11.3min
+  [525/600] last: n=89 sub=25 seed=7 CCC=+0.4671  elapsed=64.2min  ETA=9.2min
+  [550/600] last: n=89 sub=32 seed=42 CCC=+0.3788  elapsed=72.6min  ETA=6.6min
+  [575/600] last: n=89 sub=41 seed=7 CCC=+0.4507  elapsed=81.0min  ETA=3.5min
+  [600/600] last: n=89 sub=49 seed=7 CCC=+0.4602  elapsed=88.8min  ETA=0.0min
+
+Wrote results/learning_curve_iter5.csv (600 rows)
+
+Learning curve summary (mean ± std CCC across seeds × subsamples):
+ n_pd  ccc_mean  ccc_std  n_jobs
+   30  0.356397 0.193516     150
+   50  0.424380 0.138314     150
+   70  0.456449 0.083963     150
+   89  0.477944 0.049936     150

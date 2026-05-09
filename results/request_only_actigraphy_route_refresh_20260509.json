@@ -1,0 +1,57 @@
+{
+  "created_at_utc": "2026-05-09T08:35:00Z",
+  "purpose": "Fresh route check for two newly surfaced request-only Parkinson wearable studies with MDS-UPDRS Part III context.",
+  "decision": "no_prereg_no_download_no_scaffold_no_remote_job_access_request_only",
+  "consults": {
+    "kimi": {
+      "status": "completed",
+      "verdict": "no_prereg_document_only_access_request_only_for_both_routes",
+      "plan_path": "/home/fiod/.kimi/plans/forge-doctor-mid-nite-wiccan.md",
+      "notes": [
+        "Fay-Karmon advanced-PD smartwatch home monitoring is N=21, request-only, proprietary Intel SWA/scoring, and schema-hidden.",
+        "Marital-dyad social actigraphy is N=27 PD dyads, request-only, daily-life/social-actigraphy rather than structured gait/balance, and dyad design complicates subject independence.",
+        "Neither route should receive a preregistration, scaffold, download, or remote job without data-owner access and row-level schema."
+      ]
+    },
+    "claude": {
+      "status": "failed",
+      "error": "Credit balance is too low"
+    },
+    "glmcode": {
+      "status": "not_available",
+      "error": "command not found on PATH"
+    }
+  },
+  "routes": [
+    {
+      "name": "Advanced PD smartwatch home monitoring / Fay-Karmon 2024",
+      "source": "https://www.nature.com/articles/s41598-023-48209-y",
+      "access_status": "data available from corresponding author upon reasonable request; no local files or schema",
+      "label": "MDS-UPDRS Part II and Part III in ON/OFF states plus Part IV, daily motor-task labels and symptom diaries",
+      "modality": "Intel Pharma Analytics Platform smartwatch plus iPhone/app during approximately two weeks of home-based monitoring with proprietary SWA algorithm outputs",
+      "n_pd_subjects": 21,
+      "direct_t1_t3_eligible": false,
+      "potential_external_t3_if_access_and_schema_approved": true,
+      "status": "request_only_document_only_no_scaffold",
+      "verdict": "Potentially relevant as a small external T3/advanced-PD home-monitoring context only after data-owner approval, but not actionable for the active ceiling-break objective. N=21 is below stronger already-tested external rows, SWA algorithms are proprietary/schema-hidden, no T1 item-level route is visible, and no public row-level sensor/label files exist."
+    },
+    {
+      "name": "Marital-dyad social actigraphy / Sensors 2023",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9921738/",
+      "access_status": "source data available to researchers upon author request; no local files or schema",
+      "label": "clinician MDS-UPDRS Part III total for the PD participant",
+      "modality": "non-dominant wrist GeneActiv triaxial accelerometry at 100 Hz for seven days in PD participants and spouses",
+      "n_dyads": 27,
+      "n_individuals": 54,
+      "n_pd_subjects": 27,
+      "direct_t1_t3_eligible": false,
+      "potential_external_t3_if_access_and_schema_approved": true,
+      "status": "request_only_document_only_no_scaffold",
+      "verdict": "Potentially relevant as small request-only daily-life actigraphy context, but not actionable for the active ceiling-break objective. The study is N=27 PD participants, social/dyad-focused, not a structured WearGait-like gait/balance protocol, has no T1 item-level endpoint, and exposes no public row-level sensor/label files."
+    }
+  ],
+  "sources": [
+    "https://www.nature.com/articles/s41598-023-48209-y",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9921738/"
+  ]
+}

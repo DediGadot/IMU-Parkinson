@@ -1,0 +1,139 @@
+{
+  "generated_at_utc": "2026-05-09T12:40:43+00:00",
+  "script": "audit_external_result_claim_labeling.py",
+  "policy": "External FoG-STAR, COPS, TLVMC/DeFOG, PDFE, and PADS results may support transportability or within-dataset sanity claims only. They must not be framed as internal WearGait-PD T3 headline, canonical, deployment, or ceiling-break updates.",
+  "passed": true,
+  "claim_patterns": [
+    "FoG-STAR",
+    "COPS",
+    "TLVMC/DeFOG",
+    "PDFE",
+    "PADS",
+    "0.2499",
+    "0.2412",
+    "0.2535",
+    "0.2695",
+    "0.4020"
+  ],
+  "findings": [],
+  "missing_required_snippets": [],
+  "artifact_failures": [],
+  "artifact_checks": [
+    {
+      "path": "results/iter39_fogstar_zeroshot_20260508_143717.json",
+      "exists": true,
+      "has_external_only_decision": true,
+      "suspicious_promotion": false,
+      "decision": "zero_shot_external_validation_only_no_internal_canonical_change",
+      "policy": null,
+      "interpretation": null,
+      "hard_failures": []
+    },
+    {
+      "path": "results/iter49_cops_zeroshot.json",
+      "exists": true,
+      "has_external_only_decision": true,
+      "suspicious_promotion": false,
+      "decision": "external_zero_shot_only_no_internal_t3_canonical_change",
+      "policy": null,
+      "interpretation": null,
+      "hard_failures": []
+    },
+    {
+      "path": "results/iter51_tlvmc_defog_zeroshot.json",
+      "exists": true,
+      "has_external_only_decision": true,
+      "suspicious_promotion": false,
+      "decision": "external_zero_shot_only_no_internal_t3_canonical_change",
+      "policy": null,
+      "interpretation": {
+        "primary_track_a_mean_off_ccc": 0.2695,
+        "primary_track_a_mean_off_ci95": [
+          0.1693,
+          0.36
+        ],
+        "verdict": "partial_external_validity",
+        "no_internal_canonical_change": true
+      },
+      "hard_failures": []
+    },
+    {
+      "path": "results/iter52_pdfe_turning_zeroshot.json",
+      "exists": true,
+      "has_external_only_decision": true,
+      "suspicious_promotion": false,
+      "decision": null,
+      "policy": {
+        "internal_t3_canonical_update_allowed": false,
+        "interpretation": "external transportability / protocol-mismatch evidence only"
+      },
+      "interpretation": null,
+      "hard_failures": []
+    }
+  ],
+  "docs": [
+    {
+      "path": "paper.md",
+      "current_scope_lines": 715,
+      "mentions": 8,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "CURRENT_PAPER.html",
+      "current_scope_lines": 2116,
+      "mentions": 33,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "CLAUDE.md",
+      "current_scope_lines": 357,
+      "mentions": 10,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "AGENTS.md",
+      "current_scope_lines": 154,
+      "mentions": 10,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "task_plan.md",
+      "current_scope_lines": 4,
+      "mentions": 0,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "progress.md",
+      "current_scope_lines": 148,
+      "mentions": 12,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "findings.md",
+      "current_scope_lines": 561,
+      "mentions": 21,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "results/thread_goal_completion_audit_20260508.md",
+      "current_scope_lines": 151,
+      "mentions": 16,
+      "findings": [],
+      "missing_required_snippets": []
+    },
+    {
+      "path": "results/current_best_pipeline_artifact_index_20260508.md",
+      "current_scope_lines": 433,
+      "mentions": 14,
+      "findings": [],
+      "missing_required_snippets": []
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+
+=== T1 iter28-B 5-FOLD SCREEN (cohort N=94, 3 seeds, num_kernels=10000, stage2=RidgeCV) ===
+
+  T3-cache HIT, sub-selected 94 of 98 subjects
+  seed=42: ROCKET-T1 CCC=0.6036 | iter5-direct-T1 CCC=0.6579 | Δ=-0.0543 | MAE=1.936 | alpha_med=100 | 5.2s
+  T3-cache HIT, sub-selected 94 of 98 subjects
+  seed=1337: ROCKET-T1 CCC=0.3627 | iter5-direct-T1 CCC=0.6773 | Δ=-0.3146 | MAE=2.356 | alpha_med=100 | 5.4s
+  T3-cache HIT, sub-selected 94 of 98 subjects
+  seed=7: ROCKET-T1 CCC=0.5760 | iter5-direct-T1 CCC=0.6364 | Δ=-0.0604 | MAE=2.004 | alpha_med=100 | 5.3s
+
+Mean ROCKET-T1 CCC = 0.5141 ± 0.1318; Mean iter5-direct-T1 CCC = 0.6572 ± 0.0205; Δ̄ = -0.1431
+Wrote /root/pd-imu/results/iter28b_t1_multirocket_5fold_20260505_185824.csv

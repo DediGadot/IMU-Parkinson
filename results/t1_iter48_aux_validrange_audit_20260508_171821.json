@@ -1,0 +1,71 @@
+{
+  "audit": "t1_iter48_aux_validrange",
+  "created_at_utc": "2026-05-08T17:18:21+00:00",
+  "source_cache": "/home/fiod/medical/results/per_item_scores.json",
+  "item_total_valid_ranges": {
+    "1": 4,
+    "2": 4,
+    "3": 20,
+    "4": 8,
+    "5": 8,
+    "6": 8,
+    "7": 8,
+    "8": 8,
+    "9": 4,
+    "10": 4,
+    "11": 4,
+    "12": 4,
+    "13": 4,
+    "14": 4,
+    "15": 8,
+    "16": 8,
+    "17": 20,
+    "18": 4
+  },
+  "current_loader": {
+    "t1_n": 94,
+    "chain_n": 93,
+    "chain_filter": "non-missing items 9-14 plus auxiliary items 15 and 18 using stale per_item_scores.json totals"
+  },
+  "validated_loader": {
+    "t1_n": 94,
+    "chain_n": 92,
+    "chain_filter": "same, but top-level item totals outside valid item range are treated as missing"
+  },
+  "cohort_deltas": {
+    "current_chain_minus_validated_chain": [
+      "NLS036"
+    ],
+    "validated_chain_minus_current_chain": [],
+    "current_t1_minus_validated_t1": [],
+    "validated_t1_minus_current_t1": []
+  },
+  "invalid_top_level_item_totals_among_pd_sids": [
+    {
+      "sid": "NLS036",
+      "item": 15,
+      "value": 18.0,
+      "valid_min": 0.0,
+      "valid_max": 8.0
+    }
+  ],
+  "invalid_t1_target_items_in_current_t1_cohort": [],
+  "invalid_auxiliary_items_in_current_chain_cohort": [
+    {
+      "sid": "NLS036",
+      "item": 15,
+      "value": 18.0,
+      "valid_min": 0.0,
+      "valid_max": 8.0,
+      "subparts": {
+        "(15, 'a')": 9.0,
+        "(15, 'b')": 9.0
+      }
+    }
+  ],
+  "interpretation": {
+    "primary_t1_target_valid": true,
+    "iter34_auxiliary_chain_uses_invalid_label": true,
+    "recommended_status": "methodology_caveat_requires_fixed_battery_decision_before_any_new_T1_claim"
+  }
+}

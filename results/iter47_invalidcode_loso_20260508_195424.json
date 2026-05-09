@@ -1,0 +1,641 @@
+{
+  "created_at_local": "2026-05-08T19:54:30.673172",
+  "created_at_utc": "2026-05-08T16:54:30+00:00",
+  "experiment": "T3 iter47 invalid-code target correction LOSO audit",
+  "preregistration_file": "/home/fiod/pd-imu/results/preregistration_t3_iter47_invalidcode_loso_20260508_195424.json",
+  "formula_sha256": "5b0897a1a47ecbc32c077bb0588631cb0e3ee80d0660a9451eba1f03078e7e50",
+  "target_audit": {
+    "clinical_path": "/home/fiod/pd-imu/data/raw/weargait-pd/PD - Demographic+Clinical - datasetV1.csv",
+    "n_part3_columns": 33,
+    "invalid_raw_subitem_values": [
+      {
+        "sid": "NLS036",
+        "column": "MDSUPDRS_3-15-R",
+        "value": 9.0
+      },
+      {
+        "sid": "NLS036",
+        "column": "MDSUPDRS_3-15-L",
+        "value": 9.0
+      }
+    ],
+    "target_changed_rows": [
+      {
+        "sid": "NLS036",
+        "original_sum33": 46.0,
+        "validrange_sum33": 28.0,
+        "target_delta_original_minus_validrange": 18.0,
+        "original_nonmissing": 33,
+        "validrange_nonmissing": 31,
+        "invalid_part3_count": 2
+      }
+    ]
+  },
+  "cells": [
+    {
+      "cohort": "drop_allmissing_validrange",
+      "stage2_policy": "stage2_current",
+      "n": 95,
+      "excluded_sids": [
+        "NLS188",
+        "WPD013",
+        "NLS151"
+      ],
+      "target_change_subjects": [
+        {
+          "sid": "NLS036",
+          "old_target": 46.0,
+          "validrange_target": 28.0,
+          "delta_old_minus_validrange": 18.0,
+          "valid_subitems": 31
+        }
+      ],
+      "NLS_to_WPD_mean_ccc": 0.19369999999999998,
+      "WPD_to_NLS_mean_ccc": 0.1059,
+      "two_way_mean_ccc": 0.1498,
+      "per_seed": [
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 68,
+          "n_test": 27,
+          "seed": 42,
+          "metrics": {
+            "n": 27,
+            "ccc": 0.2431,
+            "cal_slope": 0.212,
+            "mae": 5.8788,
+            "r": 0.2463,
+            "pred_mean": 22.688,
+            "pred_std": 5.448,
+            "true_mean": 22.333,
+            "true_std": 6.33,
+            "label": "drop_allmissing_validrange_stage2_current_NLS_to_WPD_seed42"
+          },
+          "selected_cv_counts": {
+            "cv_age": 1
+          }
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 27,
+          "n_test": 68,
+          "seed": 42,
+          "metrics": {
+            "n": 68,
+            "ccc": 0.1027,
+            "cal_slope": 0.0776,
+            "mae": 10.079,
+            "r": 0.1615,
+            "pred_mean": 20.333,
+            "pred_std": 5.203,
+            "true_mean": 26.059,
+            "true_std": 10.837,
+            "label": "drop_allmissing_validrange_stage2_current_WPD_to_NLS_seed42"
+          },
+          "selected_cv_counts": {
+            "cv_age": 1,
+            "cv_sex": 1,
+            "cv_wt": 1,
+            "cv_yrs": 1
+          }
+        },
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 68,
+          "n_test": 27,
+          "seed": 1337,
+          "metrics": {
+            "n": 27,
+            "ccc": 0.1703,
+            "cal_slope": 0.1422,
+            "mae": 6.541,
+            "r": 0.1751,
+            "pred_mean": 22.969,
+            "pred_std": 5.141,
+            "true_mean": 22.333,
+            "true_std": 6.33,
+            "label": "drop_allmissing_validrange_stage2_current_NLS_to_WPD_seed1337"
+          },
+          "selected_cv_counts": {
+            "cv_age": 1
+          }
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 27,
+          "n_test": 68,
+          "seed": 1337,
+          "metrics": {
+            "n": 68,
+            "ccc": 0.1094,
+            "cal_slope": 0.0836,
+            "mae": 10.1965,
+            "r": 0.1705,
+            "pred_mean": 20.243,
+            "pred_std": 5.314,
+            "true_mean": 26.059,
+            "true_std": 10.837,
+            "label": "drop_allmissing_validrange_stage2_current_WPD_to_NLS_seed1337"
+          },
+          "selected_cv_counts": {
+            "cv_age": 1,
+            "cv_sex": 1,
+            "cv_wt": 1,
+            "cv_yrs": 1
+          }
+        },
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 68,
+          "n_test": 27,
+          "seed": 7,
+          "metrics": {
+            "n": 27,
+            "ccc": 0.1677,
+            "cal_slope": 0.1649,
+            "mae": 6.9638,
+            "r": 0.1677,
+            "pred_mean": 22.235,
+            "pred_std": 6.224,
+            "true_mean": 22.333,
+            "true_std": 6.33,
+            "label": "drop_allmissing_validrange_stage2_current_NLS_to_WPD_seed7"
+          },
+          "selected_cv_counts": {
+            "cv_age": 1
+          }
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 27,
+          "n_test": 68,
+          "seed": 7,
+          "metrics": {
+            "n": 68,
+            "ccc": 0.1056,
+            "cal_slope": 0.0822,
+            "mae": 10.2733,
+            "r": 0.1607,
+            "pred_mean": 20.173,
+            "pred_std": 5.546,
+            "true_mean": 26.059,
+            "true_std": 10.837,
+            "label": "drop_allmissing_validrange_stage2_current_WPD_to_NLS_seed7"
+          },
+          "selected_cv_counts": {
+            "cv_age": 1,
+            "cv_sex": 1,
+            "cv_wt": 1,
+            "cv_yrs": 1
+          }
+        }
+      ]
+    },
+    {
+      "cohort": "drop_allmissing_validrange",
+      "stage2_policy": "stage2_no_cv",
+      "n": 95,
+      "excluded_sids": [
+        "NLS188",
+        "WPD013",
+        "NLS151"
+      ],
+      "target_change_subjects": [
+        {
+          "sid": "NLS036",
+          "old_target": 46.0,
+          "validrange_target": 28.0,
+          "delta_old_minus_validrange": 18.0,
+          "valid_subitems": 31
+        }
+      ],
+      "NLS_to_WPD_mean_ccc": 0.21246666666666666,
+      "WPD_to_NLS_mean_ccc": 0.1138,
+      "two_way_mean_ccc": 0.16313333333333332,
+      "per_seed": [
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 68,
+          "n_test": 27,
+          "seed": 42,
+          "metrics": {
+            "n": 27,
+            "ccc": 0.2273,
+            "cal_slope": 0.1915,
+            "mae": 5.8847,
+            "r": 0.2436,
+            "pred_mean": 23.971,
+            "pred_std": 4.975,
+            "true_mean": 22.333,
+            "true_std": 6.33,
+            "label": "drop_allmissing_validrange_stage2_no_cv_NLS_to_WPD_seed42"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 27,
+          "n_test": 68,
+          "seed": 42,
+          "metrics": {
+            "n": 68,
+            "ccc": 0.1067,
+            "cal_slope": 0.0806,
+            "mae": 10.0747,
+            "r": 0.1716,
+            "pred_mean": 20.223,
+            "pred_std": 5.092,
+            "true_mean": 26.059,
+            "true_std": 10.837,
+            "label": "drop_allmissing_validrange_stage2_no_cv_WPD_to_NLS_seed42"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 68,
+          "n_test": 27,
+          "seed": 1337,
+          "metrics": {
+            "n": 27,
+            "ccc": 0.1923,
+            "cal_slope": 0.1707,
+            "mae": 6.7015,
+            "r": 0.1939,
+            "pred_mean": 22.42,
+            "pred_std": 5.572,
+            "true_mean": 22.333,
+            "true_std": 6.33,
+            "label": "drop_allmissing_validrange_stage2_no_cv_NLS_to_WPD_seed1337"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 27,
+          "n_test": 68,
+          "seed": 1337,
+          "metrics": {
+            "n": 68,
+            "ccc": 0.1257,
+            "cal_slope": 0.0952,
+            "mae": 10.1022,
+            "r": 0.1962,
+            "pred_mean": 20.332,
+            "pred_std": 5.261,
+            "true_mean": 26.059,
+            "true_std": 10.837,
+            "label": "drop_allmissing_validrange_stage2_no_cv_WPD_to_NLS_seed1337"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 68,
+          "n_test": 27,
+          "seed": 7,
+          "metrics": {
+            "n": 27,
+            "ccc": 0.2178,
+            "cal_slope": 0.2099,
+            "mae": 6.7602,
+            "r": 0.2233,
+            "pred_mean": 23.662,
+            "pred_std": 5.95,
+            "true_mean": 22.333,
+            "true_std": 6.33,
+            "label": "drop_allmissing_validrange_stage2_no_cv_NLS_to_WPD_seed7"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 27,
+          "n_test": 68,
+          "seed": 7,
+          "metrics": {
+            "n": 68,
+            "ccc": 0.109,
+            "cal_slope": 0.0862,
+            "mae": 10.315,
+            "r": 0.1722,
+            "pred_mean": 19.827,
+            "pred_std": 5.423,
+            "true_mean": 26.059,
+            "true_std": 10.837,
+            "label": "drop_allmissing_validrange_stage2_no_cv_WPD_to_NLS_seed7"
+          },
+          "selected_cv_counts": {}
+        }
+      ]
+    },
+    {
+      "cohort": "complete33_validrange",
+      "stage2_policy": "stage2_current",
+      "n": 88,
+      "excluded_sids": [
+        "NLS036",
+        "NLS143",
+        "NLS188",
+        "NLS183",
+        "WPD013",
+        "WPD002",
+        "NLS151",
+        "WPD017",
+        "NLS002",
+        "NLS210"
+      ],
+      "target_change_subjects": [],
+      "NLS_to_WPD_mean_ccc": 0.2325,
+      "WPD_to_NLS_mean_ccc": -0.02033333333333333,
+      "two_way_mean_ccc": 0.10608333333333334,
+      "per_seed": [
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 63,
+          "n_test": 25,
+          "seed": 42,
+          "metrics": {
+            "n": 25,
+            "ccc": 0.1245,
+            "cal_slope": 0.1039,
+            "mae": 6.5179,
+            "r": 0.1355,
+            "pred_mean": 24.127,
+            "pred_std": 4.966,
+            "true_mean": 22.28,
+            "true_std": 6.478,
+            "label": "complete33_validrange_stage2_current_NLS_to_WPD_seed42"
+          },
+          "selected_cv_counts": {
+            "cv_ht": 1,
+            "cv_age": 1
+          }
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 25,
+          "n_test": 63,
+          "seed": 42,
+          "metrics": {
+            "n": 63,
+            "ccc": -0.0171,
+            "cal_slope": -0.0121,
+            "mae": 10.6584,
+            "r": -0.0267,
+            "pred_mean": 21.151,
+            "pred_std": 5.001,
+            "true_mean": 26.19,
+            "true_std": 11.035,
+            "label": "complete33_validrange_stage2_current_WPD_to_NLS_seed42"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 63,
+          "n_test": 25,
+          "seed": 1337,
+          "metrics": {
+            "n": 25,
+            "ccc": 0.2861,
+            "cal_slope": 0.2227,
+            "mae": 5.7366,
+            "r": 0.3133,
+            "pred_mean": 23.751,
+            "pred_std": 4.604,
+            "true_mean": 22.28,
+            "true_std": 6.478,
+            "label": "complete33_validrange_stage2_current_NLS_to_WPD_seed1337"
+          },
+          "selected_cv_counts": {
+            "cv_ht": 1,
+            "cv_age": 1
+          }
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 25,
+          "n_test": 63,
+          "seed": 1337,
+          "metrics": {
+            "n": 63,
+            "ccc": -0.0122,
+            "cal_slope": -0.0087,
+            "mae": 10.8446,
+            "r": -0.0193,
+            "pred_mean": 20.967,
+            "pred_std": 4.967,
+            "true_mean": 26.19,
+            "true_std": 11.035,
+            "label": "complete33_validrange_stage2_current_WPD_to_NLS_seed1337"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 63,
+          "n_test": 25,
+          "seed": 7,
+          "metrics": {
+            "n": 25,
+            "ccc": 0.2869,
+            "cal_slope": 0.2266,
+            "mae": 6.0894,
+            "r": 0.2999,
+            "pred_mean": 22.882,
+            "pred_std": 4.896,
+            "true_mean": 22.28,
+            "true_std": 6.478,
+            "label": "complete33_validrange_stage2_current_NLS_to_WPD_seed7"
+          },
+          "selected_cv_counts": {
+            "cv_ht": 1,
+            "cv_age": 1
+          }
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 25,
+          "n_test": 63,
+          "seed": 7,
+          "metrics": {
+            "n": 63,
+            "ccc": -0.0317,
+            "cal_slope": -0.0213,
+            "mae": 10.6001,
+            "r": -0.0455,
+            "pred_mean": 22.305,
+            "pred_std": 5.157,
+            "true_mean": 26.19,
+            "true_std": 11.035,
+            "label": "complete33_validrange_stage2_current_WPD_to_NLS_seed7"
+          },
+          "selected_cv_counts": {}
+        }
+      ]
+    },
+    {
+      "cohort": "complete33_validrange",
+      "stage2_policy": "stage2_no_cv",
+      "n": 88,
+      "excluded_sids": [
+        "NLS036",
+        "NLS143",
+        "NLS188",
+        "NLS183",
+        "WPD013",
+        "WPD002",
+        "NLS151",
+        "WPD017",
+        "NLS002",
+        "NLS210"
+      ],
+      "target_change_subjects": [],
+      "NLS_to_WPD_mean_ccc": 0.23603333333333332,
+      "WPD_to_NLS_mean_ccc": -0.004233333333333333,
+      "two_way_mean_ccc": 0.11589999999999999,
+      "per_seed": [
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 63,
+          "n_test": 25,
+          "seed": 42,
+          "metrics": {
+            "n": 25,
+            "ccc": 0.2009,
+            "cal_slope": 0.1741,
+            "mae": 6.414,
+            "r": 0.2494,
+            "pred_mean": 25.49,
+            "pred_std": 4.522,
+            "true_mean": 22.28,
+            "true_std": 6.478,
+            "label": "complete33_validrange_stage2_no_cv_NLS_to_WPD_seed42"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 25,
+          "n_test": 63,
+          "seed": 42,
+          "metrics": {
+            "n": 63,
+            "ccc": -0.0042,
+            "cal_slope": -0.003,
+            "mae": 10.5121,
+            "r": -0.0067,
+            "pred_mean": 21.222,
+            "pred_std": 4.857,
+            "true_mean": 26.19,
+            "true_std": 11.035,
+            "label": "complete33_validrange_stage2_no_cv_WPD_to_NLS_seed42"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 63,
+          "n_test": 25,
+          "seed": 1337,
+          "metrics": {
+            "n": 25,
+            "ccc": 0.2348,
+            "cal_slope": 0.223,
+            "mae": 6.6458,
+            "r": 0.2726,
+            "pred_mean": 25.388,
+            "pred_std": 5.3,
+            "true_mean": 22.28,
+            "true_std": 6.478,
+            "label": "complete33_validrange_stage2_no_cv_NLS_to_WPD_seed1337"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 25,
+          "n_test": 63,
+          "seed": 1337,
+          "metrics": {
+            "n": 63,
+            "ccc": 0.0165,
+            "cal_slope": 0.0119,
+            "mae": 10.6046,
+            "r": 0.0266,
+            "pred_mean": 20.771,
+            "pred_std": 4.929,
+            "true_mean": 26.19,
+            "true_std": 11.035,
+            "label": "complete33_validrange_stage2_no_cv_WPD_to_NLS_seed1337"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "NLS",
+          "test_site": "WPD",
+          "n_train": 63,
+          "n_test": 25,
+          "seed": 7,
+          "metrics": {
+            "n": 25,
+            "ccc": 0.2724,
+            "cal_slope": 0.2625,
+            "mae": 6.4529,
+            "r": 0.3257,
+            "pred_mean": 25.694,
+            "pred_std": 5.222,
+            "true_mean": 22.28,
+            "true_std": 6.478,
+            "label": "complete33_validrange_stage2_no_cv_NLS_to_WPD_seed7"
+          },
+          "selected_cv_counts": {}
+        },
+        {
+          "train_site": "WPD",
+          "test_site": "NLS",
+          "n_train": 25,
+          "n_test": 63,
+          "seed": 7,
+          "metrics": {
+            "n": 63,
+            "ccc": -0.025,
+            "cal_slope": -0.0168,
+            "mae": 10.5622,
+            "r": -0.0374,
+            "pred_mean": 22.068,
+            "pred_std": 4.955,
+            "true_mean": 26.19,
+            "true_std": 11.035,
+            "label": "complete33_validrange_stage2_no_cv_WPD_to_NLS_seed7"
+          },
+          "selected_cv_counts": {}
+        }
+      ]
+    }
+  ],
+  "rows_csv": "/home/fiod/pd-imu/results/iter47_invalidcode_loso_rows_20260508_195424.csv"
+}

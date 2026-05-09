@@ -1,0 +1,12 @@
+{
+  "created_at_utc": "2026-05-09T06:20:20+00:00",
+  "script": "run_t3_iter52_pdfe_turning.py",
+  "mode": "download",
+  "figshare_article": "14984667",
+  "metadata_csv": "/home/fiod/pd-imu/data/raw/pdfe_turning/PDFEinfo.csv",
+  "metadata_sha256": "46da06231a2f82e5ef06544264d696865317d6972ac0e9f996d06cb200dd1647",
+  "imu_zip": "/home/fiod/pd-imu/data/raw/pdfe_turning/IMU.zip",
+  "imu_zip_sha256": "cea4246e3d1991aedf772f250dc928e6bd5a55bfdce2a944bf02a1a51eadf7ab",
+  "n_zip_entries": 212,
+  "zip_total_uncompressed_bytes": 341979859
+}

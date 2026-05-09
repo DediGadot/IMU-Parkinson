@@ -1,5 +1,8 @@
 # Peer Review Report
 
+> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.**
+> This review report evaluated an older manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded.
+
 **Paper:** Realistic deployment ceilings for gait-IMU UPDRS-III prediction in Parkinson's disease: an inductive benchmark and transportability analysis on WearGait-PD
 **File:** `NEW5.html` (2,737,805 bytes; 841 lines; generator `generate_paper_v5.py`)
 **Reviewer:** Senior Reviewer (AI-assisted, on behalf of Nature Digital Medicine / Movement Disorders / npj Parkinson's Disease / JNER)

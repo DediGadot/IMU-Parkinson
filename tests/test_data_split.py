@@ -18,6 +18,7 @@ from data_split import (
     FS,
     WINDOW_LEN,
     STRIDE_LEN,
+    parse_clinical,
     cv_split_with_val,
     load_windows_for_sids,
 )
@@ -117,6 +118,34 @@ class TestUpdrsBin:
             curr_bin = _updrs_bin(score)
             assert curr_bin >= prev_bin, f"Bin decreased at score {score}"
             prev_bin = curr_bin
+
+
+class TestParseClinical:
+    def test_invalid_part3_codes_are_missing_not_severity(self, tmp_path, monkeypatch):
+        cols = ["Subject ID", "MDSUPDRS_3-1", "MDSUPDRS_3-2"]
+        pd_df = pd.DataFrame(
+            [
+                ["PD001", "1", "9"],
+                ["PD002", "9", "9"],
+            ],
+            columns=cols,
+        )
+        hc_df = pd.DataFrame([["HC001", "0", "9"]], columns=cols)
+        (tmp_path / "PD - Demographic+Clinical - datasetV1.csv").write_text(
+            "metadata row ignored by header=1\n" + pd_df.to_csv(index=False),
+            encoding="utf-8",
+        )
+        (tmp_path / "CONTROLS - Demographic+Clinical - datasetV1.csv").write_text(
+            "metadata row ignored by header=1\n" + hc_df.to_csv(index=False),
+            encoding="utf-8",
+        )
+        monkeypatch.setattr("data_split.DATA_DIR", str(tmp_path))
+
+        subjects = parse_clinical()
+
+        assert subjects["PD001"]["updrs3"] == 1.0
+        assert "PD002" not in subjects
+        assert subjects["HC001"]["updrs3"] == 0.0
 
 
 # ── cv_split_with_val ───────────────────────────────────────────────

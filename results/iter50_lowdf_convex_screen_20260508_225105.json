@@ -1,0 +1,1224 @@
+{
+  "created_at_utc": "2026-05-08T22:52:48+00:00",
+  "script": "run_t3_iter50_lowdf_convex.py",
+  "preregistration_file": "/home/fiod/medical/results/preregistration_t3_iter50_lowdfconvex_screen_20260508_225105.json",
+  "formula_sha256": "64d85ad663d71561882711a37a3443f0de2a975ddcd24f94ec827e87d8bda29d",
+  "cohort": {
+    "name": "drop_allmissing_validrange",
+    "n": 95,
+    "excluded_sids": [
+      "NLS188",
+      "WPD013",
+      "NLS151"
+    ],
+    "target_change_subjects": [
+      {
+        "sid": "NLS036",
+        "old_target": 46.0,
+        "validrange_target": 28.0,
+        "delta_old_minus_validrange": 18.0
+      }
+    ]
+  },
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "mean_metrics": {
+    "baseline_seq_current": {
+      "n": 95,
+      "ccc": 0.3759,
+      "cal_slope": 0.2585,
+      "mae": 7.2682,
+      "r": 0.4219,
+      "pred_mean": 24.942,
+      "pred_std": 6.074,
+      "true_mean": 25.0,
+      "true_std": 9.913,
+      "label": "iter50_baseline_seq_current_mean3"
+    },
+    "clinical_only": {
+      "n": 95,
+      "ccc": 0.3068,
+      "cal_slope": 0.1985,
+      "mae": 7.5928,
+      "r": 0.3662,
+      "pred_mean": 24.96,
+      "pred_std": 5.373,
+      "true_mean": 25.0,
+      "true_std": 9.913,
+      "label": "iter50_clinical_only_mean3"
+    },
+    "imu_only_no_cv": {
+      "n": 95,
+      "ccc": 0.2322,
+      "cal_slope": 0.14,
+      "mae": 7.51,
+      "r": 0.3086,
+      "pred_mean": 24.775,
+      "pred_std": 4.499,
+      "true_mean": 25.0,
+      "true_std": 9.913,
+      "label": "iter50_imu_only_no_cv_mean3"
+    },
+    "nested_convex": {
+      "n": 95,
+      "ccc": 0.3083,
+      "cal_slope": 0.1875,
+      "mae": 7.1959,
+      "r": 0.4033,
+      "pred_mean": 25.163,
+      "pred_std": 4.61,
+      "true_mean": 25.0,
+      "true_std": 9.913,
+      "label": "iter50_nested_convex_mean3"
+    }
+  },
+  "per_seed_metrics": [
+    {
+      "seed": 42,
+      "metrics": {
+        "baseline_seq_current": {
+          "n": 95,
+          "ccc": 0.3508,
+          "cal_slope": 0.2706,
+          "mae": 7.9436,
+          "r": 0.3677,
+          "pred_mean": 24.661,
+          "pred_std": 7.296,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_baseline_seq_current_seed42"
+        },
+        "clinical_only": {
+          "n": 95,
+          "ccc": 0.2866,
+          "cal_slope": 0.1973,
+          "mae": 7.9056,
+          "r": 0.3214,
+          "pred_mean": 25.014,
+          "pred_std": 6.085,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_clinical_only_seed42"
+        },
+        "imu_only_no_cv": {
+          "n": 95,
+          "ccc": 0.2245,
+          "cal_slope": 0.1414,
+          "mae": 7.7473,
+          "r": 0.2781,
+          "pred_mean": 24.687,
+          "pred_std": 5.039,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_imu_only_no_cv_seed42"
+        },
+        "nested_convex": {
+          "n": 95,
+          "ccc": 0.3049,
+          "cal_slope": 0.2038,
+          "mae": 7.6305,
+          "r": 0.3511,
+          "pred_mean": 25.045,
+          "pred_std": 5.755,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_nested_convex_seed42"
+        }
+      },
+      "alpha_values": [
+        0.68,
+        0.58,
+        0.89,
+        1.0,
+        1.0
+      ],
+      "alpha_mean": 0.8300000000000001,
+      "alpha_std": 0.1711139970896595
+    },
+    {
+      "seed": 1337,
+      "metrics": {
+        "baseline_seq_current": {
+          "n": 95,
+          "ccc": 0.3707,
+          "cal_slope": 0.2513,
+          "mae": 7.4023,
+          "r": 0.4235,
+          "pred_mean": 25.603,
+          "pred_std": 5.883,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_baseline_seq_current_seed1337"
+        },
+        "clinical_only": {
+          "n": 95,
+          "ccc": 0.2835,
+          "cal_slope": 0.1781,
+          "mae": 7.5878,
+          "r": 0.3519,
+          "pred_mean": 24.813,
+          "pred_std": 5.016,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_clinical_only_seed1337"
+        },
+        "imu_only_no_cv": {
+          "n": 95,
+          "ccc": 0.2646,
+          "cal_slope": 0.1674,
+          "mae": 7.4966,
+          "r": 0.3252,
+          "pred_mean": 25.158,
+          "pred_std": 5.103,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_imu_only_no_cv_seed1337"
+        },
+        "nested_convex": {
+          "n": 95,
+          "ccc": 0.2643,
+          "cal_slope": 0.1646,
+          "mae": 7.4139,
+          "r": 0.3327,
+          "pred_mean": 25.342,
+          "pred_std": 4.906,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_nested_convex_seed1337"
+        }
+      },
+      "alpha_values": [
+        0.26,
+        0.4,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "alpha_mean": 0.332,
+      "alpha_std": 0.3678260458423247
+    },
+    {
+      "seed": 7,
+      "metrics": {
+        "baseline_seq_current": {
+          "n": 95,
+          "ccc": 0.3614,
+          "cal_slope": 0.2535,
+          "mae": 7.2664,
+          "r": 0.4003,
+          "pred_mean": 24.562,
+          "pred_std": 6.28,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_baseline_seq_current_seed7"
+        },
+        "clinical_only": {
+          "n": 95,
+          "ccc": 0.336,
+          "cal_slope": 0.2201,
+          "mae": 7.4948,
+          "r": 0.3951,
+          "pred_mean": 25.054,
+          "pred_std": 5.524,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_clinical_only_seed7"
+        },
+        "imu_only_no_cv": {
+          "n": 95,
+          "ccc": 0.1738,
+          "cal_slope": 0.1114,
+          "mae": 7.9355,
+          "r": 0.2109,
+          "pred_mean": 24.48,
+          "pred_std": 5.234,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_imu_only_no_cv_seed7"
+        },
+        "nested_convex": {
+          "n": 95,
+          "ccc": 0.3028,
+          "cal_slope": 0.1941,
+          "mae": 7.5195,
+          "r": 0.3654,
+          "pred_mean": 25.102,
+          "pred_std": 5.266,
+          "true_mean": 25.0,
+          "true_std": 9.913,
+          "label": "iter50_nested_convex_seed7"
+        }
+      },
+      "alpha_values": [
+        1.0,
+        0.0,
+        0.15,
+        1.0,
+        0.8
+      ],
+      "alpha_mean": 0.5900000000000001,
+      "alpha_std": 0.42941821107167777
+    }
+  ],
+  "alpha_summary": {
+    "values": [
+      0.68,
+      0.58,
+      0.89,
+      1.0,
+      1.0,
+      0.26,
+      0.4,
+      1.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.15,
+      1.0,
+      0.8
+    ],
+    "mean": 0.5840000000000001,
+    "std": 0.41102311370530004,
+    "min": 0.0,
+    "max": 1.0
+  },
+  "gate": {
+    "strict_t3_gate_pass": false,
+    "delta_seed_mean_predictions": -0.06756384356648298,
+    "mean_seed_delta": -0.07029999999999999,
+    "seed_delta_std": 0.031901880822296357,
+    "required_delta": 0.05,
+    "required_seed_delta_std_lt": 0.02
+  },
+  "bootstrap_nested_convex_minus_baseline": {
+    "n_boot": 5000,
+    "mean_delta": -0.06463238606723257,
+    "ci95": [
+      -0.12859034194229083,
+      0.006810200363081656
+    ],
+    "frac_gt_0": 0.0348
+  },
+  "decision": "screen_fail_no_loocv_no_canonical_change",
+  "fold_rows": [
+    {
+      "seed": 42,
+      "outer_fold": 1,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 0.68,
+      "inner_oof_ccc": 0.33493372233825414,
+      "clinical_inner_oof_ccc": 0.3261771551913902,
+      "imu_inner_oof_ccc": 0.2931997950292279,
+      "test_sids": [
+        "NLS142",
+        "NLS130",
+        "NLS197",
+        "NLS036",
+        "WPD002",
+        "WPD024",
+        "NLS160",
+        "NLS190",
+        "WPD025",
+        "WPD003",
+        "NLS127",
+        "NLS186",
+        "NLS169",
+        "WPD009",
+        "WPD026",
+        "NLS177",
+        "WPD008",
+        "NLS195",
+        "NLS210"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.3400099905383348,
+          "imu_ccc": 0.12349905835631192
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.3368716593795337,
+          "imu_ccc": 0.3271720877708192
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.32727918362806513,
+          "imu_ccc": 0.4455072723007142
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.1749020295964251,
+          "imu_ccc": 0.22798857919215793
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "outer_fold": 2,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 0.58,
+      "inner_oof_ccc": 0.37726909363220273,
+      "clinical_inner_oof_ccc": 0.3633255379093835,
+      "imu_inner_oof_ccc": 0.34814166854445855,
+      "test_sids": [
+        "NLS175",
+        "WPD020",
+        "NLS184",
+        "NLS183",
+        "NLS192",
+        "WPD023",
+        "WPD005",
+        "WPD027",
+        "NLS185",
+        "NLS167",
+        "NLS153",
+        "WPD019",
+        "NLS208",
+        "NLS173",
+        "NLS022",
+        "NLS056",
+        "NLS209",
+        "WPD014",
+        "NLS158"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.4485296711667247,
+          "imu_ccc": 0.4551450198476538
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.5002009995243725,
+          "imu_ccc": 0.332524537184071
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.2650239697104582,
+          "imu_ccc": 0.30536389349684984
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.2924655643222742,
+          "imu_ccc": 0.3462991566963173
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "outer_fold": 3,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 0.89,
+      "inner_oof_ccc": 0.2846978407991463,
+      "clinical_inner_oof_ccc": 0.28338046286134483,
+      "imu_inner_oof_ccc": 0.19518867412473398,
+      "test_sids": [
+        "NLS157",
+        "WPD022",
+        "NLS121",
+        "NLS150",
+        "NLS143",
+        "WPD018",
+        "NLS163",
+        "WPD010",
+        "NLS176",
+        "NLS135",
+        "NLS149",
+        "NLS172",
+        "NLS182",
+        "NLS191",
+        "NLS165",
+        "NLS154",
+        "NLS124",
+        "NLS002",
+        "NLS141"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.33171982315371873,
+          "imu_ccc": 0.2354599498286749
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.3818602104098253,
+          "imu_ccc": 0.18692312703341288
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.28496566791588646,
+          "imu_ccc": 0.29080812753345
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.15183164801442603,
+          "imu_ccc": 0.08686716065303329
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "outer_fold": 4,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 1.0,
+      "inner_oof_ccc": 0.14959247447170085,
+      "clinical_inner_oof_ccc": 0.14959247447170085,
+      "imu_inner_oof_ccc": 0.10269306217842038,
+      "test_sids": [
+        "NLS198",
+        "NLS170",
+        "WPD015",
+        "WPD016",
+        "NLS035",
+        "WPD021",
+        "WPD004",
+        "WPD017",
+        "WPD029",
+        "NLS211",
+        "NLS201",
+        "NLS174",
+        "NLS161",
+        "NLS159",
+        "NLS033",
+        "NLS147",
+        "WPD011",
+        "NLS140",
+        "NLS187"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.18185238463034242,
+          "imu_ccc": 0.2635862980984833
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.13368774113680396,
+          "imu_ccc": 0.16146821073065207
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.09323112257353693,
+          "imu_ccc": 0.015401988366882911
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.3329370751260967,
+          "imu_ccc": -0.013882736775356829
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "outer_fold": 5,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 1.0,
+      "inner_oof_ccc": 0.2545531176514054,
+      "clinical_inner_oof_ccc": 0.2545531176514054,
+      "imu_inner_oof_ccc": 0.1956067231271705,
+      "test_sids": [
+        "NLS179",
+        "NLS146",
+        "NLS102",
+        "NLS189",
+        "NLS144",
+        "WPD012",
+        "NLS069",
+        "NLS164",
+        "NLS155",
+        "NLS166",
+        "NLS152",
+        "NLS148",
+        "WPD006",
+        "NLS101",
+        "NLS162",
+        "NLS139",
+        "WPD007",
+        "WPD001",
+        "NLS196"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.37436829024158613,
+          "imu_ccc": 0.3354993942891008
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.36278730148753685,
+          "imu_ccc": 0.25056939614305396
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.14464453112351666,
+          "imu_ccc": -0.021572917755682725
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.2931120718423483,
+          "imu_ccc": 0.36398610858389674
+        }
+      ]
+    },
+    {
+      "seed": 1337,
+      "outer_fold": 1,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 0.26,
+      "inner_oof_ccc": 0.29955265877985043,
+      "clinical_inner_oof_ccc": 0.25511640685714965,
+      "imu_inner_oof_ccc": 0.29445377663546957,
+      "test_sids": [
+        "NLS175",
+        "NLS197",
+        "NLS184",
+        "NLS183",
+        "WPD018",
+        "NLS176",
+        "WPD023",
+        "NLS198",
+        "WPD015",
+        "NLS167",
+        "NLS186",
+        "NLS035",
+        "NLS211",
+        "NLS201",
+        "WPD008",
+        "NLS209",
+        "NLS162",
+        "NLS147",
+        "WPD014"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.2905921372618257,
+          "imu_ccc": 0.15385997910716012
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.13939791335771928,
+          "imu_ccc": 0.6350130784211342
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.30602428978812174,
+          "imu_ccc": 0.19042960284307403
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.27561744209467615,
+          "imu_ccc": 0.3318897268294236
+        }
+      ]
+    },
+    {
+      "seed": 1337,
+      "outer_fold": 2,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 0.4,
+      "inner_oof_ccc": 0.30346278454433767,
+      "clinical_inner_oof_ccc": 0.268071644875556,
+      "imu_inner_oof_ccc": 0.28601451101346714,
+      "test_sids": [
+        "NLS142",
+        "NLS146",
+        "NLS036",
+        "NLS143",
+        "NLS192",
+        "NLS144",
+        "NLS190",
+        "WPD005",
+        "WPD027",
+        "NLS172",
+        "NLS164",
+        "WPD003",
+        "NLS169",
+        "NLS165",
+        "NLS161",
+        "NLS173",
+        "WPD006",
+        "NLS124",
+        "WPD007"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.17744951858080585,
+          "imu_ccc": 0.20929807066390918
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.4500515611276776,
+          "imu_ccc": 0.21259995618528177
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.3083891630895504,
+          "imu_ccc": 0.4174606756935429
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.22874091688606835,
+          "imu_ccc": 0.20035131486422988
+        }
+      ]
+    },
+    {
+      "seed": 1337,
+      "outer_fold": 3,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 1.0,
+      "inner_oof_ccc": 0.38704388319924443,
+      "clinical_inner_oof_ccc": 0.38704388319924443,
+      "imu_inner_oof_ccc": 0.15935053384353481,
+      "test_sids": [
+        "NLS157",
+        "NLS121",
+        "NLS102",
+        "WPD002",
+        "NLS160",
+        "NLS069",
+        "NLS149",
+        "NLS185",
+        "NLS182",
+        "NLS170",
+        "NLS127",
+        "NLS153",
+        "WPD017",
+        "NLS148",
+        "NLS154",
+        "NLS101",
+        "NLS022",
+        "NLS195",
+        "NLS002"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.4377770541234031,
+          "imu_ccc": 0.049927895528909125
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.6151395530526091,
+          "imu_ccc": 0.14338944944107873
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.30521482688975254,
+          "imu_ccc": 0.14930395693007417
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.20893872795897944,
+          "imu_ccc": 0.27431577289286735
+        }
+      ]
+    },
+    {
+      "seed": 1337,
+      "outer_fold": 4,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 0.0,
+      "inner_oof_ccc": 0.2908416861805153,
+      "clinical_inner_oof_ccc": 0.19126612037446006,
+      "imu_inner_oof_ccc": 0.2908416861805153,
+      "test_sids": [
+        "NLS130",
+        "NLS150",
+        "NLS163",
+        "NLS189",
+        "WPD016",
+        "WPD021",
+        "NLS155",
+        "NLS166",
+        "NLS191",
+        "WPD009",
+        "WPD029",
+        "NLS152",
+        "NLS159",
+        "NLS208",
+        "WPD026",
+        "NLS033",
+        "NLS056",
+        "NLS141",
+        "NLS140"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.09374015307910749,
+          "imu_ccc": 0.11649500333088748
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.2664406062105701,
+          "imu_ccc": 0.3888423631819013
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.46475348567362534,
+          "imu_ccc": 0.2916690803856723
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": -0.1616169250518766,
+          "imu_ccc": 0.3222369763629849
+        }
+      ]
+    },
+    {
+      "seed": 1337,
+      "outer_fold": 5,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 0.0,
+      "inner_oof_ccc": 0.2618791069962087,
+      "clinical_inner_oof_ccc": 0.15235351351723275,
+      "imu_inner_oof_ccc": 0.2618791069962087,
+      "test_sids": [
+        "NLS179",
+        "WPD022",
+        "WPD020",
+        "WPD024",
+        "WPD012",
+        "WPD010",
+        "NLS135",
+        "WPD025",
+        "WPD004",
+        "NLS174",
+        "WPD019",
+        "NLS177",
+        "NLS139",
+        "NLS210",
+        "WPD001",
+        "WPD011",
+        "NLS158",
+        "NLS196",
+        "NLS187"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.12679291339868365,
+          "imu_ccc": 0.2793547162640109
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.33071012295665814,
+          "imu_ccc": 0.3721755720734812
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": -0.23927643261752454,
+          "imu_ccc": 0.1349300379795809
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.3128076196947746,
+          "imu_ccc": 0.28969377837192894
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "outer_fold": 1,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 1.0,
+      "inner_oof_ccc": 0.3210067768706255,
+      "clinical_inner_oof_ccc": 0.3210067768706255,
+      "imu_inner_oof_ccc": 0.09858320447620147,
+      "test_sids": [
+        "NLS184",
+        "NLS036",
+        "NLS143",
+        "NLS183",
+        "WPD002",
+        "NLS189",
+        "WPD024",
+        "NLS160",
+        "WPD027",
+        "NLS172",
+        "NLS164",
+        "WPD003",
+        "NLS155",
+        "NLS211",
+        "NLS201",
+        "NLS165",
+        "NLS161",
+        "NLS101",
+        "NLS158"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.29615643395282176,
+          "imu_ccc": 0.08999448766693656
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.2827962175938315,
+          "imu_ccc": 0.14780968661478383
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.30652847373237346,
+          "imu_ccc": 0.18002016033440799
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.3649141903919538,
+          "imu_ccc": 0.17694475646678534
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "outer_fold": 2,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 0.0,
+      "inner_oof_ccc": 0.32143443993904286,
+      "clinical_inner_oof_ccc": 0.21301705317810168,
+      "imu_inner_oof_ccc": 0.32143443993904286,
+      "test_sids": [
+        "NLS146",
+        "NLS175",
+        "WPD018",
+        "NLS144",
+        "NLS135",
+        "WPD023",
+        "NLS198",
+        "NLS170",
+        "WPD015",
+        "NLS186",
+        "NLS153",
+        "WPD021",
+        "NLS166",
+        "WPD019",
+        "WPD006",
+        "NLS139",
+        "NLS210",
+        "NLS147",
+        "NLS196"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.35658100038995655,
+          "imu_ccc": 0.3654035827383725
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.1109735126934827,
+          "imu_ccc": 0.16220920916002654
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.5082615509648575,
+          "imu_ccc": 0.41888126683637084
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": -0.05990542418675499,
+          "imu_ccc": 0.5832267330060459
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "outer_fold": 3,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 0.15,
+      "inner_oof_ccc": 0.3647778354928062,
+      "clinical_inner_oof_ccc": 0.29121517080340736,
+      "imu_inner_oof_ccc": 0.3625701214765793,
+      "test_sids": [
+        "NLS179",
+        "NLS157",
+        "NLS197",
+        "NLS192",
+        "NLS190",
+        "NLS069",
+        "WPD005",
+        "NLS185",
+        "WPD016",
+        "WPD004",
+        "NLS159",
+        "NLS173",
+        "WPD008",
+        "NLS209",
+        "NLS162",
+        "NLS141",
+        "WPD007",
+        "WPD014",
+        "NLS187"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.3492893305876242,
+          "imu_ccc": 0.602252994246308
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.4110007836367454,
+          "imu_ccc": 0.4445782763420452
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.33447360790827935,
+          "imu_ccc": 0.2539452834492603
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": -0.14809965589719776,
+          "imu_ccc": -0.04184989341726047
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "outer_fold": 4,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 1.0,
+      "inner_oof_ccc": 0.23917531174894938,
+      "clinical_inner_oof_ccc": 0.23917531174894938,
+      "imu_inner_oof_ccc": 0.13357191071027905,
+      "test_sids": [
+        "NLS130",
+        "WPD022",
+        "WPD020",
+        "NLS163",
+        "WPD010",
+        "NLS149",
+        "NLS182",
+        "NLS191",
+        "WPD009",
+        "WPD017",
+        "NLS152",
+        "NLS174",
+        "NLS148",
+        "NLS154",
+        "NLS022",
+        "NLS124",
+        "NLS056",
+        "NLS195",
+        "WPD001"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": -0.39562921108217425,
+          "imu_ccc": 0.06465296172760009
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.24433843973185665,
+          "imu_ccc": 0.15309795181966307
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.2554688598856512,
+          "imu_ccc": 0.036806182126614004
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.45566163118161607,
+          "imu_ccc": 0.16943453052457547
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "outer_fold": 5,
+      "n_train": 76,
+      "n_test": 19,
+      "alpha": 0.8,
+      "inner_oof_ccc": 0.20803706440947817,
+      "clinical_inner_oof_ccc": 0.20501831008305887,
+      "imu_inner_oof_ccc": 0.15954162300778255,
+      "test_sids": [
+        "NLS142",
+        "NLS121",
+        "NLS150",
+        "NLS102",
+        "WPD012",
+        "NLS176",
+        "WPD025",
+        "NLS127",
+        "NLS167",
+        "NLS169",
+        "NLS035",
+        "WPD029",
+        "NLS208",
+        "WPD026",
+        "NLS177",
+        "NLS033",
+        "NLS002",
+        "WPD011",
+        "NLS140"
+      ],
+      "inner_rows": [
+        {
+          "inner_fold": 1,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": -0.14426865858115986,
+          "imu_ccc": 0.07188330452037008
+        },
+        {
+          "inner_fold": 2,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.640983020175613,
+          "imu_ccc": 0.33018569155686067
+        },
+        {
+          "inner_fold": 3,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.167765835442872,
+          "imu_ccc": 0.10873215928794434
+        },
+        {
+          "inner_fold": 4,
+          "n_train": 57,
+          "n_valid": 19,
+          "clinical_ccc": 0.14993973934077975,
+          "imu_ccc": 0.1255004189345376
+        }
+      ]
+    }
+  ]
+}

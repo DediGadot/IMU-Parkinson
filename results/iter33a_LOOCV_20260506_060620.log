@@ -1,0 +1,45 @@
+
+=== T1 iter33-A V1_random 7-SEED LOCKBOX LOOCV (N=94) ===
+    seed=42 fold 20/94  elapsed=150s
+    seed=42 fold 40/94  elapsed=308s
+    seed=42 fold 60/94  elapsed=467s
+    seed=42 fold 80/94  elapsed=620s
+  seed=42: mt=0.7099 | i5=0.6698 | Δ=+0.0401 | 1029s
+    seed=1337 fold 20/94  elapsed=166s
+    seed=1337 fold 40/94  elapsed=324s
+    seed=1337 fold 60/94  elapsed=480s
+    seed=1337 fold 80/94  elapsed=634s
+  seed=1337: mt=0.7065 | i5=0.6602 | Δ=+0.0462 | 1027s
+    seed=7 fold 20/94  elapsed=161s
+    seed=7 fold 40/94  elapsed=324s
+    seed=7 fold 60/94  elapsed=483s
+    seed=7 fold 80/94  elapsed=643s
+  seed=7: mt=0.7086 | i5=0.6688 | Δ=+0.0397 | 1032s
+    seed=5 fold 20/94  elapsed=159s
+    seed=5 fold 40/94  elapsed=323s
+    seed=5 fold 60/94  elapsed=483s
+    seed=5 fold 80/94  elapsed=644s
+  seed=5: mt=0.7097 | i5=0.6650 | Δ=+0.0446 | 1044s
+    seed=11 fold 20/94  elapsed=159s
+    seed=11 fold 40/94  elapsed=314s
+    seed=11 fold 60/94  elapsed=469s
+    seed=11 fold 80/94  elapsed=625s
+  seed=11: mt=0.7065 | i5=0.6403 | Δ=+0.0662 | 1017s
+    seed=17 fold 20/94  elapsed=160s
+    seed=17 fold 40/94  elapsed=322s
+    seed=17 fold 60/94  elapsed=480s
+    seed=17 fold 80/94  elapsed=637s
+  seed=17: mt=0.7078 | i5=0.6361 | Δ=+0.0716 | 1030s
+    seed=23 fold 20/94  elapsed=159s
+    seed=23 fold 40/94  elapsed=318s
+    seed=23 fold 60/94  elapsed=475s
+    seed=23 fold 80/94  elapsed=629s
+  seed=23: mt=0.7108 | i5=0.6236 | Δ=+0.0872 | 1019s
+
+=== HEADLINE: CCC=0.7089, MAE=1.929, r=0.7235, slope=0.885 ===
+  iter5-direct (mean of 7 seeds): 0.6579  Δ=+0.0510
+  Bootstrap vs iter5: Δ̄=+0.0532, CI=[-0.0186, +0.1368], frac>0=0.915
+  vs iter30b V1 3-seed 0.7087: Δ̄=+0.0002, frac>0=0.615
+  is_canonical_update = False
+Wrote /root/pd-imu/results/lockbox_t1_iter33a_v1_7seed_20260506_080627.json
+      /root/pd-imu/results/lockbox_t1_iter33a_v1_7seed_20260506_080627.oof.npy

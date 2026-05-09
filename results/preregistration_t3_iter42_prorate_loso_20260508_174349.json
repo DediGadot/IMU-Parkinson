@@ -1,0 +1,27 @@
+{
+  "experiment": "T3 iter42 Part III proration LOSO audit",
+  "parent": "run_t3_iter42_target_prorate.py fixed-battery LOOCV audit",
+  "cohorts": [
+    "prorate_le3",
+    "prorate_le7"
+  ],
+  "stage2_policies": [
+    "stage2_current",
+    "stage2_no_cv"
+  ],
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "directions": [
+    "NLS_to_WPD",
+    "WPD_to_NLS"
+  ],
+  "evaluation": "two-way LOSO; all cells reported",
+  "no_selection_rule": "Transportability sensitivity after target proration audit; no winner selection.",
+  "created_at_local": "2026-05-08T17:43:49.667014",
+  "created_at_utc": "2026-05-08T14:43:49.667024Z",
+  "git_sha": "unknown",
+  "formula_sha256": "45ccbdd4801911e4d75aed44a626d2d89409f9659cc9ef073f1a97d0a7b75fdc"
+}

@@ -1,5 +1,7 @@
 # CODEX Proposals
 
+> **Archive status, 2026-05-09:** historical proposal list only. Current canonical numbers and manuscript routing are in `CLAUDE.md`, `paper.md`, `CURRENT_PAPER.html`, and `render_current_paper.py`; current T3 valid-range headline is iter47 CCC `0.3784` / LOSO `0.150`, while old direct-observable, Paper3, and iter5 T3 values here are not current deployment results.
+
 This file is the current execution plan for follow-up work in this repo. It is
 based on:
 

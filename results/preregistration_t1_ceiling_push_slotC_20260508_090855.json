@@ -1,0 +1,111 @@
+{
+  "timestamp": "20260508_090855",
+  "iso_datetime": "2026-05-08T09:08:55.345734",
+  "experiment": "T1 ceiling-push slot C \u2014 phase-locked item-9 + item-12 LOCKBOX",
+  "git_head": "unknown",
+  "formula_sha256": "fe6cf103135f7a14503d034e5b066a466487e5484ef06dc5242b31080f87c1d9",
+  "formula": {
+    "experiment": "T1 ceiling-push slot C \u2014 phase-locked item-9 + item-12 slot replacement",
+    "mechanism_axis": 5,
+    "fwer_family_size": 5,
+    "per_slot_strict_gate_frac_above_zero": 0.99,
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects_min": 90,
+      "filter": "PD with full items 9-14, 15, 18 (matches iter34 N=93)"
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "T1 (sum items 9-14)"
+    },
+    "stage2_slotC": {
+      "items": [
+        9,
+        12
+      ],
+      "item9_variant": "hy_residual_item_v2",
+      "item12_variant": "item_plus_v2",
+      "phaselocked_caches": {
+        "item9": "phaselocked_item9_features.csv",
+        "item12": "phaselocked_item12_features.csv"
+      },
+      "per_item_model": "LightGBM (n=500, lr=0.05, num_leaves=15, min_data=10)",
+      "feature_select": "K=500 LGB importance per fold (variant-dependent)",
+      "imputation": "fold_local_median"
+    },
+    "stage2_iter34_chain_for_other_items": {
+      "items_used_from_chain_for_T1": [
+        10,
+        11,
+        13,
+        14
+      ],
+      "auxiliary_items_in_chain_fit_only": [
+        15,
+        18
+      ],
+      "items_in_chain_target": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18
+      ],
+      "bases": [
+        "lgb",
+        "xgb",
+        "et"
+      ],
+      "ensemble_method": "average chain output across bases per fold per seed",
+      "chain_class": "sklearn.multioutput.RegressorChain(order='random')",
+      "stage2_feature_select": "K=500 LGB importance per fold on T1 residual",
+      "imputation": "fold_local_median",
+      "centering": "subtract per-fold train_mean(item)"
+    },
+    "composite_formula": "T1_pred = Stage1_pred + (slot_C_item9_pred + iter34_chain_item10 + iter34_chain_item11 + slot_C_item12_pred + iter34_chain_item13 + iter34_chain_item14) - sum(train_mean[items 9..14]). Slot-C item OOFs include their own item_mean + Ridge Stage-1 (per item-variant); iter34 chain items include item_mean. The composite Stage-1 (T1-level) is added once on top after subtracting the per-item train means baked into each piece.",
+    "eval": {
+      "loocv_n_min": 90,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "headline_metric": "CCC of mean-of-3-seed predictions vs y_t1",
+      "comparator_iter34": "lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "comparator_iter34_oof": "lockbox_t1_iter34_hybrid_20260506_141720.oof.npy",
+      "comparator_iter12_honest_paired_n93_json": "iter12_honest_n93_vs_iter33b_paired_2026_05_06.json",
+      "fwer_strict_gate_vs_iter12_honest_n93": 0.99,
+      "fwer_strict_gate_vs_iter34_n93": 0.99
+    },
+    "lockbox_rules": [
+      "ONE pre-registered config (formula_sha256-bound). ONE LOOCV run.",
+      "Headline = CCC of mean-of-3-seed predictions.",
+      "Bonferroni n=5: per-slot strict gate frac>0 \u2265 0.99 to claim canonical update.",
+      "Verdict 'PASS-canonical' if frac>0 vs BOTH iter12-honest-n93 AND iter34-n93 \u2265 0.99.",
+      "Verdict 'PASS-candidate' if frac>0 vs iter12-honest-n93 \u2265 0.99 but vs iter34 < 0.99.",
+      "Verdict 'FAIL' otherwise. Composite-level cherry-picking guard: variants frozen in pre-reg."
+    ],
+    "constants": {
+      "K_FEATURES": 500,
+      "STAGE1_ALPHA": 1.0
+    }
+  },
+  "variant": "phaselocked_item9_item12_slot_replacement",
+  "is_post_publication_replication_target": false,
+  "fwer_family_membership": "T1 ceiling-push family of 5 (slots A,B,C,D + iter34 baseline)",
+  "fwer_correction_method": "Bonferroni; per-slot strict gate frac>0 \u2265 0.99",
+  "eval_protocol": "LOOCV on T1\u2229{15,18} cohort (N\u224893). Per-item slot C models for items {9,12} use phase-locked features + chosen variant. iter34-style chain re-run with per-item OOF extraction provides items {10, 11, 13, 14}. Composite T1 summed per fold. 3-seed mean preds = headline."
+}

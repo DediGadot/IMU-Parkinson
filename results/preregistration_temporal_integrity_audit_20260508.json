@@ -1,0 +1,244 @@
+{
+  "generated_at_utc": "2026-05-09T01:51:55+00:00",
+  "script": "audit_preregistration_temporal_integrity.py",
+  "policy": "Use embedded timestamps or filename timestamps, not pulled-file mtimes, to verify pre-registration precedes result generation; compare formula hashes when both sides record them.",
+  "passed": true,
+  "checks": [
+    {
+      "name": "t1_iter12_honest_floor",
+      "status": "current_t1_canonical_floor",
+      "prereg": "results/preregistration_t1_iter12_honest_20260503_053105.json",
+      "result": "results/t1_iter12_honest_composite.json",
+      "prereg_time_utc": "2026-05-03T05:31:05.289387+00:00",
+      "prereg_time_source": "iso_datetime",
+      "result_time_utc": null,
+      "result_time_source": null,
+      "temporal_ok": null,
+      "result_preregistration_reference": "preregistration_t1_iter12_honest_20260503_053105.json",
+      "reference_ok": true,
+      "prereg_formula_sha256": null,
+      "result_formula_sha256": null,
+      "formula_status": "not_recorded_legacy_or_no_formula",
+      "warnings": [
+        "not_recorded_legacy_or_no_formula",
+        "embedded_or_filename_result_time_missing"
+      ],
+      "hard_failures": [],
+      "passed": true
+    },
+    {
+      "name": "t1_iter34_hybrid_candidate",
+      "status": "current_t1_strongest_candidate",
+      "prereg": "results/preregistration_t1_iter34_hybrid_20260506_135932.json",
+      "result": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "prereg_time_utc": "2026-05-06T13:59:32.531124+00:00",
+      "prereg_time_source": "iso_datetime",
+      "result_time_utc": "2026-05-06T14:17:20+00:00",
+      "result_time_source": "filename",
+      "temporal_ok": true,
+      "result_preregistration_reference": "preregistration_t1_iter34_hybrid_20260506_135932.json",
+      "reference_ok": true,
+      "prereg_formula_sha256": "df89b9bbb711e267bd1db1847022ab843f4e37c3c0a7df0310eb004d63287edf",
+      "result_formula_sha256": null,
+      "formula_status": "prereg_only_result_lacks_formula_link",
+      "warnings": [
+        "prereg_only_result_lacks_formula_link"
+      ],
+      "hard_failures": [],
+      "passed": true
+    },
+    {
+      "name": "t1_iter46_etrobust_diagnostic",
+      "status": "negative_diagnostic",
+      "prereg": "results/preregistration_t1_iter46_etrobust_20260508_160501.json",
+      "result": "results/lockbox_t1_iter46_etrobust_20260508_162825.json",
+      "prereg_time_utc": "2026-05-08T16:05:01+00:00",
+      "prereg_time_source": "created_at_utc",
+      "result_time_utc": "2026-05-08T16:28:25.330115+00:00",
+      "result_time_source": "timestamp_utc",
+      "temporal_ok": true,
+      "result_preregistration_reference": "preregistration_t1_iter46_etrobust_20260508_160501.json",
+      "reference_ok": true,
+      "prereg_formula_sha256": "d20ceb018b25d88b7526dcde9cd3dd78c5f59d5f0b9ad398b102cde3a133dc2d",
+      "result_formula_sha256": "d20ceb018b25d88b7526dcde9cd3dd78c5f59d5f0b9ad398b102cde3a133dc2d",
+      "formula_status": "match",
+      "warnings": [
+        "prereg_git_sha_unknown"
+      ],
+      "hard_failures": [],
+      "passed": true
+    },
+    {
+      "name": "t3_iter47_validrange_current",
+      "status": "current_t3_audit_truth",
+      "prereg": "results/preregistration_t3_iter47_invalidcode_20260508_194605.json",
+      "result": "results/iter47_invalidcode_20260508_194605.json",
+      "prereg_time_utc": "2026-05-08T16:46:05+00:00",
+      "prereg_time_source": "created_at_utc",
+      "result_time_utc": "2026-05-08T16:54:15+00:00",
+      "result_time_source": "created_at_utc",
+      "temporal_ok": true,
+      "result_preregistration_reference": "preregistration_t3_iter47_invalidcode_20260508_194605.json",
+      "reference_ok": true,
+      "prereg_formula_sha256": "0107b7297073900785692a0cfee28f44b2abaad8094a9a371a20f12e03efa439",
+      "result_formula_sha256": "0107b7297073900785692a0cfee28f44b2abaad8094a9a371a20f12e03efa439",
+      "formula_status": "match",
+      "warnings": [
+        "prereg_git_sha_unknown",
+        "filesystem_mtime_not_temporal_order_authority"
+      ],
+      "hard_failures": [],
+      "passed": true
+    },
+    {
+      "name": "t3_iter47_validrange_loso",
+      "status": "current_t3_loso_audit_truth",
+      "prereg": "results/preregistration_t3_iter47_invalidcode_loso_20260508_195424.json",
+      "result": "results/iter47_invalidcode_loso_20260508_195424.json",
+      "prereg_time_utc": "2026-05-08T16:54:24+00:00",
+      "prereg_time_source": "created_at_utc",
+      "result_time_utc": "2026-05-08T16:54:30+00:00",
+      "result_time_source": "created_at_utc",
+      "temporal_ok": true,
+      "result_preregistration_reference": "preregistration_t3_iter47_invalidcode_loso_20260508_195424.json",
+      "reference_ok": true,
+      "prereg_formula_sha256": "5b0897a1a47ecbc32c077bb0588631cb0e3ee80d0660a9451eba1f03078e7e50",
+      "result_formula_sha256": "5b0897a1a47ecbc32c077bb0588631cb0e3ee80d0660a9451eba1f03078e7e50",
+      "formula_status": "match",
+      "warnings": [
+        "prereg_git_sha_unknown",
+        "filesystem_mtime_not_temporal_order_authority"
+      ],
+      "hard_failures": [],
+      "passed": true
+    },
+    {
+      "name": "t3_iter39_fogstar_zeroshot",
+      "status": "external_validity_partial",
+      "prereg": "results/preregistration_t3_iter39_fogstar_zeroshot_20260508_143717.json",
+      "result": "results/iter39_fogstar_zeroshot_20260508_143717.json",
+      "prereg_time_utc": "2026-05-08T11:37:17+00:00",
+      "prereg_time_source": "created_at_utc",
+      "result_time_utc": "2026-05-08T11:38:50+00:00",
+      "result_time_source": "created_at_utc",
+      "temporal_ok": true,
+      "result_preregistration_reference": "preregistration_t3_iter39_fogstar_zeroshot_20260508_143717.json",
+      "reference_ok": true,
+      "prereg_formula_sha256": "e82d3c10c6199813f32d70144f959c7b8d61cb3d9d938311551ac0d0c11917d1",
+      "result_formula_sha256": null,
+      "formula_status": "prereg_only_result_lacks_formula_link",
+      "warnings": [
+        "prereg_git_sha_unknown",
+        "prereg_only_result_lacks_formula_link"
+      ],
+      "hard_failures": [],
+      "passed": true
+    },
+    {
+      "name": "t3_iter49_cops_zeroshot",
+      "status": "external_validity_partial",
+      "prereg": "results/preregistration_t3_iter49_cops.json",
+      "result": "results/iter49_cops_zeroshot.json",
+      "prereg_time_utc": "2026-05-08T17:34:52+00:00",
+      "prereg_time_source": "created_at_utc",
+      "result_time_utc": "2026-05-08T18:52:26+00:00",
+      "result_time_source": "created_at_utc",
+      "temporal_ok": true,
+      "result_preregistration_reference": null,
+      "reference_ok": true,
+      "prereg_formula_sha256": "0bc80ef0b6bd9c40da6a7a1282ce9f8898273c6e2dc01e7987ea2ecaa4715b15",
+      "result_formula_sha256": "0bc80ef0b6bd9c40da6a7a1282ce9f8898273c6e2dc01e7987ea2ecaa4715b15",
+      "formula_status": "match",
+      "warnings": [],
+      "hard_failures": [],
+      "passed": true
+    },
+    {
+      "name": "t3_iter51_tlvmc_defog_zeroshot",
+      "status": "external_validity_partial",
+      "prereg": "results/preregistration_t3_iter51_tlvmc_defog_zeroshot.json",
+      "result": "results/iter51_tlvmc_defog_zeroshot.json",
+      "prereg_time_utc": "2026-05-09T01:04:08+00:00",
+      "prereg_time_source": "created_at_utc",
+      "result_time_utc": "2026-05-09T01:33:57+00:00",
+      "result_time_source": "created_at_utc",
+      "temporal_ok": true,
+      "result_preregistration_reference": null,
+      "reference_ok": true,
+      "prereg_formula_sha256": "665479765911e8192e4db570babeb5fcef3e2b6553dfd6259187f76685ec08cd",
+      "result_formula_sha256": "665479765911e8192e4db570babeb5fcef3e2b6553dfd6259187f76685ec08cd",
+      "formula_status": "match",
+      "warnings": [],
+      "hard_failures": [],
+      "passed": true
+    },
+    {
+      "name": "t3_iter5_historical",
+      "status": "historical_target_contaminated",
+      "prereg": "results/preregistration_t3_iter5_20260502_171604.json",
+      "result": "results/lockbox_t3_iter5_A3_tier1_20260502_171604.json",
+      "prereg_time_utc": "2026-05-02T17:16:04.210186+00:00",
+      "prereg_time_source": "iso_datetime",
+      "result_time_utc": "2026-05-02T17:16:04+00:00",
+      "result_time_source": "filename",
+      "temporal_ok": true,
+      "result_preregistration_reference": "preregistration_t3_iter5_20260502_171604.json",
+      "reference_ok": true,
+      "prereg_formula_sha256": null,
+      "result_formula_sha256": null,
+      "formula_status": "not_recorded_legacy_or_no_formula",
+      "warnings": [
+        "not_recorded_legacy_or_no_formula"
+      ],
+      "hard_failures": [],
+      "passed": true
+    }
+  ],
+  "warnings": [
+    {
+      "name": "t1_iter12_honest_floor",
+      "warning": "not_recorded_legacy_or_no_formula"
+    },
+    {
+      "name": "t1_iter12_honest_floor",
+      "warning": "embedded_or_filename_result_time_missing"
+    },
+    {
+      "name": "t1_iter34_hybrid_candidate",
+      "warning": "prereg_only_result_lacks_formula_link"
+    },
+    {
+      "name": "t1_iter46_etrobust_diagnostic",
+      "warning": "prereg_git_sha_unknown"
+    },
+    {
+      "name": "t3_iter47_validrange_current",
+      "warning": "prereg_git_sha_unknown"
+    },
+    {
+      "name": "t3_iter47_validrange_current",
+      "warning": "filesystem_mtime_not_temporal_order_authority"
+    },
+    {
+      "name": "t3_iter47_validrange_loso",
+      "warning": "prereg_git_sha_unknown"
+    },
+    {
+      "name": "t3_iter47_validrange_loso",
+      "warning": "filesystem_mtime_not_temporal_order_authority"
+    },
+    {
+      "name": "t3_iter39_fogstar_zeroshot",
+      "warning": "prereg_git_sha_unknown"
+    },
+    {
+      "name": "t3_iter39_fogstar_zeroshot",
+      "warning": "prereg_only_result_lacks_formula_link"
+    },
+    {
+      "name": "t3_iter5_historical",
+      "warning": "not_recorded_legacy_or_no_formula"
+    }
+  ],
+  "hard_failures": []
+}

@@ -1,0 +1,3420 @@
+{
+  "generated_at_utc": "2026-05-08T20:16:20+00:00",
+  "script": "audit_cache_consumer_guards.py",
+  "source_manifest_audit": "results/cache_manifest_audit_20260508.json",
+  "n_artifacts_from_manifest_audit": 44,
+  "n_python_scripts_with_cache_references": 89,
+  "classification_counts": {
+    "non_model_or_cache_producer_reference": 32,
+    "diagnostic_only_consumer_block_reportable_use": 53,
+    "current_safe_consumer_guarded": 4
+  },
+  "current_guarded_consumers": [
+    "compose_t1_iter14_fog.py",
+    "compose_t1_iter15_harnet.py",
+    "run_t3_iter23_clinical_ablation.py",
+    "run_t3_iter24_stage2_forced.py"
+  ],
+  "diagnostic_only_model_consumers": [
+    "autoresearch_ccc_eval.py",
+    "autoresearch_eval.py",
+    "compose_t1_iter17_unused_channels.py",
+    "compose_t1_iter18_indomain_ssl.py",
+    "regenerate_fm.py",
+    "run_ablation_v3.py",
+    "run_baselines.py",
+    "run_calibration_ablation.py",
+    "run_calibration_v2.py",
+    "run_compression_ablation.py",
+    "run_event_features.py",
+    "run_fusion_methods.py",
+    "run_inductive_ablation.py",
+    "run_interaction_screen.py",
+    "run_item14_deep.py",
+    "run_joints_v2.py",
+    "run_memento_experiments.py",
+    "run_obs_bias_ablation.py",
+    "run_paper_supplements.py",
+    "run_pd_only_experiments.py",
+    "run_per_item_iter17_hypothesis.py",
+    "run_per_item_ordinal_v3.py",
+    "run_per_item_v2.py",
+    "run_peritem_insole.py",
+    "run_phase4_distill.py",
+    "run_phase5_fm_adapter.py",
+    "run_phase6_stack.py",
+    "run_reviewer_experiments.py",
+    "run_rocket_ablation.py",
+    "run_self_norm_cross.py",
+    "run_sensor_span.py",
+    "run_step_function.py",
+    "run_stride_fusion.py",
+    "run_stride_fusion_lean.py",
+    "run_subgroup_experiments.py",
+    "run_t1_ceiling_push_probeD_chainpool.py",
+    "run_t1_ceiling_push_slotC.py",
+    "run_t1_ceiling_push_slotD.py",
+    "run_t1_iter4.py",
+    "run_t1_iter7_axial.py",
+    "run_t3_boost_iter5.py",
+    "run_t3_iter1.py",
+    "run_t3_iter16_site_ipw.py",
+    "run_t3_iter17_site_centered.py",
+    "run_t3_iter2.py",
+    "run_t3_iter21_nested.py",
+    "run_t3_iter3.py",
+    "run_t3_iter41_target_fix.py",
+    "run_t3_iter49_cops.py",
+    "run_t3_iter5_clinical.py",
+    "run_t3_iter6_imu.py",
+    "run_v3_experiments.py",
+    "train_indomain_ssl.py"
+  ],
+  "verdict": "Current known safe-cache consumers use the shared guard. Scripts that still reference missing/partial-manifest caches are diagnostic or historical unless their caches are regenerated/backfilled and the scripts add require_cache_manifest.",
+  "references": [
+    {
+      "script": "audit_t3_target_stage2_covariates.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 6,
+              "text": "1. Whether `results/ablation_v3_features.csv:updrs3` matches the raw"
+            },
+            {
+              "line": 39,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 6,
+              "text": "1. Whether `results/ablation_v3_features.csv:updrs3` matches the raw"
+            },
+            {
+              "line": 39,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "autoresearch_ccc_eval.py",
+      "role": "other_python",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 57,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 58,
+              "text": "FM_CACHE = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 57,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/velinc_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 60,
+              "text": "VELINC_CACHE = str(results_artifact_path(\"velinc_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/velinc_gated_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 61,
+              "text": "VELINC_GATED_CACHE = str(results_artifact_path(\"velinc_gated_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "autoresearch_eval.py",
+      "role": "other_python",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 55,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 56,
+              "text": "FM_CACHE = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 55,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_axial_orientation_features.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/axial_orientation_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 56,
+              "text": "OUT_PATH = RESULTS_DIR / \"axial_orientation_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_clinical_extras.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 16,
+              "text": "results/ablation_v3_features.csv          \u2014 for V2 cohort SID cross-check"
+            },
+            {
+              "line": 607,
+              "text": "default=\"results/ablation_v3_features.csv\","
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/clinical_extras.csv",
+          "artifact_status": "manifest_complete_clean_by_construction",
+          "manifest": "results/clinical_extras.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 11,
+              "text": "results/clinical_extras.csv               \u2014 feature table (one row per PD subject)"
+            },
+            {
+              "line": 12,
+              "text": "results/clinical_extras.csv.manifest.json \u2014 provenance + leakage attestation"
+            },
+            {
+              "line": 603,
+              "text": "ap.add_argument(\"--output\", default=\"results/clinical_extras.csv\")"
+            },
+            {
+              "line": 604,
+              "text": "ap.add_argument(\"--manifest\", default=\"results/clinical_extras.csv.manifest.json\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 16,
+              "text": "results/ablation_v3_features.csv          \u2014 for V2 cohort SID cross-check"
+            },
+            {
+              "line": 607,
+              "text": "default=\"results/ablation_v3_features.csv\","
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "cache_event_axial_features.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/event_axial_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 39,
+              "text": "DEFAULT_OUTPUT = Path(__file__).resolve().parent / \"results\" / \"event_axial_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_extra_features.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/velinc_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 5,
+              "text": "results/velinc_features.csv         \u2014 VelocityIncrement features (regular)"
+            },
+            {
+              "line": 148,
+              "text": "out_path = str(results_artifact_path(\"velinc_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/velinc_gated_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 6,
+              "text": "results/velinc_gated_features.csv   \u2014 VelocityIncrement phase-gated (Walk vs Turn)"
+            },
+            {
+              "line": 146,
+              "text": "out_path = str(results_artifact_path(\"velinc_gated_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_harnet_embeddings.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/harnet_subj_embeddings.csv",
+          "artifact_status": "manifest_complete_clean_by_construction",
+          "manifest": "results/harnet_subj_embeddings.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 21,
+              "text": "results/harnet_subj_embeddings.csv"
+            },
+            {
+              "line": 22,
+              "text": "results/harnet_subj_embeddings.csv.manifest.json"
+            },
+            {
+              "line": 158,
+              "text": "\"--out\", default=\"results/harnet_subj_embeddings.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_hc_ssl_embeddings.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/hc_ssl_subj_embeddings.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 5,
+              "text": "Output: results/hc_ssl_subj_embeddings.csv (subject \u00d7 256-d feature vector)"
+            },
+            {
+              "line": 54,
+              "text": "p.add_argument(\"--out\", default=\"results/hc_ssl_subj_embeddings.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "cache_insole_features.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/insole_recording_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 28,
+              "text": "results/insole_recording_features.csv   \u2014 per (subject, task) row"
+            },
+            {
+              "line": 34,
+              "text": "--out_recording results/insole_recording_features.csv \\"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/insole_subj_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 29,
+              "text": "results/insole_subj_features.csv        \u2014 per subject (mean/max/min across tasks)"
+            },
+            {
+              "line": 35,
+              "text": "--out_subject   results/insole_subj_features.csv"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_interaction_features.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/interaction_features_subj.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 19,
+              "text": "Output: results/interaction_features_subj.csv (sid + interaction columns)"
+            },
+            {
+              "line": 34,
+              "text": "OUT_PATH = REPO_ROOT / \"results\" / \"interaction_features_subj.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "cache_item11_multiscale.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/item11_multiscale.csv",
+          "artifact_status": "manifest_complete_clean_by_construction",
+          "manifest": "results/item11_multiscale.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 23,
+              "text": "Output: results/item11_multiscale.csv (sid + multiscale FoG features)."
+            },
+            {
+              "line": 28,
+              "text": "--out results/item11_multiscale.csv"
+            },
+            {
+              "line": 301,
+              "text": "p.add_argument(\"--out\", default=\"results/item11_multiscale.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/item11_multiscale_recordings.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 302,
+              "text": "p.add_argument(\"--out_recordings\", default=\"results/item11_multiscale_recordings.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_item9_event_moment.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/item9_event_moment.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 10,
+              "text": "Output: results/item9_event_moment.csv (sid + 3840 columns)."
+            },
+            {
+              "line": 15,
+              "text": "--out results/item9_event_moment.csv"
+            },
+            {
+              "line": 143,
+              "text": "p.add_argument(\"--out\", default=\"results/item9_event_moment.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_item_specific_features.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/item_specific_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/item_specific_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 88,
+              "text": "Manifest sidecar at results/item_specific_features.csv.manifest.json verifies"
+            },
+            {
+              "line": 120,
+              "text": "OUT_PATH = RESULTS_DIR / \"item_specific_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_joints_v2.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/joints_v2_subj.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 24,
+              "text": "- Output: results/joints_v2_subj.csv (per-subject ~150-300 features)"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_lr_asymmetry.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 3,
+              "text": "Pure post-processing of `results/ablation_v3_features.csv` \u2014 no raw data needed."
+            },
+            {
+              "line": 32,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/lr_asymmetry_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 9,
+              "text": "Output: `results/lr_asymmetry_features.csv` with columns: sid + new asymmetry features."
+            },
+            {
+              "line": 33,
+              "text": "OUT_PATH = RESULTS_DIR / \"lr_asymmetry_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 3,
+              "text": "Pure post-processing of `results/ablation_v3_features.csv` \u2014 no raw data needed."
+            },
+            {
+              "line": 32,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_mahalanobis_hc.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/mahalanobis_hc_subj.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 20,
+              "text": "Output: results/mahalanobis_hc_subj.csv"
+            },
+            {
+              "line": 44,
+              "text": "OUT_PATH = RESULTS_DIR / \"mahalanobis_hc_subj.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_moment_embeddings.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/moment_subj_embeddings.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 6,
+              "text": "Output: results/moment_subj_embeddings.csv (per-subject 768-d feature vector)."
+            },
+            {
+              "line": 25,
+              "text": "p.add_argument(\"--out\", default=\"results/moment_subj_embeddings.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "cache_nonlinear_dynamics.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/nonlinear_dynamics_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 13,
+              "text": "Output: results/nonlinear_dynamics_features.csv (per-subject, prefix `nl_`)."
+            },
+            {
+              "line": 18,
+              "text": "--out results/nonlinear_dynamics_features.csv"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_phaselocked_item12.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/phaselocked_item12_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/phaselocked_item12_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 27,
+              "text": "Output: results/phaselocked_item12_features.csv + .manifest.json (NO labels used)."
+            },
+            {
+              "line": 59,
+              "text": "OUT_PATH = RESULTS_DIR / \"phaselocked_item12_features.csv\""
+            },
+            {
+              "line": 60,
+              "text": "MANIFEST_PATH = RESULTS_DIR / \"phaselocked_item12_features.csv.manifest.json\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_phaselocked_item9.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/phaselocked_item9_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/phaselocked_item9_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 27,
+              "text": "Output: results/phaselocked_item9_features.csv + .manifest.json (NO labels used)."
+            },
+            {
+              "line": 60,
+              "text": "OUT_PATH = RESULTS_DIR / \"phaselocked_item9_features.csv\""
+            },
+            {
+              "line": 61,
+              "text": "MANIFEST_PATH = RESULTS_DIR / \"phaselocked_item9_features.csv.manifest.json\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_rest_state_features.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/rest_state_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 19,
+              "text": "Output: `results/rest_state_features.csv` per-subject aggregated."
+            },
+            {
+              "line": 40,
+              "text": "OUT_PATH = RESULTS_DIR / \"rest_state_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_stride_locked.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/stride_locked_subj.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 30,
+              "text": "results/stride_locked_subj.csv"
+            },
+            {
+              "line": 35,
+              "text": "--out results/stride_locked_subj.csv"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_tug_transition_features.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/tug_transition_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 27,
+              "text": "Output: `results/tug_transition_features.csv` (per-subject aggregated) \u2014 ~30-100 features."
+            },
+            {
+              "line": 48,
+              "text": "OUT_PATH = RESULTS_DIR / \"tug_transition_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_unsigned_asymmetry.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 12,
+              "text": "Source: results/ablation_v3_features.csv (V2 cache)."
+            },
+            {
+              "line": 28,
+              "text": "V2_FEATURES = REPO_ROOT / \"results\" / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/lr_asymmetry_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 9,
+              "text": "abs(L-R) was already in lr_asymmetry_features.csv and the failure log marks"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/unsigned_asymmetry_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 16,
+              "text": "Output: results/unsigned_asymmetry_features.csv."
+            },
+            {
+              "line": 29,
+              "text": "DEFAULT_OUTPUT = REPO_ROOT / \"results\" / \"unsigned_asymmetry_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 12,
+              "text": "Source: results/ablation_v3_features.csv (V2 cache)."
+            },
+            {
+              "line": 28,
+              "text": "V2_FEATURES = REPO_ROOT / \"results\" / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_unused_channels.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 4,
+              "text": "(see `task_plan.md` \u00a7 ACTIVE MISSION). The V2 feature set (ablation_v3_features.csv,"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/unused_channels_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/unused_channels_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 57,
+              "text": "Manifest sidecar written to results/unused_channels_features.csv.manifest.json"
+            },
+            {
+              "line": 91,
+              "text": "OUT_PATH = RESULTS_DIR / \"unused_channels_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 4,
+              "text": "(see `task_plan.md` \u00a7 ACTIVE MISSION). The V2 feature set (ablation_v3_features.csv,"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_v2_self_normalized.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/v2_self_normalized.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 14,
+              "text": "Output: results/v2_self_normalized.csv (sid + selfnorm_<original col name>)"
+            },
+            {
+              "line": 30,
+              "text": "OUT_PATH = REPO_ROOT / \"results\" / \"v2_self_normalized.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "cache_walkway_joint.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/walkway_joint_subj.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 18,
+              "text": "results/walkway_joint_subj.csv (per-subject features)"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "compose_t1_iter14_fog.py",
+      "role": "model_or_composer",
+      "guard_present": true,
+      "classification": "current_safe_consumer_guarded",
+      "artifacts": [
+        {
+          "artifact": "results/item11_multiscale.csv",
+          "artifact_status": "manifest_complete_clean_by_construction",
+          "manifest": "results/item11_multiscale.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 3,
+              "text": "Hypothesis: 6 fixed FoG-summary scalars from `item11_multiscale.csv` (a label-free,"
+            },
+            {
+              "line": 4,
+              "text": "deterministic signal-processing cache; manifest in `results/item11_multiscale.csv.manifest.json`),"
+            },
+            {
+              "line": 75,
+              "text": "ITEM11_MULTISCALE_CACHE = RESULTS_DIR / \"item11_multiscale.csv\""
+            },
+            {
+              "line": 76,
+              "text": "ITEM11_MANIFEST = RESULTS_DIR / \"item11_multiscale.csv.manifest.json\""
+            },
+            {
+              "line": 331,
+              "text": "\"Six fixed FoG-summary scalars from item11_multiscale.csv (label-free per manifest) \""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "compose_t1_iter15_harnet.py",
+      "role": "model_or_composer",
+      "guard_present": true,
+      "classification": "current_safe_consumer_guarded",
+      "artifacts": [
+        {
+          "artifact": "results/harnet_subj_embeddings.csv",
+          "artifact_status": "manifest_complete_clean_by_construction",
+          "manifest": "results/harnet_subj_embeddings.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 31,
+              "text": "results/harnet_subj_embeddings.csv.manifest.json initially had git_sha=\"unknown\"."
+            },
+            {
+              "line": 69,
+              "text": "HARNET_CACHE = RESULTS_DIR / \"harnet_subj_embeddings.csv\""
+            },
+            {
+              "line": 70,
+              "text": "HARNET_MANIFEST = RESULTS_DIR / \"harnet_subj_embeddings.csv.manifest.json\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "compose_t1_iter17_unused_channels.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/unused_channels_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/unused_channels_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 75,
+              "text": "UNUSED_CACHE = RESULTS_DIR / \"unused_channels_features.csv\""
+            },
+            {
+              "line": 76,
+              "text": "UNUSED_MANIFEST = RESULTS_DIR / \"unused_channels_features.csv.manifest.json\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "compose_t1_iter18_indomain_ssl.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/indomain_ssl_embeddings.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/indomain_ssl_embeddings.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 63,
+              "text": "SSL_CACHE = RESULTS_DIR / \"indomain_ssl_embeddings.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "generate_paper_v5.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 318,
+              "text": "v2_csv = RESULTS / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 1420,
+              "text": "lockbox per-subject predictions (no model refitting; cv_dbs flag from <code>results/ablation_v3_features.csv</code>)."
+            },
+            {
+              "line": 2107,
+              "text": "used in the canonical pipelines are loaded from <code>results/ablation_v3_features.csv</code> (~1 751 V2 features"
+            },
+            {
+              "line": 2136,
+              "text": "features come from <code>results/ablation_v3_features.csv</code>. <strong>Stage 2</strong> is a LightGBM regressor<sup class=\"cite\">[7]</sup>"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 318,
+              "text": "v2_csv = RESULTS / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 1420,
+              "text": "lockbox per-subject predictions (no model refitting; cv_dbs flag from <code>results/ablation_v3_features.csv</code>)."
+            },
+            {
+              "line": 2107,
+              "text": "used in the canonical pipelines are loaded from <code>results/ablation_v3_features.csv</code> (~1 751 V2 features"
+            },
+            {
+              "line": 2136,
+              "text": "features come from <code>results/ablation_v3_features.csv</code>. <strong>Stage 2</strong> is a LightGBM regressor<sup class=\"cite\">[7]</sup>"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "generate_paper_v6.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 358,
+              "text": "v2_csv = RESULTS / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 1460,
+              "text": "lockbox per-subject predictions (no model refitting; cv_dbs flag from <code>results/ablation_v3_features.csv</code>)."
+            },
+            {
+              "line": 2215,
+              "text": "used in the canonical pipelines are loaded from <code>results/ablation_v3_features.csv</code> (~1 751 V2 features"
+            },
+            {
+              "line": 2244,
+              "text": "features come from <code>results/ablation_v3_features.csv</code>. <strong>Stage 2</strong> is a LightGBM regressor<sup class=\"cite\">[7]</sup>"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 358,
+              "text": "v2_csv = RESULTS / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 1460,
+              "text": "lockbox per-subject predictions (no model refitting; cv_dbs flag from <code>results/ablation_v3_features.csv</code>)."
+            },
+            {
+              "line": 2215,
+              "text": "used in the canonical pipelines are loaded from <code>results/ablation_v3_features.csv</code> (~1 751 V2 features"
+            },
+            {
+              "line": 2244,
+              "text": "features come from <code>results/ablation_v3_features.csv</code>. <strong>Stage 2</strong> is a LightGBM regressor<sup class=\"cite\">[7]</sup>"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "regenerate_fm.py",
+      "role": "other_python",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 15,
+              "text": "FM_CACHE = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_ablation_v3.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 44,
+              "text": "FEATURE_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 44,
+              "text": "FEATURE_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_baselines.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 228,
+              "text": "Loads from results/ablation_v3_features.csv and filters to sensor-derived"
+            },
+            {
+              "line": 244,
+              "text": "cache_path = results_artifact_path(\"ablation_v3_features.csv\")"
+            },
+            {
+              "line": 246,
+              "text": "cache_path = REPO_ROOT / \"results\" / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 228,
+              "text": "Loads from results/ablation_v3_features.csv and filters to sensor-derived"
+            },
+            {
+              "line": 244,
+              "text": "cache_path = results_artifact_path(\"ablation_v3_features.csv\")"
+            },
+            {
+              "line": 246,
+              "text": "cache_path = REPO_ROOT / \"results\" / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_calibration_ablation.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 331,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 368,
+              "text": "cache = RESULTS_DIR / \"fm_embeddings.npz\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/fm_embeddings_recording_norm.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 1612,
+              "text": "cache_name=\"fm_embeddings_recording_norm.npz\","
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 331,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_calibration_v2.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 65,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 67,
+              "text": "_FM_CACHE_LEGACY = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 65,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_compression_ablation.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 67,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 68,
+              "text": "FM_CACHE = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 67,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_event_features.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 53,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 55,
+              "text": "_FM_LEGACY = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 53,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_fusion_methods.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/mahalanobis_hc_subj.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 11,
+              "text": "\u2192 results/mahalanobis_hc_subj.csv"
+            },
+            {
+              "line": 66,
+              "text": "MAH_CACHE = RESULTS_DIR / \"mahalanobis_hc_subj.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_inductive_ablation.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 63,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 65,
+              "text": "_FM_LEGACY = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 63,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_interaction_screen.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/interaction_features_subj.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 62,
+              "text": "INTERACTION_CACHE = RESULTS_DIR / \"interaction_features_subj.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v2_self_normalized.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 63,
+              "text": "SELFNORM_CACHE = RESULTS_DIR / \"v2_self_normalized.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_item14_deep.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/peritem_subj_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 68,
+              "text": "PERITEM_CACHE = REPO_ROOT / \"results\" / \"peritem_subj_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_joints_v2.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/joints_v2_subj.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 5,
+              "text": "Joints_v2 cache (results/joints_v2_subj.csv) is built from quaternion-aware"
+            },
+            {
+              "line": 62,
+              "text": "JOINTS_V2_CACHE = RESULTS_DIR / \"joints_v2_subj.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/peritem_subj_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 63,
+              "text": "PERITEM_CACHE = RESULTS_DIR / \"peritem_subj_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_memento_experiments.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 47,
+              "text": "csv_path = RESULTS / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 59,
+              "text": "npz_path = RESULTS / \"fm_embeddings.npz\""
+            },
+            {
+              "line": 271,
+              "text": "fm_path = RESULTS / \"fm_embeddings.npz\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 47,
+              "text": "csv_path = RESULTS / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_obs_bias_ablation.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 91,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 92,
+              "text": "FM_CACHE = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 91,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_paper_supplements.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 163,
+              "text": "cache_path = os.path.join(str(REPO_ROOT), \"results\", \"ablation_v3_features.csv\")"
+            },
+            {
+              "line": 165,
+              "text": "cache_path = os.path.join(str(REPO_ROOT), \"ablation_v3_features.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 163,
+              "text": "cache_path = os.path.join(str(REPO_ROOT), \"results\", \"ablation_v3_features.csv\")"
+            },
+            {
+              "line": 165,
+              "text": "cache_path = os.path.join(str(REPO_ROOT), \"ablation_v3_features.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_pd_only_experiments.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 62,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 63,
+              "text": "FM_CACHE = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 62,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_per_item_iter17_hypothesis.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/item_specific_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/item_specific_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 66,
+              "text": "ITEM_CACHE = RESULTS_DIR / \"item_specific_features.csv\""
+            },
+            {
+              "line": 67,
+              "text": "ITEM_MANIFEST = RESULTS_DIR / \"item_specific_features.csv.manifest.json\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_per_item_ordinal_v3.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/nonlinear_dynamics_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 62,
+              "text": "NL_CACHE = REPO_ROOT / \"results\" / \"nonlinear_dynamics_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_per_item_v2.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/hc_ssl_subj_embeddings.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 59,
+              "text": "HCSSL_CACHE = REPO_ROOT / \"results\" / \"hc_ssl_subj_embeddings.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/item11_multiscale.csv",
+          "artifact_status": "manifest_complete_clean_by_construction",
+          "manifest": "results/item11_multiscale.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 61,
+              "text": "ITEM11_MULTISCALE_CACHE = REPO_ROOT / \"results\" / \"item11_multiscale.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/item9_event_moment.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 60,
+              "text": "ITEM9_EVENT_MOMENT_CACHE = REPO_ROOT / \"results\" / \"item9_event_moment.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/moment_subj_embeddings.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 58,
+              "text": "MOMENT_CACHE = REPO_ROOT / \"results\" / \"moment_subj_embeddings.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/peritem_subj_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 1,
+              "text": "\"\"\"Per-item UPDRS-III screening runner (v2 \u2014 uses peritem_subj_features.csv)."
+            },
+            {
+              "line": 57,
+              "text": "PERITEM_CACHE = REPO_ROOT / \"results\" / \"peritem_subj_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/walkway_joint_subj.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 62,
+              "text": "WALKWAY_JOINT_CACHE = REPO_ROOT / \"results\" / \"walkway_joint_subj.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_peritem_insole.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/insole_subj_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 13,
+              "text": "3. Load NEW insole cache (insole_subj_features.csv) built by cache_insole_features.py."
+            },
+            {
+              "line": 67,
+              "text": "INSOLE_CACHE = REPO_ROOT / \"results\" / \"insole_subj_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/peritem_subj_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 12,
+              "text": "2. Load existing per-item cache (peritem_subj_features.csv) used by run_per_item_v2."
+            },
+            {
+              "line": 66,
+              "text": "PERITEM_CACHE = REPO_ROOT / \"results\" / \"peritem_subj_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_phase4_distill.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/velinc_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 55,
+              "text": "VELINC = str(results_artifact_path(\"velinc_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_phase5_fm_adapter.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 234,
+              "text": "fm_path = results_artifact_path(\"fm_embeddings.npz\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_phase6_stack.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/velinc_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 56,
+              "text": "VELINC = str(results_artifact_path(\"velinc_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_reviewer_experiments.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 59,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 60,
+              "text": "FM_CACHE = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 59,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_rocket_ablation.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 75,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/coordination_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 74,
+              "text": "COORD_CACHE = str(results_artifact_path(\"coordination_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 76,
+              "text": "FM_CACHE = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 75,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_self_norm_cross.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/v2_self_normalized.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 53,
+              "text": "SELFNORM_CACHE = RESULTS_DIR / \"v2_self_normalized.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_sensor_span.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 49,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 50,
+              "text": "FM_CACHE = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 49,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_step_function.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 56,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 57,
+              "text": "FM_CACHE = str(results_artifact_path(\"fm_embeddings.npz\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 56,
+              "text": "V2_CACHE = str(results_artifact_path(\"ablation_v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_stride_fusion.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/peritem_subj_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 64,
+              "text": "PERITEM_CACHE = REPO_ROOT / \"results\" / \"peritem_subj_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/stride_locked_subj.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 63,
+              "text": "STRIDE_CACHE = REPO_ROOT / \"results\" / \"stride_locked_subj.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_stride_fusion_lean.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/stride_locked_subj.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 34,
+              "text": "STRIDE_CACHE = REPO_ROOT / \"results\" / \"stride_locked_subj.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_subgroup_experiments.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 119,
+              "text": "v2_df = pd.read_csv(RESULTS / \"ablation_v3_features.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/fm_embeddings.npz",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 125,
+              "text": "fm_data = np.load(RESULTS / \"fm_embeddings.npz\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 119,
+              "text": "v2_df = pd.read_csv(RESULTS / \"ablation_v3_features.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_t1_ceiling_push_probeD_chainpool.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/phaselocked_item12_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/phaselocked_item12_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 78,
+              "text": "PL12_CSV = RESULTS_DIR / \"phaselocked_item12_features.csv\""
+            },
+            {
+              "line": 368,
+              "text": "\"phaselocked_item12_features.csv [12 cols]) \u2192 1774 cols total. \""
+            },
+            {
+              "line": 392,
+              "text": "\"pl12_csv\": \"results/phaselocked_item12_features.csv\","
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/phaselocked_item9_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/phaselocked_item9_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 77,
+              "text": "PL9_CSV = RESULTS_DIR / \"phaselocked_item9_features.csv\""
+            },
+            {
+              "line": 367,
+              "text": "\"phaselocked_item9_features.csv [11 cols], \""
+            },
+            {
+              "line": 391,
+              "text": "\"pl9_csv\": \"results/phaselocked_item9_features.csv\","
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_t1_ceiling_push_slotC.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/phaselocked_item12_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/phaselocked_item12_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 99,
+              "text": "12: RESULTS_DIR / \"phaselocked_item12_features.csv\","
+            },
+            {
+              "line": 103,
+              "text": "12: RESULTS_DIR / \"phaselocked_item12_features.csv.manifest.json\","
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/phaselocked_item9_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/phaselocked_item9_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 98,
+              "text": "9: RESULTS_DIR / \"phaselocked_item9_features.csv\","
+            },
+            {
+              "line": 102,
+              "text": "9: RESULTS_DIR / \"phaselocked_item9_features.csv.manifest.json\","
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_t1_ceiling_push_slotD.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 127,
+              "text": "# prefix tokens (see CLAUDE.md and ablation_v3_features.csv schema):"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 127,
+              "text": "# prefix tokens (see CLAUDE.md and ablation_v3_features.csv schema):"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_t1_iter4.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 50,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/lr_asymmetry_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 52,
+              "text": "LR_ASYMMETRY = RESULTS_DIR / \"lr_asymmetry_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/rest_state_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 54,
+              "text": "REST_STATE = RESULTS_DIR / \"rest_state_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/tug_transition_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 6,
+              "text": "tug_microscope              \u2014 base v2 + TUG-transition phase features (cache_tug_transition_features.csv)"
+            },
+            {
+              "line": 53,
+              "text": "TUG_TRANSITION = RESULTS_DIR / \"tug_transition_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 50,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_t1_iter7_axial.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/axial_orientation_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 51,
+              "text": "AXIAL_CACHE = RESULTS_DIR / \"axial_orientation_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_t3_boost_iter5.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 312,
+              "text": "\"ablation_v3_features.csv\": sha256_path(RESULTS_DIR / \"ablation_v3_features.csv\"),"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v2_self_normalized.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 43,
+              "text": "SELFNORM_PATH = RESULTS_DIR / \"v2_self_normalized.csv\""
+            },
+            {
+              "line": 314,
+              "text": "\"v2_self_normalized.csv\": sha256_path(SELFNORM_PATH),"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 312,
+              "text": "\"ablation_v3_features.csv\": sha256_path(RESULTS_DIR / \"ablation_v3_features.csv\"),"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter1.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 52,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 52,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter16_site_ipw.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 91,
+              "text": "df = pd.read_csv(RESULTS_DIR / \"ablation_v3_features.csv\").set_index(\"sid\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 91,
+              "text": "df = pd.read_csv(RESULTS_DIR / \"ablation_v3_features.csv\").set_index(\"sid\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter17_site_centered.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 98,
+              "text": "df = pd.read_csv(RESULTS_DIR / \"ablation_v3_features.csv\").set_index(\"sid\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 98,
+              "text": "df = pd.read_csv(RESULTS_DIR / \"ablation_v3_features.csv\").set_index(\"sid\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter2.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 46,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 46,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter21_nested.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 139,
+              "text": "V2_FEATURES_PATH = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/item_specific_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/item_specific_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 141,
+              "text": "ITEM_SPECIFIC_CACHE_PATH = RESULTS_DIR / \"item_specific_features.csv\""
+            },
+            {
+              "line": 172,
+              "text": "15, 16, 17, 18 from item_specific_features.csv)"
+            },
+            {
+              "line": 397,
+              "text": "Uses item-specific cache (item_specific_features.csv) for items 7, 8, 15, 16, 17, 18."
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/peritem_subj_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 173,
+              "text": "X_per_item_v2cache \u2014 dict[int, (N, k_i)] from peritem_subj_features.csv"
+            },
+            {
+              "line": 224,
+              "text": "# Note: items 17 and 18 share prefix `i1718_` in peritem_subj_features.csv per"
+            },
+            {
+              "line": 226,
+              "text": "peritem_v2_cache_path = RESULTS_DIR / \"peritem_subj_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 139,
+              "text": "V2_FEATURES_PATH = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter23_clinical_ablation.py",
+      "role": "model_or_composer",
+      "guard_present": true,
+      "classification": "current_safe_consumer_guarded",
+      "artifacts": [
+        {
+          "artifact": "results/clinical_extras.csv",
+          "artifact_status": "manifest_complete_clean_by_construction",
+          "manifest": "results/clinical_extras.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 5,
+              "text": "whether ADDITIONAL intake clinical covariates from results/clinical_extras.csv"
+            },
+            {
+              "line": 74,
+              "text": "CLINICAL_EXTRAS_CSV = RESULTS_DIR / \"clinical_extras.csv\""
+            },
+            {
+              "line": 75,
+              "text": "CLINICAL_EXTRAS_MANIFEST = RESULTS_DIR / \"clinical_extras.csv.manifest.json\""
+            },
+            {
+              "line": 84,
+              "text": "# Schema of clinical_extras.csv (parallel agent ensures these exist)."
+            },
+            {
+              "line": 466,
+              "text": "\"Manifest SHA is locked into formula_sha256 \u2014 any change to clinical_extras.csv \""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter24_stage2_forced.py",
+      "role": "model_or_composer",
+      "guard_present": true,
+      "classification": "current_safe_consumer_guarded",
+      "artifacts": [
+        {
+          "artifact": "results/clinical_extras.csv",
+          "artifact_status": "manifest_complete_clean_by_construction",
+          "manifest": "results/clinical_extras.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 83,
+              "text": "CLINICAL_EXTRAS_PATH = RESULTS_DIR / \"clinical_extras.csv\""
+            },
+            {
+              "line": 84,
+              "text": "MANIFEST_PATH = RESULTS_DIR / \"clinical_extras.csv.manifest.json\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter3.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 48,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 48,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/velinc_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 49,
+              "text": "VELINC_CACHE = RESULTS_DIR / \"velinc_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter41_target_fix.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 50,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 50,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter49_cops.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/iter49_cops_features_full.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/iter49_cops_features_full.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 721,
+              "text": "features_csv = RESULTS_DIR / (\"iter49_cops_features_smoke.csv\" if smoke else \"iter49_cops_features_full.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/iter49_cops_features_smoke.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/iter49_cops_features_smoke.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 721,
+              "text": "features_csv = RESULTS_DIR / (\"iter49_cops_features_smoke.csv\" if smoke else \"iter49_cops_features_full.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter5_clinical.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 56,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 56,
+              "text": "V2_FEATURES = RESULTS_DIR / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_t3_iter6_imu.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/event_axial_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 9,
+              "text": "- event_axial_features.csv (450 cols): axial sensors \u00d7 directional channels"
+            },
+            {
+              "line": 62,
+              "text": "EVENT_AXIAL_CACHE = RESULTS_DIR / \"event_axial_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        },
+        {
+          "artifact": "results/unsigned_asymmetry_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 13,
+              "text": "- unsigned_asymmetry_features.csv (1170 cols): max(L,R) and min(L,R) of every"
+            },
+            {
+              "line": 63,
+              "text": "UNSIGNED_ASYM_CACHE = RESULTS_DIR / \"unsigned_asymmetry_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": true
+        }
+      ]
+    },
+    {
+      "script": "run_v3_experiments.py",
+      "role": "model_or_composer",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 36,
+              "text": "FEATURE_CACHE = str(repo_artifact_path(\"v3_features.csv\"))"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "tests/test_adversarial_load_variability_features.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 120,
+              "text": "cache_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 133,
+              "text": "cache_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 146,
+              "text": "cache_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 156,
+              "text": "cache_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 166,
+              "text": "cache_path = tmp_path / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 120,
+              "text": "cache_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 133,
+              "text": "cache_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 146,
+              "text": "cache_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 156,
+              "text": "cache_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 166,
+              "text": "cache_path = tmp_path / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "tests/test_run_baselines_variability.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/ablation_v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 134,
+              "text": "# Create tmp_path/ablation_v3_features.csv with header and rows"
+            },
+            {
+              "line": 135,
+              "text": "csv_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 159,
+              "text": "csv_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 176,
+              "text": "csv_path = tmp_path / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/v3_features.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 134,
+              "text": "# Create tmp_path/ablation_v3_features.csv with header and rows"
+            },
+            {
+              "line": 135,
+              "text": "csv_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 159,
+              "text": "csv_path = tmp_path / \"ablation_v3_features.csv\""
+            },
+            {
+              "line": 176,
+              "text": "csv_path = tmp_path / \"ablation_v3_features.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "train_indomain_ssl.py",
+      "role": "other_python",
+      "guard_present": false,
+      "classification": "diagnostic_only_consumer_block_reportable_use",
+      "artifacts": [
+        {
+          "artifact": "results/indomain_ssl_embeddings.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/indomain_ssl_embeddings.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 57,
+              "text": "EMBED_CACHE = RESULTS_DIR / \"indomain_ssl_embeddings.csv\""
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "verify_current_goal_state.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": true,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/clinical_extras.csv",
+          "artifact_status": "manifest_complete_clean_by_construction",
+          "manifest": "results/clinical_extras.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 920,
+              "text": "safe_cache = validate_cache_manifest(RESULTS / \"clinical_extras.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/harnet_subj_embeddings.csv",
+          "artifact_status": "manifest_complete_clean_by_construction",
+          "manifest": "results/harnet_subj_embeddings.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 921,
+              "text": "harnet_cache = validate_cache_manifest(RESULTS / \"harnet_subj_embeddings.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/indomain_ssl_embeddings.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/indomain_ssl_embeddings.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 878,
+              "text": "\"results/indomain_ssl_embeddings.csv\","
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/item_specific_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/item_specific_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 870,
+              "text": "\"results/item_specific_features.csv\","
+            },
+            {
+              "line": 901,
+              "text": "\"results/item_specific_features.csv\","
+            },
+            {
+              "line": 922,
+              "text": "placeholder_cache = validate_cache_manifest(RESULTS / \"item_specific_features.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/iter49_cops_features_full.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/iter49_cops_features_full.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 157,
+              "text": "\"results/iter49_cops_features_full.csv\","
+            },
+            {
+              "line": 158,
+              "text": "\"results/iter49_cops_features_full.csv.manifest.json\","
+            },
+            {
+              "line": 879,
+              "text": "\"results/iter49_cops_features_full.csv\","
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/iter49_cops_features_smoke.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/iter49_cops_features_smoke.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 880,
+              "text": "\"results/iter49_cops_features_smoke.csv\","
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/moment_subj_embeddings.csv",
+          "artifact_status": "missing_manifest_diagnostic_only",
+          "manifest": null,
+          "line_refs": [
+            {
+              "line": 923,
+              "text": "missing_manifest_cache = validate_cache_manifest(RESULTS / \"moment_subj_embeddings.csv\")"
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/phaselocked_item12_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/phaselocked_item12_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 875,
+              "text": "\"results/phaselocked_item12_features.csv\","
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/phaselocked_item9_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/phaselocked_item9_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 874,
+              "text": "\"results/phaselocked_item9_features.csv\","
+            }
+          ],
+          "runtime_read_near_reference": false
+        },
+        {
+          "artifact": "results/unused_channels_features.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/unused_channels_features.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 871,
+              "text": "\"results/unused_channels_features.csv\","
+            },
+            {
+              "line": 902,
+              "text": "\"results/unused_channels_features.csv\","
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    },
+    {
+      "script": "visualize_current_best_pipeline.py",
+      "role": "audit_reporting_or_cache_producer",
+      "guard_present": false,
+      "classification": "non_model_or_cache_producer_reference",
+      "artifacts": [
+        {
+          "artifact": "results/iter49_cops_features_full.csv",
+          "artifact_status": "partial_manifest_diagnostic_only",
+          "manifest": "results/iter49_cops_features_full.csv.manifest.json",
+          "line_refs": [
+            {
+              "line": 246,
+              "text": "artifact_record(\"results/iter49_cops_features_full.csv\", \"T3 iter49 COPS full feature cache\"),"
+            },
+            {
+              "line": 247,
+              "text": "artifact_record(\"results/iter49_cops_features_full.csv.manifest.json\", \"T3 iter49 COPS feature-cache manifest\"),"
+            }
+          ],
+          "runtime_read_near_reference": false
+        }
+      ]
+    }
+  ]
+}

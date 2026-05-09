@@ -1,0 +1,64 @@
+{
+  "generated_at_utc": "2026-05-08T21:42:58+00:00",
+  "script": "audit_oof_artifact_integrity.py",
+  "policy": "Verify selected current/historical lockbox .oof.npy files are byte-level prediction companions to their JSON per_subject.y_pred arrays.",
+  "passed": true,
+  "checks": [
+    {
+      "name": "t1_iter12_honest_floor",
+      "json": "results/t1_iter12_honest_composite.json",
+      "oof": "results/t1_iter12_honest_composite.oof.npy",
+      "status": "current_t1_canonical_floor",
+      "json_n": 94,
+      "oof_shape": [
+        94
+      ],
+      "same_shape": true,
+      "max_abs_diff": 0.0,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "t1_iter34_hybrid_candidate",
+      "json": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "oof": "results/lockbox_t1_iter34_hybrid_20260506_141720.oof.npy",
+      "status": "current_t1_strongest_candidate",
+      "json_n": 93,
+      "oof_shape": [
+        93
+      ],
+      "same_shape": true,
+      "max_abs_diff": 0.0,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "t1_iter46_etrobust_diagnostic",
+      "json": "results/lockbox_t1_iter46_etrobust_20260508_162825.json",
+      "oof": "results/lockbox_t1_iter46_etrobust_20260508_162825.oof.npy",
+      "status": "negative_diagnostic",
+      "json_n": 93,
+      "oof_shape": [
+        93
+      ],
+      "same_shape": true,
+      "max_abs_diff": 0.0,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    {
+      "name": "t3_iter5_historical_target_contaminated",
+      "json": "results/lockbox_t3_iter5_A3_tier1_20260502_171604.json",
+      "oof": "results/lockbox_t3_iter5_A3_tier1_20260502_171604.oof.npy",
+      "status": "historical_target_contaminated",
+      "json_n": 98,
+      "oof_shape": [
+        98
+      ],
+      "same_shape": true,
+      "max_abs_diff": 0.0,
+      "tolerance": 1e-09,
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "generated_at_utc": "2026-05-09T06:52:44+00:00",
+  "script": "audit_reportable_artifact_flags.py",
+  "policy": "Current claim status is defined by the post-audit policy layer, not by archived lockbox booleans alone. Superseded raw flags are retained for reproducibility but must be explicitly overridden.",
+  "passed": true,
+  "checks": [
+    {
+      "id": "t1_iter12_honest_floor",
+      "path": "results/t1_iter12_honest_composite.json",
+      "exists": true,
+      "current_claim_status": "canonical_floor",
+      "raw_flags": {
+        "is_lockbox_headline": true,
+        "is_canonical_update": null
+      },
+      "metric_results": {
+        "ccc": {
+          "value": 0.655,
+          "expected": 0.655,
+          "passed": true
+        },
+        "mae": {
+          "value": 1.5614,
+          "expected": 1.5614,
+          "passed": true
+        },
+        "n": {
+          "value": 94,
+          "expected": 94,
+          "passed": true
+        }
+      },
+      "required_doc_snippets": [
+        "T1 LOOCV CCC = 0.6550",
+        "canonical floor"
+      ],
+      "docs_pass": true,
+      "stale_raw_flags_allowed": {},
+      "passed": true
+    },
+    {
+      "id": "t1_iter34_hybrid_candidate",
+      "path": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "exists": true,
+      "current_claim_status": "strongest_candidate_caveated_not_canonical_replacement",
+      "raw_flags": {
+        "is_lockbox_headline": true,
+        "is_canonical_update": true,
+        "is_post_publication_replication_target": true,
+        "verdict_vs_iter33b": "LIFT (frac>0 vs iter33-B \u2265 0.95)"
+      },
+      "metric_results": {
+        "ccc": {
+          "value": 0.7366,
+          "expected": 0.7366,
+          "passed": true
+        },
+        "mae": {
+          "value": 1.731,
+          "expected": 1.731,
+          "passed": true
+        },
+        "n": {
+          "value": 93,
+          "expected": 93,
+          "passed": true
+        }
+      },
+      "required_doc_snippets": [
+        "STRONGEST CANDIDATE",
+        "iter34 is locally framed as a strongest candidate",
+        "iter12-honest 0.6550 as the canonical floor",
+        "auxiliary-label/order caveat",
+        "not as an all-null-gates-green canonical replacement"
+      ],
+      "docs_pass": true,
+      "stale_raw_flags_allowed": {
+        "is_canonical_update": {
+          "raw_value": true,
+          "current_value": false,
+          "reason": "Later P2, auxiliary-label/order, and claim-labeling audits demote iter34 to strongest candidate; the archived boolean must not be used as current claim policy."
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "t1_iter46_etrobust_diagnostic",
+      "path": "results/lockbox_t1_iter46_etrobust_20260508_162825.json",
+      "exists": true,
+      "current_claim_status": "negative_diagnostic_not_canonical",
+      "raw_flags": {
+        "verdict.is_lockbox_headline": true,
+        "verdict.is_canonical_update": false,
+        "verdict.breaks_iter34_ceiling": false,
+        "verdict.decision": "lockbox_negative_stop_branch"
+      },
+      "metric_results": {
+        "ccc": {
+          "value": 0.7269,
+          "expected": 0.7269,
+          "passed": true
+        },
+        "mae": {
+          "value": 1.7578,
+          "expected": 1.7578,
+          "passed": true
+        },
+        "n": {
+          "value": 93,
+          "expected": 93,
+          "passed": true
+        }
+      },
+      "required_doc_snippets": [
+        "T1 iter46 ET-only robustification",
+        "not a ceiling break and not a canonical update",
+        "Diagnostic only"
+      ],
+      "docs_pass": true,
+      "stale_raw_flags_allowed": {
+        "verdict.is_lockbox_headline": {
+          "raw_value": true,
+          "current_value": "diagnostic_lockbox_only",
+          "reason": "The lockbox ran as a diagnostic follow-up, but its own verdict is negative."
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "t3_iter5_historical_target_contaminated",
+      "path": "results/lockbox_t3_iter5_A3_tier1_20260502_171604.json",
+      "exists": true,
+      "current_claim_status": "historical_target_contaminated_not_current",
+      "raw_flags": {
+        "is_lockbox_headline": true,
+        "is_canonical_update": null
+      },
+      "metric_results": {
+        "ccc": {
+          "value": 0.5227,
+          "expected": 0.5227,
+          "passed": true
+        },
+        "mae": {
+          "value": 7.525,
+          "expected": 7.525,
+          "passed": true
+        },
+        "n": {
+          "value": 98,
+          "expected": 98,
+          "passed": true
+        }
+      },
+      "required_doc_snippets": [
+        "T3 iter5 (2026-05-02) \u2014 historical clinical-augmented Stage 1 result, now target-contaminated",
+        "Do not cite iter5 `0.5227` as a deployable result",
+        "target-contaminated historical artifacts"
+      ],
+      "docs_pass": true,
+      "stale_raw_flags_allowed": {
+        "is_lockbox_headline": {
+          "raw_value": true,
+          "current_value": "historical_only",
+          "reason": "Later iter41/iter47 target-construction audits supersede this lockbox."
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "t3_iter47_validrange_current",
+      "path": "results/iter47_invalidcode_20260508_194605.json",
+      "exists": true,
+      "current_claim_status": "canonical_audit_truth",
+      "raw_flags": {
+        "decision": "fixed_battery_target_audit_no_selection",
+        "formula_sha256": "0107b7297073900785692a0cfee28f44b2abaad8094a9a371a20f12e03efa439"
+      },
+      "metric_results": {
+        "cells.drop_allmissing_validrange.stage2_current.ccc": {
+          "value": 0.3784,
+          "expected": 0.3784,
+          "passed": true
+        }
+      },
+      "required_doc_snippets": [
+        "T3 corrected target (total UPDRS-III) \u2014 CANONICAL AUDIT TRUTH",
+        "valid-range-corrected T3 LOOCV CCC = 0.3784",
+        "valid-range corrected LOSO two-way"
+      ],
+      "docs_pass": true,
+      "stale_raw_flags_allowed": {},
+      "passed": true
+    }
+  ],
+  "stale_raw_flags": [
+    {
+      "artifact": "t1_iter34_hybrid_candidate",
+      "path": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+      "flag": "is_canonical_update",
+      "raw_value": true,
+      "current_claim_value": false,
+      "matched_expected_raw_value": true,
+      "reason": "Later P2, auxiliary-label/order, and claim-labeling audits demote iter34 to strongest candidate; the archived boolean must not be used as current claim policy."
+    },
+    {
+      "artifact": "t1_iter46_etrobust_diagnostic",
+      "path": "results/lockbox_t1_iter46_etrobust_20260508_162825.json",
+      "flag": "verdict.is_lockbox_headline",
+      "raw_value": true,
+      "current_claim_value": "diagnostic_lockbox_only",
+      "matched_expected_raw_value": true,
+      "reason": "The lockbox ran as a diagnostic follow-up, but its own verdict is negative."
+    },
+    {
+      "artifact": "t3_iter5_historical_target_contaminated",
+      "path": "results/lockbox_t3_iter5_A3_tier1_20260502_171604.json",
+      "flag": "is_lockbox_headline",
+      "raw_value": true,
+      "current_claim_value": "historical_only",
+      "matched_expected_raw_value": true,
+      "reason": "Later iter41/iter47 target-construction audits supersede this lockbox."
+    }
+  ],
+  "hard_failures": []
+}

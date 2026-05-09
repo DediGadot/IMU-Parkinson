@@ -1,0 +1,24 @@
+
+=== T1 iter30-B SCREEN: multi-task variants (4, 5-fold, 3 seeds, N=94) ===
+
+  variant=V1_random seed=42: CCC_v=0.7049 | iter5=0.6579 | Δ=+0.0470 | MAE=1.972 | r=0.7175 | 30.2s
+  variant=V1_random seed=1337: CCC_v=0.7061 | iter5=0.6773 | Δ=+0.0288 | MAE=1.938 | r=0.7180 | 29.9s
+  variant=V1_random seed=7: CCC_v=0.7146 | iter5=0.6364 | Δ=+0.0782 | MAE=1.877 | r=0.7323 | 30.1s
+  variant=V2_clinical seed=42: CCC_v=0.7114 | iter5=0.6579 | Δ=+0.0535 | MAE=1.948 | r=0.7247 | 30.0s
+  variant=V2_clinical seed=1337: CCC_v=0.7061 | iter5=0.6773 | Δ=+0.0288 | MAE=1.931 | r=0.7179 | 30.4s
+  variant=V2_clinical seed=7: CCC_v=0.7145 | iter5=0.6364 | Δ=+0.0781 | MAE=1.877 | r=0.7322 | 30.3s
+  variant=V3_correlation seed=42: CCC_v=0.7068 | iter5=0.6579 | Δ=+0.0489 | MAE=1.962 | r=0.7191 | 29.7s
+  variant=V3_correlation seed=1337: CCC_v=0.7037 | iter5=0.6773 | Δ=+0.0264 | MAE=1.942 | r=0.7170 | 30.3s
+  variant=V3_correlation seed=7: CCC_v=0.7195 | iter5=0.6364 | Δ=+0.0830 | MAE=1.867 | r=0.7366 | 29.8s
+  variant=V4_catboost seed=42: CCC_v=0.7042 | iter5=0.6579 | Δ=+0.0463 | MAE=1.706 | r=0.7093 | 278.2s
+  variant=V4_catboost seed=1337: CCC_v=0.7019 | iter5=0.6773 | Δ=+0.0246 | MAE=1.730 | r=0.7048 | 251.5s
+  variant=V4_catboost seed=7: CCC_v=0.7085 | iter5=0.6364 | Δ=+0.0720 | MAE=1.709 | r=0.7137 | 280.0s
+
+Per-variant Δ summary:
+  V1_random: mean CCC = 0.7085 ± 0.0053; Δ̄ = +0.0513 ([0.047, 0.0288, 0.0782])
+  V2_clinical: mean CCC = 0.7107 ± 0.0042; Δ̄ = +0.0535 ([0.0535, 0.0288, 0.0781])
+  V3_correlation: mean CCC = 0.7100 ± 0.0084; Δ̄ = +0.0528 ([0.0489, 0.0264, 0.083])
+  V4_catboost: mean CCC = 0.7049 ± 0.0034; Δ̄ = +0.0476 ([0.0463, 0.0246, 0.072])
+
+Wrote /root/pd-imu/results/iter30b_multitask_variants_5fold_20260505_202851.csv
+      /root/pd-imu/results/iter30b_multitask_variants_5fold_20260505_202851.oof.json

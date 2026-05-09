@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FoG-STAR Iter39 Zero-Shot External Validation</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; color: #17202a; }
+    header, section { padding: 28px clamp(20px, 5vw, 72px); border-bottom: 1px solid #d9dee7; }
+    header { background: #eef4f3; }
+    h1 { margin: 0 0 12px; font-size: 2rem; letter-spacing: 0; }
+    p { max-width: 1060px; line-height: 1.45; }
+    table { border-collapse: collapse; width: 100%; max-width: 1060px; margin: 16px 0; }
+    th, td { border-bottom: 1px solid #d9dee7; padding: 9px 8px; text-align: left; }
+    th { background: #f7f8fb; }
+    img { max-width: 100%; height: auto; border: 1px solid #d9dee7; }
+    .note { border-left: 4px solid #9b4d00; background: #fff7ed; padding: 12px 14px; max-width: 1060px; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body>
+  <header>
+    <p>Generated 2026-05-08T11:42:59+00:00</p>
+    <h1>FoG-STAR Iter39 Zero-Shot External Validation</h1>
+    <p>Pre-registered WearGait-PD-to-FoG-STAR evaluation. Tracks A/B train only on WearGait-PD and score all FoG-STAR subjects with total <code>updrs_iii</code>. Track C is an explicitly within-FoG-STAR LOOCV sanity ceiling.</p>
+    <div class="note"><strong>Interpretation:</strong> This is external-validity evidence only. It does not alter the internal WearGait-PD T3 canonical CCC of 0.5227.</div>
+  </header>
+  <section>
+    <h2>Metrics</h2>
+    <table><thead><tr><th>Track</th><th>CCC</th><th>95% CI</th><th>MAE</th><th>r</th><th>Calibration slope</th></tr></thead><tbody><tr><td>A: WG Wrist Direct</td><td>-0.0180</td><td>[-0.0912, 0.0465]</td><td>22.61</td><td>-0.1256</td><td>-0.0321</td></tr><tr><td>B: iter5 Clinical + Wrist</td><td>0.2499</td><td>[0.0281, 0.5028]</td><td>12.89</td><td>0.3923</td><td>0.2475</td></tr><tr><td>C: FoG-STAR LOO Sanity</td><td>0.0821</td><td>[-0.3058, 0.5096]</td><td>13.20</td><td>0.0862</td><td>0.0663</td></tr></tbody></table>
+  </section>
+  <section>
+    <h2>Scatter</h2>
+    <img src="iter39_fogstar_zeroshot/fig1_iter39_fogstar_scatter.png" alt="FoG-STAR scatter plots">
+  </section>
+  <section>
+    <h2>CCC CI</h2>
+    <img src="iter39_fogstar_zeroshot/fig2_iter39_fogstar_ccc_ci.png" alt="FoG-STAR CCC confidence intervals">
+  </section>
+</body>
+</html>

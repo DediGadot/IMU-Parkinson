@@ -1,0 +1,65 @@
+{
+  "created_at_utc": "2026-05-09T07:58:00Z",
+  "purpose": "Fresh public-route check for Zenodo 10.5281/zenodo.14848598 after the smartwatch subitem route refresh.",
+  "decision": "no_prereg_no_download_no_scaffold_no_remote_job_for_active_t1_t3_ccc_objective",
+  "route": {
+    "name": "Comprehensive Multi-Modal Dataset for Parkinson's Disease Prediction",
+    "zenodo": "10.5281/zenodo.14848598",
+    "access_status": "public on Zenodo",
+    "publication_date": "2025-02-11",
+    "files": [
+      {
+        "name": "Updated_Clinical_Gait_Dataset.csv",
+        "size_bytes": 81091,
+        "md5": "ada6e5b19225f5c504aea29de100b285",
+        "inspection": {
+          "rows": 2223,
+          "unique_patients": 771,
+          "columns": [
+            "visit_id",
+            "patient_id",
+            "visit_month",
+            "updrs_1",
+            "updrs_2",
+            "updrs_3",
+            "updrs_4",
+            "upd23b_clinical_state_on_medication",
+            "gait_time",
+            "gait_steps",
+            "freezing"
+          ],
+          "updrs3_missing_rows": 5,
+          "updrs3_zero_rows": 42
+        }
+      },
+      {
+        "name": "Final_Integrated_MultiModal_Dataset.csv",
+        "size_bytes": 10532710,
+        "md5": "4b6b7cffbc4ad99b4a237adb3457da22",
+        "inspection": {
+          "rows": 1113,
+          "columns": 1196,
+          "primary_columns": "visit_id plus CSF protein/peptide features; no raw wearable IMU columns"
+        }
+      }
+    ],
+    "source_lineage": [
+      "AMP Parkinson's Disease Progression Prediction Data (Kaggle)",
+      "Gait Data Repository (Mendeley)"
+    ],
+    "label": "UPDRS part totals and scalar gait summaries in a derived table; no item-level Part III raw subitems",
+    "modality": "CSF protein/peptide features plus scalar gait summaries (gait_time, gait_steps, freezing), not raw wearable IMU",
+    "direct_t1_t3_eligible": false,
+    "status": "skipped_derived_summary_table_not_raw_wearable_or_subject_aligned_t1_t3",
+    "verdict": "Public derived benchmark table, not a contemporaneous wearable sensor cohort. It mixes Kaggle AMP clinical/CSF data with a Mendeley gait repository, exposes only scalar gait summaries rather than raw IMU, and lacks T1 item-level labels or a trustworthy subject-aligned wearable-to-UPDRS schema. No preregistration, download, scaffold, or remote job is justified.",
+    "consults": {
+      "kimi": "no_prereg_document_only_due_synthetic_alignment_and_no_raw_wearable_imu",
+      "claude": "failed_credit_balance_too_low",
+      "glmcode": "not_found_on_path"
+    },
+    "sources": [
+      "https://zenodo.org/records/14848598",
+      "https://zenodo.org/api/records/14848598"
+    ]
+  }
+}

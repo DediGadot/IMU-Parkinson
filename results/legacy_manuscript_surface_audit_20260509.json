@@ -1,0 +1,1244 @@
+{
+  "generated_at_utc": "2026-05-09T10:02:22+00:00",
+  "script": "audit_legacy_manuscript_surfaces.py",
+  "policy": "Legacy manuscript/narrative files may retain stale SSL/XGBRanker numbers only when they carry a visible near-top stale/pre-audit do-not-cite banner pointing to CLAUDE.md, paper.md, render_current_paper.py, and CURRENT_PAPER.html.",
+  "passed": true,
+  "decision": "legacy_manuscript_surfaces_quarantined",
+  "banner": "STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE",
+  "current_pointers": [
+    "CLAUDE.md",
+    "paper.md",
+    "CURRENT_PAPER.html",
+    "render_current_paper.py",
+    "0.6550",
+    "0.7366",
+    "0.3784",
+    "0.150",
+    "target-contaminated"
+  ],
+  "legacy_surfaces": [
+    {
+      "path": "paper.tex",
+      "exists": true,
+      "sha256": "bc66a7aeb3b8e1f1f3b143d505048e61dbc56403bf1fc7d17737adfc5712d944",
+      "bytes": 46538,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 57,
+      "sample_dangerous_hits": [
+        {
+          "line": 36,
+          "pattern": "0\\.868",
+          "line_text": "LOSO \\texttt{0.150}. Old SSL/XGBRanker \\texttt{0.868} / \\texttt{0.776} claims",
+          "context": "canonical \\texttt{0.6550}, T1 candidate \\texttt{0.7366}, T3 \\texttt{0.3784}, LOSO \\texttt{0.150}. Old SSL/XGBRanker \\texttt{0.868} / \\texttt{0.776} claims are target-contaminated or superseded."
+        },
+        {
+          "line": 43,
+          "pattern": "0\\.868",
+          "line_text": "Predicting Parkinson's disease motor severity from wearable sensors is limited by prediction compression: standard regression on small clinical cohorts (N$<$100) collapses predictions toward the population mean, yielding poor concordance despite reasonable error rates. We present the first MDS-UPDRS",
+          "context": "\\begin{abstract} Predicting Parkinson's disease motor severity from wearable sensors is limited by prediction compression: standard regression on small clinical cohorts (N$<$100) collapses predictions toward the population mean, yielding poor concordance despite reasonable error rates. We present the first MDS-UPDRS Part III regression benchmark on WearGait-PD, the largest controlled-gait dataset with complete motor scores (N~=~178: 98 PD, 80 HC, 13 IMUs at 100~Hz). We introduce a two-stage semi-supervised ranking method that uses healthy control subjects (N~=~80) as calibration anchors: an XG"
+        },
+        {
+          "line": 56,
+          "pattern": "0\\.868",
+          "line_text": "WearGait-PD is the largest publicly available controlled-gait dataset with complete MDS-UPDRS-III scores\\cite{weargait}. To our knowledge, no published UPDRS-III regression exists on this dataset. We present four contributions: (1) the first regression benchmark on WearGait-PD with subject-level eva",
+          "context": "WearGait-PD is the largest publicly available controlled-gait dataset with complete MDS-UPDRS-III scores\\cite{weargait}. To our knowledge, no published UPDRS-III regression exists on this dataset. We present four contributions: (1) the first regression benchmark on WearGait-PD with subject-level evaluation; (2) a two-stage semi-supervised ranking method that uses healthy controls as calibration anchors, substantially reducing prediction compression (CCC improvement from 0.56 to 0.868 on the directly observable subscore); (3) a three-level observability decomposition explaining why total UPDRS-"
+        },
+        {
+          "line": 93,
+          "pattern": "0\\.868",
+          "line_text": "The directly observable subscore (items 3.9--3.14: arising, gait, freezing, postural stability, posture, body bradykinesia; max 24 points) is the primary endpoint. With SSL ranking (P5, PD-only LOOCV, N~=~94; Figure~\\ref{fig:ssl_scatter}), the pipeline achieves CCC~=~0.868, calibration slope~=~0.689",
+          "context": "The directly observable subscore (items 3.9--3.14: arising, gait, freezing, postural stability, posture, body bradykinesia; max 24 points) is the primary endpoint. With SSL ranking (P5, PD-only LOOCV, N~=~94; Figure~\\ref{fig:ssl_scatter}), the pipeline achieves CCC~=~0.868, calibration slope~=~0.689, MAE~=~0.986 (r~=~0.899). This represents a substantial improvement over the baseline (CCC~=~0.56, slope~=~0.401). The MAE of 0.986 falls well below the MCID of 3.25 points, indicating clinically actionable prediction accuracy."
+        },
+        {
+          "line": 95,
+          "pattern": "0\\.868",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~0.852 (MAE~=~1.33), and T3 (total UPDRS-III) achieves CCC~=~0.776 (MAE~=~4.65; Figure~\\ref{fig:three_target}). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable fro",
+          "context": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~0.852 (MAE~=~1.33), and T3 (total UPDRS-III) achieves CCC~=~0.776 (MAE~=~4.65; Figure~\\ref{fig:three_target}). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. \\begin{figure}[H]"
+        },
+        {
+          "line": 99,
+          "pattern": "0\\.868",
+          "line_text": "\\caption{SSL ranking predicted versus actual scores for the directly observable subscore (T1, items 3.9--3.14), PD-only LOOCV (N=94). Points colored by severity quartile. Yellow band: $\\pm$MCID (3.25). CCC~=~0.868, calibration slope~=~0.689. Marginal histograms show distribution of actual (green) an",
+          "context": "\\includegraphics[width=\\textwidth]{figures/fig02_ssl_scatter.png} \\caption{SSL ranking predicted versus actual scores for the directly observable subscore (T1, items 3.9--3.14), PD-only LOOCV (N=94). Points colored by severity quartile. Yellow band: $\\pm$MCID (3.25). CCC~=~0.868, calibration slope~=~0.689. Marginal histograms show distribution of actual (green) and predicted (orange) scores.} \\label{fig:ssl_scatter}"
+        },
+        {
+          "line": 105,
+          "pattern": "0\\.868",
+          "line_text": "\\caption{SSL ranking across three target definitions (PD-only LOOCV, N=94). Left: T1 direct observable (CCC=0.868). Center: T2 broad observable (CCC=0.852). Right: T3 total UPDRS-III (CCC=0.776). CCC degrades as targets include more items unobservable from gait sensors.}",
+          "context": "\\includegraphics[width=\\textwidth]{figures/fig03_three_target.png} \\caption{SSL ranking across three target definitions (PD-only LOOCV, N=94). Left: T1 direct observable (CCC=0.868). Center: T2 broad observable (CCC=0.852). Right: T3 total UPDRS-III (CCC=0.776). CCC degrades as targets include more items unobservable from gait sensors.} \\label{fig:three_target}"
+        },
+        {
+          "line": 179,
+          "pattern": "0\\.868",
+          "line_text": "\\textbf{P5 SSL Ranking} & \\textbf{LOOCV} & \\textbf{94} & \\textbf{0.868} & \\textbf{0.689} & \\textbf{0.986} & \\textbf{0.852} & \\textbf{1.33} & \\textbf{0.776} & \\textbf{4.65} \\\\",
+          "context": "\\textbf{P5 SSL Ranking} & \\textbf{5-split} & \\textbf{95} & \\textbf{0.865} & \\textbf{0.745} & \\textbf{0.953} & \\textbf{0.831} & \\textbf{1.16} & \\textbf{0.807} & \\textbf{4.46} \\\\ \\textbf{P5 SSL Ranking} & \\textbf{LOOCV} & \\textbf{94} & \\textbf{0.868} & \\textbf{0.689} & \\textbf{0.986} & \\textbf{0.852} & \\textbf{1.33} & \\textbf{0.776} & \\textbf{4.65} \\\\ \\bottomrule"
+        },
+        {
+          "line": 317,
+          "pattern": "0\\.868",
+          "line_text": "\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\",
+          "context": "\\midrule \\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\ \\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\"
+        },
+        {
+          "line": 346,
+          "pattern": "0\\.868",
+          "line_text": "The directly observable subscore (items 3.9--3.14) achieves CCC~=~0.868 with MAE~=~0.986, well below the MCID of 3.25 points. While the MCID of 3.25 was derived for total-score longitudinal change\\cite{horvath2015} and a subscore-specific MCID has not been established, the sub-MCID prediction error ",
+          "context": "The directly observable subscore (items 3.9--3.14) achieves CCC~=~0.868 with MAE~=~0.986, well below the MCID of 3.25 points. While the MCID of 3.25 was derived for total-score longitudinal change\\cite{horvath2015} and a subscore-specific MCID has not been established, the sub-MCID prediction error for the directly observable subscore suggests clinically useful single-assessment accuracy. This subscore could serve as a high-frequency secondary endpoint for interventions targeting axial motor function, including dopaminergic therapy titration for gait-related symptoms and monitoring of gait-rel"
+        },
+        {
+          "line": 36,
+          "pattern": "0\\.776",
+          "line_text": "LOSO \\texttt{0.150}. Old SSL/XGBRanker \\texttt{0.868} / \\texttt{0.776} claims",
+          "context": "canonical \\texttt{0.6550}, T1 candidate \\texttt{0.7366}, T3 \\texttt{0.3784}, LOSO \\texttt{0.150}. Old SSL/XGBRanker \\texttt{0.868} / \\texttt{0.776} claims are target-contaminated or superseded."
+        },
+        {
+          "line": 43,
+          "pattern": "0\\.776",
+          "line_text": "Predicting Parkinson's disease motor severity from wearable sensors is limited by prediction compression: standard regression on small clinical cohorts (N$<$100) collapses predictions toward the population mean, yielding poor concordance despite reasonable error rates. We present the first MDS-UPDRS",
+          "context": "\\begin{abstract} Predicting Parkinson's disease motor severity from wearable sensors is limited by prediction compression: standard regression on small clinical cohorts (N$<$100) collapses predictions toward the population mean, yielding poor concordance despite reasonable error rates. We present the first MDS-UPDRS Part III regression benchmark on WearGait-PD, the largest controlled-gait dataset with complete motor scores (N~=~178: 98 PD, 80 HC, 13 IMUs at 100~Hz). We introduce a two-stage semi-supervised ranking method that uses healthy control subjects (N~=~80) as calibration anchors: an XG"
+        }
+      ]
+    },
+    {
+      "path": "paper_new2.tex",
+      "exists": true,
+      "sha256": "a7dcd59934f5b3326a97be00d9eddb29c72935fd9648ca42b107619bde6ea91c",
+      "bytes": 84438,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 37,
+      "sample_dangerous_hits": [
+        {
+          "line": 62,
+          "pattern": "0\\.868",
+          "line_text": "\\texttt{0.150}. Old SSL/XGBRanker \\texttt{0.868} / \\texttt{0.776} claims are",
+          "context": "\\texttt{0.6550}, T1 candidate \\texttt{0.7366}, T3 \\texttt{0.3784}, LOSO \\texttt{0.150}. Old SSL/XGBRanker \\texttt{0.868} / \\texttt{0.776} claims are target-contaminated or superseded."
+        },
+        {
+          "line": 125,
+          "pattern": "0\\.868",
+          "line_text": "Ordinal ranking also improves broader targets (Stages~1--2, without temperature scaling): T2 (items 7--14, max 32) achieves $\\mathrm{CCC}=0.831$ ($\\mathrm{MAE}=1.16$), and T3 (total UPDRS-III) achieves $\\mathrm{CCC}=0.807$ ($\\mathrm{MAE}=4.46$; Figure~\\ref{fig:threetarget}). Comparing all three targ",
+          "context": "Ordinal ranking also improves broader targets (Stages~1--2, without temperature scaling): T2 (items 7--14, max 32) achieves $\\mathrm{CCC}=0.831$ ($\\mathrm{MAE}=1.16$), and T3 (total UPDRS-III) achieves $\\mathrm{CCC}=0.807$ ($\\mathrm{MAE}=4.46$; Figure~\\ref{fig:threetarget}). Comparing all three targets under Stages~1--2 (before temperature scaling), CCC degrades monotonically from $\\mathrm{T1}=0.865$ to $\\mathrm{T2}=0.831$ to $\\mathrm{T3}=0.807$, reflecting increasing inclusion of items unobservable from gait IMU. Temperature scaling (Section~\\ref{sec:tempscale}) further improves T1 calibratio"
+        },
+        {
+          "line": 196,
+          "pattern": "0\\.868",
+          "line_text": "Temperature scaling improves calibration slope from 0.745 to 0.967 and CCC from 0.868 to 0.882 (LOOCV, T1; Table~S8). MAE increases slightly ($0.986 \\rightarrow 1.162$), reflecting the trade-off between calibration and point accuracy inherent in stretching predictions: extreme-quintile patients are ",
+          "context": "Temperature scaling improves calibration slope from 0.745 to 0.967 and CCC from 0.868 to 0.882 (LOOCV, T1; Table~S8). MAE increases slightly ($0.986 \\rightarrow 1.162$), reflecting the trade-off between calibration and point accuracy inherent in stretching predictions: extreme-quintile patients are better calibrated at the cost of modest accuracy loss in the mid-range. Among seven calibration methods tested (CCC custom loss, quantile regression, KNN, variance penalty, conformal quantile, Ridge, temperature), temperature scaling achieved the best combination of CCC (0.882) and calibration slope"
+        },
+        {
+          "line": 253,
+          "pattern": "0\\.868",
+          "line_text": "\\textbf{Age confound analysis (Table~\\ref{tab:age}).} We compared ordinal ranking using the full HC cohort ($N=80$, mean age 74.6y) against an age-matched HC subset ($N=46$, mean age 68.9y, $p=0.0905$ vs PD). Age-matched HC gives T1 $\\mathrm{CCC}=0.868$ vs full HC $\\mathrm{CCC}=0.858$---age is not d",
+          "context": "\\textbf{Age confound analysis (Table~\\ref{tab:age}).} We compared ordinal ranking using the full HC cohort ($N=80$, mean age 74.6y) against an age-matched HC subset ($N=46$, mean age 68.9y, $p=0.0905$ vs PD). Age-matched HC gives T1 $\\mathrm{CCC}=0.868$ vs full HC $\\mathrm{CCC}=0.858$---age is not driving the ranking improvement. Partial correlation controlling for age yields $r=0.849$ ($p<0.001$), confirming that ordinal ranking predictions reflect motor severity, not age. Age-stratified within-PD analysis shows consistent performance across all PD age strata (Table~\\ref{tab:agestrat}): young"
+        },
+        {
+          "line": 268,
+          "pattern": "0\\.868",
+          "line_text": "Age-matched HC  & 46 & 68.9 & 0.0905   & \\textbf{0.868} & 0.978 & 0.880 & 0.744 & 0.751 & 4.998 \\\\",
+          "context": "Full HC         & 80 & 74.6 & $<0.001$ & \\textbf{0.858} & 0.986 & 0.874 & 0.718 & 0.763 & 4.968 \\\\ Age-matched HC  & 46 & 68.9 & 0.0905   & \\textbf{0.868} & 0.978 & 0.880 & 0.744 & 0.751 & 4.998 \\\\ \\bottomrule"
+        },
+        {
+          "line": 481,
+          "pattern": "0\\.868",
+          "line_text": "This work (T1, ranking) & 2026 & WearGait-PD    & 94 PD & 13 IMUs           & PD LOOCV         & $0.99^{*}$       & 0.899 & 0.868 \\\\",
+          "context": "\\midrule This work (T1, ranking) & 2026 & WearGait-PD    & 94 PD & 13 IMUs           & PD LOOCV         & $0.99^{*}$       & 0.899 & 0.868 \\\\ This work (T3, ranking) & 2026 & WearGait-PD    & 94 PD & 13 IMUs           & PD LOOCV         & 4.65             & 0.827 & 0.776 \\\\"
+        },
+        {
+          "line": 515,
+          "pattern": "0\\.868",
+          "line_text": "Residual prediction compression (calibration slope $<1.0$) persists after ordinal ranking, reflecting the mechanical consequence of leaf averaging in gradient-boosted trees with small $N$. Temperature scaling with $T=1.4$ provides a parsimonious correction: a single scalar parameter stretches predic",
+          "context": "Residual prediction compression (calibration slope $<1.0$) persists after ordinal ranking, reflecting the mechanical consequence of leaf averaging in gradient-boosted trees with small $N$. Temperature scaling with $T=1.4$ provides a parsimonious correction: a single scalar parameter stretches predictions outward from the population mean, improving calibration slope from 0.745 to 0.967 and CCC from 0.868 to 0.882 on T1 (LOOCV). This represents the best calibration among seven methods tested, surpassing approaches with more parameters (CCC custom loss, quantile regression, KNN, conformal quantil"
+        },
+        {
+          "line": 752,
+          "pattern": "0\\.868",
+          "line_text": "P5 Ordinal Ranking    & LOOCV   & 94 & \\textbf{0.868} & 0.689 & 0.986 & \\textbf{0.852} & 1.33 & \\textbf{0.776} & 4.65 \\\\",
+          "context": "P5 Ordinal Ranking    & 5-split & 95 & \\textbf{0.865} & 0.745 & 0.953 & \\textbf{0.831} & 1.16 & \\textbf{0.807} & 4.46 \\\\ P5 Ordinal Ranking    & LOOCV   & 94 & \\textbf{0.868} & 0.689 & 0.986 & \\textbf{0.852} & 1.33 & \\textbf{0.776} & 4.65 \\\\ \\bottomrule"
+        },
+        {
+          "line": 928,
+          "pattern": "0\\.868",
+          "line_text": "T1 (direct obs) & \\textbf{0.864} & 1.156 & 0.877 & 0.868 & 0.986 & 0.899 \\\\",
+          "context": "\\midrule T1 (direct obs) & \\textbf{0.864} & 1.156 & 0.877 & 0.868 & 0.986 & 0.899 \\\\ T2 (broad obs)  & \\textbf{0.831} & 1.162 & 0.847 & 0.852 & 1.334 & 0.873 \\\\"
+        },
+        {
+          "line": 62,
+          "pattern": "0\\.776",
+          "line_text": "\\texttt{0.150}. Old SSL/XGBRanker \\texttt{0.868} / \\texttt{0.776} claims are",
+          "context": "\\texttt{0.6550}, T1 candidate \\texttt{0.7366}, T3 \\texttt{0.3784}, LOSO \\texttt{0.150}. Old SSL/XGBRanker \\texttt{0.868} / \\texttt{0.776} claims are target-contaminated or superseded."
+        },
+        {
+          "line": 125,
+          "pattern": "0\\.776",
+          "line_text": "Ordinal ranking also improves broader targets (Stages~1--2, without temperature scaling): T2 (items 7--14, max 32) achieves $\\mathrm{CCC}=0.831$ ($\\mathrm{MAE}=1.16$), and T3 (total UPDRS-III) achieves $\\mathrm{CCC}=0.807$ ($\\mathrm{MAE}=4.46$; Figure~\\ref{fig:threetarget}). Comparing all three targ",
+          "context": "Ordinal ranking also improves broader targets (Stages~1--2, without temperature scaling): T2 (items 7--14, max 32) achieves $\\mathrm{CCC}=0.831$ ($\\mathrm{MAE}=1.16$), and T3 (total UPDRS-III) achieves $\\mathrm{CCC}=0.807$ ($\\mathrm{MAE}=4.46$; Figure~\\ref{fig:threetarget}). Comparing all three targets under Stages~1--2 (before temperature scaling), CCC degrades monotonically from $\\mathrm{T1}=0.865$ to $\\mathrm{T2}=0.831$ to $\\mathrm{T3}=0.807$, reflecting increasing inclusion of items unobservable from gait IMU. Temperature scaling (Section~\\ref{sec:tempscale}) further improves T1 calibratio"
+        },
+        {
+          "line": 227,
+          "pattern": "0\\.776",
+          "line_text": "\\tabnote{P0 baseline and P5 ordinal ranking use the same 5-split evaluation protocol for direct comparison. P5 row shows Stages~1--2 (ordinal ranking + regression, without temperature scaling; temperature $T=1.4$ was tuned on T1 only). P5 uses healthy controls for ranking representation learning onl",
+          "context": "}% \\tabnote{P0 baseline and P5 ordinal ranking use the same 5-split evaluation protocol for direct comparison. P5 row shows Stages~1--2 (ordinal ranking + regression, without temperature scaling; temperature $T=1.4$ was tuned on T1 only). P5 uses healthy controls for ranking representation learning only; final evaluation is PD-only. Confirmatory LOOCV ($N=94$): $\\mathrm{CCC}=0.776$, $\\mathrm{MAE}=4.65$ (Table~S7).} \\end{table}"
+        }
+      ]
+    },
+    {
+      "path": "CALIB-EXPERIMENTS.md",
+      "exists": true,
+      "sha256": "8d15cbcccd8710a8bdfc5fd623a639846c71c52a71070c97bfc14be3b740c4ac",
+      "bytes": 16056,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 9,
+      "sample_dangerous_hits": [
+        {
+          "line": 4,
+          "pattern": "0\\.868",
+          "line_text": "> This file preserves pre-leakage calibration-planning archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRank",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This file preserves pre-leakage calibration-planning archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 8,
+          "pattern": "0\\.868",
+          "line_text": "**Current:** CCC=0.868, MAE=0.95, cal_slope=0.69, std_ratio=0.85",
+          "context": "**Target:** Observable subscore T1 (items 3.9-3.14, range 0-24) **Current:** CCC=0.868, MAE=0.95, cal_slope=0.69, std_ratio=0.85 **Goal:** cal_slope >= 0.90 while maintaining CCC >= 0.85 and MAE <= 1.2"
+        },
+        {
+          "line": 268,
+          "pattern": "0\\.868",
+          "line_text": "| CCC | 0.868 | >= 0.85 | Must not degrade concordance |",
+          "context": "| cal_slope | 0.69 | >= 0.90 | Score substitution requires ~1:1 mapping | | CCC | 0.868 | >= 0.85 | Must not degrade concordance | | MAE | 0.95 | <= 1.2 | Small MAE increase acceptable for slope fix |"
+        },
+        {
+          "line": 4,
+          "pattern": "0\\.776",
+          "line_text": "> This file preserves pre-leakage calibration-planning archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRank",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This file preserves pre-leakage calibration-planning archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 94,
+          "pattern": "SSL ranking",
+          "line_text": "# After SSL ranking produces leaf features",
+          "context": "# After SSL ranking produces leaf features knn = KNeighborsRegressor(n_neighbors=5, weights='distance')"
+        },
+        {
+          "line": 4,
+          "pattern": "XGBRanker",
+          "line_text": "> This file preserves pre-leakage calibration-planning archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRank",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This file preserves pre-leakage calibration-planning archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 89,
+          "pattern": "XGBRanker",
+          "line_text": "**Algorithm:** Replace the LightGBM regressor in Stage 2 with a KNN regressor on the SSL leaf features. The XGBRanker leaf features encode severity ordering \u2014 KNN in this space directly uses neighbor labels without averaging.",
+          "context": "**Algorithm:** Replace the LightGBM regressor in Stage 2 with a KNN regressor on the SSL leaf features. The XGBRanker leaf features encode severity ordering \u2014 KNN in this space directly uses neighbor labels without averaging."
+        },
+        {
+          "line": 178,
+          "pattern": "XGBRanker",
+          "line_text": "# XGBRanker produces 900 leaf features (300 trees \u00d7 3 seeds)",
+          "context": "# XGBRanker produces 900 leaf features (300 trees \u00d7 3 seeds) # Reduce dimensionality first"
+        },
+        {
+          "line": 191,
+          "pattern": "XGBRanker",
+          "line_text": "**Risk:** The leaf features are high-dimensional (900) and sparse (one-hot-like). PCA is needed to avoid overfitting. The linear assumption may be wrong \u2014 the leaf features may have nonlinear interactions that Ridge can't capture. But since the XGBRanker already encoded nonlinearity, the Stage 2 mod",
+          "context": "**Risk:** The leaf features are high-dimensional (900) and sparse (one-hot-like). PCA is needed to avoid overfitting. The linear assumption may be wrong \u2014 the leaf features may have nonlinear interactions that Ridge can't capture. But since the XGBRanker already encoded nonlinearity, the Stage 2 model may only need linearity."
+        }
+      ]
+    },
+    {
+      "path": "HOW.md",
+      "exists": true,
+      "sha256": "b18dbd4f830feec69b447a3d9696ae1e07af2b7310e198f19968a46ad84e0c18",
+      "bytes": 47734,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 22,
+      "sample_dangerous_hits": [
+        {
+          "line": 4,
+          "pattern": "0\\.868",
+          "line_text": "> This file is a historical process narrative from the pre-leakage/pre-iter47 era. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. ",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This file is a historical process narrative from the pre-leakage/pre-iter47 era. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 126,
+          "pattern": "0\\.868",
+          "line_text": "The results were immediate and dramatic. On the directly observable subscore (items 3.9-3.14), CCC jumped from 0.591 to 0.868. On total UPDRS-III, CCC jumped from 0.186 to 0.776. Calibration slope improved from 0.508 to 0.745. MAE on the observable subscore dropped to 0.986 -- below 1.0 on a 24-poin",
+          "context": "The results were immediate and dramatic. On the directly observable subscore (items 3.9-3.14), CCC jumped from 0.591 to 0.868. On total UPDRS-III, CCC jumped from 0.186 to 0.776. Calibration slope improved from 0.508 to 0.745. MAE on the observable subscore dropped to 0.986 -- below 1.0 on a 24-point scale."
+        },
+        {
+          "line": 202,
+          "pattern": "0\\.868",
+          "line_text": "The age sensitivity analysis showed that age is not driving the results. Partial correlation after controlling for age was 0.849 (p < 1e-6). An age-matched HC subset (removing HC subjects older than 75) produced CCC=0.868, identical to the full-HC result. Age-stratified evaluation within PD showed C",
+          "context": "The age sensitivity analysis showed that age is not driving the results. Partial correlation after controlling for age was 0.849 (p < 1e-6). An age-matched HC subset (removing HC subjects older than 75) produced CCC=0.868, identical to the full-HC result. Age-stratified evaluation within PD showed CCC ranging from 0.706 (middle age tertile) to 0.911 (older tertile), with no age group showing degraded performance."
+        },
+        {
+          "line": 278,
+          "pattern": "0\\.868",
+          "line_text": "With LOOCV (N=94), the results are similar: CCC=0.868, MAE=0.986, slope=0.689, r=0.899. The slight differences between 5-fold and LOOCV are within the expected range and give confidence that neither protocol is inflated.",
+          "context": "With LOOCV (N=94), the results are similar: CCC=0.868, MAE=0.986, slope=0.689, r=0.899. The slight differences between 5-fold and LOOCV are within the expected range and give confidence that neither protocol is inflated."
+        },
+        {
+          "line": 4,
+          "pattern": "0\\.776",
+          "line_text": "> This file is a historical process narrative from the pre-leakage/pre-iter47 era. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. ",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This file is a historical process narrative from the pre-leakage/pre-iter47 era. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 48,
+          "pattern": "0\\.776",
+          "line_text": "**Codex CLI** (OpenAI's GPT-5.4 model) was used as a second opinion. You invoke it from the terminal: `codex exec -m gpt-5.4 -c model_reasoning_effort=\"xhigh\" --full-auto \"your question\"`. It cannot read local files (it runs in a sandbox), so you either paste context into the prompt or describe the ",
+          "context": "**Codex CLI** (OpenAI's GPT-5.4 model) was used as a second opinion. You invoke it from the terminal: `codex exec -m gpt-5.4 -c model_reasoning_effort=\"xhigh\" --full-auto \"your question\"`. It cannot read local files (it runs in a sandbox), so you either paste context into the prompt or describe the situation in words. What Codex contributed to this project was independent methodology advice. When we needed to decide how to implement 5-fold CV for the SSL pipeline, we asked Codex. Its answer was precise: healthy controls can stay in Stage 1 for all folds because they serve as auxiliary anchors "
+        },
+        {
+          "line": 126,
+          "pattern": "0\\.776",
+          "line_text": "The results were immediate and dramatic. On the directly observable subscore (items 3.9-3.14), CCC jumped from 0.591 to 0.868. On total UPDRS-III, CCC jumped from 0.186 to 0.776. Calibration slope improved from 0.508 to 0.745. MAE on the observable subscore dropped to 0.986 -- below 1.0 on a 24-poin",
+          "context": "The results were immediate and dramatic. On the directly observable subscore (items 3.9-3.14), CCC jumped from 0.591 to 0.868. On total UPDRS-III, CCC jumped from 0.186 to 0.776. Calibration slope improved from 0.508 to 0.745. MAE on the observable subscore dropped to 0.986 -- below 1.0 on a 24-point scale."
+        },
+        {
+          "line": 126,
+          "pattern": "0\\.986",
+          "line_text": "The results were immediate and dramatic. On the directly observable subscore (items 3.9-3.14), CCC jumped from 0.591 to 0.868. On total UPDRS-III, CCC jumped from 0.186 to 0.776. Calibration slope improved from 0.508 to 0.745. MAE on the observable subscore dropped to 0.986 -- below 1.0 on a 24-poin",
+          "context": "The results were immediate and dramatic. On the directly observable subscore (items 3.9-3.14), CCC jumped from 0.591 to 0.868. On total UPDRS-III, CCC jumped from 0.186 to 0.776. Calibration slope improved from 0.508 to 0.745. MAE on the observable subscore dropped to 0.986 -- below 1.0 on a 24-point scale."
+        },
+        {
+          "line": 278,
+          "pattern": "0\\.986",
+          "line_text": "With LOOCV (N=94), the results are similar: CCC=0.868, MAE=0.986, slope=0.689, r=0.899. The slight differences between 5-fold and LOOCV are within the expected range and give confidence that neither protocol is inflated.",
+          "context": "With LOOCV (N=94), the results are similar: CCC=0.868, MAE=0.986, slope=0.689, r=0.899. The slight differences between 5-fold and LOOCV are within the expected range and give confidence that neither protocol is inflated."
+        },
+        {
+          "line": 72,
+          "pattern": "CCC\\s*=\\s*0\\.865",
+          "line_text": "Every experiment outputs a structured JSON file to the `results/` directory. This is the paper's source of truth. The JSON contains all the metrics (CCC, MAE, Pearson r, calibration slope), the sample size, the seeds used, and per-subject predictions. The paper generator reads these JSON files direc",
+          "context": "Every experiment outputs a structured JSON file to the `results/` directory. This is the paper's source of truth. The JSON contains all the metrics (CCC, MAE, Pearson r, calibration slope), the sample size, the seeds used, and per-subject predictions. The paper generator reads these JSON files directly and renders tables and figures from them. There are no hardcoded numbers in the paper. If the JSON says CCC=0.865, the paper says CCC=0.865. If you change an experiment and re-run it, the paper updates automatically on the next `uv run python generate_paper.py`."
+        },
+        {
+          "line": 158,
+          "pattern": "CCC\\s*=\\s*0\\.865",
+          "line_text": "The honest held-out test results, on the clean split, were: LGB baseline MAE=9.47 (r=0.605), deployable stack MAE=9.68 (r=0.579), and the Hoehn & Yahr clinical staging ceiling MAE=8.22 (r=0.705). These are sobering numbers that tell you total UPDRS-III from gait IMU has a genuine prediction ceiling.",
+          "context": "The honest held-out test results, on the clean split, were: LGB baseline MAE=9.47 (r=0.605), deployable stack MAE=9.68 (r=0.579), and the Hoehn & Yahr clinical staging ceiling MAE=8.22 (r=0.705). These are sobering numbers that tell you total UPDRS-III from gait IMU has a genuine prediction ceiling. The observable subscore story, evaluated entirely via cross-validation, is much stronger: CCC=0.865."
+        },
+        {
+          "line": 172,
+          "pattern": "CCC\\s*=\\s*0\\.865",
+          "line_text": "The reason for this approach is simple: it eliminates the single most common source of errors in academic papers -- manually transcribed numbers. Every number in every table traces directly to a field in a JSON artifact. The `CCC=0.865` in the abstract comes from `compression_P5_TT1_5split.json[\"ccc",
+          "context": "The reason for this approach is simple: it eliminates the single most common source of errors in academic papers -- manually transcribed numbers. Every number in every table traces directly to a field in a JSON artifact. The `CCC=0.865` in the abstract comes from `compression_P5_TT1_5split.json[\"ccc\"]`. The `N=95` comes from the same file's `[\"n\"]` field. If we re-run an experiment and the CCC changes, the paper updates on the next generation. No one has to remember to update Table 3."
+        }
+      ]
+    },
+    {
+      "path": "REPRODUCIBILITY.md",
+      "exists": true,
+      "sha256": "e7bbe5d8293675fffb9766c2255c948e356eb9ca1e0f30e952514ae0b149c76e",
+      "bytes": 5292,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 9,
+      "sample_dangerous_hits": [
+        {
+          "line": 4,
+          "pattern": "0\\.868",
+          "line_text": "> This file preserves pre-leakage/pre-iter47 reproduction commands for archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`.",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This file preserves pre-leakage/pre-iter47 reproduction commands for archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 46,
+          "pattern": "0\\.868",
+          "line_text": "**Expected:** T1 CCC=0.865/0.868, T2 CCC=0.831/0.852, T3 CCC=0.807/0.776 (5-fold/LOOCV)",
+          "context": "``` **Expected:** T1 CCC=0.865/0.868, T2 CCC=0.831/0.852, T3 CCC=0.807/0.776 (5-fold/LOOCV)"
+        },
+        {
+          "line": 4,
+          "pattern": "0\\.776",
+          "line_text": "> This file preserves pre-leakage/pre-iter47 reproduction commands for archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`.",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This file preserves pre-leakage/pre-iter47 reproduction commands for archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 46,
+          "pattern": "0\\.776",
+          "line_text": "**Expected:** T1 CCC=0.865/0.868, T2 CCC=0.831/0.852, T3 CCC=0.807/0.776 (5-fold/LOOCV)",
+          "context": "``` **Expected:** T1 CCC=0.865/0.868, T2 CCC=0.831/0.852, T3 CCC=0.807/0.776 (5-fold/LOOCV)"
+        },
+        {
+          "line": 68,
+          "pattern": "0\\.882",
+          "line_text": "**Expected:** E7 Temperature T=1.4: CCC=0.882, slope=0.967 (LOOCV, from new server FM)",
+          "context": "``` **Expected:** E7 Temperature T=1.4: CCC=0.882, slope=0.967 (LOOCV, from new server FM)"
+        },
+        {
+          "line": 46,
+          "pattern": "CCC\\s*=\\s*0\\.865",
+          "line_text": "**Expected:** T1 CCC=0.865/0.868, T2 CCC=0.831/0.852, T3 CCC=0.807/0.776 (5-fold/LOOCV)",
+          "context": "``` **Expected:** T1 CCC=0.865/0.868, T2 CCC=0.831/0.852, T3 CCC=0.807/0.776 (5-fold/LOOCV)"
+        },
+        {
+          "line": 40,
+          "pattern": "SSL ranking",
+          "line_text": "### Primary SSL Ranking (Table 2)",
+          "context": "### Primary SSL Ranking (Table 2) ```bash"
+        },
+        {
+          "line": 4,
+          "pattern": "XGBRanker",
+          "line_text": "> This file preserves pre-leakage/pre-iter47 reproduction commands for archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`.",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This file preserves pre-leakage/pre-iter47 reproduction commands for archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 131,
+          "pattern": "XGBRanker",
+          "line_text": "- **XGBRanker seeds:** first 3 of above [42, 123, 456]",
+          "context": "- **Random seeds:** [42, 123, 456, 789, 2024] (5-seed LGB ensemble) - **XGBRanker seeds:** first 3 of above [42, 123, 456] - **Feature selection:** XGB importance, K=500, inside each CV fold"
+        }
+      ]
+    },
+    {
+      "path": "review_report.md",
+      "exists": true,
+      "sha256": "f4d91457494dbc4d43e416a92834284373f9bc16ff567d5cb9a93339e9185bb3",
+      "bytes": 37014,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 9,
+      "sample_dangerous_hits": [
+        {
+          "line": 4,
+          "pattern": "0\\.868",
+          "line_text": "> This review report evaluated an older manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This review report evaluated an older manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 4,
+          "pattern": "0\\.776",
+          "line_text": "> This review report evaluated an older manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This review report evaluated an older manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 63,
+          "pattern": "SSL ranking",
+          "line_text": "The paper is methodologically clean, all numerical claims trace to immutable pre-registered lockbox JSONs, and the framing as a cautionary inductive benchmark (rather than SOTA) is well executed. The most important reviewer-trigger issues are addressed: the SSL ranking transductive-leakage gap is sh",
+          "context": "The paper is methodologically clean, all numerical claims trace to immutable pre-registered lockbox JSONs, and the framing as a cautionary inductive benchmark (rather than SOTA) is well executed. The most important reviewer-trigger issues are addressed: the SSL ranking transductive-leakage gap is shown openly (Table 7), MCID is applied only to T3 total-score, calibration slope is reported (rare in PD-IMU), and CCC is justified over Pearson r. The paper would benefit from sharper treatment of (a) the substantial calibration-slope compression on both T1 and T3, (b) DBS subgroup analysis, (c) per"
+        },
+        {
+          "line": 92,
+          "pattern": "SSL ranking",
+          "line_text": "- **Issue:** Table 7 contrasts the older P5 SSL ranking pipeline (transductive) against an `inductive_pd` baseline. A na\u00efve reader might think this proves the canonical iter12/iter5 pipelines are clean. They *are* clean (via `inductive_lib.py` + 5-null-gate), but Table 7 only demonstrates the older ",
+          "context": "- **Location:** Table 7 caption, \"Why the inductive ceiling is so much lower\" section - **Issue:** Table 7 contrasts the older P5 SSL ranking pipeline (transductive) against an `inductive_pd` baseline. A na\u00efve reader might think this proves the canonical iter12/iter5 pipelines are clean. They *are* clean (via `inductive_lib.py` + 5-null-gate), but Table 7 only demonstrates the older pipeline's leakage. The inferential link is implicit, not shown empirically. - **Fix:** Add one sentence in the Table 7 paragraph and/or Methods Box: \"The leakage shown here is for the *older* SSL ranking pipeline "
+        },
+        {
+          "line": 93,
+          "pattern": "SSL ranking",
+          "line_text": "- **Fix:** Add one sentence in the Table 7 paragraph and/or Methods Box: \"The leakage shown here is for the *older* SSL ranking pipeline (`run_compression_ablation.py`) reproduced under both protocols. The canonical iter12 and iter5 pipelines were built from `inductive_lib.py` and pass all five null",
+          "context": "- **Issue:** Table 7 contrasts the older P5 SSL ranking pipeline (transductive) against an `inductive_pd` baseline. A na\u00efve reader might think this proves the canonical iter12/iter5 pipelines are clean. They *are* clean (via `inductive_lib.py` + 5-null-gate), but Table 7 only demonstrates the older pipeline's leakage. The inferential link is implicit, not shown empirically. - **Fix:** Add one sentence in the Table 7 paragraph and/or Methods Box: \"The leakage shown here is for the *older* SSL ranking pipeline (`run_compression_ablation.py`) reproduced under both protocols. The canonical iter12 "
+        },
+        {
+          "line": 314,
+          "pattern": "SSL ranking",
+          "line_text": "| R7 | M4 (Table 7 leakage demonstration \u2014 different code path than canonical pipelines) | Rewrote Table 7 caption to clarify that the leakage is shown for the *older* P5 SSL ranking pipeline; added a \"Certification of canonical pipelines\" paragraph in the Methods Box stating that iter12/iter5/iter1",
+          "context": "| R6 | M2 / DBS subgroup analysis missing | Computed actual DBS-stratified iter5 and iter12 LOOCV metrics from per-subject lockbox predictions \u00d7 cv_dbs flag; saved to `results/dbs_subgroup_analysis.json`; added Table S4 with full breakdown; rewrote Limitations \u00a710 with substantive findings; added pointer to Table S4 in Pipeline 2 Results section and in Discussion \u00a71. | Table S4 generated with 6 rows (DBS=0/1 \u00d7 T1/T3 + joint reference); 4 main-text references to Table S4; DBS=0 CCC 0.499 and DBS=1 CCC 0.496 reported \u2014 model is invariant in CCC across DBS strata. | | R7 | M4 (Table 7 leakage dem"
+        },
+        {
+          "line": 4,
+          "pattern": "XGBRanker",
+          "line_text": "> This review report evaluated an older manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This review report evaluated an older manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 102,
+          "pattern": "XGBRanker",
+          "line_text": "- Cite [8] XGBoost where XGBRanker leakage is discussed (Methods Box) or remove.",
+          "context": "- Cite [10] (St\u00fcrmer) when discussing propensity-weight choice or remove if not actually grounding the IPW formula. - Cite [8] XGBoost where XGBRanker leakage is discussed (Methods Box) or remove. - Remove [12] Stebbins \u2014 PIGD is not analyzed in v5; vestige of older drafts."
+        },
+        {
+          "line": 315,
+          "pattern": "XGBRanker",
+          "line_text": "| R8 | M5 (5 unused refs; LightGBM/IPW uncited) | Removed Stebbins (vestigial PIGD ref); renumbered HARNet\u2192[12], MOMENT\u2192[13]; added cite [7] at first LightGBM mention in Methods; added cites [9],[10] (van der Laan, St\u00fcrmer) at IPW definition in Pipeline 3; added cite [8] for XGBoost at XGBRanker lea",
+          "context": "| R7 | M4 (Table 7 leakage demonstration \u2014 different code path than canonical pipelines) | Rewrote Table 7 caption to clarify that the leakage is shown for the *older* P5 SSL ranking pipeline; added a \"Certification of canonical pipelines\" paragraph in the Methods Box stating that iter12/iter5/iter16 were rebuilt on inductive_lib.py and the leakage can't apply at the source. | Table 7 caption now contains \"*not* the canonical iter12/iter5 pipelines, which are independently certified clean by the 5-null gate\". | | R8 | M5 (5 unused refs; LightGBM/IPW uncited) | Removed Stebbins (vestigial PIGD "
+        }
+      ]
+    },
+    {
+      "path": "review_report_numbers.md",
+      "exists": true,
+      "sha256": "588508975d9087709b4d30d0b1dc732ecf029f7a151059add60c26206e63e8d2",
+      "bytes": 44933,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 31,
+      "sample_dangerous_hits": [
+        {
+          "line": 4,
+          "pattern": "0\\.868",
+          "line_text": "> This numerical audit targets an older `NEW.html` manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This numerical audit targets an older `NEW.html` manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        },
+        {
+          "line": 30,
+          "pattern": "0\\.868",
+          "line_text": "| 15 | Abstract | Age-matched HC CCC=0.868 | reviewer_age_sensitivity.json ssl_age_matched_t1 | ccc=0.868 | 0.868 | PASS |",
+          "context": "| 14 | Abstract | Observability partial CCC=0.730 | reviewer_obs_5fold.json partial_ssl | ccc=0.73 | 0.730 | PASS | | 15 | Abstract | Age-matched HC CCC=0.868 | reviewer_age_sensitivity.json ssl_age_matched_t1 | ccc=0.868 | 0.868 | PASS | | 16 | Abstract | Full HC CCC=0.858 | reviewer_age_sensitivity.json ssl_full_hc_t1 | ccc=0.858 | 0.858 | PASS |"
+        },
+        {
+          "line": 32,
+          "pattern": "0\\.868",
+          "line_text": "| 17 | Abstract | LOOCV T1 CCC=0.868 | compression_P5_TT1_loocv.json | ccc=0.868 | 0.868 | PASS |",
+          "context": "| 16 | Abstract | Full HC CCC=0.858 | reviewer_age_sensitivity.json ssl_full_hc_t1 | ccc=0.858 | 0.858 | PASS | | 17 | Abstract | LOOCV T1 CCC=0.868 | compression_P5_TT1_loocv.json | ccc=0.868 | 0.868 | PASS |"
+        },
+        {
+          "line": 73,
+          "pattern": "0\\.868",
+          "line_text": "| 44 | Sec 2.2 | LOOCV T1 CCC=0.868 | compression_P5_TT1_loocv.json | 0.868 | 0.868 | PASS |",
+          "context": "| 43 | Sec 2.2 | T3 MAE=4.46 | compression_P5_TT3_5split.json | 4.464 | 4.46 | PASS (rounded) | | 44 | Sec 2.2 | LOOCV T1 CCC=0.868 | compression_P5_TT1_loocv.json | 0.868 | 0.868 | PASS | | 45 | Sec 2.2 | LOOCV T2 CCC=0.852 | compression_P5_TT2_loocv.json | 0.852 | 0.852 | PASS |"
+        },
+        {
+          "line": 208,
+          "pattern": "0\\.868",
+          "line_text": "| 130 | Table 5 | Matched T1 CCC=0.868 | reviewer_age_sensitivity.json ssl_age_matched_t1 | 0.868 | 0.868 | PASS |",
+          "context": "| 129 | Table 5 | Matched age p=0.0905 | reviewer_age_sensitivity.json | age_test_matched_p=0.0905 | 0.0905 | PASS | | 130 | Table 5 | Matched T1 CCC=0.868 | reviewer_age_sensitivity.json ssl_age_matched_t1 | 0.868 | 0.868 | PASS | | 131 | Table 5 | Matched T1 MAE=0.978 | reviewer_age_sensitivity.json ssl_age_matched_t1 | 0.978 | 0.978 | PASS |"
+        },
+        {
+          "line": 224,
+          "pattern": "0\\.868",
+          "line_text": "| 139 | Sec 2.5 | Age-matched HC T1 CCC=0.868 vs full CCC=0.858 | reviewer_age_sensitivity.json | 0.868/0.858 | 0.868/0.858 | PASS |",
+          "context": "| 138 | Sec 2.5 | HC 74.6 vs PD 66.9 years | pd_only_experiments.json/reviewer_age_sensitivity | 74.6/66.9 | 74.6/66.9 | PASS | | 139 | Sec 2.5 | Age-matched HC T1 CCC=0.868 vs full CCC=0.858 | reviewer_age_sensitivity.json | 0.868/0.858 | 0.868/0.858 | PASS | | 140 | Sec 2.5 | Matched p=0.0905 | reviewer_age_sensitivity.json | 0.0905 | 0.0905 | PASS |"
+        },
+        {
+          "line": 287,
+          "pattern": "0\\.868",
+          "line_text": "| 174 | Table 8 | T1 ranking LOOCV CCC=0.868 | compression_P5_TT1_loocv.json | 0.868 | 0.868 | PASS |",
+          "context": "| 173 | Table 8 | T1 ranking LOOCV r=0.899 | compression_P5_TT1_loocv.json | 0.899 | 0.899 | PASS | | 174 | Table 8 | T1 ranking LOOCV CCC=0.868 | compression_P5_TT1_loocv.json | 0.868 | 0.868 | PASS | | 175 | Table 8 | T1 N=94 PD | compression_P5_TT1_loocv.json | n=94 | 94 PD | PASS |"
+        },
+        {
+          "line": 344,
+          "pattern": "0\\.868",
+          "line_text": "| 210 | Table S2 | P5 LOOCV T1 CCC=0.868 slope=0.689 MAE=0.986 | compression_P5_TT1_loocv.json | 0.868/0.689/0.986 | 0.868/0.689/0.986 | PASS |",
+          "context": "| 209 | Table S2 | P5 5-split T3 CCC=0.807 MAE=4.46 | compression_P5_TT3_5split.json | 0.807/4.464 | 0.807/4.46 | PASS (rounded) | | 210 | Table S2 | P5 LOOCV T1 CCC=0.868 slope=0.689 MAE=0.986 | compression_P5_TT1_loocv.json | 0.868/0.689/0.986 | 0.868/0.689/0.986 | PASS | | 211 | Table S2 | P5 LOOCV T2 CCC=0.852 MAE=1.33 | compression_P5_TT2_loocv.json | 0.852/1.334 | 0.852/1.33 | PASS (rounded) |"
+        },
+        {
+          "line": 424,
+          "pattern": "0\\.868",
+          "line_text": "| 244 | Table S7 | T1 LOOCV CCC=0.868 MAE=0.986 r=0.899 | compression_P5_TT1_loocv.json | 0.868/0.986/0.899 | 0.868/0.986/0.899 | PASS |",
+          "context": "| 243 | Table S7 | T1 5-fold CCC=0.865 MAE=0.953 r=0.877 | compression_P5_TT1_5split.json | 0.865/0.953/0.877 | 0.865/0.953/0.877 | PASS | | 244 | Table S7 | T1 LOOCV CCC=0.868 MAE=0.986 r=0.899 | compression_P5_TT1_loocv.json | 0.868/0.986/0.899 | 0.868/0.986/0.899 | PASS | | 245 | Table S7 | T2 5-fold CCC=0.831 MAE=1.162 r=0.847 | compression_P5_TT2_5split.json | 0.831/1.162/0.847 | 0.831/1.162/0.847 | PASS |"
+        },
+        {
+          "line": 475,
+          "pattern": "0\\.868",
+          "line_text": "| 274 | T1 LOOCV CCC appears consistently | Abstract, Sec 2.2, Table S2, Table S7 | All say 0.868 | PASS |",
+          "context": "| 273 | T3 CCC 5-fold appears consistently | Abstract, Sec 2.2, Fig 3, Table 3, Table S2, Table S7 | All say 0.807 | PASS | | 274 | T1 LOOCV CCC appears consistently | Abstract, Sec 2.2, Table S2, Table S7 | All say 0.868 | PASS | | 275 | T1 CCC varies across analyses (expected) | Table 2 (obs 5fold)=0.834, Primary 5fold=0.865, Age sens=0.858, HC abl=0.857/0.858, LOOCV=0.868 | All different; different analysis scope/N/protocol explained in Methods 4.6 | PASS (expected variation) |"
+        },
+        {
+          "line": 476,
+          "pattern": "0\\.868",
+          "line_text": "| 275 | T1 CCC varies across analyses (expected) | Table 2 (obs 5fold)=0.834, Primary 5fold=0.865, Age sens=0.858, HC abl=0.857/0.858, LOOCV=0.868 | All different; different analysis scope/N/protocol explained in Methods 4.6 | PASS (expected variation) |",
+          "context": "| 274 | T1 LOOCV CCC appears consistently | Abstract, Sec 2.2, Table S2, Table S7 | All say 0.868 | PASS | | 275 | T1 CCC varies across analyses (expected) | Table 2 (obs 5fold)=0.834, Primary 5fold=0.865, Age sens=0.858, HC abl=0.857/0.858, LOOCV=0.868 | All different; different analysis scope/N/protocol explained in Methods 4.6 | PASS (expected variation) | | 276 | P0 baseline varies between Table 3 and Table 7 | Table 3 P0 T1 CCC=not shown (T3 only), Table 7 P0 T1 CCC=0.673, Table S2 P0 T1 CCC=0.700 | Table S2 uses compression_P0_TT1 (CCC=0.700), Table 7 uses hc_ablation p0_baseline_t1 (CCC"
+        },
+        {
+          "line": 4,
+          "pattern": "0\\.776",
+          "line_text": "> This numerical audit targets an older `NEW.html` manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7",
+          "context": "> **STALE -- LEGACY MANUSCRIPT SURFACE -- DO NOT CITE.** > This numerical audit targets an older `NEW.html` manuscript snapshot and preserves historical review archaeology. Current claims live in `CLAUDE.md`, `paper.md`, and `CURRENT_PAPER.html`; render with `uv run python render_current_paper.py`. Current anchors: T1 canonical `0.6550`, T1 candidate `0.7366`, T3 `0.3784`, LOSO `0.150`. Old SSL/XGBRanker `0.868` / `0.776` claims are target-contaminated or superseded."
+        }
+      ]
+    },
+    {
+      "path": "generate_paper.py",
+      "exists": true,
+      "sha256": "b8575bf983e0cbd0b3c0070aae8d33f9d94f9456415787c2818f71a9a4fa8602",
+      "bytes": 275638,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 97,
+      "sample_dangerous_hits": [
+        {
+          "line": 7,
+          "pattern": "0\\.868",
+          "line_text": "0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are",
+          "context": "live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 1111,
+          "pattern": "0\\.868",
+          "line_text": "\"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868),",
+          "context": "{\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986), \"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868), \"n\": 94, \"color\": C_DIRECT, \"protocol\": \"PD LOOCV\", \"note\": \"items 9-14, max 24\"},"
+        },
+        {
+          "line": 2462,
+          "pattern": "0\\.868",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&",
+          "context": "<p> SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&nbsp;3). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. </p>"
+        },
+        {
+          "line": 3602,
+          "pattern": "0\\.868",
+          "line_text": "\\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\",
+          "context": "\\\\midrule \\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\ \\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\"
+        },
+        {
+          "line": 3903,
+          "pattern": "0\\.868",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradati",
+          "context": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. \"\"\""
+        },
+        {
+          "line": 7,
+          "pattern": "0\\.776",
+          "line_text": "0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are",
+          "context": "live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 1114,
+          "pattern": "0\\.776",
+          "line_text": "\"r\": d.ssl_t3.get(\"r\", 0.827), \"ccc\": d.ssl_t3.get(\"ccc\", 0.776),",
+          "context": "{\"label\": \"Ours: T3 Total\\n(SSL, LOOCV)\", \"mae\": d.ssl_t3.get(\"mae\", 4.646), \"r\": d.ssl_t3.get(\"r\", 0.827), \"ccc\": d.ssl_t3.get(\"ccc\", 0.776), \"n\": 94, \"color\": C_SSL, \"protocol\": \"PD LOOCV\", \"note\": \"total, max 59\"},"
+        },
+        {
+          "line": 2462,
+          "pattern": "0\\.776",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&",
+          "context": "<p> SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&nbsp;3). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. </p>"
+        },
+        {
+          "line": 3603,
+          "pattern": "0\\.776",
+          "line_text": "\\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\",
+          "context": "\\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\ \\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\ This work (T3, baseline) & 2026 & WearGait-PD & 98 PD & 13 IMUs & PD LOOCV & 8.15 & 0.429 & 0.369 \\\\\\\\"
+        },
+        {
+          "line": 3903,
+          "pattern": "0\\.776",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradati",
+          "context": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. \"\"\""
+        },
+        {
+          "line": 1110,
+          "pattern": "0\\.986",
+          "line_text": "{\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986),",
+          "context": "studies = [ {\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986), \"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868),"
+        },
+        {
+          "line": 1364,
+          "pattern": "0\\.882",
+          "line_text": "\"wrists_ankles_4\": {\"t1_v2\": 0.882, \"t1_comb\": 0.853, \"t3_v2\": 0.748, \"t3_comb\": 0.806},",
+          "context": "\"lower_back_1\":    {\"t1_v2\": 0.884, \"t1_comb\": 0.884, \"t3_v2\": 0.699, \"t3_comb\": 0.720}, \"wrists_ankles_4\": {\"t1_v2\": 0.882, \"t1_comb\": 0.853, \"t3_v2\": 0.748, \"t3_comb\": 0.806}, \"minimal_5\":       {\"t1_v2\": 0.864, \"t1_comb\": 0.879, \"t3_v2\": 0.779, \"t3_comb\": 0.778},"
+        }
+      ]
+    },
+    {
+      "path": "generate_paper_v2.py",
+      "exists": true,
+      "sha256": "731e0eeea1a1cf43c550850cf075d7da53d766dc4b13819cd53a885fad2bfc49",
+      "bytes": 314139,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 99,
+      "sample_dangerous_hits": [
+        {
+          "line": 7,
+          "pattern": "0\\.868",
+          "line_text": "0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are",
+          "context": "live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 1232,
+          "pattern": "0\\.868",
+          "line_text": "\"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868),",
+          "context": "{\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986), \"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868), \"n\": 94, \"color\": C_DIRECT, \"protocol\": \"PD LOOCV\", \"note\": \"items 9-14, max 24\"},"
+        },
+        {
+          "line": 2793,
+          "pattern": "0\\.868",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&",
+          "context": "<p> SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&nbsp;3). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. </p>"
+        },
+        {
+          "line": 3251,
+          "pattern": "0\\.868",
+          "line_text": "temp_ccc_before = ssl_t1.get(\"ccc\", 0.868)   # LOOCV baseline",
+          "context": "temp_slope_after = 0.967  # E7 result temp_ccc_before = ssl_t1.get(\"ccc\", 0.868)   # LOOCV baseline temp_ccc_after = 0.882   # E7 result"
+        },
+        {
+          "line": 4103,
+          "pattern": "0\\.868",
+          "line_text": "\\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\",
+          "context": "\\\\midrule \\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\ \\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\"
+        },
+        {
+          "line": 4404,
+          "pattern": "0\\.868",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradati",
+          "context": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. \"\"\""
+        },
+        {
+          "line": 7,
+          "pattern": "0\\.776",
+          "line_text": "0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are",
+          "context": "live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 1235,
+          "pattern": "0\\.776",
+          "line_text": "\"r\": d.ssl_t3.get(\"r\", 0.827), \"ccc\": d.ssl_t3.get(\"ccc\", 0.776),",
+          "context": "{\"label\": \"Ours: T3 Total\\n(SSL, LOOCV)\", \"mae\": d.ssl_t3.get(\"mae\", 4.646), \"r\": d.ssl_t3.get(\"r\", 0.827), \"ccc\": d.ssl_t3.get(\"ccc\", 0.776), \"n\": 94, \"color\": C_SSL, \"protocol\": \"PD LOOCV\", \"note\": \"total, max 59\"},"
+        },
+        {
+          "line": 2793,
+          "pattern": "0\\.776",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&",
+          "context": "<p> SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&nbsp;3). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. </p>"
+        },
+        {
+          "line": 4104,
+          "pattern": "0\\.776",
+          "line_text": "\\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\",
+          "context": "\\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\ \\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\ This work (T3, baseline) & 2026 & WearGait-PD & 98 PD & 13 IMUs & PD LOOCV & 8.15 & 0.429 & 0.369 \\\\\\\\"
+        },
+        {
+          "line": 4404,
+          "pattern": "0\\.776",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradati",
+          "context": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. \"\"\""
+        },
+        {
+          "line": 1231,
+          "pattern": "0\\.986",
+          "line_text": "{\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986),",
+          "context": "studies = [ {\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986), \"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868),"
+        }
+      ]
+    },
+    {
+      "path": "generate_paper_v3.py",
+      "exists": true,
+      "sha256": "bdc9ae454420c882658ae259a5e787749e9ebed0847d09706c6823eb81a9acaf",
+      "bytes": 316356,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 99,
+      "sample_dangerous_hits": [
+        {
+          "line": 7,
+          "pattern": "0\\.868",
+          "line_text": "T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are",
+          "context": "anchors live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 1232,
+          "pattern": "0\\.868",
+          "line_text": "\"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868),",
+          "context": "{\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986), \"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868), \"n\": 94, \"color\": C_DIRECT, \"protocol\": \"PD LOOCV\", \"note\": \"items 9-14, max 24\"},"
+        },
+        {
+          "line": 2805,
+          "pattern": "0\\.868",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&",
+          "context": "<p> SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&nbsp;3). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. </p>"
+        },
+        {
+          "line": 3263,
+          "pattern": "0\\.868",
+          "line_text": "temp_ccc_before = ssl_t1.get(\"ccc\", 0.868)   # LOOCV baseline",
+          "context": "temp_slope_after = 0.967  # E7 result temp_ccc_before = ssl_t1.get(\"ccc\", 0.868)   # LOOCV baseline temp_ccc_after = 0.882   # E7 result"
+        },
+        {
+          "line": 4127,
+          "pattern": "0\\.868",
+          "line_text": "\\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\",
+          "context": "\\\\midrule \\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\ \\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\"
+        },
+        {
+          "line": 4428,
+          "pattern": "0\\.868",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradati",
+          "context": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. \"\"\""
+        },
+        {
+          "line": 7,
+          "pattern": "0\\.776",
+          "line_text": "T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are",
+          "context": "anchors live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 1235,
+          "pattern": "0\\.776",
+          "line_text": "\"r\": d.ssl_t3.get(\"r\", 0.827), \"ccc\": d.ssl_t3.get(\"ccc\", 0.776),",
+          "context": "{\"label\": \"Ours: T3 Total\\n(SSL, LOOCV)\", \"mae\": d.ssl_t3.get(\"mae\", 4.646), \"r\": d.ssl_t3.get(\"r\", 0.827), \"ccc\": d.ssl_t3.get(\"ccc\", 0.776), \"n\": 94, \"color\": C_SSL, \"protocol\": \"PD LOOCV\", \"note\": \"total, max 59\"},"
+        },
+        {
+          "line": 2805,
+          "pattern": "0\\.776",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&",
+          "context": "<p> SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&nbsp;3). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. </p>"
+        },
+        {
+          "line": 4128,
+          "pattern": "0\\.776",
+          "line_text": "\\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\",
+          "context": "\\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\ \\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\ This work (T3, baseline) & 2026 & WearGait-PD & 98 PD & 13 IMUs & PD LOOCV & 8.15 & 0.429 & 0.369 \\\\\\\\"
+        },
+        {
+          "line": 4428,
+          "pattern": "0\\.776",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradati",
+          "context": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. \"\"\""
+        },
+        {
+          "line": 1231,
+          "pattern": "0\\.986",
+          "line_text": "{\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986),",
+          "context": "studies = [ {\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986), \"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868),"
+        }
+      ]
+    },
+    {
+      "path": "generate_paper_v4.py",
+      "exists": true,
+      "sha256": "b5732deb4718ee2db5af5125ad43a650e6535b132932a42a4e22c2e91caae652",
+      "bytes": 328474,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 102,
+      "sample_dangerous_hits": [
+        {
+          "line": 9,
+          "pattern": "0\\.868",
+          "line_text": "Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded.",
+          "context": "transductive SSL/ranking defaults. LEGACY generator for stale pre-audit NEW4.html. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 1321,
+          "pattern": "0\\.868",
+          "line_text": "\"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868),",
+          "context": "{\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986), \"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868), \"n\": 94, \"color\": C_DIRECT, \"protocol\": \"PD LOOCV\", \"note\": \"items 9-14, max 24\"},"
+        },
+        {
+          "line": 3015,
+          "pattern": "0\\.868",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&",
+          "context": "<p> SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&nbsp;3). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. </p>"
+        },
+        {
+          "line": 3473,
+          "pattern": "0\\.868",
+          "line_text": "temp_ccc_before = ssl_t1.get(\"ccc\", 0.868)   # LOOCV baseline",
+          "context": "temp_slope_after = 0.967  # E7 result temp_ccc_before = ssl_t1.get(\"ccc\", 0.868)   # LOOCV baseline temp_ccc_after = 0.882   # E7 result"
+        },
+        {
+          "line": 4339,
+          "pattern": "0\\.868",
+          "line_text": "\\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\",
+          "context": "\\\\midrule \\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\ \\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\"
+        },
+        {
+          "line": 4640,
+          "pattern": "0\\.868",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradati",
+          "context": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. \"\"\""
+        },
+        {
+          "line": 9,
+          "pattern": "0\\.776",
+          "line_text": "Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded.",
+          "context": "transductive SSL/ranking defaults. LEGACY generator for stale pre-audit NEW4.html. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 1324,
+          "pattern": "0\\.776",
+          "line_text": "\"r\": d.ssl_t3.get(\"r\", 0.827), \"ccc\": d.ssl_t3.get(\"ccc\", 0.776),",
+          "context": "{\"label\": \"Ours: T3 Total\\n(SSL, LOOCV)\", \"mae\": d.ssl_t3.get(\"mae\", 4.646), \"r\": d.ssl_t3.get(\"r\", 0.827), \"ccc\": d.ssl_t3.get(\"ccc\", 0.776), \"n\": 94, \"color\": C_SSL, \"protocol\": \"PD LOOCV\", \"note\": \"total, max 59\"},"
+        },
+        {
+          "line": 3015,
+          "pattern": "0\\.776",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&",
+          "context": "<p> SSL ranking also improves broader targets: T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;{ssl_t2.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;{ssl_t3.get('ccc', 0):.3f} (MAE&nbsp;=&nbsp;{ssl_t3.get('mae', 0):.2f}; Figure&nbsp;3). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. </p>"
+        },
+        {
+          "line": 4340,
+          "pattern": "0\\.776",
+          "line_text": "\\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\",
+          "context": "\\\\textbf{This work (T1, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 0.99* & 0.899 & 0.868 \\\\\\\\ \\\\textbf{This work (T3, SSL)} & 2026 & WearGait-PD & 94 PD & 13 IMUs & PD LOOCV & 4.65 & 0.827 & 0.776 \\\\\\\\ This work (T3, baseline) & 2026 & WearGait-PD & 98 PD & 13 IMUs & PD LOOCV & 8.15 & 0.429 & 0.369 \\\\\\\\"
+        },
+        {
+          "line": 4640,
+          "pattern": "0\\.776",
+          "line_text": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradati",
+          "context": "SSL ranking also improves broader targets: T2 (items 7--14, max 32) achieves CCC~=~{ssl_t2.get('ccc', 0):.3f} (MAE~=~{ssl_t2.get('mae', 0):.2f}), and T3 (total UPDRS-III) achieves CCC~=~{ssl_t3.get('ccc', 0):.3f} (MAE~=~{ssl_t3.get('mae', 0):.2f}; Figure~\\\\ref{{fig:three_target}}). The CCC degradation from T1 to T3 (0.868 to 0.776) reflects increasing inclusion of items unobservable from gait IMU. \"\"\""
+        },
+        {
+          "line": 1320,
+          "pattern": "0\\.986",
+          "line_text": "{\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986),",
+          "context": "studies = [ {\"label\": \"Ours: T1 Direct Obs\\n(SSL, LOOCV)\", \"mae\": d.ssl_t1.get(\"mae\", 0.986), \"r\": d.ssl_t1.get(\"r\", 0.899), \"ccc\": d.ssl_t1.get(\"ccc\", 0.868),"
+        }
+      ]
+    },
+    {
+      "path": "generate_paper_v5.py",
+      "exists": true,
+      "sha256": "a090090e7e3f7b9170f0b635b9ff68f862f5d0b8acc01fa80b1635fe1ec6a574",
+      "bytes": 149246,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 10,
+      "sample_dangerous_hits": [
+        {
+          "line": 6,
+          "pattern": "0\\.868",
+          "line_text": "candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims",
+          "context": "claims. Current anchors live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 243,
+          "pattern": "0\\.868",
+          "line_text": "\"compression_p5_t1_ccc\": 0.868,",
+          "context": "# Compression P5 5-fold (the SSL-ranking path) for the cautionary citation \"compression_p5_t1_ccc\": 0.868, \"compression_p5_t3_ccc\": 0.776,"
+        },
+        {
+          "line": 2203,
+          "pattern": "0\\.868",
+          "line_text": "thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit",
+          "context": "<code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit reproduction). <code>run_calibration_v2.py:861</code> tuned a temperature grid on the same N = 94 LOOCV prediction"
+        },
+        {
+          "line": 6,
+          "pattern": "0\\.776",
+          "line_text": "candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims",
+          "context": "claims. Current anchors live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 244,
+          "pattern": "0\\.776",
+          "line_text": "\"compression_p5_t3_ccc\": 0.776,",
+          "context": "\"compression_p5_t1_ccc\": 0.868, \"compression_p5_t3_ccc\": 0.776, }"
+        },
+        {
+          "line": 1257,
+          "pattern": "SSL ranking",
+          "line_text": "earlier P5 SSL ranking architecture (<code>run_compression_ablation.py</code>) reproduced under both protocols",
+          "context": "leaf indices are fit on all subjects or strictly inside the train fold. <em>The pipeline shown here is our earlier P5 SSL ranking architecture (<code>run_compression_ablation.py</code>) reproduced under both protocols \u2014 not the canonical iter12/iter5 pipelines, which are independently certified clean by the 5-null gate"
+        },
+        {
+          "line": 2209,
+          "pattern": "SSL ranking",
+          "line_text": "headline was reported. The Table 7 leakage demonstration uses the <em>older</em> P5 SSL ranking pipeline",
+          "context": "were each rebuilt on top of <code>inductive_lib.py</code> with all five nulls executed before any LOOCV/LOSO headline was reported. The Table 7 leakage demonstration uses the <em>older</em> P5 SSL ranking pipeline (<code>run_compression_ablation.py</code>) reproduced under both protocols specifically so that the inductive\u2192transductive"
+        },
+        {
+          "line": 6,
+          "pattern": "XGBRanker",
+          "line_text": "candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims",
+          "context": "claims. Current anchors live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 1929,
+          "pattern": "XGBRanker",
+          "line_text": "small-N regression: (i) <em>pre-computed target-derived structures</em> (XGBRanker leaf indices, retrieval",
+          "context": "a quirk of feature engineering \u2014 it is the cost of two leakage classes that are easy to introduce by accident in small-N regression: (i) <em>pre-computed target-derived structures</em> (XGBRanker leaf indices, retrieval library memberships, prototype anchors) fitted on the full N before cross-validation, and (ii) <em>hyperparameter"
+        },
+        {
+          "line": 2202,
+          "pattern": "XGBRanker",
+          "line_text": "<code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices",
+          "context": "<p>Concrete leakage citations from our own audit: <code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit"
+        }
+      ]
+    },
+    {
+      "path": "generate_paper_v6.py",
+      "exists": true,
+      "sha256": "e9ef1a44f710989c0a647aa32d61590825a019e90e17a115bee2ffb3a4d04ae8",
+      "bytes": 157848,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 10,
+      "sample_dangerous_hits": [
+        {
+          "line": 6,
+          "pattern": "0\\.868",
+          "line_text": "candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims",
+          "context": "claims. Current anchors live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 283,
+          "pattern": "0\\.868",
+          "line_text": "\"compression_p5_t1_ccc\": 0.868,",
+          "context": "# Compression P5 5-fold (the SSL-ranking path) for the cautionary citation \"compression_p5_t1_ccc\": 0.868, \"compression_p5_t3_ccc\": 0.776,"
+        },
+        {
+          "line": 2311,
+          "pattern": "0\\.868",
+          "line_text": "thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit",
+          "context": "<code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit reproduction). <code>run_calibration_v2.py:861</code> tuned a temperature grid on the same N = 94 LOOCV prediction"
+        },
+        {
+          "line": 6,
+          "pattern": "0\\.776",
+          "line_text": "candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims",
+          "context": "claims. Current anchors live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 284,
+          "pattern": "0\\.776",
+          "line_text": "\"compression_p5_t3_ccc\": 0.776,",
+          "context": "\"compression_p5_t1_ccc\": 0.868, \"compression_p5_t3_ccc\": 0.776, }"
+        },
+        {
+          "line": 1297,
+          "pattern": "SSL ranking",
+          "line_text": "earlier P5 SSL ranking architecture (<code>run_compression_ablation.py</code>) reproduced under both protocols",
+          "context": "leaf indices are fit on all subjects or strictly inside the train fold. <em>The pipeline shown here is our earlier P5 SSL ranking architecture (<code>run_compression_ablation.py</code>) reproduced under both protocols \u2014 not the canonical iter12/iter5 pipelines, which are independently certified clean by the 5-null gate"
+        },
+        {
+          "line": 2317,
+          "pattern": "SSL ranking",
+          "line_text": "headline was reported. The Table 7 leakage demonstration uses the <em>older</em> P5 SSL ranking pipeline",
+          "context": "were each rebuilt on top of <code>inductive_lib.py</code> with all five nulls executed before any LOOCV/LOSO headline was reported. The Table 7 leakage demonstration uses the <em>older</em> P5 SSL ranking pipeline (<code>run_compression_ablation.py</code>) reproduced under both protocols specifically so that the inductive\u2192transductive"
+        },
+        {
+          "line": 6,
+          "pattern": "XGBRanker",
+          "line_text": "candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims",
+          "context": "claims. Current anchors live in CLAUDE.md / paper.md: T1 canonical 0.6550, T1 candidate 0.7366, T3 0.3784, LOSO 0.150. Old SSL/XGBRanker 0.868 / 0.776 claims are target-contaminated or superseded."
+        },
+        {
+          "line": 2037,
+          "pattern": "XGBRanker",
+          "line_text": "small-N regression: (i) <em>pre-computed target-derived structures</em> (XGBRanker leaf indices, retrieval",
+          "context": "a quirk of feature engineering \u2014 it is the cost of two leakage classes that are easy to introduce by accident in small-N regression: (i) <em>pre-computed target-derived structures</em> (XGBRanker leaf indices, retrieval library memberships, prototype anchors) fitted on the full N before cross-validation, and (ii) <em>hyperparameter"
+        },
+        {
+          "line": 2310,
+          "pattern": "XGBRanker",
+          "line_text": "<code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices",
+          "context": "<p>Concrete leakage citations from our own audit: <code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit"
+        }
+      ]
+    },
+    {
+      "path": "NEW4.html",
+      "exists": true,
+      "sha256": "6b923e1c30ad284f14fb88eedfc59039ba55963909ed7198826ddc39c927263d",
+      "bytes": 6008156,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 44,
+      "sample_dangerous_hits": [
+        {
+          "line": 153,
+          "pattern": "0\\.868",
+          "line_text": "SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded.",
+          "context": "T1 candidate <code>0.7366</code>, T3 <code>0.3784</code>, LOSO <code>0.150</code>. Old SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded. </div>"
+        },
+        {
+          "line": 225,
+          "pattern": "0\\.868",
+          "line_text": "Ordinal ranking also improves broader targets (Stages 1&ndash;2, without temperature scaling): T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;0.831 (MAE&nbsp;=&nbsp;1.16), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;0.807 (MAE&nbsp;=&nbsp;4.46; Figure&nbsp;3). Comparing all three targe",
+          "context": "<p> Ordinal ranking also improves broader targets (Stages 1&ndash;2, without temperature scaling): T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;0.831 (MAE&nbsp;=&nbsp;1.16), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;0.807 (MAE&nbsp;=&nbsp;4.46; Figure&nbsp;3). Comparing all three targets under Stages 1&ndash;2 (before temperature scaling), CCC degrades monotonically from T1&nbsp;=&nbsp;0.865 to T2&nbsp;=&nbsp;0.831 to T3&nbsp;=&nbsp;0.807, reflecting increasing inclusion of items unobservable from gait IMU. Temperature scaling (Section&nbsp;2.4) further improves T1 calibratio"
+        },
+        {
+          "line": 291,
+          "pattern": "0\\.868",
+          "line_text": "Temperature scaling improves calibration slope from 0.745 to 0.967 and CCC from 0.868 to 0.882 (LOOCV, T1; Table&nbsp;S8). MAE increases slightly (0.986&nbsp;&rarr;&nbsp;1.162), reflecting the trade-off between calibration and point accuracy inherent in stretching predictions: extreme-quintile patie",
+          "context": "<p> Temperature scaling improves calibration slope from 0.745 to 0.967 and CCC from 0.868 to 0.882 (LOOCV, T1; Table&nbsp;S8). MAE increases slightly (0.986&nbsp;&rarr;&nbsp;1.162), reflecting the trade-off between calibration and point accuracy inherent in stretching predictions: extreme-quintile patients are better calibrated at the cost of modest accuracy loss in the mid-range. Among seven calibration methods tested (CCC custom loss, quantile regression, KNN, variance penalty, conformal quantile, Ridge, temperature), temperature scaling achieved the best combination of CCC (0.882) and calib"
+        },
+        {
+          "line": 335,
+          "pattern": "0\\.868",
+          "line_text": "<strong>Age confound analysis (Table&nbsp;5).</strong> We compared ordinal ranking using the full HC cohort (N&nbsp;=&nbsp;80, mean age 74.6y) against an age-matched HC subset (N&nbsp;=&nbsp;46, mean age 68.9y, p&nbsp;=&nbsp;0.0905 vs PD). Age-matched HC gives T1 CCC&nbsp;=&nbsp;0.868 vs full HC CCC",
+          "context": "<p> <strong>Age confound analysis (Table&nbsp;5).</strong> We compared ordinal ranking using the full HC cohort (N&nbsp;=&nbsp;80, mean age 74.6y) against an age-matched HC subset (N&nbsp;=&nbsp;46, mean age 68.9y, p&nbsp;=&nbsp;0.0905 vs PD). Age-matched HC gives T1 CCC&nbsp;=&nbsp;0.868 vs full HC CCC&nbsp;=&nbsp;0.858&mdash;age is not driving the ranking improvement. Partial correlation controlling for age yields r&nbsp;=&nbsp;0.849 (p&nbsp;&lt;&nbsp;0.001), confirming that ordinal ranking predictions reflect motor severity, not age. Age-stratified within-PD analysis shows consistent perfor"
+        },
+        {
+          "line": 355,
+          "pattern": "0\\.868",
+          "line_text": "<td><strong>0.868</strong></td><td>0.978</td>",
+          "context": "<td>0.0905</td> <td><strong>0.868</strong></td><td>0.978</td> <td>0.880</td><td>0.744</td>"
+        },
+        {
+          "line": 514,
+          "pattern": "0\\.868",
+          "line_text": "<tr class=\"highlight\"><td>This work (T1, ranking)</td><td>2026</td><td>WearGait-PD</td><td>94 PD</td><td>13 IMUs</td><td>PD LOOCV</td><td>0.99*</td><td>0.899</td><td>0.868</td></tr>",
+          "context": "<tr><th>Study</th><th>Year</th><th>Dataset</th><th>N</th><th>Sensors</th><th>Evaluation</th><th>MAE</th><th>r</th><th>CCC</th></tr> <tr class=\"highlight\"><td>This work (T1, ranking)</td><td>2026</td><td>WearGait-PD</td><td>94 PD</td><td>13 IMUs</td><td>PD LOOCV</td><td>0.99*</td><td>0.899</td><td>0.868</td></tr> <tr class=\"highlight\"><td>This work (T3, ranking)</td><td>2026</td><td>WearGait-PD</td><td>94 PD</td><td>13 IMUs</td><td>PD LOOCV</td><td>4.65</td><td>0.827</td><td>0.776</td></tr>"
+        },
+        {
+          "line": 555,
+          "pattern": "0\\.868",
+          "line_text": "Residual prediction compression (calibration slope&nbsp;&lt;&nbsp;1.0) persists after ordinal ranking, reflecting the mechanical consequence of leaf averaging in gradient-boosted trees with small N. Temperature scaling with T&nbsp;&asymp;&nbsp;1.45 provides a parsimonious correction: a single scalar",
+          "context": "<p> Residual prediction compression (calibration slope&nbsp;&lt;&nbsp;1.0) persists after ordinal ranking, reflecting the mechanical consequence of leaf averaging in gradient-boosted trees with small N. Temperature scaling with T&nbsp;&asymp;&nbsp;1.45 provides a parsimonious correction: a single scalar parameter stretches predictions outward from the per-fold training mean, improving calibration slope from 0.745 to 1.055 and CCC from 0.868 to 0.515 on T1 (LOOCV). This represents the best calibration among seven methods tested, surpassing approaches with more parameters (CCC custom loss, quant"
+        },
+        {
+          "line": 808,
+          "pattern": "0\\.868",
+          "line_text": "<tr class=\"highlight\"><td>P5 Ordinal Ranking</td><td>LOOCV</td><td>94</td><td>0.868</td><td>0.689</td><td>0.986</td><td>0.852</td><td>1.33</td><td>0.776</td><td>4.65</td></tr>",
+          "context": "<tr class=\"highlight\"><td>P5 Ordinal Ranking</td><td>5-split</td><td>95</td><td>0.865</td><td>0.745</td><td>0.953</td><td>0.831</td><td>1.16</td><td>0.807</td><td>4.46</td></tr> <tr class=\"highlight\"><td>P5 Ordinal Ranking</td><td>LOOCV</td><td>94</td><td>0.868</td><td>0.689</td><td>0.986</td><td>0.852</td><td>1.33</td><td>0.776</td><td>4.65</td></tr>"
+        },
+        {
+          "line": 939,
+          "pattern": "0\\.868",
+          "line_text": "<tr><td>T1 (direct obs)</td><td><strong>0.864</strong></td><td>1.156</td><td>0.877</td><td>0.868</td><td>0.986</td><td>0.899</td></tr>",
+          "context": "<tr><th></th><th>CCC</th><th>MAE</th><th>r</th><th>CCC</th><th>MAE</th><th>r</th></tr> <tr><td>T1 (direct obs)</td><td><strong>0.864</strong></td><td>1.156</td><td>0.877</td><td>0.868</td><td>0.986</td><td>0.899</td></tr> <tr><td>T2 (broad obs)</td><td><strong>0.831</strong></td><td>1.162</td><td>0.847</td><td>0.852</td><td>1.334</td><td>0.873</td></tr>"
+        },
+        {
+          "line": 970,
+          "pattern": "0\\.868",
+          "line_text": "<tr><td>T1</td><td>0.868 (0.689)</td><td>0.893 &rarr; <strong>1.000</strong></td><td>0.891 &rarr; 1.004  (T=1.45&plusmn;0.01)</td></tr>",
+          "context": "<tr><td></td><th>(slope)</th><th>CCC &rarr; cal_slope</th><th>CCC &rarr; cal_slope</th></tr> <tr><td>T1</td><td>0.868 (0.689)</td><td>0.893 &rarr; <strong>1.000</strong></td><td>0.891 &rarr; 1.004  (T=1.45&plusmn;0.01)</td></tr> <tr><td>T2</td><td>0.852 (0.699)</td><td>0.863 &rarr; <strong>1.014</strong></td><td>0.860 &rarr; 1.007  (T=1.44&plusmn;0.02)</td></tr>"
+        },
+        {
+          "line": 153,
+          "pattern": "0\\.776",
+          "line_text": "SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded.",
+          "context": "T1 candidate <code>0.7366</code>, T3 <code>0.3784</code>, LOSO <code>0.150</code>. Old SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded. </div>"
+        },
+        {
+          "line": 225,
+          "pattern": "0\\.776",
+          "line_text": "Ordinal ranking also improves broader targets (Stages 1&ndash;2, without temperature scaling): T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;0.831 (MAE&nbsp;=&nbsp;1.16), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;0.807 (MAE&nbsp;=&nbsp;4.46; Figure&nbsp;3). Comparing all three targe",
+          "context": "<p> Ordinal ranking also improves broader targets (Stages 1&ndash;2, without temperature scaling): T2 (items 7&ndash;14, max 32) achieves CCC&nbsp;=&nbsp;0.831 (MAE&nbsp;=&nbsp;1.16), and T3 (total UPDRS-III) achieves CCC&nbsp;=&nbsp;0.807 (MAE&nbsp;=&nbsp;4.46; Figure&nbsp;3). Comparing all three targets under Stages 1&ndash;2 (before temperature scaling), CCC degrades monotonically from T1&nbsp;=&nbsp;0.865 to T2&nbsp;=&nbsp;0.831 to T3&nbsp;=&nbsp;0.807, reflecting increasing inclusion of items unobservable from gait IMU. Temperature scaling (Section&nbsp;2.4) further improves T1 calibratio"
+        }
+      ]
+    },
+    {
+      "path": "NEW5.html",
+      "exists": true,
+      "sha256": "9094b29f088f8226820e22e38448e216fd57147acdc2d6e08bd5398cb125e030",
+      "bytes": 2755319,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 8,
+      "sample_dangerous_hits": [
+        {
+          "line": 60,
+          "pattern": "0\\.868",
+          "line_text": "SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded.",
+          "context": "T1 candidate <code>0.7366</code>, T3 <code>0.3784</code>, LOSO <code>0.150</code>. Old SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded. </div>"
+        },
+        {
+          "line": 762,
+          "pattern": "0\\.868",
+          "line_text": "thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit",
+          "context": "<code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit reproduction). <code>run_calibration_v2.py:861</code> tuned a temperature grid on the same N = 94 LOOCV prediction"
+        },
+        {
+          "line": 60,
+          "pattern": "0\\.776",
+          "line_text": "SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded.",
+          "context": "T1 candidate <code>0.7366</code>, T3 <code>0.3784</code>, LOSO <code>0.150</code>. Old SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded. </div>"
+        },
+        {
+          "line": 458,
+          "pattern": "SSL ranking",
+          "line_text": "earlier P5 SSL ranking architecture (<code>run_compression_ablation.py</code>) reproduced under both protocols",
+          "context": "leaf indices are fit on all subjects or strictly inside the train fold. <em>The pipeline shown here is our earlier P5 SSL ranking architecture (<code>run_compression_ablation.py</code>) reproduced under both protocols \u2014 not the canonical iter12/iter5 pipelines, which are independently certified clean by the 5-null gate"
+        },
+        {
+          "line": 768,
+          "pattern": "SSL ranking",
+          "line_text": "headline was reported. The Table 7 leakage demonstration uses the <em>older</em> P5 SSL ranking pipeline",
+          "context": "were each rebuilt on top of <code>inductive_lib.py</code> with all five nulls executed before any LOOCV/LOSO headline was reported. The Table 7 leakage demonstration uses the <em>older</em> P5 SSL ranking pipeline (<code>run_compression_ablation.py</code>) reproduced under both protocols specifically so that the inductive\u2192transductive"
+        },
+        {
+          "line": 60,
+          "pattern": "XGBRanker",
+          "line_text": "SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded.",
+          "context": "T1 candidate <code>0.7366</code>, T3 <code>0.3784</code>, LOSO <code>0.150</code>. Old SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded. </div>"
+        },
+        {
+          "line": 449,
+          "pattern": "XGBRanker",
+          "line_text": "small-N regression: (i) <em>pre-computed target-derived structures</em> (XGBRanker leaf indices, retrieval",
+          "context": "a quirk of feature engineering \u2014 it is the cost of two leakage classes that are easy to introduce by accident in small-N regression: (i) <em>pre-computed target-derived structures</em> (XGBRanker leaf indices, retrieval library memberships, prototype anchors) fitted on the full N before cross-validation, and (ii) <em>hyperparameter"
+        },
+        {
+          "line": 761,
+          "pattern": "XGBRanker",
+          "line_text": "<code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices",
+          "context": "<p>Concrete leakage citations from our own audit: <code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit"
+        }
+      ]
+    },
+    {
+      "path": "NEW6.html",
+      "exists": true,
+      "sha256": "21cbd2d58f1d8ba93cf2699eb9019e0d0cf0eecf0cfd55a6d6c40cdb82c4720b",
+      "bytes": 2760590,
+      "banner_present_near_top": true,
+      "missing_current_pointers": [],
+      "contains_current_render_route": true,
+      "dangerous_hit_count": 8,
+      "sample_dangerous_hits": [
+        {
+          "line": 60,
+          "pattern": "0\\.868",
+          "line_text": "SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded.",
+          "context": "T1 candidate <code>0.7366</code>, T3 <code>0.3784</code>, LOSO <code>0.150</code>. Old SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded. </div>"
+        },
+        {
+          "line": 830,
+          "pattern": "0\\.868",
+          "line_text": "thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit",
+          "context": "<code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit reproduction). <code>run_calibration_v2.py:861</code> tuned a temperature grid on the same N = 94 LOOCV prediction"
+        },
+        {
+          "line": 60,
+          "pattern": "0\\.776",
+          "line_text": "SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded.",
+          "context": "T1 candidate <code>0.7366</code>, T3 <code>0.3784</code>, LOSO <code>0.150</code>. Old SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded. </div>"
+        },
+        {
+          "line": 526,
+          "pattern": "SSL ranking",
+          "line_text": "earlier P5 SSL ranking architecture (<code>run_compression_ablation.py</code>) reproduced under both protocols",
+          "context": "leaf indices are fit on all subjects or strictly inside the train fold. <em>The pipeline shown here is our earlier P5 SSL ranking architecture (<code>run_compression_ablation.py</code>) reproduced under both protocols \u2014 not the canonical iter12/iter5 pipelines, which are independently certified clean by the 5-null gate"
+        },
+        {
+          "line": 836,
+          "pattern": "SSL ranking",
+          "line_text": "headline was reported. The Table 7 leakage demonstration uses the <em>older</em> P5 SSL ranking pipeline",
+          "context": "were each rebuilt on top of <code>inductive_lib.py</code> with all five nulls executed before any LOOCV/LOSO headline was reported. The Table 7 leakage demonstration uses the <em>older</em> P5 SSL ranking pipeline (<code>run_compression_ablation.py</code>) reproduced under both protocols specifically so that the inductive\u2192transductive"
+        },
+        {
+          "line": 60,
+          "pattern": "XGBRanker",
+          "line_text": "SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded.",
+          "context": "T1 candidate <code>0.7366</code>, T3 <code>0.3784</code>, LOSO <code>0.150</code>. Old SSL/XGBRanker <code>0.868</code> / <code>0.776</code> claims are target-contaminated or superseded. </div>"
+        },
+        {
+          "line": 517,
+          "pattern": "XGBRanker",
+          "line_text": "small-N regression: (i) <em>pre-computed target-derived structures</em> (XGBRanker leaf indices, retrieval",
+          "context": "a quirk of feature engineering \u2014 it is the cost of two leakage classes that are easy to introduce by accident in small-N regression: (i) <em>pre-computed target-derived structures</em> (XGBRanker leaf indices, retrieval library memberships, prototype anchors) fitted on the full N before cross-validation, and (ii) <em>hyperparameter"
+        },
+        {
+          "line": 829,
+          "pattern": "XGBRanker",
+          "line_text": "<code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices",
+          "context": "<p>Concrete leakage citations from our own audit: <code>run_compression_ablation.py:1015</code> fitted XGBRanker<sup class=\"cite\">[8]</sup> on all 178 subjects globally; the leaf indices thereby encoded test-fold rank, costing \u0394CCC = 0.343 on T1 5-fold (transductive 0.868 \u2192 inductive 0.525 in audit"
+        }
+      ]
+    }
+  ],
+  "total_dangerous_hits": 651,
+  "hard_failures": [],
+  "kimi_consult_summary": "Kimi recommended bannering retained legacy manuscript/builder surfaces, not deleting or rewriting the historical claims, and not running new model code.",
+  "claude_consult_status": "failed_low_credit",
+  "glmcode_status": "not_available"
+}

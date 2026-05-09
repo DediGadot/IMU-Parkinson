@@ -1,0 +1,78 @@
+{
+  "created_at_utc": "2026-05-08T17:35:08+00:00",
+  "script": "run_t3_iter49_cops.py",
+  "mode": "write_prereg",
+  "formula_sha256": "0bc80ef0b6bd9c40da6a7a1282ce9f8898273c6e2dc01e7987ea2ecaa4715b15",
+  "formula": {
+    "experiment": "t3_iter49_cops_external_zeroshot",
+    "purpose": "External transportability and paper-rigor evidence only. This does not update WearGait-PD internal T3 CCC and does not create a deployment headline.",
+    "current_internal_anchor": {
+      "target": "T3 valid-range corrected total MDS-UPDRS Part III",
+      "script": "run_t3_iter47_invalid_code_fix.py --mode run",
+      "loocv_ccc": 0.3784,
+      "loocv_mae": 7.528,
+      "n": 95
+    },
+    "external_dataset": {
+      "name": "COPS: Continuous observation of Parkinsonian symptoms",
+      "publication": "Scientific Data 2026, article 13:587",
+      "osf_node": "5xvwn",
+      "osf_url": "https://osf.io/5xvwn/",
+      "doi": "10.17605/OSF.IO/5XVWN",
+      "declared_subjects": 66,
+      "sensor": "bilateral wrist-worn GENEActiv accelerometers",
+      "sampling_rate_hz": 100,
+      "recording_context": "free-living continuous monitoring up to seven days",
+      "labels": "UPDRS-III OFF/ON CSVs plus symptom diaries"
+    },
+    "fixed_battery": {
+      "primary_target": "UPDRS-III OFF total",
+      "target_sensitivities": [
+        "UPDRS-III ON total",
+        "mean of OFF and ON when both available"
+      ],
+      "windowing": "30-second non-overlapping epochs over available wear-time",
+      "feature_policy": "magnitude-only, frame-invariant wrist accelerometry features; no axis-dependent features because COPS free-living wrist orientation is unconstrained.",
+      "sensor_policy": {
+        "primary": "right wrist only, matching WearGait right-wrist primary schema",
+        "sensitivity": "left wrist and bilateral mean-prediction fusion",
+        "scale_assertion": "raw acceleration in g; check wear-time magnitude distribution before scoring"
+      },
+      "tracks": {
+        "A_zero_shot_wrist_direct": {
+          "train": "WearGait-PD only",
+          "test": "COPS right-wrist features",
+          "labels_used_for_training": false,
+          "claim": "WearGait-to-COPS zero-shot transportability"
+        },
+        "B_zero_shot_clinical_plus_wrist": {
+          "train": "WearGait-PD only; iter47/iter5-style Stage 1 plus wrist residual",
+          "test": "COPS demographics plus right-wrist features",
+          "labels_used_for_training": false,
+          "claim": "Clinical/intake plus wrist zero-shot transportability"
+        },
+        "C_cops_only_loocv_sanity": {
+          "train": "COPS train folds only",
+          "test": "held-out COPS subjects",
+          "labels_used_for_training": true,
+          "claim": "within-COPS feasibility ceiling, not transportability"
+        },
+        "D_bilateral_sensitivity": {
+          "train": "same as Track A/B depending on branch",
+          "test": "COPS bilateral mean-prediction fusion",
+          "labels_used_for_training": false,
+          "claim": "sensor-placement sensitivity only"
+        }
+      }
+    },
+    "leakage_guards": [
+      "COPS labels never enter WearGait model training or hyperparameter selection for Tracks A/B/D.",
+      "No COPS fine-tuning for zero-shot tracks.",
+      "No target-driven COPS window or subject filtering beyond pre-declared valid-label availability.",
+      "Track C is explicitly within-COPS LOOCV sanity and must not be described as external transportability.",
+      "No internal WearGait T3 canonical update is allowed from this experiment."
+    ],
+    "expected_failure_mode": "Protocol mismatch: WearGait structured gait/balance tasks versus COPS free-living wrist accelerometry. A weak or null zero-shot result is expected and publishable as transportability evidence.",
+    "decision_after_probe": "Run full iter49 only if OSF target files can be parsed without manual label inference and raw accelerometry scale/orientation checks pass."
+  }
+}

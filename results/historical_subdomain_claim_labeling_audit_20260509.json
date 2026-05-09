@@ -1,0 +1,28 @@
+{
+  "generated_at_utc": "2026-05-09T07:52:17+00:00",
+  "script": "audit_historical_subdomain_claim_labeling.py",
+  "policy": "Historical sensor-ablation and subdomain-prediction claims must be locally labeled as pre-audit/historical/context, or tied explicitly to current post-audit T1 and residual-audit support.",
+  "passed": true,
+  "claim_patterns": [
+    "clinically_actionable_subscores",
+    "development_test_item_subset",
+    "lower_back_redundant",
+    "observable_motor_subdomain",
+    "sensor_ablation_wrist_mae",
+    "subdomain_mae_2_61",
+    "subdomain_prediction"
+  ],
+  "findings": [],
+  "docs": [
+    {
+      "path": "paper.md",
+      "findings": [],
+      "n_findings": 0
+    },
+    {
+      "path": "CURRENT_PAPER.html",
+      "findings": [],
+      "n_findings": 0
+    }
+  ]
+}

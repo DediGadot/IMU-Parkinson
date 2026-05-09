@@ -1,0 +1,1000 @@
+{
+  "created_at_utc": "2026-05-08T18:15:20+00:00",
+  "script": "run_t3_iter49_cops.py",
+  "mode": "download",
+  "max_subjects": null,
+  "n_archives": 66,
+  "elapsed_s": 965.88,
+  "archives": [
+    {
+      "name": "COPS-1.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-1.zip",
+      "size_bytes": 731573830,
+      "sha256": "272284a09b58e51b7c8957ab7b727ddc45d45c208f6cc52e486a977f35c0ef3f",
+      "md5": "7e6bbd74fd7a399ea5e68bbebc3cb794",
+      "download_url": "https://osf.io/download/np9yt/",
+      "date_modified": "2025-08-29T07:39:10.811667",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-1.zip",
+        "size_bytes": 731573830,
+        "sha256": "272284a09b58e51b7c8957ab7b727ddc45d45c208f6cc52e486a977f35c0ef3f"
+      }
+    },
+    {
+      "name": "COPS-2.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-2.zip",
+      "size_bytes": 743889879,
+      "sha256": "6b2656521eec838e335405243a2bb442b0e65f77dda87184769a75beb02daddc",
+      "md5": "ddccba582914459faefa29d4716c1b62",
+      "download_url": "https://osf.io/download/68b1591d602c5bfa02f990b6/",
+      "date_modified": "2025-08-29T07:39:09.542031",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-2.zip",
+        "size_bytes": 743889879,
+        "sha256": "6b2656521eec838e335405243a2bb442b0e65f77dda87184769a75beb02daddc"
+      }
+    },
+    {
+      "name": "COPS-3.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-3.zip",
+      "size_bytes": 273450149,
+      "sha256": "ff52f0b5cd5dea3debcecf6204b8ce7ba825fece101c9a1c1714a8f24345998b",
+      "md5": "f9d3edaf83195eebabe550fa350a93db",
+      "download_url": "https://osf.io/download/68b15948f668f8bc81f98fe4/",
+      "date_modified": "2025-08-29T07:39:52.247934",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-3.zip",
+        "size_bytes": 273450149,
+        "sha256": "ff52f0b5cd5dea3debcecf6204b8ce7ba825fece101c9a1c1714a8f24345998b"
+      }
+    },
+    {
+      "name": "COPS-4.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-4.zip",
+      "size_bytes": 804022787,
+      "sha256": "404f382a14b99fe5a23b98169346585750a98109533a4cbb842983f2a90da70a",
+      "md5": "99f4838cbbd6f5c8e8e032f24e8fcbb1",
+      "download_url": "https://osf.io/download/68b159c39d7468e1caab1335/",
+      "date_modified": "2025-08-29T07:41:55.807652",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-4.zip",
+        "size_bytes": 804022787,
+        "sha256": "404f382a14b99fe5a23b98169346585750a98109533a4cbb842983f2a90da70a"
+      }
+    },
+    {
+      "name": "COPS-5.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-5.zip",
+      "size_bytes": 808308708,
+      "sha256": "e49bbdc9e6ca9fbb18142e88b5b245aa45c95f58abeb52d3bc5d99aa77a90ace",
+      "md5": "20574e65bb1f91f8e49d8e572440d0ee",
+      "download_url": "https://osf.io/download/68b15a45fe5d71c72605e760/",
+      "date_modified": "2025-08-29T07:44:05.790150",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-5.zip",
+        "size_bytes": 808308708,
+        "sha256": "e49bbdc9e6ca9fbb18142e88b5b245aa45c95f58abeb52d3bc5d99aa77a90ace"
+      }
+    },
+    {
+      "name": "COPS-6.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-6.zip",
+      "size_bytes": 814647453,
+      "sha256": "697f558e1981a382fe2b84041476b9219db8ed6410c3dcfe161b1088120ee835",
+      "md5": "32cba4c4bfa6abf9bc3e60428bead016",
+      "download_url": "https://osf.io/download/68b15ac1bf525a137f05e528/",
+      "date_modified": "2025-08-29T07:46:09.560515",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-6.zip",
+        "size_bytes": 814647453,
+        "sha256": "697f558e1981a382fe2b84041476b9219db8ed6410c3dcfe161b1088120ee835"
+      }
+    },
+    {
+      "name": "COPS-7.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-7.zip",
+      "size_bytes": 831668934,
+      "sha256": "ff35248942e954f2957e143493230116ea25b4d976e4ea31f9a67d4384d605f4",
+      "md5": "d307b115fd39abbec1fc45b9cc440300",
+      "download_url": "https://osf.io/download/68b15b45c90e85449705e625/",
+      "date_modified": "2025-08-29T07:48:21.523122",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-7.zip",
+        "size_bytes": 831668934,
+        "sha256": "ff35248942e954f2957e143493230116ea25b4d976e4ea31f9a67d4384d605f4"
+      }
+    },
+    {
+      "name": "COPS-8.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-8.zip",
+      "size_bytes": 806921573,
+      "sha256": "692ebad22e0442f08697cb5f721985739c23d20958bbe073eecf4f8372c2972a",
+      "md5": "145a08f22019aacbd0b9e750fd11e935",
+      "download_url": "https://osf.io/download/68b15bbe9d7468e1caab13dd/",
+      "date_modified": "2025-08-29T07:50:22.066875",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-8.zip",
+        "size_bytes": 806921573,
+        "sha256": "692ebad22e0442f08697cb5f721985739c23d20958bbe073eecf4f8372c2972a"
+      }
+    },
+    {
+      "name": "COPS-9.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-9.zip",
+      "size_bytes": 849535681,
+      "sha256": "ee948cfb438b077c8401a31206e413b6d1995eee4471275bce77f2c4e7e8d2f7",
+      "md5": "0289dfa22b21aec4ac42269603bebdc3",
+      "download_url": "https://osf.io/download/68b15c3e07110bdae3f99083/",
+      "date_modified": "2025-08-29T07:52:30.519505",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-9.zip",
+        "size_bytes": 849535681,
+        "sha256": "ee948cfb438b077c8401a31206e413b6d1995eee4471275bce77f2c4e7e8d2f7"
+      }
+    },
+    {
+      "name": "COPS-10.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-10.zip",
+      "size_bytes": 793586442,
+      "sha256": "88e0ced372c5d4039c4e1322f9d8c81bf49f8a6091b1722bbfe0dbd5ab09c214",
+      "md5": "1ae9c8385cc924f554b2c9b82f1c976a",
+      "download_url": "https://osf.io/download/936nf/",
+      "date_modified": "2025-08-29T07:55:26.474124",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-10.zip",
+        "size_bytes": 793586442,
+        "sha256": "88e0ced372c5d4039c4e1322f9d8c81bf49f8a6091b1722bbfe0dbd5ab09c214"
+      }
+    },
+    {
+      "name": "COPS-11.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-11.zip",
+      "size_bytes": 153047765,
+      "sha256": "dfd7e21fcd26ce262e413074daf94d1039a30e950582b5eadfb595abddce14b7",
+      "md5": "177556b89d1614e7d8b566e9638221b4",
+      "download_url": "https://osf.io/download/an4dy/",
+      "date_modified": "2025-08-29T07:53:23.940174",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-11.zip",
+        "size_bytes": 153047765,
+        "sha256": "dfd7e21fcd26ce262e413074daf94d1039a30e950582b5eadfb595abddce14b7"
+      }
+    },
+    {
+      "name": "COPS-12.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-12.zip",
+      "size_bytes": 815967078,
+      "sha256": "cc33c1566a7cdb3d3bedbe11a15e5e0c6b421edce3d2589384063da354d21ad1",
+      "md5": "6eca535eecc86d6a0c6d48d58ffe31a9",
+      "download_url": "https://osf.io/download/68b15d6a4e97bdad6f05e71a/",
+      "date_modified": "2025-08-29T07:57:30.776835",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-12.zip",
+        "size_bytes": 815967078,
+        "sha256": "cc33c1566a7cdb3d3bedbe11a15e5e0c6b421edce3d2589384063da354d21ad1"
+      }
+    },
+    {
+      "name": "COPS-13.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-13.zip",
+      "size_bytes": 737349193,
+      "sha256": "dced6534e7ff52f752606d18fff06ac2c7576d64549a4da778af0f6f70acb19e",
+      "md5": "562b478360b76b747b1a119827c77ad9",
+      "download_url": "https://osf.io/download/68b15dd59d7468e1caab1474/",
+      "date_modified": "2025-08-29T07:59:17.674035",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-13.zip",
+        "size_bytes": 737349193,
+        "sha256": "dced6534e7ff52f752606d18fff06ac2c7576d64549a4da778af0f6f70acb19e"
+      }
+    },
+    {
+      "name": "COPS-14.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-14.zip",
+      "size_bytes": 749767455,
+      "sha256": "39ec40b2755b7c1b77905fcd4dbb22f59ba8bef2c739eec1c926a0db0f6fef2c",
+      "md5": "37285bef2b795f3dbe3b127392dfe0b8",
+      "download_url": "https://osf.io/download/kxftv/",
+      "date_modified": "2025-08-29T08:01:11.653171",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-14.zip",
+        "size_bytes": 749767455,
+        "sha256": "39ec40b2755b7c1b77905fcd4dbb22f59ba8bef2c739eec1c926a0db0f6fef2c"
+      }
+    },
+    {
+      "name": "COPS-15.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-15.zip",
+      "size_bytes": 802430928,
+      "sha256": "95489ad63d3d7c0b473876c1f46a6440deddeb99c16aae7d7d96b9dd0389d951",
+      "md5": "69e8a3088ed377ad9fe44a0c21b4865f",
+      "download_url": "https://osf.io/download/68b15ec5aa0c031fd3780d9c/",
+      "date_modified": "2025-08-29T08:03:17.107467",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-15.zip",
+        "size_bytes": 802430928,
+        "sha256": "95489ad63d3d7c0b473876c1f46a6440deddeb99c16aae7d7d96b9dd0389d951"
+      }
+    },
+    {
+      "name": "COPS-16.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-16.zip",
+      "size_bytes": 826367067,
+      "sha256": "7eb893fbae4345366b17c3eb5f78dc18bd0bcde2d6c04dff47f41e7292f92cdc",
+      "md5": "e1fda61a53040210e6243ba168c0c5ae",
+      "download_url": "https://osf.io/download/68b15f444a83439f18780b8f/",
+      "date_modified": "2025-08-29T08:05:24.216578",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-16.zip",
+        "size_bytes": 826367067,
+        "sha256": "7eb893fbae4345366b17c3eb5f78dc18bd0bcde2d6c04dff47f41e7292f92cdc"
+      }
+    },
+    {
+      "name": "COPS-17.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-17.zip",
+      "size_bytes": 814969238,
+      "sha256": "bc7b797754c6415228af9967501354674239b2f6f19cf1828a169e7f6e2e9068",
+      "md5": "08b6df6ad67f0c58c3742e714259ce85",
+      "download_url": "https://osf.io/download/tqjum/",
+      "date_modified": "2025-08-29T08:07:30.070858",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-17.zip",
+        "size_bytes": 814969238,
+        "sha256": "bc7b797754c6415228af9967501354674239b2f6f19cf1828a169e7f6e2e9068"
+      }
+    },
+    {
+      "name": "COPS-18.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-18.zip",
+      "size_bytes": 210179203,
+      "sha256": "58f994ecdea07b83f4e0475ee35b486a3563bcfbe375d539c2db4480a741637b",
+      "md5": "902ab903be30cfa253ced565aa5831ae",
+      "download_url": "https://osf.io/download/2jtcs/",
+      "date_modified": "2025-08-29T08:08:04.578735",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-18.zip",
+        "size_bytes": 210179203,
+        "sha256": "58f994ecdea07b83f4e0475ee35b486a3563bcfbe375d539c2db4480a741637b"
+      }
+    },
+    {
+      "name": "COPS-19.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-19.zip",
+      "size_bytes": 856818791,
+      "sha256": "b05fb41f938b47158abcd71d0eefced9f4fd4011bd051104f98b726077c91443",
+      "md5": "407d382b241340176d48b3aac5b5768c",
+      "download_url": "https://osf.io/download/68b1606da7ace416aa05e344/",
+      "date_modified": "2025-08-29T08:10:21.295495",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-19.zip",
+        "size_bytes": 856818791,
+        "sha256": "b05fb41f938b47158abcd71d0eefced9f4fd4011bd051104f98b726077c91443"
+      }
+    },
+    {
+      "name": "COPS-20.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-20.zip",
+      "size_bytes": 738282495,
+      "sha256": "ec4e5e049e63d6a835bde29fc5ebb34c677a939a81b9c7b797c06520f1e8eff6",
+      "md5": "542f5496661b435e6b99c2be511417b3",
+      "download_url": "https://osf.io/download/68b160dfa7ace416aa05e36e/",
+      "date_modified": "2025-08-29T08:12:15.544907",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-20.zip",
+        "size_bytes": 738282495,
+        "sha256": "ec4e5e049e63d6a835bde29fc5ebb34c677a939a81b9c7b797c06520f1e8eff6"
+      }
+    },
+    {
+      "name": "COPS-21.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-21.zip",
+      "size_bytes": 817196620,
+      "sha256": "0debb04d787d72febe9228076015262470a0316a1b8930b55de47d5e1be2c70b",
+      "md5": "f85512fb5e5c717f57dfa4fa748b0f01",
+      "download_url": "https://osf.io/download/68b1615a8c3d2c3a22321ed4/",
+      "date_modified": "2025-08-29T08:14:18.647071",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-21.zip",
+        "size_bytes": 817196620,
+        "sha256": "0debb04d787d72febe9228076015262470a0316a1b8930b55de47d5e1be2c70b"
+      }
+    },
+    {
+      "name": "COPS-22.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-22.zip",
+      "size_bytes": 841621932,
+      "sha256": "fd0f0f0ee8b2822f8506c211ead4d09c481930f7f976e9813fda3d67f914bdfa",
+      "md5": "1753ef969e50846222d82509eb499256",
+      "download_url": "https://osf.io/download/68b161dbee0bc64e7b3220ea/",
+      "date_modified": "2025-08-29T08:16:27.818210",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-22.zip",
+        "size_bytes": 841621932,
+        "sha256": "fd0f0f0ee8b2822f8506c211ead4d09c481930f7f976e9813fda3d67f914bdfa"
+      }
+    },
+    {
+      "name": "COPS-23.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-23.zip",
+      "size_bytes": 817537808,
+      "sha256": "8d6e5e00db4452f5bc13bd8e6042eac8a551a4145e27c053c132465d755dcc47",
+      "md5": "4eb17cd926738e489e30bdd436836231",
+      "download_url": "https://osf.io/download/68b162599d7468e1caab1601/",
+      "date_modified": "2025-08-29T08:18:33.635405",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-23.zip",
+        "size_bytes": 817537808,
+        "sha256": "8d6e5e00db4452f5bc13bd8e6042eac8a551a4145e27c053c132465d755dcc47"
+      }
+    },
+    {
+      "name": "COPS-24.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-24.zip",
+      "size_bytes": 410692042,
+      "sha256": "c5b4e5966775e9aedfd4c2dc1a7929d0f19538290d33145565d2b366dc66c21f",
+      "md5": "a5bfab4a578b93559eb9caab9b74c2ca",
+      "download_url": "https://osf.io/download/68b1629995f915a9a6321e1e/",
+      "date_modified": "2025-08-29T08:19:37.974018",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-24.zip",
+        "size_bytes": 410692042,
+        "sha256": "c5b4e5966775e9aedfd4c2dc1a7929d0f19538290d33145565d2b366dc66c21f"
+      }
+    },
+    {
+      "name": "COPS-25.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-25.zip",
+      "size_bytes": 268725823,
+      "sha256": "b043f2c079a1cd264c086cdcccea11564b60b44f35cf40c2494c58a07d35c7a2",
+      "md5": "a3cad01959a622bf0b12526284868963",
+      "download_url": "https://osf.io/download/53jwy/",
+      "date_modified": "2025-08-29T08:20:16.883646",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-25.zip",
+        "size_bytes": 268725823,
+        "sha256": "b043f2c079a1cd264c086cdcccea11564b60b44f35cf40c2494c58a07d35c7a2"
+      }
+    },
+    {
+      "name": "COPS-26.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-26.zip",
+      "size_bytes": 694193759,
+      "sha256": "09fd11d58d7d6e95d29c9bbc747acc2da62a85e2fb2f59e7adab961394b58f6e",
+      "md5": "7d78c9013494c0b6b9ccca21937deabc",
+      "download_url": "https://osf.io/download/68b1632c42a4b3059df98eeb/",
+      "date_modified": "2025-08-29T08:22:04.290529",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-26.zip",
+        "size_bytes": 694193759,
+        "sha256": "09fd11d58d7d6e95d29c9bbc747acc2da62a85e2fb2f59e7adab961394b58f6e"
+      }
+    },
+    {
+      "name": "COPS-27.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-27.zip",
+      "size_bytes": 716276654,
+      "sha256": "2c5b2a76538f0ccbb5e87c001d2ae43696b1e3f8da5d46514158e4d8c5c627a0",
+      "md5": "4eef5545c852d5c4f1526df1f62cb824",
+      "download_url": "https://osf.io/download/68b1639ba7ace416aa05e466/",
+      "date_modified": "2025-08-29T08:23:55.931130",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-27.zip",
+        "size_bytes": 716276654,
+        "sha256": "2c5b2a76538f0ccbb5e87c001d2ae43696b1e3f8da5d46514158e4d8c5c627a0"
+      }
+    },
+    {
+      "name": "COPS-28.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-28.zip",
+      "size_bytes": 804093408,
+      "sha256": "1f7e4bd1405fbf8a56b7130f69e172064bb6dbc68715028f20e02815f9cfbc93",
+      "md5": "0eacc2862177adeaa3d2f87d31e73bf0",
+      "download_url": "https://osf.io/download/68b1641903a5e2f123780aa2/",
+      "date_modified": "2025-08-29T08:26:01.417887",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-28.zip",
+        "size_bytes": 804093408,
+        "sha256": "1f7e4bd1405fbf8a56b7130f69e172064bb6dbc68715028f20e02815f9cfbc93"
+      }
+    },
+    {
+      "name": "COPS-29.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-29.zip",
+      "size_bytes": 784961391,
+      "sha256": "d21f0eaee02a9ca3135e6a0697fbee0b1bfd72045869b2927d38d9b332562326",
+      "md5": "1eff31ee15079098e18a1cc9cb668a51",
+      "download_url": "https://osf.io/download/68b1648b07110bdae3f9915c/",
+      "date_modified": "2025-08-29T08:27:55.924235",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-29.zip",
+        "size_bytes": 784961391,
+        "sha256": "d21f0eaee02a9ca3135e6a0697fbee0b1bfd72045869b2927d38d9b332562326"
+      }
+    },
+    {
+      "name": "COPS-30.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-30.zip",
+      "size_bytes": 686431131,
+      "sha256": "eafd6032dd6b5220063bc4f978d5aa812a78173e363fe9571de44f6c4543ddbf",
+      "md5": "3f02eba7246f9c60ea3dc3c84b4d5e1d",
+      "download_url": "https://osf.io/download/68b164f22a0f6d34cb780a8d/",
+      "date_modified": "2025-08-29T08:29:38.808772",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-30.zip",
+        "size_bytes": 686431131,
+        "sha256": "eafd6032dd6b5220063bc4f978d5aa812a78173e363fe9571de44f6c4543ddbf"
+      }
+    },
+    {
+      "name": "COPS-31.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-31.zip",
+      "size_bytes": 787024924,
+      "sha256": "a04464db1328c93303f200492678be8b6d49a37e98c226695b9ba74994d812eb",
+      "md5": "a469c3de5bbad466571ce0df14e5a8c8",
+      "download_url": "https://osf.io/download/68b19dc4561668b6c3ab1325/",
+      "date_modified": "2025-08-29T12:32:04.886945",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-31.zip",
+        "size_bytes": 787024924,
+        "sha256": "a04464db1328c93303f200492678be8b6d49a37e98c226695b9ba74994d812eb"
+      }
+    },
+    {
+      "name": "COPS-32.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-32.zip",
+      "size_bytes": 780399891,
+      "sha256": "970f5ca52eb133da9b5b78f3f6a62b5aa8c74b038d45278b9562f8d6e3a3a786",
+      "md5": "0c76eb002ed6933b891f9bdea704f5dc",
+      "download_url": "https://osf.io/download/68b19d55b0a37ec140f990b3/",
+      "date_modified": "2025-08-29T12:30:13.418001",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-32.zip",
+        "size_bytes": 780399891,
+        "sha256": "970f5ca52eb133da9b5b78f3f6a62b5aa8c74b038d45278b9562f8d6e3a3a786"
+      }
+    },
+    {
+      "name": "COPS-33.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-33.zip",
+      "size_bytes": 887860659,
+      "sha256": "8696cf2c5001963201872f283c03006e1276ef4686be4366ac019404e1ef915d",
+      "md5": "69439bed1ca2760b7be56eabe3ed00af",
+      "download_url": "https://osf.io/download/68b19e3dbfff0b211c322093/",
+      "date_modified": "2025-08-29T12:34:05.309898",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-33.zip",
+        "size_bytes": 887860659,
+        "sha256": "8696cf2c5001963201872f283c03006e1276ef4686be4366ac019404e1ef915d"
+      }
+    },
+    {
+      "name": "COPS-35.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-35.zip",
+      "size_bytes": 825858702,
+      "sha256": "d00ab7496ff4f2c4ad538b10c882f7a4b8ae62b97c6756d242c7f0f45e4026e5",
+      "md5": "efbd140d9da27c16772abba8793b5783",
+      "download_url": "https://osf.io/download/68b19f033d596ad70a780c02/",
+      "date_modified": "2025-08-29T12:37:23.282287",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-35.zip",
+        "size_bytes": 825858702,
+        "sha256": "d00ab7496ff4f2c4ad538b10c882f7a4b8ae62b97c6756d242c7f0f45e4026e5"
+      }
+    },
+    {
+      "name": "COPS-36.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-36.zip",
+      "size_bytes": 735370792,
+      "sha256": "a1ebd2cc6528e34aa1f61386860328929809ef0832198b138e113d9442d23edc",
+      "md5": "3c57554d8d498abe7cb4426a580fee3c",
+      "download_url": "https://osf.io/download/68b19f61c764ab5f9205e4f1/",
+      "date_modified": "2025-08-29T12:38:57.883162",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-36.zip",
+        "size_bytes": 735370792,
+        "sha256": "a1ebd2cc6528e34aa1f61386860328929809ef0832198b138e113d9442d23edc"
+      }
+    },
+    {
+      "name": "COPS-37.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-37.zip",
+      "size_bytes": 771545185,
+      "sha256": "c19785abea697217188a9f970da71a65cc0f153ed1999a653a3658370954ef93",
+      "md5": "02f9ae4ea7d355897381b90cd0a7106c",
+      "download_url": "https://osf.io/download/68b19fc68b4a1f5a2405e77f/",
+      "date_modified": "2025-08-29T12:40:38.664398",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-37.zip",
+        "size_bytes": 771545185,
+        "sha256": "c19785abea697217188a9f970da71a65cc0f153ed1999a653a3658370954ef93"
+      }
+    },
+    {
+      "name": "COPS-38.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-38.zip",
+      "size_bytes": 780583332,
+      "sha256": "69009fbf7e56c96143ba6fc9c740d5ba3f2ecef2f6b19302877031cfe0c55edc",
+      "md5": "256acd844a43db9ff9f41beddc396b3e",
+      "download_url": "https://osf.io/download/68b1a02cbb7a15f5e0ab11e5/",
+      "date_modified": "2025-08-29T12:42:21.064317",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-38.zip",
+        "size_bytes": 780583332,
+        "sha256": "69009fbf7e56c96143ba6fc9c740d5ba3f2ecef2f6b19302877031cfe0c55edc"
+      }
+    },
+    {
+      "name": "COPS-39.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-39.zip",
+      "size_bytes": 761916130,
+      "sha256": "d43c86ad6e2dce6cbb8c5aeb0a8f66fd789f9c3e764de34ccd80ddec17f0c103",
+      "md5": "0bc92f820c52515a67791f7c1920899d",
+      "download_url": "https://osf.io/download/68b1a085e6e46d70cff98e33/",
+      "date_modified": "2025-08-29T12:43:49.950401",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-39.zip",
+        "size_bytes": 761916130,
+        "sha256": "d43c86ad6e2dce6cbb8c5aeb0a8f66fd789f9c3e764de34ccd80ddec17f0c103"
+      }
+    },
+    {
+      "name": "COPS-40.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-40.zip",
+      "size_bytes": 782044507,
+      "sha256": "84b871f6e98f0d2136abffb7b40f61c3c44c3023636ae632fa88923955573be9",
+      "md5": "789e40548c659a246ab712a72dd769e8",
+      "download_url": "https://osf.io/download/68b1a0e8e6e46d70cff98e53/",
+      "date_modified": "2025-08-29T12:45:28.277463",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-40.zip",
+        "size_bytes": 782044507,
+        "sha256": "84b871f6e98f0d2136abffb7b40f61c3c44c3023636ae632fa88923955573be9"
+      }
+    },
+    {
+      "name": "COPS-41.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-41.zip",
+      "size_bytes": 841095117,
+      "sha256": "a65b1d0296485f8424a219e2bb39ab67533a25eb9bd7a6031f6a3bdc111d498b",
+      "md5": "469be9d272c75f4fac542896deb3513a",
+      "download_url": "https://osf.io/download/68b1a151b575707ea7780cce/",
+      "date_modified": "2025-08-29T12:47:13.840299",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-41.zip",
+        "size_bytes": 841095117,
+        "sha256": "a65b1d0296485f8424a219e2bb39ab67533a25eb9bd7a6031f6a3bdc111d498b"
+      }
+    },
+    {
+      "name": "COPS-42.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-42.zip",
+      "size_bytes": 782157479,
+      "sha256": "d09a8b89c3fae25d4825d87bebf3bb89981f3caf2864b0415a9c0bec0cf64d92",
+      "md5": "ede740b9d8854d241e21b1d7cce511d6",
+      "download_url": "https://osf.io/download/68b1a1b6f64e62d6dc780e36/",
+      "date_modified": "2025-08-29T12:48:54.749916",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-42.zip",
+        "size_bytes": 782157479,
+        "sha256": "d09a8b89c3fae25d4825d87bebf3bb89981f3caf2864b0415a9c0bec0cf64d92"
+      }
+    },
+    {
+      "name": "COPS-43.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-43.zip",
+      "size_bytes": 569762877,
+      "sha256": "18b5be50ab967b7bfc7c51c305e3d7a0ea2bc5b764788457c97cf0f5c9482b55",
+      "md5": "f1e783c64c9d97e43a28588087d0f9d5",
+      "download_url": "https://osf.io/download/68b1a201ce73f5bbbaf98e82/",
+      "date_modified": "2025-08-29T12:50:09.939009",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-43.zip",
+        "size_bytes": 569762877,
+        "sha256": "18b5be50ab967b7bfc7c51c305e3d7a0ea2bc5b764788457c97cf0f5c9482b55"
+      }
+    },
+    {
+      "name": "COPS-44.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-44.zip",
+      "size_bytes": 215672145,
+      "sha256": "2a48f202f905d0e928c3c02b032c8bd917c7dc8b892f2b8ad445c44927fd2d91",
+      "md5": "60c9266c8c150509dd5a55641abdd0f6",
+      "download_url": "https://osf.io/download/68b1a21c25b56848feab1311/",
+      "date_modified": "2025-08-29T12:50:36.850864",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-44.zip",
+        "size_bytes": 215672145,
+        "sha256": "2a48f202f905d0e928c3c02b032c8bd917c7dc8b892f2b8ad445c44927fd2d91"
+      }
+    },
+    {
+      "name": "COPS-45.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-45.zip",
+      "size_bytes": 866026241,
+      "sha256": "6d3838e263d9a3f1724aafe519290055794d1c73bcb38c37d56697bc9f2e906e",
+      "md5": "99171c930cbf63b8938ab581c40076d9",
+      "download_url": "https://osf.io/download/68b1a2872d5ba17cde780aeb/",
+      "date_modified": "2025-08-29T12:52:23.869269",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-45.zip",
+        "size_bytes": 866026241,
+        "sha256": "6d3838e263d9a3f1724aafe519290055794d1c73bcb38c37d56697bc9f2e906e"
+      }
+    },
+    {
+      "name": "COPS-46.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-46.zip",
+      "size_bytes": 235958599,
+      "sha256": "990ade061ed175825f44479a348d8083d807b62b45328b737c4607341e497e8c",
+      "md5": "e4bdd2e5b2c0b50b587e3f2a3efd7de6",
+      "download_url": "https://osf.io/download/68b1a2a4d3038b299d3221ac/",
+      "date_modified": "2025-08-29T12:52:52.900887",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-46.zip",
+        "size_bytes": 235958599,
+        "sha256": "990ade061ed175825f44479a348d8083d807b62b45328b737c4607341e497e8c"
+      }
+    },
+    {
+      "name": "COPS-47.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-47.zip",
+      "size_bytes": 850615613,
+      "sha256": "5c60ebb6d9f14847b33360002b8672798abf2249a73c4c756f642a1eac0edc68",
+      "md5": "ed5823e628fbcd46f63fd0718fc9f62f",
+      "download_url": "https://osf.io/download/68b1a312cbb1c19b6a780a72/",
+      "date_modified": "2025-08-29T12:54:42.441099",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-47.zip",
+        "size_bytes": 850615613,
+        "sha256": "5c60ebb6d9f14847b33360002b8672798abf2249a73c4c756f642a1eac0edc68"
+      }
+    },
+    {
+      "name": "COPS-48.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-48.zip",
+      "size_bytes": 792730995,
+      "sha256": "29fc7c45fc4439396989d5cba632d471f90f0c6e12f6e6a7641f965c7436bf04",
+      "md5": "8ce0d119a8cc30d6d30db14f500594ba",
+      "download_url": "https://osf.io/download/68b1a37112d52d1d19ab128b/",
+      "date_modified": "2025-08-29T12:56:17.750551",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-48.zip",
+        "size_bytes": 792730995,
+        "sha256": "29fc7c45fc4439396989d5cba632d471f90f0c6e12f6e6a7641f965c7436bf04"
+      }
+    },
+    {
+      "name": "COPS-49.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-49.zip",
+      "size_bytes": 774787817,
+      "sha256": "577bb2c68d3bfda32777184a0ee1a8cf716a1d1047f504c3742a6c3d6bdec8fd",
+      "md5": "422954651b295f758b5e91bb067eadbb",
+      "download_url": "https://osf.io/download/68b1a3d5e9f0bf4f73f99204/",
+      "date_modified": "2025-08-29T12:57:57.135652",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-49.zip",
+        "size_bytes": 774787817,
+        "sha256": "577bb2c68d3bfda32777184a0ee1a8cf716a1d1047f504c3742a6c3d6bdec8fd"
+      }
+    },
+    {
+      "name": "COPS-50.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-50.zip",
+      "size_bytes": 827535570,
+      "sha256": "ad9eb1527b9ae4c1d213ead495e52690ca420c6168895701ef070c52ecf5d8b9",
+      "md5": "83f7ecacc648fad0cee2d16ec16146fe",
+      "download_url": "https://osf.io/download/68b1a435a15597f1be321d95/",
+      "date_modified": "2025-08-29T12:59:33.366271",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-50.zip",
+        "size_bytes": 827535570,
+        "sha256": "ad9eb1527b9ae4c1d213ead495e52690ca420c6168895701ef070c52ecf5d8b9"
+      }
+    },
+    {
+      "name": "COPS-51.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-51.zip",
+      "size_bytes": 822991260,
+      "sha256": "9b6a288e1ddffbce013853372af435c8d7bd2dd12e7ae2818cf08dc357caf0ab",
+      "md5": "8e7e1329fbf967f1e8f6b24d456a83de",
+      "download_url": "https://osf.io/download/68b1a498df0475d740f98e47/",
+      "date_modified": "2025-08-29T13:01:12.632559",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-51.zip",
+        "size_bytes": 822991260,
+        "sha256": "9b6a288e1ddffbce013853372af435c8d7bd2dd12e7ae2818cf08dc357caf0ab"
+      }
+    },
+    {
+      "name": "COPS-52.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-52.zip",
+      "size_bytes": 862092412,
+      "sha256": "1a8e3e81668e80a2616cbf3cb672e488ca38c3e402e52248a06513ec0063d6e4",
+      "md5": "8c4930807033e40fb2ce2d8bda176a1c",
+      "download_url": "https://osf.io/download/68b1a50092664f228d322143/",
+      "date_modified": "2025-08-29T13:02:56.913798",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-52.zip",
+        "size_bytes": 862092412,
+        "sha256": "1a8e3e81668e80a2616cbf3cb672e488ca38c3e402e52248a06513ec0063d6e4"
+      }
+    },
+    {
+      "name": "COPS-53.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-53.zip",
+      "size_bytes": 884409124,
+      "sha256": "2ae70f5b0dd29191b51cb92ef5933361dae0242f72da951ca63de8698d514ca5",
+      "md5": "4c00236701984a9533f42ffa043fdd55",
+      "download_url": "https://osf.io/download/68b1a57076f52a004505e6b6/",
+      "date_modified": "2025-08-29T13:04:48.184311",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-53.zip",
+        "size_bytes": 884409124,
+        "sha256": "2ae70f5b0dd29191b51cb92ef5933361dae0242f72da951ca63de8698d514ca5"
+      }
+    },
+    {
+      "name": "COPS-54.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-54.zip",
+      "size_bytes": 771560306,
+      "sha256": "d527786b12cda42cac9d876412379c411ea83a5aa58b5b58437a2fc0a9ba0c44",
+      "md5": "df2f571197e51d5bc249366bd7226515",
+      "download_url": "https://osf.io/download/68b1a5d316ce0623c8780a87/",
+      "date_modified": "2025-08-29T13:06:27.255032",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-54.zip",
+        "size_bytes": 771560306,
+        "sha256": "d527786b12cda42cac9d876412379c411ea83a5aa58b5b58437a2fc0a9ba0c44"
+      }
+    },
+    {
+      "name": "COPS-54.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-54.zip",
+      "size_bytes": 771560306,
+      "sha256": "d527786b12cda42cac9d876412379c411ea83a5aa58b5b58437a2fc0a9ba0c44",
+      "md5": "df2f571197e51d5bc249366bd7226515",
+      "download_url": "https://osf.io/download/68b1a5d316ce0623c8780a87/",
+      "date_modified": "2025-08-29T13:06:27.255032",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-54.zip",
+        "size_bytes": 771560306,
+        "sha256": "d527786b12cda42cac9d876412379c411ea83a5aa58b5b58437a2fc0a9ba0c44"
+      }
+    },
+    {
+      "name": "COPS-54.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-54.zip",
+      "size_bytes": 771560306,
+      "sha256": "d527786b12cda42cac9d876412379c411ea83a5aa58b5b58437a2fc0a9ba0c44",
+      "md5": "df2f571197e51d5bc249366bd7226515",
+      "download_url": "https://osf.io/download/68b1a5d316ce0623c8780a87/",
+      "date_modified": "2025-08-29T13:06:27.255032",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-54.zip",
+        "size_bytes": 771560306,
+        "sha256": "d527786b12cda42cac9d876412379c411ea83a5aa58b5b58437a2fc0a9ba0c44"
+      }
+    },
+    {
+      "name": "COPS-55.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-55.zip",
+      "size_bytes": 851583792,
+      "sha256": "bcab1dfb4a8b0e083d924b5ae807052a15d5a85b50e3f1d2930d0e4662f7f92b",
+      "md5": "13838fe620674e6eb25dfe80802cd3f0",
+      "download_url": "https://osf.io/download/68b1a63809cc4ac528f98dcf/",
+      "date_modified": "2025-08-29T13:08:08.354064",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-55.zip",
+        "size_bytes": 851583792,
+        "sha256": "bcab1dfb4a8b0e083d924b5ae807052a15d5a85b50e3f1d2930d0e4662f7f92b"
+      }
+    },
+    {
+      "name": "COPS-56.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-56.zip",
+      "size_bytes": 822636807,
+      "sha256": "f4cd4f83a22c9de1f64fb75cd72bfa9e1e4ec083c439f99546ae8b7af3ec9d88",
+      "md5": "232a9d645946f2082ef3d3f85f2544a3",
+      "download_url": "https://osf.io/download/68b1a6981414af231005e3d0/",
+      "date_modified": "2025-08-29T13:09:44.132655",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-56.zip",
+        "size_bytes": 822636807,
+        "sha256": "f4cd4f83a22c9de1f64fb75cd72bfa9e1e4ec083c439f99546ae8b7af3ec9d88"
+      }
+    },
+    {
+      "name": "COPS-57.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-57.zip",
+      "size_bytes": 478759323,
+      "sha256": "73e333c2002729ea0d730d7815d7bab6fe3bbf888dcff84e1c5a49885a3bec03",
+      "md5": "74e17a78129623b44eb761b3dfef0d53",
+      "download_url": "https://osf.io/download/68b1a6d316ce0623c8780ab9/",
+      "date_modified": "2025-08-29T13:10:43.475492",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-57.zip",
+        "size_bytes": 478759323,
+        "sha256": "73e333c2002729ea0d730d7815d7bab6fe3bbf888dcff84e1c5a49885a3bec03"
+      }
+    },
+    {
+      "name": "COPS-58.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-58.zip",
+      "size_bytes": 839935521,
+      "sha256": "ca629d13719837996aa302a96858b3a484f71d30685a409acf03524f0921996b",
+      "md5": "4d68e44eab20f004cfe936d728474f07",
+      "download_url": "https://osf.io/download/68b1a73fdedeb0e46f321d93/",
+      "date_modified": "2025-08-29T13:12:31.476605",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-58.zip",
+        "size_bytes": 839935521,
+        "sha256": "ca629d13719837996aa302a96858b3a484f71d30685a409acf03524f0921996b"
+      }
+    },
+    {
+      "name": "COPS-59.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-59.zip",
+      "size_bytes": 862803658,
+      "sha256": "0d2b402b7a16dcfb2fae54739fd83741c3d8c9bf32d3a4a223b411c8b925c0d7",
+      "md5": "0dc3c5ec28019c4d8c8ad2e435bb06e4",
+      "download_url": "https://osf.io/download/68b1a81909cc4ac528f98e64/",
+      "date_modified": "2025-08-29T13:16:09.757799",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-59.zip",
+        "size_bytes": 862803658,
+        "sha256": "0d2b402b7a16dcfb2fae54739fd83741c3d8c9bf32d3a4a223b411c8b925c0d7"
+      }
+    },
+    {
+      "name": "COPS-60.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-60.zip",
+      "size_bytes": 302857943,
+      "sha256": "47f54b0933efb187d6afced25516b94b6ac4d850d775e2bf766e44d40f987c54",
+      "md5": "6444d664e22124a72139a4e1d03c1d28",
+      "download_url": "https://osf.io/download/fjnsx/",
+      "date_modified": "2025-08-29T13:14:29.297442",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-60.zip",
+        "size_bytes": 302857943,
+        "sha256": "47f54b0933efb187d6afced25516b94b6ac4d850d775e2bf766e44d40f987c54"
+      }
+    },
+    {
+      "name": "COPS-62.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-62.zip",
+      "size_bytes": 848834023,
+      "sha256": "8a035a2672b4609d4c9d3e4717cd38726c2a1f921f7be72e58d035d529640266",
+      "md5": "3cdb86c91ab4278099b5f63b6abc5a7e",
+      "download_url": "https://osf.io/download/68b1a87525b56848feab140a/",
+      "date_modified": "2025-08-29T13:17:41.319391",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-62.zip",
+        "size_bytes": 848834023,
+        "sha256": "8a035a2672b4609d4c9d3e4717cd38726c2a1f921f7be72e58d035d529640266"
+      }
+    },
+    {
+      "name": "COPS-63.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-63.zip",
+      "size_bytes": 760565917,
+      "sha256": "521d48d933d6d6ea92994548b086a6f2bb1c057ae6add4ecf769d0a5c77074c7",
+      "md5": "5b84c055198ff8440cf154d0a19e5225",
+      "download_url": "https://osf.io/download/68b1a8e325b56848feab1423/",
+      "date_modified": "2025-08-29T13:19:31.513995",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-63.zip",
+        "size_bytes": 760565917,
+        "sha256": "521d48d933d6d6ea92994548b086a6f2bb1c057ae6add4ecf769d0a5c77074c7"
+      }
+    },
+    {
+      "name": "COPS-64.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-64.zip",
+      "size_bytes": 699216460,
+      "sha256": "86060bb6be37be7940421648c7046a3996c1e400e8db67e3a9d7bb553edb397f",
+      "md5": "3903704606277e50e8a51352498d59fc",
+      "download_url": "https://osf.io/download/68b1a90b12d52d1d19ab1494/",
+      "date_modified": "2025-08-29T13:20:11.444174",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-64.zip",
+        "size_bytes": 699216460,
+        "sha256": "86060bb6be37be7940421648c7046a3996c1e400e8db67e3a9d7bb553edb397f"
+      }
+    },
+    {
+      "name": "COPS-65.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-65.zip",
+      "size_bytes": 876720665,
+      "sha256": "8e86f150b946789b64c68681811f2ce1a39e177a5da3bfb773855f2129d3a7f4",
+      "md5": "d59740353c5047ed76afba4a9bdddfbd",
+      "download_url": "https://osf.io/download/68b1a95f28a6144bab7809ae/",
+      "date_modified": "2025-08-29T13:21:35.903071",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-65.zip",
+        "size_bytes": 876720665,
+        "sha256": "8e86f150b946789b64c68681811f2ce1a39e177a5da3bfb773855f2129d3a7f4"
+      }
+    },
+    {
+      "name": "COPS-66.zip",
+      "kind": "file",
+      "materialized_path": "/Data/COPS-66.zip",
+      "size_bytes": 790396799,
+      "sha256": "d147a25343253dd2ba76e5c6791b294e768880079fa41841c35f9e2b6833ffc1",
+      "md5": "cec98efa4d7cf111cd88b9b14b39c118",
+      "download_url": "https://osf.io/download/68b1a9c7822aaa926905e51e/",
+      "date_modified": "2025-08-29T13:23:20.001422",
+      "local": {
+        "path": "/home/fiod/pd-imu/data/raw/cops/COPS-66.zip",
+        "size_bytes": 790396799,
+        "sha256": "d147a25343253dd2ba76e5c6791b294e768880079fa41841c35f9e2b6833ffc1"
+      }
+    }
+  ]
+}

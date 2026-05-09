@@ -1,0 +1,25 @@
+
+=== T1 iter33-B 8-item LOCKBOX LOOCV (3 seeds) ===
+  cohort: T1-only N=94 | with-aux N=93 (aux items used: [15, 18])
+    seed=42 fold 20/93  elapsed=200s
+    seed=42 fold 40/93  elapsed=402s
+    seed=42 fold 60/93  elapsed=592s
+    seed=42 fold 80/93  elapsed=781s
+  seed=42: mt=0.7213 | i5=0.6252 | Δ=+0.0962 | 1164s
+    seed=1337 fold 20/93  elapsed=182s
+    seed=1337 fold 40/93  elapsed=371s
+    seed=1337 fold 60/93  elapsed=562s
+    seed=1337 fold 80/93  elapsed=753s
+  seed=1337: mt=0.7217 | i5=0.6553 | Δ=+0.0663 | 1145s
+    seed=7 fold 20/93  elapsed=191s
+    seed=7 fold 40/93  elapsed=384s
+    seed=7 fold 60/93  elapsed=572s
+    seed=7 fold 80/93  elapsed=760s
+  seed=7: mt=0.7219 | i5=0.6552 | Δ=+0.0667 | 1152s
+
+=== HEADLINE: CCC=0.7219, MAE=1.843 ===
+  Δ vs iter5-direct (mean of seeds): +0.0723
+  Bootstrap vs iter5: Δ̄=+0.0742, frac>0=0.979
+  is_canonical_update = True
+Wrote /root/pd-imu/results/lockbox_t1_iter33b_8item_20260506_071631.json
+      /root/pd-imu/results/lockbox_t1_iter33b_8item_20260506_071631.oof.npy

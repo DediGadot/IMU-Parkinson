@@ -27,10 +27,13 @@ from sklearn.preprocessing import StandardScaler
 
 def ccc(y_true, y_pred) -> float:
     yt, yp = np.asarray(y_true, np.float64), np.asarray(y_pred, np.float64)
-    if yt.size < 2 or yt.std() < 1e-9 or yp.std() < 1e-9:
+    mask = np.isfinite(yt) & np.isfinite(yp)
+    yt, yp = yt[mask], yp[mask]
+    if yt.size < 3 or yt.std() < 1e-9 or yp.std() < 1e-9:
         return 0.0
     cov = float(np.mean((yt - yt.mean()) * (yp - yp.mean())))
-    return (2 * cov) / (yt.var() + yp.var() + (yt.mean() - yp.mean()) ** 2)
+    denom = yt.var() + yp.var() + (yt.mean() - yp.mean()) ** 2
+    return float(2 * cov / denom) if denom > 1e-12 else 0.0
 
 
 def cal_slope(y_true, y_pred) -> float:

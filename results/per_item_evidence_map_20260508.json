@@ -1,0 +1,608 @@
+{
+  "generated_at_utc": "2026-05-08T22:41:09+00:00",
+  "script": "audit_per_item_evidence_map.py",
+  "policy": "Per-item CCCs must be reported with their current claim scope. Items 9-14 are components of the canonical iter12 T1 floor, items 15 and 18 are supplementary iter17 per-item wins, items 4-8/16/17 are historical iter8 lockbox context, and items 1-3 remain backfill-only for this current map. The T3 per-item sum is a historical dead route, not a current T3 headline.",
+  "passed": true,
+  "status_counts": {
+    "missing_or_backfill_only_unobservable": 3,
+    "historical_iter8_per_item_lockbox_supplementary": 7,
+    "current_t1_iter12_component": 6,
+    "iter17_reportable_per_item_win": 2
+  },
+  "composites": {
+    "t1_iter12_sum": {
+      "status": "current_canonical_floor",
+      "ccc": 0.655,
+      "mae": 1.5614,
+      "n": 94,
+      "items_used": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "source_artifact": "results/t1_iter12_honest_composite.json"
+    },
+    "t3_per_item_sum_historical": {
+      "status": "historical_dead_route_not_current_t3",
+      "ccc": 0.2646,
+      "mae": 7.4819,
+      "n": 94,
+      "items_used": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "source_artifact": "results/peritem_composite_20260430_143044.json"
+    }
+  },
+  "rows": [
+    {
+      "item": 1,
+      "status": "missing_or_backfill_only_unobservable",
+      "variant": "v2_baseline",
+      "ccc": null,
+      "ccc_std": null,
+      "mae": null,
+      "n": null,
+      "source_artifact": "results/peritem_t3_backfill_winners.json",
+      "individual_lockbox_artifact": null,
+      "claim_scope": "no_current_reportable_loocv_per_item_lockbox",
+      "caveat": "Only backfill/screening metadata exists for this current map; no current reportable per-item LOOCV CCC."
+    },
+    {
+      "item": 2,
+      "status": "missing_or_backfill_only_unobservable",
+      "variant": "v2_baseline",
+      "ccc": null,
+      "ccc_std": null,
+      "mae": null,
+      "n": null,
+      "source_artifact": "results/peritem_t3_backfill_winners.json",
+      "individual_lockbox_artifact": null,
+      "claim_scope": "no_current_reportable_loocv_per_item_lockbox",
+      "caveat": "Only backfill/screening metadata exists for this current map; no current reportable per-item LOOCV CCC."
+    },
+    {
+      "item": 3,
+      "status": "missing_or_backfill_only_unobservable",
+      "variant": "v2_baseline",
+      "ccc": null,
+      "ccc_std": null,
+      "mae": null,
+      "n": null,
+      "source_artifact": "results/peritem_t3_backfill_winners.json",
+      "individual_lockbox_artifact": null,
+      "claim_scope": "no_current_reportable_loocv_per_item_lockbox",
+      "caveat": "Only backfill/screening metadata exists for this current map; no current reportable per-item LOOCV CCC."
+    },
+    {
+      "item": 4,
+      "variant": "v2_baseline",
+      "ccc": 0.09156666666666667,
+      "ccc_std": 0.03788626253523682,
+      "mae": 1.2539333333333333,
+      "n": 94,
+      "screening_5split_ccc": 0.0768,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_4_v2_baseline_20260430_143044.json",
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "claim_scope": "historical_per_item_lockbox_supplementary_not_current_t1_or_t3_route",
+      "caveat": "Useful for item-level audit context only; not a current composite or deployment headline."
+    },
+    {
+      "item": 5,
+      "variant": "v2_baseline",
+      "ccc": 0.0814,
+      "ccc_std": 0.031712142784744136,
+      "mae": 1.4118000000000002,
+      "n": 94,
+      "screening_5split_ccc": 0.1727,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_5_v2_baseline_20260430_143044.json",
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "claim_scope": "historical_per_item_lockbox_supplementary_not_current_t1_or_t3_route",
+      "caveat": "Useful for item-level audit context only; not a current composite or deployment headline."
+    },
+    {
+      "item": 6,
+      "variant": "lr_multitask",
+      "ccc": -0.06609999999999999,
+      "ccc_std": 0.031541401363921674,
+      "mae": 1.4378666666666666,
+      "n": 94,
+      "screening_5split_ccc": -0.0206999999999999,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_6_lr_multitask_20260430_143044.json",
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "claim_scope": "historical_per_item_lockbox_supplementary_not_current_t1_or_t3_route",
+      "caveat": "Useful for item-level audit context only; not a current composite or deployment headline."
+    },
+    {
+      "item": 7,
+      "variant": "item_plus_v2",
+      "ccc": 0.2711333333333334,
+      "ccc_std": 0.016492894092776912,
+      "mae": 0.6289666666666666,
+      "n": 94,
+      "screening_5split_ccc": 0.3032333333333333,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_7_item_plus_v2_20260430_143044.json",
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "claim_scope": "historical_per_item_lockbox_supplementary_not_current_t1_or_t3_route",
+      "caveat": "Useful for item-level audit context only; not a current composite or deployment headline."
+    },
+    {
+      "item": 8,
+      "variant": "item_plus_v2",
+      "ccc": 0.16956666666666667,
+      "ccc_std": 0.026319869976038166,
+      "mae": 0.7959666666666667,
+      "n": 94,
+      "screening_5split_ccc": 0.2340666666666666,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_8_item_plus_v2_20260430_143044.json",
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "claim_scope": "historical_per_item_lockbox_supplementary_not_current_t1_or_t3_route",
+      "caveat": "Useful for item-level audit context only; not a current composite or deployment headline."
+    },
+    {
+      "item": 9,
+      "variant": "hy_residual_item",
+      "ccc": 0.44366666666666665,
+      "ccc_std": 0.01388172259563713,
+      "mae": 0.3415000000000001,
+      "n": 94,
+      "screening_5split_ccc": 0.3232,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_9_hy_residual_item_20260430_143044.json",
+      "status": "current_t1_iter12_component",
+      "claim_scope": "component_of_canonical_t1_iter12_floor_not_standalone_headline",
+      "caveat": "Per-item CCC is descriptive; the current reportable T1 number is the coherent iter12 sum over items 9-14."
+    },
+    {
+      "item": 10,
+      "variant": "item_plus_v2",
+      "ccc": 0.4755333333333333,
+      "ccc_std": 0.02036669394433525,
+      "mae": 0.5087666666666667,
+      "n": 94,
+      "screening_5split_ccc": 0.5255666666666666,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_10_item_plus_v2_20260430_143044.json",
+      "status": "current_t1_iter12_component",
+      "claim_scope": "component_of_canonical_t1_iter12_floor_not_standalone_headline",
+      "caveat": "Per-item CCC is descriptive; the current reportable T1 number is the coherent iter12 sum over items 9-14."
+    },
+    {
+      "item": 11,
+      "variant": "item_dedicated",
+      "ccc": 0.37939999999999996,
+      "ccc_std": 0.0184576993871573,
+      "mae": 0.36336666666666667,
+      "n": 94,
+      "screening_5split_ccc": 0.3194666666666666,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_11_item_dedicated_20260430_143044.json",
+      "status": "current_t1_iter12_component",
+      "claim_scope": "component_of_canonical_t1_iter12_floor_not_standalone_headline",
+      "caveat": "Per-item CCC is descriptive; the current reportable T1 number is the coherent iter12 sum over items 9-14."
+    },
+    {
+      "item": 12,
+      "variant": "item_plus_v2",
+      "ccc": 0.5928,
+      "ccc_std": 0.00839404550857333,
+      "mae": 0.5231,
+      "n": 94,
+      "screening_5split_ccc": 0.5549666666666666,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_12_item_plus_v2_20260430_143044.json",
+      "status": "current_t1_iter12_component",
+      "claim_scope": "component_of_canonical_t1_iter12_floor_not_standalone_headline",
+      "caveat": "Per-item CCC is descriptive; the current reportable T1 number is the coherent iter12 sum over items 9-14."
+    },
+    {
+      "item": 13,
+      "variant": "item_plus_v2",
+      "ccc": 0.11693333333333333,
+      "ccc_std": 0.0016819301082057162,
+      "mae": 0.6211333333333334,
+      "n": 94,
+      "screening_5split_ccc": 0.1596666666666666,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_13_item_plus_v2_20260430_143044.json",
+      "status": "current_t1_iter12_component",
+      "claim_scope": "component_of_canonical_t1_iter12_floor_not_standalone_headline",
+      "caveat": "Per-item CCC is descriptive; the current reportable T1 number is the coherent iter12 sum over items 9-14."
+    },
+    {
+      "item": 14,
+      "variant": "item_plus_v2",
+      "ccc": 0.3788333333333333,
+      "ccc_std": 0.013508598085005789,
+      "mae": 0.5236333333333333,
+      "n": 94,
+      "screening_5split_ccc": 0.2969333333333333,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_14_item_plus_v2_20260430_143044.json",
+      "status": "current_t1_iter12_component",
+      "claim_scope": "component_of_canonical_t1_iter12_floor_not_standalone_headline",
+      "caveat": "Per-item CCC is descriptive; the current reportable T1 number is the coherent iter12 sum over items 9-14."
+    },
+    {
+      "item": 15,
+      "status": "iter17_reportable_per_item_win",
+      "variant": "item_only",
+      "ccc": 0.1099,
+      "ccc_std": 0.0065,
+      "mae": 1.0879,
+      "n": 94,
+      "source_artifact": "results/lockbox_peritem_iter17_combined_20260503_221544.json",
+      "individual_lockbox_artifact": "results/lockbox_peritem_15_iter17hyp_item_only_20260503_221544.json",
+      "claim_scope": "supplementary_per_item_lockbox_win_not_t1_t3_composite_update",
+      "caveat": "Reportable as a supplementary per-item win only. It does not update canonical T1/T3 composites; the T3 per-item composite route is dead from variance compounding.",
+      "baseline_ccc": -0.09,
+      "delta_vs_baseline": 0.1999,
+      "historical_iter8_metric": {
+        "variant": "item_dedicated",
+        "ccc": 0.05043333333333333,
+        "mae": 1.1001333333333332,
+        "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv"
+      }
+    },
+    {
+      "item": 16,
+      "variant": "lr_multitask",
+      "ccc": 0.14693333333333333,
+      "ccc_std": 0.012172190526861727,
+      "mae": 0.9001333333333333,
+      "n": 94,
+      "screening_5split_ccc": 0.0753666666666666,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_16_lr_multitask_20260430_143044.json",
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "claim_scope": "historical_per_item_lockbox_supplementary_not_current_t1_or_t3_route",
+      "caveat": "Useful for item-level audit context only; not a current composite or deployment headline."
+    },
+    {
+      "item": 17,
+      "variant": "v2_baseline",
+      "ccc": 0.17743333333333333,
+      "ccc_std": 0.01760725860421081,
+      "mae": 1.3160666666666667,
+      "n": 93,
+      "screening_5split_ccc": 0.2313666666666666,
+      "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "individual_lockbox_artifact": "results/lockbox_peritem_17_v2_baseline_20260430_143044.json",
+      "status": "historical_iter8_per_item_lockbox_supplementary",
+      "claim_scope": "historical_per_item_lockbox_supplementary_not_current_t1_or_t3_route",
+      "caveat": "Useful for item-level audit context only; not a current composite or deployment headline."
+    },
+    {
+      "item": 18,
+      "status": "iter17_reportable_per_item_win",
+      "variant": "hy_residual_item_v2",
+      "ccc": 0.4858,
+      "ccc_std": 0.0204,
+      "mae": 0.887,
+      "n": 93,
+      "source_artifact": "results/lockbox_peritem_iter17_combined_20260503_221544.json",
+      "individual_lockbox_artifact": "results/lockbox_peritem_18_iter17hyp_hy_residual_item_v2_20260503_221544.json",
+      "claim_scope": "supplementary_per_item_lockbox_win_not_t1_t3_composite_update",
+      "caveat": "Reportable as a supplementary per-item win only. It does not update canonical T1/T3 composites; the T3 per-item composite route is dead from variance compounding.",
+      "baseline_ccc": 0.25,
+      "delta_vs_baseline": 0.2358,
+      "historical_iter8_metric": {
+        "variant": "hy_residual_item",
+        "ccc": 0.46290000000000003,
+        "mae": 0.8902333333333333,
+        "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv"
+      }
+    }
+  ],
+  "key_checks": [
+    {
+      "name": "eighteen_item_rows_present",
+      "passed": true,
+      "evidence": {
+        "n_rows": 18,
+        "items": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18
+        ]
+      }
+    },
+    {
+      "name": "status_counts_match_current_claim_scope",
+      "passed": true,
+      "evidence": {
+        "missing_or_backfill_only_unobservable": 3,
+        "historical_iter8_per_item_lockbox_supplementary": 7,
+        "current_t1_iter12_component": 6,
+        "iter17_reportable_per_item_win": 2
+      }
+    },
+    {
+      "name": "t1_component_item9_metric_matches_iter8_batch",
+      "passed": true,
+      "evidence": {
+        "item": 9,
+        "variant": "hy_residual_item",
+        "ccc": 0.44366666666666665,
+        "ccc_std": 0.01388172259563713,
+        "mae": 0.3415000000000001,
+        "n": 94,
+        "screening_5split_ccc": 0.3232,
+        "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+        "individual_lockbox_artifact": "results/lockbox_peritem_9_hy_residual_item_20260430_143044.json",
+        "status": "current_t1_iter12_component",
+        "claim_scope": "component_of_canonical_t1_iter12_floor_not_standalone_headline",
+        "caveat": "Per-item CCC is descriptive; the current reportable T1 number is the coherent iter12 sum over items 9-14."
+      }
+    },
+    {
+      "name": "t1_component_item12_metric_matches_iter8_batch",
+      "passed": true,
+      "evidence": {
+        "item": 12,
+        "variant": "item_plus_v2",
+        "ccc": 0.5928,
+        "ccc_std": 0.00839404550857333,
+        "mae": 0.5231,
+        "n": 94,
+        "screening_5split_ccc": 0.5549666666666666,
+        "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv",
+        "individual_lockbox_artifact": "results/lockbox_peritem_12_item_plus_v2_20260430_143044.json",
+        "status": "current_t1_iter12_component",
+        "claim_scope": "component_of_canonical_t1_iter12_floor_not_standalone_headline",
+        "caveat": "Per-item CCC is descriptive; the current reportable T1 number is the coherent iter12 sum over items 9-14."
+      }
+    },
+    {
+      "name": "iter17_item15_metric_matches_lockbox",
+      "passed": true,
+      "evidence": {
+        "item": 15,
+        "status": "iter17_reportable_per_item_win",
+        "variant": "item_only",
+        "ccc": 0.1099,
+        "ccc_std": 0.0065,
+        "mae": 1.0879,
+        "n": 94,
+        "source_artifact": "results/lockbox_peritem_iter17_combined_20260503_221544.json",
+        "individual_lockbox_artifact": "results/lockbox_peritem_15_iter17hyp_item_only_20260503_221544.json",
+        "claim_scope": "supplementary_per_item_lockbox_win_not_t1_t3_composite_update",
+        "caveat": "Reportable as a supplementary per-item win only. It does not update canonical T1/T3 composites; the T3 per-item composite route is dead from variance compounding.",
+        "baseline_ccc": -0.09,
+        "delta_vs_baseline": 0.1999,
+        "historical_iter8_metric": {
+          "variant": "item_dedicated",
+          "ccc": 0.05043333333333333,
+          "mae": 1.1001333333333332,
+          "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv"
+        }
+      }
+    },
+    {
+      "name": "iter17_item18_metric_matches_lockbox",
+      "passed": true,
+      "evidence": {
+        "item": 18,
+        "status": "iter17_reportable_per_item_win",
+        "variant": "hy_residual_item_v2",
+        "ccc": 0.4858,
+        "ccc_std": 0.0204,
+        "mae": 0.887,
+        "n": 93,
+        "source_artifact": "results/lockbox_peritem_iter17_combined_20260503_221544.json",
+        "individual_lockbox_artifact": "results/lockbox_peritem_18_iter17hyp_hy_residual_item_v2_20260503_221544.json",
+        "claim_scope": "supplementary_per_item_lockbox_win_not_t1_t3_composite_update",
+        "caveat": "Reportable as a supplementary per-item win only. It does not update canonical T1/T3 composites; the T3 per-item composite route is dead from variance compounding.",
+        "baseline_ccc": 0.25,
+        "delta_vs_baseline": 0.2358,
+        "historical_iter8_metric": {
+          "variant": "hy_residual_item",
+          "ccc": 0.46290000000000003,
+          "mae": 0.8902333333333333,
+          "source_artifact": "results/peritem_lockbox_summary_20260430_143044.csv"
+        }
+      }
+    },
+    {
+      "name": "canonical_t1_sum_is_current_composite",
+      "passed": true,
+      "evidence": {
+        "ccc": 0.655,
+        "mae": 1.5614,
+        "n": 94
+      }
+    },
+    {
+      "name": "t3_per_item_sum_is_historical_dead_route",
+      "passed": true,
+      "evidence": {
+        "n": 94,
+        "ccc": 0.2646,
+        "cal_slope": 0.1691,
+        "mae": 7.4819,
+        "r": 0.3209,
+        "pred_mean": 23.786,
+        "pred_std": 4.96,
+        "true_mean": 23.596,
+        "true_std": 9.415,
+        "label": "",
+        "items_used": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18
+        ],
+        "n_items": 18
+      }
+    },
+    {
+      "name": "all_source_artifacts_exist",
+      "passed": true,
+      "evidence": {
+        "missing": []
+      }
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "results/lockbox_peritem_10_item_plus_v2_20260430_143044.json",
+      "exists": true,
+      "bytes": 1064
+    },
+    {
+      "path": "results/lockbox_peritem_11_item_dedicated_20260430_143044.json",
+      "exists": true,
+      "bytes": 1068
+    },
+    {
+      "path": "results/lockbox_peritem_12_item_plus_v2_20260430_143044.json",
+      "exists": true,
+      "bytes": 1037
+    },
+    {
+      "path": "results/lockbox_peritem_13_item_plus_v2_20260430_143044.json",
+      "exists": true,
+      "bytes": 1064
+    },
+    {
+      "path": "results/lockbox_peritem_14_item_plus_v2_20260430_143044.json",
+      "exists": true,
+      "bytes": 1064
+    },
+    {
+      "path": "results/lockbox_peritem_15_iter17hyp_item_only_20260503_221544.json",
+      "exists": true,
+      "bytes": 477
+    },
+    {
+      "path": "results/lockbox_peritem_16_lr_multitask_20260430_143044.json",
+      "exists": true,
+      "bytes": 1065
+    },
+    {
+      "path": "results/lockbox_peritem_17_v2_baseline_20260430_143044.json",
+      "exists": true,
+      "bytes": 1064
+    },
+    {
+      "path": "results/lockbox_peritem_18_iter17hyp_hy_residual_item_v2_20260503_221544.json",
+      "exists": true,
+      "bytes": 480
+    },
+    {
+      "path": "results/lockbox_peritem_4_v2_baseline_20260430_143044.json",
+      "exists": true,
+      "bytes": 1062
+    },
+    {
+      "path": "results/lockbox_peritem_5_v2_baseline_20260430_143044.json",
+      "exists": true,
+      "bytes": 1051
+    },
+    {
+      "path": "results/lockbox_peritem_6_lr_multitask_20260430_143044.json",
+      "exists": true,
+      "bytes": 1072
+    },
+    {
+      "path": "results/lockbox_peritem_7_item_plus_v2_20260430_143044.json",
+      "exists": true,
+      "bytes": 1063
+    },
+    {
+      "path": "results/lockbox_peritem_8_item_plus_v2_20260430_143044.json",
+      "exists": true,
+      "bytes": 1063
+    },
+    {
+      "path": "results/lockbox_peritem_9_hy_residual_item_20260430_143044.json",
+      "exists": true,
+      "bytes": 1067
+    },
+    {
+      "path": "results/lockbox_peritem_iter17_combined_20260503_221544.json",
+      "exists": true,
+      "bytes": 1334
+    },
+    {
+      "path": "results/peritem_composite_20260430_143044.json",
+      "exists": true,
+      "bytes": 6920
+    },
+    {
+      "path": "results/peritem_lockbox_summary_20260430_143044.csv",
+      "exists": true,
+      "bytes": 1714
+    },
+    {
+      "path": "results/peritem_t3_backfill_winners.json",
+      "exists": true,
+      "bytes": 68
+    },
+    {
+      "path": "results/preregistration_peritem_iter17_20260503_221544.json",
+      "exists": true,
+      "bytes": 2397
+    },
+    {
+      "path": "results/t1_iter12_honest_composite.json",
+      "exists": true,
+      "bytes": 5772
+    }
+  ],
+  "missing_artifacts": [],
+  "next_action": "Do not launch another WearGait-only per-item composite. Use this map for manuscript and handoff evidence; new composite claims require new data or a genuinely new target representation."
+}

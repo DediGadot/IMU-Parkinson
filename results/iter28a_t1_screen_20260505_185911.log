@@ -1,0 +1,70 @@
+
+=== T1 iter28-A SCREEN (5-fold, feature_set=A3_tier1, time_limit=180s, 3 seeds, 4 workers) ===
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+	Warning: Model has no time left to train, skipping model... (Time Left = -0.0s)
+	Warning: Model has no time left to train, skipping model... (Time Left = -0.0s)
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+  seed=42: AG-T1 CCC=0.6566 | iter5-direct-T1 CCC=0.6579 | Δ=-0.0013 | MAE=1.641 | r=0.6689 | slope=0.812 | Q1res=+1.62 Q4res=-1.42 | 370.3s
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+	Warning: Model has no time left to train, skipping model... (Time Left = -0.1s)
+  seed=1337: AG-T1 CCC=0.6194 | iter5-direct-T1 CCC=0.6773 | Δ=-0.0579 | MAE=1.681 | r=0.6377 | slope=0.813 | Q1res=+1.67 Q4res=-1.49 | 370.8s
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+Will use sequential fold fitting strategy because import of ray failed. Reason: ray is required to train folds in parallel for TabularPredictor or HPO for MultiModalPredictor. A quick tip is to install via `pip install "ray>=2.43.0,<2.53.0"`
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+	Warning: Model has no time left to train, skipping model... (Time Left = -0.1s)
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+DyStack: Disabling memory safe fit mode in DyStack because GPUs were detected and num_gpus='auto' (GPUs cannot be used in memory safe fit mode). If you want to use memory safe fit mode, manually set `num_gpus=0`.
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.5.0`. 
+	Warning: Model has no time left to train, skipping model... (Time Left = -0.1s)
+  seed=7: AG-T1 CCC=0.6029 | iter5-direct-T1 CCC=0.6364 | Δ=-0.0335 | MAE=1.725 | r=0.6152 | slope=0.752 | Q1res=+1.61 Q4res=-1.42 | 371.3s
+
+Mean AG-T1 CCC = 0.6263 ± 0.0275; Mean iter5-direct-T1 CCC = 0.6572 ± 0.0205; Δ̄ = -0.0309
+Wrote /root/pd-imu/results/iter28a_t1_autogluon_5fold_20260505_191822.csv

@@ -1,0 +1,47 @@
+
+=== 5-FOLD CONFIRMATION ===
+  seed=42: mt=0.7049 | i5=0.6579 | Δ=+0.0470
+  seed=1337: mt=0.7061 | i5=0.6773 | Δ=+0.0288
+  seed=7: mt=0.7146 | i5=0.6364 | Δ=+0.0782
+
+=== SCRAMBLED-LABEL NULL GATE (5-fold) ===
+  seed=42: mt_scram=+0.0989 | i5_scram=+0.1797  (expect ≈ 0)
+  seed=1337: mt_scram=-0.1508 | i5_scram=-0.2129  (expect ≈ 0)
+  seed=7: mt_scram=-0.1716 | i5_scram=-0.0987  (expect ≈ 0)
+
+=== LOOCV (CRITICAL — F58 says 5-fold Pearson r overestimates LOOCV lift) ===
+    seed=42 fold 10/94
+    seed=42 fold 20/94
+    seed=42 fold 30/94
+    seed=42 fold 40/94
+    seed=42 fold 50/94
+    seed=42 fold 60/94
+    seed=42 fold 70/94
+    seed=42 fold 80/94
+    seed=42 fold 90/94
+  seed=42: mt=0.7099 | i5=0.6698 | Δ=+0.0401 | 1114s
+    seed=1337 fold 10/94
+    seed=1337 fold 20/94
+    seed=1337 fold 30/94
+    seed=1337 fold 40/94
+    seed=1337 fold 50/94
+    seed=1337 fold 60/94
+    seed=1337 fold 70/94
+    seed=1337 fold 80/94
+    seed=1337 fold 90/94
+  seed=1337: mt=0.7065 | i5=0.6602 | Δ=+0.0462 | 1116s
+    seed=7 fold 10/94
+    seed=7 fold 20/94
+    seed=7 fold 30/94
+    seed=7 fold 40/94
+    seed=7 fold 50/94
+    seed=7 fold 60/94
+    seed=7 fold 70/94
+    seed=7 fold 80/94
+    seed=7 fold 90/94
+  seed=7: mt=0.7086 | i5=0.6688 | Δ=+0.0397 | 1181s
+
+  3-seed-mean: mt=0.7087 | i5=0.6709 | Δ=+0.0377
+  Bootstrap (n=5000): mean Δ=+0.0396, 95% CI=[-0.0292, +0.1191], frac>0=0.852, frac>0.025=0.630
+
+Wrote /root/pd-imu/results/iter29b_validate_20260505_203611.json

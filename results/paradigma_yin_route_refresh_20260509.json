@@ -1,0 +1,54 @@
+{
+  "created_at_utc": "2026-05-09T10:46:19Z",
+  "routes": [
+    {
+      "name": "ParaDigMa open PD digital biomarker toolbox",
+      "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+      "status": "local_feature_addition_dead_at_n94",
+      "type": "open_software_toolbox",
+      "direct_t1_t3_eligible": false,
+      "code_available": true,
+      "data_available": false,
+      "rationale": [
+        "ParaDigMa is a feature-extraction toolbox (arm swing, tremor, pulse rate from wrist IMU), not a new labeled cohort.",
+        "Applying it to WearGait would constitute a local scalar handcrafted feature addition.",
+        "The repo explicitly closes handcrafted scalar feature additions at N=94 (iter14 FoG-summary scalars NULL on items 9, 12).",
+        "T3 IMU feature additions to the iter5 clinical-augmented architecture are also dead (iter6 unsigned-asymmetry NULL, iter6 event-axial NULL).",
+        "verify_current_goal_state.py records '0 local model actions remain'.",
+        "No orthogonal advantage over already-dead local routes; the N=94 wall is structural (K=500 absorption or gate failure)."
+      ],
+      "sources": [
+        "https://github.com/biomarkersParkinson/paradigma",
+        "https://doi.org/10.21105/joss.09502",
+        "https://doi.org/10.5281/zenodo.19207320"
+      ]
+    },
+    {
+      "name": "Yin et al Frontiers Neurology 2025 gait-parameter regression",
+      "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+      "status": "request_only_underpowered_no_public_schema",
+      "type": "paper_with_request_only_data",
+      "n_pd": 20,
+      "n_hc": 17,
+      "direct_t1_t3_eligible": false,
+      "code_available": false,
+      "data_available": false,
+      "rationale": [
+        "Raw data is available by author request only. Repo constraint: no scaffold before data/schema for request-only routes.",
+        "N=20 PD is below the external augmentation variance floor.",
+        "Stronger public routes already tested and failed to advance internal canonicals: FoG-STAR N=22 (iter38 augmentation gate FAIL), COPS N=62 (iter49 partial external validity only).",
+        "Input 'gait parameters' are plantar flexion/dorsiflexion angles, stride length, foot clearance, velocity, cadence — likely motion-capture or instrumented-walkway derived, not WearGait-aligned raw wearable IMU.",
+        "Small-N LOOCV R2 of 0.675 is not directly comparable to the repo's inductive CCC metric; no fold-clean replication path exists without raw data and schema."
+      ],
+      "sources": [
+        "https://www.frontiersin.org/journals/neurology/articles/10.3389/fneur.2025.1527020/full",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12435819/"
+      ]
+    }
+  ],
+  "consults": {
+    "kimi": "document_only_for_both; ParaDigMa is dead local feature fishing, Yin is request-only and underpowered",
+    "claude": "failed_credit_balance_too_low",
+    "glmcode": "not_found_on_path"
+  }
+}

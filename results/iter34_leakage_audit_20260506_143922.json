@@ -1,0 +1,124 @@
+{
+  "timestamp": "2026-05-06T14:31:20.026422",
+  "n": 93,
+  "seed": 42,
+  "formula_sha256": "7d1c1fca0cc0e143b32056b5a77925f65fed6e6ba443e72afe4c7e28e56bab87",
+  "audit_spec": {
+    "experiment": "T1 iter34 HYBRID leakage audit (8-item \u00d7 3-base)",
+    "purpose": "Replicate F65 5-null gate against iter34 architecture",
+    "cohort_n": 93,
+    "fold_protocol": "5-fold KFold shuffle=True random_state=42",
+    "n_seeds": 1,
+    "seed": 42,
+    "stage1": "Ridge on H&Y + cv_yrs + cv_sex + cv_dbs (A3_tier1, alpha=1.0)",
+    "stage2_bases": [
+      "lgb",
+      "xgb",
+      "et"
+    ],
+    "stage2_chain_targets": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      18
+    ],
+    "stage2_t1_sum_items": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "stage2_aux_items": [
+      15,
+      18
+    ],
+    "k_features": 500,
+    "fold_local_helpers": [
+      "run_t3_iter2.impute_fold",
+      "run_t3_iter2.feature_select_fold",
+      "run_t3_iter5_clinical.fit_stage1",
+      "sklearn.multioutput.RegressorChain.fit/predict"
+    ],
+    "probes": [
+      "P0 baseline 5-fold replication",
+      "P1 10-permutation y+items scramble distribution",
+      "P2 noisy test X canary",
+      "P3 Stage1-only baseline decomposition",
+      "P4 pure noise X full cohort",
+      "P5 single-base (LGB-only) ablation"
+    ],
+    "pass_criteria": {
+      "P1": "|perm_mean| <= 0.10 AND perm_max <= 0.30",
+      "P2": "|ccc_p2 - ccc_stage1_only| <= 0.05",
+      "P4": "|ccc_p4 - ccc_stage1_only| <= 0.05",
+      "P5": "descriptive only \u2014 should be near baseline"
+    }
+  },
+  "iter34_loocv_anchor": 0.7366,
+  "P0_baseline": {
+    "ccc": 0.6985541975496489
+  },
+  "P3_stage1_only": {
+    "ccc": 0.5100201366339613
+  },
+  "stage2_contribution_5fold": 0.18853406091568758,
+  "P1_perm_distribution": {
+    "perm_seeds": [
+      123,
+      456,
+      789,
+      1011,
+      1213,
+      1415,
+      1617,
+      1819,
+      2021,
+      2223
+    ],
+    "perm_cccs": [
+      -0.001302526040290076,
+      0.16033489559883743,
+      -0.1746647769444282,
+      -0.08554244267201641,
+      0.028010275707083688,
+      0.05004191263431013,
+      -0.2720420429437015,
+      -0.14398094045000184,
+      0.18817671772057726,
+      -0.12834238224220418
+    ],
+    "perm_mean": -0.037931130963183374,
+    "perm_std": 0.14108683823854246,
+    "perm_min": -0.2720420429437015,
+    "perm_max": 0.18817671772057726,
+    "z_score_baseline_above_null": 5.220085287244301
+  },
+  "P2_noisy_test_x": {
+    "ccc": 0.4446380378575293,
+    "delta_vs_stage1_only": -0.06538209877643197
+  },
+  "P4_pure_noise_X": {
+    "ccc": 0.5292959716877164,
+    "delta_vs_stage1_only": 0.019275835053755075
+  },
+  "P5_lgb_only_chain": {
+    "ccc": 0.6854121070130174,
+    "ensemble_lift_vs_3base": 0.013142090536631512
+  },
+  "verdict": {
+    "P1_pass": true,
+    "P2_pass": false,
+    "P4_pass": true,
+    "all_pass": false,
+    "stage2_lift_5fold": 0.18853406091568758,
+    "ensemble_lift_vs_lgb_only": 0.013142090536631512,
+    "wall_time_total_s": 482.7407560348511,
+    "verdict_line": "iter34 CCC=0.7366 is leakage-suspect (one or more probes failed)"
+  }
+}
