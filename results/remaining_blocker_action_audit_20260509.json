@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-05-09T12:40:27+00:00",
+  "generated_at_utc": "2026-05-10T13:22:11+00:00",
   "script": "audit_remaining_blocker_actions.py",
   "source": "results/current_goal_state_verification_20260508.json",
-  "source_current_state_verified": true,
+  "source_current_state_verified": false,
   "source_goal_complete": false,
   "source_blocker_count": 36,
   "policy": "Every current blocker must map to a non-redundant next-action boundary. A new WearGait-only model or lockbox is allowed only if a blocker is classified as local_model_action_allowed; the current audit expects zero.",

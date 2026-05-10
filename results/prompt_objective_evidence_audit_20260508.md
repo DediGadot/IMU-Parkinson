@@ -1,4 +1,4 @@
-# Prompt Objective Evidence Audit — 2026-05-08
+# Prompt Objective Evidence Audit — 2026-05-09
 
 Goal complete: `false`
 
@@ -9,7 +9,7 @@ Goal complete: `false`
 | Act slowly/analytically and follow repo leakage discipline | covered | files=['task_plan.md', 'AGENTS.md'] |
 | Use web search / current SOTA context | covered | files=['findings.md', 'results/external_dataset_route_audit_20260508.md'] |
 | Use Kimi, Claude, GLMCode, and Gemini where available | covered_with_tool_friction | tool_paths={'kimi': '/home/fiod/.local/bin/kimi', 'claude': '/home/fiod/.local/bin/claude', 'glmcode': None, 'gemini': '/usr/bin/gemini'}; persisted_evidence=thread_goal_completion_audit_20260508.md records Kimi/Gemini use plus Claude low-credit and glmcode unavailable. |
-| Use remote server and inspect utilization | covered | remote_status={'cmd': ['./gpu.sh', '--status'], 'returncode': 0, 'output_tail': 'Sat May  9 15:40:28 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 590.57                 Driver Version: 591.86         CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp    |
+| Use remote server and inspect utilization | covered | remote_status={'cmd': ['./gpu.sh', '--status'], 'returncode': 0, 'output_tail': 'Sun May 10 16:22:12 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 590.57                 Driver Version: 591.86         CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp    |
 | Create logs/visualizations of the best T1 and T3 pipelines | covered | t1_missing=[]; t3_missing=[]; dashboard=results/current_best_pipeline_dashboard.html |
 | Keep artifact, claim-labeling, and reproducibility guards current | covered | dashboard_artifacts=336; dashboard_missing=[]; paper_export={'status': 'passed', 'validation_issues': []}; canonical_claim_consistency={'passed': True, 'stale_findings': 0}; metric_recompute={'passed': True, 'checks': 9}; ccc_metric_integrity={'passed': True, 'headline_checks': 7, 'implementation_checks': 7, 'max_abs_sample_minus_population_headline': 2.7023203458265144e-06, 'warnings': [{'id': 'degenerate_n2_policy_returns_zero', 'message': 'Shared helpers intentionally return 0.0 for fewer tha |
 | Sit with the data and derive methodology fixes | covered | t1_aux_validrange={'primary_t1_target_valid': True, 'invalid_auxiliary_items': [{'sid': 'NLS036', 'item': 15, 'value': 18.0, 'valid_min': 0.0, 'valid_max': 8.0, 'subparts': {"(15, 'a')": 9.0, "(15, 'b')": 9.0}}]}; t1_aux_order={'order_summary': {'iter34_lockbox_seeds': [42, 1337, 7], 'iter34_lockbox_seeds_with_item15_upstream_of_any_t1': [7, 1337], 'iter34_lockbox_seed_count_with_exposure': 2, 'iter34_lockbox_seed_count': 3, 'iter46_decomp_seed_count_with_exposure': 4, 'iter46_decomp_seed_count' |
@@ -28,11 +28,14 @@ Goal complete: `false`
 - Zenodo `14848598` is closed as a no-preregistration/no-download derived multimodal benchmark: it has CSF/clinical/gait-summary tables rather than raw wearable IMU or auditable T1/T3 subject alignment.
 - Fay-Karmon advanced-PD smartwatch monitoring and the Sensors marital-dyad GeneActiv actigraphy study are closed as request-only/access-request rows: both are small-N and schema-hidden, and neither justifies a scaffold or remote job before author approval.
 - Personalized Parkinson Project / PD-VME is added to the gated Verily-watch queue, but remains RDSRC-gated and schema-hidden; no scaffold or remote job is justified before access.
+- Recent post-tracker web leads are closed as no-compute: Smid 2026 is tremor-subitem-only, Guo 2025 PDAssist is smartphone-protocol/schema-hidden, and Yin 2025 was already audited as request-only N=20.
 
 ## Remaining Non-Redundant Actions
 
-- Remaining blocker action audit classifies all 35 current blockers with `0` local WearGait-only model actions remaining; access-gated data and raw-data restoration are prerequisites, not model-run instructions.
+- Remaining blocker action audit classifies all 36 current blockers with `0` local WearGait-only model actions remaining; access-gated data and raw-data restoration are prerequisites, not model-run instructions.
 - External access readiness audit passes with `6` access/request packets ready and `0` compute-ready routes before approval.
+- Access submission tracker passes with `6` submit-ready packets and `0` compute-ready routes; completed packets and protected details must stay out of git.
+- Recent external web-lead refresh found `0` compute-ready routes and `0` scaffold/pre-registration actions; stop external prospecting until an access route is approved.
 - WearGait raw-data recovery runbook audit passes and records `raw_data_recovery_runbook_ready_no_download`; user credentials and explicit large-transfer confirmation are still required before any recovery command.
 - Task-plan current-scope audit passes with `task_plan_current_scope_guard_passed`; post-iter47 completion criteria are active and old success-tier thresholds are archive-bound.
 - Paper generator routing audit passes with `current_paper_renderer_route_guard_passed`; current manuscript work routes through `render_current_paper.py` / `CURRENT_PAPER.html`, while `generate_paper_v4.py` / `NEW4.html` are legacy/stale archaeology only.

@@ -5432,3 +5432,46 @@ No T1/T3 metric changed and the active ceiling-break goal remains incomplete.
 **Decision:** The ICICLE access action is now locally executable as a fillable Newcastle investigator request packet, but still requires data-owner approval. No scaffold, preregistration, download, remote job, cache extraction, schema probe, or model run is allowed before approval and row-level schema inspection. Daily rows with repeated visit-level Part III labels must be grouped and aggregated before reported CCC/MAE, and test-data median imputation is prohibited.
 
 No T1/T3 metric changed and the active ceiling-break goal remains incomplete.
+
+## F-iter54-item13-axial-only-screen-20260509 — Item-13 posture-only axial-orientation screen, marginal-positive but gate-fail at strict 5-fold
+
+**Trigger:** User chose "Item-13 raw-22ch item-only probe" from /pd-imu-100x-researcher prompt to maximize new-server idle GPU. Skill's open-angle list explicitly identified item-13-isolated retry with hy-residual rescue as untried. F30 (iter7) had moved item 13 from 0.091 → 0.157 5-fold (+0.066) in the joint sum context but was offset by item 11 regression at the joint level — item-13-isolated never run.
+
+**Pre-reg:** `results/preregistration_t1_item13_postureonly_20260509_184547.json`, formula_sha256 `0967943cc4373934405e4ab9340b5395274eb7dffdf3c46dc13553f85ba74c69`. Master + remote bytewise identical (1658 B). Family scope: item-13 per-item lockbox class, **explicitly NOT joining the closed T1-sum iter34 FWER family (n=7)**. N=94 PD canonical filter.
+
+**Cache:** Re-extracted `axial_orientation_features.csv` from 793 raw 22-ch CSVs on new server `fiod@165.22.71.91:2243` (RTX 4060), 36 s wall, 100 subjects × 30 axial features (LowerBack/Xiphoid/Forehead Euler RPY + FreeAcc ENU), pitch_mean coverage 99.67 %. Manifest sidecar written (label-free, fold_scope=global, source_artifacts traced).
+
+**Three variants tested (5-fold × 3 seeds [42, 1337, 7], 17.1 s wall):**
+
+| Variant | CCC ± std | Δ vs session 5-fold baseline | Δ vs canonical LOOCV (0.1169) | frac>0 (5000 boot) | Nulls (sc/can/trans) | Gate |
+|---|---|---|---|---|---|---|
+| `axial_only_item13` | 0.1684 ± 0.0258 | +0.009 | +0.052 | 0.534 | 0.011 / -0.059 / 0.999 | FAIL |
+| `hy_residual_axial_item13` | **0.2059 ± 0.0257** | **+0.046** | **+0.089** | 0.705 | 0.011 / -0.059 / 0.999 | FAIL (just below +0.05 mean & std<0.020) |
+| `item_plus_v2_plus_axial_item13` | 0.1469 ± 0.0155 | -0.013 | +0.030 | 0.308 | 0.013 / **0.194** / 1.000 | FAIL (F44 absorption confirmed) |
+
+**Mechanism reads:**
+
+1. **F44 K=500 absorption confirmed at item-13 level.** The joint-pool variant (`item_plus_v2_plus_axial_item13`) goes BELOW baseline — Δ=-0.013, frac>0=0.308. The 30 axial features get crushed in the ~3000-col joint pool by per-fold K=500 LGB-importance selection. Same mechanism class as F19 sensor-fusion, F14 FoG-summary, iter6 IMU additions. Canary leak (0.194) on this variant suggests the K=500 selector is also pulling spurious test-fold signal — a quiet selection-leakage signal.
+2. **Hypothesis-restricted variants bypass K=500 as predicted by `feedback_hypothesis_restricted_bypasses_k500.md`.** axial-only and hy_residual_axial both clear scrambled/canary nulls (≈0). hy_residual_axial replicates iter7's F30 pattern (+0.066 5-fold then; +0.046 5-fold now over a higher session baseline of 0.160 vs iter6's 0.091).
+3. **Gate failure mode is variance, not effect size.** seed std≈0.026 across only 3 seeds at item-level 5-fold N=94 is intrinsically wider than the canonical LOOCV std=0.0017 in the per-item evidence map. Item-level 5-fold variance ceiling at this N exceeds the strict +0.05 / std<0.020 promotion gate even when a real effect is present.
+
+**FWER discipline:** Per skill protocol, this is **NOT promoted to LOOCV** despite the +0.046 5-fold lift, because the 5-fold gate explicitly fails on both axes (Δ̄ < +0.05; std ≥ 0.020). Promoting on a failed screen would be selection leakage. Per `feedback_iter33_council_multiple_comparisons.md`, adding seeds after seeing the screen metric is also leakage.
+
+**Don't retry:**
+- `item_plus_v2_plus_axial` at this N (F44 absorption + selection-leakage canary; mechanism falsified).
+- 7-seed expansion of hy_residual_axial after seeing the 3-seed result (selection leakage per F33 council).
+- Wider axial-feature blocks (more sensors / window combinations) — variance ceiling will still dominate.
+- Direct LOOCV without a fresh, broader-seed pre-registered screen passing.
+
+**What this adds to the wall:** 16th wall data point under N=94 detectability ceiling, 8th probe-strategy class (item-level isolated probe with hypothesis-restricted bypass). Same structural ceiling as F36-D (Δ̄=+0.008 frac>0=0.925 — also gate-failed near-positive). Reinforces the cautionary-benchmark narrative: at N=94, even orthogonal architectural angles with confirmed signal cannot reliably clear 5-fold gates because seed variance at 5-fold dominates.
+
+**Scope guard:** This is the iter7 F30 finding refined and audit-clean — item-13-isolated with proper firewall. Counts as **partial replication** of iter7's positive item-13 lift, formally cataloged for the paper supplementary, NOT a canonical claim update.
+
+**Artifacts:**
+- `cache_axial_orientation_features.py` (DATA_DIR default updated to `/home/fiod/pd-imu/...`; manifest sidecar generation added)
+- `results/axial_orientation_features.csv` + `.manifest.json`
+- `run_t1_item13_postureonly_screen.py`
+- `results/preregistration_t1_item13_postureonly_20260509_184547.json`
+- `results/screen_t1_item13_postureonly_20260509_184547.json`
+
+No T1, T3, or canonical per-item metric changed. Wall is structural at this N.

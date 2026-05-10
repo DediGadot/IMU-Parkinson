@@ -1,0 +1,23 @@
+{
+  "script": "cache_axial_orientation_features.py",
+  "git_sha": "unknown",
+  "command": "cache_axial_orientation_features.py",
+  "created_at_utc": "2026-05-09T18:42:31.626652+00:00",
+  "included_sids_hash": "4abb6b3faf9230359fdf3d4d4c3f3619cb28e16961209a11731c033915eb497d",
+  "n_subjects": 100,
+  "n_features": 30,
+  "labels_used": false,
+  "fold_scope": "global",
+  "cohort_statistics_used": false,
+  "normalization_scope": "raw_per_recording_then_per_subject_mean",
+  "source_artifacts": [
+    "/home/fiod/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files"
+  ],
+  "data_dir_resolved": "/home/fiod/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files",
+  "axial_sensors": [
+    "LowerBack",
+    "Xiphoid",
+    "Forehead"
+  ],
+  "n_recordings_input": 793
+}

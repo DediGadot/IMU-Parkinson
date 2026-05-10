@@ -50,7 +50,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from project_paths import RESULTS_DIR, ensure_dir
 
 # --- Configuration ---
-DATA_DIR = Path(os.environ.get("WEARGAIT_DATA_DIR", "/root/pd-imu/data/raw/weargait-pd"))
+DATA_DIR = Path(os.environ.get("WEARGAIT_DATA_DIR", "/home/fiod/pd-imu/data/raw/weargait-pd"))
 PD_CSV_DIR = DATA_DIR / "PD PARTICIPANTS" / "CSV files"
 
 OUT_PATH = RESULTS_DIR / "axial_orientation_features.csv"
@@ -205,6 +205,39 @@ def main() -> None:
     out_path = Path(args.out)
     agg.to_csv(out_path, index=False)
     print(f"Wrote {agg.shape[0]} rows × {agg.shape[1]} cols → {out_path}")
+
+    # Manifest sidecar: provenance for the inductive firewall
+    import hashlib
+    import json
+    import subprocess
+    from datetime import datetime, timezone
+    sids_sorted = sorted(map(str, agg["sid"].tolist()))
+    sids_hash = hashlib.sha256("|".join(sids_sorted).encode()).hexdigest()
+    try:
+        git_sha = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, text=True).strip()
+    except Exception:
+        git_sha = "unknown"
+    manifest = {
+        "script": "cache_axial_orientation_features.py",
+        "git_sha": git_sha,
+        "command": " ".join(sys.argv),
+        "created_at_utc": datetime.now(timezone.utc).isoformat(),
+        "included_sids_hash": sids_hash,
+        "n_subjects": int(agg.shape[0]),
+        "n_features": int(agg.shape[1] - 1),
+        "labels_used": False,
+        "fold_scope": "global",
+        "cohort_statistics_used": False,
+        "normalization_scope": "raw_per_recording_then_per_subject_mean",
+        "source_artifacts": [str(csv_dir)],
+        "data_dir_resolved": str(csv_dir),
+        "axial_sensors": AXIAL_SENSORS,
+        "n_recordings_input": len(jobs),
+    }
+    manifest_path = out_path.with_suffix(out_path.suffix + ".manifest.json")
+    with manifest_path.open("w") as fh:
+        json.dump(manifest, fh, indent=2)
+    print(f"Manifest → {manifest_path}")
 
 
 if __name__ == "__main__":

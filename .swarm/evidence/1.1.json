@@ -1,7 +1,10 @@
 {
   "taskId": "1.1",
   "required_gates": [
+    "critic",
+    "explorer",
     "reviewer",
+    "sme",
     "test_engineer"
   ],
   "gates": {
@@ -14,6 +17,21 @@
       "sessionId": "ses_22ae4f4e2ffeIDmnESvWGT7CPo",
       "timestamp": "2026-04-28T18:51:29.514Z",
       "agent": "test_engineer"
+    },
+    "sme": {
+      "sessionId": "ses_1f339f94dffeUHQC3pETCX5Nyc",
+      "timestamp": "2026-05-09T12:51:19.750Z",
+      "agent": "sme"
+    },
+    "explorer": {
+      "sessionId": "ses_1f339f94dffeUHQC3pETCX5Nyc",
+      "timestamp": "2026-05-09T12:51:23.159Z",
+      "agent": "explorer"
+    },
+    "critic": {
+      "sessionId": "ses_1f339f94dffeUHQC3pETCX5Nyc",
+      "timestamp": "2026-05-09T12:51:59.655Z",
+      "agent": "critic"
     }
   }
 }

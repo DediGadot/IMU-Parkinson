@@ -1,5 +1,5 @@
 {
-  "created_at_utc": "2026-05-09T12:40:28+00:00",
+  "created_at_utc": "2026-05-10T13:22:13+00:00",
   "objective": "Act as a careful researcher; use web/CLI/remote evidence; inspect data; find methodology bugs; and try to break T1/T3 CCC ceilings.",
   "checks": [
     {
@@ -49,7 +49,7 @@
             "--status"
           ],
           "returncode": 0,
-          "output_tail": "Sat May  9 15:40:28 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 590.57                 Driver Version: 591.86         CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 4060        On  |   00000000:01:00.0 Off |                  N/A |\n|  0%   42C    P8            N/A  /  115W |     724MiB /   8188MiB |      1%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A             442      G   /Xwayland                             N/A      |\n+-----------------------------------------------------------------------------------------+\n\nno jobs running\n"
+          "output_tail": "Sun May 10 16:22:12 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 590.57                 Driver Version: 591.86         CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 4060        On  |   00000000:01:00.0 Off |                  N/A |\n|  0%   44C    P8            N/A  /  115W |     753MiB /   8188MiB |      1%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A             442      G   /Xwayland                             N/A      |\n+-----------------------------------------------------------------------------------------+\n\nno jobs running\n"
         }
       }
     },
@@ -160,6 +160,34 @@
           "top_priority_route": "PPMI / Verily Study Watch",
           "hard_failure_count": 0
         },
+        "access_submission_tracker": {
+          "passed": true,
+          "submit_ready_route_count": 6,
+          "compute_ready_route_count": 0,
+          "hard_failure_count": 0,
+          "top_priority_route": "PPMI / Verily Study Watch",
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ]
+        },
+        "recent_external_web_leads": {
+          "routes_checked": 3,
+          "new_compute_ready_routes": 0,
+          "new_scaffold_or_preregistration_actions": 0,
+          "master_routes_changed": [
+            "Perioperative MDS-UPDRS-III tremor accelerometry / Smid 2026",
+            "PDAssist de novo smartphone UPDRS Part III / Guo 2025"
+          ],
+          "already_present_routes": [
+            "Yin et al Frontiers Neurology 2025 gait-parameter regression"
+          ]
+        },
         "weargait_raw_data_recovery_runbook": {
           "passed": true,
           "decision": "raw_data_recovery_runbook_ready_no_download",
@@ -222,7 +250,7 @@
           "passed": true,
           "decision": "current_paper_renderer_route_guard_passed",
           "hard_failures": 0,
-          "active_doc_count": 8,
+          "active_doc_count": 9,
           "legacy_new4_transductive_hits": 17
         },
         "readme_claim_routing": {
@@ -1431,7 +1459,7 @@
     },
     {
       "requirement": "Evaluate public external routes and avoid dead-end repeats",
-      "passed": true,
+      "passed": false,
       "status": "covered",
       "evidence": {
         "missing": [],
@@ -1528,6 +1556,92 @@
             "results/paradigma_yin_route_refresh_20260509.json",
             "results/paradigma_yin_route_refresh_20260509.md"
           ]
+        },
+        "recent_external_web_leads": {
+          "routes_checked": 3,
+          "new_compute_ready_routes": 0,
+          "new_scaffold_or_preregistration_actions": 0,
+          "master_routes_changed": [
+            "Perioperative MDS-UPDRS-III tremor accelerometry / Smid 2026",
+            "PDAssist de novo smartphone UPDRS Part III / Guo 2025"
+          ],
+          "already_present_routes": [
+            "Yin et al Frontiers Neurology 2025 gait-parameter regression"
+          ]
+        },
+        "smid_tremor": {
+          "route": {
+            "name": "Perioperative MDS-UPDRS-III tremor accelerometry / Smid 2026",
+            "access_status": "paper_only_no_public_row_level_data_found",
+            "label": "MDS-UPDRS-III tremor items 3.15-3.18 only",
+            "modality": "wired tri-axial index-finger accelerometers at 200 Hz during 10-second tremor tasks",
+            "direct_t1_t3_eligible": false,
+            "status": "document_only_tremor_subitems_no_t1_t3_endpoint",
+            "n_pd": 64,
+            "n_controls": 64,
+            "sources": [
+              "https://link.springer.com/article/10.1007/s00702-026-03132-0"
+            ],
+            "verdict": "document_only_no_scaffold_no_preregistration_no_remote_job: The endpoint is tremor subitems 3.15-3.18, not T1 items 9-14 or total MDS-UPDRS Part III. Sensors are index-finger accelerometers in a perioperative seated tremor protocol, not WearGait-aligned wrist/lower-back gait or balance data. Thresholds use healthy-control accelerometry; that is useful method context but not a fold-clean WearGait deployment route. No public row-level data or reusable schema was visible from the opened article page."
+          },
+          "refresh": {
+            "name": "Perioperative MDS-UPDRS-III tremor accelerometry / Smid 2026",
+            "access_status": "paper_only_no_public_row_level_data_found",
+            "label": "MDS-UPDRS-III tremor items 3.15-3.18 only",
+            "modality": "wired tri-axial index-finger accelerometers at 200 Hz during 10-second tremor tasks",
+            "direct_t1_t3_eligible": false,
+            "status": "document_only_tremor_subitems_no_t1_t3_endpoint",
+            "n_pd": 64,
+            "n_controls": 64,
+            "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+            "rationale": [
+              "The endpoint is tremor subitems 3.15-3.18, not T1 items 9-14 or total MDS-UPDRS Part III.",
+              "Sensors are index-finger accelerometers in a perioperative seated tremor protocol, not WearGait-aligned wrist/lower-back gait or balance data.",
+              "Thresholds use healthy-control accelerometry; that is useful method context but not a fold-clean WearGait deployment route.",
+              "No public row-level data or reusable schema was visible from the opened article page."
+            ],
+            "sources": [
+              "https://link.springer.com/article/10.1007/s00702-026-03132-0"
+            ]
+          }
+        },
+        "pdassist": {
+          "route": {
+            "name": "PDAssist de novo smartphone UPDRS Part III / Guo 2025",
+            "access_status": "article_data_available_statement_but_no_public_row_level_schema_seen",
+            "label": "UPDRS Part III total and task/subitem scores in untreated de novo PD",
+            "modality": "smartphone accelerometer/gyroscope/touchscreen/camera/microphone tasks",
+            "direct_t1_t3_eligible": false,
+            "potential_external_t3_if_access_and_schema_approved": true,
+            "status": "document_only_smartphone_protocol_not_weargait_aligned",
+            "n_pd": 282,
+            "n_controls": 110,
+            "sources": [
+              "https://journals.sagepub.com/doi/10.1177/1877718X251359494"
+            ],
+            "verdict": "document_only_no_scaffold_no_preregistration_no_remote_job: The cohort is larger and clinically interesting, but the modality is smartphone active tasks plus camera/audio rather than wearable IMU comparable to WearGait. The article page says data are available, but no direct row-level public download/schema was visible in the opened evidence. The methods used severity-stratified truncation based on feature correlations with UPDRS-III; that is a methodology warning for leakage-sensitive benchmarking, not a route to reuse. Any future use would need data-owner access plus a fresh protocol and would be external-validity only, not an internal WearGait-PD canonical update."
+          },
+          "refresh": {
+            "name": "PDAssist de novo smartphone UPDRS Part III / Guo 2025",
+            "access_status": "article_data_available_statement_but_no_public_row_level_schema_seen",
+            "label": "UPDRS Part III total and task/subitem scores in untreated de novo PD",
+            "modality": "smartphone accelerometer/gyroscope/touchscreen/camera/microphone tasks",
+            "direct_t1_t3_eligible": false,
+            "potential_external_t3_if_access_and_schema_approved": true,
+            "status": "document_only_smartphone_protocol_not_weargait_aligned",
+            "n_pd": 282,
+            "n_controls": 110,
+            "decision": "document_only_no_scaffold_no_preregistration_no_remote_job",
+            "rationale": [
+              "The cohort is larger and clinically interesting, but the modality is smartphone active tasks plus camera/audio rather than wearable IMU comparable to WearGait.",
+              "The article page says data are available, but no direct row-level public download/schema was visible in the opened evidence.",
+              "The methods used severity-stratified truncation based on feature correlations with UPDRS-III; that is a methodology warning for leakage-sensitive benchmarking, not a route to reuse.",
+              "Any future use would need data-owner access plus a fresh protocol and would be external-validity only, not an internal WearGait-PD canonical update."
+            ],
+            "sources": [
+              "https://journals.sagepub.com/doi/10.1177/1877718X251359494"
+            ]
+          }
         },
         "parkinsonathome": {
           "route": {
@@ -3110,8 +3224,10 @@
     }
   ],
   "next_non_redundant_actions": [
-    "Remaining blocker action audit classifies all 35 current blockers with 0 local WearGait-only model actions remaining.",
+    "Remaining blocker action audit classifies all 36 current blockers with 0 local WearGait-only model actions remaining.",
     "External access readiness audit passes with six access/request packets ready and zero compute-ready routes before approval.",
+    "Access submission tracker passes with six submit-ready packets and zero compute-ready routes; completed packets and protected details must stay out of git.",
+    "Recent external web-lead refresh found zero compute-ready routes and zero scaffold/pre-registration actions; stop external prospecting until an access route is approved.",
     "WearGait raw-data recovery runbook is ready for user-side Synapse credentials and explicit large-transfer confirmation; no download/cache promotion/model run has occurred.",
     "Task-plan current-scope audit passes and keeps post-iter47 completion criteria active while old success-tier thresholds remain archive-bound.",
     "User-side PPMI DUA/application, then read-only schema probe per scripts/ppmi_verily_setup.md.",

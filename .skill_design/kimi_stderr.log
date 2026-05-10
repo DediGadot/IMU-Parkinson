@@ -1,0 +1,16 @@
+COMMAND_REGISTRY alias warnings:
+Multiple aliases point to 'config doctor': config-doctor, doctor
+Multiple aliases point to 'diagnose': diagnosis, health
+[opencode-swarm] WARNING: .swarm/ files are tracked by Git.
+.swarm/ contains local runtime state and may contain sensitive session data.
+Ignoring will not affect already-tracked files. To stop tracking them, run:
+  git rm -r --cached .swarm
+  echo ".swarm/" >> .gitignore
+  git commit -m "Stop tracking opencode-swarm runtime state"
+[0m
+> build · gpt-5.5
+[0m
+[0m→ [0mRead render_current_paper.py[90m [offset=1, limit=220][0m
+[0m→ [0mRead paper.md[90m [offset=1, limit=180][0m
+[0m→ [0mRead results/current_paper_export/manifest.json[90m [offset=1, limit=220][0m
+[0m→ [0mRead .claude/commands/update-paper.md[90m [offset=1, limit=160][0m

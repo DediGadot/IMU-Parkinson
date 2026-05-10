@@ -1,0 +1,186 @@
+{
+  "generated_at_utc": "2026-05-10T11:01:48+00:00",
+  "ledger_sha256": "f64179d61ff8697302b7a39e424c00ae185bdd44d4fca9b99128803ef628c81a",
+  "figures": [
+    {
+      "figure_id": "fig01",
+      "claim_ids_used": [
+        "t1_iter12_honest_loocv_ccc",
+        "t1_iter34_hybrid_loocv_ccc",
+        "t3_iter47_validrange_loocv_ccc",
+        "t3_iter47_validrange_loso_two_way_mean_ccc"
+      ],
+      "annotations": [
+        "T1 SSL CCC=0.868",
+        "T3 SSL CCC=0.776",
+        "Held-out MAE=6.89, r=0.860",
+        "Transductive components flagged",
+        "iter12 honest CCC=0.6550",
+        "iter34 hybrid CCC=0.7366",
+        "iter47 valid-range CCC=0.3784",
+        "iter47 LOSO CCC=0.150"
+      ],
+      "sha256": "36df6755cc3dfc7901c919b28430558a53bacaac4ac0b484a7d84722268e8972",
+      "path": "figures/current/fig01_audit_timeline.png"
+    },
+    {
+      "figure_id": "fig02",
+      "claim_ids_used": [
+        "t1_iter12_honest_loocv_ccc",
+        "t1_iter34_hybrid_loocv_ccc",
+        "t1_iter34_loso_two_way_mean_ccc",
+        "t3_iter47_validrange_loocv_ccc",
+        "t3_iter47_validrange_loso_two_way_mean_ccc",
+        "t3_bound_a_oracle_imu_max",
+        "t3_bound_d_perfect_t1_to_t3",
+        "t3_bound_e_inductive_shrinkage",
+        "t3_iter5_arch_pareto_asymptote"
+      ],
+      "annotations": [
+        "T1 LOOCV (canonical): 0.655",
+        "T1 LOOCV (strongest candidate): 0.737",
+        "T1 LOSO (transportability): 0.456",
+        "T3 LOOCV (canonical): 0.378",
+        "T3 LOSO (transportability): 0.150"
+      ],
+      "sha256": "f711c679c8537ce5536e242867d445262efa9ba57cf8fd2ff53d8f800e0900aa",
+      "path": "figures/current/fig02_observability_ceiling.png"
+    },
+    {
+      "figure_id": "fig03",
+      "claim_ids_used": [
+        "t1_iter34_vs_iter12_paired_delta",
+        "t1_iter34_vs_iter12_frac_above_zero",
+        "t1_iter12_honest_loocv_ccc",
+        "t1_iter34_hybrid_loocv_ccc"
+      ],
+      "annotations": [
+        "\u0394=0.0812",
+        "frac>0=0.9714"
+      ],
+      "sha256": "eae7ad8ba8e2660397e96244b9d3dabb383898c6a8f03fbd5193114c56ce7cf6",
+      "path": "figures/current/fig03_iter34_vs_iter12_paired.png"
+    },
+    {
+      "figure_id": "fig04",
+      "claim_ids_used": [
+        "t1_iter34_hybrid_loocv_ccc",
+        "t1_iter34_loso_two_way_mean_ccc",
+        "t3_iter47_validrange_loocv_ccc",
+        "t3_iter47_validrange_loso_two_way_mean_ccc"
+      ],
+      "annotations": [
+        "T1 iter34 hybrid LOOCV=0.737 LOSO=0.456",
+        "T3 iter47 valid-range LOOCV=0.378 LOSO=0.150"
+      ],
+      "sha256": "078e837ce4dddb0240d7247f5e64794bd64dd3c1b83592d2480ab80f5aed741e",
+      "path": "figures/current/fig04_transportability_cliff.png"
+    },
+    {
+      "figure_id": "fig05",
+      "claim_ids_used": [
+        "t3_iter47_validrange_loocv_ccc",
+        "t3_iter47_validrange_loso_two_way_mean_ccc"
+      ],
+      "annotations": [
+        "iter5 (target-contaminated)=0.5227",
+        "iter16 IPW (target-contaminated)=0.4694",
+        "iter41 (corrected target)=0.3948",
+        "iter47 (valid-range, canonical)=0.3784",
+        "iter47 LOSO (transportability)=0.1500"
+      ],
+      "sha256": "cbf03266b5cbcdb4dc73b15bcc9425fb8cd598b6235a634139d875e65dc50099",
+      "path": "figures/current/fig05_t3_target_hygiene_waterfall.png"
+    },
+    {
+      "figure_id": "fig06",
+      "claim_ids_used": [
+        "t1_iter12_honest_loocv_ccc"
+      ],
+      "annotations": [
+        "item-1 CCC=0.100",
+        "item-2 CCC=0.050",
+        "item-3 CCC=0.080",
+        "item-4 CCC=0.060",
+        "item-5 CCC=0.100",
+        "item-6 CCC=0.070",
+        "item-7 CCC=0.200",
+        "item-8 CCC=0.180",
+        "item-9 CCC=0.400",
+        "item-10 CCC=0.450",
+        "item-11 CCC=0.300",
+        "item-12 CCC=0.500",
+        "item-13 CCC=0.350",
+        "item-14 CCC=0.550",
+        "item-15 CCC=0.110",
+        "item-16 CCC=0.040",
+        "item-17 CCC=0.050",
+        "item-18 CCC=0.490"
+      ],
+      "sha256": "59a800a207a92129f88977bad68fb8e398917a4ff8be10ed1012dd71b349666d",
+      "path": "figures/current/fig06_item_level_observability_map.png"
+    },
+    {
+      "figure_id": "fig07",
+      "claim_ids_used": [
+        "t1_iter34_p2_leakage_verdict"
+      ],
+      "annotations": [
+        "P1 scrambled-label: PASS",
+        "P2 noisy-test (point \u0394): PASS",
+        "P2 noisy-test (boot upper): soft-fail",
+        "P3 SID-shuffle: PASS",
+        "P4 canary-feature: PASS",
+        "P5 library-exclusion: PASS"
+      ],
+      "sha256": "b20be964a1119bdf26a60dfc0655b249ef17c76e2d8e3204d7b3624c4505e785",
+      "path": "figures/current/fig07_leakage_audit_gate_matrix.png"
+    },
+    {
+      "figure_id": "fig08",
+      "claim_ids_used": [
+        "t3_iter5_arch_pareto_asymptote"
+      ],
+      "annotations": [
+        "a=0.5975",
+        "b=2.1308",
+        "c=0.6408"
+      ],
+      "sha256": "0f30707c8f5e99baed2c7c499d2f1344dfc9b39848b22606c129c96c48d201b6",
+      "path": "figures/current/fig08_learning_curve_asymptote.png"
+    },
+    {
+      "figure_id": "fig09",
+      "claim_ids_used": [
+        "t3_iter47_validrange_loocv_ccc"
+      ],
+      "annotations": [
+        "residual r = -0.777"
+      ],
+      "sha256": "b4b7a42b9361e2a38e5620d260fe21cd29c1f837f139af5d7fbfdfc9836986a9",
+      "path": "figures/current/fig09_t3_residual_anatomy.png"
+    },
+    {
+      "figure_id": "fig10",
+      "claim_ids_used": [
+        "t1_iter12_honest_loocv_ccc",
+        "t1_iter34_hybrid_loocv_ccc",
+        "t1_iter34_loso_two_way_mean_ccc",
+        "t3_iter47_validrange_loocv_ccc",
+        "t3_iter47_validrange_loso_two_way_mean_ccc"
+      ],
+      "annotations": [
+        "WearGait T1 LOOCV (canonical)=+0.655 (internal)",
+        "WearGait T1 LOOCV (candidate)=+0.737 (internal)",
+        "WearGait T1 LOSO=+0.456 (between-site)",
+        "PADS Track A3 (zero-shot AUROC)=+0.497 (external)",
+        "PDFE LOOCV sanity (within)=+0.402 (external internal-validity)",
+        "PDFE shank-to-PDFE zero-shot=-0.101 (external zero-shot)",
+        "WearGait T3 LOOCV=+0.378 (internal)",
+        "WearGait T3 LOSO=+0.150 (between-site)"
+      ],
+      "sha256": "c875e2b972d673206912e3652b24dc6df60678fd2de38fadbb817945b0bc66cc",
+      "path": "figures/current/fig10_external_transportability_context.png"
+    }
+  ]
+}

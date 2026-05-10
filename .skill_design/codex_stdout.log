@@ -1,0 +1,394 @@
+warning: `--full-auto` is deprecated; use `--sandbox workspace-write` instead.
+Reading additional input from stdin...
+OpenAI Codex v0.129.0 (research preview)
+--------
+workdir: /home/fiod/medical
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR, /home/fiod/.codex/memories]
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 019e1173-129d-76b1-9b9b-f84ce1490a5a
+--------
+user
+# Paper-Update Skill Redesign Brief
+
+## Project: PD-IMU (UPDRS-III regression on WearGait-PD)
+
+**Repo:** `/home/fiod/medical`
+**Existing legacy skill:** `.claude/commands/update-paper.md` (1267 lines, marked LEGACY PRE-AUDIT, wrong pipeline route NEW.html / generate_paper.py).
+**Authoritative pipeline NOW:**
+- Source of truth: `paper.md` (715 lines markdown, prose-only, no figures yet)
+- Renderer: `render_current_paper.py` -> `CURRENT_PAPER.html` (pandoc gfm->html5, css inject, audit banner)
+- Validation: `results/current_paper_export/manifest.json` with REQUIRED_SNIPPETS (~108 must-appear strings) and FORBIDDEN_STALE_SNIPPETS (~5 must-not-appear strings). Failed validation => SystemExit(1).
+
+## Latest canonical results (must be cited; sourced from MEMORY.md / CLAUDE.md / paper.md)
+
+- **T1 canonical floor:** `compose_t1_iter12_honest.py` LOOCV CCC = 0.6550, MAE = 1.561, N=94 (items 9-14 axial subscore).
+- **T1 strongest candidate:** `run_t1_iter34_hybrid_8item_multibase.py` LOOCV CCC = 0.7366, MAE = 1.731, N=93 (8-item RegressorChain x {LGB+XGB-hist+ExtraTrees}, 17-worker fold-parallel ProcessPool).
+- **T1 LOSO transportability (iter34):** CCC = 0.4564 (F72, first published T1 transportability).
+- **T1 leakage audit (iter34, F73):** P1 z=5.22 strong PASS, P4 pass, P2 borderline soft-fail (interpreted as OOD fragility, not leakage).
+- **T3 canonical:** `run_t3_iter47_invalid_code_fix.py --mode run` LOOCV CCC = 0.3784, MAE = 7.528, N=95 (valid-range cohort, all-missing rows excluded, raw codes outside 0-4 -> NaN).
+- **T3 LOSO transportability:** valid-range two-way CCC = 0.150 (NLS->WPD 0.419 + WPD->NLS 0.263 averaged over 3 seeds, F-pre-iter47 mode arch is iter16 0.341).
+- **Item 15 (postural tremor):** iter17 item_only LOOCV +0.1099 (Δ=+0.20, MAE 1.088).
+- **Item 18 (rest tremor):** iter17 hy_residual_item_v2 LOOCV +0.4858 (Δ=+0.236, MAE 0.887).
+- **Theoretical T3 ceilings:** Bound D = 0.683 (perfect-T1 ->T3); Bound A = 0.351 (oracle T1 + mean R, IMU-only max); Bound E = 0.171 (inductive shrinkage T1_pred->T3).
+- **Pareto asymptote (iter22 LC sweep):** CCC(N) = 0.5975 - 2.1308*N^(-0.6408), structural ceiling 0.5975 for iter5 architecture at infinite N.
+
+## Hard rules from CLAUDE.md / AGENTS.md
+
+1. Inductive firewall: fold-local helpers via `inductive_lib.py` only; never global imputers/z-scorers/anchors.
+2. 5-null gate before any reported number (scrambled-label, SID-shuffle, canary feature, library-exclusion, transductive sanity).
+3. Lockbox protocol: 5-fold for screening, single pre-registered LOOCV for headline. No re-running LOOCV across variants and picking best.
+4. Promotion gate: Δ̄ >= +0.025 mean AND paired-bootstrap frac>0 >= 0.95 on 5-fold OOF; LOOCV confirmation + scrambled-label null still required before lockbox.
+5. Report transductive AND inductive numbers side-by-side; the gap is the leakage estimate.
+6. Source-of-truth ordering: AGENTS.md > findings.md > CLAUDE.md.
+7. `paper3_split.json` (clean, seed=20260309), NEVER `data_split.json` (CONTAMINATED).
+8. Cite numbers ONLY from the SOTA table in CLAUDE.md, not from findings.md or progress.md.
+
+## What the new skill must do
+
+The skill replaces `update-paper.md`. It must orchestrate updating `paper.md` and producing a Nature-grade `CURRENT_PAPER.html` with insightful figures.
+
+The user has a `pd-imu-100x-researcher` skill that runs experiments. The paper-update skill consumes the latest results / memory / findings and surgically updates paper.md, regenerates figures, and renders + validates the HTML.
+
+Required workflow phases:
+1. Mode select: scratch (full regen) vs update (incremental). Default update.
+2. Truth extraction: read MEMORY.md + every linked memory file, CLAUDE.md (SOTA table), findings.md, paper.md, results/current_paper_export/manifest.json. Build a typed claim ledger {claim_id, target, metric, value, model, protocol, N, source_file, role, artifact_exists}.
+3. Diff: extract every quantitative claim from current paper.md; flag stale/missing/inconsistent vs ledger.
+4. Figure pipeline: build a `paper_figures.py` that loads results/*.json + OOF arrays and renders publication-quality figures (matplotlib, 300 dpi, colorblind-safe). Required figure set should be insightful for the post-audit narrative (T1 vs T3 ceiling, iter34 vs iter12 paired bootstrap, T1 LOSO transportability cliff, item-level CCC, leakage-audit z-scores, Pareto N-asymptote, etc.). Embed as ![]() into paper.md or as a figures/ directory referenced by gfm pandoc.
+5. Surgical edits: apply diffs to paper.md preserving working prose. Update REQUIRED_SNIPPETS / FORBIDDEN_STALE_SNIPPETS list in render_current_paper.py if new claims warrant. NEVER hard-code numbers in figure scripts -- always load from JSON.
+6. Render: `uv run python render_current_paper.py` -- must pass snippet validation.
+7. External review: codex + gemini + kimi in parallel (tri-CLI) for academic prose review (codex), scientific narrative review (gemini), and structural/cautionary-framing review (kimi).
+8. Surgical fix loop: triage external feedback against typed ledger, apply accepted suggestions, re-render. Cap at 3 cycles.
+9. Final report: list claim deltas, figure changes, validation status, residual issues.
+
+## Nature-grade quality bar
+
+- Honest framing: pre-audit results retained as historical context; deployment numbers strictly post-audit.
+- Cautionary benchmark stance throughout (T1 transportability cliff, T3 iter47 0.3784 with N=95, LOSO drops).
+- Statistical rigor: paired-bootstrap CIs, frac>0, FWER discussion for iter33 family, BCa intervals.
+- Visual excellence: colorblind-safe palettes, every figure tells one story at a glance, statistical annotations on every panel.
+- Reproducibility: every reported number traces to a specific .json artifact in results/.
+- Limitations honesty: N=94 wall structurally, not data-quantity-bound.
+
+## Your task (CLI consultant)
+
+Critique and improve this design. Specifically:
+
+1. **Figure suite** -- propose the 8-12 most insightful figures for the post-audit T1+T3 narrative. Each figure: name, what it shows, what data source(s) feed it, what story it tells the reader at a glance. Don't include figures that just restate a table.
+2. **Validation rules** -- what claim-integrity checks beyond REQUIRED/FORBIDDEN snippets prevent silent number drift? (e.g., per-context one-data-source rule; figure-annotation match-source rule; cohort-N consistency rule per claim_id).
+3. **Workflow orchestration** -- which phases parallelize cleanly? Where are the irreducible serial dependencies? Where would a Nature reviewer catch us cutting corners?
+4. **Nature framing risks** -- what specific phrasing or omission would draw a "reject and resubmit" from a senior Nature Digital Medicine reviewer given our cautionary-benchmark stance? (e.g., MAE-only headlining, cross-protocol mixing, unstated multiple-comparisons).
+5. **Skill structural choices** -- should this be one .md skill file or split into sub-skills (e.g., paper-figures, paper-claims-audit, paper-renderer)? Pros/cons.
+
+Be concrete. Quote file paths. Avoid generic advice. Limit to ~600 lines.
+
+Save your response to /home/fiod/medical/.skill_design/codex_review.md
+warning: Codex's Linux sandbox uses bubblewrap and needs access to create user namespaces.
+codex
+I’ll treat this as a design review artifact, not an experiment change. I’m going to read the planning skill and the paper/export files enough to make the critique concrete, then I’ll write the markdown review under `.skill_design/`.
+codex
+The first read hit a local sandbox wrapper issue (`bwrap` loopback setup), so I’m retrying with a non-login shell.
+mcp: codex/list_mcp_resources started
+mcp: codex/list_mcp_resources (completed)
+Local shell reads are blocked by the sandbox wrapper in this session, so I’m using the provided repository brief and AGENTS context as the source for this design review.
+  ✓ Gather paper/update-skill context
+  → Draft concrete design critique
+  • Write codex_review.md and verify write result
+codex
+I’ve got enough context from the brief to make the review actionable. The main hard problem I’m calling out is that the new skill needs a typed claim system, not just snippet checks, because a few current numbers and roles can otherwise drift silently.
+apply patch
+patch: failed
+/home/fiod/medical/.skill_design/codex_review.md
+2026-05-10T10:37:51.762009Z ERROR codex_core::tools::router: error={"output":"Failed to write file /home/fiod/medical/.skill_design/codex_review.md\n","metadata":{"exit_code":1,"duration_seconds":0.1}}
+codex
+The file write failed because the target directory appears not to exist, and shell commands are still blocked by the local wrapper before they can run. I’m testing whether a PTY path gets around that so I can create `.skill_design/` normally.
+apply patch
+patch: failed
+/home/fiod/medical/.skill_design/test.txt
+2026-05-10T10:38:10.906992Z ERROR codex_core::tools::router: error={"output":"Failed to write file /home/fiod/medical/.skill_design/test.txt\n","metadata":{"exit_code":1,"duration_seconds":0.1}}
+apply patch
+patch: failed
+/home/fiod/medical/codex_review_tmp_delete_me.txt
+2026-05-10T10:38:15.496057Z ERROR codex_core::tools::router: error={"output":"Failed to write file /home/fiod/medical/codex_review_tmp_delete_me.txt\n","metadata":{"exit_code":1,"duration_seconds":0.1}}
+codex
+Both normal shell writes and `apply_patch` are failing before any useful filesystem operation completes, including creating a trivial file at the repo root. I can still give the full review content in the final response, but I can’t honestly claim the target file was written in this environment.
+Draft is complete, but file creation is blocked: exec_command fails with `bwrap: loopback: Failed RTM_NEWADDR`, and apply_patch cannot write even a trivial file in the repo.
+  ✓ Gather paper/update-skill context
+  ✓ Draft concrete design critique
+  • Write codex_review.md and verify write result
+codex
+I could not write `/home/fiod/medical/.skill_design/codex_review.md` in this session. Both shell commands and `apply_patch` failed before filesystem writes completed (`bwrap: loopback: Failed RTM_NEWADDR`, and `apply_patch` could not create even a trivial repo-root file). Here is the review content I prepared.
+
+**Core Critique**
+
+The redesign is directionally right, but still too snippet-based. The new skill should be a controlled compiler from result artifacts to claims, figures, [paper.md](/home/fiod/medical/paper.md), and [CURRENT_PAPER.html](/home/fiod/medical/CURRENT_PAPER.html). The central object should be `results/current_paper_export/claim_ledger.json`, not `REQUIRED_SNIPPETS`.
+
+One immediate validator fixture: the brief says T3 LOSO mean is `0.150`, but also gives `NLS->WPD 0.419 + WPD->NLS 0.263`, averaging to `0.341`. AGENTS states corrected T3 LOSO `0.150` with directions `0.194` and `0.106`. The skill must hard-fail this contradiction.
+
+**Figure Suite**
+
+1. **Post-Audit Performance Cascade**  
+   Sources: iter12, iter34, F72, iter47, historical/retracted audit JSONs.  
+   Story: leakage correction and transportability drops define the paper.
+
+2. **T1 Iter12 vs Iter34 Paired OOF**  
+   Sources: OOF artifacts for `compose_t1_iter12_honest.py` and `run_t1_iter34_hybrid_8item_multibase.py`.  
+   Story: iter34 improves CCC but is N=93 candidate, not canonical floor.
+
+3. **T1 LOSO Transportability Cliff**  
+   Sources: F72 LOSO artifact.  
+   Story: internal LOOCV strength does not fully survive site-held-out testing.
+
+4. **T3 Valid-Range Target Correction**  
+   Sources: `run_t3_iter47_invalid_code_fix.py` artifacts.  
+   Story: corrected target construction is load-bearing, especially all-missing rows and NLS036 invalid `9/9`.
+
+5. **T3 Ceiling Decomposition**  
+   Sources: iter47, theoretical bounds JSON, iter22 LC sweep.  
+   Story: T3 is bounded by anatomy, oracle T1 transfer, and inductive shrinkage.
+
+6. **Item-Level Signal Anatomy**  
+   Sources: iter17 item artifacts and T1 per-item artifacts.  
+   Story: item 18 is learnable, item 15 weak; T3 composite variance is structural.
+
+7. **Leakage/Null-Gate Dashboard**  
+   Sources: F73 iter34 audit plus canonical null-gate artifacts.  
+   Story: current claims are audited; P2 is OOD fragility, not “all gates green.”
+
+8. **Pareto Learning-Curve Asymptote**  
+   Sources: iter22 LC sweep.  
+   Story: more N alone does not imply a large T3 breakthrough for this architecture.
+
+9. **Cohort/Site/Target Availability Map**  
+   Sources: `paper3_split.json`, iter12/iter34/iter47 cohort manifests.  
+   Story: exact N differences are principled, not arbitrary.
+
+10. **External Transportability Forest Plot**  
+   Sources: FoG-STAR, COPS, TLVMC/DeFOG, PDFE, Parkinson@Home artifacts.  
+   Story: external results are partial transportability evidence, not internal headline updates.
+
+**Validation Rules**
+
+Add `claim_ledger.json` records with: `claim_id`, `target`, `metric`, `value`, `display_value`, `model`, `protocol`, `N`, `source_artifact`, `artifact_sha256`, `role`, `prereg_artifact`, `formula_sha256`, `cohort_subjects_sha256`, `null_gate_status`, `allowed_contexts`.
+
+Hard-fail on:
+
+- Any reportable number in prose/captions/HTML without a claim ID.
+- Same claim with conflicting values across `CLAUDE.md`, `MEMORY.md`, `paper.md`, and `results/*.json`.
+- Missing artifact for canonical, candidate, transportability, theoretical-bound, or asymptote claims.
+- Candidate numbers used as canonical, especially iter34 `0.7366`.
+- Retracted values near “headline,” “deployment,” “current,” or “canonical.”
+- T3 clinical+IMU described as wearable-only.
+- LOOCV, LOSO, external, oracle, and historical numbers compared without explicit protocol labels.
+- Figure annotations that differ from `figures/*.meta.json`.
+- Hard-coded reportable metrics in `paper_figures.py`.
+- Lockbox claims without preregistration timestamp/formula-hash checks.
+- N drift: iter12 N=94, iter34 N=93, iter47 N=95.
+
+**Workflow**
+
+Parallelizable:
+
+- Source inventory: `MEMORY.md`, linked memories, `CLAUDE.md`, `findings.md`, `paper.md`, `render_current_paper.py`.
+- Results/artifact scan under `results/`.
+- Current-paper numeric extraction.
+- Figure data availability checks.
+- Independent figure rendering after ledger freeze.
+- Codex/Gemini/Kimi review after validated render.
+
+Serial dependencies:
+
+1. Resolve source precedence and conflicts.
+2. Freeze claim ledger.
+3. Diff [paper.md](/home/fiod/medical/paper.md) against ledger.
+4. Render figures and validate metadata.
+5. Patch paper.
+6. Run `uv run python render_current_paper.py`.
+7. Run claim/HTML validation.
+8. External review.
+9. Triage review suggestions against ledger.
+10. Re-render and revalidate, max 3 cycles.
+
+**Nature Framing Risks**
+
+Reject-risk phrasing:
+
+- “Wearable IMU predicts UPDRS-III with CCC 0.7366.”  
+  Wrong target and role; iter34 is T1 candidate.
+
+- “T3 performance is CCC 0.5227.”  
+  Retracted target-contaminated historical value.
+
+- “The pipeline is leakage-free.”  
+  Overclaims; say post-audit fold-local/null-gated, with iter34 P2 caveat.
+
+- “External validation confirms deployment.”  
+  External datasets are protocol-stress/transportability evidence only.
+
+Must not omit:
+
+- `paper3_split.json` is clean; `data_split.json` is contaminated.
+- Current route is [paper.md](/home/fiod/medical/paper.md) -> [render_current_paper.py](/home/fiod/medical/render_current_paper.py) -> [CURRENT_PAPER.html](/home/fiod/medical/CURRENT_PAPER.html).
+- T1/T3 N differences.
+- Valid-range T3 target correction.
+- CCC and MAE together.
+- Clinical/intake covariates in T3.
+- Promotion gate, null gates, and negative screens.
+
+**Skill Structure**
+
+Use one top-level orchestration skill plus scripts, not multiple sub-skills initially.
+
+Recommended files:
+
+- `.codex/skills/paper-update/SKILL.md`
+- `scripts/paper_claims_build.py`
+- `scripts/paper_claims_extract.py`
+- `scripts/paper_claims_validate.py`
+- `scripts/paper_figures.py`
+- `scripts/paper_review_bundle.py`
+- `results/current_paper_export/claim_ledger.json`
+- `results/current_paper_export/figure_manifest.json`
+- `figures/*.meta.json`
+
+One skill keeps source precedence, role taxonomy, and fix-loop behavior consistent. Split into sub-skills only later if the claim audit or figure system becomes reusable outside this repo.
+tokens used
+54,268
+I could not write `/home/fiod/medical/.skill_design/codex_review.md` in this session. Both shell commands and `apply_patch` failed before filesystem writes completed (`bwrap: loopback: Failed RTM_NEWADDR`, and `apply_patch` could not create even a trivial repo-root file). Here is the review content I prepared.
+
+**Core Critique**
+
+The redesign is directionally right, but still too snippet-based. The new skill should be a controlled compiler from result artifacts to claims, figures, [paper.md](/home/fiod/medical/paper.md), and [CURRENT_PAPER.html](/home/fiod/medical/CURRENT_PAPER.html). The central object should be `results/current_paper_export/claim_ledger.json`, not `REQUIRED_SNIPPETS`.
+
+One immediate validator fixture: the brief says T3 LOSO mean is `0.150`, but also gives `NLS->WPD 0.419 + WPD->NLS 0.263`, averaging to `0.341`. AGENTS states corrected T3 LOSO `0.150` with directions `0.194` and `0.106`. The skill must hard-fail this contradiction.
+
+**Figure Suite**
+
+1. **Post-Audit Performance Cascade**  
+   Sources: iter12, iter34, F72, iter47, historical/retracted audit JSONs.  
+   Story: leakage correction and transportability drops define the paper.
+
+2. **T1 Iter12 vs Iter34 Paired OOF**  
+   Sources: OOF artifacts for `compose_t1_iter12_honest.py` and `run_t1_iter34_hybrid_8item_multibase.py`.  
+   Story: iter34 improves CCC but is N=93 candidate, not canonical floor.
+
+3. **T1 LOSO Transportability Cliff**  
+   Sources: F72 LOSO artifact.  
+   Story: internal LOOCV strength does not fully survive site-held-out testing.
+
+4. **T3 Valid-Range Target Correction**  
+   Sources: `run_t3_iter47_invalid_code_fix.py` artifacts.  
+   Story: corrected target construction is load-bearing, especially all-missing rows and NLS036 invalid `9/9`.
+
+5. **T3 Ceiling Decomposition**  
+   Sources: iter47, theoretical bounds JSON, iter22 LC sweep.  
+   Story: T3 is bounded by anatomy, oracle T1 transfer, and inductive shrinkage.
+
+6. **Item-Level Signal Anatomy**  
+   Sources: iter17 item artifacts and T1 per-item artifacts.  
+   Story: item 18 is learnable, item 15 weak; T3 composite variance is structural.
+
+7. **Leakage/Null-Gate Dashboard**  
+   Sources: F73 iter34 audit plus canonical null-gate artifacts.  
+   Story: current claims are audited; P2 is OOD fragility, not “all gates green.”
+
+8. **Pareto Learning-Curve Asymptote**  
+   Sources: iter22 LC sweep.  
+   Story: more N alone does not imply a large T3 breakthrough for this architecture.
+
+9. **Cohort/Site/Target Availability Map**  
+   Sources: `paper3_split.json`, iter12/iter34/iter47 cohort manifests.  
+   Story: exact N differences are principled, not arbitrary.
+
+10. **External Transportability Forest Plot**  
+   Sources: FoG-STAR, COPS, TLVMC/DeFOG, PDFE, Parkinson@Home artifacts.  
+   Story: external results are partial transportability evidence, not internal headline updates.
+
+**Validation Rules**
+
+Add `claim_ledger.json` records with: `claim_id`, `target`, `metric`, `value`, `display_value`, `model`, `protocol`, `N`, `source_artifact`, `artifact_sha256`, `role`, `prereg_artifact`, `formula_sha256`, `cohort_subjects_sha256`, `null_gate_status`, `allowed_contexts`.
+
+Hard-fail on:
+
+- Any reportable number in prose/captions/HTML without a claim ID.
+- Same claim with conflicting values across `CLAUDE.md`, `MEMORY.md`, `paper.md`, and `results/*.json`.
+- Missing artifact for canonical, candidate, transportability, theoretical-bound, or asymptote claims.
+- Candidate numbers used as canonical, especially iter34 `0.7366`.
+- Retracted values near “headline,” “deployment,” “current,” or “canonical.”
+- T3 clinical+IMU described as wearable-only.
+- LOOCV, LOSO, external, oracle, and historical numbers compared without explicit protocol labels.
+- Figure annotations that differ from `figures/*.meta.json`.
+- Hard-coded reportable metrics in `paper_figures.py`.
+- Lockbox claims without preregistration timestamp/formula-hash checks.
+- N drift: iter12 N=94, iter34 N=93, iter47 N=95.
+
+**Workflow**
+
+Parallelizable:
+
+- Source inventory: `MEMORY.md`, linked memories, `CLAUDE.md`, `findings.md`, `paper.md`, `render_current_paper.py`.
+- Results/artifact scan under `results/`.
+- Current-paper numeric extraction.
+- Figure data availability checks.
+- Independent figure rendering after ledger freeze.
+- Codex/Gemini/Kimi review after validated render.
+
+Serial dependencies:
+
+1. Resolve source precedence and conflicts.
+2. Freeze claim ledger.
+3. Diff [paper.md](/home/fiod/medical/paper.md) against ledger.
+4. Render figures and validate metadata.
+5. Patch paper.
+6. Run `uv run python render_current_paper.py`.
+7. Run claim/HTML validation.
+8. External review.
+9. Triage review suggestions against ledger.
+10. Re-render and revalidate, max 3 cycles.
+
+**Nature Framing Risks**
+
+Reject-risk phrasing:
+
+- “Wearable IMU predicts UPDRS-III with CCC 0.7366.”  
+  Wrong target and role; iter34 is T1 candidate.
+
+- “T3 performance is CCC 0.5227.”  
+  Retracted target-contaminated historical value.
+
+- “The pipeline is leakage-free.”  
+  Overclaims; say post-audit fold-local/null-gated, with iter34 P2 caveat.
+
+- “External validation confirms deployment.”  
+  External datasets are protocol-stress/transportability evidence only.
+
+Must not omit:
+
+- `paper3_split.json` is clean; `data_split.json` is contaminated.
+- Current route is [paper.md](/home/fiod/medical/paper.md) -> [render_current_paper.py](/home/fiod/medical/render_current_paper.py) -> [CURRENT_PAPER.html](/home/fiod/medical/CURRENT_PAPER.html).
+- T1/T3 N differences.
+- Valid-range T3 target correction.
+- CCC and MAE together.
+- Clinical/intake covariates in T3.
+- Promotion gate, null gates, and negative screens.
+
+**Skill Structure**
+
+Use one top-level orchestration skill plus scripts, not multiple sub-skills initially.
+
+Recommended files:
+
+- `.codex/skills/paper-update/SKILL.md`
+- `scripts/paper_claims_build.py`
+- `scripts/paper_claims_extract.py`
+- `scripts/paper_claims_validate.py`
+- `scripts/paper_figures.py`
+- `scripts/paper_review_bundle.py`
+- `results/current_paper_export/claim_ledger.json`
+- `results/current_paper_export/figure_manifest.json`
+- `figures/*.meta.json`
+
+One skill keeps source precedence, role taxonomy, and fix-loop behavior consistent. Split into sub-skills only later if the claim audit or figure system becomes reusable outside this repo.

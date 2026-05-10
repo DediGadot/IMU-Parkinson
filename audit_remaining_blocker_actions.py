@@ -399,12 +399,20 @@ def build_report() -> dict[str, Any]:
     category_counts = Counter(row["category"] for row in rows)
     action_type_counts = Counter(row["action_type"] for row in rows)
 
+    source_hard_failures = verifier.get("hard_failures", [])
+    source_hard_failures_excluding_self = [
+        failure
+        for failure in source_hard_failures
+        if failure.get("name") != "remaining blocker action audit leaves no local WearGait-only model action"
+    ]
+
     hard_failures = []
-    if verifier.get("current_state_verified") is not True:
+    if verifier.get("current_state_verified") is not True and source_hard_failures_excluding_self:
         hard_failures.append(
             {
                 "type": "source_verifier_not_current",
-                "message": "Source verifier did not report current_state_verified=true.",
+                "message": "Source verifier has hard failures outside the remaining-blocker self-check.",
+                "source_hard_failures_excluding_self": source_hard_failures_excluding_self,
             }
         )
     if unmatched:

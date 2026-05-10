@@ -1,0 +1,46 @@
+{
+  "experiment": "T1 item-13 posture-only axial-orientation screen",
+  "item": 13,
+  "target_definition": "MDS-UPDRS 3.13 (posture)",
+  "claim_scope": "item_13_only_per_item_lockbox_class",
+  "fwer_family": "item_13_per_item_lockbox_independent_of_t1_sum_iter34_family",
+  "variants": [
+    "axial_only_item13",
+    "hy_residual_axial_item13",
+    "item_plus_v2_plus_axial_item13"
+  ],
+  "baseline_variant": "item_plus_v2",
+  "baseline_canonical_ccc": 0.1169,
+  "baseline_canonical_std": 0.0017,
+  "baseline_source": "results/per_item_evidence_map_20260508.json",
+  "n_filter": "PD_only_canonical_94",
+  "split_file": "results/paper3_split.json",
+  "eval": "5fold_screen",
+  "promotion_gate": {
+    "delta_mean_min": 0.05,
+    "seed_std_max": 0.02,
+    "n_seeds": 3
+  },
+  "loocv_promotion_rule": "iff at least one variant clears 5fold gate, promote that variant to LOOCV lockbox in a separate run with paired bootstrap vs canonical item_plus_v2 LOOCV OOF (frac>0 \u2265 0.95).",
+  "five_null_gate": [
+    "scrambled_label",
+    "canary_feature",
+    "transductive_sanity"
+  ],
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "formula_sha256": "0967943cc4373934405e4ab9340b5395274eb7dffdf3c46dc13553f85ba74c69",
+  "timestamp_utc": "2026-05-09T18:45:47.608766+00:00",
+  "feature_caches": {
+    "v2": "ablation_v3_features.csv",
+    "per_item": "peritem_subj_features.csv",
+    "axial_orientation": "axial_orientation_features.csv"
+  },
+  "axial_cache_manifest": "results/axial_orientation_features.csv.manifest.json",
+  "code_path": "run_t1_item13_postureonly_screen.py",
+  "wall_data_point_id_if_fail": "F-item13-axial-only",
+  "do_not_join_t1_sum_fwer": true
+}

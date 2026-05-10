@@ -18,6 +18,7 @@ Current paper work must route to render_current_paper.py -> CURRENT_PAPER.html. 
 
 ## Active Docs
 
+- `.claude/commands/update-paper.md`: missing current-route snippets `0`, bad exact snippets `0`, unguarded legacy hits `0`
 - `AGENTS.md`: missing current-route snippets `0`, bad exact snippets `0`, unguarded legacy hits `0`
 - `CLAUDE.md`: missing current-route snippets `0`, bad exact snippets `0`, unguarded legacy hits `0`
 - `README.md`: missing current-route snippets `0`, bad exact snippets `0`, unguarded legacy hits `0`
@@ -29,7 +30,6 @@ Current paper work must route to render_current_paper.py -> CURRENT_PAPER.html. 
 
 ## Legacy Quarantine
 
-- `.claude/commands/update-paper.md`: missing quarantine snippets `0`, stale/legacy hits retained `62`
 
 ## Legacy Generator Evidence
 

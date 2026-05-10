@@ -407,7 +407,7 @@ def main() -> None:
             and "F-smartwatch-subitem-routes-20260509" in findings
             and "F-derivative-multimodal-route-20260509" in findings
             and "F-request-only-actigraphy-routes-20260509" in findings
-            and "F-parkinsonathome-hard-stop-20260509" in findings,
+            and "F-parkinsonathome-hard-stop-20260509" in findings
             and "F-recent-external-web-leads-20260509" in findings
             and "Perioperative MDS-UPDRS-III tremor accelerometry" in external_md
             and "PDAssist de novo smartphone UPDRS Part III" in external_md,

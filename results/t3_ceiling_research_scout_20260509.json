@@ -1,0 +1,474 @@
+{
+  "created_at_utc": "2026-05-09T12:57:46+00:00",
+  "decision": {
+    "best_t1_scaffold_delta_ccc_vs_current_intersection": -0.05295255098656437,
+    "blocked_actions": [
+      "No WearGait-only T3 model screen from this audit.",
+      "No preregistration, LOOCV, lockbox, or canonical update from the T1-to-T3 scaffold.",
+      "No true T1, item, domain, or residual labels as production features.",
+      "No calibration, variance rescaling, sample weighting, tail weighting, or residual smoothing retry.",
+      "No gated-dataset loader scaffold before credentials and row-level schema exist."
+    ],
+    "compute_ready_external_routes_before_access": 0,
+    "next_action": "Submit/complete PPMI-Verily access, then run only a read-only schema probe after approval.",
+    "verdict": "no_local_t3_ceiling_break_route_after_scout"
+  },
+  "external_route_prioritization": {
+    "compute_ready_routes_before_access": 0,
+    "n_routes_scored": 34,
+    "policy": "Scoring is for route prioritization only. It cannot authorize download, scaffold, preregistration, or model runs for gated routes.",
+    "top_routes": [
+      {
+        "access_readiness_priority": 1,
+        "access_score": 0.65,
+        "access_status": "PPMI DUA/application required; no local credentials configured",
+        "already_closed_or_external_only": false,
+        "compute_ready_now": false,
+        "direct_t1_t3_eligible": true,
+        "first_allowed_action": "complete access request, then read-only schema probe after approval",
+        "label_score": 1.0,
+        "name": "PPMI / Verily Study Watch",
+        "opportunity_score": 1.098,
+        "protocol_gap_coverage_score": 0.8,
+        "status": "access_gated_no_scaffold_until_credentials",
+        "verdict": "Priority gated direct external T3 route. Kimi advised documenting it and waiting for user PPMI DUA/account action before building a probe scaffold; do not launch a remote job without credentials."
+      },
+      {
+        "access_readiness_priority": 3,
+        "access_score": 0.65,
+        "access_status": "C-Path 3DT Stage 2 membership or WATCH-PD Steering Committee proposal required; no local access or schema; C-Path Integrated Parkinson's Database does not include DHT data",
+        "already_closed_or_external_only": false,
+        "compute_ready_now": false,
+        "direct_t1_t3_eligible": true,
+        "first_allowed_action": "complete access request, then read-only schema probe after approval",
+        "label_score": 1.0,
+        "name": "WATCH-PD",
+        "opportunity_score": 1.077,
+        "protocol_gap_coverage_score": 1.0,
+        "status": "request_gated_document_only_no_scaffold_until_access_schema",
+        "verdict": "Direct and protocol-relevant external T3 route, but request-gated and schema-hidden. Add to access queue only; do not create a scaffold, preregistration, download job, or remote run until C-Path 3DT membership or WATCH-PD Steering Committee approval provides row-level sensor files, labels, and schema. PPMI remains higher priority because it is larger and already has a Verily/MDS-UPDRS publication trail."
+      },
+      {
+        "access_readiness_priority": 2,
+        "access_score": 0.65,
+        "access_status": "RDSRC request-gated; no local access or schema; data release fees may apply",
+        "already_closed_or_external_only": false,
+        "compute_ready_now": false,
+        "direct_t1_t3_eligible": true,
+        "first_allowed_action": "complete access request, then read-only schema probe after approval",
+        "label_score": 1.0,
+        "name": "Personalized Parkinson Project / PD Virtual Motor Exam",
+        "opportunity_score": 1.048,
+        "protocol_gap_coverage_score": 0.8,
+        "status": "access_gated_document_only_no_scaffold_until_access",
+        "verdict": "Strong gated Verily-watch external route and useful peer to PPMI/Verily, but not public or locally approved. Do not create a scaffold, preregistration, download job, or remote run until RDSRC access is approved and row-level sensor/label schema is available."
+      },
+      {
+        "access_readiness_priority": 4,
+        "access_score": 0.65,
+        "access_status": "request-gated through authors/CNS; related CNS Sensors 2022 article states raw data available from authors on request",
+        "already_closed_or_external_only": false,
+        "compute_ready_now": false,
+        "direct_t1_t3_eligible": true,
+        "first_allowed_action": "complete access request, then read-only schema probe after approval",
+        "label_score": 1.0,
+        "name": "CNS Portugal / Lobo IS2022 AX3 gait",
+        "opportunity_score": 0.928,
+        "protocol_gap_coverage_score": 0.75,
+        "status": "request_gated_document_only_no_scaffold_until_data",
+        "verdict": "Direct request-gated T3 external route with wrist+lower-back AX3 and structured 10 m walk. Do not scaffold before schema and access are confirmed. Treat as external-validity evidence only; not an internal WearGait-PD ceiling-breaker."
+      },
+      {
+        "access_readiness_priority": 6,
+        "access_score": 0.65,
+        "access_status": "request-gated via Newcastle / data available on request; no local agreement or files",
+        "already_closed_or_external_only": false,
+        "compute_ready_now": false,
+        "direct_t1_t3_eligible": true,
+        "first_allowed_action": "complete access request, then read-only schema probe after approval",
+        "label_score": 1.0,
+        "name": "ICICLE-PD / ICICLE-GAIT",
+        "opportunity_score": 0.828,
+        "protocol_gap_coverage_score": 0.75,
+        "status": "request_gated_document_only_no_scaffold_until_data",
+        "verdict": "Direct longitudinal external T3 route with clinician MDS-UPDRS Part III labels, but request-gated and lower-back rather than wrist-native. Document and pursue access only; do not create a scaffold, preregistration, download job, or remote run until files and schema are available."
+      },
+      {
+        "access_readiness_priority": 5,
+        "access_score": 0.65,
+        "access_status": "Synapse DUA/READ-gated",
+        "already_closed_or_external_only": false,
+        "compute_ready_now": false,
+        "direct_t1_t3_eligible": true,
+        "first_allowed_action": "complete access request, then read-only schema probe after approval",
+        "label_score": 1.0,
+        "name": "MJFF Levodopa Response / Hssayeni",
+        "opportunity_score": 0.677,
+        "protocol_gap_coverage_score": 0.25,
+        "status": "synapse_dua_gated_no_scaffold_until_access",
+        "verdict": "Larger direct external wearable UPDRS-III route, but blocked until DUA approval."
+      },
+      {
+        "access_readiness_priority": null,
+        "access_score": 0.1,
+        "access_status": "public",
+        "already_closed_or_external_only": true,
+        "compute_ready_now": false,
+        "direct_t1_t3_eligible": true,
+        "first_allowed_action": "no compute; retain as documented external-validity evidence",
+        "label_score": 1.0,
+        "name": "FoG-STAR",
+        "opportunity_score": 0.205,
+        "protocol_gap_coverage_score": 0.75,
+        "status": null,
+        "verdict": "Direct public small-N T3 external route; iter38 Stage-1 augmentation screen failed and iter39 zero-shot showed partial clinical+wrist external validity only."
+      },
+      {
+        "access_readiness_priority": null,
+        "access_score": 0.1,
+        "access_status": "public Radboud WebDAV / DOI route; metadata, clinical CSV, and prepared per-subject parquet files are directly downloadable",
+        "already_closed_or_external_only": true,
+        "compute_ready_now": false,
+        "direct_t1_t3_eligible": true,
+        "first_allowed_action": "no compute; retain as documented external-validity evidence",
+        "label_score": 1.0,
+        "name": "Parkinson@Home arm-swing validation",
+        "opportunity_score": 0.205,
+        "protocol_gap_coverage_score": 0.75,
+        "status": "probe_passed_zero_shot_hard_stop_n18_no_scoring",
+        "verdict": "Public direct T3 external route, but iter53 stopped before scoring because the pre-registered feature-readability hard stop retained only 18 valid OFF PD subjects versus the minimum of 20. No zero-shot, within-dataset LOOCV, or OFF/ON response metric exists; no internal WearGait-PD T1/T3 canonical can change. Do not rerun under the same preregistration; any shorter-window or fallback policy requires a fresh preregistration and remains external-validity-only."
+      },
+      {
+        "access_readiness_priority": null,
+        "access_score": 0.1,
+        "access_status": "public",
+        "already_closed_or_external_only": true,
+        "compute_ready_now": false,
+        "direct_t1_t3_eligible": true,
+        "first_allowed_action": "no compute; retain as documented external-validity evidence",
+        "label_score": 1.0,
+        "name": "COPS",
+        "opportunity_score": 0.156,
+        "protocol_gap_coverage_score": 0.4,
+        "status": "zero_shot_complete_external_validity_only",
+        "verdict": "Direct public T3 external route; iter49 zero-shot is complete. Wrist-only WearGait-to-COPS transfer is null, clinical+wrist transfer is partial, COPS-only LOOCV sanity is modest, and no internal canonical T3 change is allowed from this external result."
+      },
+      {
+        "access_readiness_priority": null,
+        "access_score": 0.1,
+        "access_status": "public via Kaggle competition files and Zenodo archived competition dataset; iter51 full public raw-data run completed on remote",
+        "already_closed_or_external_only": true,
+        "compute_ready_now": false,
+        "direct_t1_t3_eligible": true,
+        "first_allowed_action": "no compute; retain as documented external-validity evidence",
+        "label_score": 1.0,
+        "name": "TLVMC / DeFOG Parkinson's Freezing of Gait Prediction",
+        "opportunity_score": 0.156,
+        "protocol_gap_coverage_score": 0.4,
+        "status": "zero_shot_complete_external_validity_only",
+        "verdict": "Direct public T3 external route; iter51 zero-shot is complete. WearGait lower-back magnitude features transfer weakly but positively to OFF-state DeFOG, wrist-to-lumbar stress transfer is near-null, DeFOG-only LOSO sanity is modest, and no internal WearGait-PD T3 canonical change is allowed from this external result."
+      }
+    ]
+  },
+  "fresh_source_notes": [
+    {
+      "finding": "Query returned 60 PubMed hits, confirming the active literature has moved toward longitudinal/free-living digital motor endpoints and access-gated cohorts rather than small-N single-session estimator tuning.",
+      "name": "PubMed 2025-2026 wearable/IMU/smartwatch UPDRS query",
+      "source": "NCBI ESearch"
+    },
+    {
+      "finding": "Wrist Study Watch data at 100 Hz were linked to MDS-UPDRS Part III within 90 days; PPMI remains the highest-priority gated route for a future schema probe.",
+      "name": "PPMI / Verily Study Watch prodromal PD progression paper",
+      "source": "https://www.nature.com/articles/s41531-025-01034-8"
+    },
+    {
+      "finding": "Lower-back AX3 free-living gait with MDS-UPDRS Part III is a real direct T3 route, but it mostly covers gait/axial burden rather than the non-gait residual domains now limiting WearGait T3.",
+      "name": "ICICLE-GAIT federated learning paper",
+      "source": "https://www.frontiersin.org/journals/aging-neuroscience/articles/10.3389/fnagi.2026.1766599/full"
+    },
+    {
+      "finding": "Public bilateral wrist accelerometry includes UPDRS-III OFF/ON CSVs; already tested as iter49 and remains external-validity evidence only.",
+      "name": "COPS Scientific Data 2026",
+      "source": "https://www.nature.com/articles/s41597-026-06999-6"
+    }
+  ],
+  "inputs": [
+    "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+    "results/t1_iter12_honest_composite.json",
+    "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+    "results/t3_iter47_residual_anatomy_20260509.json",
+    "results/t3_iter47_domain_residual_audit_20260509.json",
+    "results/t3_iter47_item_residual_audit_20260509.json",
+    "results/external_dataset_route_audit_20260508.json",
+    "results/recent_external_web_leads_20260509.json",
+    "results/external_access_readiness_audit_20260509.json",
+    "results/remaining_blocker_action_audit_20260509.json"
+  ],
+  "kimi_consult_summary": {
+    "absolute_prohibitions": [
+      "No WearGait-only T3 model screen from this audit.",
+      "No preregistration, LOOCV, lockbox, or canonical update from the T1-to-T3 scaffold.",
+      "No true T1, item, domain, or residual labels as production features.",
+      "No calibration, variance rescaling, sample weighting, tail weighting, or residual smoothing retry.",
+      "No gated-dataset loader scaffold before credentials and row-level schema exist."
+    ],
+    "highest_leverage_next_action": "Submit/complete PPMI-Verily access, then run only a read-only schema probe after approval.",
+    "session_id": "ses_1f333adeaffe17sW7gYoKbRZiF",
+    "tool": "opencode Kimi CLI",
+    "verdict": "useful_as_decision_audit_not_model_discovery"
+  },
+  "residual_stop_rule_summary": {
+    "access_readiness_summary": {
+      "application_packet_ready_count": 6,
+      "compute_ready_route_count": 0,
+      "hard_failure_count": 0,
+      "no_local_weargait_model_actions_remaining": 8,
+      "passed": true,
+      "provenance_recovery_class": "raw_data_recovery_credentials_needed",
+      "route_count": 9,
+      "top_priority_route": "PPMI / Verily Study Watch",
+      "verifier_access_required_blockers": 8,
+      "warning_count": 3
+    },
+    "blocker_summary": {
+      "ambiguous_blockers": null,
+      "local_weargait_only_model_actions_remaining": null,
+      "unclassified_blockers": null
+    },
+    "current_t3": {
+      "cal_slope_pred_on_true": 0.26924232265178977,
+      "ccc": 0.3783671177953899,
+      "mae": 7.528022830280761,
+      "mean_error_pred_minus_true": -0.185412419612919,
+      "n": 95,
+      "prediction_sd": 6.446170478634331,
+      "r": 0.4140570278396842,
+      "residual_corr_with_pred": 0.25116760252743836,
+      "residual_corr_with_true": -0.7770738735166363,
+      "target_sd": 9.913308439190537
+    },
+    "recent_web_leads_summary": {
+      "already_present_routes": [
+        "Yin et al Frontiers Neurology 2025 gait-parameter regression"
+      ],
+      "master_routes_changed": [
+        "Perioperative MDS-UPDRS-III tremor accelerometry / Smid 2026",
+        "PDAssist de novo smartphone UPDRS Part III / Guo 2025"
+      ],
+      "new_compute_ready_routes": 0,
+      "new_scaffold_or_preregistration_actions": 0,
+      "routes_checked": 3
+    },
+    "top_residual_domains": [
+      {
+        "corr_with_residual": -0.8003977872431429,
+        "deployable_proxy_candidate": false,
+        "domain": "unobservable_non_gait",
+        "items": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          15,
+          16,
+          17,
+          18
+        ],
+        "oracle_delta_ccc_vs_base": 0.47164343719694224
+      },
+      {
+        "corr_with_residual": -0.6224081731735964,
+        "deployable_proxy_candidate": false,
+        "domain": "upper_limb_brady_4_6",
+        "items": [
+          4,
+          5,
+          6
+        ],
+        "oracle_delta_ccc_vs_base": 0.3371910630599395
+      },
+      {
+        "corr_with_residual": -0.6155583067338654,
+        "deployable_proxy_candidate": false,
+        "domain": "appendicular_brady_4_8_14",
+        "items": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          14
+        ],
+        "oracle_delta_ccc_vs_base": 0.3442313990390361
+      },
+      {
+        "corr_with_residual": -0.45044749410950524,
+        "deployable_proxy_candidate": false,
+        "domain": "rigidity_3",
+        "items": [
+          3
+        ],
+        "oracle_delta_ccc_vs_base": 0.1881567360057258
+      },
+      {
+        "corr_with_residual": -0.41353808399398284,
+        "deployable_proxy_candidate": true,
+        "domain": "gait_balance_7_14",
+        "items": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "oracle_delta_ccc_vs_base": 0.20828858781007298
+      }
+    ],
+    "top_residual_items": [
+      {
+        "abs_corr_with_residual": 0.5705291019290375,
+        "item": 6,
+        "name": "pronation_supination",
+        "oracle_delta_ccc_vs_base": 0.28170130515018466,
+        "weargait_observable": false
+      },
+      {
+        "abs_corr_with_residual": 0.5282159468417101,
+        "item": 4,
+        "name": "finger_tapping",
+        "oracle_delta_ccc_vs_base": 0.2562078557530745,
+        "weargait_observable": false
+      },
+      {
+        "abs_corr_with_residual": 0.4693884163859579,
+        "item": 5,
+        "name": "hand_movements",
+        "oracle_delta_ccc_vs_base": 0.22642251381148193,
+        "weargait_observable": false
+      },
+      {
+        "abs_corr_with_residual": 0.46011238570982516,
+        "item": 3,
+        "name": "rigidity",
+        "oracle_delta_ccc_vs_base": 0.19462827985941566,
+        "weargait_observable": false
+      },
+      {
+        "abs_corr_with_residual": 0.3833779113035298,
+        "item": 2,
+        "name": "facial_expression",
+        "oracle_delta_ccc_vs_base": 0.13941402807447678,
+        "weargait_observable": false
+      },
+      {
+        "abs_corr_with_residual": 0.3717367047507035,
+        "item": 16,
+        "name": "kinetic_tremor",
+        "oracle_delta_ccc_vs_base": 0.08975866257119336,
+        "weargait_observable": false
+      },
+      {
+        "abs_corr_with_residual": 0.35946720965493023,
+        "item": 8,
+        "name": "leg_agility",
+        "oracle_delta_ccc_vs_base": 0.14847903649349226,
+        "weargait_observable": true
+      },
+      {
+        "abs_corr_with_residual": 0.32994839250897817,
+        "item": 7,
+        "name": "toe_tapping",
+        "oracle_delta_ccc_vs_base": 0.12518017843176044,
+        "weargait_observable": true
+      }
+    ]
+  },
+  "scope": "diagnostic_only_route_prioritization_no_model_promotion",
+  "script": "audit_t3_ceiling_research_scout.py",
+  "t1_scaffold_diagnostic": {
+    "guardrail": "OOF-level scaffold is diagnostic only. Base OOF predictions for meta-training rows may have trained on the held-out meta subject, so this is not a valid lockbox or promotion gate.",
+    "reports": [
+      {
+        "current_t3_metrics_on_intersection": {
+          "ccc": 0.38430501442175463,
+          "mae": 7.4812430603477775,
+          "n": 94,
+          "prediction_sd": 6.401189035782637,
+          "r": 0.42255319530982755,
+          "residual_corr_with_true": -0.7811562472152109,
+          "target_sd": 9.963741418320447
+        },
+        "delta_scaffold_ccc_vs_current_intersection": -0.15721054403479434,
+        "input_artifact": "results/t1_iter12_honest_composite.json",
+        "interpretation": [
+          "Saved T1 OOF predictions do not provide a detectable corrected-T3 scaffold beyond the current iter47 predictor.",
+          "True T1 has privileged bridge value, supporting target-decomposition analysis but not a deployable T3 feature."
+        ],
+        "label": "t1_iter12",
+        "n_intersection_with_iter47_t3": 94,
+        "scope": "diagnostic_oof_level_not_fully_nested_no_model_promotion",
+        "t1_oof_prediction_to_t3_loo_ridge": {
+          "ccc": 0.2270944703869603,
+          "mae": 7.619681986737911,
+          "n": 94,
+          "prediction_sd": 3.9596903960812893,
+          "r": 0.33084296880994996,
+          "residual_corr_with_true": -0.9180671325424197,
+          "target_sd": 9.963741418320447
+        },
+        "true_t1_to_t3_privileged_oracle": {
+          "ccc": 0.5823791406048037,
+          "mae": 6.078609930921292,
+          "n": 94,
+          "prediction_sd": 6.500726660146116,
+          "r": 0.6362929659214589,
+          "residual_corr_with_true": -0.7579647835836902,
+          "target_sd": 9.963741418320447
+        }
+      },
+      {
+        "current_t3_metrics_on_intersection": {
+          "ccc": 0.38661663408694025,
+          "mae": 7.483497036107711,
+          "n": 93,
+          "prediction_sd": 6.433965097731555,
+          "r": 0.42484251261046474,
+          "residual_corr_with_true": -0.7801877878856225,
+          "target_sd": 9.997756714506762
+        },
+        "delta_scaffold_ccc_vs_current_intersection": -0.05295255098656437,
+        "input_artifact": "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
+        "interpretation": [
+          "Saved T1 OOF predictions do not provide a detectable corrected-T3 scaffold beyond the current iter47 predictor.",
+          "True T1 has privileged bridge value, supporting target-decomposition analysis but not a deployable T3 feature."
+        ],
+        "label": "t1_iter34",
+        "n_intersection_with_iter47_t3": 93,
+        "scope": "diagnostic_oof_level_not_fully_nested_no_model_promotion",
+        "t1_oof_prediction_to_t3_loo_ridge": {
+          "ccc": 0.3336640831003759,
+          "mae": 7.18872622586925,
+          "n": 93,
+          "prediction_sd": 4.70776078650286,
+          "r": 0.43285551407904954,
+          "residual_corr_with_true": -0.8824195462746977,
+          "target_sd": 9.997756714506762
+        },
+        "true_t1_to_t3_privileged_oracle": {
+          "ccc": 0.5836081550951939,
+          "mae": 6.0886432337232845,
+          "n": 93,
+          "prediction_sd": 6.533127300771115,
+          "r": 0.6372348793114008,
+          "residual_corr_with_true": -0.7570865772985815,
+          "target_sd": 9.997756714506762
+        }
+      }
+    ]
+  }
+}

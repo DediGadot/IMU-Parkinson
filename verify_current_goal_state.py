@@ -2018,7 +2018,7 @@ def main() -> None:
         and "uv run python render_current_paper.py" in agents
         and "uv run python render_current_paper.py" in readme
         and "generate_paper_v4.py` and `NEW4.html` as legacy/stale archaeology only" in agents
-        and "generate_paper_v4.py` / `NEW4.html` are legacy archaeology" in claude
+        and "generate_paper_v4.py` / `NEW4.html` are archaeology, not current evidence" in claude
         and "Older `generate_paper*.py` / `NEW*.html` outputs are historical snapshots only" in readme,
         {
             "audit": paper_generator_routing_audit,

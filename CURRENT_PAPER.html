@@ -191,7 +191,7 @@ blockquote { border-left: 4px solid #176f6b; margin-left: 0; padding-left: 16px;
 </style>
 </head>
 <body>
-<div class="audit-banner"><strong>Current post-audit render from paper.md.</strong>Generated 2026-05-09T11:37:31+00:00. Use this export instead of NEW4.html for current T1/T3 framing; NEW4.html is a legacy generator output with stale pre-leakage narrative fragments.</div>
+<div class="audit-banner"><strong>Current post-audit render from paper.md.</strong>Generated 2026-05-10T11:06:17+00:00. Use this export instead of NEW4.html for current T1/T3 framing; NEW4.html is a legacy generator output with stale pre-leakage narrative fragments.</div>
 <header id="title-block-header">
 <h1 class="title">WearGait-PD Current Post-Audit Manuscript</h1>
 </header>
@@ -319,12 +319,27 @@ Comparison</a></li>
 <li><a href="#59-future-directions" id="toc-59-future-directions">5.9
 Future Directions</a></li>
 </ul></li>
-<li><a href="#6-conclusions" id="toc-6-conclusions">6.
-Conclusions</a></li>
+<li><a href="#6-conclusions" id="toc-6-conclusions">6. Conclusions</a>
+<ul>
+<li><a href="#61-reproducibility-checkpoint-canonical-strings"
+id="toc-61-reproducibility-checkpoint-canonical-strings">6.1
+Reproducibility checkpoint (canonical strings)</a></li>
+</ul></li>
 <li><a href="#data-availability" id="toc-data-availability">Data
 Availability</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
-<li><a href="#figures" id="toc-figures">Figures</a></li>
+<li><a href="#figures" id="toc-figures">Figures</a>
+<ul>
+<li><a
+href="#current-post-audit-figures-nature-grade-derived-from-claim_ledgerjson"
+id="toc-current-post-audit-figures-nature-grade-derived-from-claim_ledgerjson">Current
+post-audit figures (Nature-grade, derived from
+<code>claim_ledger.json</code>)</a></li>
+<li><a
+href="#historical--legacy-figure-list-retained-for-archival-completeness"
+id="toc-historical--legacy-figure-list-retained-for-archival-completeness">Historical
+/ legacy figure list (retained for archival completeness)</a></li>
+</ul></li>
 <li><a href="#supplementary-material"
 id="toc-supplementary-material">Supplementary Material</a></li>
 </ul></li>
@@ -734,7 +749,10 @@ estimation from wrist accelerometer data, with classification-based
 approaches encountering particular challenges in detecting complex motor
 phenomena such as dyskinesia. Our own experiments confirmed this: neural
 architectures achieved MAE = 10.46 at best (Section 5.8, Table 8), while
-gradient boosting on engineered features achieves 6.89.</p>
+gradient boosting on engineered features achieves MAE = 6.89 in the
+historical pre-audit held-out evaluation (retained as pre-audit
+comparability only; deployment numbers are CCC-based, see Sections
+4.11–4.13).</p>
 <p>The Youssef et al. [5] meta-analysis of 93 PD gait studies confirmed
 that gait velocity and stride length remain the strongest correlates of
 motor severity — features that are directly computable from IMU data
@@ -1231,7 +1249,10 @@ improvement over the same model with mutual information selection
 held-out MAE to 6.89 (r = 0.860).</p>
 <p><strong>Table 4.</strong> Historical pre-audit model comparison with
 XGBoost importance-based feature selection (5-seed ensemble, held-out
-test N = 36).</p>
+test N = 36). Every row in this table is <strong>historical
+pre-audit</strong> and is retained for transparency only; none of these
+MAE / r values is a current deployment headline (see Sections 5.1, 5.2,
+6).</p>
 <table>
 <thead>
 <tr class="header">
@@ -1452,7 +1473,9 @@ variance across seeds. The standard deviation of per-seed MAE decreased
 from ±0.48 (E0) to ±0.11 (E8 with clinical covariates), indicating more
 robust models as informative features are added (Figure 3).</p>
 <p><strong>Table 6.</strong> Historical pre-audit seed stability
-analysis across boosters (150 features, 5 seeds).</p>
+analysis across boosters (150 features, 5 seeds). Every row is
+<strong>historical pre-audit, target-contaminated</strong> for total
+UPDRS-III; not a current deployment headline.</p>
 <table>
 <thead>
 <tr class="header">
@@ -2751,7 +2774,8 @@ ensemble, held-out test N = 36).</p>
 <td>0.454</td>
 </tr>
 <tr class="even">
-<td><strong>LGB+XGB stacking (150 features)</strong></td>
+<td><strong>LGB+XGB stacking (150 features)</strong> <em>(historical
+pre-audit, target-contaminated)</em></td>
 <td>—</td>
 <td>—</td>
 <td><strong>6.89</strong></td>
@@ -3072,6 +3096,48 @@ gait/balance-observable items (0.371 vs 0.247), and that the best
 observable single-item oracle is only item 8 leg agility (dCCC =
 +0.148). These audits do not improve the model; they make the artifact
 chain harder to accidentally overclaim.</p>
+<h3 id="61-reproducibility-checkpoint-canonical-strings">6.1
+Reproducibility checkpoint (canonical strings)</h3>
+<p>For machine-readable claim provenance, the headline regression
+metrics with their pre-registered paired-bootstrap inference are:</p>
+<ul>
+<li>T1 floor (canonical): T1 LOOCV CCC = 0.6550 (MAE = 1.561;
+iter12-honest, N = 94).</li>
+<li>T1 strongest candidate (post-publication replication target): T1
+LOOCV CCC = 0.7366 (MAE = 1.731; iter34 hybrid, N = 93).
+Paired-bootstrap Δ vs iter12-honest on the n = 93 common cohort:
++0.0812, frac &gt; 0 = 0.9714, 95% CI [−0.003, +0.166].</li>
+<li>T1 transportability (between-site): T1 LOSO transportability mean
+CCC = 0.456 (iter34 architecture, two-way mean across NLS → WPD and WPD
+→ NLS).</li>
+<li>T3 canonical (valid-range corrected): T3 LOOCV CCC = 0.3784 (MAE =
+7.528; iter47, N = 95).</li>
+<li>T3 transportability (between-site): T3 LOSO transportability mean
+CCC = 0.150 (iter47 valid-range, two-way mean).</li>
+</ul>
+<p>For oracle / non-deployable bounds on T3 (gait-IMU only):</p>
+<ul>
+<li>theoretical oracle T1 plus mean R bound CCC = 0.351 (Bound A; oracle
+T1 plus mean residual on items 7–8 + 15–18).</li>
+<li>theoretical perfect T1 to T3 bound CCC = 0.683 (Bound D; perfect T1
+propagated to T3).</li>
+<li>theoretical inductive shrinkage T1 pred to T3 bound CCC = 0.171
+(Bound E; inductive-shrinkage T1_pred → T3, the achievable upper
+bound).</li>
+</ul>
+<p>For the iter5 architecture, the Pareto-asymptote on the iter22
+learning-curve sweep is
+<code>CCC(N) = 0.5975 − 2.1308·N^(−0.6408)</code> (Pareto AIC = −52.75
+vs loglinear AIC = −39.22), giving a structural T3 ceiling of 0.5975
+that more cohort N alone cannot break.</p>
+<p>The iter34 candidate clears P1 / P3 / P4 / P5 leakage gates; the P2
+noisy-test bootstrap upper bound exceeds the +0.05 absolute margin (max
++0.0857), which we frame as <strong>OOD fragility, not transductive
+leakage</strong> in agreement with the LOSO transportability cliff in
+Figure 4. The iter33 family-wise multiple-comparisons audit (Section
+4.12) is the dominant gating consideration before declaring iter34 a
+canonical replacement; we therefore retain iter12-honest as the
+canonical T1 floor.</p>
 <h2 id="data-availability">Data Availability</h2>
 <p>The WearGait-PD dataset is publicly available on Synapse
 (syn52994545). Code for the ablation study and all figure generation
@@ -3192,6 +3258,107 @@ predictions. <em>NeurIPS</em>. 2017:4765-4774.</p>
 href="https://doi.org/10.1023/A:1007379606734">https://doi.org/10.1023/A:1007379606734</a></p>
 <hr />
 <h2 id="figures">Figures</h2>
+<h3
+id="current-post-audit-figures-nature-grade-derived-from-claim_ledgerjson">Current
+post-audit figures (Nature-grade, derived from
+<code>claim_ledger.json</code>)</h3>
+<p>The ten figures below are produced by
+<code>scripts/paper_figures.py</code> from the typed claim ledger at
+<code>results/current_paper_export/claim_ledger.json</code>. Every
+numeric annotation traces to a ledger <code>claim_id</code>; the script
+is enforced no-hard-code via AST scan.</p>
+<p><img src="figures/current/fig01_audit_timeline.png"
+alt="Figure 1: Audit timeline." /></p>
+<p><strong>Figure 1.</strong> WearGait-PD UPDRS-III benchmark reset.
+Pre-audit headline numbers (T1 SSL CCC = 0.868, T3 SSL CCC = 0.776,
+held-out MAE = 6.89 / r = 0.860) are retracted as transductively leaky.
+Post-audit canonical numbers (T1 iter12 honest CCC = 0.6550, T3 iter47
+valid-range CCC = 0.3784, T3 LOSO mean CCC = 0.150) plus the strongest
+T1 candidate (iter34 hybrid CCC = 0.7366) anchor the new benchmark
+surface.</p>
+<p><img src="figures/current/fig02_observability_ceiling.png"
+alt="Figure 2: Observability ceiling." /></p>
+<p><strong>Figure 2.</strong> The gait-observable T1 axial subscore
+(items 9–14) is learnable at CCC ≈ 0.66 floor / 0.74 candidate; total
+UPDRS-III (T3) collapses to CCC ≈ 0.38 internal and 0.15 between-site,
+well below the theoretical Bound A oracle (0.351) and Bound D oracle
+perfect-T1→T3 (0.683). The Pareto N→∞ asymptote (0.5975) for the iter5
+architecture is plotted as a structural ceiling that more data alone
+cannot break. Frame T3 as a strict-inductive cautionary benchmark, not a
+deployable result.</p>
+<p><img src="figures/current/fig03_iter34_vs_iter12_paired.png"
+alt="Figure 3: iter34 vs iter12 paired bootstrap." /></p>
+<p><strong>Figure 3.</strong> Subject-level paired bootstrap on the n =
+93 common cohort. iter34 (CCC = 0.7366) lifts iter12-honest (CCC =
+0.6550) by Δ = +0.0812 with frac&gt;0 = 0.9714, clearing the strict 0.95
+paired-bootstrap gate but failing Bonferroni-n8 family-wise correction.
+iter34 is therefore reported as <strong>strongest candidate /
+post-publication replication target</strong>, not a canonical
+replacement.</p>
+<p><img src="figures/current/fig04_transportability_cliff.png"
+alt="Figure 4: Transportability cliff." /></p>
+<p><strong>Figure 4.</strong> Internal LOOCV systematically
+over-estimates between-site transportability. T1 iter34 drops from
+0.7366 to 0.4564 (Δ = −0.280); T3 iter47 drops from 0.3784 to 0.150 (Δ =
+−0.228). Both deltas argue against treating LOOCV CCC as a deployment
+estimate.</p>
+<p><img src="figures/current/fig05_t3_target_hygiene_waterfall.png"
+alt="Figure 5: T3 target hygiene waterfall." /></p>
+<p><strong>Figure 5.</strong> The T3 headline changed because labels
+were corrected, not because modelling got worse. The historical iter5
+CCC = 0.5227 and iter16 IPW CCC = 0.4694 used a target built by
+skipna-summing 33 raw Part III subitems, which converted three
+all-missing rows into true zero labels and treated <code>NLS036</code>
+9/9 invalid codes as 18 severity points. iter41 excluded all-missing
+rows (CCC = 0.3948); iter47 additionally recoded out-of-range raw codes
+as missing (CCC = 0.3784). LOSO transportability falls further to
+0.150.</p>
+<p><img src="figures/current/fig06_item_level_observability_map.png"
+alt="Figure 6: Item-level observability map." /></p>
+<p><strong>Figure 6.</strong> Per-item LOOCV CCC by clinical
+observability tier. Gait/balance items 9–14 are recoverable; rigidity /
+facial expression / speech items are not; tremor items 15–18 are mixed.
+Item 15 (postural tremor, item_only LOOCV CCC = +0.110) and item 18
+(rest tremor, hy_residual_item_v2 CCC = +0.486) are the only non-axial
+items with usable signal. T3 residuals are dominated by items invisible
+to gait IMU.</p>
+<p><img src="figures/current/fig07_leakage_audit_gate_matrix.png"
+alt="Figure 7: Leakage audit gate matrix." /></p>
+<p><strong>Figure 7.</strong> iter34 hybrid clears P1 (scrambled-label,
+z = 5.22), P3 (SID-shuffle), P4 (canary feature), and P5
+(library-exclusion); P2 noisy-test point Δ passes one-sided but the
+bootstrap upper bound 0.0857 exceeds the +0.05 absolute margin. We
+therefore frame iter34 as exhibiting <strong>OOD fragility, not
+transductive leakage</strong> — consistent with the LOSO
+transportability cliff in Figure 4.</p>
+<p><img src="figures/current/fig08_learning_curve_asymptote.png"
+alt="Figure 8: Learning curve asymptote." /></p>
+<p><strong>Figure 8.</strong> Pareto fit to the iter22 learning-curve
+sweep yields <code>CCC(N) = 0.5975 − 2.1308·N^(−0.6408)</code> (Pareto
+AIC = −52.75 vs loglinear AIC = −39.22). The asymptote 0.5975 sets a
+structural ceiling for the iter5 architecture that more cohort N alone
+cannot break. Reaching deployment-grade T3 CCC therefore requires an
+architecture or feature change, not just data scaling.</p>
+<p><img src="figures/current/fig09_t3_residual_anatomy.png"
+alt="Figure 9: T3 residual anatomy." /></p>
+<p><strong>Figure 9.</strong> T3 residuals are systematic, not random:
+positive in the lowest-severity quartile (over-prediction) and strongly
+negative in the highest (under-prediction). The residual–non-gait-burden
+correlation is r ≈ −0.78, attributing the under-prediction to UPDRS-III
+items invisible to gait IMU (rigidity, facial expression, speech,
+kinetic tremor).</p>
+<p><img
+src="figures/current/fig10_external_transportability_context.png"
+alt="Figure 10: External transportability context." /></p>
+<p><strong>Figure 10.</strong> External-only rows (PADS Track A3
+zero-shot AUROC = 0.498, PDFE within-cohort sanity LOOCV CCC = 0.402,
+PDFE shank-to-PDFE zero-shot CCC = −0.101) are presented as
+transportability context only. They do not update the WearGait internal
+headline, and several rows show the cross-protocol/cross-device
+transportability gap directly.</p>
+<h3
+id="historical--legacy-figure-list-retained-for-archival-completeness">Historical
+/ legacy figure list (retained for archival completeness)</h3>
 <ul>
 <li><strong>Figure 1.</strong> Progressive ablation study showing
 ensemble MAE and Pearson r across 13 experiments (E0–E13). Each

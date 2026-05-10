@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-05-09T12:40:19+00:00",
+  "generated_at_utc": "2026-05-10T13:18:25+00:00",
   "script": "audit_task_plan_current_scope.py",
   "policy": "The active head of task_plan.md must carry explicit post-iter47 completion criteria, while older success tiers remain archive-bound.",
   "passed": true,

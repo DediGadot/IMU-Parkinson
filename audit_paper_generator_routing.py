@@ -18,6 +18,7 @@ OUT_JSON = RESULTS / "paper_generator_routing_audit_20260509.json"
 OUT_MD = RESULTS / "paper_generator_routing_audit_20260509.md"
 
 ACTIVE_DOCS = [
+    ".claude/commands/update-paper.md",
     "AGENTS.md",
     "CLAUDE.md",
     "README.md",
@@ -28,9 +29,7 @@ ACTIVE_DOCS = [
     "results/thread_goal_completion_audit_20260508.md",
 ]
 
-LEGACY_QUARANTINE_DOCS = [
-    ".claude/commands/update-paper.md",
-]
+LEGACY_QUARANTINE_DOCS: list[str] = []
 
 BAD_ACTIVE_SNIPPETS = [
     "Rebuild the current paper with `uv run python generate_paper_v4.py`",
