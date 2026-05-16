@@ -129,7 +129,8 @@ Every new experiment must:
 ## Companion docs
 
 - **`AGENTS.md`** — leakage rules / agent brief. **Source of truth.**
-- **`findings.md`** — full ablation history, what-failed archive (F0–F73+), don't retry without reading.
+- **`findings.md`** — iter34-canonical era + 2026-05-09+ walls (F70–F73, F-iter41 onward).
+- **`findings_archive.md`** — pre-iter34 history (F31–F69, 2026-04-30 to 2026-05-06). Grep `F<num>` across both files; both are load-bearing for wall citations.
 - **`progress.md`** — append-only timestamped log.
 - **`task_plan.md` / `SWARM_PLAN.md`** — current execution plan.
 - **`paper.md`** → `CURRENT_PAPER.html` via `render_current_paper.py`. Legacy `generate_paper_v4.py` / `NEW4.html` are archaeology, not current evidence.
