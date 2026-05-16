@@ -49,3 +49,17 @@ wandb/
 mlruns/
 tensorboard/
 catboost_info/
+
+# === Ephemeral session/telemetry state (Claude Code + SWARM harness) ===
+.claude/scheduled_tasks.lock
+.swarm/session/shell-audit.jsonl
+.swarm/session/state.json
+.swarm/telemetry.jsonl
+.swarm/review-receipts/index.json
+.swarm/repo-graph.json
+.swarm/curator-briefing.md
+
+# === Logs (ephemeral run artifacts; not paper evidence) ===
+*.log
+results/*.log
+results/**/*.log
