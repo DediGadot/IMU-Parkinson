@@ -47,16 +47,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ./gpu.sh run_t3_iter47_invalid_code_fix.py --mode run             # T3 LOOCV 0.3784
 ./gpu.sh run_t3_iter47_invalid_code_fix.py --mode loso            # T3 LOSO 0.150
 
-# Reproduce v-next conformal abstention dashboard (2026-05-14)
-./gpu.sh run_vnext_ablation_batch.py                              # writes Cells A-H + master lockbox; ~14 min on RTX 4060
-uv run python run_vnext_aux_null_gate_and_t1_mondrian.py          # T1 Mondrian-CP analog + 5-null gate
-uv run python run_vnext_t1_mondrian_vs_v2_paired_bootstrap.py     # T1 Mondrian-CP vs V2-only paired-bootstrap (B=5000)
-# Outputs:
-#   T1 retained CCC @70%=0.8897 / @50%=0.9521 (supersedes V2-only conformal)
-#   T3 retained CCC @70%=0.6936 / @50%=0.8484 (repairs broken T3 conformal v2)
-#   Per-item CP heatmap (items 9-14 × {1.0, 0.85, 0.7, 0.5})
-#   PPMI replication blueprint (formula_sha256=489ca6bbc96520c2...)
-# See findings.md F-vnext-20260514 "Reproduction recipe" for full prereqs.
+# Deployable conformal pipelines (lockboxed canonical secondaries)
+./gpu.sh run_t1_conformal_lockbox.py                              # T1 @70% 0.7777 / @50% 0.8338
+./gpu.sh run_t1_slotD_conformal_ph_correction.py                  # T1 deployable @70% 0.7876 (V2-V3 + item-13 PH)
+./gpu.sh run_t3_slotF_cqr_width_conformal.py                      # T3 deployable @70% 0.4237 / @50% 0.5370 (CQR-width)
+
+# v-next Mondrian-CP scripts: T1/T3 retained-CCC numbers RETRACTED 2026-05-14T17:35Z
+# (oracle abstention used y_test in retention). Scripts kept for clean Cells A-H + PPMI blueprint:
+./gpu.sh run_vnext_ablation_batch.py                              # Cells A-H + master lockbox + PPMI blueprint
 
 # Remote GPU (slave has torch/lightgbm/xgboost; master does not)
 ./gpu.sh <script.py> [args]    # rsync + run on remote
@@ -76,6 +74,8 @@ uv run python -m py_compile run_*.py compose_*.py      # syntax-check before any
 uv run python render_current_paper.py                  # paper.md → CURRENT_PAPER.html
 ```
 
+**Ignored from git** (post 2026-05-16 simplify): `*.log`, `.swarm/session/*`, `.swarm/telemetry.jsonl`, `.claude/scheduled_tasks.lock`, `__pycache__/`. Run logs go to `archive/results/logs/` if you want to keep them around.
+
 ## Architecture
 
 Shared modules + self-contained `run_*.py` experiment scripts + one fold-firewall library + per-item composers.
@@ -94,6 +94,8 @@ compose_*.py        per-item OOF composers → hybrid composite predictions
 ```
 
 **Cross-import exceptions:** `run_clean_benchmark.py`, `run_ablation_v3.py`, `run_paper_supplements.py` import from `run_ablation_v2.py` / `run_proven_stack.py`. No other cross-`run_*` imports.
+
+**Repo layout (post 2026-05-16 simplify):** 350 `.py` at top level (12 canonical + ~23 active scratch like `run_t1_X*`/`run_t1_S*`/`run_t3_S*` + ~315 gray-zone iterations not yet triaged). 164 clearly-superseded scripts moved to `archive/scripts/{audits,runs,cache,compose}/` (124+26+5+9). 137 stale `.log` files moved to `archive/results/logs/`. Filenames are preserved verbatim so wall citations in `findings.md` / `findings_archive.md` still grep across `archive/`.
 
 **Execution model:** code on master, dataset (52 GB) on remote at `data/raw/weargait-pd/`. `gpu.sh` rsyncs code → runs → `--pull` fetches results.
 
@@ -149,7 +151,7 @@ Every new experiment must:
 - **ProcessPool deadlock on current slave (RTX 4060, fiod@165.22.71.91:2243):** LightGBM under `ProcessPoolExecutor` deadlocks with fork-OpenMP. Use `mp.get_context("spawn")` for the executor AND `OMP_NUM_THREADS=1` in the worker env. See `feedback_processpool_spawn_context_required.md`.
 - **Use `render_current_paper.py`** for current paper work. `generate_paper_v4.py` / `NEW4.html` are stale.
 
-## What's dead (don't retry — see `findings.md` for mechanism)
+## What's dead (don't retry — see `findings.md` or `findings_archive.md` for mechanism)
 
 Handcrafted feature group expansions at this N · 5 end-to-end DL architectures + HARNet fine-tune (iter37) · HC anchors / HC normative AE · frozen MOMENT/HC-SSL/HARNet/in-domain SSL encoders (4× negative — wall is N=94, not domain-gap) · privileged distillation · 4-base-learner stacking · post-hoc isotonic/Platt/poly calibration · NGBoost · pairwise contrastive boosting · TabPFN-2.5 (paywalled) · IMU additions to iter5 (event-axial, unsigned-asymmetry) · sensor-fusion at N=94 · per-item gated T3 composite (iter19, F53) · 1-param convex blend + Stage-1 widening (iter22, F58, with N→0.5975 Pareto asymptote) · nested k=19 Ridge meta hybrid (iter21, F56) · clinical-extras Stage-1/Stage-2 forced-inclusion (iter23/24, F59) · zero-shot cross-protocol transfer (PADS iter25b, F60b) · tail-aware Stage-2 retrain (iter27, F61) · SOTA shootout AutoGluon/MultiROCKET (iter28, F63) · low-degree convex IMU/clinical mixer (iter50, F-iter50) · **V3 feature families** (GSP / MoS / TITD / Phase-Manifold / Recovery / PSI / Shapelets, 2026-05-12) — only V2+V3-GSP nested cleared single-seed Δ=+0.0079; honest nested CV (BCa) gave Δ=+0.0115 with CI crossing 0; 4-CLI consult (codex+kimi+deepseek+grok) confirmed N=92 weight-variance is the wall, not feature subspace.
 
