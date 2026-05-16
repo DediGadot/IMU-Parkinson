@@ -1,0 +1,47 @@
+{
+  "timestamp": "20260512_120132",
+  "iso_datetime_utc": "2026-05-12T09:01:32.208333Z",
+  "experiment": "T1 iter56 Bayesian per-item no-aux \u2014 goal-v1 slot T1-C",
+  "git_head": "unknown",
+  "formula_sha256": "c37583588daff8d1b9d5cfe1cbb158c5b4cd679f6e6151f8e2180f3335de0576",
+  "formula": {
+    "experiment": "T1 iter56 Bayesian per-item hierarchical regression, NO aux {15,18} \u2014 goal-v1 slot T1-C",
+    "cohort": "iter34 hygiene-corrected N=92",
+    "items_modeled": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "aux_items_excluded": [
+      15,
+      18
+    ],
+    "rationale": "Codex hard constraint: aux items {15,18} are EXCLUDED to ensure the slot is NOT a probabilistic re-derivation of iter34's auxiliary chain mechanism. The orthogonal mechanism is partial pooling across items via shared subject-level H&Y prior.",
+    "stage1": "Ridge alpha=1.0 on H&Y + cv_yrs + cv_sex + cv_dbs",
+    "per_item_features": "K=500 LGB-importance against item-i residual, then PCA reduce to K_PCA=16 components (fold-local)",
+    "bayesian_model": [
+      "y_si = alpha_s + intercept_i + X_si @ beta_i + epsilon",
+      "alpha_s ~ N(gamma * HY_s, sigma_a)",
+      "beta_i ~ N(0, sigma_b * I)",
+      "sigma_a, sigma_b, sigma_y ~ HalfNormal(2)",
+      "gamma ~ N(0, 1)"
+    ],
+    "inference": "numpyro SVI with AutoNormal guide, Adam lr=0.01, 1000 iters. MAP point estimate from posterior.",
+    "test_subject_prediction": "alpha_test = gamma * HY_test (no random effect; equivalent to alpha_raw=0). Per-item pred = alpha_test + intercept_i + X_te_i @ beta_i.",
+    "t1_combine": "T1 = Stage_1_pred + sum_i (item_test_pred + item_train_mean) - sum_i item_train_mean",
+    "seeds": [
+      42,
+      1337,
+      7
+    ],
+    "comparator": "iter34 hygiene-corrected OOF",
+    "primary_stat": "per-subject sign-flip permutation (10000) + BCa CI + +0.025 MCID",
+    "fwer": "Bonferroni n=4; p_threshold = 0.05/4 = 0.0125"
+  },
+  "master_prereg": "preregistration_goalv1_master_20260512.json",
+  "fwer_family_id": "goalv1_n4",
+  "slot_id": "T1-C"
+}

@@ -1,0 +1,85 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "validator": "scripts/validate_ppmi_verily_completed_packet.py"
+      },
+      "name": "validator script exists",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_packet_preflight_failed",
+        "remaining_placeholder_count": 13,
+        "returncode": 1
+      },
+      "name": "unfinished template fails because placeholders remain",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_packet_preflight_passed",
+        "hard_failures": [],
+        "packet_identity_redacted": true,
+        "packet_path_reported": false,
+        "returncode": 0
+      },
+      "name": "synthetic completed packet passes without recording content",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_source_missing_terms": [
+          "current official source recheck on 2026-05-16",
+          "data and publications committee within one week",
+          "ppmi data access guidelines version 7.0",
+          "30 days after receipt",
+          "file-size transfer restrictions",
+          "data complexity"
+        ],
+        "bad_source_returncode": 1,
+        "synthetic_official_source_check": {
+          "missing_terms": [],
+          "passed": true,
+          "required_term_count": 9
+        }
+      },
+      "name": "validator requires current official-source recheck terms",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_source_output_contains_filename": false,
+        "bad_source_output_contains_full_path": false,
+        "synthetic_output_contains_filename": false,
+        "synthetic_output_contains_full_path": false,
+        "template_output_contains_filename": false,
+        "template_output_contains_full_path": false
+      },
+      "name": "validator output does not echo completed packet path or filename",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "allow_placeholders_used": true,
+        "decision": "placeholder_tolerant_packet_audit_passed",
+        "not_valid_for_submission": true,
+        "pre_submission_preflight_valid": false,
+        "remaining_placeholder_count": 13,
+        "returncode": 0
+      },
+      "name": "template can be audited only with explicit allow-placeholders flag",
+      "passed": true
+    }
+  ],
+  "decision": "ppmi_verily_completed_packet_validator_ready",
+  "generated_at_utc": "2026-05-16T12:51:39+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "not_access_approval": true,
+  "passed": true,
+  "script": "audit_ppmi_verily_completed_packet_validator.py",
+  "synthetic_packet": "results/ppmi_verily_completed_packet_validator_synthetic.md",
+  "validator": "scripts/validate_ppmi_verily_completed_packet.py"
+}

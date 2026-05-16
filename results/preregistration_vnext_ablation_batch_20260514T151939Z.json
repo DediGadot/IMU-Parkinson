@@ -1,0 +1,197 @@
+{
+  "name": "vnext_ablation_batch",
+  "created_at_utc": "2026-05-14T15:19:39.440422+00:00",
+  "git_sha": "unknown",
+  "script_sha256": "53eacab2eff157508e855a0bb3b73506dbeaf1fa00ebc462b87ab3e16a8b5e88",
+  "status": "locked_before_execution",
+  "ts_global": "20260514T151939Z",
+  "goal_directive": "v-next features + KPIs + ablation + stacking; respect 30+ wall data points; saturate remote RTX 4060 GPU slave.",
+  "consult_records": [
+    "/tmp/pd_imu_consult/codex_20260514T150619.txt",
+    "/tmp/pd_imu_consult/gemini_20260514T150619.txt (429 RESOURCE_EXHAUSTED)",
+    "/tmp/pd_imu_consult/kimi_vnext_20260514T151135.txt (opencode recursive-skill abort)"
+  ],
+  "synthesis_voice": "codex_solo_due_to_gemini_quota_exhaustion",
+  "cells": {
+    "A_t3_mondrian_cp": {
+      "estimand": "t3_conformal_retained_subset_ccc",
+      "bins": "outer_train_only_LOO_quartile_of_predicted_T3",
+      "score": "abs_residual",
+      "expected_70pct_ccc": ">=0.40"
+    },
+    "B_t3_cqr": {
+      "estimand": "t3_conformal_retained_subset_ccc",
+      "model": "LGB_quantile_alpha_005_05_095",
+      "K": 250,
+      "selector": "univariate_corr",
+      "score": "interval_width_q95_q05",
+      "expected_70pct_ccc": ">=0.40"
+    },
+    "C_t3_mondrian_cqr_joint": {
+      "estimand": "t3_conformal_retained_subset_ccc",
+      "score": "cqr_width_per_predicted_T3_bin",
+      "expected_70pct_ccc": ">=0.42"
+    },
+    "D_t3_k250_4cell": {
+      "estimand": "t3_loocv_ccc",
+      "cells": [
+        {
+          "model": "sklearn_gb",
+          "selector": "univariate_corr"
+        },
+        {
+          "model": "sklearn_gb",
+          "selector": "lgb_importance"
+        },
+        {
+          "model": "lightgbm",
+          "selector": "univariate_corr"
+        },
+        {
+          "model": "lightgbm",
+          "selector": "lgb_importance"
+        }
+      ],
+      "K": 250,
+      "comparator": "iter47_canonical_0.3784",
+      "expected_max_delta": "+0.07_at_sklearn_gb_univariate_corr"
+    },
+    "E_t1_peritem_cp_heatmap": {
+      "estimand": "t1_peritem_conformal_retained_ccc",
+      "items": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "coverages": [
+        1.0,
+        0.85,
+        0.7,
+        0.5
+      ],
+      "source": "iter34_per_item_oof_npz"
+    },
+    "F_joint_t1_t3": {
+      "estimand": "joint_multioutput_t1_t3_ccc",
+      "comparator_t1": "iter34_canonical_0.7170",
+      "comparator_t3": "iter47_canonical_0.3784"
+    },
+    "G_item11_hurdle": {
+      "estimand": "item11_loocv_ccc",
+      "comparator": "iter34_chain_item11_0.232"
+    },
+    "H_ppmi_blueprint": {
+      "estimand": "external_replication_contract_lock",
+      "kind": "documentation_no_compute"
+    }
+  },
+  "fwer_families": {
+    "t3_conformal": {
+      "cells": [
+        "A",
+        "B",
+        "C"
+      ],
+      "n": 3,
+      "bonferroni_gate_frac_pos": 0.9833,
+      "comparator": "T3 conformal v2 (stddev predictor) PARTIAL_PASS r=0.12, retained_ccc_70%=0.329"
+    },
+    "t3_loocv_ccc": {
+      "cells": [
+        "D_sklearn_gb_univ_corr",
+        "D_sklearn_gb_lgb_imp",
+        "D_lightgbm_univ_corr",
+        "D_lightgbm_lgb_imp"
+      ],
+      "n": 4,
+      "bonferroni_gate_frac_pos": 0.9875,
+      "comparator": "iter47_canonical_0.3784_N95"
+    },
+    "t1_peritem_cp": {
+      "cells": [
+        "E_item9",
+        "E_item10",
+        "E_item11",
+        "E_item12",
+        "E_item13",
+        "E_item14"
+      ],
+      "n": 6,
+      "bonferroni_gate_per_item": 0.9917,
+      "comparator": "standalone_item_loocv_ccc_iter34_chain"
+    },
+    "joint_t1_t3": {
+      "cells": [
+        "F"
+      ],
+      "n": 1,
+      "gate_frac_pos": 0.95,
+      "comparator_t3": "iter47_canonical_0.3784_N95",
+      "comparator_t1": "iter34_canonical_0.7170_N92"
+    },
+    "item11_hurdle": {
+      "cells": [
+        "G"
+      ],
+      "n": 1,
+      "gate_frac_pos": 0.95,
+      "comparator": "iter34_chain_item11_0.232"
+    }
+  },
+  "kpi_dashboard": {
+    "primary_t1_loocv_ccc": {
+      "current_canonical": 0.717,
+      "current_floor": 0.655,
+      "ceiling_status": "SATURATED in-cohort (30+ wall data points)"
+    },
+    "primary_t3_loocv_ccc": {
+      "current_canonical": 0.3784,
+      "best_fails_fwer": 0.4488,
+      "ceiling_status": "SATURATED in-cohort under FWER"
+    },
+    "secondary_t1_conformal_70pct": {
+      "current_canonical_retained_ccc": 0.7777,
+      "lockbox_2026_05_12": "/home/fiod/pd-imu/results/lockbox_t1_conformal_20260512_211440.json"
+    },
+    "secondary_t1_conformal_50pct": {
+      "current_canonical_retained_ccc": 0.8338,
+      "lockbox_2026_05_12": "/home/fiod/pd-imu/results/lockbox_t1_conformal_20260512_211440.json"
+    },
+    "secondary_t3_conformal_70pct": {
+      "current_canonical_retained_ccc": 0.329,
+      "status": "PARTIAL_PASS_MONOTONICITY_VIOLATIONS r=0.12",
+      "vnext_target": "PASS_DEPLOYABLE_SECONDARY via cells A/B/C"
+    },
+    "tertiary_mae_at_70pct": {
+      "t1": 1.63,
+      "t3": 6.87
+    },
+    "methodological_5_null_gate": "pass_required_per_cell",
+    "translational_mcid_rate": "fraction of |y_pred - y_true| <= MCID (T1 MCID=2 sum points; T3 MCID=2.5-5 total points per Horvath 2017)",
+    "per_item_deployability_heatmap": "cell_E_output",
+    "external_replication_readiness": "PPMI primary formula locked at cell_H output formula_sha256"
+  },
+  "ppmi_locked_formula_target_path": "/home/fiod/pd-imu/results/lockbox_ppmi_replication_blueprint_20260514T151939Z.json",
+  "out_of_fwer_family": [
+    "H"
+  ],
+  "leakage_safeguards": [
+    "All bins computed from outer-train predictions OR predicted-T3 (no test-fold y used in binning).",
+    "Stage-1 Ridge fitted only on outer-train fold per LOOCV iteration.",
+    "K-best selectors (univariate-corr / LGB-importance) fitted only on outer-train fold residuals.",
+    "Quantile thresholds in conformal cells computed leave-one-out from the other N-1 calibration subjects.",
+    "K=250 fixed; no K-search inside this batch.",
+    "Selector and model classes fixed per cell; no in-cell search.",
+    "iter34 per-item OOF (cell E) and iter47 OOF (cells A/C) are already leak-clean LOOCV artifacts."
+  ],
+  "hard_rejections_codex_2026_05_14": [
+    "Do not tune abstention scores on the final OOF residuals.",
+    "Do not choose coverage thresholds by reported CCC.",
+    "Do not build bins using all labels (true T3); use predicted T3.",
+    "Do not use global feature selectors.",
+    "Do not pick the PPMI formula after seeing PPMI outcomes."
+  ]
+}

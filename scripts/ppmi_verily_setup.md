@@ -27,7 +27,7 @@ Current decision:
    - visit dates, assessment dates, and wearable collection timestamps;
    - medication state or dose-timing fields if available.
 5. Keep credentials and any PPMI configuration in an ignored local location. Do not commit tokens, downloaded protected data, or derived subject-identifiable metadata.
-6. After approval, run a read-only schema probe first. Do not write a preregistration until the accessible tables, subject counts, label fields, and sensor metadata are known.
+6. After approval, use `scripts/ppmi_verily_schema_probe_checklist.md` to run a read-only schema probe first. Do not write a preregistration until the accessible tables, subject counts, label fields, and sensor metadata are known.
 
 Official entry points:
 
@@ -36,7 +36,11 @@ Official entry points:
 - PPMI Data Access Guidelines: https://www.ppmi-info.org/sites/default/files/docs/PPMI%20Data%20Access%20Guidelines.pdf
 - Verily / PPMI Study Watch reference: https://www.nature.com/articles/s41531-025-01034-8
 
+Current official source recheck on 2026-05-16: the PPMI access page says new users must sign the Data Use Agreement, submit an online application, and comply with the Publications Policy; it also says applications are reviewed by the Data and Publications Committee within one week of receipt. PPMI Data Access Guidelines Version 7.0 (15 Feb 2026) lists **Verily Raw Device Data** as Tier 3 because of file-size transfer restrictions and data complexity. Tier-3 requests should go to `resources@michaeljfox.org` as a PDF or Word document and include the specific requested Tier-3 data, intended use, analysis synopsis, all requesting research-team members, and re-acknowledgement of no-sharing and purpose limits. The PPMI Data Access Committee review target for Tier-3 requests is 30 days after receipt.
+
 ## Post-Approval Probe Checklist
+
+Operational checklist: `scripts/ppmi_verily_schema_probe_checklist.md`. It binds this route-specific guidance to the typed schema-probe recorder and should be used only after approval metadata exists.
 
 Before any model run, write a probe artifact such as `results/ppmi_verily_probe_YYYYMMDD.json` containing:
 
@@ -63,9 +67,31 @@ Runtime sanity checks required before feature extraction:
 
 The first eligible analysis after access should be zero-shot external validation:
 
+- Use the content-free pre-access blueprint at
+  `results/ppmi_verily_zeroshot_blueprint_20260515.json` only as the route
+  design boundary. It is not a preregistration, schema probe, approval record,
+  scaffold, or model result.
 - Train on WearGait-PD only.
 - Score PPMI once using a pre-registered matching window and feature map.
 - Do not use PPMI labels for feature selection, calibration, target transformation, hyperparameter search, outlier removal, or endpoint choice.
+- After schema metadata is recorded and before any zero-shot scoring, validate
+  a completed target-free feature manifest with
+  `scripts/validate_ppmi_verily_target_free_manifest.py` using the local
+  scratch template at `scripts/ppmi_verily_target_free_manifest_template.json`.
+  The filled manifest must not contain protected rows, feature matrices, target
+  values, credentials, or local protected paths.
+- After target-free manifest preflight and before extraction or scoring,
+  validate a local formula-SHA record with
+  `scripts/validate_external_formula_sha_record.py --route-id ppmi_verily`
+  using the PPMI route guidance in
+  `results/external_formula_sha_templates_20260515.md`. This freezes the
+  first external formula before PPMI labels can influence design decisions.
+- After scoring, validate a local aggregate result record with
+  `scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily`
+  using `results/external_zeroshot_result_templates_20260515.md` before
+  reporting a zero-shot transportability or within-route sanity row. Keep row
+  predictions, feature matrices, target values, and protected identifiers out
+  of any committed result handoff.
 - Report it as external-validity evidence, not as a new internal WearGait-PD canonical number.
 
 Any augmentation or PPMI-trained experiment must be a separate pre-registration after the probe:
@@ -82,6 +108,11 @@ Track A: WearGait-trained wrist-only zero-shot.
 
 - Purpose: test whether the IMU feature space transports without clinical covariates.
 - Expected value: paper-rigor row; no internal CCC update.
+- Include a small target-free topology/fractality branch if the schema supports
+  raw-enough accelerometry: persistent homology summaries and multifractal
+  detrended fluctuation analysis summaries computed from predeclared wrist
+  windows. Do not use PPMI labels to select PH/MFDFA columns, windows, axes, or
+  component counts.
 
 Track B: WearGait-trained clinical+wrist zero-shot.
 
@@ -92,11 +123,20 @@ Track C: PPMI-only LOOCV sanity.
 
 - Purpose: verify that PPMI contains harvestable within-cohort signal.
 - Required caution: not a WearGait deployment number.
+- The only pro-results T3 mechanism allowed in this track without another
+  architecture search is the fixed K=250 `GradientBoostingRegressor` branch:
+  Stage 1 Ridge on available H&Y/intake covariates, Stage 2 top-250
+  univariate-correlation features, `GradientBoostingRegressor(n_estimators=300,
+  max_depth=4, min_samples_leaf=10, subsample=0.8, learning_rate=0.05)`, and
+  the predeclared seeds. No K-search, model search, or selector search.
 
 Track D: augmentation screen.
 
 - Purpose: test whether PPMI can improve WearGait T3 under a pre-registered augmentation protocol.
 - Required gate: same strict promotion logic as other T3 additions; no lockbox unless the screen clears the gate.
+- Any augmentation proposal that uses PH/MFDFA or K=250 GB evidence must first
+  cite the zero-shot / PPMI-only sanity result and then write a fresh
+  `formula_sha256` pre-registration before PPMI labels enter a development role.
 
 ## Stop Conditions
 

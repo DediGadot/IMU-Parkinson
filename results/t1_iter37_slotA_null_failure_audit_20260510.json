@@ -1,0 +1,26 @@
+{
+  "allowed_followup": "Document failure only; do not run lockbox or use this route for a canonical/candidate claim.",
+  "checks": {
+    "canary_max_delta_lt_1e_minus_6": false,
+    "scrambled_abs_lt_0p05": true,
+    "transductive_gt_0p5": true
+  },
+  "decision": "corrected_null_gate_failed_canary_instability_do_not_screen_or_promote",
+  "generated_at_utc": "2026-05-10T14:56:26+00:00",
+  "input_artifact": "results/t1_iter37_slotA_nulls_corrected_20260510_145355.json",
+  "metrics": {
+    "canary_feature_ccc": 0.5788,
+    "canary_vs_normal_max_abs_delta": 0.20275940969374773,
+    "canary_vs_normal_mean_abs_delta": 0.05739663142220815,
+    "normal_ccc": 0.579,
+    "scrambled_label_ccc": -0.0139,
+    "transductive_sanity_ccc": 0.8056
+  },
+  "not_a_model_headline": true,
+  "null_gate_pass": false,
+  "passed": true,
+  "prior_artifact_issue": "Prior null shuffled only T1 sum while chain targets stayed true; corrected null shuffles all target-derived training arrays.",
+  "screen_aborted_reason": "Corrected null gate failed before a reportable screen result; repeated process-pool runs also stalled after the null gate.",
+  "script": "audit_t1_iter37_slotA_null_failure.py",
+  "supersedes_prior_artifact": "results/t1_iter37_slotA_nulls_20260510_143049.json"
+}

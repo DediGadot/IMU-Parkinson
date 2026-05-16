@@ -1,0 +1,111 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "validator": "scripts/validate_ppmi_verily_target_free_manifest.py"
+      },
+      "name": "validator script exists",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "template": "scripts/ppmi_verily_target_free_manifest_template.json"
+      },
+      "name": "manifest template exists",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "target_free_feature_manifest_preflight_passed",
+        "field_counts": {
+          "feature_blocks": 1,
+          "grouping_keys": 2,
+          "reserved_target_columns": 1,
+          "top_level_keys": 28
+        },
+        "hard_failures": [],
+        "returncode": 0
+      },
+      "name": "synthetic target-free manifest passes without recording content",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "target_free_feature_manifest_preflight_failed",
+        "hard_failures": [
+          "placeholders_replaced",
+          "schema_probe_metadata_recorded"
+        ],
+        "returncode": 1
+      },
+      "name": "unfinished manifest template fails preflight",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "target_free_feature_manifest_preflight_failed",
+        "hard_failures": [
+          "labels_not_used_before_scoring",
+          "target_selection_empty",
+          "boundary_flags_false"
+        ],
+        "returncode": 1
+      },
+      "name": "label use and target-derived selection fail preflight",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "target_free_feature_manifest_preflight_failed",
+        "hard_failures": [
+          "protected_payload_keys_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "protected row-like and credential-like payloads fail preflight",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "target_free_feature_manifest_preflight_failed",
+        "hard_failures": [
+          "forbidden_value_snippets_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "local path-like values fail preflight",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "label_output_contains_filename": false,
+        "local_path_output_contains_filename": false,
+        "local_path_output_contains_scratch_filename": false,
+        "local_path_output_contains_scratch_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_secret_value": false,
+        "synthetic_output_contains_filename": false,
+        "synthetic_output_contains_path": false,
+        "template_output_contains_filename": false,
+        "template_output_contains_path": false
+      },
+      "name": "validator output does not echo manifest paths, filenames, local scratch paths, or synthetic secret values",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "ppmi_verily_target_free_manifest_validator_ready",
+  "generated_at_utc": "2026-05-16T12:53:15+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_feature_manifest_artifact": true,
+  "not_a_model_result": true,
+  "not_a_preregistration": true,
+  "not_a_schema_probe_artifact": true,
+  "not_access_approval": true,
+  "passed": true,
+  "protected_data_included": false,
+  "script": "audit_ppmi_verily_target_free_manifest_validator.py",
+  "template": "scripts/ppmi_verily_target_free_manifest_template.json",
+  "validator": "scripts/validate_ppmi_verily_target_free_manifest.py"
+}

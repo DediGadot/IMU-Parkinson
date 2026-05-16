@@ -1,0 +1,70 @@
+{
+  "approved_access_recorded": true,
+  "claim_boundary": "Aggregate external zero-shot metrics are transportability or within-route sanity evidence only, not internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+  "created_at_utc": "2026-05-15T00:00:00+00:00",
+  "credentials_or_tokens_included": false,
+  "external_only": true,
+  "feature_matrix_included": false,
+  "formula_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+  "formula_sha_record_preflight_passed": true,
+  "formula_sha_record_reference": "synthetic_non_protected_ppp_pd_vme_formula_sha_record_hash",
+  "git_sha": "0000000000000000000000000000000000000000",
+  "internal_canonical_update_allowed": false,
+  "local_paths_included": false,
+  "model_predictions_included": false,
+  "preregistration_written": false,
+  "protected_data_included": false,
+  "raw_rows_or_samples_included": false,
+  "result_stage": "post_score_external_zero_shot_result_record",
+  "route_id": "ppp_pd_vme",
+  "row_predictions_included": false,
+  "schema_probe_metadata_recorded": true,
+  "schema_probe_record_reference": "synthetic_non_protected_ppp_pd_vme_schema_probe_record_hash",
+  "scoring_command": "uv run python scripts/score_ppp_pd_vme_zero_shot_after_approval.py --formula-record synthetic_non_protected_record",
+  "status": "template_complete_outside_git_after_external_zero_shot_scoring",
+  "target_free_manifest_preflight_passed": true,
+  "target_free_manifest_reference": "synthetic_non_protected_ppp_pd_vme_target_free_manifest_hash",
+  "target_values_included": false,
+  "tracks": [
+    {
+      "aggregate_metrics": {
+        "ccc": 0.1,
+        "mae": 1.0,
+        "n": 20
+      },
+      "claim_boundary": "External transportability evidence only; not an internal WearGait-PD T1/T3 headline update.",
+      "name": "weargait_trained_sensor_zeroshot",
+      "status": "scored",
+      "track_id": "A"
+    },
+    {
+      "aggregate_metrics": {
+        "ccc": 0.1,
+        "mae": 1.0,
+        "n": 20
+      },
+      "claim_boundary": "External comparator evidence only; not an internal WearGait-PD T1/T3 canonical update.",
+      "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+      "status": "scored",
+      "track_id": "B"
+    },
+    {
+      "aggregate_metrics": {
+        "ccc": 0.1,
+        "mae": 1.0,
+        "n": 20
+      },
+      "claim_boundary": "External within-route sanity evidence only; not internal WearGait deployment performance or an internal canonical update.",
+      "name": "ppp_pd_vme_only_grouped_sanity",
+      "status": "scored",
+      "track_id": "C"
+    },
+    {
+      "aggregate_metrics": {},
+      "claim_boundary": "Blocked unless a future fresh internal augmentation preregistration clears promotion gates.",
+      "name": "augmentation_screen_after_zero_shot_only",
+      "status": "blocked",
+      "track_id": "D"
+    }
+  ]
+}

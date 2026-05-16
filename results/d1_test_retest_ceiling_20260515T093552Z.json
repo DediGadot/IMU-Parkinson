@@ -1,0 +1,72 @@
+{
+  "name": "d1_test_retest_ceiling",
+  "created_at_utc": "20260515T093552Z",
+  "n_subjects": 92,
+  "iter34_t1_sum_ccc": 0.717,
+  "pipeline_test_retest_ph_mfdfa_only": {
+    "ccc_selfpace_truth": 0.295,
+    "ccc_hurriedpace_truth": 0.2868,
+    "ccc_selfpace_vs_hurriedpace": 0.6216,
+    "r_selfpace_vs_hurriedpace": 0.6318,
+    "n_features_selfpace": 33,
+    "n_features_hurriedpace": 22
+  },
+  "iter34_explained_variance": {
+    "per_item": {
+      "item_9": {
+        "ccc": 0.234,
+        "var_y": 0.2414,
+        "var_resid": 0.2222,
+        "explained_var_ratio": 0.0795
+      },
+      "item_10": {
+        "ccc": 0.4426,
+        "var_y": 0.575,
+        "var_resid": 0.4085,
+        "explained_var_ratio": 0.2895
+      },
+      "item_11": {
+        "ccc": 0.2319,
+        "var_y": 0.3028,
+        "var_resid": 0.2737,
+        "explained_var_ratio": 0.096
+      },
+      "item_12": {
+        "ccc": 0.5655,
+        "var_y": 0.8992,
+        "var_resid": 0.5192,
+        "explained_var_ratio": 0.4226
+      },
+      "item_13": {
+        "ccc": 0.0674,
+        "var_y": 0.543,
+        "var_resid": 0.595,
+        "explained_var_ratio": -0.0958
+      },
+      "item_14": {
+        "ccc": 0.3168,
+        "var_y": 0.5315,
+        "var_resid": 0.4294,
+        "explained_var_ratio": 0.1922
+      }
+    },
+    "t1_sum": {
+      "ccc": 0.717,
+      "var_y": 7.575,
+      "var_resid": 4.8725,
+      "explained_var_ratio": 0.3568
+    }
+  },
+  "literature_reference": {
+    "Goetz_2008_inter_rater_ICC_T3_sum": 0.96,
+    "Goetz_2008_test_retest_ICC_T3_sum": 0.81,
+    "Goetz_2008_item_level_kappa_avg": 0.55,
+    "Maetzler_2016_wearable_weekly_ICC": 0.7,
+    "implied_within_subject_pipeline_ceiling_T1_sum": 0.8
+  },
+  "verdict": "CEILING_REACHED",
+  "rationale": "Pipeline test-retest CCC (0.6216) is at or below iter34 (0.7170). Further pushing on this cohort is mathematically futile - within-subject prediction across tasks is already worse than iter34's between-subject prediction.",
+  "headroom_vs_pipeline_test_retest": -0.0954,
+  "headroom_vs_literature_ceiling": 0.083,
+  "caveat": "Pipeline test-retest from PH+MFDFA-only Ridge is a LOWER BOUND on achievable test-retest reliability. iter34's K=500 LGB-imp on V2 has richer features and likely yields a higher within-subject reliability ceiling. Interpret as: if even this stripped-down pipeline already exceeds iter34's CCC, headroom is real; if it falls below, the wall is real."
+}

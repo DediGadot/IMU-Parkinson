@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-05-09T08:04:57+00:00",
+  "generated_at_utc": "2026-05-11T07:42:45+00:00",
   "script": "audit_t1_candidate_claim_labeling.py",
   "policy": "T1 iter34/0.7366 may be described as a strongest candidate or post-publication replication target only when local wording preserves the N=93/P2/auxiliary-label caveats and keeps iter12 as the canonical floor.",
   "passed": true,
@@ -8,25 +8,25 @@
   "docs": [
     {
       "path": "paper.md",
-      "current_scope_lines": 713,
+      "current_scope_lines": 785,
       "findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "CURRENT_PAPER.html",
-      "current_scope_lines": 2101,
+      "current_scope_lines": 2316,
       "findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "CLAUDE.md",
-      "current_scope_lines": 331,
+      "current_scope_lines": 124,
       "findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "AGENTS.md",
-      "current_scope_lines": 141,
+      "current_scope_lines": 154,
       "findings": [],
       "missing_required_snippets": []
     },
@@ -38,25 +38,25 @@
     },
     {
       "path": "progress.md",
-      "current_scope_lines": 128,
+      "current_scope_lines": 148,
       "findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "findings.md",
-      "current_scope_lines": 1735,
+      "current_scope_lines": 3538,
       "findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "results/thread_goal_completion_audit_20260508.md",
-      "current_scope_lines": 133,
+      "current_scope_lines": 151,
       "findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "results/current_best_pipeline_artifact_index_20260508.md",
-      "current_scope_lines": 412,
+      "current_scope_lines": 433,
       "findings": [],
       "missing_required_snippets": []
     }

@@ -19,10 +19,22 @@ ROOT = Path(__file__).resolve().parent
 RESULTS = ROOT / "results"
 READINESS_JSON = RESULTS / "external_access_readiness_audit_20260509.json"
 SOURCE_ROUTE_JSON = RESULTS / "external_dataset_route_audit_20260508.json"
+PPMI_SUBMIT_FORMAT_JSON = RESULTS / "ppmi_verily_submit_format_audit_20260515.json"
+PPMI_EMAIL_TEMPLATE_JSON = RESULTS / "ppmi_verily_submission_email_template_audit_20260515.json"
+PPMI_USER_FILL_CHECKLIST_JSON = RESULTS / "ppmi_verily_user_fill_checklist_audit_20260515.json"
+PPMI_SCHEMA_PROBE_CHECKLIST_JSON = RESULTS / "ppmi_verily_schema_probe_checklist_audit_20260515.json"
+PPMI_SCHEMA_PROBE_TEMPLATE_JSON = RESULTS / "ppmi_verily_schema_probe_report_template_audit_20260515.json"
+PPMI_COMPLETED_PACKET_VALIDATOR_JSON = RESULTS / "ppmi_verily_completed_packet_validator_audit_20260515.json"
+PPMI_COMPLETED_EMAIL_VALIDATOR_JSON = RESULTS / "ppmi_verily_submission_email_validator_audit_20260515.json"
+PPMI_COMPLETED_PACKAGE_VALIDATOR_JSON = RESULTS / "ppmi_verily_submission_package_validator_audit_20260515.json"
 OUT_JSON = RESULTS / "access_submission_tracker_20260509.json"
 OUT_MD = RESULTS / "access_submission_tracker_20260509.md"
 
 TOP_ROUTE_COUNT = 6
+EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT = 19
+EXPECTED_PPMI_PACKET_FIELD_COUNT = 13
+EXPECTED_PPMI_EMAIL_FIELD_COUNT = 12
+EXPECTED_PPMI_SUBMISSION_METADATA_FIELD_COUNT = 4
 PLACEHOLDER_RE = re.compile(r"\[([A-Z0-9_]+)\]")
 
 COMMON_BLOCKED_ACTIONS = [
@@ -116,6 +128,12 @@ def load_json(path: Path) -> dict[str, Any]:
         return json.load(f)
 
 
+def load_json_optional(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    return load_json(path)
+
+
 def rel(path: Path) -> str:
     return str(path.relative_to(ROOT))
 
@@ -158,13 +176,72 @@ def source_urls(source_route: dict[str, Any]) -> list[str]:
 def route_tracker_row(route: dict[str, Any], source_route: dict[str, Any]) -> dict[str, Any]:
     packet = route.get("request_packet", {})
     placeholders = packet_placeholders(packet.get("path"))
+    packet_audit = load_json(ROOT / packet["audit"]) if packet.get("audit") else {}
+    official_source_recheck = None
+    if route.get("id") == "ppmi_verily":
+        submit_format = load_json_optional(PPMI_SUBMIT_FORMAT_JSON)
+        email_template = load_json_optional(PPMI_EMAIL_TEMPLATE_JSON)
+        user_fill_checklist = load_json_optional(PPMI_USER_FILL_CHECKLIST_JSON)
+        schema_probe_checklist = load_json_optional(PPMI_SCHEMA_PROBE_CHECKLIST_JSON)
+        schema_probe_template = load_json_optional(PPMI_SCHEMA_PROBE_TEMPLATE_JSON)
+        completed_packet_validator = load_json_optional(PPMI_COMPLETED_PACKET_VALIDATOR_JSON)
+        completed_email_validator = load_json_optional(PPMI_COMPLETED_EMAIL_VALIDATOR_JSON)
+        completed_package_validator = load_json_optional(PPMI_COMPLETED_PACKAGE_VALIDATOR_JSON)
+        official_source_recheck = {
+            "packet_audit": packet.get("audit"),
+            "official_sources_passed": packet_audit.get("checks", {}).get("official_sources", {}).get("passed"),
+            "tier3_submission_passed": packet_audit.get("checks", {}).get("tier3_submission", {}).get("passed"),
+            "required_packet_fields_passed": packet_audit.get("checks", {}).get("required_packet_fields", {}).get("passed"),
+            "required_terms": {
+                "official_sources": packet_audit.get("checks", {}).get("official_sources", {}).get("required_terms", []),
+                "tier3_submission": packet_audit.get("checks", {}).get("tier3_submission", {}).get("required_terms", []),
+                "required_packet_fields": packet_audit.get("checks", {}).get("required_packet_fields", {}).get("required_terms", []),
+            },
+        }
+    else:
+        submit_format = {}
+        email_template = {}
+        user_fill_checklist = {}
+        schema_probe_checklist = {}
+        schema_probe_template = {}
+        completed_packet_validator = {}
+        completed_email_validator = {}
+        completed_package_validator = {}
     meta = SUBMISSION_META.get(str(route.get("id")), {})
     action_ready = bool(route.get("action_packet_ready"))
     compute_ready = bool(route.get("remote_job_allowed_now") or route.get("scaffold_allowed_now"))
     packet_passed = bool(packet.get("passed"))
+    ppmi_submission_support_ready = bool(
+        route.get("id") == "ppmi_verily"
+        and submit_format.get("passed") is True
+        and submit_format.get("decision") == "ppmi_verily_word_template_ready_to_fill"
+        and email_template.get("passed") is True
+        and email_template.get("decision") == "ppmi_verily_submission_email_template_ready"
+        and user_fill_checklist.get("passed") is True
+        and user_fill_checklist.get("decision") == "ppmi_verily_user_fill_checklist_ready"
+        and user_fill_checklist.get("required_placeholder_count")
+        == EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT
+        and user_fill_checklist.get("packet_field_count") == EXPECTED_PPMI_PACKET_FIELD_COUNT
+        and user_fill_checklist.get("email_field_count") == EXPECTED_PPMI_EMAIL_FIELD_COUNT
+        and user_fill_checklist.get("submission_metadata_field_count")
+        == EXPECTED_PPMI_SUBMISSION_METADATA_FIELD_COUNT
+        and schema_probe_checklist.get("passed") is True
+        and schema_probe_checklist.get("decision") == "ppmi_verily_schema_probe_checklist_ready"
+        and schema_probe_template.get("passed") is True
+        and schema_probe_template.get("decision") == "ppmi_verily_schema_probe_report_template_ready"
+        and completed_packet_validator.get("passed") is True
+        and completed_packet_validator.get("decision") == "ppmi_verily_completed_packet_validator_ready"
+        and completed_email_validator.get("passed") is True
+        and completed_email_validator.get("decision") == "ppmi_verily_submission_email_validator_ready"
+        and completed_package_validator.get("passed") is True
+        and completed_package_validator.get("decision") == "ppmi_verily_submission_package_validator_ready"
+        and completed_package_validator.get("validator") == "scripts/validate_ppmi_verily_submission_package.py"
+        and completed_package_validator.get("protected_data_included") is False
+        and completed_package_validator.get("credentials_or_tokens_included") is False
+    )
     status = (
         "ready_to_submit_after_user_fill_and_governance"
-        if action_ready and packet_passed and not compute_ready
+        if (action_ready or ppmi_submission_support_ready) and packet_passed and not compute_ready
         else "not_ready"
     )
     return {
@@ -190,6 +267,74 @@ def route_tracker_row(route: dict[str, Any], source_route: dict[str, Any]) -> di
         "remote_job_allowed_now": route.get("remote_job_allowed_now"),
         "scaffold_allowed_now": route.get("scaffold_allowed_now"),
         "packet_audit_decision": packet.get("audit_decision"),
+        "official_source_recheck": official_source_recheck,
+        "submit_format": {
+            "audit": "results/ppmi_verily_submit_format_audit_20260515.json",
+            "passed": submit_format.get("passed"),
+            "decision": submit_format.get("decision"),
+            "word_template": submit_format.get("output_docx"),
+        } if submit_format else None,
+        "submission_email_template": {
+            "audit": "results/ppmi_verily_submission_email_template_audit_20260515.json",
+            "passed": email_template.get("passed"),
+            "decision": email_template.get("decision"),
+            "template": email_template.get("template"),
+        } if email_template else None,
+        "user_fill_checklist": {
+            "audit": "results/ppmi_verily_user_fill_checklist_audit_20260515.json",
+            "passed": user_fill_checklist.get("passed"),
+            "decision": user_fill_checklist.get("decision"),
+            "checklist": user_fill_checklist.get("checklist"),
+            "required_placeholder_count": user_fill_checklist.get("required_placeholder_count"),
+            "packet_field_count": user_fill_checklist.get("packet_field_count"),
+            "email_field_count": user_fill_checklist.get("email_field_count"),
+            "submission_metadata_field_count": user_fill_checklist.get("submission_metadata_field_count"),
+            "required_placeholder_list_count": len(user_fill_checklist.get("required_placeholders", [])),
+            "packet_field_list_count": len(user_fill_checklist.get("packet_fields", [])),
+            "email_field_list_count": len(user_fill_checklist.get("email_fields", [])),
+            "submission_metadata_placeholder_count": len(
+                user_fill_checklist.get("submission_metadata_placeholders", [])
+            ),
+        } if user_fill_checklist else None,
+        "schema_probe_checklist": {
+            "audit": "results/ppmi_verily_schema_probe_checklist_audit_20260515.json",
+            "passed": schema_probe_checklist.get("passed"),
+            "decision": schema_probe_checklist.get("decision"),
+            "checklist": schema_probe_checklist.get("checklist"),
+            "schema_probe_artifact_created": schema_probe_checklist.get("schema_probe_artifact_created"),
+            "protected_data_included": schema_probe_checklist.get("protected_data_included"),
+        } if schema_probe_checklist else None,
+        "schema_probe_report_template": {
+            "audit": "results/ppmi_verily_schema_probe_report_template_audit_20260515.json",
+            "passed": schema_probe_template.get("passed"),
+            "decision": schema_probe_template.get("decision"),
+            "template": schema_probe_template.get("template"),
+            "schema_probe_artifact_created": schema_probe_template.get("schema_probe_artifact_created"),
+            "protected_data_included": schema_probe_template.get("protected_data_included"),
+        } if schema_probe_template else None,
+        "completed_packet_validator": {
+            "audit": "results/ppmi_verily_completed_packet_validator_audit_20260515.json",
+            "passed": completed_packet_validator.get("passed"),
+            "decision": completed_packet_validator.get("decision"),
+            "validator": completed_packet_validator.get("validator"),
+        } if completed_packet_validator else None,
+        "completed_email_validator": {
+            "audit": "results/ppmi_verily_submission_email_validator_audit_20260515.json",
+            "passed": completed_email_validator.get("passed"),
+            "decision": completed_email_validator.get("decision"),
+            "validator": completed_email_validator.get("validator"),
+        } if completed_email_validator else None,
+        "completed_package_validator": {
+            "audit": "results/ppmi_verily_submission_package_validator_audit_20260515.json",
+            "passed": completed_package_validator.get("passed"),
+            "decision": completed_package_validator.get("decision"),
+            "validator": completed_package_validator.get("validator"),
+            "not_a_submission_record": completed_package_validator.get("not_a_submission_record"),
+            "not_access_approval": completed_package_validator.get("not_access_approval"),
+            "not_a_model_result": completed_package_validator.get("not_a_model_result"),
+            "protected_data_included": completed_package_validator.get("protected_data_included"),
+            "credentials_or_tokens_included": completed_package_validator.get("credentials_or_tokens_included"),
+        } if completed_package_validator else None,
     }
 
 
@@ -234,6 +379,71 @@ def write_markdown(payload: dict[str, Any]) -> None:
         lines.append(f"- Packet: `{route['packet'].get('path')}`")
         lines.append(f"- Packet audit: `{route['packet_audit_decision']}`")
         lines.append(f"- Runbook: `{route['runbook'].get('path')}`")
+        if route.get("official_source_recheck"):
+            recheck = route["official_source_recheck"]
+            terms = recheck.get("required_terms", {})
+            tier_terms = ", ".join(f"`{term}`" for term in terms.get("tier3_submission", []))
+            lines.append(
+                "- Current official-source recheck: "
+                f"official_sources=`{recheck.get('official_sources_passed')}`, "
+                f"tier3_submission=`{recheck.get('tier3_submission_passed')}`, "
+                f"required_packet_fields=`{recheck.get('required_packet_fields_passed')}`."
+            )
+            lines.append(f"- Current Tier-3 submission terms: {tier_terms}")
+        if route.get("submit_format"):
+            fmt = route["submit_format"]
+            lines.append(
+                "- Submit-format template: "
+                f"`{fmt.get('word_template')}` "
+                f"(audit passed=`{fmt.get('passed')}`, decision=`{fmt.get('decision')}`)."
+            )
+        if route.get("submission_email_template"):
+            email = route["submission_email_template"]
+            lines.append(
+                "- Submission email template: "
+                f"`{email.get('template')}` "
+                f"(audit passed=`{email.get('passed')}`, decision=`{email.get('decision')}`)."
+            )
+        if route.get("user_fill_checklist"):
+            checklist = route["user_fill_checklist"]
+            lines.append(
+                "- User-fill checklist: "
+                f"`{checklist.get('checklist')}` "
+                f"(audit passed=`{checklist.get('passed')}`, "
+                f"decision=`{checklist.get('decision')}`, "
+                f"placeholders=`{checklist.get('required_placeholder_count')}`, "
+                f"packet_fields=`{checklist.get('packet_field_count')}`, "
+                f"email_fields=`{checklist.get('email_field_count')}`, "
+                f"metadata_fields=`{checklist.get('submission_metadata_field_count')}`)."
+            )
+        if route.get("schema_probe_report_template"):
+            template = route["schema_probe_report_template"]
+            lines.append(
+                "- Post-approval schema-probe report template: "
+                f"`{template.get('template')}` "
+                f"(audit passed=`{template.get('passed')}`, decision=`{template.get('decision')}`)."
+            )
+        if route.get("completed_packet_validator"):
+            validator = route["completed_packet_validator"]
+            lines.append(
+                "- Completed-packet preflight: "
+                f"`{validator.get('validator')}` "
+                f"(audit passed=`{validator.get('passed')}`, decision=`{validator.get('decision')}`)."
+            )
+        if route.get("completed_email_validator"):
+            validator = route["completed_email_validator"]
+            lines.append(
+                "- Completed-email preflight: "
+                f"`{validator.get('validator')}` "
+                f"(audit passed=`{validator.get('passed')}`, decision=`{validator.get('decision')}`)."
+            )
+        if route.get("completed_package_validator"):
+            validator = route["completed_package_validator"]
+            lines.append(
+                "- Completed-package preflight: "
+                f"`{validator.get('validator')}` "
+                f"(audit passed=`{validator.get('passed')}`, decision=`{validator.get('decision')}`)."
+            )
         lines.append(f"- Submit via: {route['submission_channel']}")
         lines.append(f"- User action: {route['user_action']}")
         lines.append(f"- Access blocker: {route['access_blocker']}")
@@ -307,6 +517,98 @@ def main() -> None:
             hard_failures.append(f"{route['id']}: packet audit did not pass")
         if not route["packet_placeholders"]:
             hard_failures.append(f"{route['id']}: no user-fill placeholders found in packet")
+        if route["id"] == "ppmi_verily":
+            recheck = route.get("official_source_recheck") or {}
+            if not (
+                recheck.get("official_sources_passed") is True
+                and recheck.get("tier3_submission_passed") is True
+                and recheck.get("required_packet_fields_passed") is True
+            ):
+                hard_failures.append("ppmi_verily: current official-source recheck did not pass")
+            submit_format = route.get("submit_format") or {}
+            if not (
+                submit_format.get("passed") is True
+                and submit_format.get("decision") == "ppmi_verily_word_template_ready_to_fill"
+                and submit_format.get("word_template")
+                == "results/ppmi_verily_tier3_request_packet_template_20260515.docx"
+            ):
+                hard_failures.append("ppmi_verily: Word-format submit template is missing or failed audit")
+            email_template = route.get("submission_email_template") or {}
+            if not (
+                email_template.get("passed") is True
+                and email_template.get("decision") == "ppmi_verily_submission_email_template_ready"
+                and email_template.get("template") == "scripts/ppmi_verily_submission_email_template.md"
+            ):
+                hard_failures.append("ppmi_verily: submission email template is missing or failed audit")
+            user_fill_checklist = route.get("user_fill_checklist") or {}
+            if not (
+                user_fill_checklist.get("passed") is True
+                and user_fill_checklist.get("decision") == "ppmi_verily_user_fill_checklist_ready"
+                and user_fill_checklist.get("checklist") == "scripts/ppmi_verily_user_fill_checklist.md"
+                and user_fill_checklist.get("required_placeholder_count")
+                == EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT
+                and user_fill_checklist.get("packet_field_count") == EXPECTED_PPMI_PACKET_FIELD_COUNT
+                and user_fill_checklist.get("email_field_count") == EXPECTED_PPMI_EMAIL_FIELD_COUNT
+                and user_fill_checklist.get("submission_metadata_field_count")
+                == EXPECTED_PPMI_SUBMISSION_METADATA_FIELD_COUNT
+                and user_fill_checklist.get("required_placeholder_list_count")
+                == EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT
+                and user_fill_checklist.get("packet_field_list_count") == EXPECTED_PPMI_PACKET_FIELD_COUNT
+                and user_fill_checklist.get("email_field_list_count") == EXPECTED_PPMI_EMAIL_FIELD_COUNT
+                and user_fill_checklist.get("submission_metadata_placeholder_count")
+                == EXPECTED_PPMI_SUBMISSION_METADATA_FIELD_COUNT
+            ):
+                hard_failures.append("ppmi_verily: user-fill checklist is missing or failed audit")
+            schema_probe_checklist = route.get("schema_probe_checklist") or {}
+            if not (
+                schema_probe_checklist.get("passed") is True
+                and schema_probe_checklist.get("decision") == "ppmi_verily_schema_probe_checklist_ready"
+                and schema_probe_checklist.get("checklist") == "scripts/ppmi_verily_schema_probe_checklist.md"
+                and schema_probe_checklist.get("schema_probe_artifact_created") is False
+                and schema_probe_checklist.get("protected_data_included") is False
+            ):
+                hard_failures.append("ppmi_verily: schema-probe checklist is missing or failed audit")
+            schema_probe_template = route.get("schema_probe_report_template") or {}
+            if not (
+                schema_probe_template.get("passed") is True
+                and schema_probe_template.get("decision")
+                == "ppmi_verily_schema_probe_report_template_ready"
+                and schema_probe_template.get("template")
+                == "scripts/ppmi_verily_schema_probe_report_template.md"
+                and schema_probe_template.get("schema_probe_artifact_created") is False
+                and schema_probe_template.get("protected_data_included") is False
+            ):
+                hard_failures.append("ppmi_verily: schema-probe report template is missing or failed audit")
+            completed_packet_validator = route.get("completed_packet_validator") or {}
+            if not (
+                completed_packet_validator.get("passed") is True
+                and completed_packet_validator.get("decision") == "ppmi_verily_completed_packet_validator_ready"
+                and completed_packet_validator.get("validator")
+                == "scripts/validate_ppmi_verily_completed_packet.py"
+            ):
+                hard_failures.append("ppmi_verily: completed-packet validator is missing or failed audit")
+            completed_email_validator = route.get("completed_email_validator") or {}
+            if not (
+                completed_email_validator.get("passed") is True
+                and completed_email_validator.get("decision") == "ppmi_verily_submission_email_validator_ready"
+                and completed_email_validator.get("validator")
+                == "scripts/validate_ppmi_verily_submission_email.py"
+            ):
+                hard_failures.append("ppmi_verily: completed-email validator is missing or failed audit")
+            completed_package_validator = route.get("completed_package_validator") or {}
+            if not (
+                completed_package_validator.get("passed") is True
+                and completed_package_validator.get("decision")
+                == "ppmi_verily_submission_package_validator_ready"
+                and completed_package_validator.get("validator")
+                == "scripts/validate_ppmi_verily_submission_package.py"
+                and completed_package_validator.get("not_a_submission_record") is True
+                and completed_package_validator.get("not_access_approval") is True
+                and completed_package_validator.get("not_a_model_result") is True
+                and completed_package_validator.get("protected_data_included") is False
+                and completed_package_validator.get("credentials_or_tokens_included") is False
+            ):
+                hard_failures.append("ppmi_verily: completed-package validator is missing or failed audit")
 
     raw = readiness.get("provenance_recovery", {})
     if raw.get("remote_job_allowed_now"):
@@ -336,6 +638,11 @@ def main() -> None:
         "inputs": {
             "readiness_audit": rel(READINESS_JSON),
             "source_route_audit": rel(SOURCE_ROUTE_JSON),
+            "ppmi_user_fill_checklist_audit": rel(PPMI_USER_FILL_CHECKLIST_JSON),
+            "ppmi_schema_probe_checklist_audit": rel(PPMI_SCHEMA_PROBE_CHECKLIST_JSON),
+            "ppmi_schema_probe_report_template_audit": rel(PPMI_SCHEMA_PROBE_TEMPLATE_JSON),
+            "ppmi_completed_email_validator_audit": rel(PPMI_COMPLETED_EMAIL_VALIDATOR_JSON),
+            "ppmi_completed_package_validator_audit": rel(PPMI_COMPLETED_PACKAGE_VALIDATOR_JSON),
         },
         "outputs": {
             "json": rel(OUT_JSON),

@@ -1,0 +1,13 @@
+{
+  "cohort_statistics_used": false,
+  "command": "uv run python audit_experiment_result_bundle.py",
+  "created_at_utc": "2026-05-10T00:00:00Z",
+  "data_sha256": "c8bda26e2407f6c29047a6982fc357706d0ed701f20f1b0618bf88559298e308",
+  "fold_scope": "train_only",
+  "git_sha": "abcdef1234567890abcdef1234567890abcdef12",
+  "labels_used": false,
+  "leakage_rationale": "Synthetic architecture-audit feature cache with no labels.",
+  "leakage_status": "clean_by_construction",
+  "normalization_scope": "train_only",
+  "script": "audit_experiment_result_bundle.py"
+}

@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "errors": [],
+        "route_count": 6
+      },
+      "name": "tracker route plan has unique ids and no validation errors",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [],
+        "packet_count": 6
+      },
+      "name": "tracker access packet queue has unique ids and no validation errors",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "current_allowed_action must be one of: access_request_only, schema_probe_only, monitor_or_document_only",
+          "access_blocker is required"
+        ]
+      },
+      "name": "invalid route action and blank access blocker are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "route ids must be unique: ppmi"
+        ]
+      },
+      "name": "duplicate external route ids are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "duplicate blocked pre-access action: remote job",
+          "unknown blocked pre-access action: not a real action",
+          "blocked pre-access action is required"
+        ]
+      },
+      "name": "duplicate or unknown blocked access actions are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "packet route ids must be unique: ppmi_verily"
+        ]
+      },
+      "name": "duplicate access packet route ids are rejected",
+      "passed": true
+    }
+  ],
+  "claim": "External route and access-packet contracts now reject duplicate route ids, unknown route action states, blank access blockers, and duplicate or unknown blocked pre-access actions while the real tracker-derived queue remains compute-blocked and unambiguous.",
+  "decision": "external_route_access_contract_passed",
+  "generated_at_utc": "2026-05-16T12:51:30+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "input_tracker": "results/access_submission_tracker_20260509.json",
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_external_route_access_contract.py"
+}

@@ -1,0 +1,79 @@
+{
+  "name": "lockbox_t3_S13_ph_mfdfa_t3_transfer",
+  "created_at_utc": "20260515T125854Z",
+  "session": "2026-05-15-PM-T3-S13-transfer",
+  "null_mode": "scrambled_y",
+  "n_cohort": 95,
+  "cohort": "drop_allmissing_validrange",
+  "stage2_policy": "stage2_current",
+  "split_seed": 20260309,
+  "model_seeds": [
+    42,
+    1337,
+    7
+  ],
+  "alpha_fixed": 100.0,
+  "lambda_fixed": 1.0,
+  "n_bootstrap": 5000,
+  "preregistration_master": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "fwer_n": 8,
+  "bonferroni_gate": 0.99375,
+  "mcid": 0.025,
+  "iter47_baseline_canonical_ccc": 0.3784,
+  "iter47_baseline_loocv_recomputed_ccc": 0.378367,
+  "n_features_ph": 32,
+  "n_features_mfdfa": 56,
+  "arms": {
+    "ph_only": {
+      "arm": "ph_only",
+      "loocv_ccc_baseline": 0.378367,
+      "loocv_ccc_corrected": 0.331314,
+      "delta_ccc": -0.047054,
+      "delta_pearson_r": -0.059948,
+      "delta_mae": 0.335131,
+      "corr_correction_t3_residual": -0.076611,
+      "frac_pos_bootstrap": 0.1412,
+      "bootstrap_median": -0.044392,
+      "ci95": [
+        -0.120129,
+        0.038498
+      ],
+      "verdict": "FAIL"
+    },
+    "mfdfa_only": {
+      "arm": "mfdfa_only",
+      "loocv_ccc_baseline": 0.378367,
+      "loocv_ccc_corrected": 0.324298,
+      "delta_ccc": -0.054069,
+      "delta_pearson_r": -0.073801,
+      "delta_mae": 0.586014,
+      "corr_correction_t3_residual": -0.136609,
+      "frac_pos_bootstrap": 0.0792,
+      "bootstrap_median": -0.053172,
+      "ci95": [
+        -0.135822,
+        0.018321
+      ],
+      "verdict": "FAIL"
+    },
+    "JOINT": {
+      "arm": "JOINT",
+      "loocv_ccc_baseline": 0.378367,
+      "loocv_ccc_corrected": 0.282547,
+      "delta_ccc": -0.09582,
+      "delta_pearson_r": -0.12136,
+      "delta_mae": 0.868594,
+      "corr_correction_t3_residual": -0.153553,
+      "frac_pos_bootstrap": 0.0332,
+      "bootstrap_median": -0.090716,
+      "ci95": [
+        -0.198137,
+        0.004667
+      ],
+      "verdict": "FAIL"
+    }
+  },
+  "s8_t1_reference_delta": 0.0088,
+  "expected_t3_lift_from_t1_t3_std_scaling": 0.002667,
+  "formula_sha256": "f19952e8a859131dc53f7f1668a11f0f687df6b2f7bedc58c69c9c6fb1834387"
+}

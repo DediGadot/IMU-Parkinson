@@ -1,0 +1,175 @@
+{
+  "preregistration_id": "t1_ceiling_push_20260510_134829",
+  "created_at_utc": "2026-05-10T13:48:29Z",
+  "created_by": "pd-imu-100x-researcher 3-iteration glass-ceiling push mode",
+  "git_sha_at_creation": "64edc2a90ab11beed8b0bdb30a69c6c49a8809fc",
+  "branch": "main",
+  "user_authorization": "User invoked /pd-imu-100x-researcher with explicit instruction to iterate until T1 CCC > 0.7366, overriding results/architecture_recommendation_20260510.md guidance against new local model families. Override is documented; the audit was based on current-feature-pool families, and these slots introduce new information (phase-locked feature routing, wavelet scattering, quantile uncertainty in chain) that was not in the audit scope.",
+  "mode": "3-iteration T1 glass-ceiling push",
+  "objective": "Beat iter34 hybrid T1 LOOCV CCC = 0.7366 on N=93 by introducing new information or new chain-information-flow not exercised by the 16 wall data points across 8 strategy classes.",
+
+  "fwer_policy": {
+    "family_size_n": 4,
+    "family_members": [
+      "iter34_baseline (CCC=0.7366, N=93, anchor)",
+      "slot_A (phase-locked items 9+12 features as chain-step appended post-K500 inputs)",
+      "slot_B (wavelet-scattering features for items 11 + 13 appended post-K500)",
+      "slot_C (quantile-LGB base replacing ExtraTrees in iter34 ensemble + IQR-as-chain-feature)"
+    ],
+    "bonferroni_alpha_per_test": 0.0125,
+    "per_slot_promotion_gate_loocv": {
+      "frac_above_zero_vs_iter12_honest_n93": 0.9875,
+      "frac_above_zero_vs_iter34_n93_for_supersede": 0.9875,
+      "comment": "vs iter12-honest-n93 (~0.6554) is the canonical-floor gate. vs iter34-n93 (0.7366) is required to claim 'supersedes iter34' as new headline. A slot may pass the floor gate (publishable improvement) without superseding iter34 (would become candidate-only, footnoted)."
+    },
+    "screen_gate_5fold": {
+      "delta_mean_vs_iter34_5fold_anchor": 0.025,
+      "frac_above_zero_paired_bootstrap": 0.95,
+      "n_seeds_minimum": 3,
+      "n_bootstrap": 5000,
+      "rule_post_2026_05_05": "Strict seed-std<0.020 floor is dropped. Gate is Δ̄≥+0.025 mean AND paired-bootstrap frac>0≥0.95 on 5-fold OOF.",
+      "selection_leakage_ban": "Adding seeds after seeing the screen metric is selection leakage and invalidates the lockbox. Seed list is immutable from registration."
+    }
+  },
+
+  "cohort": {
+    "split_file": "results/paper3_split.json",
+    "split_seed": 20260309,
+    "n_filter": "PD only, drop subjects missing items 9-14, 15, or 18 (matches iter34/iter33-B/slot-C cohort)",
+    "expected_n": 93,
+    "comment": "iter12-honest-n93 (0.6554) is the canonical floor. iter34 (0.7366) is the strongest current candidate. Both verified on this cohort definition."
+  },
+
+  "seeds": {
+    "split_seed": 20260309,
+    "feature_seed": 7,
+    "augmentation_seed": 13,
+    "model_seed_list_5fold_screen": [42, 1337, 7],
+    "model_seed_list_loocv": [42, 1337, 7],
+    "consult_seed": null,
+    "rule": "Seed lists are immutable from registration. No seed addition after seeing any metric on the cohort."
+  },
+
+  "slots": {
+    "slot_A": {
+      "name": "Phase-locked items 9+12 features as chain-step appended post-K500 inputs",
+      "hypothesis": "Appending phase_locked_item9 (12 cols) and phase_locked_item12 (13 cols) features POST-K500-selection at the chain step level (so chain step for item 9 sees V2-K500 ⊕ phase_locked_item9; chain step for item 12 sees V2-K500 ⊕ phase_locked_item12_intermediate; other items see V2-K500 only) lifts T1 LOOCV CCC by ≥+0.025 vs iter34 N=93.",
+      "mechanism_distinction_from_wall": "Distinct from F36-D (chain-pool injection where features were ADDED to V2 then K500-filtered → absorbed). Distinct from F35-C (slot replacement which broke chain coupling). New routing: post-K500 dedicated columns by item; bypasses absorption while preserving chain information sharing. Memory `feedback_t1_three_missions_outcome_2026_05_08` explicitly names this as un-tested.",
+      "leakage_concerns": "Phase-locked caches manifest-clean label-free; cache scripts must be git-committed before lockbox use (current git_sha=unknown per finding line 4353). Will commit cache_phaselocked_item{9,12}.py before any slot_A run.",
+      "expected_delta_priors": {
+        "screen_5fold": "+0.030 to +0.060 (per slot C single-item screens: item 9 +0.382 SD, item 12 +0.543 SD)",
+        "loocv": "+0.020 to +0.045 (variance ratio 5fold→LOOCV, expecting partial smoothing)"
+      },
+      "falsifying_signature": "5-fold Δ̄ < +0.015, OR scrambled-label null > 0.05 absolute CCC, OR canary-feature CCC > 0.05 in test fold",
+      "preregistered_formula_path": "to_be_computed_at_implementation_time",
+      "preregistered_formula_sha256": "TBD_at_script_implementation",
+      "implementation_status": "pending_user_signoff",
+      "execution_resource_plan": {
+        "screen_5fold": "remote 11-worker ProcessPool, ~5 min wall",
+        "loocv_if_screen_passes": "remote 11-worker ProcessPool, ~17 min wall (matches iter34 wall)",
+        "gpu_use": "none (LightGBM CPU faster at N<200; reserve GPU for slot B)",
+        "lockfile": "/tmp/pd_imu_slot_A.lock"
+      }
+    },
+
+    "slot_B": {
+      "name": "Wavelet scattering features for items 11 (FoG) + 13 (posture) appended post-K500",
+      "hypothesis": "Kymatio scattering coefficients (J=6, Q=8) computed on Lumbar/Forehead/Foot accelerations during gait + balance segments, projected to ~50-dim per-subject embedding via fold-local PCA on outer-train fold, appended at chain steps for items 11 and 13 only, lift T1 LOOCV CCC by ≥+0.025 vs iter34 N=93.",
+      "mechanism_distinction_from_wall": "Distinct from F14 (FoG scalar summaries — different scale of feature). Distinct from F63 MultiROCKET (random kernels, not multiscale dyadic scattering). Distinct from F-iter54 axial-only (Euler angles, not multiscale wavelet). Findings line 818 marks Kymatio J=8/Q=12 on rest segments as 'my plan' that was never executed for T1.",
+      "leakage_concerns": "Fold-local PCA only (FoldNormalizer pattern). Scattering transform is deterministic / label-free / fold-scope=global, manifest sidecar required.",
+      "expected_delta_priors": {
+        "screen_5fold": "+0.010 to +0.040 (multiscale gain on items 11, 13 plausible but K=500 absorption risk if wide pool)",
+        "loocv": "+0.005 to +0.030"
+      },
+      "falsifying_signature": "5-fold Δ̄ < +0.010 across both items, OR per-item null gates fail, OR PCA fold-local rank < 0.5 of expected",
+      "preregistered_formula_path": "to_be_computed_at_implementation_time",
+      "preregistered_formula_sha256": "TBD_at_script_implementation",
+      "implementation_status": "pending_user_signoff",
+      "execution_resource_plan": {
+        "cache_extraction": "remote GPU recommended (kymatio.torch on RTX 4060) for ~30-90 min wall over 793 raw 22-ch CSVs",
+        "screen_5fold": "remote 11-worker ProcessPool, ~5 min wall",
+        "loocv_if_screen_passes": "remote 11-worker ProcessPool, ~17 min wall",
+        "gpu_use": "kymatio scattering only; LightGBM remains CPU",
+        "lockfile": "/tmp/pd_imu_slot_B.lock + /tmp/pd_imu_gpu.lock (kymatio cache only)"
+      }
+    },
+
+    "slot_C": {
+      "name": "Quantile-LGB chain base (q=0.1, 0.5, 0.9) replacing ExtraTrees + IQR appended as next-item chain feature",
+      "hypothesis": "Replacing iter34's ExtraTrees base with a quantile-LGB chain (LGB 'quantile' objective at q=0.5 for chain output, plus q=0.1/0.9 for IQR uncertainty), and appending IQR(q90-q10) as an input feature for downstream items in the chain, lifts T1 LOOCV CCC by ≥+0.025 vs iter34 N=93.",
+      "mechanism_distinction_from_wall": "Distinct from F35-A ordinal cum-link (cum-link encoded targets discretely; quantile-LGB preserves continuous targets and exposes per-item uncertainty). Distinct from F66/F67 variance-reduction (REPLACES base, not averages a new one). Distinct from F58 stacked-meta blender (no convex post-hoc mix). Quantile-on-target was rejected (findings line 3279); quantile-AS-base-learner-with-IQR-feature is a different mechanism.",
+      "leakage_concerns": "Quantile loss is symmetric and label-free at fit-time on outer-train residuals; IQR feature for downstream items is generated by chain step n (which already saw item n's residuals) → chain step n+1 (which will see item n+1's residuals). This is the same chain-coupling pattern iter34 already uses, with one extra feature column.",
+      "expected_delta_priors": {
+        "screen_5fold": "0 to +0.025 (council's weakest-prior slot; quantile-LGB likely smooths similarly to ExtraTrees)",
+        "loocv": "0 to +0.020"
+      },
+      "falsifying_signature": "5-fold Δ̄ < +0.005, OR IQR feature shows zero importance in LGB-importance per fold, OR per-item correlation of IQR feature with residual variance < 0.1",
+      "preregistered_formula_path": "to_be_computed_at_implementation_time",
+      "preregistered_formula_sha256": "TBD_at_script_implementation",
+      "implementation_status": "pending_user_signoff",
+      "execution_resource_plan": {
+        "screen_5fold": "remote 11-worker ProcessPool, ~5 min wall",
+        "loocv_if_screen_passes": "remote 11-worker ProcessPool, ~25 min wall (3 quantile fits per item per fold vs 1 ET fit)",
+        "gpu_use": "none",
+        "lockfile": "/tmp/pd_imu_slot_C.lock"
+      }
+    }
+  },
+
+  "diversity_check": {
+    "mechanism_axes_covered": [
+      "feature routing (slot A: post-K500 chain-step appended)",
+      "feature extraction (slot B: multiscale wavelet scattering)",
+      "model family + chain-information-flow (slot C: quantile uncertainty propagated)"
+    ],
+    "shared_dependencies": "None — slot A uses pre-built phaselocked caches; slot B builds new kymatio cache; slot C is pure model change. No two slots share a single new cache or mechanism.",
+    "passes_skill_diversity_constraint": true
+  },
+
+  "stopping_rules": {
+    "hard_cap_slots": 3,
+    "soft_stop_pass_and_stop": "If slot A passes both gates with frac>0 ≥ 0.99 vs iter12-honest AND vs iter34, ask user before running B/C (running more slots when one has won risks family inflation).",
+    "fwer_trap_warning": "If slot A passes loosely but B/C both fail, do NOT declare A canonical without explicit user sign-off — report as 'candidate, gates clear under uncorrected alpha but not under FWER n=4'."
+  },
+
+  "execution_protocol": {
+    "sub_phase_1_slow_think": "Before each slot, re-read full memory + findings + jsonl + .swarm; re-derive ceiling; verify hypothesis is orthogonal to all 16 wall data points.",
+    "sub_phase_2_tri_cli_consult": "Run tri_consult.sh (codex+gemini+kimi) with the slot's hypothesis + falsifying signature + wall context. 3-of-3 convergence high-signal; 2-of-3 high; 1-of-3 outlier requires its own mechanism story.",
+    "sub_phase_3_design_register": "Write the run script using inductive_lib only; firewall_check.py exit 0; revise this prereg with formula_sha256 (UTC-timestamped, append-only).",
+    "sub_phase_4_execute": "5-fold screen first; if pass screen, run LOOCV; one run per slot, no re-runs.",
+    "sub_phase_5_audit_decide": "Three outcomes: PASS / FAIL-mechanism-known (close in findings.md) / FAIL-mechanism-unknown (re-consult tri-CLI, run ONE minimal probe, close).",
+    "between_slots": "Update findings.md, progress.md, and this prereg JSON (append-only) after every slot."
+  },
+
+  "execution_environment": {
+    "remote_host": "fiod@165.22.71.91:2243",
+    "gpu": "RTX 4060 8 GB",
+    "cores": 12,
+    "ram_gb": 15,
+    "venv": "~/pd-imu/.venv (torch 2.12 cu128, lightgbm 4.6, xgboost 3.2, kymatio TBD-install)",
+    "process_pool_workers": 11,
+    "data_root": "~/pd-imu/data/raw/weargait-pd/ (16.92 GB, 793 raw 22-ch CSVs durable)"
+  },
+
+  "explicit_dont_retry_anchors_for_audit": [
+    "F35-A ordinal cum-link / NGBoost / mord (loss family at this N)",
+    "F35-B Bayesian latent factor models",
+    "F35-C per-item slot replacement of chain OOFs",
+    "F35-D anatomical mixture-of-experts / per-item Ridge gating",
+    "F36-A site-additive intercept post-Stage-2",
+    "F36-D chain-pool injection (V2 ⊕ phase-locked into K500 pool)",
+    "F-iter54 item-13 axial-orientation joint pool absorption",
+    "F58 convex blends and stacked-meta blenders",
+    "F56 nested k=19 Ridge meta-stack",
+    "F61 tail-aware sample-weighted retrain + post-hoc calibration",
+    "F63 SOTA AutoML (AutoGluon, MultiROCKET-Ridge)",
+    "F66/F67 more-seed / chain-order-avg variance reduction",
+    "iter6/F19 IMU feature additions absorbed by V2 K500",
+    "indomain SSL frozen-encoder (HARNet, MOMENT, in-domain)",
+    "HC anchors / HC normative AE",
+    "Quantile-of-target / log / Box-Cox target reparameterization (findings line 3279)"
+  ],
+
+  "status": "DRAFT_AWAITING_USER_SIGNOFF",
+  "next_action": "User signs off on slot designs and authorization to proceed; pre-reg becomes immutable upon first slot execution."
+}

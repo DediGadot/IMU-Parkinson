@@ -1,0 +1,899 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "returncode": 0,
+        "stdout": "{\n  \"json\": \"results/external_formula_sha_templates_20260515.json\",\n  \"markdown\": \"results/external_formula_sha_templates_20260515.md\",\n  \"template_dir\": \"results/external_formula_sha_templates_20260515\",\n  \"route_count\": 6\n}\n"
+      },
+      "name": "writer command succeeds and writes formula-SHA template outputs",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ],
+        "spec_route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ]
+      },
+      "name": "templates cover six schema-probe routes in contract order",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_results": {
+          "cns_portugal_lobo": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/cns_portugal_lobo_formula_sha_record_template.json"
+          },
+          "hssayeni_mjff": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/hssayeni_mjff_formula_sha_record_template.json"
+          },
+          "icicle_gait": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/icicle_gait_formula_sha_record_template.json"
+          },
+          "ppmi_verily": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": [
+              "ppmi_route_specific_formula_contract"
+            ],
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/ppmi_verily_formula_sha_record_template.json"
+          },
+          "ppp_pd_vme": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/ppp_pd_vme_formula_sha_record_template.json"
+          },
+          "watchpd": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/watchpd_formula_sha_record_template.json"
+          }
+        }
+      },
+      "name": "template route rows mirror schema contracts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "expected_analysis_order": [
+          "schema_probe_metadata_record",
+          "target_free_manifest_preflight",
+          "formula_sha256_after_manifest_before_extraction_or_scoring",
+          "zero_shot_external_validation"
+        ],
+        "retired_analysis_steps": [
+          "formula_sha256_after_schema_before_extraction_or_scoring"
+        ]
+      },
+      "name": "templates require post-manifest formula-SHA analysis order",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "expected_step_ids": [
+          "validate_formula_sha_record",
+          "validate_zeroshot_result_record"
+        ],
+        "ppmi_workflow": [
+          {
+            "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+            "step_id": "validate_formula_sha_record"
+          },
+          {
+            "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+            "step_id": "validate_zeroshot_result_record"
+          }
+        ],
+        "workflow_by_route": {
+          "cns_portugal_lobo": [
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "hssayeni_mjff": [
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "icicle_gait": [
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "ppmi_verily": [
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "ppp_pd_vme": [
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "watchpd": [
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ]
+        }
+      },
+      "name": "every route exposes an ordered post-formula workflow sequence",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_results": {
+          "cns_portugal_lobo": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/cns_portugal_lobo_formula_sha_record_template.json"
+          },
+          "hssayeni_mjff": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/hssayeni_mjff_formula_sha_record_template.json"
+          },
+          "icicle_gait": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/icicle_gait_formula_sha_record_template.json"
+          },
+          "ppmi_verily": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": [
+              "ppmi_route_specific_formula_contract"
+            ],
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/ppmi_verily_formula_sha_record_template.json"
+          },
+          "ppp_pd_vme": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/ppp_pd_vme_formula_sha_record_template.json"
+          },
+          "watchpd": {
+            "bad_sha_failed": true,
+            "bad_sha_hard_failures": [
+              "formula_sha_matches"
+            ],
+            "label_hard_failures": [
+              "labels_not_used_to_design_formula",
+              "boundary_flags_false"
+            ],
+            "label_use_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "placeholder_count": 5,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_formula_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "schema_and_manifest_gates_acknowledged",
+              "formula_sha_format",
+              "formula_sha_matches"
+            ],
+            "template_path": "results/external_formula_sha_templates_20260515/watchpd_formula_sha_record_template.json"
+          }
+        }
+      },
+      "name": "all templates are unfinished placeholders and synthetic fills pass",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ppmi_route_result": {
+          "bad_sha_failed": true,
+          "bad_sha_hard_failures": [
+            "formula_sha_matches"
+          ],
+          "label_hard_failures": [
+            "labels_not_used_to_design_formula",
+            "boundary_flags_false"
+          ],
+          "label_use_failed": true,
+          "local_path_failed": true,
+          "local_path_hard_failures": [
+            "forbidden_value_snippets_absent"
+          ],
+          "placeholder_count": 5,
+          "placeholder_template_failed": true,
+          "ppmi_bad_contract_hard_failures": [
+            "ppmi_route_specific_formula_contract"
+          ],
+          "ppmi_contract_negative_failed": true,
+          "ppmi_formula_contract_present": true,
+          "protected_failed": true,
+          "protected_hard_failures": [
+            "protected_payload_keys_absent"
+          ],
+          "redaction_passed": true,
+          "synthetic_fill_passed": true,
+          "synthetic_hard_failures": [],
+          "template_hard_failures": [
+            "placeholders_replaced",
+            "schema_and_manifest_gates_acknowledged",
+            "formula_sha_format",
+            "formula_sha_matches"
+          ],
+          "template_path": "results/external_formula_sha_templates_20260515/ppmi_verily_formula_sha_record_template.json"
+        }
+      },
+      "name": "PPMI formula template carries the route-specific TopoFractal/K250 branch contract",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "false_boundary_keys": [
+          "credentials_or_tokens_included",
+          "external_labels_used_to_design_formula",
+          "feature_matrix_included",
+          "local_paths_included",
+          "model_predictions_included",
+          "preregistration_written",
+          "protected_data_included",
+          "raw_rows_or_samples_included",
+          "target_values_included",
+          "target_values_used_to_design_formula"
+        ],
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ]
+      },
+      "name": "template boundary flags are false and pre-scoring",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "external_zeroshot_blueprint_handoff_ready",
+        "hard_failures": []
+      },
+      "name": "zero-shot blueprint handoff remains ready",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "content_boundary": {
+          "approval_evidence_included": false,
+          "completed_file_references_in_values_allowed": false,
+          "completed_formula_records_included": false,
+          "credentials_or_tokens_included": false,
+          "feature_manifest_artifacts_included": false,
+          "feature_matrix_included": false,
+          "local_paths_included": false,
+          "model_outputs_included": false,
+          "path_like_values_allowed": false,
+          "preregistration_artifacts_included": false,
+          "protected_data_included": false,
+          "row_level_data_included": false,
+          "schema_probe_artifacts_included": false,
+          "subject_visit_identifier_value_dumps_allowed": false,
+          "target_values_included": false
+        }
+      },
+      "name": "content boundary blocks completed/protected artifacts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "boundary_excerpt": "\n\nComplete these templates only after route approval, schema-probe metadata recording, and target-free manifest preflight. Keep completed formula records outside git unless a future audit explicitly allows a scrubbed artifact. Do not include protected rows, target values, feature matrices, credentials, local paths, model predictions, approval records, or preregistrations. Completed records must also omit path-like values inside otherwise allowed fields: local scratch paths, completed-file extensions, download/file-path strings, and subject/visit identifier value dumps. Validators fail closed on those markers.\n"
+      },
+      "name": "markdown boundary documents stricter value-scrubbing policy",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "forbidden_snippets_found": []
+      },
+      "name": "template output does not expose private artifacts",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "external_formula_sha_templates_ready",
+  "generated_at_utc": "2026-05-16T11:58:40+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_feature_manifest_artifact": true,
+  "not_a_model_result": true,
+  "not_a_preregistration": true,
+  "not_a_schema_probe_artifact": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "passed": true,
+  "post_formula_workflow_step_ids_by_route": {
+    "cns_portugal_lobo": [
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ],
+    "hssayeni_mjff": [
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ],
+    "icicle_gait": [
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ],
+    "ppmi_verily": [
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ],
+    "ppp_pd_vme": [
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ],
+    "watchpd": [
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ]
+  },
+  "protected_data_included": false,
+  "route_count": 6,
+  "route_ids": [
+    "ppmi_verily",
+    "ppp_pd_vme",
+    "watchpd",
+    "cns_portugal_lobo",
+    "hssayeni_mjff",
+    "icicle_gait"
+  ],
+  "route_results": {
+    "cns_portugal_lobo": {
+      "bad_sha_failed": true,
+      "bad_sha_hard_failures": [
+        "formula_sha_matches"
+      ],
+      "label_hard_failures": [
+        "labels_not_used_to_design_formula",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "placeholder_count": 5,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": null,
+      "ppmi_contract_negative_failed": true,
+      "ppmi_formula_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "schema_and_manifest_gates_acknowledged",
+        "formula_sha_format",
+        "formula_sha_matches"
+      ],
+      "template_path": "results/external_formula_sha_templates_20260515/cns_portugal_lobo_formula_sha_record_template.json"
+    },
+    "hssayeni_mjff": {
+      "bad_sha_failed": true,
+      "bad_sha_hard_failures": [
+        "formula_sha_matches"
+      ],
+      "label_hard_failures": [
+        "labels_not_used_to_design_formula",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "placeholder_count": 5,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": null,
+      "ppmi_contract_negative_failed": true,
+      "ppmi_formula_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "schema_and_manifest_gates_acknowledged",
+        "formula_sha_format",
+        "formula_sha_matches"
+      ],
+      "template_path": "results/external_formula_sha_templates_20260515/hssayeni_mjff_formula_sha_record_template.json"
+    },
+    "icicle_gait": {
+      "bad_sha_failed": true,
+      "bad_sha_hard_failures": [
+        "formula_sha_matches"
+      ],
+      "label_hard_failures": [
+        "labels_not_used_to_design_formula",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "placeholder_count": 5,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": null,
+      "ppmi_contract_negative_failed": true,
+      "ppmi_formula_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "schema_and_manifest_gates_acknowledged",
+        "formula_sha_format",
+        "formula_sha_matches"
+      ],
+      "template_path": "results/external_formula_sha_templates_20260515/icicle_gait_formula_sha_record_template.json"
+    },
+    "ppmi_verily": {
+      "bad_sha_failed": true,
+      "bad_sha_hard_failures": [
+        "formula_sha_matches"
+      ],
+      "label_hard_failures": [
+        "labels_not_used_to_design_formula",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "placeholder_count": 5,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": [
+        "ppmi_route_specific_formula_contract"
+      ],
+      "ppmi_contract_negative_failed": true,
+      "ppmi_formula_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "schema_and_manifest_gates_acknowledged",
+        "formula_sha_format",
+        "formula_sha_matches"
+      ],
+      "template_path": "results/external_formula_sha_templates_20260515/ppmi_verily_formula_sha_record_template.json"
+    },
+    "ppp_pd_vme": {
+      "bad_sha_failed": true,
+      "bad_sha_hard_failures": [
+        "formula_sha_matches"
+      ],
+      "label_hard_failures": [
+        "labels_not_used_to_design_formula",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "placeholder_count": 5,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": null,
+      "ppmi_contract_negative_failed": true,
+      "ppmi_formula_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "schema_and_manifest_gates_acknowledged",
+        "formula_sha_format",
+        "formula_sha_matches"
+      ],
+      "template_path": "results/external_formula_sha_templates_20260515/ppp_pd_vme_formula_sha_record_template.json"
+    },
+    "watchpd": {
+      "bad_sha_failed": true,
+      "bad_sha_hard_failures": [
+        "formula_sha_matches"
+      ],
+      "label_hard_failures": [
+        "labels_not_used_to_design_formula",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "placeholder_count": 5,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": null,
+      "ppmi_contract_negative_failed": true,
+      "ppmi_formula_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "schema_and_manifest_gates_acknowledged",
+        "formula_sha_format",
+        "formula_sha_matches"
+      ],
+      "template_path": "results/external_formula_sha_templates_20260515/watchpd_formula_sha_record_template.json"
+    }
+  },
+  "script": "audit_external_formula_sha_templates.py",
+  "source_schema_contract": "pd_imu.datasets.external_schema_probe_specs",
+  "template_dir": "results/external_formula_sha_templates_20260515",
+  "templates_json": "results/external_formula_sha_templates_20260515.json",
+  "templates_markdown": "results/external_formula_sha_templates_20260515.md",
+  "validator": "scripts/validate_external_formula_sha_record.py",
+  "writer": "scripts/write_external_formula_sha_templates.py"
+}

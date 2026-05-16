@@ -1,0 +1,194 @@
+{
+  "name": "screen_t3_S12_unobservability_abstention",
+  "created_at_utc": "20260515T112653Z",
+  "proposal_source": "/tmp/pro-results.txt rank #12",
+  "screen_only": true,
+  "estimand": "deployable_secondary_retained_t3_ccc",
+  "cohort": "drop_allmissing_validrange",
+  "n": 95,
+  "stage2_policy": "stage2_no_cv",
+  "domains": {
+    "observable": "gait_balance_7_14",
+    "nongait_prior": "unobservable_non_gait"
+  },
+  "risk_policy": {
+    "y_free": true,
+    "components": [
+      "z_abs_direct_minus_decomp",
+      "z_seed_std_direct_plus_decomp",
+      "z_abs_nongait_prior_share"
+    ],
+    "coverage_points": [
+      0.7,
+      0.5
+    ]
+  },
+  "seed_metrics": [
+    {
+      "seed": 42,
+      "direct_ccc": 0.3555,
+      "decomp_ccc": 0.2988,
+      "delta_ccc": -0.05669999999999997
+    },
+    {
+      "seed": 1337,
+      "direct_ccc": 0.3814,
+      "decomp_ccc": 0.3245,
+      "delta_ccc": -0.056900000000000006
+    },
+    {
+      "seed": 7,
+      "direct_ccc": 0.3696,
+      "decomp_ccc": 0.3414,
+      "delta_ccc": -0.028200000000000003
+    }
+  ],
+  "full_metrics": {
+    "iter47_locked": {
+      "n": 95,
+      "ccc": 0.3784,
+      "cal_slope": 0.2692,
+      "mae": 7.528,
+      "r": 0.4141,
+      "pred_mean": 24.815,
+      "pred_std": 6.446,
+      "true_mean": 25.0,
+      "true_std": 9.913,
+      "label": "iter47_locked_full"
+    },
+    "s11_direct_5fold_ensemble": {
+      "n": 95,
+      "ccc": 0.3838,
+      "cal_slope": 0.2635,
+      "mae": 7.2498,
+      "r": 0.4314,
+      "pred_mean": 24.967,
+      "pred_std": 6.057,
+      "true_mean": 25.0,
+      "true_std": 9.913,
+      "label": "s11_direct_full"
+    },
+    "s11_decomp_5fold_ensemble": {
+      "n": 95,
+      "ccc": 0.3282,
+      "cal_slope": 0.2238,
+      "mae": 7.6946,
+      "r": 0.3711,
+      "pred_mean": 24.954,
+      "pred_std": 5.979,
+      "true_mean": 25.0,
+      "true_std": 9.913,
+      "label": "s11_decomp_full"
+    }
+  },
+  "retained_results": {
+    "cov_70": {
+      "n_retained": 66,
+      "actual_coverage": 0.6947368421052632,
+      "risk_threshold_max_retained": 0.7007262096824156,
+      "iter47_locked_retained": {
+        "n": 66,
+        "ccc": 0.409,
+        "cal_slope": 0.2913,
+        "mae": 7.7616,
+        "r": 0.4523,
+        "pred_mean": 25.541,
+        "pred_std": 6.746,
+        "true_mean": 24.515,
+        "true_std": 10.473,
+        "label": "iter47_locked_cov_70",
+        "n_retained": 66,
+        "coverage": 0.6947368421052632
+      },
+      "s11_direct_retained": {
+        "n": 66,
+        "ccc": 0.4104,
+        "cal_slope": 0.2794,
+        "mae": 7.4864,
+        "r": 0.4705,
+        "pred_mean": 25.502,
+        "pred_std": 6.22,
+        "true_mean": 24.515,
+        "true_std": 10.473,
+        "label": "s11_direct_cov_70",
+        "n_retained": 66,
+        "coverage": 0.6947368421052632
+      },
+      "s11_decomp_retained": {
+        "n": 66,
+        "ccc": 0.3801,
+        "cal_slope": 0.2564,
+        "mae": 7.6802,
+        "r": 0.4387,
+        "pred_mean": 25.421,
+        "pred_std": 6.119,
+        "true_mean": 24.515,
+        "true_std": 10.473,
+        "label": "s11_decomp_cov_70",
+        "n_retained": 66,
+        "coverage": 0.6947368421052632
+      },
+      "delta_direct_vs_iter47_same_mask": 0.0014,
+      "delta_decomp_vs_iter47_same_mask": -0.0289,
+      "slotF_reference_retained_ccc": 0.4237,
+      "beats_slotF_reference": false
+    },
+    "cov_50": {
+      "n_retained": 47,
+      "actual_coverage": 0.49473684210526314,
+      "risk_threshold_max_retained": 0.00209298520102974,
+      "iter47_locked_retained": {
+        "n": 47,
+        "ccc": 0.3806,
+        "cal_slope": 0.2522,
+        "mae": 8.1623,
+        "r": 0.4506,
+        "pred_mean": 25.517,
+        "pred_std": 6.166,
+        "true_mean": 24.319,
+        "true_std": 11.019,
+        "label": "iter47_locked_cov_50",
+        "n_retained": 47,
+        "coverage": 0.49473684210526314
+      },
+      "s11_direct_retained": {
+        "n": 47,
+        "ccc": 0.3896,
+        "cal_slope": 0.2434,
+        "mae": 7.7687,
+        "r": 0.4942,
+        "pred_mean": 25.243,
+        "pred_std": 5.427,
+        "true_mean": 24.319,
+        "true_std": 11.019,
+        "label": "s11_direct_cov_50",
+        "n_retained": 47,
+        "coverage": 0.49473684210526314
+      },
+      "s11_decomp_retained": {
+        "n": 47,
+        "ccc": 0.3746,
+        "cal_slope": 0.2358,
+        "mae": 7.8172,
+        "r": 0.4758,
+        "pred_mean": 25.593,
+        "pred_std": 5.462,
+        "true_mean": 24.319,
+        "true_std": 11.019,
+        "label": "s11_decomp_cov_50",
+        "n_retained": 47,
+        "coverage": 0.49473684210526314
+      },
+      "delta_direct_vs_iter47_same_mask": 0.009,
+      "delta_decomp_vs_iter47_same_mask": -0.006,
+      "slotF_reference_retained_ccc": 0.537,
+      "beats_slotF_reference": false
+    }
+  },
+  "decision_checks": {
+    "monotone_50_ge_70": false,
+    "beats_full_iter47_at_70": true,
+    "beats_slotF_reference_any_coverage": false
+  },
+  "verdict": "SCREEN_FAIL_NO_DEPLOYABLE_UPDATE"
+}

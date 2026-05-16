@@ -1,0 +1,11 @@
+{
+  "approval_evidence": {
+    "approved_access": true,
+    "approved_at_utc": "2026-05-15T00:00:00Z",
+    "data_use_terms_accepted": true,
+    "notes": "Non-protected lifecycle audit fixture",
+    "route_id": "cns_portugal_lobo",
+    "source": "non-protected CNS Portugal approval notice",
+    "storage_plan_documented": true
+  }
+}

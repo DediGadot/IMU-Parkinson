@@ -1,0 +1,905 @@
+{
+  "generated_at_utc": "2026-05-16T12:51:00+00:00",
+  "script": "audit_external_access_queue_status.py",
+  "passed": true,
+  "decision": "external_access_queue_status_ready",
+  "not_a_model_result": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "not_a_schema_probe_artifact": true,
+  "goal_complete": false,
+  "source_audit": "results/access_submission_tracker_20260509.json",
+  "status_script": "scripts/show_external_access_queue.py",
+  "packet_validator_audit": "results/access_request_packet_validator_audit_20260515.json",
+  "schema_probe_report_validator_audit": "results/external_schema_probe_report_validator_audit_20260515.json",
+  "target_free_manifest_validator_audit": "results/external_target_free_manifest_validator_audit_20260515.json",
+  "fill_checklist_audit": "results/access_request_fill_checklist_audit_20260515.json",
+  "submission_index_audit": "results/external_access_submission_index_audit_20260515.json",
+  "lifecycle_status_audit": "results/external_access_lifecycle_status_audit_20260515.json",
+  "schema_probe_handoff_audit": "results/external_schema_probe_handoff_audit_20260515.json",
+  "target_free_manifest_templates_audit": "results/external_target_free_manifest_templates_audit_20260515.json",
+  "zeroshot_blueprint_handoff_audit": "results/external_zeroshot_blueprint_handoff_audit_20260515.json",
+  "formula_sha_templates_audit": "results/external_formula_sha_templates_audit_20260515.json",
+  "zeroshot_result_templates_audit": "results/external_zeroshot_result_templates_audit_20260515.json",
+  "ppmi_post_approval_contract_gates": {
+    "formula_sha_record": {
+      "contract_present": true,
+      "negative_fixture_failed": true,
+      "negative_fixture_hard_failures": [
+        "ppmi_route_specific_formula_contract"
+      ],
+      "required_track_names": {
+        "A": "weargait_trained_wrist_topofractal_zeroshot",
+        "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+        "C": "ppmi_only_subject_grouped_sanity",
+        "D": "augmentation_screen_after_zero_shot_only"
+      },
+      "route_id": "ppmi_verily",
+      "track_c_fixed_branch": {
+        "K": 250,
+        "endpoint_scope": "T3 only",
+        "model": "sklearn.ensemble.GradientBoostingRegressor",
+        "selector": "univariate_corr_top_K"
+      },
+      "validator_gate": "ppmi_route_specific_formula_contract",
+      "x4_v3_gsp_compatibility_policy": {
+        "can_enter_formula_if": "approved schema probe proves comparable multi-node anatomical sensors before formula_sha256 freeze",
+        "external_label_selection_allowed": false,
+        "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+        "status": "excluded_for_wrist_only_ppmi_zero_shot"
+      }
+    },
+    "zeroshot_result_record": {
+      "contract_present": true,
+      "formula_record_validator_gate_required": "ppmi_route_specific_formula_contract",
+      "negative_fixture_failed": true,
+      "negative_fixture_hard_failures": [
+        "ppmi_route_specific_result_contract"
+      ],
+      "required_track_names": {
+        "A": "weargait_trained_wrist_topofractal_zeroshot",
+        "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+        "C": "ppmi_only_subject_grouped_sanity",
+        "D": "augmentation_screen_after_zero_shot_only"
+      },
+      "route_id": "ppmi_verily",
+      "track_c_fixed_branch": {
+        "K": 250,
+        "endpoint_scope": "T3 only",
+        "model": "sklearn.ensemble.GradientBoostingRegressor",
+        "selector": "univariate_corr_top_K"
+      },
+      "validator_gate": "ppmi_route_specific_result_contract",
+      "x4_v3_gsp_compatibility_policy": {
+        "can_enter_formula_if": "approved schema probe proves comparable multi-node anatomical sensors before formula_sha256 freeze",
+        "external_label_selection_allowed": false,
+        "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+        "status": "excluded_for_wrist_only_ppmi_zero_shot"
+      }
+    }
+  },
+  "post_score_reporting_workflow_by_route": {
+    "cns_portugal_lobo": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ],
+    "hssayeni_mjff": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ],
+    "icicle_gait": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ],
+    "ppmi_verily": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ],
+    "ppp_pd_vme": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ],
+    "watchpd": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ]
+  },
+  "summary": {
+    "blocked_actions_now": [
+      "probe script against protected data",
+      "download script",
+      "cache extraction",
+      "pre-registration using new labels",
+      "remote job",
+      "model run",
+      "canonical T1/T3 claim update"
+    ],
+    "compute_ready_route_count": 0,
+    "hard_failure_count": 0,
+    "passed": true,
+    "submit_ready_route_count": 6,
+    "top_priority_route": "PPMI / Verily Study Watch"
+  },
+  "content_boundary": {
+    "approval_evidence_included": false,
+    "completed_emails_included": false,
+    "completed_packets_included": false,
+    "protected_data_included": false,
+    "record_paths_reported": false,
+    "schema_probe_artifacts_included": false
+  },
+  "checks": [
+    {
+      "name": "status script exists",
+      "passed": true,
+      "evidence": {
+        "path": "scripts/show_external_access_queue.py"
+      }
+    },
+    {
+      "name": "text command returns a concise content-free queue",
+      "passed": true,
+      "evidence": {
+        "returncode": 0,
+        "stdout_tail": "t.py --route-id <route_id> --report <completed_schema_probe_report_path_outside_git>\n- uv run python scripts/validate_target_free_manifest.py --route-id <route_id> --manifest <completed_target_free_manifest_path_outside_git>\n- uv run python scripts/show_access_request_fill_checklist.py --route-id <route_id>\n- uv run python scripts/write_external_access_submission_index.py\n- uv run python scripts/write_external_schema_probe_handoff.py\n- uv run python scripts/write_external_target_free_manifest_templates.py\n- uv run python scripts/write_external_zeroshot_blueprint_handoff.py\n- uv run python scripts/write_external_formula_sha_templates.py\n- uv run python scripts/validate_external_formula_sha_record.py --route-id <route_id> --record <completed_formula_sha_record_path_outside_git>\n- uv run python scripts/write_external_zeroshot_result_templates.py\n- uv run python scripts/validate_external_zeroshot_result_record.py --route-id <route_id> --record <completed_external_zeroshot_result_record_path_outside_git>\n- uv run python audit_external_result_claim_labeling.py\n- uv run python audit_prompt_objective_evidence.py\n- uv run python verify_current_goal_state.py\n- uv run python scripts/show_external_access_lifecycle.py\n- uv run python scripts/show_ppmi_verily_next_action.py\n\nBoundary: do not add completed packets, protected rows, private access material, approvals, schema-probe outputs, downloads, caches, preregistrations, model runs, or canonical claim updates before route approval and schema inspection.\nGoal complete: False\nSource audit: results/access_submission_tracker_20260509.json\n"
+      }
+    },
+    {
+      "name": "json command returns all six submit-ready routes",
+      "passed": true,
+      "evidence": {
+        "returncode": 0,
+        "parse_error": null,
+        "summary": {
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "compute_ready_route_count": 0,
+          "hard_failure_count": 0,
+          "passed": true,
+          "submit_ready_route_count": 6,
+          "top_priority_route": "PPMI / Verily Study Watch"
+        },
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ],
+        "post_score_reporting_workflow_by_route": {
+          "cns_portugal_lobo": [
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            },
+            {
+              "command": "uv run python audit_external_result_claim_labeling.py",
+              "step_id": "audit_external_result_claim_labeling"
+            },
+            {
+              "command": "uv run python audit_prompt_objective_evidence.py",
+              "step_id": "audit_prompt_objective_evidence"
+            },
+            {
+              "command": "uv run python verify_current_goal_state.py",
+              "step_id": "verify_current_goal_state"
+            }
+          ],
+          "hssayeni_mjff": [
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            },
+            {
+              "command": "uv run python audit_external_result_claim_labeling.py",
+              "step_id": "audit_external_result_claim_labeling"
+            },
+            {
+              "command": "uv run python audit_prompt_objective_evidence.py",
+              "step_id": "audit_prompt_objective_evidence"
+            },
+            {
+              "command": "uv run python verify_current_goal_state.py",
+              "step_id": "verify_current_goal_state"
+            }
+          ],
+          "icicle_gait": [
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            },
+            {
+              "command": "uv run python audit_external_result_claim_labeling.py",
+              "step_id": "audit_external_result_claim_labeling"
+            },
+            {
+              "command": "uv run python audit_prompt_objective_evidence.py",
+              "step_id": "audit_prompt_objective_evidence"
+            },
+            {
+              "command": "uv run python verify_current_goal_state.py",
+              "step_id": "verify_current_goal_state"
+            }
+          ],
+          "ppmi_verily": [
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            },
+            {
+              "command": "uv run python audit_external_result_claim_labeling.py",
+              "step_id": "audit_external_result_claim_labeling"
+            },
+            {
+              "command": "uv run python audit_prompt_objective_evidence.py",
+              "step_id": "audit_prompt_objective_evidence"
+            },
+            {
+              "command": "uv run python verify_current_goal_state.py",
+              "step_id": "verify_current_goal_state"
+            }
+          ],
+          "ppp_pd_vme": [
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            },
+            {
+              "command": "uv run python audit_external_result_claim_labeling.py",
+              "step_id": "audit_external_result_claim_labeling"
+            },
+            {
+              "command": "uv run python audit_prompt_objective_evidence.py",
+              "step_id": "audit_prompt_objective_evidence"
+            },
+            {
+              "command": "uv run python verify_current_goal_state.py",
+              "step_id": "verify_current_goal_state"
+            }
+          ],
+          "watchpd": [
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            },
+            {
+              "command": "uv run python audit_external_result_claim_labeling.py",
+              "step_id": "audit_external_result_claim_labeling"
+            },
+            {
+              "command": "uv run python audit_prompt_objective_evidence.py",
+              "step_id": "audit_prompt_objective_evidence"
+            },
+            {
+              "command": "uv run python verify_current_goal_state.py",
+              "step_id": "verify_current_goal_state"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PPMI route points to current handoff and package preflight",
+      "passed": true,
+      "evidence": {
+        "ppmi_row": {
+          "access_blocker": "PPMI qualified-researcher account, DUA, online application, and DPC approval.",
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "current_allowed_action": "access_request_only",
+          "first_allowed_action_after_access": "Read-only schema probe; no pre-registration until subject/visit/sensor/label fields are known.",
+          "first_schema_probe": "Inventory Verily raw-device tables/files, MDS-UPDRS/H&Y linkage, visit windows, wrist laterality, sampling rate, units, and missing codes.",
+          "id": "ppmi_verily",
+          "name": "PPMI / Verily Study Watch",
+          "open_field_count": 13,
+          "packet": "scripts/ppmi_verily_tier3_request_packet.md",
+          "packet_audit_decision": "ppmi_verily_tier3_request_packet_ready",
+          "post_score_reporting_workflow_sequence": [
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            },
+            {
+              "command": "uv run python audit_external_result_claim_labeling.py",
+              "step_id": "audit_external_result_claim_labeling"
+            },
+            {
+              "command": "uv run python audit_prompt_objective_evidence.py",
+              "step_id": "audit_prompt_objective_evidence"
+            },
+            {
+              "command": "uv run python verify_current_goal_state.py",
+              "step_id": "verify_current_goal_state"
+            }
+          ],
+          "ppmi_submission_support": {
+            "completed_email_validator": "scripts/validate_ppmi_verily_submission_email.py",
+            "completed_email_validator_command": "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+            "completed_package_validator": "scripts/validate_ppmi_verily_submission_package.py",
+            "completed_package_validator_command": "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+            "completed_packet_validator": "scripts/validate_ppmi_verily_completed_packet.py",
+            "completed_packet_validator_command": "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+            "current_submission_handoff": "results/ppmi_verily_current_submission_handoff_20260515.md",
+            "formula_sha_record_validator": "scripts/validate_external_formula_sha_record.py",
+            "formula_sha_record_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+            "next_action_command": "uv run python scripts/show_ppmi_verily_next_action.py",
+            "next_action_status": "scripts/show_ppmi_verily_next_action.py",
+            "post_approval_contract_gates": {
+              "formula_sha_record": {
+                "contract_present": true,
+                "negative_fixture_failed": true,
+                "negative_fixture_hard_failures": [
+                  "ppmi_route_specific_formula_contract"
+                ],
+                "required_track_names": {
+                  "A": "weargait_trained_wrist_topofractal_zeroshot",
+                  "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+                  "C": "ppmi_only_subject_grouped_sanity",
+                  "D": "augmentation_screen_after_zero_shot_only"
+                },
+                "route_id": "ppmi_verily",
+                "track_c_fixed_branch": {
+                  "K": 250,
+                  "endpoint_scope": "T3 only",
+                  "model": "sklearn.ensemble.GradientBoostingRegressor",
+                  "selector": "univariate_corr_top_K"
+                },
+                "validator_gate": "ppmi_route_specific_formula_contract",
+                "x4_v3_gsp_compatibility_policy": {
+                  "can_enter_formula_if": "approved schema probe proves comparable multi-node anatomical sensors before formula_sha256 freeze",
+                  "external_label_selection_allowed": false,
+                  "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+                  "status": "excluded_for_wrist_only_ppmi_zero_shot"
+                }
+              },
+              "zeroshot_result_record": {
+                "contract_present": true,
+                "formula_record_validator_gate_required": "ppmi_route_specific_formula_contract",
+                "negative_fixture_failed": true,
+                "negative_fixture_hard_failures": [
+                  "ppmi_route_specific_result_contract"
+                ],
+                "required_track_names": {
+                  "A": "weargait_trained_wrist_topofractal_zeroshot",
+                  "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+                  "C": "ppmi_only_subject_grouped_sanity",
+                  "D": "augmentation_screen_after_zero_shot_only"
+                },
+                "route_id": "ppmi_verily",
+                "track_c_fixed_branch": {
+                  "K": 250,
+                  "endpoint_scope": "T3 only",
+                  "model": "sklearn.ensemble.GradientBoostingRegressor",
+                  "selector": "univariate_corr_top_K"
+                },
+                "validator_gate": "ppmi_route_specific_result_contract",
+                "x4_v3_gsp_compatibility_policy": {
+                  "can_enter_formula_if": "approved schema probe proves comparable multi-node anatomical sensors before formula_sha256 freeze",
+                  "external_label_selection_allowed": false,
+                  "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+                  "status": "excluded_for_wrist_only_ppmi_zero_shot"
+                }
+              }
+            },
+            "schema_probe_validator": "scripts/validate_ppmi_verily_schema_probe_report.py",
+            "schema_probe_validator_command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+            "target_free_manifest_validator": "scripts/validate_ppmi_verily_target_free_manifest.py",
+            "target_free_manifest_validator_command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+            "user_fill_checklist": "scripts/ppmi_verily_user_fill_checklist.md",
+            "word_packet_template": "results/ppmi_verily_tier3_request_packet_template_20260515.docx",
+            "zeroshot_result_record_validator": "scripts/validate_external_zeroshot_result_record.py",
+            "zeroshot_result_record_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "priority": 1,
+          "remote_job_allowed_now": false,
+          "runbook": "scripts/ppmi_verily_setup.md",
+          "scaffold_allowed_now": false,
+          "submission_channel": "PPMI access workflow plus Tier-3 Verily Raw Device Data packet to resources@michaeljfox.org.",
+          "submission_status": "ready_to_submit_after_user_fill_and_governance",
+          "user_action": "Start or update the qualified-researcher application, complete the DUA/publications-policy steps, then submit the filled Tier-3 packet."
+        }
+      }
+    },
+    {
+      "name": "PPMI route card exposes PPMI-specific post-approval validators",
+      "passed": true,
+      "evidence": {
+        "ppmi_row": {
+          "access_blocker": "PPMI qualified-researcher account, DUA, online application, and DPC approval.",
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "current_allowed_action": "access_request_only",
+          "first_allowed_action_after_access": "Read-only schema probe; no pre-registration until subject/visit/sensor/label fields are known.",
+          "first_schema_probe": "Inventory Verily raw-device tables/files, MDS-UPDRS/H&Y linkage, visit windows, wrist laterality, sampling rate, units, and missing codes.",
+          "id": "ppmi_verily",
+          "name": "PPMI / Verily Study Watch",
+          "open_field_count": 13,
+          "packet": "scripts/ppmi_verily_tier3_request_packet.md",
+          "packet_audit_decision": "ppmi_verily_tier3_request_packet_ready",
+          "post_score_reporting_workflow_sequence": [
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            },
+            {
+              "command": "uv run python audit_external_result_claim_labeling.py",
+              "step_id": "audit_external_result_claim_labeling"
+            },
+            {
+              "command": "uv run python audit_prompt_objective_evidence.py",
+              "step_id": "audit_prompt_objective_evidence"
+            },
+            {
+              "command": "uv run python verify_current_goal_state.py",
+              "step_id": "verify_current_goal_state"
+            }
+          ],
+          "ppmi_submission_support": {
+            "completed_email_validator": "scripts/validate_ppmi_verily_submission_email.py",
+            "completed_email_validator_command": "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+            "completed_package_validator": "scripts/validate_ppmi_verily_submission_package.py",
+            "completed_package_validator_command": "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+            "completed_packet_validator": "scripts/validate_ppmi_verily_completed_packet.py",
+            "completed_packet_validator_command": "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+            "current_submission_handoff": "results/ppmi_verily_current_submission_handoff_20260515.md",
+            "formula_sha_record_validator": "scripts/validate_external_formula_sha_record.py",
+            "formula_sha_record_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+            "next_action_command": "uv run python scripts/show_ppmi_verily_next_action.py",
+            "next_action_status": "scripts/show_ppmi_verily_next_action.py",
+            "post_approval_contract_gates": {
+              "formula_sha_record": {
+                "contract_present": true,
+                "negative_fixture_failed": true,
+                "negative_fixture_hard_failures": [
+                  "ppmi_route_specific_formula_contract"
+                ],
+                "required_track_names": {
+                  "A": "weargait_trained_wrist_topofractal_zeroshot",
+                  "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+                  "C": "ppmi_only_subject_grouped_sanity",
+                  "D": "augmentation_screen_after_zero_shot_only"
+                },
+                "route_id": "ppmi_verily",
+                "track_c_fixed_branch": {
+                  "K": 250,
+                  "endpoint_scope": "T3 only",
+                  "model": "sklearn.ensemble.GradientBoostingRegressor",
+                  "selector": "univariate_corr_top_K"
+                },
+                "validator_gate": "ppmi_route_specific_formula_contract",
+                "x4_v3_gsp_compatibility_policy": {
+                  "can_enter_formula_if": "approved schema probe proves comparable multi-node anatomical sensors before formula_sha256 freeze",
+                  "external_label_selection_allowed": false,
+                  "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+                  "status": "excluded_for_wrist_only_ppmi_zero_shot"
+                }
+              },
+              "zeroshot_result_record": {
+                "contract_present": true,
+                "formula_record_validator_gate_required": "ppmi_route_specific_formula_contract",
+                "negative_fixture_failed": true,
+                "negative_fixture_hard_failures": [
+                  "ppmi_route_specific_result_contract"
+                ],
+                "required_track_names": {
+                  "A": "weargait_trained_wrist_topofractal_zeroshot",
+                  "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+                  "C": "ppmi_only_subject_grouped_sanity",
+                  "D": "augmentation_screen_after_zero_shot_only"
+                },
+                "route_id": "ppmi_verily",
+                "track_c_fixed_branch": {
+                  "K": 250,
+                  "endpoint_scope": "T3 only",
+                  "model": "sklearn.ensemble.GradientBoostingRegressor",
+                  "selector": "univariate_corr_top_K"
+                },
+                "validator_gate": "ppmi_route_specific_result_contract",
+                "x4_v3_gsp_compatibility_policy": {
+                  "can_enter_formula_if": "approved schema probe proves comparable multi-node anatomical sensors before formula_sha256 freeze",
+                  "external_label_selection_allowed": false,
+                  "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+                  "status": "excluded_for_wrist_only_ppmi_zero_shot"
+                }
+              }
+            },
+            "schema_probe_validator": "scripts/validate_ppmi_verily_schema_probe_report.py",
+            "schema_probe_validator_command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+            "target_free_manifest_validator": "scripts/validate_ppmi_verily_target_free_manifest.py",
+            "target_free_manifest_validator_command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+            "user_fill_checklist": "scripts/ppmi_verily_user_fill_checklist.md",
+            "word_packet_template": "results/ppmi_verily_tier3_request_packet_template_20260515.docx",
+            "zeroshot_result_record_validator": "scripts/validate_external_zeroshot_result_record.py",
+            "zeroshot_result_record_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "priority": 1,
+          "remote_job_allowed_now": false,
+          "runbook": "scripts/ppmi_verily_setup.md",
+          "scaffold_allowed_now": false,
+          "submission_channel": "PPMI access workflow plus Tier-3 Verily Raw Device Data packet to resources@michaeljfox.org.",
+          "submission_status": "ready_to_submit_after_user_fill_and_governance",
+          "user_action": "Start or update the qualified-researcher application, complete the DUA/publications-policy steps, then submit the filled Tier-3 packet."
+        }
+      }
+    },
+    {
+      "name": "command templates are metadata-only",
+      "passed": true,
+      "evidence": {
+        "command_templates": {
+          "audit_external_result_claim_labeling": "uv run python audit_external_result_claim_labeling.py",
+          "audit_prompt_objective_evidence": "uv run python audit_prompt_objective_evidence.py",
+          "record_approval_metadata": "uv run python scripts/record_access_approval.py --route-id <route_id> --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+          "record_submission_metadata": "uv run python scripts/record_access_submission.py --route-id <route_id> --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+          "show_fill_checklist": "uv run python scripts/show_access_request_fill_checklist.py --route-id <route_id>",
+          "show_lifecycle_status": "uv run python scripts/show_external_access_lifecycle.py",
+          "show_ppmi_next_action": "uv run python scripts/show_ppmi_verily_next_action.py",
+          "validate_completed_packet": "uv run python scripts/validate_access_request_packet.py --route-id <route_id> --packet <completed_packet_path_outside_git>",
+          "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id <route_id> --record <completed_formula_sha_record_path_outside_git>",
+          "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id <route_id> --report <completed_schema_probe_report_path_outside_git>",
+          "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id <route_id> --manifest <completed_target_free_manifest_path_outside_git>",
+          "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id <route_id> --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "verify_current_goal_state": "uv run python verify_current_goal_state.py",
+          "write_formula_sha_templates": "uv run python scripts/write_external_formula_sha_templates.py",
+          "write_schema_probe_handoff": "uv run python scripts/write_external_schema_probe_handoff.py",
+          "write_submission_index": "uv run python scripts/write_external_access_submission_index.py",
+          "write_target_free_manifest_templates": "uv run python scripts/write_external_target_free_manifest_templates.py",
+          "write_zeroshot_blueprint_handoff": "uv run python scripts/write_external_zeroshot_blueprint_handoff.py",
+          "write_zeroshot_result_templates": "uv run python scripts/write_external_zeroshot_result_templates.py"
+        }
+      }
+    },
+    {
+      "name": "generic schema-probe handoff is ready for six queued routes",
+      "passed": true,
+      "evidence": {
+        "decision": "external_schema_probe_handoff_ready",
+        "handoff_markdown": "results/external_schema_probe_handoff_20260515.md",
+        "hard_failures": []
+      }
+    },
+    {
+      "name": "generic target-free manifest templates are ready for six queued routes",
+      "passed": true,
+      "evidence": {
+        "decision": "external_target_free_manifest_templates_ready",
+        "templates_markdown": "results/external_target_free_manifest_templates_20260515.md",
+        "hard_failures": []
+      }
+    },
+    {
+      "name": "generic zero-shot blueprint handoff is ready for six queued routes",
+      "passed": true,
+      "evidence": {
+        "decision": "external_zeroshot_blueprint_handoff_ready",
+        "handoff_markdown": "results/external_zeroshot_blueprint_handoff_20260515.md",
+        "hard_failures": []
+      }
+    },
+    {
+      "name": "formula-SHA templates include the PPMI route-specific contract gate",
+      "passed": true,
+      "evidence": {
+        "decision": "external_formula_sha_templates_ready",
+        "templates_markdown": "results/external_formula_sha_templates_20260515.md",
+        "hard_failures": [],
+        "ppmi_contract_gate": {
+          "contract_present": true,
+          "negative_fixture_failed": true,
+          "negative_fixture_hard_failures": [
+            "ppmi_route_specific_formula_contract"
+          ],
+          "required_track_names": {
+            "A": "weargait_trained_wrist_topofractal_zeroshot",
+            "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+            "C": "ppmi_only_subject_grouped_sanity",
+            "D": "augmentation_screen_after_zero_shot_only"
+          },
+          "route_id": "ppmi_verily",
+          "track_c_fixed_branch": {
+            "K": 250,
+            "endpoint_scope": "T3 only",
+            "model": "sklearn.ensemble.GradientBoostingRegressor",
+            "selector": "univariate_corr_top_K"
+          },
+          "validator_gate": "ppmi_route_specific_formula_contract",
+          "x4_v3_gsp_compatibility_policy": {
+            "can_enter_formula_if": "approved schema probe proves comparable multi-node anatomical sensors before formula_sha256 freeze",
+            "external_label_selection_allowed": false,
+            "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+            "status": "excluded_for_wrist_only_ppmi_zero_shot"
+          }
+        }
+      }
+    },
+    {
+      "name": "external zero-shot result templates include the PPMI route-specific contract gate",
+      "passed": true,
+      "evidence": {
+        "decision": "external_zeroshot_result_templates_ready",
+        "templates_markdown": "results/external_zeroshot_result_templates_20260515.md",
+        "hard_failures": [],
+        "post_score_reporting_workflow_step_ids_by_route": {
+          "cns_portugal_lobo": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ],
+          "hssayeni_mjff": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ],
+          "icicle_gait": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ],
+          "ppmi_verily": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ],
+          "ppp_pd_vme": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ],
+          "watchpd": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ]
+        },
+        "ppmi_contract_gate": {
+          "contract_present": true,
+          "formula_record_validator_gate_required": "ppmi_route_specific_formula_contract",
+          "negative_fixture_failed": true,
+          "negative_fixture_hard_failures": [
+            "ppmi_route_specific_result_contract"
+          ],
+          "required_track_names": {
+            "A": "weargait_trained_wrist_topofractal_zeroshot",
+            "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+            "C": "ppmi_only_subject_grouped_sanity",
+            "D": "augmentation_screen_after_zero_shot_only"
+          },
+          "route_id": "ppmi_verily",
+          "track_c_fixed_branch": {
+            "K": 250,
+            "endpoint_scope": "T3 only",
+            "model": "sklearn.ensemble.GradientBoostingRegressor",
+            "selector": "univariate_corr_top_K"
+          },
+          "validator_gate": "ppmi_route_specific_result_contract",
+          "x4_v3_gsp_compatibility_policy": {
+            "can_enter_formula_if": "approved schema probe proves comparable multi-node anatomical sensors before formula_sha256 freeze",
+            "external_label_selection_allowed": false,
+            "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+            "status": "excluded_for_wrist_only_ppmi_zero_shot"
+          }
+        }
+      }
+    },
+    {
+      "name": "all-route lifecycle status helper is ready",
+      "passed": true,
+      "evidence": {
+        "decision": "external_access_lifecycle_status_ready",
+        "status_helper": "scripts/show_external_access_lifecycle.py",
+        "hard_failures": []
+      }
+    },
+    {
+      "name": "stable submission index is ready for six queued routes",
+      "passed": true,
+      "evidence": {
+        "decision": "external_access_submission_index_ready",
+        "index_json": "results/external_access_submission_index_20260515.json",
+        "index_markdown": "results/external_access_submission_index_20260515.md",
+        "hard_failures": []
+      }
+    },
+    {
+      "name": "generic fill checklist is ready for six queued routes",
+      "passed": true,
+      "evidence": {
+        "decision": "access_request_fill_checklist_ready",
+        "route_count": 6,
+        "hard_failures": []
+      }
+    },
+    {
+      "name": "generic completed-packet validator is ready for six queued routes",
+      "passed": true,
+      "evidence": {
+        "decision": "access_request_packet_validator_ready",
+        "validator": "scripts/validate_access_request_packet.py",
+        "route_count": 6,
+        "hard_failures": []
+      }
+    },
+    {
+      "name": "generic schema-probe report validator is ready for six queued routes",
+      "passed": true,
+      "evidence": {
+        "decision": "external_schema_probe_report_validator_ready",
+        "validator": "scripts/validate_schema_probe_report.py",
+        "route_count": 6,
+        "hard_failures": []
+      }
+    },
+    {
+      "name": "generic target-free manifest validator is ready for six queued routes",
+      "passed": true,
+      "evidence": {
+        "decision": "external_target_free_manifest_validator_ready",
+        "validator": "scripts/validate_target_free_manifest.py",
+        "route_count": 6,
+        "hard_failures": []
+      }
+    },
+    {
+      "name": "status output does not expose local record identities or private material",
+      "passed": true,
+      "evidence": {
+        "forbidden_snippets_found": []
+      }
+    },
+    {
+      "name": "content boundary blocks completed/protected artifacts",
+      "passed": true,
+      "evidence": {
+        "content_boundary": {
+          "approval_evidence_included": false,
+          "completed_emails_included": false,
+          "completed_packets_included": false,
+          "protected_data_included": false,
+          "record_paths_reported": false,
+          "schema_probe_artifacts_included": false
+        }
+      }
+    },
+    {
+      "name": "source tracker remains ready and incomplete",
+      "passed": true,
+      "evidence": {
+        "tracker": "results/access_submission_tracker_20260509.json",
+        "summary": {
+          "passed": true,
+          "submit_ready_route_count": 6,
+          "compute_ready_route_count": 0,
+          "hard_failure_count": 0,
+          "top_priority_route": "PPMI / Verily Study Watch",
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ]
+        },
+        "hard_failures": []
+      }
+    }
+  ],
+  "hard_failures": [],
+  "outputs": {
+    "json": "results/external_access_queue_status_audit_20260515.json",
+    "markdown": "results/external_access_queue_status_audit_20260515.md"
+  }
+}

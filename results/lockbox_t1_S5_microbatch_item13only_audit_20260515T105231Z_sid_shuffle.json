@@ -1,0 +1,50 @@
+{
+  "name": "lockbox_t1_S5_microbatch_item13only_audit",
+  "created_at_utc": "20260515T105231Z",
+  "preregistration_master": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "session": "2026-05-15-PM-microbatch-S5",
+  "null_mode": "sid_shuffle",
+  "n_cohort": 92,
+  "split_seed": 20260309,
+  "model_seeds": [
+    42,
+    1337,
+    7
+  ],
+  "lambda_fixed": 1.0,
+  "n_bootstrap": 2000,
+  "estimand_label": "full_cohort_t1_loocv_ccc_post_correction",
+  "iter34_baseline_canonical_ccc": 0.717,
+  "iter34_loocv_ccc_recomputed": 0.717038,
+  "arms": {
+    "item13_PH_alpha100_PRIMARY": {
+      "arm": "item13_PH_alpha100_PRIMARY",
+      "role": "PRIMARY",
+      "item": 13,
+      "feature_filter": "_ph_",
+      "n_features": 32,
+      "alpha_fixed": 100.0,
+      "lambda_fixed": 1.0,
+      "model_seeds": [
+        42,
+        1337,
+        7
+      ],
+      "loocv_ccc_baseline": 0.717038,
+      "loocv_ccc_corrected": 0.72274,
+      "delta_ccc": 0.005702,
+      "delta_pearson_r": 0.006635,
+      "delta_mae": -0.013206,
+      "corr_correction_item_residual": 0.269493,
+      "corr_correction_sum_residual": 0.095748,
+      "frac_pos_bootstrap": 0.849,
+      "bootstrap_median": 0.006019,
+      "ci95": [
+        -0.004743,
+        0.020407
+      ],
+      "verdict": "PASS_HYPOTHESIS_A"
+    }
+  },
+  "d4_audit_reference": "results/d4_variance_compression_audit_20260515T082806Z.json"
+}

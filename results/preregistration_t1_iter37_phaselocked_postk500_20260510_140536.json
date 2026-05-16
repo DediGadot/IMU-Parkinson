@@ -1,0 +1,135 @@
+{
+  "timestamp": "20260510_140536",
+  "iso_datetime_utc": "2026-05-10T14:05:36.687563+00:00",
+  "experiment": "T1 iter37 \u2014 phase-locked items 9+12 chain-step-routed POST-K=500",
+  "git_head": "64edc2a90ab11beed8b0bdb30a69c6c49a8809fc",
+  "formula_sha256": "f13210bca7a46b72167398c0cfaf84efa6c91a97cf586109313a898bf63250fa",
+  "formula": {
+    "experiment": "T1 iter37 \u2014 phase-locked items 9+12 features routed POST-K=500 at chain step level",
+    "slot": "A of T1 Glass-Ceiling Push 2026-05-10 (master prereg results/preregistration_t1_ceiling_push_20260510_134829.json, FWER n=4)",
+    "is_post_publication_replication_target": false,
+    "family_wise_independence_claim": "Member of master pre-registered family n=4. Bonferroni-adjusted gate frac>0 \u2265 0.9875 vs iter12-honest-n93 AND vs iter34-n93 to claim supersede.",
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects_min": 90,
+      "filter": "PD with full items 9-14, 15, 18 (matches iter34 / iter33-B 8-item filter)",
+      "split_file": "results/paper3_split.json"
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "T1 (sum items 9-14)"
+    },
+    "stage2": {
+      "model_ensemble": [
+        "CustomChain(LGBMRegressor n=500, lr=0.05, num_leaves=15, min_data=10)",
+        "CustomChain(XGBRegressor hist, n=500, lr=0.05, depth=4, min_child=5)",
+        "CustomChain(ExtraTreesRegressor n=300, max_depth=10, min_leaf=5)"
+      ],
+      "ensemble_method": "average chain-output across 3 bases per fold per seed",
+      "items_targets_chain": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18
+      ],
+      "items_summed_for_t1": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "auxiliary_items": [
+        15,
+        18
+      ],
+      "item_target_centering": "subtract per-fold train_mean(item)",
+      "feature_select_method": "lgb_importance_top_k_per_fold (V2 only; PL features bypass selector)",
+      "feature_select_k": 500,
+      "imputation": "fold_local_median (V2 + PL blocks separately)",
+      "phase_locked_routing": {
+        "policy": "per-TARGET-ITEM-IDENTITY routing, NOT chain position",
+        "item_9": "PL9 (12 cols) appended only when chain step's target item id == 9",
+        "item_12": "PL12 (13 cols) appended only when chain step's target item id == 12",
+        "all_other_items": "no PL features appended",
+        "audit_emission": "per-fold per-seed per-base routing audit emitted to lockbox JSON",
+        "post_K500": true,
+        "K500_pool_unchanged": "V2 only; PL features never enter K=500 importance ranking",
+        "codex_load_bearing_requirement": "key by target item identity, not chain position (RegressorChain order='random')"
+      },
+      "post_combine_formula": "Stage1_pred + (sum_over_T1_SUM_ITEMS(mean_over_bases(item_pred) + train_mean) - sum(train_mean[T1_SUM_ITEMS]))  -- aux items 15,18 in chain only",
+      "decorrelation_argument": "F36-D demonstrated K=500 absorbs phase-locked features when added to the V2 pool. Slot A bypasses K=500 by routing PL features at the chain step matching their item id, post-K500. Distinct from F35-C (slot replacement removed chain coupling); chain coupling is preserved."
+    },
+    "phase_locked_caches": {
+      "item9_csv": "results/phaselocked_item9_features.csv",
+      "item9_n_features": 11,
+      "item9_manifest_git_sha_amended_to": "09d2e198aea1bf7b1d1553600014b563409046ee",
+      "item12_csv": "results/phaselocked_item12_features.csv",
+      "item12_n_features": 12,
+      "item12_manifest_git_sha_amended_to": "09d2e198aea1bf7b1d1553600014b563409046ee",
+      "label_free": true,
+      "fold_scope_at_extraction": "global",
+      "leakage_argument": "Deterministic signal-processing aggregates of raw IMU around TUG seat-off / turn-peak. UPDRS labels never enter extraction."
+    },
+    "eval": {
+      "loocv_n_min": 90,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "bases": [
+        "lgb",
+        "xgb",
+        "et"
+      ],
+      "headline_metric": "CCC of mean-of-3-seed predictions vs y_t1",
+      "comparator_iter12_honest_n93_oof": "computed live in same SID-aligned LOOCV",
+      "comparator_iter34_oof": "results/lockbox_t1_iter34_hybrid_20260506_141720.oof.npy"
+    },
+    "screen_gate": {
+      "n_splits": 5,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "promote_to_lockbox_iff": "\u0394\u0304 vs iter34-5fold \u2265 +0.025 (mean over 3 seeds) AND paired-bootstrap (5000) frac>0 \u2265 0.95",
+      "rule_post_2026_05_05": "seed-std<0.020 floor dropped per user instruction"
+    },
+    "lockbox_rules": [
+      "ONE pre-registered config. ONE LOOCV run. SLOT A of FWER n=4 family.",
+      "Headline = CCC of mean-of-3-seed preds (each seed averages 3 base learners).",
+      "Bonferroni-adjusted Verdict gates: frac>0 \u2265 0.9875 vs iter12-honest-n93 AND vs iter34-n93.",
+      "Seed list immutable from registration. No seed addition after seeing metrics.",
+      "5-null gate (scrambled, canary, transductive) recorded alongside lockbox JSON."
+    ]
+  },
+  "variant": "phaselocked_postk500_chainstep_routing",
+  "is_post_publication_replication_target": false,
+  "master_prereg_id": "t1_ceiling_push_20260510_134829",
+  "master_prereg_path": "results/preregistration_t1_ceiling_push_20260510_134829.json",
+  "slot_id": "A",
+  "fwer_family_size_n": 4,
+  "fwer_bonferroni_alpha_per_test": 0.0125,
+  "promotion_gates": {
+    "screen_5fold": "\u0394\u0304\u2265+0.025 AND paired-bootstrap frac>0\u22650.95",
+    "lockbox_loocv_publishable": "frac>0 vs iter12-honest-n93 \u2265 0.9875",
+    "lockbox_loocv_supersede": "frac>0 vs iter34-n93 \u2265 0.9875"
+  }
+}

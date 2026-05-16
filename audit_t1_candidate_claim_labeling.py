@@ -28,7 +28,7 @@ FILES = [
     RESULTS / "current_best_pipeline_artifact_index_20260508.md",
 ]
 
-MENTION = re.compile(r"\b(iter34|0\.7366)\b", re.IGNORECASE)
+MENTION = re.compile(r"\b(iter34|0\.7366|0\.7170)\b", re.IGNORECASE)
 DANGEROUS = re.compile(
     r"\b(canonical|audit[- ]truth|deployment|deployable|deployment-ready|"
     r"headline|replacement|complete|achieved|breakthrough|ceiling break)\b",
@@ -39,6 +39,7 @@ ALLOWED = re.compile(
     r"not as (?:a )?canonical|rather than as (?:a )?canonical|"
     r"does not formally replace|does not replace|floor|N\s*=\s*93|N=93|"
     r"P2|auxiliary|label|cohort|post-publication|replication target|"
+    r"hygiene-corrected|corrected candidate|valid-auxiliary|degraded|"
     r"not complete|not achieved|attempted|retained as the canonical floor|"
     r"iter12[- ]honest|clean ceiling-break completion condition|"
     r"not a model update|not a new model result|artifact-drift|"
@@ -54,14 +55,14 @@ REQUIRED_SNIPPETS = {
         "iter12-honest 0.6550 as the canonical floor",
     ],
     "CLAUDE.md": [
-        "STRONGEST CANDIDATE",
-        "P2 robustness",
-        "not a ceiling break and not a canonical update",
+        "T1 corrected candidate",
+        "hygiene-superseded",
+        "Do not cite them as canonical",
     ],
     "AGENTS.md": [
-        "Strongest non-canonical T1 candidate: iter34",
-        "P2",
-        "auxiliary-label caveat",
+        "Strongest current corrected non-canonical T1 candidate",
+        "0.7170",
+        "does not complete the model ceiling-break objective",
     ],
     "results/thread_goal_completion_audit_20260508.md": [
         "T1 strongest candidate remains iter34",

@@ -1,0 +1,6 @@
+sections_present=file_inventory,subject_linkage,visit_or_session_linkage,sensor_metadata,target_metadata,missingness_policy,grouping_policy,hard_stops
+grouping_keys_found=sid,visit_id
+target_columns_found=updrs3
+sensor_modalities_found=study_watch_accelerometer
+valid_subject_count=19
+hard_stops=none

@@ -1,0 +1,146 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "errors": []
+      },
+      "name": "clean schema-probe evidence matches report",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "schema_probe.valid_subject_count does not match report"
+        ]
+      },
+      "name": "stale subject count is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "schema_probe.spec.route_id does not match report"
+        ]
+      },
+      "name": "stale route id is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "schema_probe.protected_row_dump_included does not match report",
+          "schema_probe artifact includes protected row dump"
+        ]
+      },
+      "name": "protected row dump in schema artifact is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "schema_probe artifact contains prohibited protected-content key: schema_probe.rows"
+        ]
+      },
+      "name": "hidden row-shaped schema payload is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "schema_probe artifact contains prohibited protected-content key: schema_probe.file_inventory.access_token"
+        ]
+      },
+      "name": "credential-like schema payload is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "schema_probe.spec.required_grouping_keys must be a list",
+          "schema_probe.spec.required_grouping_keys do not match report",
+          "schema_probe.spec.min_subjects must be an integer",
+          "schema_probe.spec.protected_access_required must be a boolean",
+          "schema_probe.approved_access must be a boolean"
+        ]
+      },
+      "name": "malformed schema-probe artifact field types fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_json_errors": [
+          "schema_probe artifact source is not valid JSON: bad_schema_probe.json",
+          "schema_probe.spec.route_id does not match report",
+          "schema_probe.spec.name does not match report",
+          "schema_probe.spec.required_grouping_keys do not match report",
+          "schema_probe.spec.required_target_columns do not match report",
+          "schema_probe.spec.required_sensor_modalities do not match report",
+          "schema_probe.spec.min_subjects must be an integer",
+          "schema_probe.spec.protected_access_required must be a boolean",
+          "schema_probe.spec.required_sections do not match report",
+          "schema_probe.approved_access must be a boolean",
+          "schema_probe.sections_present do not match report",
+          "schema_probe.grouping_keys_found do not match report",
+          "schema_probe.target_columns_found do not match report",
+          "schema_probe.sensor_modalities_found do not match report",
+          "schema_probe.valid_subject_count does not match report",
+          "schema_probe.protected_row_dump_included must be a boolean",
+          "schema_probe.preregistration_written must be a boolean",
+          "schema_probe.model_run_started must be a boolean",
+          "schema_probe.artifact_path does not match report"
+        ],
+        "missing_errors": [
+          "schema_probe artifact source is missing: missing_schema_probe.json",
+          "schema_probe.spec.route_id does not match report",
+          "schema_probe.spec.name does not match report",
+          "schema_probe.spec.required_grouping_keys do not match report",
+          "schema_probe.spec.required_target_columns do not match report",
+          "schema_probe.spec.required_sensor_modalities do not match report",
+          "schema_probe.spec.min_subjects must be an integer",
+          "schema_probe.spec.protected_access_required must be a boolean",
+          "schema_probe.spec.required_sections do not match report",
+          "schema_probe.approved_access must be a boolean",
+          "schema_probe.sections_present do not match report",
+          "schema_probe.grouping_keys_found do not match report",
+          "schema_probe.target_columns_found do not match report",
+          "schema_probe.sensor_modalities_found do not match report",
+          "schema_probe.valid_subject_count does not match report",
+          "schema_probe.protected_row_dump_included must be a boolean",
+          "schema_probe.preregistration_written must be a boolean",
+          "schema_probe.model_run_started must be a boolean",
+          "schema_probe.artifact_path does not match report"
+        ]
+      },
+      "name": "schema-probe artifact loader errors fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors_with_clean_content": [],
+        "errors_without_content": [
+          "preregister stage requires schema_probe content evidence"
+        ]
+      },
+      "name": "protected preregistration requires schema-probe content evidence",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors_without_content": [
+          "run stage requires schema_probe content evidence",
+          "run stage requires preregistration content evidence"
+        ]
+      },
+      "name": "protected run requires schema-probe content evidence",
+      "passed": true
+    }
+  ],
+  "claim": "Protected external preregistration and run stages now require SchemaProbeArtifactEvidence, so an observed schema-probe path alone cannot unlock modeling when the probe artifact content is stale, mismatched, malformed, missing or invalid at load time, contaminated, or contains row-like or credential-like payload keys.",
+  "decision": "schema_probe_artifact_gate_passed",
+  "generated_at_utc": "2026-05-16T12:44:25+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_schema_probe_artifact_gate.py"
+}

@@ -1,5 +1,5 @@
 {
-  "created_at_utc": "2026-05-09T12:40:19+00:00",
+  "created_at_utc": "2026-05-16T12:51:40+00:00",
   "script": "audit_access_submission_tracker.py",
   "purpose": "Operational submission tracker for gated external-data access packets.",
   "not_a_model_result": true,
@@ -23,7 +23,12 @@
   },
   "inputs": {
     "readiness_audit": "results/external_access_readiness_audit_20260509.json",
-    "source_route_audit": "results/external_dataset_route_audit_20260508.json"
+    "source_route_audit": "results/external_dataset_route_audit_20260508.json",
+    "ppmi_user_fill_checklist_audit": "results/ppmi_verily_user_fill_checklist_audit_20260515.json",
+    "ppmi_schema_probe_checklist_audit": "results/ppmi_verily_schema_probe_checklist_audit_20260515.json",
+    "ppmi_schema_probe_report_template_audit": "results/ppmi_verily_schema_probe_report_template_audit_20260515.json",
+    "ppmi_completed_email_validator_audit": "results/ppmi_verily_submission_email_validator_audit_20260515.json",
+    "ppmi_completed_package_validator_audit": "results/ppmi_verily_submission_package_validator_audit_20260515.json"
   },
   "outputs": {
     "json": "results/access_submission_tracker_20260509.json",
@@ -105,7 +110,102 @@
       ],
       "remote_job_allowed_now": false,
       "scaffold_allowed_now": false,
-      "packet_audit_decision": "ppmi_verily_tier3_request_packet_ready"
+      "packet_audit_decision": "ppmi_verily_tier3_request_packet_ready",
+      "official_source_recheck": {
+        "packet_audit": "results/ppmi_verily_request_packet_audit_20260509.json",
+        "official_sources_passed": true,
+        "tier3_submission_passed": true,
+        "required_packet_fields_passed": true,
+        "required_terms": {
+          "official_sources": [
+            "ppmi-info.org/access-data-specimens/download-data",
+            "ppmi data access guidelines",
+            "version 7.0",
+            "15 feb 2026",
+            "nature.com/articles/s41531-025-01034-8"
+          ],
+          "tier3_submission": [
+            "verily raw device data",
+            "tier 3",
+            "resources@michaeljfox.org",
+            "pdf or word",
+            "30 days"
+          ],
+          "required_packet_fields": [
+            "principal investigator",
+            "intended use",
+            "analysis synopsis",
+            "named research team",
+            "data custodian",
+            "all requesting research-team members"
+          ]
+        }
+      },
+      "submit_format": {
+        "audit": "results/ppmi_verily_submit_format_audit_20260515.json",
+        "passed": true,
+        "decision": "ppmi_verily_word_template_ready_to_fill",
+        "word_template": "results/ppmi_verily_tier3_request_packet_template_20260515.docx"
+      },
+      "submission_email_template": {
+        "audit": "results/ppmi_verily_submission_email_template_audit_20260515.json",
+        "passed": true,
+        "decision": "ppmi_verily_submission_email_template_ready",
+        "template": "scripts/ppmi_verily_submission_email_template.md"
+      },
+      "user_fill_checklist": {
+        "audit": "results/ppmi_verily_user_fill_checklist_audit_20260515.json",
+        "passed": true,
+        "decision": "ppmi_verily_user_fill_checklist_ready",
+        "checklist": "scripts/ppmi_verily_user_fill_checklist.md",
+        "required_placeholder_count": 19,
+        "packet_field_count": 13,
+        "email_field_count": 12,
+        "submission_metadata_field_count": 4,
+        "required_placeholder_list_count": 19,
+        "packet_field_list_count": 13,
+        "email_field_list_count": 12,
+        "submission_metadata_placeholder_count": 4
+      },
+      "schema_probe_checklist": {
+        "audit": "results/ppmi_verily_schema_probe_checklist_audit_20260515.json",
+        "passed": true,
+        "decision": "ppmi_verily_schema_probe_checklist_ready",
+        "checklist": "scripts/ppmi_verily_schema_probe_checklist.md",
+        "schema_probe_artifact_created": false,
+        "protected_data_included": false
+      },
+      "schema_probe_report_template": {
+        "audit": "results/ppmi_verily_schema_probe_report_template_audit_20260515.json",
+        "passed": true,
+        "decision": "ppmi_verily_schema_probe_report_template_ready",
+        "template": "scripts/ppmi_verily_schema_probe_report_template.md",
+        "schema_probe_artifact_created": false,
+        "protected_data_included": false
+      },
+      "completed_packet_validator": {
+        "audit": "results/ppmi_verily_completed_packet_validator_audit_20260515.json",
+        "passed": true,
+        "decision": "ppmi_verily_completed_packet_validator_ready",
+        "validator": "scripts/validate_ppmi_verily_completed_packet.py"
+      },
+      "completed_email_validator": {
+        "audit": "results/ppmi_verily_submission_email_validator_audit_20260515.json",
+        "passed": true,
+        "decision": "ppmi_verily_submission_email_validator_ready",
+        "validator": "scripts/validate_ppmi_verily_submission_email.py"
+      },
+      "completed_package_validator": {
+        "audit": "results/ppmi_verily_submission_package_validator_audit_20260515.json",
+        "passed": true,
+        "decision": "ppmi_verily_submission_package_validator_ready",
+        "validator": "scripts/validate_ppmi_verily_submission_package.py",
+        "not_a_submission_record": true,
+        "not_access_approval": true,
+        "not_a_model_result": true,
+        "protected_data_included": false,
+        "credentials_or_tokens_included": false
+      }
     },
     {
       "priority": 2,
@@ -186,7 +286,16 @@
       ],
       "remote_job_allowed_now": false,
       "scaffold_allowed_now": false,
-      "packet_audit_decision": "ppp_pd_vme_request_packet_ready"
+      "packet_audit_decision": "ppp_pd_vme_request_packet_ready",
+      "official_source_recheck": null,
+      "submit_format": null,
+      "submission_email_template": null,
+      "user_fill_checklist": null,
+      "schema_probe_checklist": null,
+      "schema_probe_report_template": null,
+      "completed_packet_validator": null,
+      "completed_email_validator": null,
+      "completed_package_validator": null
     },
     {
       "priority": 3,
@@ -264,7 +373,16 @@
       ],
       "remote_job_allowed_now": false,
       "scaffold_allowed_now": false,
-      "packet_audit_decision": "watchpd_request_packet_ready"
+      "packet_audit_decision": "watchpd_request_packet_ready",
+      "official_source_recheck": null,
+      "submit_format": null,
+      "submission_email_template": null,
+      "user_fill_checklist": null,
+      "schema_probe_checklist": null,
+      "schema_probe_report_template": null,
+      "completed_packet_validator": null,
+      "completed_email_validator": null,
+      "completed_package_validator": null
     },
     {
       "priority": 4,
@@ -339,7 +457,16 @@
       ],
       "remote_job_allowed_now": false,
       "scaffold_allowed_now": false,
-      "packet_audit_decision": "cns_portugal_request_packet_ready"
+      "packet_audit_decision": "cns_portugal_request_packet_ready",
+      "official_source_recheck": null,
+      "submit_format": null,
+      "submission_email_template": null,
+      "user_fill_checklist": null,
+      "schema_probe_checklist": null,
+      "schema_probe_report_template": null,
+      "completed_packet_validator": null,
+      "completed_email_validator": null,
+      "completed_package_validator": null
     },
     {
       "priority": 5,
@@ -417,7 +544,16 @@
       ],
       "remote_job_allowed_now": false,
       "scaffold_allowed_now": false,
-      "packet_audit_decision": "hssayeni_mjff_dua_request_packet_ready"
+      "packet_audit_decision": "hssayeni_mjff_dua_request_packet_ready",
+      "official_source_recheck": null,
+      "submit_format": null,
+      "submission_email_template": null,
+      "user_fill_checklist": null,
+      "schema_probe_checklist": null,
+      "schema_probe_report_template": null,
+      "completed_packet_validator": null,
+      "completed_email_validator": null,
+      "completed_package_validator": null
     },
     {
       "priority": 6,
@@ -491,7 +627,16 @@
       ],
       "remote_job_allowed_now": false,
       "scaffold_allowed_now": false,
-      "packet_audit_decision": "icicle_request_packet_ready"
+      "packet_audit_decision": "icicle_request_packet_ready",
+      "official_source_recheck": null,
+      "submit_format": null,
+      "submission_email_template": null,
+      "user_fill_checklist": null,
+      "schema_probe_checklist": null,
+      "schema_probe_report_template": null,
+      "completed_packet_validator": null,
+      "completed_email_validator": null,
+      "completed_package_validator": null
     }
   ],
   "provenance_recovery": {

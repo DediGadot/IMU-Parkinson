@@ -1,0 +1,203 @@
+{
+  "name": "preregistration_vnext_session2_yfree_abstention_battery",
+  "created_at_utc": "2026-05-14T18:00:00Z",
+  "git_sha": "unknown",
+  "user_goal_quote": "act as a 100x researcher, with deep medical and machine learning expertise. implement significantly better v-next features for this pipeline. articulate kpis for this. get ideas also from codex cli and gemini cli. do a full ablation study of many different ideas and then stack together the successful ones. maximize utilization on the remote server (ssh -p 2243 fiod@165.22.71.91).",
+
+  "consult_provenance": {
+    "gemini_20260514T174826Z": "/tmp/pd_imu_consult/gemini_vnext_.txt (7535 B)",
+    "codex_20260512_v3_features": "/tmp/pd_imu_consult/v3_consult_output.txt (27345 B; prior session)",
+    "codex_20260514T150619_8cell": "/tmp/pd_imu_consult/vnext_consult_run.log (61269 B; prior session, drove the 2026-05-14 ablation that was partially retracted)",
+    "codex_20260514T1748Z_retry": "FAILED env exit 144 across 4 retries (tracked-dir + sandbox + skip-git-repo-check tried); no fresh codex this session"
+  },
+
+  "current_state_at_session_start": {
+    "T1_floor_CCC": 0.6550,
+    "T1_floor_script": "compose_t1_iter12_honest.py",
+    "T1_candidate_CCC": 0.7170,
+    "T1_candidate_script": "run_t1_iter34_hybrid_8item_multibase.py",
+    "T1_canonical_deployable_conformal_70": 0.7777,
+    "T1_canonical_deployable_conformal_50": 0.8338,
+    "T1_deployable_score": "V2-V3 ensemble disagreement |p_v2 - p_v3|",
+    "T1_deployable_lockbox": "results/lockbox_t1_conformal_20260512_211440.json",
+    "T3_canonical_CCC": 0.3784,
+    "T3_canonical_script": "run_t3_iter47_invalid_code_fix.py --mode run",
+    "T3_LOSO_CCC": 0.150,
+    "T3_deployable_70_status": "NONE — honest deployable τ_bin Mondrian-CP gives 0.112 (WORSE than full cohort)",
+    "T3_deployable_50_status": "NONE — honest deployable τ_bin Mondrian-CP gives 0.147 (WORSE than full cohort)",
+    "wall_count": 78,
+    "wall_most_recent": "Wall #78 (2026-05-14T17:35Z) oracle abstention trap — F-vnext-20260514 retraction"
+  },
+
+  "fwer_policy": {
+    "family_size_n": 7,
+    "cells_in_family": ["A1", "A2", "A3", "A4", "A5", "B1", "B2"],
+    "bonferroni_corrected_alpha": 0.0071,
+    "bonferroni_gate_frac_pos": 0.9929,
+    "uncorrected_gate_frac_pos": 0.95,
+    "five_null_gate": "mandatory at headline; LOOCV not promoted unless 5-fold screen passes",
+    "screen_promotion_rule": "Δ̄ ≥ +0.025 AND seed_std < 0.020 AND frac>0 ≥ 0.95 on 5-fold OOF",
+    "loocv_promotion_rule": "as above, plus 5-null gate clean"
+  },
+
+  "cells": {
+    "A1": {
+      "name": "T3_yfree_abstention_score_disagreement",
+      "purpose": "Test whether V2-V3 ensemble prediction disagreement |p_v2 - p_v3|, Mondrian-stratified by predicted-T3 quartile bin, gives retained CCC at 70% > 0.378 (the full-cohort comparator).",
+      "hypothesis": "retained CCC @70% ≥ 0.46 (Δ ≥ +0.082 vs full-cohort 0.378); monotonicity violations = 0; threshold CV < 0.05.",
+      "point_predictor": "iter47 (Stage-1 Ridge HY+cv_yrs+cv_sex+cv_dbs+cv_age + Stage-2 LGB)",
+      "alternate_predictor_for_disagreement": "iter47 with V3-GSP feature substitution at Stage-2 (k=250 univariate-corr)",
+      "score_function_yfree": "|p_iter47_v2(x) - p_iter47_v3gsp(x)|",
+      "mondrian_bins": "outer-train-only LOO quartile of predicted T3 (NOT true T3)",
+      "calibration": "per-bin LOO quantile of disagreement over N-1 outer-train subjects; bin-empty fallback = global quantile",
+      "coverages": [1.0, 0.85, 0.70, 0.50],
+      "seeds": [42, 1337, 7],
+      "expected_compute_min": 30,
+      "expected_compute_gpu": false,
+      "killable_criterion": "retained CCC @70% < 0.378 OR monotonicity violations > 0 OR N5 inductive-vs-transductive gap > 0.01"
+    },
+
+    "A2": {
+      "name": "T3_yfree_abstention_score_ensembleSD",
+      "purpose": "Test whether ensemble prediction SD across 3 base learners (Ridge, LGB, sklearn-GB) gives retained CCC at 70% > 0.378.",
+      "hypothesis": "retained CCC @70% ≥ 0.46; monotonicity violations = 0; threshold CV < 0.05.",
+      "point_predictor": "iter47 (canonical, used at 100% coverage)",
+      "score_function_yfree": "std([p_ridge(x), p_lgb(x), p_gb(x)]) over 3 base learners, with each base learner trained on the SAME outer-train fold using identical hyperparameters across seeds; train artifacts fold-local.",
+      "mondrian_bins": "outer-train-only LOO quartile of mean prediction across the 3 learners",
+      "calibration": "per-bin LOO quantile",
+      "coverages": [1.0, 0.85, 0.70, 0.50],
+      "seeds": [42, 1337, 7],
+      "expected_compute_min": 45,
+      "expected_compute_gpu": false,
+      "killable_criterion": "as A1"
+    },
+
+    "A3": {
+      "name": "T3_yfree_abstention_score_mahalanobis_train",
+      "purpose": "Test whether Mahalanobis distance from x_test to outer-train V2 feature distribution gives retained CCC at 70% > 0.378.",
+      "hypothesis": "retained CCC @70% ≥ 0.43 (gemini-bearish: range-restriction risk on severe-PD outliers); monotonicity violations = 0.",
+      "point_predictor": "iter47 canonical",
+      "score_function_yfree": "Mahalanobis distance from x_test to outer-train V2 feature centroid using fold-local PCA(K=50) + diagonal-shrunk covariance; computed entirely on outer-train fold (no test).",
+      "mondrian_bins": "outer-train-only LOO quartile of predicted T3 (NOT distance)",
+      "calibration": "per-bin LOO quantile of distance over outer-train subjects",
+      "coverages": [1.0, 0.85, 0.70, 0.50],
+      "seeds": [42, 1337, 7],
+      "expected_compute_min": 30,
+      "expected_compute_gpu": false,
+      "killable_criterion": "retained CCC @70% < 0.378 OR retained-subject T3 std < 0.5 × full-cohort T3 std (range restriction)",
+      "gemini_warned_failure_mode": "rejects severe-PD morphology outliers, truncates label range, CCC collapse"
+    },
+
+    "A4": {
+      "name": "T3_yfree_abstention_score_residual_meta",
+      "purpose": "Test whether a low-df Ridge residual meta-model (predicts |y - ŷ| from features, OOF-trained on outer-train fold only) gives retained CCC at 70% > 0.378.",
+      "hypothesis": "retained CCC @70% ≥ 0.42; meta-model OOF MAE on |residual| within [0.7, 1.3] × empirical std of |residual|.",
+      "point_predictor": "iter47 canonical",
+      "score_function_yfree": "residual_meta(x) = Ridge(alpha=10.0).fit(inner_OOF_X_train_only, |inner_OOF_pred - y_train|).predict(x_test); meta uses only outer-train fold inner-OOF residuals.",
+      "mondrian_bins": "outer-train-only LOO quartile of predicted T3",
+      "calibration": "per-bin LOO quantile of predicted |residual|",
+      "coverages": [1.0, 0.85, 0.70, 0.50],
+      "seeds": [42, 1337, 7],
+      "expected_compute_min": 60,
+      "expected_compute_gpu": false,
+      "killable_criterion": "retained CCC @70% < 0.378 OR meta-model 5-fold R^2 < 0.05 (no learnable signal in |residual|)",
+      "gemini_warned_failure_mode": "memorizes OOF noise at N≤92, no generalization"
+    },
+
+    "A5": {
+      "name": "T3_yfree_abstention_score_stack",
+      "purpose": "Stack scores A1-A4 (Ridge meta over OOF-predicted residuals from each score family) into a single retention rule, y-free.",
+      "hypothesis": "retained CCC @70% ≥ max(A1..A4 retained @70%) + 0.02 with same monotonicity.",
+      "point_predictor": "iter47 canonical",
+      "score_function_yfree": "meta_score(x) = Ridge.fit(stack_features(A1..A4 OOF scores), inner_OOF_|residuals|).predict(stack_features_test(x)); stack uses OOF-only scores from A1..A4, meta trained inner-OOF on outer-train only.",
+      "mondrian_bins": "outer-train-only LOO quartile of predicted T3",
+      "calibration": "per-bin LOO quantile of meta_score",
+      "coverages": [1.0, 0.85, 0.70, 0.50],
+      "seeds": [42, 1337, 7],
+      "depends_on": ["A1", "A2", "A3", "A4"],
+      "expected_compute_min": 20,
+      "expected_compute_gpu": false,
+      "killable_criterion": "retained CCC @70% < best(A1..A4) retained @70% + 0.01"
+    },
+
+    "B1": {
+      "name": "binary_PDvHC_logit_T3_proxy_audit",
+      "purpose": "Diagnostic (gemini's killer experiment): train heavily-regularized LogisticRegression to discriminate PD vs HC using V2 features; compute Spearman rank correlation between the continuous logit on PD subjects and their actual T3 scores. If Spearman > iter47 Spearman with T3, the ceiling is label-noise-bound and the paper pivot to ordinal/progression-proxy targets is justified.",
+      "hypothesis": "test_two_sided: H0 |spearman(logit, T3)| ≤ |spearman(iter47_pred, T3)|; H1 differs.",
+      "diagnostic": true,
+      "fwer_excluded": "this is a diagnostic, NOT a candidate — excluded from FWER family",
+      "model": "LogisticRegression(C=1.0, penalty='l2', class_weight='balanced')",
+      "features": "V2 cached_v2 1875 features, fold-local imputation + standardization",
+      "split": "paper3_split.json; LOOCV; PD subjects retained for evaluation only",
+      "seeds": [42, 1337, 7],
+      "expected_compute_min": 15,
+      "expected_compute_gpu": false,
+      "publishable_outcome": "either (a) ceiling is feature-bound (Spearman fails to exceed) → paper stays on T3 regression; (b) ceiling is label-noise-bound (Spearman exceeds) → paper pivots to ordinal/proxy framing as central methodological contribution",
+      "killable_criterion": "none — both directions are publishable"
+    },
+
+    "B2": {
+      "name": "per_item_yfree_deployable_heatmap_repair",
+      "purpose": "Replace retracted Cell E heatmap. Per-item V2-V3 disagreement → per-item retention. 6 items × 4 coverages = 24 cells.",
+      "hypothesis": "at minimum, items {12, 10, 14} produce a monotonic retained-CCC curve under y-free retention; items {9, 11, 13} may not.",
+      "point_predictor": "iter34 chain per-item OOF",
+      "score_function_yfree": "per-item |p_item_v2(x) - p_item_v3gsp(x)|; per-item Mondrian bins from outer-train predicted per-item value LOO-quartile",
+      "calibration": "per-item × per-bin LOO quantile",
+      "coverages": [1.0, 0.85, 0.70, 0.50],
+      "items": [9, 10, 11, 12, 13, 14],
+      "seeds": [42, 1337, 7],
+      "internal_fwer_n": 24,
+      "internal_gate_frac_pos": 0.998,
+      "publishable_artifact": "deployability heatmap (descriptive, not headline-CCC)",
+      "expected_compute_min": 60,
+      "expected_compute_gpu": false,
+      "killable_criterion": "any item with retained CCC @70% < full-cohort same-item CCC → flagged non-deployable, kept in heatmap as informative null"
+    }
+  },
+
+  "out_of_scope_for_this_session": {
+    "in_cohort_CCC_chase": "Closed by walls #29-31 (T1) and #44-69 (T3). Out of scope per N=92 MDE+FWER analysis (gemini's brutal-MDE point: clearing Bonferroni n=10 requires ΔCCC ≥ +0.131 at this seed-std).",
+    "MoS_redo": "Wall via V3-MoS nested-CV gate (codex 2026-05-12); not retried.",
+    "AR2_recovery_redo": "V3-Recovery CCC=-0.001 (codex 2026-05-12); dead.",
+    "foundation_model_redo": "4-encoder triangulation negative (MOMENT/HC-SSL/HARNet/in-domain SSL); codex 2026-05-12 explicit not-worth-it.",
+    "joint_T1xT3": "Wall #77; CHECK: schedule Cell F rerun with target-scale normalization as separate task IF compute time permits, but not headlined.",
+    "T3_hurdle_item11": "Wall #76; not retried.",
+    "ZUPT_3D_trajectory": "Gemini-suggested NEW feature stream; deferred to v-next session 3 — extraction is ~4 CPU-hr, would not be K=500-absorbable, but adding feature blocks fails the gemini MDE point.",
+    "Lempel_Ziv_complexity": "Gemini-suggested NEW feature stream; deferred — same MDE concern as ZUPT.",
+    "pairwise_ranking_stacking": "Gemini-suggested NEW stacking architecture; deferred to v-next session 3 — needs careful pre-reg.",
+    "external_SSL_pretraining": "Codex 2026-05-12 not-worth-it at N=92; only relevant after PPMI/Hssayeni access."
+  },
+
+  "leakage_safeguards": {
+    "firewall_check_required": "uv run python ~/.claude/skills/pd-imu-100x-researcher/scripts/firewall_check.py <headline_script> MUST exit 0 with zero banned hits before lockbox.",
+    "five_null_gate_required": "scrambled-label, SID-shuffle, canary, library-exclusion, transductive-vs-inductive — all 5 inside the same fold loop.",
+    "selection_leakage_banned": "no eval_set/valid_sets/early_stopping_rounds against outer-test, no LOOCV-grid HPO.",
+    "target_encoder_OOF_required": "any y-dependent transform must use inner-OOF discipline.",
+    "augmentation_boundary_required": "windows inherit subject-level outer fold.",
+    "oracle_abstention_banned": "every retention rule MUST satisfy g: X → [0,1]; substitute-y_test-with-nan test required.",
+    "manifest_required": "every reusable cache_*.csv must have <name>.manifest.json with required fields."
+  },
+
+  "compute_plan": {
+    "primary_substrate": "ssh -p 2243 fiod@165.22.71.91 (user-specified)",
+    "primary_substrate_status_at_session_start": "TCP port 2243 OPEN; ping=0.1ms; SSH banner exchange TIMES OUT at 30s — slave in degraded state (sshd hung or overloaded). Multiple retries failed. Requires user intervention OR alternate compute.",
+    "fallback_options_requiring_user_signoff": [
+      "Reboot the slave via cloud console (DigitalOcean? AWS?)",
+      "Provision a new slave via ./gpu.sh --setup against a new IP/port",
+      "Approve local-only execution on master (NOTE: master lacks torch/lightgbm/xgboost — would require uv add and 2-3GB downloads; some cells cannot run locally)",
+      "Approve degraded execution: use 2026-05-14 Cell H + Cell A artifacts as proxies for A1-A2 since the disagreement framework is already wired; only A3-A5 + B1-B2 strictly need new compute"
+    ],
+    "GPU_lock_required_for_cells": ["NONE — all v-next cells in this session are CPU-only (Ridge + sklearn-GB + LGB CPU mode)"],
+    "estimated_total_compute_min": 230,
+    "saturation_strategy": "When compute returns: launch A1+A2+A3+A4 in parallel (4 workers × spawn × OMP_NUM_THREADS=1); A5 waits for A1-A4 OOF; B1 alongside; B2 after A1 (shares disagreement infrastructure)."
+  },
+
+  "rollup_plan": {
+    "audit_after_cells_close": "run_vnext_session2_leakage_audit.py — re-run static firewall_check + 5-null gate on every headline script; emit results/leakage_audit_vnext_session2_<UTC>.json",
+    "paper_section_update": "results/paper_section_vnext_session2_<UTC>.md — write T3 conformal dashboard with winning A-cell, plus binary-audit verdict from B1.",
+    "findings_md_entry": "F-vnext-session2-<UTC> — full cell-by-cell tally with mechanism stories.",
+    "memory_entry": "~/.claude/projects/-home-fiod-medical/memory/project_vnext_session2_20260514.md (one-line in MEMORY.md)."
+  },
+
+  "user_signoff_required_before_execution": "TRUE — this is a master pre-reg draft; user must approve cell list + FWER policy + compute plan BEFORE any cell runs."
+}

@@ -1,0 +1,177 @@
+{
+  "name": "goal_v2_master",
+  "created_at_utc": "2026-05-12T21:10:00Z",
+  "git_sha": "64edc2a90ab11beed8b0bdb30a69c6c49a8809fc",
+  "status": "locked",
+  "directive": "User /goal: break T1+T3 CCC, 10-hour autonomous, get codex+grok feedback each iteration.",
+  "tri_cli_consensus": {
+    "consulted": ["codex (gpt-5.5 xhigh)", "kimi (k2.6 via opencode)", "deepseek (chat-v3.1)", "gemini (3.1-pro)"],
+    "prompt_file": "/tmp/pd_imu_consult/goalv2_tight.txt",
+    "verdict_priors": {
+      "T3-GSP_clear_+0.025_MCID": "3-15% (mean 9%) — DEAD by kimi/gemini, weak-prior by codex/deepseek",
+      "T3-IPW_LOSO_>=0.20": "2-20% (mean 10%) — DEAD across all 4",
+      "per_task_specialist_ridge_meta_clear_+0.025": "12-40% (mean 22%) — BEST OPEN ANGLE across all 4",
+      "split_conformal_calib_0.20": "endorsed by kimi/gemini/deepseek as cleanest leakage-clean design",
+      "stride_locked_features_FoG_item11": "untried, no prior given"
+    }
+  },
+  "fwer_family": {
+    "T1_family": {
+      "members": ["WILDCARD_A_per_task_item12", "iter34_baseline"],
+      "n": 2,
+      "p_threshold_bonferroni": 0.025,
+      "baseline_ccc": 0.7170,
+      "baseline_script": "run_t1_iter34_hybrid_8item_multibase.py",
+      "baseline_lockbox": "results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+      "baseline_cohort_N": 92,
+      "mcid": 0.025,
+      "primary_stat": "paired_bootstrap_frac_gt_zero",
+      "frac_gt_zero_threshold": 0.9875,
+      "secondary_stat": "sign_flip_permutation_p"
+    },
+    "T3_family": {
+      "members": ["WILDCARD_B_per_task_T3", "T3_A_GSP_screen", "iter47_baseline"],
+      "n": 3,
+      "p_threshold_bonferroni": 0.0167,
+      "baseline_ccc_loocv": 0.3784,
+      "baseline_ccc_loso_avg": 0.150,
+      "baseline_script": "run_t3_iter47_invalid_code_fix.py",
+      "baseline_cohort_N": 95,
+      "baseline_cohort": "drop_allmissing_validrange",
+      "mcid": 0.025,
+      "primary_stat": "paired_bootstrap_frac_gt_zero",
+      "frac_gt_zero_threshold": 0.9833,
+      "secondary_stat": "sign_flip_permutation_p"
+    },
+    "independent_estimands": [
+      "T1_CONFORMAL_LOCKBOX (retained-subset CCC at coverage 100/90/80/70/60/50; deployment-mode publication; NOT in FWER family)",
+      "T3_CONFORMAL_LOCKBOX (same on T3)",
+      "STRIDE_LOCKED_FoG (item-11 supplementary feature; NOT in T1/T3 FWER family)"
+    ]
+  },
+  "slots": [
+    {
+      "slot_id": "WILDCARD_A",
+      "hypothesis": "Per-task LGB specialists (one per task in {Balance, HurriedPace, SelfPace, TUG, TandemGait}) trained on V3-GSP task-tagged features for item-12 residual (load-bearing per Phase 0 ablation), blended via Ridge meta inside fold (FoldNormalizer), used as Stage-3 correction on iter34 item-12 OOF predictions, lifts T1 LOOCV CCC by Δ≥+0.025 vs iter34 hygiene-corrected baseline (N=92).",
+      "script": "run_t1_wildcard_a_per_task_specialist.py",
+      "preregistration_path": "results/preregistration_goalv2_wildcard_a_20260512.json",
+      "lockbox_path_template": "results/lockbox_t1_wildcard_a_*.json",
+      "split_seed": 20260512,
+      "feature_seed": 7,
+      "model_seed_list": [42, 1337, 7],
+      "consult_seed": "goalv2_tight_20260512T210252",
+      "cohort_N": 92,
+      "cohort_exclusions": ["NLS036", "WPD002"],
+      "items_chain": [9, 10, 11, 12, 13, 14, 15, 18],
+      "items_T1_sum": [9, 10, 11, 12, 13, 14],
+      "load_bearing_item": 12,
+      "kill_criteria_5fold": "5-fold Δ < +0.010 OR seed_std > 0.025 OR any task-specialist Ridge weight < 0 in >50% folds",
+      "expected_wall_time_min": 90,
+      "compute_target": "fiod@165.22.71.91:2243 RTX 4060 CPU"
+    },
+    {
+      "slot_id": "WILDCARD_B",
+      "hypothesis": "Same per-task specialist + Ridge meta architecture applied to T3 iter47 Stage-2 residual (instead of K=500 LGB only) lifts T3 LOOCV CCC by Δ≥+0.025 vs iter47 valid-range baseline (N=95).",
+      "script": "run_t3_wildcard_b_per_task_specialist.py",
+      "preregistration_path": "results/preregistration_goalv2_wildcard_b_20260512.json",
+      "lockbox_path_template": "results/lockbox_t3_wildcard_b_*.json",
+      "split_seed": 20260512,
+      "feature_seed": 7,
+      "model_seed_list": [42, 1337, 7],
+      "consult_seed": "goalv2_tight_20260512T210252",
+      "cohort": "drop_allmissing_validrange",
+      "cohort_N": 95,
+      "kill_criteria_5fold": "5-fold Δ < +0.010 OR Ridge meta unweighted-vs-weighted Δ inside bootstrap CI of 0",
+      "expected_wall_time_min": 60,
+      "compute_target": "fiod@165.22.71.91:2243 RTX 4060 CPU",
+      "conditional_on": "WILDCARD_A clears 5-fold screen (Δ≥+0.010, seed_std<0.025)"
+    },
+    {
+      "slot_id": "T3_A_GSP_SCREEN",
+      "hypothesis": "Injecting V3-GSP task-tagged features into T3 iter47 Stage-2 LGB residual learner lifts 5-fold T3 CCC by Δ≥+0.010 (necessary condition for LOOCV lockbox).",
+      "script": "run_t3_a_gsp_screen.py",
+      "preregistration_path": "results/preregistration_goalv2_t3_a_screen_20260512.json",
+      "screen_only": true,
+      "lockbox_if_clears": false,
+      "split_seed": 20260512,
+      "feature_seed": 7,
+      "model_seed_list": [42, 1337, 7],
+      "cohort": "drop_allmissing_validrange",
+      "cohort_N": 95,
+      "kill_criteria_5fold": "5-fold Δ < +0.010 OR seed_std > 0.025 OR top-5 K=500 LGB importance shows ≤2 GSP features",
+      "tri_cli_prior_clearing_+0.025": "9% (mean across 4 CLIs)",
+      "expected_wall_time_min": 30
+    },
+    {
+      "slot_id": "T1_CONFORMAL_LOCKBOX",
+      "hypothesis": "Split-conformal abstention via V2-V3GSP disagreement, with pre-registered calib_frac=0.20 and pre-declared coverage targets {100, 90, 80, 70, 60, 50}, yields retained-subset CCC monotonically increasing in disagreement-based deferral, with 70% coverage CCC ≥ 0.74 and 50% coverage CCC ≥ 0.78.",
+      "script": "run_t1_conformal_lockbox.py",
+      "preregistration_path": "results/preregistration_goalv2_t1_conformal_lockbox_20260512.json",
+      "estimand": "retained_subset_ccc_per_coverage",
+      "design": "split_conformal_outer_loop_LOOCV",
+      "calib_frac": 0.20,
+      "coverage_targets": [1.0, 0.9, 0.8, 0.7, 0.6, 0.5],
+      "split_seed": 20260512,
+      "calib_seed_list": [42, 1337, 7],
+      "n_calibration_seeds": 3,
+      "cohort_N": 92,
+      "kill_criteria": "Calibration set threshold variance across outer folds > 20% of mean threshold (kimi+gemini consensus) OR monotonicity broken (CCC at 50% < CCC at 70%)",
+      "expected_wall_time_min": 45,
+      "tri_cli_endorsement": "kimi+gemini+deepseek+codex all endorse as cleanest rigor"
+    },
+    {
+      "slot_id": "T3_CONFORMAL_LOCKBOX",
+      "hypothesis": "Same conformal architecture on T3 iter47 predictions with a second orthogonal predictor (T3 per-task meta from WILDCARD_B or a 7-IMU-subset LGB baseline) yields meaningful T3 retained-subset deployment metrics.",
+      "script": "run_t3_conformal_lockbox.py",
+      "preregistration_path": "results/preregistration_goalv2_t3_conformal_lockbox_20260512.json",
+      "estimand": "retained_subset_ccc_per_coverage",
+      "design": "split_conformal_outer_loop_LOOCV",
+      "calib_frac": 0.20,
+      "coverage_targets": [1.0, 0.9, 0.8, 0.7, 0.6, 0.5],
+      "split_seed": 20260512,
+      "calib_seed_list": [42, 1337, 7],
+      "cohort_N": 95,
+      "second_predictor_source": "WILDCARD_B_per_task_meta_OR_T3_iter47_no_clinical_variant",
+      "expected_wall_time_min": 45,
+      "conditional_on": "WILDCARD_B completes OR a T3 variant predictor is available"
+    },
+    {
+      "slot_id": "STRIDE_LOCKED_FoG",
+      "hypothesis": "Stride-segmented binary FoG detection (item 11 ≥1 vs =0) aggregated to subject-level rate + duration + variance features, added to iter34 Stage-3 input, lifts item-11 specific CCC by Δ≥+0.05 LOOCV (effective N at stride level ≈ 10× subject).",
+      "script": "run_t1_stride_locked_fog.py",
+      "preregistration_path": "results/preregistration_goalv2_stride_fog_20260512.json",
+      "primary_target": "item_11_LOOCV_CCC",
+      "secondary_target": "T1_sum_LOOCV_CCC_post_recomposition",
+      "primary_threshold": 0.05,
+      "split_seed": 20260512,
+      "feature_seed": 7,
+      "model_seed_list": [42, 1337, 7],
+      "cohort_N": 92,
+      "kill_criteria_5fold": "binary FoG classifier subject-level AUROC < 0.65 OR stride-aggregated features fail K=500 LGB inclusion at top-50",
+      "expected_wall_time_min": 120,
+      "conditional_on": "WILDCARD_A and WILDCARD_B both clear OR all FWER members fail"
+    }
+  ],
+  "leakage_firewall_invariants": [
+    "All Ridge meta blends fit inside outer LOOCV fold via inductive_lib.FoldNormalizer (no train/test leakage)",
+    "All per-task LGB specialists trained on V3-GSP cache (manifest-validated)",
+    "Conformal calibration set drawn from outer-train only (split_conformal); never touches outer-test",
+    "5-null gate run before any LOOCV lockbox (scrambled label, SID shuffle, canary feature, library exclusion, transductive sanity)",
+    "Seed lists pre-declared and immutable from this lock timestamp"
+  ],
+  "decision_rules": [
+    "If WILDCARD_A 5-fold screen clears (Δ≥+0.010, seed_std<0.025): proceed to LOOCV lockbox.",
+    "If WILDCARD_A LOOCV clears Bonferroni-adjusted gate (frac>0 ≥ 0.9875): supersedes iter34 as canonical T1 candidate.",
+    "If WILDCARD_A fails: document wall data point, do NOT extend to A.5 variants.",
+    "WILDCARD_B contingent on WILDCARD_A clearing 5-fold; same kill rule applies.",
+    "T1_CONFORMAL_LOCKBOX runs independently; passes if monotonic CCC curve achieved AND coverage variance kill criterion held.",
+    "T3_A_GSP_SCREEN: kill on 5-fold failure; do NOT promote to LOOCV regardless of seed_std (tri-CLI prior <15%).",
+    "STRIDE_LOCKED_FoG: only run if items above fail OR if specific user request."
+  ],
+  "rejected_slots_with_reason": [
+    "T3-GSP-LOOCV-direct: rejected — 4-CLI prior 3-15% clearing Bonferroni n=3; observability-bounded (T3 residual driven by upper-limb brady which lumbar/shank GSP cannot encode).",
+    "T3-IPW-stabilized: rejected — 4-CLI prior 2-20%; site/severity collinearity makes IPW variance-inflating without lift.",
+    "Bayesian SVI iter56 retry at N=92: rejected — seed-42 LOOCV CCC=0.2851 (decisive fail) confirmed codex+gemini priors.",
+    "External cohort transfer: BLOCKED — all 6 routes (PPMI/Verily, PPP/PD-VME, WATCH-PD, CNS Portugal, Hssayeni/MJFF, ICICLE) still DUA-gated."
+  ]
+}

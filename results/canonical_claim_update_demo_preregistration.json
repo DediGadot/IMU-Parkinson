@@ -1,0 +1,7 @@
+{
+  "created_at_utc": "2026-05-10T00:00:00Z",
+  "formula_sha256": "987eb8137a062a3042e7eea7704996da43ecaac4184d69f698266e2f2998ee5a",
+  "git_sha": "abcdef1234567890abcdef1234567890abcdef12",
+  "notes": [],
+  "pipeline_name": "canonical_claim_update_demo"
+}

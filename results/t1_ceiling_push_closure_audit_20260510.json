@@ -1,0 +1,87 @@
+{
+  "claim": "All executed T1 ceiling-push slots failed the 5-fold screen; no LOOCV promotion; iter34 remains strongest candidate.",
+  "decision": "t1_ceiling_push_closed_iter34_holds",
+  "generated_at_utc": "2026-05-16T12:44:37+00:00",
+  "hard_failures": [],
+  "master_preregistration": "results/preregistration_t1_ceiling_push_20260510_134829.json",
+  "not_a_model_headline_update": true,
+  "objective": "Verify the T1 architecture ceiling-push family closure against actual screen artifacts.",
+  "passed": true,
+  "screen_gate": "delta_mean >= +0.025 and paired-bootstrap frac_above_zero >= 0.95",
+  "script": "audit_t1_ceiling_push_closure.py",
+  "slots": [
+    {
+      "checks": {
+        "delta_matches_expected": true,
+        "frac_above_zero_below_gate": true,
+        "frac_above_zero_matches_expected": true,
+        "gate_failed": true,
+        "master_prereg_matches": true,
+        "n_subjects_92": true,
+        "prereg_exists": true,
+        "screen_exists": true,
+        "slot_id_matches": true
+      },
+      "delta_mean": -0.0020839336799750217,
+      "delta_std": 0.002534439709279743,
+      "frac_above_zero": 0.1716,
+      "n_subjects": 92,
+      "name": "phase_locked_post_k500_items_9_12",
+      "preregistration": "results/preregistration_t1_iter37_phaselocked_postk500_20260510_140536.json",
+      "screen": "results/screen_t1_iter37_slotA_20260510_142637.json",
+      "screen_gate_pass": false,
+      "slot": "A"
+    },
+    {
+      "checks": {
+        "delta_matches_expected": true,
+        "frac_above_zero_below_gate": true,
+        "frac_above_zero_matches_expected": true,
+        "gate_failed": true,
+        "master_prereg_matches": true,
+        "n_subjects_92": true,
+        "prereg_exists": true,
+        "screen_exists": true,
+        "slot_id_matches": true
+      },
+      "delta_mean": -0.00020745621855078333,
+      "delta_std": 0.0015932093465369636,
+      "frac_above_zero": 0.498,
+      "n_subjects": 92,
+      "name": "fog_balance_post_k500_items_11_13",
+      "preregistration": "results/preregistration_t1_iter38_fog_balance_postk500_20260510_143243.json",
+      "screen": "results/screen_t1_iter38_slotB_20260510_143503.json",
+      "screen_gate_pass": false,
+      "slot": "B"
+    },
+    {
+      "checks": {
+        "delta_matches_expected": true,
+        "frac_above_zero_below_gate": true,
+        "frac_above_zero_matches_expected": true,
+        "gate_failed": true,
+        "master_prereg_matches": true,
+        "n_subjects_92": true,
+        "prereg_exists": true,
+        "screen_exists": true,
+        "selection_rule_changed": true,
+        "slot_id_matches": true
+      },
+      "delta_mean": -0.020157674304133105,
+      "delta_std": 0.008324513444047452,
+      "frac_above_zero": 0.056,
+      "n_subjects": 92,
+      "name": "per_item_averaged_k500_selection",
+      "overlap_per_fold_summary": {
+        "max": 216,
+        "mean": 203.93333333333334,
+        "min": 185,
+        "std": 7.540704358494783
+      },
+      "preregistration": "results/preregistration_t1_iter39_peritem_kselect_20260510_144156.json",
+      "screen": "results/screen_t1_iter39_slotC_20260510_144445.json",
+      "screen_gate_pass": false,
+      "slot": "C"
+    }
+  ]
+}

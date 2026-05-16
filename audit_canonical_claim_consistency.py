@@ -24,7 +24,7 @@ OUT_MD = RESULTS / "canonical_claim_consistency_audit_20260508.md"
 
 CURRENT_EXPECTED = {
     "t1_canonical_ccc": "0.6550",
-    "t1_candidate_ccc": "0.7366",
+    "t1_candidate_ccc": "0.7170",
     "t3_current_ccc": "0.3784",
     "t3_loso_ccc": "0.150",
 }

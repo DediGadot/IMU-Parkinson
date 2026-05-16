@@ -1,0 +1,87 @@
+{
+  "name": "lockbox_t1_peritem_winner_stack_20260515",
+  "created_at_utc": "20260515T074039Z",
+  "winners_used": [
+    {
+      "item": "item9",
+      "family": "ph",
+      "alpha": 100.0
+    },
+    {
+      "item": "item10",
+      "family": "mfdfa",
+      "alpha": 100.0
+    },
+    {
+      "item": "item13",
+      "family": "ph",
+      "alpha": 100.0
+    },
+    {
+      "item": "item14",
+      "family": "ph",
+      "alpha": 100.0
+    }
+  ],
+  "feature_cache": "results/cache_stepfunction_spd_klc_crqa_mfdfa_ph_20260515T072624Z.csv",
+  "baseline_iter34_t1_sum": {
+    "n": 92,
+    "ccc": 0.717,
+    "cal_slope": 0.8151,
+    "mae": 1.7356,
+    "r": 0.7223,
+    "pred_mean": 4.058,
+    "pred_std": 3.106,
+    "true_mean": 4.033,
+    "true_std": 2.752,
+    "label": "T1_sum_iter34_baseline"
+  },
+  "stepfunc_corrected_t1_sum": {
+    "n": 92,
+    "ccc": 0.7205,
+    "cal_slope": 0.8703,
+    "mae": 1.8027,
+    "r": 0.7314,
+    "pred_mean": 4.011,
+    "pred_std": 3.275,
+    "true_mean": 4.033,
+    "true_std": 2.752,
+    "label": "T1_sum_with_peritem_corrections"
+  },
+  "delta_ccc": 0.0035000000000000586,
+  "bootstrap_delta_median": 0.0036117104002791334,
+  "bootstrap_delta_ci_lower": -0.011870222582121556,
+  "bootstrap_delta_ci_upper": 0.02192661862160527,
+  "bootstrap_frac_positive": 0.6675,
+  "null_gate": {
+    "scrambled_y_delta": -0.005448303814196698,
+    "sid_shuffle_delta": -0.008660333569243117,
+    "canary_noise_delta": 0.0033616500181132825,
+    "canary_robustness_diff": 0.00013834998188677616,
+    "scrambled_y_passes": true,
+    "sid_shuffle_passes": true,
+    "canary_passes": true
+  },
+  "per_item": {
+    "9": {
+      "baseline_ccc": 0.234,
+      "corrected_ccc": 0.2692,
+      "delta": 0.03519999999999998
+    },
+    "10": {
+      "baseline_ccc": 0.4426,
+      "corrected_ccc": 0.5208,
+      "delta": 0.07820000000000005
+    },
+    "13": {
+      "baseline_ccc": 0.0674,
+      "corrected_ccc": 0.2134,
+      "delta": 0.14600000000000002
+    },
+    "14": {
+      "baseline_ccc": 0.3168,
+      "corrected_ccc": 0.4278,
+      "delta": 0.11099999999999999
+    }
+  }
+}

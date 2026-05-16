@@ -1,0 +1,202 @@
+{
+  "name": "screen_t1_S9_topofractal_prototype",
+  "created_at_utc": "20260515T105343Z",
+  "preregistration_source": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "proposal_source": "/tmp/pro-results.txt rank #9",
+  "screen_only": true,
+  "n": 92,
+  "z_names": [
+    "mean_task_mfdfa_trunk_pitch_delta_alpha",
+    "mean_task_mfdfa_trunk_pitch_hurst_q2",
+    "mean_task_mfdfa_trunk_pitch_h_range",
+    "mean_task_mfdfa_trunk_pitch_asymmetry",
+    "mean_task_ph_trunk_pitch_h1_maxmed_pooled",
+    "mean_task_ph_sacrum_ang_h1_maxmed_pooled"
+  ],
+  "n_prototypes": 5,
+  "prototype_policy": "train-fold residual-quantile medoids in fold-local normalized TopoFractal state",
+  "alpha_grid": [
+    10.0,
+    100.0,
+    1000.0
+  ],
+  "correction_cap_frac": 0.5,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "baseline": {
+    "ccc": 0.717,
+    "mae": 1.7356,
+    "pred_mean": 4.0577,
+    "pred_std": 3.1058,
+    "true_mean": 4.0326,
+    "true_std": 2.7523
+  },
+  "seed_summaries": [
+    {
+      "seed": 42,
+      "candidate": {
+        "ccc": 0.6991,
+        "mae": 1.7945,
+        "pred_mean": 4.0407,
+        "pred_std": 3.1255,
+        "true_mean": 4.0326,
+        "true_std": 2.7523
+      },
+      "delta_ccc": -0.0179,
+      "delta_mae": 0.0589,
+      "selected_alpha_per_outer_fold": [
+        100.0,
+        100.0,
+        100.0,
+        10.0,
+        10.0
+      ]
+    },
+    {
+      "seed": 1337,
+      "candidate": {
+        "ccc": 0.7117,
+        "mae": 1.748,
+        "pred_mean": 4.0585,
+        "pred_std": 3.1041,
+        "true_mean": 4.0326,
+        "true_std": 2.7523
+      },
+      "delta_ccc": -0.0053,
+      "delta_mae": 0.0124,
+      "selected_alpha_per_outer_fold": [
+        100.0,
+        100.0,
+        10.0,
+        1000.0,
+        1000.0
+      ]
+    },
+    {
+      "seed": 7,
+      "candidate": {
+        "ccc": 0.7088,
+        "mae": 1.7648,
+        "pred_mean": 4.0108,
+        "pred_std": 3.0978,
+        "true_mean": 4.0326,
+        "true_std": 2.7523
+      },
+      "delta_ccc": -0.0082,
+      "delta_mae": 0.0292,
+      "selected_alpha_per_outer_fold": [
+        10.0,
+        100.0,
+        1000.0,
+        10.0,
+        100.0
+      ]
+    }
+  ],
+  "seed_mean_delta_ccc": -0.0105,
+  "seed_delta_std": 0.0066,
+  "ensemble_summary": {
+    "candidate": {
+      "ccc": 0.7077,
+      "mae": 1.762,
+      "pred_mean": 4.0367,
+      "pred_std": 3.1046,
+      "true_mean": 4.0326,
+      "true_std": 2.7523
+    },
+    "delta_ccc": -0.0093,
+    "delta_mae": 0.0264,
+    "bootstrap": {
+      "n_boot": 2000,
+      "median_delta": -0.0094,
+      "ci95": [
+        -0.0195,
+        -0.0023
+      ],
+      "frac_positive": 0.005
+    }
+  },
+  "promotion_gate": {
+    "mean_seed_delta_ccc_min": 0.025,
+    "seed_delta_std_max": 0.02,
+    "ensemble_bootstrap_frac_positive_min": 0.95,
+    "max_material_mae_degradation": 0.05,
+    "gate_pass": false
+  },
+  "null_results": {
+    "scrambled_y": {
+      "baseline": {
+        "ccc": 0.717,
+        "mae": 1.7356,
+        "pred_mean": 4.0577,
+        "pred_std": 3.1058,
+        "true_mean": 4.0326,
+        "true_std": 2.7523
+      },
+      "seed_mean_delta_ccc": -0.0085,
+      "seed_delta_std": 0.0057,
+      "ensemble_summary": {
+        "candidate": {
+          "ccc": 0.7091,
+          "mae": 1.7685,
+          "pred_mean": 4.0341,
+          "pred_std": 3.1162,
+          "true_mean": 4.0326,
+          "true_std": 2.7523
+        },
+        "delta_ccc": -0.0079,
+        "delta_mae": 0.0329,
+        "bootstrap": {
+          "n_boot": 2000,
+          "median_delta": -0.0081,
+          "ci95": [
+            -0.017,
+            -0.0023
+          ],
+          "frac_positive": 0.001
+        }
+      }
+    },
+    "sid_shuffle": {
+      "baseline": {
+        "ccc": 0.717,
+        "mae": 1.7356,
+        "pred_mean": 4.0577,
+        "pred_std": 3.1058,
+        "true_mean": 4.0326,
+        "true_std": 2.7523
+      },
+      "seed_mean_delta_ccc": -0.008,
+      "seed_delta_std": 0.0044,
+      "ensemble_summary": {
+        "candidate": {
+          "ccc": 0.7094,
+          "mae": 1.7603,
+          "pred_mean": 4.0343,
+          "pred_std": 3.1213,
+          "true_mean": 4.0326,
+          "true_std": 2.7523
+        },
+        "delta_ccc": -0.0076,
+        "delta_mae": 0.0247,
+        "bootstrap": {
+          "n_boot": 2000,
+          "median_delta": -0.0077,
+          "ci95": [
+            -0.0135,
+            -0.004
+          ],
+          "frac_positive": 0.0005
+        }
+      }
+    },
+    "retrieval_library_test_exclusion": {
+      "status": "enforced_by_construction",
+      "rationale": "Prototype medoids are selected after splitting and only from train indices in each outer/inner fold; held-out rows are never eligible for the prototype library."
+    }
+  },
+  "verdict": "SCREEN_FAIL_NO_LOOCV"
+}

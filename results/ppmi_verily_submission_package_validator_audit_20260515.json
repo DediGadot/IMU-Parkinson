@@ -1,0 +1,121 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "validator": "scripts/validate_ppmi_verily_submission_package.py"
+      },
+      "name": "validator script exists",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_submission_package_preflight_passed",
+        "email_decision": "completed_email_preflight_passed",
+        "hard_failures": [],
+        "packet_decision": "completed_packet_preflight_passed",
+        "pre_submission_preflight_valid": true,
+        "returncode": 0
+      },
+      "name": "synthetic completed packet and email pass as one redacted package",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "email_bad_source_hard_failures": [
+          "completed_email_preflight",
+          "real_submission_preflight_valid",
+          "official_source_rechecks_hold"
+        ],
+        "email_bad_source_missing_terms": [
+          "current official source recheck on 2026-05-16",
+          "data and publications committee within one week",
+          "ppmi data access guidelines version 7.0",
+          "verily raw device data as tier 3",
+          "30-day tier-3 review target"
+        ],
+        "email_bad_source_returncode": 1,
+        "packet_bad_source_hard_failures": [
+          "completed_packet_preflight",
+          "real_submission_preflight_valid",
+          "official_source_rechecks_hold"
+        ],
+        "packet_bad_source_missing_terms": [
+          "current official source recheck on 2026-05-16",
+          "data and publications committee within one week",
+          "ppmi data access guidelines version 7.0",
+          "30 days after receipt",
+          "file-size transfer restrictions",
+          "data complexity"
+        ],
+        "packet_bad_source_returncode": 1,
+        "synthetic_official_source_check": {
+          "email_missing_terms": [],
+          "packet_missing_terms": [],
+          "passed": true
+        }
+      },
+      "name": "package validator requires current official-source rechecks",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_submission_package_preflight_failed",
+        "hard_failures": [
+          "completed_packet_preflight",
+          "real_submission_preflight_valid"
+        ],
+        "returncode": 1
+      },
+      "name": "unfinished packet template fails package preflight",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_submission_package_preflight_failed",
+        "hard_failures": [
+          "completed_email_preflight",
+          "real_submission_preflight_valid"
+        ],
+        "returncode": 1
+      },
+      "name": "unfinished email template fails package preflight",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "allow_placeholders_used": true,
+        "decision": "placeholder_tolerant_submission_package_audit_passed",
+        "hard_failures": [],
+        "not_valid_for_submission": true,
+        "pre_submission_preflight_valid": false,
+        "returncode": 0
+      },
+      "name": "templates pass only with explicit allow-placeholders audit flag",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_email_output_contains_filename": false,
+        "bad_packet_output_contains_filename": false,
+        "synthetic_output_contains_email_filename": false,
+        "synthetic_output_contains_packet_filename": false,
+        "template_output_contains_email_filename": false,
+        "template_output_contains_packet_filename": false
+      },
+      "name": "validator output does not echo package paths or filenames",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "ppmi_verily_submission_package_validator_ready",
+  "generated_at_utc": "2026-05-16T12:53:16+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "passed": true,
+  "protected_data_included": false,
+  "script": "audit_ppmi_verily_submission_package_validator.py",
+  "validator": "scripts/validate_ppmi_verily_submission_package.py"
+}

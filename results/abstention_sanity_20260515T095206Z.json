@@ -1,0 +1,14 @@
+{
+  "name": "abstention_sanity_t1_slotD_conformal_ph_correction",
+  "created_at_utc": "20260515T095206Z",
+  "lockbox_target": "lockbox_t1_slotD_conformal_ph_correction",
+  "retention_rule_form": "g(x) = |v2(x) - v3(x)| <= quantile_threshold (y-free)",
+  "correction_rule_form": "c(x) = lambda * Ridge_alpha=100.0(PH(x))_train_fold (y-free at deployment)",
+  "n_subjects": 92,
+  "coverages": [
+    0.7,
+    0.5
+  ],
+  "masks_identical_with_y_nan": true,
+  "test_passes": true
+}

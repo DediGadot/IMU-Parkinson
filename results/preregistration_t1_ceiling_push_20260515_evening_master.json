@@ -1,0 +1,257 @@
+{
+  "name": "preregistration_t1_ceiling_push_20260515_evening_master",
+  "created_at_utc": "2026-05-15T18:06:00Z",
+  "git_sha_at_authorship": "from-repo-checked-at-runtime",
+  "mode": "T1_Glass_Ceiling_Push_3_Iteration_v3",
+  "session_id": "evening_2026-05-15_post_proresults_closure",
+  "user_directive_quote": "T1 Glass-Ceiling Push (3-iter mode) — slow-think + tri-CLI per slot, single-batch FWER pre-reg, hard cap 3 slots.",
+
+  "context_recap": {
+    "current_canonical_T1": {
+      "label": "iter34_hybrid_8item_chain_3base_ensemble_hygiene_corrected",
+      "script": "run_t1_iter34_hybrid_8item_multibase.py",
+      "loocv_ccc": 0.7170,
+      "loocv_ccc_recomputed_in_S8_lockbox": 0.717038,
+      "cohort_n": 92,
+      "n_filter_label": "iter47-valid-range-NLS036-excluded",
+      "oof_artifact": "results/t1_iter34_per_item_oof_20260511_044242.npz"
+    },
+    "current_canonical_floor": {
+      "label": "compose_t1_iter12_honest",
+      "loocv_ccc": 0.6550,
+      "cohort_n": 93
+    },
+    "strongest_in_cohort_candidate": {
+      "label": "S8_JOINT_item12_MFDFA_plus_item13_PH_correction",
+      "lockbox": "results/lockbox_t1_S8rep_item12mfdfa_item13ph_joint_20260515T114751Z.json",
+      "loocv_ccc": 0.7258,
+      "delta_vs_iter34": 0.0088,
+      "frac_pos_bootstrap": 0.9275,
+      "ci95": [-0.0026, 0.0237],
+      "verdict": "SUB_MCID_FAILS_FWER_TOP_EXTERNAL_REPLICATION_CANDIDATE"
+    },
+    "canonical_deployable_secondary": {
+      "label": "T1_conformal_lockbox_V2_V3_disagreement_plus_item13_PH",
+      "loocv_ccc_70pct": 0.7876,
+      "loocv_ccc_50pct": 0.8338,
+      "lockbox": "results/lockbox_t1_conformal_20260512_211440.json"
+    },
+    "empirical_in_cohort_ceiling_lift": "+0.01 CCC at N=92 across 15+ mechanism classes tested 2026-05-13/14/15",
+    "honest_posture": "The 3-iter push is disciplined falsification at the in-cohort ceiling. Closure-negative is publishable. Closure-positive over iter34 is mechanism-real but likely sub-MCID under FWER."
+  },
+
+  "fwer_policy": {
+    "primary_blocking_gate": {
+      "replicated_uncorrected": "frac_pos_bootstrap >= 0.95 on TWO disjoint seed sets (model_seeds_set_A=[42,1337,7], model_seeds_set_B=[101,202,303])",
+      "mcid": "Delta_LOOCV_CCC >= +0.005",
+      "bh_fdr_q": "q <= 0.10 across the 3 new slots (Benjamini-Hochberg on the bootstrap p-values)"
+    },
+    "report_only_columns": {
+      "in_session_bonferroni_n_4": {
+        "n": 4,
+        "members": ["iter34_incumbent", "slot_A", "slot_B", "slot_C"],
+        "per_slot_alpha": 0.0125,
+        "per_slot_frac_pos_gate": 0.9875
+      },
+      "lifetime_bonferroni_n_estimate": {
+        "n_estimate": 28,
+        "rationale": "iter34 baseline (1) + 2026-05-13 push 3 slots (3) + 2026-05-15 AM push 7 slots (7) + 2026-05-15 PM proresults ablation 13 slots (13) + 2026-05-15 PM extension S8/S8rep/S9 (3) + evening push 3 new slots (3) = 30, conservative lower bound 28",
+        "per_slot_alpha": 0.00179,
+        "per_slot_frac_pos_gate": 0.99821,
+        "structural_unreachability": "At N=92 with seed_std ~0.005-0.015, the lifetime Bonferroni gate is structurally unreachable for any sub-step-function lift. Per CLAUDE.md amendment-4: report as cautionary column, do not block on it."
+      }
+    },
+    "screen_first_promotion_rule": {
+      "fivefold_mean_delta_gate": 0.025,
+      "fivefold_seed_std_gate": 0.020,
+      "rule": "If 5-fold Delta_bar < +0.025 OR seed_std >= 0.020, SKIP LOOCV (selection-leakage avoidance)",
+      "exception": "If a slot's predicted_delta is < +0.025 mechanism-wise, predeclare a relaxed screen gate (>= +0.010 with std < 0.015) and accept that LOOCV will be descriptive rather than promotion-eligible"
+    },
+    "cohort_n_for_paired_bootstrap": 92,
+    "comparison_baseline": "iter34 per-item OOF predictions (results/t1_iter34_per_item_oof_20260511_044242.npz, t1_sum_pred field, restricted to N=92 NLS036-excluded cohort)",
+    "bootstrap_method": "paired-bootstrap 5000 resamples on subject-level pairs (y_true_i, p_iter34_i, p_candidate_i)"
+  },
+
+  "ceiling_estimate_first_principles_recomputed": {
+    "imu_only_t1_sum_ccc_upper_bound": 0.85,
+    "rationale": "Goetz 2008 inter-rater kappa ~0.6-0.8 on individual items implies sum-CCC ceiling ~0.85 under perfect IMU information. Iter34=0.7170 leaves theoretical headroom ~0.13.",
+    "imu_observability_per_item": {
+      "item_9_arising_chair": 0.6,
+      "item_10_gait": 1.0,
+      "item_11_fog": 0.5,
+      "item_12_postural_stability": 0.4,
+      "item_13_posture": 0.6,
+      "item_14_body_brady": 0.7
+    },
+    "reachable_headroom_imu_only_estimate": 0.05,
+    "empirical_lift_observed_2026_05": 0.0088,
+    "interpretation": "Empirical lift is ~5.7x below physics-based reachable headroom estimate. Either (a) the un-exploited mechanism axes carry signal at +0.01-0.02 level that statistical-detectability-at-N=92 makes hard to clean, or (b) the V2 feature pool combined with iter34 chain has already saturated the IMU-observable signal. Tonight's push tests both hypotheses."
+  },
+
+  "slot_A": {
+    "label": "item13_raw_euler_freeacc_22ch_item_only_correction",
+    "hypothesis_one_sentence": "Raw 22-channel Lumbar/Sternum/Forehead Euler-angle + FreeAcc features extracted from Balance-task standing-still segments produce an item-13 (posture) CCC lift >= +0.05 versus baseline AND a T1-sum LOOCV CCC lift >= +0.005 versus iter34, with D4 audit clean (Δr > 0, ΔMAE <= 0, corr(correction, T1_sum_residual) > 0).",
+    "mechanism_rationale": "CLAUDE.md 'What's open' explicitly names this axis: 'Lumbar/Sternum/Forehead Euler angles + FreeAcc were the missing geometry for static posture.' F50 self-norm Euler lift item-13 +0.145 LOOCV was on TRUNK PITCH ONLY; this extends to 3-sensor anatomical triplet (lumbar+sternum+forehead) with FreeAcc gravity-removed channels, capturing static-axial geometry orthogonal to V2 windowed-spectral, PH topological persistence, and MFDFA multifractal-scaling families.",
+    "wall_orthogonality_argument": "Distinct from F19/F44/F45/F48/F51 (feature additions absorbed by K=500 in JOINT chain) via hypothesis-restricted item_only architecture (per feedback_hypothesis_restricted_bypasses_k500.md). Distinct from F50 by 3-sensor anatomical triplet vs single channel. Distinct from S5/S8 (today's PH/MFDFA on items 12/13) by different feature family (raw Euler vs Takens-embedded H1 persistence). Distinct from D2 negative-control swap by extension not replication. Distinct from W#89 (PH v2 3120 cols overfit) by smaller targeted feature count.",
+    "predicted_delta_loocv_t1_sum_ccc": {
+      "low": 0.005,
+      "central": 0.012,
+      "high": 0.020,
+      "reasoning": "Item-13 per-item Δ likely +0.05..+0.15 (F50 magnitude); sum aggregation efficiency ~0.10-0.15 (W#87 chain vs sum gap); expected T1_sum lift +0.005..+0.015"
+    },
+    "kill_threshold": "5-fold Delta_bar < +0.000 OR per-item-13 r-lift < +0.030 OR D4 corr(c, sum_resid) <= 0 OR ANY 5-null gate fails",
+    "scripts_to_author": [
+      "cache_item13_raw_euler_freeacc_22ch.py",
+      "run_t1_slotA_item13_raw_euler_correction.py"
+    ],
+    "compute_plan": {
+      "extraction": "slave-remote-RTX-4060 ~10-15 min via gpu.sh (22-channel × ~98 subjects × Balance task)",
+      "downstream": "master-local ~3 min Ridge alpha-grid LOOCV + paired bootstrap"
+    },
+    "split_seed": 20260309,
+    "feature_seed": 31415,
+    "augmentation_seed": null,
+    "model_seeds_set_A": [42, 1337, 7],
+    "model_seeds_set_B": [101, 202, 303],
+    "alpha_grid_predeclared": [10.0, 30.0, 100.0, 300.0, 1000.0],
+    "alpha_selection_rule": "inner_5fold_oof_residual_ccc_in_train_fold_only",
+    "lambda_grid_predeclared": [0.5, 0.75, 1.0],
+    "lambda_selection_rule": "inner_5fold_oof_residual_ccc_in_train_fold_only",
+    "parameter_provenance": {
+      "alpha_grid": "matches Slot A 2026-05-15 AM (project_t1_ceiling_push_20260515_PM_closure.md), no new cohort-overlap fishing",
+      "lambda_grid": "narrowed from {0.25,0.5,0.75,1.0,1.25} to {0.5,0.75,1.0} based on AM Slot A finding that lambda*=1.0 was modal across 92 outer folds; this narrowing is motivated by mechanism (correction magnitude), not by re-fishing the AM lockbox metric. Acknowledged as report-only design-inheritance risk.",
+      "k_for_extraction": "no K-best selection in this slot — raw 22 channels × handful of summary stats (mean, std, range, robust-quantile, axial-norm), targeted feature count <= 40 to avoid K=500 absorption pathway entirely"
+    },
+    "formula_sha256_target": "computed_at_script_authorship_time",
+    "five_null_invocation": "run_t1_slotA_item13_raw_euler_correction.py --null scrambled_y AND --null sid_shuffle_post_cache AND --null canary_noise AND --null transductive_variant AND --sanity-y-nan",
+    "redesign_queue_if_screen_fails": [
+      "Replace Lumbar/Sternum/Forehead with Lumbar/Trunk/Pelvis if forehead sensor coverage is sparse",
+      "Add Balance-task segmentation by eyes-open vs eyes-closed if metadata available"
+    ]
+  },
+
+  "slot_B": {
+    "label": "multiscale_sampleentropy_RQA_items_11_12_14_correction",
+    "hypothesis_one_sentence": "Multiscale sample entropy (MSE, Costa 2002) + Recurrence Quantification Analysis (RQA, Webber & Zbilut 1994) features extracted on items 11/12/14 partial-IMU-observability targets, in hypothesis-restricted item_only architecture, lift T1_sum LOOCV CCC by >= +0.005 vs iter34 with D4 audit clean.",
+    "mechanism_rationale": "Item 11 (FoG) is event-driven intermittency that V2 windowed-spectral features average out; RQA-DET (determinism), RQA-LAM (laminarity), RQA-ENTR (entropy of diagonal-line lengths) capture this directly. Item 12 (postural stability) is transient-response; MSE at multiple coarse-graining scales captures complexity loss in pull-test response. Item 14 (global slowness gestalt) is multiscale-temporal; MSE multiscale natively encodes this. NEITHER feature family is in V2 (single-scale entropy only), PH (topological persistence), or MFDFA (multifractal scaling). 3rd-distinct nonlinear-dynamics family.",
+    "wall_orthogonality_argument": "Distinct from F44 (multiscale FoG ROCKET features at iter5 architecture absorbed by K=500): this uses item_only hypothesis-restricted architecture per F-hypothesis-restricted. Distinct from PH (persistence diagrams) and MFDFA (Hq spectrum) feature families by construction. Distinct from S5/S8/S9 (today's PH/MFDFA correction on items 12/13) by different feature family AND different item targets (11/14 untargeted today). Distinct from F48 (frozen-encoder pretraining): no SSL encoder, only handcrafted nonlinear-dynamics summaries.",
+    "predicted_delta_loocv_t1_sum_ccc": {
+      "low": 0.003,
+      "central": 0.010,
+      "high": 0.018,
+      "reasoning": "Per-item r-lift items 11/12/14 each +0.02..+0.05 (informational complexity carries weaker signal than topological geometry per PH item-13 +0.146 magnitude); sum aggregation Δ +0.003..+0.015"
+    },
+    "kill_threshold": "5-fold Delta_bar < +0.000 OR per-item r-lift <= +0.02 on ALL 3 target items OR D4 corr(c, sum_resid) <= 0 OR ANY 5-null gate fails",
+    "scripts_to_author": [
+      "cache_multiscale_entropy_RQA_items_11_12_14.py",
+      "run_t1_slotB_mse_rqa_items_11_12_14_correction.py"
+    ],
+    "compute_plan": {
+      "extraction": "slave-remote-RTX-4060 ~20-30 min via gpu.sh (MSE+RQA is O(N_windows^2) per subject, parallel-CPU)",
+      "downstream": "master-local ~3 min Ridge alpha-grid LOOCV"
+    },
+    "split_seed": 20260309,
+    "feature_seed": 31415,
+    "augmentation_seed": null,
+    "model_seeds_set_A": [42, 1337, 7],
+    "model_seeds_set_B": [101, 202, 303],
+    "alpha_grid_predeclared": [10.0, 30.0, 100.0, 300.0, 1000.0],
+    "alpha_selection_rule": "inner_5fold_oof_residual_ccc_in_train_fold_only",
+    "mse_scales_predeclared": [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20],
+    "rqa_embedding_predeclared": {"m": 5, "tau": 2, "radius_quantile": 0.10},
+    "parameter_provenance": {
+      "mse_scales": "Costa 2002 / Costa 2005 standard physiological MSE scales 1-20 with logarithmic spacing at high end; predeclared from literature, NOT tuned on this cohort",
+      "rqa_embedding": "m=5, tau=2 = standard PD-IMU literature (e.g., Marwan 2007 RQA tutorial); radius=10th percentile of pairwise distances = standard default, NOT tuned"
+    },
+    "formula_sha256_target": "computed_at_script_authorship_time",
+    "five_null_invocation": "same as slot A pattern",
+    "redesign_queue_if_screen_fails": [
+      "Drop item 12 if class counts too sparse and re-test on items 11+14 only",
+      "Replace MSE with multiscale-permutation-entropy if MSE shows variance instability"
+    ]
+  },
+
+  "slot_C": {
+    "label": "numpyro_hierarchical_LKJ_residual_correlation_ordinal_T1sum",
+    "hypothesis_one_sentence": "An end-to-end Numpyro/SVI hierarchical Bayesian model with LKJ(2) prior on the 6x6 item residual correlation matrix and ordinal cumulative-link likelihood on T1_sum (treating sum 0-24 as ordinal with 25 cutpoints) produces a posterior median T1_sum LOOCV CCC lift >= +0.005 vs iter34, with the posterior 90% credible interval excluding 0.",
+    "mechanism_rationale": "T1 has empirical effective rank ~2 (PC1 axial-truncal 65-75%, PC2 body-brady-gestalt 10-15%). F65/F68/F70 exploit this via chain ensemble (sequential conditional). LKJ prior on residual correlations is the JOINT alternative: all 6 item residuals are conditionally Gaussian given a learned correlation structure that the LKJ(2) prior regularizes toward uniform-on-correlations. The ordinal cumulative-link on the SUM enforces the bounded-integer-ordinal constraint that all prior continuous regressors throw away. Together: joint regularization (correlation) + outcome-structure (ordinal).",
+    "wall_orthogonality_argument": "Distinct from S1 today (sklearn BayesianRidge multi-output, NO correlation prior, NO ordinal likelihood, screen FAILED Δ=-0.0108): proper hierarchical with LKJ + ordinal is a structural-not-parametric change. Distinct from S3 (per-item ordinal heads, KILLED by sparse high-severity class counts 0-2 subjects): we use ordinal ONLY on T1_sum (sum 0-24, denser support), NOT on individual items. Distinct from F58/F56 (composite k=2/k=19 meta-stacks): LKJ is over joint posterior, not over predictor combinations. Distinct from F65/F68/F70 chain (sequential): LKJ is joint.",
+    "predicted_delta_loocv_t1_sum_ccc": {
+      "low": 0.002,
+      "central": 0.008,
+      "high": 0.015,
+      "reasoning": "Bayesian regularization on small-N residuals typically yields posterior CCC lift ~MAE-improving but Δr modest; predicted Δ tightly distributed around 0.005-0.010"
+    },
+    "kill_threshold": "5-fold Delta_bar < +0.000 OR posterior 90% CI contains 0 OR SVI divergence rate > 0.05 OR ANY 5-null gate fails",
+    "scripts_to_author": [
+      "run_t1_slotC_numpyro_hierarchical_lkj_ordinal_correction.py"
+    ],
+    "compute_plan": {
+      "extraction": "no new feature cache — uses iter34 per-item OOF residuals as input",
+      "downstream": "slave-remote-RTX-4060 ~30-45 min SVI (5000 steps × 92 LOO folds × 6 seeds = heavy but feasible on RTX 4060)"
+    },
+    "split_seed": 20260309,
+    "feature_seed": null,
+    "augmentation_seed": null,
+    "model_seeds_set_A": [42, 1337, 7],
+    "model_seeds_set_B": [101, 202, 303],
+    "svi_steps_predeclared": 5000,
+    "svi_learning_rate": 0.005,
+    "lkj_concentration": 2.0,
+    "num_warmup_predeclared": 1000,
+    "parameter_provenance": {
+      "lkj_concentration": "LKJ(2) = standard weakly-informative prior on correlation matrices (Stan / numpyro tutorials); NOT tuned on this cohort",
+      "svi_steps": "5000 standard for n_params <= 100 SVI convergence; will diagnose ELBO trace per fold, abort if diverging",
+      "ordinal_cutpoints": "25 cutpoints for sum 0-24; standard PROC LOGISTIC ordinal default with Dirichlet(1.0) prior on cut-point increments"
+    },
+    "formula_sha256_target": "computed_at_script_authorship_time",
+    "five_null_invocation": "same as slot A pattern; canary_noise on input residuals; transductive_variant uses cohort-wide z-scoring of residuals",
+    "redesign_queue_if_screen_fails": [
+      "Drop ordinal cumulative-link if SVI is unstable, fall back to Gaussian likelihood on sum with same LKJ",
+      "Replace LKJ(2) with LKJ(0.5) (more weight on extreme correlations) if posterior is too shrunk"
+    ]
+  },
+
+  "five_null_gate_per_slot_universal": {
+    "scrambled_y": "permute y_t1_sum at LOOCV outer scope; full pipeline must collapse Delta to within 0.02 of zero AND frac_pos <= 0.15",
+    "sid_shuffle_post_cache": "permute the SID column of any new cache before align_features_to_oof; pipeline must collapse Delta to within 0.02 AND frac_pos <= 0.55",
+    "canary_noise": "additive gaussian noise sigma=0.01 on raw features (slot A) or scale-1 input (slot B) or residual input (slot C); full pipeline output must differ from real by < 0.02 CCC",
+    "library_exclusion": "uv run python ~/.claude/skills/pd-imu-100x-researcher/scripts/firewall_check.py <slot_script>.py must exit 0 banned hits + 0 oracle-abstention warnings",
+    "inductive_vs_transductive_gap": "compare LOOCV delta to a transductive variant (cohort statistics in normalization for slot A/B; cohort-wide residual mean/std for slot C); gap must be < 0.010 CCC (transductive may be LARGER; if inductive >> transductive, suspect anti-leakage shrinkage and re-audit)"
+  },
+
+  "do_not": [
+    "Use test-fold y at fit time anywhere in slot A/B/C scripts.",
+    "Use HC subjects (HC anchors hurt inductively).",
+    "Re-LOOCV any slot after seeing the metric (seed shopping).",
+    "Pick alpha, lambda, K, or SVI hyperparameters post-hoc; all grids predeclared above.",
+    "Tune iter34 baseline; iter34 is the incumbent.",
+    "Allow the FWER family to exceed n=4 without an explicit append-only revision JSON.",
+    "Substitute a tri-CLI recommendation wholesale; synthesize, then re-derive against the wall.",
+    "Run Slot B before Slot A is closed (sequential, not parallel).",
+    "Skip the sanity_y_nan invocation; firewall law #9 contract."
+  ],
+
+  "release_plan": {
+    "PASS_slot_A_primary_gate": "Slot A becomes new T1 candidate; CLAUDE.md SOTA table updated; findings.md F-evening-slotA entry; FWER family rolls to n=5 for Slot B and C comparisons.",
+    "PASS_slot_B_primary_gate": "Same as A.",
+    "PASS_slot_C_primary_gate": "Same as A; if posterior 90% CI cleanly excludes 0, paper-positioning note added that hierarchical Bayesian regularization is the +0.005-0.010 ceiling at N=92.",
+    "FAIL_all_3_slots": "Honest closure: iter34 holds at 0.7170. Walls #107-109 added. Paper closure pivots to the deployable-secondary T1 conformal lockbox (V2-V3 disagreement + item-13 PH = 0.7876/0.8338) as canonical secondary; findings.md closure entry; memory write 'project_t1_ceiling_push_20260515_evening_FINAL_CLOSURE'."
+  },
+
+  "stop_rules": {
+    "hard_cap": "3 slots; no retries, no extension beyond Slot C unless an entirely new pre-reg JSON is authored with refreshed FWER counting.",
+    "soft_stop_pass_and_stop": "If Slot A clears the primary gate by a wide margin (replicated_uncorrected on BOTH seed sets AND Δ >= +0.020 AND lifetime-Bonferroni borderline-clean), pause and ask user whether to continue Slots B/C or stop and consolidate.",
+    "multiple_comparisons_trap_disclosure": "If Slot A passes loosely (replicated_uncorrected just-clears) but B and C fail, the family-wise effective gate may be unmet; Slot A reported as 'candidate, clears primary gate but not lifetime Bonferroni'; explicit user sign-off required before any canonical update."
+  },
+
+  "lifetime_fwer_family_audit_trail": [
+    "2026-05-12 master pre-reg (goalv1): T3-F DANN+Tier-2, T1-C numpyro SVI no-aux, Phase 0 ablation 9 variants",
+    "2026-05-13 ceiling push slots A/B/C: 7-item-no-13, V3-GSP-item-12, sklearn-GB-K=250-item-12",
+    "2026-05-15 AM ceiling push slots A/A2/C/D/E/F + D1/D2/D3 diagnostics: 7+ probes",
+    "2026-05-15 PM pro-results ablation S1/S2/S3/S5/S6/S7/S8/S8rep/S9/S10/S11/S12/S13/S15: 13+ probes",
+    "2026-05-15 evening (this pre-reg) slots A/B/C: 3 probes",
+    "lifetime_n_estimate": 28,
+    "note": "Lifetime Bonferroni is structurally unreachable at this N and probe count; per CLAUDE.md amendment-4 it is reported as a cautionary column, not a blocking gate. Primary gate is replicated-uncorrected + MCID + BH-FDR (which restarts per session)."
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "timestamp_utc": "20260513_044508",
+  "iso_datetime_utc": "2026-05-13T04:45:08.145786+00:00",
+  "name": "T1 Glass-Ceiling Push 2026-05-13 Slot A pre-registration",
+  "formula_sha256": "a679d5e540b6994ad4f8b976d072ffc4838cad1ffa95eb5e17d8d918291fe38c",
+  "formula_payload": {
+    "experiment": "T1 Glass-Ceiling Push 2026-05-13 Slot A \u2014 7-item-no-13 chain + CCC-descending fixed order",
+    "tri_cli_consult_synthesis": "codex+gemini priors 0.03-0.12 on screen pass; gemini surfaced CCC-descending ordering as mechanism enhancement",
+    "is_post_publication_replication_target": false,
+    "is_t1_ceiling_push_2026-05-13_slotA": true,
+    "master_prereg": "results/preregistration_t1_ceiling_push_20260513_043852.json",
+    "fwer_family_size": 4,
+    "fwer_per_slot_gate_frac_gt0": 0.9875,
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects_min": 90,
+      "filter": "PD with full items 9-14, 15, 18 (iter34 hygiene-corrected cohort N=92)",
+      "loader": "run_t1_iter33b_8item_chain._load_t1_cohort_with_8items"
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9,
+      "per_fold_standardisation": true,
+      "source_module": "run_t3_iter5_clinical:fit_stage1",
+      "target": "T1 (sum items 9-14)"
+    },
+    "stage2": {
+      "model_ensemble": [
+        "RegressorChain(LGBMRegressor n=500, lr=0.05, num_leaves=15, min_data=10)",
+        "RegressorChain(XGBRegressor hist, n=500, lr=0.05, depth=4, min_child=5)",
+        "RegressorChain(ExtraTreesRegressor n=300, max_depth=10, min_leaf=5)"
+      ],
+      "ensemble_method": "average chain-output across 3 bases per fold per seed",
+      "items_targets_chain": [
+        12,
+        10,
+        14,
+        9,
+        11,
+        15,
+        18
+      ],
+      "items_summed_for_t1": [
+        9,
+        10,
+        11,
+        12,
+        14
+      ],
+      "item_13_handling": "dropped from chain training; replaced by train_fold_mean(item_13) in T1 sum reconstruction",
+      "auxiliary_items": [
+        15,
+        18
+      ],
+      "chain_order_policy": "FIXED CCC-descending [12, 10, 14, 9, 11, 15, 18]; not random",
+      "item_target_centering": "subtract per-fold train_mean(item)",
+      "feature_select_method": "lgb_importance_top_k_per_fold (against T1 residual)",
+      "feature_select_k": 500,
+      "imputation": "fold_local_median"
+    },
+    "eval": {
+      "screen_n_splits": 5,
+      "screen_seeds": [
+        42,
+        1337,
+        7
+      ],
+      "loocv_seeds": [
+        42,
+        1337,
+        7
+      ],
+      "headline_metric": "CCC of mean-of-3-seed predictions vs y_t1",
+      "screen_gate": "5-fold \u0394\u0304 vs iter34 hybrid \u2265 +0.020 AND seed std < 0.020",
+      "loocv_gate": "paired bootstrap frac>0 \u2265 0.9875 vs iter34 hybrid on N=92 AND vs iter12-honest on N=92",
+      "comparator_iter34_loocv_oof": "results/lockbox_t1_iter34_hybrid_20260510_233019.oof.npy"
+    },
+    "leakage_assertions": [
+      "Stage-1 Ridge fit fold-local on train indices only",
+      "feature_select_fold operates on outer-train labels only",
+      "impute_fold operates on outer-train values only",
+      "item-13 train_fold_mean computed inside each outer fold",
+      "no global imputers, no cohort-wide z-scoring, no pre-computed ranks"
+    ]
+  },
+  "git_sha": "64edc2a90ab11beed8b0bdb30a69c6c49a8809fc",
+  "operator": "Claude Opus 4.7 (pd-imu-100x-researcher skill)"
+}

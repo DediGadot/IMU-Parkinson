@@ -1,0 +1,43 @@
+{
+  "cohort_statistics_used": "none_or_target_free_sensor_only_aggregates_no_label_statistics",
+  "command": "<FILL_CNS_PORTUGAL_LOBO_TARGET_FREE_EXTRACTION_COMMAND>",
+  "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+  "credentials_or_tokens_included": false,
+  "data_sha256_or_file_manifest": "<FILL_CNS_PORTUGAL_LOBO_AGGREGATE_DATA_SHA256_OR_FILE_MANIFEST>",
+  "data_version_or_download_date": "<FILL_CNS_PORTUGAL_LOBO_DATA_VERSION>",
+  "feature_blocks": [
+    {
+      "columns_or_schema_reference": "<FILL_CNS_PORTUGAL_LOBO_AX3_IMU_SCHEMA_REFERENCE_NO_VALUES>",
+      "locked_pre_score": true,
+      "name": "ax3_imu_topofractal_ph_mfdfa",
+      "selection_rule": "predeclared_no_external_label_selection",
+      "source_modality": "ax3_imu"
+    }
+  ],
+  "feature_matrix_included": false,
+  "fold_scope": "target_free_zero_shot_feature_extraction_only_labels_held_for_final_scoring",
+  "git_sha": "<FILL_GIT_SHA>",
+  "grouping_keys": [
+    "sid",
+    "session_id"
+  ],
+  "labels_used": false,
+  "leakage_rationale": "External labels are not loaded or used during feature extraction, feature selection, normalization, outlier filtering, endpoint choice, or model selection.",
+  "leakage_status": "target_free_pre_scoring",
+  "local_paths_included": false,
+  "manifest_stage": "post_schema_pre_scoring_target_free_feature_manifest",
+  "model_predictions_included": false,
+  "normalization_scope": "fixed_from_weargait_or_target_free_unsupervised_before_labels",
+  "protected_data_included": false,
+  "raw_rows_or_samples_included": false,
+  "route_id": "cns_portugal_lobo",
+  "schema_probe_artifact_reference": "<FILL_CNS_PORTUGAL_LOBO_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+  "schema_probe_metadata_recorded": false,
+  "script": "<FILL_CNS_PORTUGAL_LOBO_TARGET_FREE_EXTRACTION_SCRIPT>",
+  "status": "template_complete_outside_git_after_schema_probe_metadata_recorded",
+  "target_columns_reserved_for_final_scoring": [
+    "updrs3"
+  ],
+  "target_columns_used_for_feature_selection": [],
+  "target_values_included": false
+}

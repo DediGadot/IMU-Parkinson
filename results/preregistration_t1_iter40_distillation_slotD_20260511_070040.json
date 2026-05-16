@@ -1,0 +1,50 @@
+{
+  "preregistration_id": "t1_iter40_distillation_slotD_20260511_070040",
+  "created_at_utc": "2026-05-11T07:00:40.398926+00:00",
+  "formula_sha256": "42c596b3bf3238e87329615935b9ca5b03310fc1a11c89a39b2e8640b065374c",
+  "formula": {
+    "experiment": "T1 iter40 Slot-D-distill \u2014 self-distillation against iter34 hygiene-corrected OOFs",
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "filter": "PD with full items 9-14, 15, 18 (validated loader)",
+      "expected_n_subjects": 92
+    },
+    "teacher": {
+      "module": "run_t1_iter34_hybrid_8item_multibase",
+      "n_subjects": 92,
+      "ccc": 0.717,
+      "config": "iter34 hybrid 8-item chain \u00d7 3 base learners",
+      "oof_construction": "inner-LOOCV within each outer-train fold"
+    },
+    "student": {
+      "model": "LightGBM (single base)",
+      "k_features": 500,
+      "target_blend_alpha": 1.0,
+      "comment": "alpha=1.0 pure distillation; alpha<1.0 blends in hard targets"
+    },
+    "screen_gate": {
+      "delta_mean_vs_iter34_n92": 0.025,
+      "frac_above_zero_paired_bootstrap": 0.95,
+      "n_bootstrap": 5000
+    },
+    "fwer_family": {
+      "members": [
+        "iter34_anchor_n92 (0.7170)",
+        "slot_A_iter37 (failed -0.0021)",
+        "slot_B_iter38 (failed -0.0002)",
+        "slot_C_iter39 (failed -0.0202)",
+        "slot_D_distill_iter40 (this)",
+        "slot_D_hetero_iter41 (parallel)"
+      ],
+      "n_family": 6,
+      "bonferroni_alpha_per_test": 0.008333333333333333,
+      "loocv_gate_frac_above_zero": 0.9916666666666667
+    },
+    "seeds": [
+      42,
+      1337,
+      7
+    ]
+  },
+  "alpha_blend": 1.0
+}

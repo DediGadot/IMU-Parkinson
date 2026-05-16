@@ -9,11 +9,11 @@ The old XGBRanker/healthy-control-anchor results, including T1 CCC `0.868` and T
 | Claim surface | Script/artifact | Status | N | CCC | MAE | Notes |
 |---------------|-----------------|--------|---|-----|-----|-------|
 | **T1 canonical floor** | `compose_t1_iter12_honest.py` / `results/t1_iter12_honest_composite.json` | current canonical | 94 | `0.6550` | `1.561` | One coherent iter8 batch, no swaps. |
-| **T1 strongest candidate** | `run_t1_iter34_hybrid_8item_multibase.py` / `results/lockbox_t1_iter34_hybrid_20260506_141720.json` | candidate/caveated only | 93 | `0.7366` | `1.731` | Above the floor, but not promoted because of N=93 and auxiliary-label/order caveats. |
+| **T1 corrected candidate** | `run_t1_iter34_hybrid_8item_multibase.py` / `results/lockbox_t1_iter34_hybrid_20260510_233019.json` | candidate/caveated only | 92 | `0.7170` | `1.736` | Valid-auxiliary rerun; above the floor but lower than the superseded N=93 iter34 value. |
 | **T3 current** | `run_t3_iter47_invalid_code_fix.py` / `results/iter47_invalidcode_20260508_194605.json` | current corrected internal result | 95 | `0.3784` | `7.528` | Valid-range target correction after the iter5 target audit. |
 | **T3 current LOSO** | `run_t3_iter47_invalid_code_fix.py` / `results/iter47_invalidcode_loso_20260508_195424.json` | current transportability sensitivity | 95 | `0.150` | n/a | Two-way LOSO under the corrected T3 target. |
 
-Older T3 iter5 `0.5227` and iter16 LOSO `0.341` were superseded by the iter47 valid-range correction. Older `generate_paper*.py` / `NEW*.html` outputs are historical snapshots only. The current manuscript route is:
+Original iter34 `0.7366` (N=93) was superseded for current-candidate citation by the hygiene-corrected N=92 rerun after the auxiliary item15 valid-range audit. Older T3 iter5 `0.5227` and iter16 LOSO `0.341` were superseded by the iter47 valid-range correction. Older `generate_paper*.py` / `NEW*.html` outputs are historical snapshots only. The current manuscript route is:
 
 ```bash
 uv run python render_current_paper.py
@@ -39,7 +39,7 @@ Different protocols yield slightly different N because of missing item-level UPD
 | Protocol | N (PD) | Current use |
 |----------|--------|-------------|
 | T1 iter12 honest LOOCV | 94 | canonical T1 floor |
-| T1 iter34 hybrid LOOCV | 93 | strongest T1 candidate only |
+| T1 iter34 hygiene-corrected hybrid LOOCV | 92 | corrected T1 candidate only |
 | T3 iter47 valid-range LOOCV | 95 | current corrected internal T3 |
 | Full PD cohort availability | 98 | historical and screening contexts |
 
@@ -52,7 +52,7 @@ Different protocols yield slightly different N because of missing item-level UPD
 ├── inductive_lib.py            # Shared: fold-local imputation, normalization, metrics, null gates
 │
 ├── compose_t1_iter12_honest.py # Current canonical T1 floor
-├── run_t1_iter34_hybrid_8item_multibase.py # Strongest T1 candidate, caveated only
+├── run_t1_iter34_hybrid_8item_multibase.py # Corrected T1 candidate, caveated only
 ├── run_t3_iter47_invalid_code_fix.py       # Current corrected T3 LOOCV/LOSO
 ├── run_t3_iter5_clinical.py                # Historical iter5 T3 architecture, superseded target
 ├── run_t3_iter16_site_ipw.py               # Historical iter5 LOSO/IPW sensitivity, superseded target

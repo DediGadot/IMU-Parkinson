@@ -116,10 +116,8 @@ def subject_paired_bootstrap(errors_a, errors_b, n_boot=10000, seed=42):
     errors_a, errors_b = np.asarray(errors_a), np.asarray(errors_b)
     rng = np.random.RandomState(seed)
     n = len(errors_a)
-    diffs = np.empty(n_boot)
-    for b in range(n_boot):
-        idx = rng.choice(n, n, replace=True)
-        diffs[b] = np.mean(errors_a[idx]) - np.mean(errors_b[idx])
+    idx = rng.randint(0, n, size=(n_boot, n))
+    diffs = errors_a[idx].mean(axis=1) - errors_b[idx].mean(axis=1)
     mean_diff = float(np.mean(diffs))
     ci_lo = float(np.percentile(diffs, 2.5))
     ci_hi = float(np.percentile(diffs, 97.5))

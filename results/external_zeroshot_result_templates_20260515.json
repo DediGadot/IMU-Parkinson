@@ -1,0 +1,704 @@
+{
+  "content_boundary": {
+    "approval_evidence_included": false,
+    "completed_file_references_in_values_allowed": false,
+    "completed_result_records_included": false,
+    "credentials_or_tokens_included": false,
+    "feature_manifest_artifacts_included": false,
+    "feature_matrix_included": false,
+    "local_paths_included": false,
+    "model_outputs_included": false,
+    "path_like_values_allowed": false,
+    "preregistration_artifacts_included": false,
+    "protected_data_included": false,
+    "row_level_data_included": false,
+    "row_predictions_included": false,
+    "schema_probe_artifacts_included": false,
+    "subject_visit_identifier_value_dumps_allowed": false,
+    "target_values_included": false
+  },
+  "decision": "external_zeroshot_result_templates_ready",
+  "generated_at_utc": "2026-05-16T12:20:37+00:00",
+  "goal_complete": false,
+  "not_a_feature_manifest_artifact": true,
+  "not_a_model_result": true,
+  "not_a_preregistration": true,
+  "not_a_schema_probe_artifact": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "route_count": 6,
+  "routes": [
+    {
+      "id": "ppmi_verily",
+      "min_subjects": 20,
+      "name": "PPMI / Verily Study Watch",
+      "post_score_reporting_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        },
+        {
+          "command": "uv run python audit_external_result_claim_labeling.py",
+          "step_id": "audit_external_result_claim_labeling"
+        },
+        {
+          "command": "uv run python audit_prompt_objective_evidence.py",
+          "step_id": "audit_prompt_objective_evidence"
+        },
+        {
+          "command": "uv run python verify_current_goal_state.py",
+          "step_id": "verify_current_goal_state"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "visit_id"
+      ],
+      "required_sensor_modalities": [
+        "wrist_accelerometer"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "approved_access_recorded": false,
+        "claim_boundary": "Aggregate external zero-shot metrics are transportability or within-route sanity evidence only, not internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "external_only": true,
+        "feature_matrix_included": false,
+        "formula_sha256": "<FILL_PPMI_VERILY_FORMULA_SHA256>",
+        "formula_sha_record_preflight_passed": false,
+        "formula_sha_record_reference": "<FILL_PPMI_VERILY_VALIDATED_FORMULA_SHA_RECORD_HASH_OR_ID>",
+        "git_sha": "<FILL_GIT_SHA>",
+        "internal_canonical_update_allowed": false,
+        "local_paths_included": false,
+        "model_predictions_included": false,
+        "preregistration_written": false,
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "result_stage": "post_score_external_zero_shot_result_record",
+        "route_id": "ppmi_verily",
+        "route_specific_formula_contract_acknowledged": {
+          "aggregate_result_claim_scope": "external transportability or PPMI-internal sanity evidence only",
+          "blueprint_record_id": "ppmi_verily_zeroshot_blueprint_20260515",
+          "blueprint_sha256": "4540fbc00a3bb92b6bedca34e954bb0e8ae00cbee30ee6f9651c56229591e13f",
+          "formula_record_preflight_must_have_passed": true,
+          "formula_record_validator_gate": "ppmi_route_specific_formula_contract",
+          "path_references_in_completed_result_record": false,
+          "required_locked_formula_components": [
+            "small fixed TopoFractal PH/MFDFA branch",
+            "canonical comparator",
+            "separate fixed K=250 sklearn-GB branch for T3 only",
+            "no omnibus feature expansion",
+            "no cross-branch adaptive stacking before zero-shot results"
+          ],
+          "route_specific_track_names": {
+            "A": "weargait_trained_wrist_topofractal_zeroshot",
+            "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+            "C": "ppmi_only_subject_grouped_sanity",
+            "D": "augmentation_screen_after_zero_shot_only"
+          },
+          "track_c_required_fixed_branch": {
+            "K": 250,
+            "endpoint_scope": "T3 only",
+            "formula_sha256": "489ca6bbc96520c2ea56cc53ee52b03542bec799f9bd41c34d9c9ef5b61ebee4",
+            "model": "sklearn.ensemble.GradientBoostingRegressor",
+            "selector": "univariate_corr_top_K"
+          },
+          "x4_v3_gsp_compatibility_policy": {
+            "can_enter_formula_if": "approved schema probe proves comparable multi-node anatomical sensors before formula_sha256 freeze",
+            "external_label_selection_allowed": false,
+            "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+            "status": "excluded_for_wrist_only_ppmi_zero_shot"
+          }
+        },
+        "row_predictions_included": false,
+        "schema_probe_metadata_recorded": false,
+        "schema_probe_record_reference": "<FILL_PPMI_VERILY_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "scoring_command": "<FILL_PPMI_VERILY_ZERO_SHOT_SCORING_COMMAND>",
+        "status": "template_complete_outside_git_after_external_zero_shot_scoring",
+        "target_free_manifest_preflight_passed": false,
+        "target_free_manifest_reference": "<FILL_PPMI_VERILY_VALIDATED_TARGET_FREE_MANIFEST_HASH_OR_ID>",
+        "target_values_included": false,
+        "tracks": [
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC>",
+              "mae": "<FILL_AGGREGATE_MAE>",
+              "n": "<FILL_AGGREGATE_N>",
+              "r": "<FILL_OPTIONAL_AGGREGATE_R_OR_NULL>"
+            },
+            "claim_boundary": "External transportability evidence only; not an internal WearGait-PD T1/T3 headline update.",
+            "name": "weargait_trained_wrist_topofractal_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "A"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External comparator evidence only; not an internal WearGait-PD T1/T3 canonical update.",
+            "name": "weargait_trained_clinical_plus_wrist_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "B"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External within-route sanity evidence only; not internal WearGait deployment performance or an internal canonical update.",
+            "name": "ppmi_only_subject_grouped_sanity",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "C"
+          },
+          {
+            "aggregate_metrics": {},
+            "claim_boundary": "Blocked unless a future fresh internal augmentation preregistration clears promotion gates.",
+            "name": "augmentation_screen_after_zero_shot_only",
+            "status": "blocked",
+            "track_id": "D"
+          }
+        ]
+      },
+      "template_path": "results/external_zeroshot_result_templates_20260515/ppmi_verily_zeroshot_result_record_template.json",
+      "validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+    },
+    {
+      "id": "ppp_pd_vme",
+      "min_subjects": 20,
+      "name": "Personalized Parkinson Project / PD-VME",
+      "post_score_reporting_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        },
+        {
+          "command": "uv run python audit_external_result_claim_labeling.py",
+          "step_id": "audit_external_result_claim_labeling"
+        },
+        {
+          "command": "uv run python audit_prompt_objective_evidence.py",
+          "step_id": "audit_prompt_objective_evidence"
+        },
+        {
+          "command": "uv run python verify_current_goal_state.py",
+          "step_id": "verify_current_goal_state"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "visit_id"
+      ],
+      "required_sensor_modalities": [
+        "study_watch_accelerometer"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "approved_access_recorded": false,
+        "claim_boundary": "Aggregate external zero-shot metrics are transportability or within-route sanity evidence only, not internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "external_only": true,
+        "feature_matrix_included": false,
+        "formula_sha256": "<FILL_PPP_PD_VME_FORMULA_SHA256>",
+        "formula_sha_record_preflight_passed": false,
+        "formula_sha_record_reference": "<FILL_PPP_PD_VME_VALIDATED_FORMULA_SHA_RECORD_HASH_OR_ID>",
+        "git_sha": "<FILL_GIT_SHA>",
+        "internal_canonical_update_allowed": false,
+        "local_paths_included": false,
+        "model_predictions_included": false,
+        "preregistration_written": false,
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "result_stage": "post_score_external_zero_shot_result_record",
+        "route_id": "ppp_pd_vme",
+        "row_predictions_included": false,
+        "schema_probe_metadata_recorded": false,
+        "schema_probe_record_reference": "<FILL_PPP_PD_VME_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "scoring_command": "<FILL_PPP_PD_VME_ZERO_SHOT_SCORING_COMMAND>",
+        "status": "template_complete_outside_git_after_external_zero_shot_scoring",
+        "target_free_manifest_preflight_passed": false,
+        "target_free_manifest_reference": "<FILL_PPP_PD_VME_VALIDATED_TARGET_FREE_MANIFEST_HASH_OR_ID>",
+        "target_values_included": false,
+        "tracks": [
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC>",
+              "mae": "<FILL_AGGREGATE_MAE>",
+              "n": "<FILL_AGGREGATE_N>",
+              "r": "<FILL_OPTIONAL_AGGREGATE_R_OR_NULL>"
+            },
+            "claim_boundary": "External transportability evidence only; not an internal WearGait-PD T1/T3 headline update.",
+            "name": "weargait_trained_sensor_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "A"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External comparator evidence only; not an internal WearGait-PD T1/T3 canonical update.",
+            "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "B"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External within-route sanity evidence only; not internal WearGait deployment performance or an internal canonical update.",
+            "name": "ppp_pd_vme_only_grouped_sanity",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "C"
+          },
+          {
+            "aggregate_metrics": {},
+            "claim_boundary": "Blocked unless a future fresh internal augmentation preregistration clears promotion gates.",
+            "name": "augmentation_screen_after_zero_shot_only",
+            "status": "blocked",
+            "track_id": "D"
+          }
+        ]
+      },
+      "template_path": "results/external_zeroshot_result_templates_20260515/ppp_pd_vme_zeroshot_result_record_template.json",
+      "validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>"
+    },
+    {
+      "id": "watchpd",
+      "min_subjects": 20,
+      "name": "WATCH-PD",
+      "post_score_reporting_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        },
+        {
+          "command": "uv run python audit_external_result_claim_labeling.py",
+          "step_id": "audit_external_result_claim_labeling"
+        },
+        {
+          "command": "uv run python audit_prompt_objective_evidence.py",
+          "step_id": "audit_prompt_objective_evidence"
+        },
+        {
+          "command": "uv run python verify_current_goal_state.py",
+          "step_id": "verify_current_goal_state"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "visit_id"
+      ],
+      "required_sensor_modalities": [
+        "apdm_imu"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "approved_access_recorded": false,
+        "claim_boundary": "Aggregate external zero-shot metrics are transportability or within-route sanity evidence only, not internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "external_only": true,
+        "feature_matrix_included": false,
+        "formula_sha256": "<FILL_WATCHPD_FORMULA_SHA256>",
+        "formula_sha_record_preflight_passed": false,
+        "formula_sha_record_reference": "<FILL_WATCHPD_VALIDATED_FORMULA_SHA_RECORD_HASH_OR_ID>",
+        "git_sha": "<FILL_GIT_SHA>",
+        "internal_canonical_update_allowed": false,
+        "local_paths_included": false,
+        "model_predictions_included": false,
+        "preregistration_written": false,
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "result_stage": "post_score_external_zero_shot_result_record",
+        "route_id": "watchpd",
+        "row_predictions_included": false,
+        "schema_probe_metadata_recorded": false,
+        "schema_probe_record_reference": "<FILL_WATCHPD_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "scoring_command": "<FILL_WATCHPD_ZERO_SHOT_SCORING_COMMAND>",
+        "status": "template_complete_outside_git_after_external_zero_shot_scoring",
+        "target_free_manifest_preflight_passed": false,
+        "target_free_manifest_reference": "<FILL_WATCHPD_VALIDATED_TARGET_FREE_MANIFEST_HASH_OR_ID>",
+        "target_values_included": false,
+        "tracks": [
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC>",
+              "mae": "<FILL_AGGREGATE_MAE>",
+              "n": "<FILL_AGGREGATE_N>",
+              "r": "<FILL_OPTIONAL_AGGREGATE_R_OR_NULL>"
+            },
+            "claim_boundary": "External transportability evidence only; not an internal WearGait-PD T1/T3 headline update.",
+            "name": "weargait_trained_sensor_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "A"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External comparator evidence only; not an internal WearGait-PD T1/T3 canonical update.",
+            "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "B"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External within-route sanity evidence only; not internal WearGait deployment performance or an internal canonical update.",
+            "name": "watchpd_only_grouped_sanity",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "C"
+          },
+          {
+            "aggregate_metrics": {},
+            "claim_boundary": "Blocked unless a future fresh internal augmentation preregistration clears promotion gates.",
+            "name": "augmentation_screen_after_zero_shot_only",
+            "status": "blocked",
+            "track_id": "D"
+          }
+        ]
+      },
+      "template_path": "results/external_zeroshot_result_templates_20260515/watchpd_zeroshot_result_record_template.json",
+      "validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>"
+    },
+    {
+      "id": "cns_portugal_lobo",
+      "min_subjects": 20,
+      "name": "CNS Portugal / Lobo AX3 gait",
+      "post_score_reporting_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        },
+        {
+          "command": "uv run python audit_external_result_claim_labeling.py",
+          "step_id": "audit_external_result_claim_labeling"
+        },
+        {
+          "command": "uv run python audit_prompt_objective_evidence.py",
+          "step_id": "audit_prompt_objective_evidence"
+        },
+        {
+          "command": "uv run python verify_current_goal_state.py",
+          "step_id": "verify_current_goal_state"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "session_id"
+      ],
+      "required_sensor_modalities": [
+        "ax3_imu"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "approved_access_recorded": false,
+        "claim_boundary": "Aggregate external zero-shot metrics are transportability or within-route sanity evidence only, not internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "external_only": true,
+        "feature_matrix_included": false,
+        "formula_sha256": "<FILL_CNS_PORTUGAL_LOBO_FORMULA_SHA256>",
+        "formula_sha_record_preflight_passed": false,
+        "formula_sha_record_reference": "<FILL_CNS_PORTUGAL_LOBO_VALIDATED_FORMULA_SHA_RECORD_HASH_OR_ID>",
+        "git_sha": "<FILL_GIT_SHA>",
+        "internal_canonical_update_allowed": false,
+        "local_paths_included": false,
+        "model_predictions_included": false,
+        "preregistration_written": false,
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "result_stage": "post_score_external_zero_shot_result_record",
+        "route_id": "cns_portugal_lobo",
+        "row_predictions_included": false,
+        "schema_probe_metadata_recorded": false,
+        "schema_probe_record_reference": "<FILL_CNS_PORTUGAL_LOBO_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "scoring_command": "<FILL_CNS_PORTUGAL_LOBO_ZERO_SHOT_SCORING_COMMAND>",
+        "status": "template_complete_outside_git_after_external_zero_shot_scoring",
+        "target_free_manifest_preflight_passed": false,
+        "target_free_manifest_reference": "<FILL_CNS_PORTUGAL_LOBO_VALIDATED_TARGET_FREE_MANIFEST_HASH_OR_ID>",
+        "target_values_included": false,
+        "tracks": [
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC>",
+              "mae": "<FILL_AGGREGATE_MAE>",
+              "n": "<FILL_AGGREGATE_N>",
+              "r": "<FILL_OPTIONAL_AGGREGATE_R_OR_NULL>"
+            },
+            "claim_boundary": "External transportability evidence only; not an internal WearGait-PD T1/T3 headline update.",
+            "name": "weargait_trained_sensor_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "A"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External comparator evidence only; not an internal WearGait-PD T1/T3 canonical update.",
+            "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "B"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External within-route sanity evidence only; not internal WearGait deployment performance or an internal canonical update.",
+            "name": "cns_portugal_lobo_only_grouped_sanity",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "C"
+          },
+          {
+            "aggregate_metrics": {},
+            "claim_boundary": "Blocked unless a future fresh internal augmentation preregistration clears promotion gates.",
+            "name": "augmentation_screen_after_zero_shot_only",
+            "status": "blocked",
+            "track_id": "D"
+          }
+        ]
+      },
+      "template_path": "results/external_zeroshot_result_templates_20260515/cns_portugal_lobo_zeroshot_result_record_template.json",
+      "validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>"
+    },
+    {
+      "id": "hssayeni_mjff",
+      "min_subjects": 20,
+      "name": "Hssayeni / MJFF Levodopa Response",
+      "post_score_reporting_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        },
+        {
+          "command": "uv run python audit_external_result_claim_labeling.py",
+          "step_id": "audit_external_result_claim_labeling"
+        },
+        {
+          "command": "uv run python audit_prompt_objective_evidence.py",
+          "step_id": "audit_prompt_objective_evidence"
+        },
+        {
+          "command": "uv run python verify_current_goal_state.py",
+          "step_id": "verify_current_goal_state"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "visit_id"
+      ],
+      "required_sensor_modalities": [
+        "geneactiv_wrist_accelerometer"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "approved_access_recorded": false,
+        "claim_boundary": "Aggregate external zero-shot metrics are transportability or within-route sanity evidence only, not internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "external_only": true,
+        "feature_matrix_included": false,
+        "formula_sha256": "<FILL_HSSAYENI_MJFF_FORMULA_SHA256>",
+        "formula_sha_record_preflight_passed": false,
+        "formula_sha_record_reference": "<FILL_HSSAYENI_MJFF_VALIDATED_FORMULA_SHA_RECORD_HASH_OR_ID>",
+        "git_sha": "<FILL_GIT_SHA>",
+        "internal_canonical_update_allowed": false,
+        "local_paths_included": false,
+        "model_predictions_included": false,
+        "preregistration_written": false,
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "result_stage": "post_score_external_zero_shot_result_record",
+        "route_id": "hssayeni_mjff",
+        "row_predictions_included": false,
+        "schema_probe_metadata_recorded": false,
+        "schema_probe_record_reference": "<FILL_HSSAYENI_MJFF_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "scoring_command": "<FILL_HSSAYENI_MJFF_ZERO_SHOT_SCORING_COMMAND>",
+        "status": "template_complete_outside_git_after_external_zero_shot_scoring",
+        "target_free_manifest_preflight_passed": false,
+        "target_free_manifest_reference": "<FILL_HSSAYENI_MJFF_VALIDATED_TARGET_FREE_MANIFEST_HASH_OR_ID>",
+        "target_values_included": false,
+        "tracks": [
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC>",
+              "mae": "<FILL_AGGREGATE_MAE>",
+              "n": "<FILL_AGGREGATE_N>",
+              "r": "<FILL_OPTIONAL_AGGREGATE_R_OR_NULL>"
+            },
+            "claim_boundary": "External transportability evidence only; not an internal WearGait-PD T1/T3 headline update.",
+            "name": "weargait_trained_sensor_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "A"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External comparator evidence only; not an internal WearGait-PD T1/T3 canonical update.",
+            "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "B"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External within-route sanity evidence only; not internal WearGait deployment performance or an internal canonical update.",
+            "name": "hssayeni_mjff_only_grouped_sanity",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "C"
+          },
+          {
+            "aggregate_metrics": {},
+            "claim_boundary": "Blocked unless a future fresh internal augmentation preregistration clears promotion gates.",
+            "name": "augmentation_screen_after_zero_shot_only",
+            "status": "blocked",
+            "track_id": "D"
+          }
+        ]
+      },
+      "template_path": "results/external_zeroshot_result_templates_20260515/hssayeni_mjff_zeroshot_result_record_template.json",
+      "validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>"
+    },
+    {
+      "id": "icicle_gait",
+      "min_subjects": 20,
+      "name": "ICICLE-PD / ICICLE-GAIT",
+      "post_score_reporting_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        },
+        {
+          "command": "uv run python audit_external_result_claim_labeling.py",
+          "step_id": "audit_external_result_claim_labeling"
+        },
+        {
+          "command": "uv run python audit_prompt_objective_evidence.py",
+          "step_id": "audit_prompt_objective_evidence"
+        },
+        {
+          "command": "uv run python verify_current_goal_state.py",
+          "step_id": "verify_current_goal_state"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "visit_id"
+      ],
+      "required_sensor_modalities": [
+        "lower_back_ax3"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "approved_access_recorded": false,
+        "claim_boundary": "Aggregate external zero-shot metrics are transportability or within-route sanity evidence only, not internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "external_only": true,
+        "feature_matrix_included": false,
+        "formula_sha256": "<FILL_ICICLE_GAIT_FORMULA_SHA256>",
+        "formula_sha_record_preflight_passed": false,
+        "formula_sha_record_reference": "<FILL_ICICLE_GAIT_VALIDATED_FORMULA_SHA_RECORD_HASH_OR_ID>",
+        "git_sha": "<FILL_GIT_SHA>",
+        "internal_canonical_update_allowed": false,
+        "local_paths_included": false,
+        "model_predictions_included": false,
+        "preregistration_written": false,
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "result_stage": "post_score_external_zero_shot_result_record",
+        "route_id": "icicle_gait",
+        "row_predictions_included": false,
+        "schema_probe_metadata_recorded": false,
+        "schema_probe_record_reference": "<FILL_ICICLE_GAIT_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "scoring_command": "<FILL_ICICLE_GAIT_ZERO_SHOT_SCORING_COMMAND>",
+        "status": "template_complete_outside_git_after_external_zero_shot_scoring",
+        "target_free_manifest_preflight_passed": false,
+        "target_free_manifest_reference": "<FILL_ICICLE_GAIT_VALIDATED_TARGET_FREE_MANIFEST_HASH_OR_ID>",
+        "target_values_included": false,
+        "tracks": [
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC>",
+              "mae": "<FILL_AGGREGATE_MAE>",
+              "n": "<FILL_AGGREGATE_N>",
+              "r": "<FILL_OPTIONAL_AGGREGATE_R_OR_NULL>"
+            },
+            "claim_boundary": "External transportability evidence only; not an internal WearGait-PD T1/T3 headline update.",
+            "name": "weargait_trained_sensor_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "A"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External comparator evidence only; not an internal WearGait-PD T1/T3 canonical update.",
+            "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "B"
+          },
+          {
+            "aggregate_metrics": {
+              "ccc": "<FILL_AGGREGATE_CCC_OR_NULL>",
+              "mae": "<FILL_AGGREGATE_MAE_OR_NULL>",
+              "n": "<FILL_AGGREGATE_N_OR_NULL>"
+            },
+            "claim_boundary": "External within-route sanity evidence only; not internal WearGait deployment performance or an internal canonical update.",
+            "name": "icicle_gait_only_grouped_sanity",
+            "status": "<FILL_scored_or_not_run>",
+            "track_id": "C"
+          },
+          {
+            "aggregate_metrics": {},
+            "claim_boundary": "Blocked unless a future fresh internal augmentation preregistration clears promotion gates.",
+            "name": "augmentation_screen_after_zero_shot_only",
+            "status": "blocked",
+            "track_id": "D"
+          }
+        ]
+      },
+      "template_path": "results/external_zeroshot_result_templates_20260515/icicle_gait_zeroshot_result_record_template.json",
+      "validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>"
+    }
+  ],
+  "source_schema_contract": "pd_imu.datasets.external_schema_probe_specs",
+  "template_dir": "results/external_zeroshot_result_templates_20260515"
+}

@@ -1,0 +1,25 @@
+{
+  "allowed_followup": "Document failure only; do not run screen, lockbox, or candidate/canonical claim.",
+  "checks": {
+    "canary_max_delta_lt_1e_minus_6": false,
+    "scrambled_abs_lt_0p05": true,
+    "transductive_gt_0p5": true
+  },
+  "decision": "corrected_null_gate_failed_canary_instability_do_not_screen_or_promote",
+  "generated_at_utc": "2026-05-10T14:56:26+00:00",
+  "input_artifact": "results/t1_iter38_slotB_nulls_corrected_20260510_145507.json",
+  "metrics": {
+    "canary_feature_ccc": 0.5781,
+    "canary_vs_normal_max_abs_delta": 0.15366121294397672,
+    "canary_vs_normal_mean_abs_delta": 0.05081519231502408,
+    "normal_ccc": 0.5831,
+    "scrambled_label_ccc": -0.0225,
+    "transductive_sanity_ccc": 0.8044
+  },
+  "not_a_model_headline": true,
+  "null_gate_pass": false,
+  "passed": true,
+  "prior_artifact_issue": "Prior null shuffled only T1 sum while chain targets stayed true; corrected null shuffles all target-derived training arrays.",
+  "script": "audit_t1_iter38_slotB_null_failure.py",
+  "supersedes_prior_artifact": "results/t1_iter38_slotB_nulls_20260510_143921.json"
+}

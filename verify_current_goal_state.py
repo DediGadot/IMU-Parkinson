@@ -21,6 +21,114 @@ from cache_provenance import validate_cache_manifest
 ROOT = Path(__file__).resolve().parent
 RESULTS = ROOT / "results"
 OUT = RESULTS / "current_goal_state_verification_20260508.json"
+PPMI_X4_V3_GSP_COMPATIBILITY_POLICY = {
+    "status": "excluded_for_wrist_only_ppmi_zero_shot",
+    "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+    "can_enter_formula_if": (
+        "approved schema probe proves comparable multi-node anatomical sensors "
+        "before formula_sha256 freeze"
+    ),
+    "external_label_selection_allowed": False,
+}
+EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT = 19
+EXPECTED_PPMI_PACKET_FIELD_COUNT = 13
+EXPECTED_PPMI_EMAIL_FIELD_COUNT = 12
+EXPECTED_PPMI_SUBMISSION_METADATA_FIELD_COUNT = 4
+EXPECTED_PPMI_WORKFLOW_COMMAND_SEQUENCE = [
+    {
+        "step_id": "validate_completed_packet",
+        "command": (
+            "uv run python scripts/validate_ppmi_verily_completed_packet.py "
+            "--packet <completed_packet_path_outside_git>"
+        ),
+    },
+    {
+        "step_id": "validate_completed_email",
+        "command": (
+            "uv run python scripts/validate_ppmi_verily_submission_email.py "
+            "--email <completed_email_path_outside_git>"
+        ),
+    },
+    {
+        "step_id": "validate_completed_package",
+        "command": (
+            "uv run python scripts/validate_ppmi_verily_submission_package.py "
+            "--packet <completed_packet_path_outside_git> "
+            "--email <completed_email_path_outside_git>"
+        ),
+    },
+    {
+        "step_id": "record_submission_metadata",
+        "command": (
+            "uv run python scripts/record_access_submission.py --route-id ppmi_verily "
+            "--submitted-at-utc <ISO8601_UTC> "
+            "--submission-channel <non_protected_channel> "
+            "--submitted-by <non_protected_submitter> "
+            "--confirmation-reference <non_protected_receipt> "
+            "--pre-submission-preflight-passed"
+        ),
+    },
+    {
+        "step_id": "record_approval_metadata",
+        "command": (
+            "uv run python scripts/record_access_approval.py --route-id ppmi_verily "
+            "--approved-at-utc <ISO8601_UTC> "
+            "--source <non_protected_approval_source>"
+        ),
+    },
+    {
+        "step_id": "validate_schema_probe_report",
+        "command": (
+            "uv run python scripts/validate_ppmi_verily_schema_probe_report.py "
+            "--report <completed_schema_probe_report_path_outside_git>"
+        ),
+    },
+    {
+        "step_id": "validate_target_free_manifest",
+        "command": (
+            "uv run python scripts/validate_ppmi_verily_target_free_manifest.py "
+            "--manifest <completed_target_free_manifest_path_outside_git>"
+        ),
+    },
+    {
+        "step_id": "validate_formula_sha_record",
+        "command": (
+            "uv run python scripts/validate_external_formula_sha_record.py "
+            "--route-id ppmi_verily "
+            "--record <completed_formula_sha_record_path_outside_git>"
+        ),
+    },
+    {
+        "step_id": "validate_zeroshot_result_record",
+        "command": (
+            "uv run python scripts/validate_external_zeroshot_result_record.py "
+            "--route-id ppmi_verily "
+            "--record <completed_external_zeroshot_result_record_path_outside_git>"
+        ),
+    },
+]
+EXPECTED_SCHEMA_POST_APPROVAL_WORKFLOW_STEP_IDS = [
+    "validate_schema_probe_report",
+    "record_schema_probe_metadata",
+    "validate_target_free_manifest",
+    "validate_formula_sha_record",
+    "validate_zeroshot_result_record",
+]
+EXPECTED_TARGET_FREE_POST_SCHEMA_WORKFLOW_STEP_IDS = [
+    "validate_target_free_manifest",
+    "validate_formula_sha_record",
+    "validate_zeroshot_result_record",
+]
+EXPECTED_FORMULA_POST_FORMULA_WORKFLOW_STEP_IDS = [
+    "validate_formula_sha_record",
+    "validate_zeroshot_result_record",
+]
+EXPECTED_ZEROSHOT_RESULT_POST_SCORE_WORKFLOW_STEP_IDS = [
+    "validate_zeroshot_result_record",
+    "audit_external_result_claim_labeling",
+    "audit_prompt_objective_evidence",
+    "verify_current_goal_state",
+]
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -80,12 +188,44 @@ def main() -> None:
         "audit_t1_iter34_base_item_decomp.py",
         "run_t1_iter46_et_robust.py",
         "run_t1_iter37_harnet_finetune.py",
+        "run_t1_X4_equal_weight_2bag.py",
+        "audit_t1_x4_equal_weight_2bag_status.py",
         "run_t3_iter5_clinical.py",
         "run_t3_iter23_clinical_ablation.py",
         "run_t3_iter24_stage2_forced.py",
         "run_t3_iter16_site_ipw.py",
         "run_t3_iter26_hssayeni.py",
         "scripts/ppmi_verily_setup.md",
+        "scripts/ppmi_verily_tier3_request_packet.md",
+        "scripts/export_ppmi_verily_packet_docx.py",
+        "scripts/ppmi_verily_submission_email_template.md",
+        "scripts/ppmi_verily_user_fill_checklist.md",
+        "scripts/ppmi_verily_schema_probe_checklist.md",
+        "scripts/ppmi_verily_schema_probe_report_template.md",
+        "scripts/ppmi_verily_target_free_manifest_template.json",
+        "scripts/validate_ppmi_verily_completed_packet.py",
+        "scripts/validate_ppmi_verily_submission_email.py",
+        "scripts/validate_ppmi_verily_submission_package.py",
+        "scripts/validate_access_request_packet.py",
+        "scripts/validate_ppmi_verily_schema_probe_report.py",
+        "scripts/validate_schema_probe_report.py",
+        "scripts/validate_ppmi_verily_target_free_manifest.py",
+        "scripts/validate_target_free_manifest.py",
+        "scripts/show_ppmi_verily_next_action.py",
+        "scripts/show_external_access_queue.py",
+        "scripts/show_access_request_fill_checklist.py",
+        "scripts/write_external_access_submission_index.py",
+        "scripts/show_external_access_lifecycle.py",
+        "scripts/write_external_schema_probe_handoff.py",
+        "scripts/write_external_target_free_manifest_templates.py",
+        "scripts/write_external_zeroshot_blueprint_handoff.py",
+        "scripts/write_external_formula_sha_templates.py",
+        "scripts/validate_external_formula_sha_record.py",
+        "scripts/write_external_zeroshot_result_templates.py",
+        "scripts/validate_external_zeroshot_result_record.py",
+        "scripts/record_access_submission.py",
+        "scripts/record_access_approval.py",
+        "scripts/record_schema_probe_report.py",
         "scripts/ppp_pd_vme_request_setup.md",
         "scripts/watchpd_request_setup.md",
         "scripts/icicle_request_setup.md",
@@ -110,6 +250,42 @@ def main() -> None:
         "audit_external_result_claim_labeling.py",
         "audit_remaining_blocker_actions.py",
         "audit_external_access_readiness.py",
+        "audit_ppmi_verily_request_packet.py",
+        "audit_ppmi_verily_submit_format.py",
+        "audit_ppmi_verily_submission_email_template.py",
+        "audit_ppmi_verily_submission_email_validator.py",
+        "audit_ppmi_verily_submission_package_validator.py",
+        "audit_access_request_packet_validator.py",
+        "audit_access_request_fill_checklist.py",
+        "audit_external_access_submission_index.py",
+        "audit_external_access_lifecycle_status.py",
+        "audit_external_schema_probe_handoff.py",
+        "audit_external_target_free_manifest_templates.py",
+        "audit_external_zeroshot_blueprint_handoff.py",
+        "audit_external_formula_sha_templates.py",
+        "audit_external_zeroshot_result_templates.py",
+        "audit_ppmi_verily_user_fill_checklist.py",
+        "audit_ppmi_verily_schema_probe_checklist.py",
+        "audit_ppmi_verily_schema_probe_report_template.py",
+        "audit_ppmi_verily_schema_probe_report_validator.py",
+        "audit_external_schema_probe_report_validator.py",
+        "audit_ppmi_verily_target_free_manifest_validator.py",
+        "audit_external_target_free_manifest_validator.py",
+        "audit_ppmi_verily_completed_packet_validator.py",
+        "audit_ppmi_verily_submission_bundle.py",
+        "scripts/write_ppmi_verily_zeroshot_blueprint.py",
+        "audit_ppmi_verily_zeroshot_blueprint.py",
+        "audit_access_submission_tracker.py",
+        "audit_access_submission_recorder.py",
+        "audit_access_approval_recorder.py",
+        "audit_schema_probe_recorder.py",
+        "audit_current_next_action_handoff.py",
+        "audit_access_lifecycle_state_handoff.py",
+        "audit_ppmi_verily_next_action_status.py",
+        "audit_external_access_queue_status.py",
+        "audit_ppmi_verily_current_submission_handoff.py",
+        "audit_proresults_prompt_to_artifact.py",
+        "audit_t3_slotF_replication.py",
         "audit_weargait_raw_data_recovery_runbook.py",
         "audit_task_plan_current_scope.py",
         "audit_paper_generator_routing.py",
@@ -274,6 +450,9 @@ def main() -> None:
         "results/t1_iter12_batch_integrity_audit_20260508.md",
         "results/t1_iter12_honest_composite.json",
         "results/t1_iter12_honest_composite.oof.npy",
+        "results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+        "results/lockbox_t1_iter34_hybrid_20260510_233019.oof.npy",
+        "results/t1_iter34_hygiene_corrected_status_20260510.json",
         "results/lockbox_t1_iter34_hybrid_20260506_141720.json",
         "results/lockbox_t1_iter34_hybrid_20260506_141720.oof.npy",
         "results/audit_t1_iter34_n93_gap_20260508.json",
@@ -350,6 +529,92 @@ def main() -> None:
         "results/remaining_blocker_action_audit_20260509.md",
         "results/external_access_readiness_audit_20260509.json",
         "results/external_access_readiness_audit_20260509.md",
+        "results/access_submission_tracker_20260509.json",
+        "results/access_submission_tracker_20260509.md",
+        "results/access_request_packet_validator_audit_20260515.json",
+        "results/access_request_packet_validator_audit_20260515.md",
+        "results/access_request_fill_checklist_audit_20260515.json",
+        "results/access_request_fill_checklist_audit_20260515.md",
+        "results/external_access_submission_index_20260515.json",
+        "results/external_access_submission_index_20260515.md",
+        "results/external_access_submission_index_audit_20260515.json",
+        "results/external_access_submission_index_audit_20260515.md",
+        "results/external_access_lifecycle_status_audit_20260515.json",
+        "results/external_access_lifecycle_status_audit_20260515.md",
+        "results/external_schema_probe_handoff_20260515.json",
+        "results/external_schema_probe_handoff_20260515.md",
+        "results/external_schema_probe_handoff_audit_20260515.json",
+        "results/external_schema_probe_handoff_audit_20260515.md",
+        "results/external_target_free_manifest_templates_20260515.json",
+        "results/external_target_free_manifest_templates_20260515.md",
+        "results/external_target_free_manifest_templates_audit_20260515.json",
+        "results/external_target_free_manifest_templates_audit_20260515.md",
+        "results/external_zeroshot_blueprint_handoff_20260515.json",
+        "results/external_zeroshot_blueprint_handoff_20260515.md",
+        "results/external_zeroshot_blueprint_handoff_audit_20260515.json",
+        "results/external_zeroshot_blueprint_handoff_audit_20260515.md",
+        "results/external_formula_sha_templates_20260515.json",
+        "results/external_formula_sha_templates_20260515.md",
+        "results/external_formula_sha_templates_audit_20260515.json",
+        "results/external_formula_sha_templates_audit_20260515.md",
+        "results/external_zeroshot_result_templates_20260515.json",
+        "results/external_zeroshot_result_templates_20260515.md",
+        "results/external_zeroshot_result_templates_audit_20260515.json",
+        "results/external_zeroshot_result_templates_audit_20260515.md",
+        "results/external_schema_probe_report_validator_audit_20260515.json",
+        "results/external_schema_probe_report_validator_audit_20260515.md",
+        "results/external_target_free_manifest_validator_audit_20260515.json",
+        "results/external_target_free_manifest_validator_audit_20260515.md",
+        "results/external_access_queue_status_audit_20260515.json",
+        "results/external_access_queue_status_audit_20260515.md",
+        "results/ppmi_verily_request_packet_audit_20260509.json",
+        "results/ppmi_verily_request_packet_audit_20260509.md",
+        "results/ppmi_verily_tier3_request_packet_template_20260515.docx",
+        "results/ppmi_verily_tier3_request_packet_template_20260515.manifest.json",
+        "results/ppmi_verily_submit_format_audit_20260515.json",
+        "results/ppmi_verily_submit_format_audit_20260515.md",
+        "results/ppmi_verily_submission_email_template_audit_20260515.json",
+        "results/ppmi_verily_submission_email_template_audit_20260515.md",
+        "results/ppmi_verily_submission_email_validator_audit_20260515.json",
+        "results/ppmi_verily_submission_email_validator_audit_20260515.md",
+        "results/ppmi_verily_submission_package_validator_audit_20260515.json",
+        "results/ppmi_verily_submission_package_validator_audit_20260515.md",
+        "results/ppmi_verily_user_fill_checklist_audit_20260515.json",
+        "results/ppmi_verily_user_fill_checklist_audit_20260515.md",
+        "results/ppmi_verily_schema_probe_checklist_audit_20260515.json",
+        "results/ppmi_verily_schema_probe_checklist_audit_20260515.md",
+        "results/ppmi_verily_schema_probe_report_template_audit_20260515.json",
+        "results/ppmi_verily_schema_probe_report_template_audit_20260515.md",
+        "results/ppmi_verily_schema_probe_report_validator_audit_20260515.json",
+        "results/ppmi_verily_schema_probe_report_validator_audit_20260515.md",
+        "results/ppmi_verily_target_free_manifest_validator_audit_20260515.json",
+        "results/ppmi_verily_target_free_manifest_validator_audit_20260515.md",
+        "results/ppmi_verily_completed_packet_validator_audit_20260515.json",
+        "results/ppmi_verily_completed_packet_validator_audit_20260515.md",
+        "results/ppmi_verily_submission_bundle_20260515.json",
+        "results/ppmi_verily_submission_bundle_20260515.md",
+        "results/ppmi_verily_zeroshot_blueprint_20260515.json",
+        "results/ppmi_verily_zeroshot_blueprint_20260515.md",
+        "results/ppmi_verily_zeroshot_blueprint_audit_20260515.json",
+        "results/ppmi_verily_zeroshot_blueprint_audit_20260515.md",
+        "results/access_submission_recorder_audit_20260510.json",
+        "results/access_submission_recorder_audit_20260510.md",
+        "results/access_approval_recorder_audit_20260510.json",
+        "results/access_approval_recorder_audit_20260510.md",
+        "results/schema_probe_recorder_audit_20260510.json",
+        "results/schema_probe_recorder_audit_20260510.md",
+        "results/current_next_action_handoff_20260515.json",
+        "results/current_next_action_handoff_20260515.md",
+        "results/ppmi_verily_current_submission_handoff_20260515.json",
+        "results/ppmi_verily_current_submission_handoff_20260515.md",
+        "results/access_lifecycle_state_handoff_20260515.json",
+        "results/access_lifecycle_state_handoff_20260515.md",
+        "results/ppmi_verily_next_action_status_audit_20260515.json",
+        "results/ppmi_verily_next_action_status_audit_20260515.md",
+        "results/proresults_prompt_to_artifact_audit_20260515.json",
+        "results/proresults_prompt_to_artifact_audit_20260515.md",
+        "results/t3_slotF_replication_audit_20260515.json",
+        "results/t3_slotF_replication_audit_20260515.md",
         "results/weargait_raw_data_recovery_runbook_audit_20260509.json",
         "results/weargait_raw_data_recovery_runbook_audit_20260509.md",
         "results/task_plan_current_scope_audit_20260509.json",
@@ -395,6 +660,9 @@ def main() -> None:
     index_md = read_text(RESULTS / "current_best_pipeline_artifact_index_20260508.md")
     external_audit_md = read_text(RESULTS / "external_dataset_route_audit_20260508.md")
     ppmi_runbook = read_text(ROOT / "scripts/ppmi_verily_setup.md")
+    ppmi_packet = read_text(ROOT / "scripts/ppmi_verily_tier3_request_packet.md")
+    ppmi_schema_probe_checklist = read_text(ROOT / "scripts/ppmi_verily_schema_probe_checklist.md")
+    ppmi_schema_probe_template = read_text(ROOT / "scripts/ppmi_verily_schema_probe_report_template.md")
     ppp_runbook = read_text(ROOT / "scripts/ppp_pd_vme_request_setup.md")
     watchpd_runbook = read_text(ROOT / "scripts/watchpd_request_setup.md")
     icicle_runbook = read_text(ROOT / "scripts/icicle_request_setup.md")
@@ -432,7 +700,8 @@ def main() -> None:
 
     t1_floor = load_json(RESULTS / "t1_iter12_honest_composite.json")
     t1_iter12_batch_integrity = load_json(RESULTS / "t1_iter12_batch_integrity_audit_20260508.json")
-    t1_best = load_json(RESULTS / "lockbox_t1_iter34_hybrid_20260506_141720.json")
+    t1_best = load_json(RESULTS / "lockbox_t1_iter34_hybrid_20260510_233019.json")
+    t1_hygiene = load_json(RESULTS / "t1_iter34_hygiene_corrected_status_20260510.json")
     t1_n93_gap = load_json(RESULTS / "audit_t1_iter34_n93_gap_20260508.json")
     t1_aux_valid = load_json(RESULTS / "t1_iter48_aux_validrange_audit.json")
     t1_aux_order = load_json(RESULTS / "t1_iter34_aux_order_audit.json")
@@ -441,6 +710,8 @@ def main() -> None:
     t1_iter46 = load_json(RESULTS / "lockbox_t1_iter46_etrobust_20260508_162825.json")
     t1_iter46_cmp = load_json(RESULTS / "iter46_etrobust_local_comparisons_20260508.json")
     t1_iter37 = load_json(RESULTS / "iter37_harnet_finetune_screen_20260508_110641.json")
+    t1_x4 = load_json(RESULTS / "lockbox_t1_X4_equal_weight_2bag_20260516T074106Z.json")
+    t1_x4_status = load_json(RESULTS / "t1_x4_equal_weight_2bag_status_20260516.json")
     t3_old = load_json(RESULTS / "lockbox_t3_iter5_A3_tier1_20260502_171604.json")
     t3_audit = load_json(RESULTS / "t3_target_stage2_covariate_audit_20260508_165653.json")
     t3_iter41 = load_json(RESULTS / "iter41_targetfix_20260508_170021.json")
@@ -508,9 +779,18 @@ def main() -> None:
         },
     )
     v.check(
-        "T1 strongest-candidate metrics match",
-        approx_equal(t1_best.get("ccc"), 0.7366) and approx_equal(t1_best.get("mae"), 1.731, 1e-3) and t1_best.get("n") == 93,
-        {"ccc": t1_best.get("ccc"), "mae": t1_best.get("mae"), "n": t1_best.get("n")},
+        "T1 corrected-candidate metrics match",
+        approx_equal(t1_best.get("ccc"), 0.7170)
+        and approx_equal(t1_best.get("mae"), 1.7356, 1e-3)
+        and t1_best.get("n") == 92
+        and t1_hygiene.get("status") == "corrected_candidate_degraded_but_above_0_700"
+        and t1_hygiene.get("result_available") is True,
+        {
+            "ccc": t1_best.get("ccc"),
+            "mae": t1_best.get("mae"),
+            "n": t1_best.get("n"),
+            "hygiene_status": t1_hygiene.get("status"),
+        },
     )
     t1_gap_subject = t1_n93_gap.get("missing_from_iter34", {})
     t1_gap_verdict = t1_n93_gap.get("verdict", {})
@@ -658,6 +938,50 @@ def main() -> None:
                 "iter34": t1_iter46_vs_iter34,
                 "verdict": t1_iter46_cmp_verdict,
             },
+        },
+    )
+    t1_x4_bag = t1_x4.get("bag", {})
+    t1_x4_seed_a = t1_x4.get("bootstrap_seed_A", {})
+    t1_x4_seed_b = t1_x4.get("bootstrap_seed_B", {})
+    v.check(
+        "T1 X4 equal-weight 2-bag is recorded as strongest near-miss",
+        t1_x4.get("name") == "lockbox_t1_X4_equal_weight_2bag"
+        and t1_x4.get("null_mode") == "real"
+        and t1_x4.get("sanity_y_nan") is False
+        and t1_x4.get("n_cohort") == 92
+        and approx_equal(t1_x4.get("baselines", {}).get("loocv_ccc_iter34"), 0.7170378403, 1e-6)
+        and approx_equal(t1_x4_bag.get("loocv_ccc"), 0.7345218264, 1e-6)
+        and approx_equal(t1_x4_bag.get("delta_ccc"), 0.0174839861, 1e-6)
+        and approx_equal(t1_x4_bag.get("delta_mae"), 0.0152489308, 1e-6)
+        and approx_equal(t1_x4_seed_a.get("frac_pos"), 0.91, 1e-6)
+        and approx_equal(t1_x4_seed_b.get("frac_pos"), 0.9112, 1e-6)
+        and approx_equal(t1_x4.get("predictor_alignment_corr_v2_v3"), 0.9375829752, 1e-6)
+        and approx_equal(t1_x4.get("fivefold_screen", {}).get("mean"), 0.0226300035, 1e-6)
+        and t1_x4.get("verdict_provisional") == "NEAR_MISS_PRIMARY_GATE_BOTH_SEEDS",
+        {
+            "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074106Z.json",
+            "bag": t1_x4_bag,
+            "bootstrap_seed_A": t1_x4_seed_a,
+            "bootstrap_seed_B": t1_x4_seed_b,
+            "fivefold_screen": t1_x4.get("fivefold_screen"),
+            "verdict": t1_x4.get("verdict_provisional"),
+        },
+    )
+    v.check(
+        "T1 X4 status audit passes and keeps near-miss non-promoted",
+        t1_x4_status.get("passed") is True
+        and t1_x4_status.get("decision") == "x4_near_miss_not_promoted"
+        and t1_x4_status.get("goal_complete") is False
+        and t1_x4_status.get("promotion_gate", {}).get("passes") is False
+        and approx_equal(t1_x4_status.get("real_result", {}).get("ccc"), 0.7345218264, 1e-6)
+        and approx_equal(t1_x4_status.get("real_result", {}).get("delta_ccc"), 0.0174839861, 1e-6)
+        and t1_x4_status.get("hard_failures") == [],
+        {
+            "path": "results/t1_x4_equal_weight_2bag_status_20260516.json",
+            "decision": t1_x4_status.get("decision"),
+            "promotion_gate": t1_x4_status.get("promotion_gate"),
+            "real_result": t1_x4_status.get("real_result"),
+            "hard_failures": t1_x4_status.get("hard_failures"),
         },
     )
     v.check(
@@ -1406,6 +1730,103 @@ def main() -> None:
     )
     external_route = load_json(RESULTS / "external_dataset_route_audit_20260508.json")
     external_access_readiness = load_json(RESULTS / "external_access_readiness_audit_20260509.json")
+    access_submission_tracker = load_json(RESULTS / "access_submission_tracker_20260509.json")
+    ppmi_packet_audit = load_json(RESULTS / "ppmi_verily_request_packet_audit_20260509.json")
+    ppmi_submit_format_audit = load_json(RESULTS / "ppmi_verily_submit_format_audit_20260515.json")
+    ppmi_email_template_audit = load_json(RESULTS / "ppmi_verily_submission_email_template_audit_20260515.json")
+    ppmi_email_validator_audit = load_json(RESULTS / "ppmi_verily_submission_email_validator_audit_20260515.json")
+    ppmi_package_validator_audit = load_json(
+        RESULTS / "ppmi_verily_submission_package_validator_audit_20260515.json"
+    )
+    access_request_packet_validator_audit = load_json(
+        RESULTS / "access_request_packet_validator_audit_20260515.json"
+    )
+    access_request_fill_checklist_audit = load_json(
+        RESULTS / "access_request_fill_checklist_audit_20260515.json"
+    )
+    external_access_submission_index_audit = load_json(
+        RESULTS / "external_access_submission_index_audit_20260515.json"
+    )
+    external_access_lifecycle_status_audit = load_json(
+        RESULTS / "external_access_lifecycle_status_audit_20260515.json"
+    )
+    external_schema_probe_handoff_audit = load_json(
+        RESULTS / "external_schema_probe_handoff_audit_20260515.json"
+    )
+    external_schema_probe_report_validator_audit = load_json(
+        RESULTS / "external_schema_probe_report_validator_audit_20260515.json"
+    )
+    external_target_free_manifest_validator_audit = load_json(
+        RESULTS / "external_target_free_manifest_validator_audit_20260515.json"
+    )
+    external_target_free_manifest_templates_audit = load_json(
+        RESULTS / "external_target_free_manifest_templates_audit_20260515.json"
+    )
+    external_zeroshot_blueprint_handoff_audit = load_json(
+        RESULTS / "external_zeroshot_blueprint_handoff_audit_20260515.json"
+    )
+    external_formula_sha_templates_audit = load_json(
+        RESULTS / "external_formula_sha_templates_audit_20260515.json"
+    )
+    external_zeroshot_result_templates_audit = load_json(
+        RESULTS / "external_zeroshot_result_templates_audit_20260515.json"
+    )
+    external_formula_sha_ppmi = (
+        external_formula_sha_templates_audit.get("route_results") or {}
+    ).get("ppmi_verily") or {}
+    external_zeroshot_result_ppmi = (
+        external_zeroshot_result_templates_audit.get("route_results") or {}
+    ).get("ppmi_verily") or {}
+    ppmi_user_fill_checklist_audit = load_json(RESULTS / "ppmi_verily_user_fill_checklist_audit_20260515.json")
+    ppmi_schema_probe_checklist_audit = load_json(
+        RESULTS / "ppmi_verily_schema_probe_checklist_audit_20260515.json"
+    )
+    ppmi_schema_probe_template_audit = load_json(
+        RESULTS / "ppmi_verily_schema_probe_report_template_audit_20260515.json"
+    )
+    ppmi_schema_probe_report_validator_audit = load_json(
+        RESULTS / "ppmi_verily_schema_probe_report_validator_audit_20260515.json"
+    )
+    ppmi_target_free_manifest_validator_audit = load_json(
+        RESULTS / "ppmi_verily_target_free_manifest_validator_audit_20260515.json"
+    )
+    ppmi_completed_packet_validator_audit = load_json(
+        RESULTS / "ppmi_verily_completed_packet_validator_audit_20260515.json"
+    )
+    ppmi_submission_bundle = load_json(RESULTS / "ppmi_verily_submission_bundle_20260515.json")
+    ppmi_current_submission_handoff = load_json(
+        RESULTS / "ppmi_verily_current_submission_handoff_20260515.json"
+    )
+    ppmi_zeroshot_blueprint_audit = load_json(
+        RESULTS / "ppmi_verily_zeroshot_blueprint_audit_20260515.json"
+    )
+    access_submission_recorder_audit = load_json(RESULTS / "access_submission_recorder_audit_20260510.json")
+    access_approval_recorder_audit = load_json(RESULTS / "access_approval_recorder_audit_20260510.json")
+    schema_probe_recorder_audit = load_json(RESULTS / "schema_probe_recorder_audit_20260510.json")
+    current_next_action_handoff = load_json(RESULTS / "current_next_action_handoff_20260515.json")
+    access_lifecycle_state_handoff = load_json(RESULTS / "access_lifecycle_state_handoff_20260515.json")
+    ppmi_next_action_status_audit = load_json(
+        RESULTS / "ppmi_verily_next_action_status_audit_20260515.json"
+    )
+    t1_t3_goal_status_audit = load_json(RESULTS / "t1_t3_goal_status_audit_20260516.json")
+    external_access_queue_status_audit = load_json(
+        RESULTS / "external_access_queue_status_audit_20260515.json"
+    )
+    external_queue_ppmi_gates = (
+        external_access_queue_status_audit.get("ppmi_post_approval_contract_gates")
+        or {}
+    )
+    external_queue_ppmi_formula_gate = (
+        external_queue_ppmi_gates.get("formula_sha_record") or {}
+    )
+    external_queue_ppmi_result_gate = (
+        external_queue_ppmi_gates.get("zeroshot_result_record") or {}
+    )
+    proresults_audit = load_json(RESULTS / "proresults_prompt_to_artifact_audit_20260515.json")
+    proresults_t1_best = (
+        proresults_audit.get("ceiling_break_evidence", {}).get("t1_best_attempt") or {}
+    )
+    t3_slotf_replication_audit = load_json(RESULTS / "t3_slotF_replication_audit_20260515.json")
     raw_recovery_runbook_audit = load_json(RESULTS / "weargait_raw_data_recovery_runbook_audit_20260509.json")
     task_plan_current_scope_audit = load_json(RESULTS / "task_plan_current_scope_audit_20260509.json")
     paper_generator_routing_audit = load_json(RESULTS / "paper_generator_routing_audit_20260509.json")
@@ -1461,6 +1882,148 @@ def main() -> None:
     tlvmc_route = next((r for r in external_route.get("routes", []) if "TLVMC" in r.get("name", "")), {})
     pdfe_route = next((r for r in external_route.get("routes", []) if r.get("name") == "PDFE turning-in-place"), {})
     gait_biomech_route = next((r for r in external_route.get("routes", []) if r.get("name") == "Public overground walking full-body biomechanics"), {})
+    ppmi_submission_route = next(
+        (
+            route
+            for route in access_submission_tracker.get("routes", [])
+            if route.get("id") == "ppmi_verily"
+        ),
+        {},
+    )
+    ppmi_official_recheck = ppmi_submission_route.get("official_source_recheck", {})
+    lifecycle_pre_submission_handoff = (
+        access_lifecycle_state_handoff.get("pre_submission_handoff") or {}
+    )
+    lifecycle_state = access_lifecycle_state_handoff.get("current_lifecycle_state")
+    lifecycle_current_action = access_lifecycle_state_handoff.get("current_action") or {}
+    lifecycle_local_counts = access_lifecycle_state_handoff.get("local_counts") or {}
+    pre_access_blocked_actions = [
+        "probe script against protected data",
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update",
+    ]
+    schema_probe_only_blocked_actions = [
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update",
+    ]
+    expected_lifecycle_actions = {
+        "packet_ready": ("submit_access_request", False, True, pre_access_blocked_actions),
+        "submitted_pending_approval": (
+            "wait_for_access_approval",
+            False,
+            True,
+            pre_access_blocked_actions,
+        ),
+        "approved_for_schema_probe": (
+            "run_read_only_schema_probe",
+            True,
+            False,
+            schema_probe_only_blocked_actions,
+        ),
+        "schema_probe_recorded": (
+            "review_schema_probe_gates",
+            False,
+            False,
+            schema_probe_only_blocked_actions,
+        ),
+        "invalid": ("fix_access_evidence", False, False, pre_access_blocked_actions),
+    }
+    expected_lifecycle_action = expected_lifecycle_actions.get(lifecycle_state)
+    action_id_by_lifecycle_action = {
+        "submit_access_request": "submit_ppmi_verily_access_request",
+        "wait_for_access_approval": "wait_for_ppmi_verily_access_approval",
+        "run_read_only_schema_probe": "run_ppmi_verily_read_only_schema_probe",
+        "review_schema_probe_gates": "review_ppmi_verily_schema_probe_gates",
+        "fix_access_evidence": "fix_ppmi_verily_access_evidence",
+    }
+    actor_by_lifecycle_action = {
+        "submit_access_request": "user_or_institutional_pi",
+        "wait_for_access_approval": "user_or_institutional_pi",
+        "run_read_only_schema_probe": "approved_analyst",
+        "review_schema_probe_gates": "analyst",
+        "fix_access_evidence": "analyst",
+    }
+    expected_lifecycle_action_id = (
+        action_id_by_lifecycle_action.get(expected_lifecycle_action[0])
+        if expected_lifecycle_action
+        else None
+    )
+    state_aware_access_lifecycle_ready = (
+        access_lifecycle_state_handoff.get("passed") is True
+        and access_lifecycle_state_handoff.get("decision")
+        == "access_lifecycle_state_handoff_ready"
+        and access_lifecycle_state_handoff.get("goal_complete") is False
+        and access_lifecycle_state_handoff.get("not_a_model_result") is True
+        and access_lifecycle_state_handoff.get("hard_failures") == []
+        and expected_lifecycle_action is not None
+        and lifecycle_current_action.get("action") == expected_lifecycle_action[0]
+        and lifecycle_current_action.get("safe_to_execute_code")
+        == expected_lifecycle_action[1]
+        and lifecycle_current_action.get("requires_user_action")
+        == expected_lifecycle_action[2]
+        and list(lifecycle_current_action.get("blocked_actions_now", []))
+        == expected_lifecycle_action[3]
+        and lifecycle_local_counts.get("record_identities_redacted") is True
+        and lifecycle_local_counts.get("record_paths_reported") is False
+        and lifecycle_local_counts.get("protected_data_accessed") is False
+        and any(
+            row.get("name")
+            == "current local access lifecycle state maps to the correct gated action"
+            and row.get("passed") is True
+            for row in access_lifecycle_state_handoff.get("checks", [])
+        )
+    )
+    packet_ready_current_action_support_ready = (
+        current_next_action_handoff.get("passed") is True
+        and current_next_action_handoff.get("decision") == "current_next_action_handoff_ready"
+        and current_next_action_handoff.get("goal_complete") is False
+        and current_next_action_handoff.get("not_a_model_result") is True
+        and current_next_action_handoff.get("hard_failures") == []
+        and current_next_action_handoff.get("local_access_state", {}).get("real_access_submission_count") == 0
+        and current_next_action_handoff.get("local_access_state", {}).get("real_access_approval_count") == 0
+        and current_next_action_handoff.get("local_access_state", {}).get("schema_probe_artifact_count") == 0
+        and current_next_action_handoff.get("next_action", {}).get("action_id")
+        == "submit_ppmi_verily_access_request"
+        and current_next_action_handoff.get("next_action", {}).get("safe_to_execute_code_now")
+        is False
+        and current_next_action_handoff.get("next_action", {}).get("use_word_packet_template")
+        == "results/ppmi_verily_tier3_request_packet_template_20260515.docx"
+        and current_next_action_handoff.get("next_action", {}).get("use_completed_email_validator")
+        == "scripts/validate_ppmi_verily_submission_email.py"
+        and current_next_action_handoff.get("next_action", {}).get("use_fill_checklist")
+        == "scripts/ppmi_verily_user_fill_checklist.md"
+        and current_next_action_handoff.get("next_action", {}).get("workflow_command_sequence")
+        == EXPECTED_PPMI_WORKFLOW_COMMAND_SEQUENCE
+        and any(
+            row.get("name") == "current next-action handoff exposes submission and approval metadata recorders"
+            and row.get("passed") is True
+            for row in current_next_action_handoff.get("checks", [])
+        )
+    )
+    lifecycle_next_action = dict(current_next_action_handoff.get("next_action") or {})
+    if expected_lifecycle_action is not None:
+        lifecycle_next_action.update(
+            {
+                "action_id": expected_lifecycle_action_id,
+                "actor": actor_by_lifecycle_action.get(expected_lifecycle_action[0]),
+                "route_id": lifecycle_current_action.get("route_id"),
+                "route_name": "PPMI / Verily Study Watch",
+                "current_lifecycle_state": lifecycle_state,
+                "lifecycle_action": expected_lifecycle_action[0],
+                "allowed_now": lifecycle_current_action.get("allowed_now", []),
+                "requires_user_action": expected_lifecycle_action[2],
+                "safe_to_execute_code_now": expected_lifecycle_action[1],
+                "blocked_actions_now": expected_lifecycle_action[3],
+            }
+        )
     v.check(
         "external dataset audit distinguishes public, skipped, and gated external routes",
         care_pd.get("direct_t1_t3_eligible") is False
@@ -1869,10 +2432,756 @@ def main() -> None:
                 "MDS-UPDRS Part III",
                 "100 Hz",
                 "Train on WearGait-PD only",
+                "validate_ppmi_verily_target_free_manifest.py",
                 "Do not create placeholder versions",
             ]
         ),
         {"runbook": "scripts/ppmi_verily_setup.md"},
+    )
+    v.check(
+        "pro-results prompt-to-artifact audit is first-class and keeps external route gated",
+        proresults_audit.get("name") == "proresults_prompt_to_artifact_audit"
+        and proresults_audit.get("prompt_source", {}).get("prompt_path") == "/tmp/pro-results.txt"
+        and proresults_audit.get("prompt_source", {}).get("exists") is True
+        and proresults_audit.get("prompt_source", {}).get("read_ok") is True
+        and isinstance(proresults_audit.get("prompt_source", {}).get("sha256"), str)
+        and len(proresults_audit.get("prompt_source", {}).get("sha256", "")) == 64
+        and isinstance(proresults_audit.get("prompt_source", {}).get("byte_count"), int)
+        and proresults_audit.get("prompt_source", {}).get("byte_count") > 0
+        and isinstance(proresults_audit.get("prompt_source", {}).get("line_count"), int)
+        and proresults_audit.get("prompt_source", {}).get("line_count") >= 100
+        and proresults_audit.get("prompt_source", {}).get("missing_required_snippets") == []
+        and proresults_audit.get("prompt_source", {}).get("missing_rank_headers") == []
+        and any(
+            row.get("id") == "prompt_file_loaded"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("sha256")
+            == proresults_audit.get("prompt_source", {}).get("sha256")
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and proresults_audit.get("all_numbered_items_covered_or_access_blocked") is True
+        and proresults_audit.get("completion_audit_passed") is True
+        and proresults_audit.get("completion_audit_failures") == []
+        and len(proresults_audit.get("completion_audit_checklist", [])) >= 14
+        and all(
+            row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and proresults_audit.get("explicit_directive_checklist_passed") is True
+        and proresults_audit.get("explicit_directive_checklist_failures") == []
+        and len(proresults_audit.get("explicit_directive_checklist", [])) >= 10
+        and all(
+            row.get("passed") is True
+            for row in proresults_audit.get("explicit_directive_checklist", [])
+        )
+        and any(
+            row.get("id") == "slotF_t3_deployable_replication_boundary_lift_not_promoted"
+            and row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and any(
+            row.get("id") == "s13_s15_t3_transfer_extension_failed_and_not_promoted"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("fivefold_promotion") == "BELOW_SCREEN"
+            and row.get("evidence", {}).get("joint_frac_positive", 1.0) < 0.95
+            and row.get("evidence", {}).get("s15_cov70_frac_positive", 1.0) < 0.95
+            and row.get("evidence", {}).get("s15_cov50_frac_positive", 1.0) < 0.95
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and proresults_audit.get("rejected_temptation_guard_passed") is True
+        and proresults_audit.get("rejected_temptation_guard_failures") == []
+        and len(proresults_audit.get("rejected_temptation_guard", [])) == 12
+        and all(
+            row.get("passed") is True
+            for row in proresults_audit.get("rejected_temptation_guard", [])
+        )
+        and proresults_audit.get("checks_passed") is True
+        and proresults_audit.get("check_failures") == []
+        and len(proresults_audit.get("checks", []))
+        == (
+            len(proresults_audit.get("completion_audit_checklist", []))
+            + len(proresults_audit.get("explicit_directive_checklist", []))
+            + len(proresults_audit.get("rejected_temptation_guard", []))
+        )
+        and {row.get("check_group") for row in proresults_audit.get("checks", [])}
+        == {
+            "completion_audit_checklist",
+            "explicit_directive_checklist",
+            "rejected_temptation_guard",
+        }
+        and all(
+            row.get("passed") is True and row.get("check_id")
+            for row in proresults_audit.get("checks", [])
+        )
+        and proresults_audit.get("goal_complete") is False
+        and len(proresults_audit.get("numbered_prompt_checklist", [])) == 12
+        and [row.get("rank") for row in proresults_audit.get("numbered_prompt_checklist", [])]
+        == list(range(1, 13))
+        and all(
+            str(row.get("status", "")).startswith(("covered", "blocked"))
+            for row in proresults_audit.get("numbered_prompt_checklist", [])
+        )
+        and proresults_audit.get("external_access_state", {}).get("compute_ready_route_count") == 0
+        and proresults_audit.get("external_access_state", {}).get("top_priority_route")
+        == "PPMI / Verily Study Watch"
+        and proresults_audit.get("external_access_state", {}).get(
+            "generic_schema_probe_report_validator"
+        )
+        == "scripts/validate_schema_probe_report.py"
+        and proresults_audit.get("external_access_state", {}).get(
+            "generic_fill_checklist"
+        )
+        == "scripts/show_access_request_fill_checklist.py"
+        and proresults_audit.get("external_access_state", {}).get(
+            "generic_fill_checklist_decision"
+        )
+        == "access_request_fill_checklist_ready"
+        and proresults_audit.get("external_access_state", {}).get(
+            "generic_fill_checklist_route_count"
+        )
+        == 6
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_submission_index"
+        )
+        == "results/external_access_submission_index_20260515.md"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_submission_index_writer"
+        )
+        == "scripts/write_external_access_submission_index.py"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_submission_index_decision"
+        )
+        == "external_access_submission_index_ready"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_lifecycle_status"
+        )
+        == "scripts/show_external_access_lifecycle.py"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_lifecycle_status_decision"
+        )
+        == "external_access_lifecycle_status_ready"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_schema_probe_handoff"
+        )
+        == "results/external_schema_probe_handoff_20260515.md"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_schema_probe_handoff_writer"
+        )
+        == "scripts/write_external_schema_probe_handoff.py"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_schema_probe_handoff_decision"
+        )
+        == "external_schema_probe_handoff_ready"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_schema_probe_handoff_route_count"
+        )
+        == 6
+        and proresults_audit.get("external_access_state", {}).get(
+            "generic_schema_probe_report_validator_decision"
+        )
+        == "external_schema_probe_report_validator_ready"
+        and proresults_audit.get("external_access_state", {}).get(
+            "generic_schema_probe_report_validator_route_count"
+        )
+        == 6
+        and proresults_audit.get("external_access_state", {}).get(
+            "generic_target_free_manifest_validator"
+        )
+        == "scripts/validate_target_free_manifest.py"
+        and proresults_audit.get("external_access_state", {}).get(
+            "generic_target_free_manifest_validator_decision"
+        )
+        == "external_target_free_manifest_validator_ready"
+        and proresults_audit.get("external_access_state", {}).get(
+            "generic_target_free_manifest_validator_route_count"
+        )
+        == 6
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_target_free_manifest_templates"
+        )
+        == "results/external_target_free_manifest_templates_20260515.md"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_target_free_manifest_templates_writer"
+        )
+        == "scripts/write_external_target_free_manifest_templates.py"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_target_free_manifest_templates_decision"
+        )
+        == "external_target_free_manifest_templates_ready"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_target_free_manifest_templates_route_count"
+        )
+        == 6
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_zeroshot_blueprint_handoff"
+        )
+        == "results/external_zeroshot_blueprint_handoff_20260515.md"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_zeroshot_blueprint_handoff_writer"
+        )
+        == "scripts/write_external_zeroshot_blueprint_handoff.py"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_zeroshot_blueprint_handoff_decision"
+        )
+        == "external_zeroshot_blueprint_handoff_ready"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_zeroshot_blueprint_handoff_route_count"
+        )
+        == 6
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_formula_sha_templates"
+        )
+        == "results/external_formula_sha_templates_20260515.md"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_formula_sha_templates_writer"
+        )
+        == "scripts/write_external_formula_sha_templates.py"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_formula_sha_record_validator"
+        )
+        == "scripts/validate_external_formula_sha_record.py"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_formula_sha_templates_decision"
+        )
+        == "external_formula_sha_templates_ready"
+        and proresults_audit.get("external_access_state", {}).get(
+            "external_formula_sha_templates_route_count"
+        )
+        == 6
+        and any(
+            row.get("id")
+            == "queued_external_schema_probe_reports_have_generic_content_free_preflight"
+            and row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and any(
+            row.get("id") == "queued_external_access_requests_have_generic_fill_checklist"
+            and row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and any(
+            row.get("id") == "queued_external_access_requests_have_stable_submission_index"
+            and row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and any(
+            row.get("id") == "queued_external_access_requests_have_all_route_lifecycle_status"
+            and row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and any(
+            row.get("id")
+            == "queued_external_schema_probe_handoff_is_generic_and_content_free"
+            and row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and any(
+            row.get("id")
+            == "queued_external_target_free_manifests_have_generic_content_free_preflight"
+            and row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and any(
+            row.get("id")
+            == "queued_external_target_free_manifest_templates_are_generic_and_content_free"
+            and row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and any(
+            row.get("id")
+            == "queued_external_zeroshot_blueprint_handoff_is_generic_and_content_free"
+            and row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and any(
+            row.get("id")
+            == "queued_external_formula_sha_templates_are_generic_and_content_free"
+            and row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and any(
+            row.get("id") == "current_verified_next_action_is_ppmi_submission_not_compute"
+            and row.get("passed") is True
+            for row in proresults_audit.get("completion_audit_checklist", [])
+        )
+        and proresults_audit.get("current_verified_next_action", {}).get("goal_complete")
+        is False
+        and expected_lifecycle_action is not None
+        and proresults_audit.get("current_verified_next_action", {}).get(
+            "next_action", {}
+        ).get("action_id") == expected_lifecycle_action_id
+        and proresults_audit.get("current_verified_next_action", {}).get(
+            "next_action", {}
+        ).get("safe_to_execute_code_now") == expected_lifecycle_action[1]
+        and proresults_audit.get("current_verified_next_action", {}).get(
+            "access_lifecycle_current_action", {}
+        ).get("action") == expected_lifecycle_action[0]
+        and proresults_audit.get("current_verified_next_action", {}).get(
+            "pre_submission_handoff", {}
+        ).get("completed_package_validator")
+        == "scripts/validate_ppmi_verily_submission_package.py"
+        and proresults_t1_best.get("source") == "X4 equal-weight 2-bag V2+V3-GSP"
+        and approx_equal(proresults_t1_best.get("ccc"), 0.7345218264, 1e-6)
+        and approx_equal(proresults_t1_best.get("delta_vs_iter34"), 0.0174839861, 1e-6)
+        and approx_equal(proresults_t1_best.get("frac_positive"), 0.91, 1e-6)
+        and proresults_t1_best.get("passes_gate") is False
+        and "No T1 full-cohort candidate beats iter34"
+        in " ".join(proresults_audit.get("hard_gaps", []))
+        and "No T3 full-cohort candidate beats iter47"
+        in " ".join(proresults_audit.get("hard_gaps", []))
+        and ppmi_packet_audit.get("passed") is True
+        and ppmi_packet_audit.get("hard_failures") == []
+        and ppmi_packet_audit.get("checks", {}).get("official_sources", {}).get("passed")
+        is True
+        and ppmi_packet_audit.get("checks", {}).get("tier3_submission", {}).get("passed")
+        is True
+        and ppmi_packet_audit.get("checks", {}).get("required_packet_fields", {}).get("passed")
+        is True
+        and ppmi_packet_audit.get("checks", {}).get("proresults_external_blueprint", {}).get("passed")
+        is True
+        and ppmi_submit_format_audit.get("passed") is True
+        and ppmi_submit_format_audit.get("decision") == "ppmi_verily_word_template_ready_to_fill"
+        and ppmi_submit_format_audit.get("output_docx")
+        == "results/ppmi_verily_tier3_request_packet_template_20260515.docx"
+        and ppmi_submit_format_audit.get("checks", {}).get("official_tier3_terms", {}).get("passed")
+        is True
+        and ppmi_submit_format_audit.get("checks", {}).get("proresults_blueprint_terms", {}).get("passed")
+        is True
+        and ppmi_submit_format_audit.get("checks", {}).get("compute_boundary_terms", {}).get("passed")
+        is True
+        and ppmi_submit_format_audit.get("goal_complete") is False
+        and ppmi_email_template_audit.get("passed") is True
+        and ppmi_email_template_audit.get("decision") == "ppmi_verily_submission_email_template_ready"
+        and ppmi_email_template_audit.get("template") == "scripts/ppmi_verily_submission_email_template.md"
+        and ppmi_email_template_audit.get("checks", {}).get("submission_route", {}).get("passed")
+        is True
+        and ppmi_email_template_audit.get("checks", {}).get("compute_boundary", {}).get("passed")
+        is True
+        and ppmi_email_template_audit.get("checks", {}).get("submission_recorder", {}).get("passed")
+        is True
+        and ppmi_email_template_audit.get("checks", {}).get("completed_email_preflight", {}).get("passed")
+        is True
+        and ppmi_email_template_audit.get("checks", {}).get("completed_package_preflight", {}).get("passed")
+        is True
+        and ppmi_email_template_audit.get("goal_complete") is False
+        and ppmi_email_validator_audit.get("passed") is True
+        and ppmi_email_validator_audit.get("decision") == "ppmi_verily_submission_email_validator_ready"
+        and ppmi_email_validator_audit.get("validator") == "scripts/validate_ppmi_verily_submission_email.py"
+        and ppmi_email_validator_audit.get("goal_complete") is False
+        and any(
+            row.get("name") == "validator output does not echo completed email path or filename"
+            and row.get("passed") is True
+            for row in ppmi_email_validator_audit.get("checks", [])
+        )
+        and ppmi_package_validator_audit.get("passed") is True
+        and ppmi_package_validator_audit.get("decision") == "ppmi_verily_submission_package_validator_ready"
+        and ppmi_package_validator_audit.get("validator") == "scripts/validate_ppmi_verily_submission_package.py"
+        and ppmi_package_validator_audit.get("not_a_submission_record") is True
+        and ppmi_package_validator_audit.get("not_access_approval") is True
+        and ppmi_package_validator_audit.get("not_a_model_result") is True
+        and ppmi_package_validator_audit.get("protected_data_included") is False
+        and ppmi_package_validator_audit.get("credentials_or_tokens_included") is False
+        and ppmi_package_validator_audit.get("goal_complete") is False
+        and any(
+            row.get("name") == "validator output does not echo package paths or filenames"
+            and row.get("passed") is True
+            for row in ppmi_package_validator_audit.get("checks", [])
+        )
+        and ppmi_user_fill_checklist_audit.get("passed") is True
+        and ppmi_user_fill_checklist_audit.get("decision") == "ppmi_verily_user_fill_checklist_ready"
+        and ppmi_user_fill_checklist_audit.get("checklist") == "scripts/ppmi_verily_user_fill_checklist.md"
+        and ppmi_user_fill_checklist_audit.get("required_placeholder_count")
+        == EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT
+        and ppmi_user_fill_checklist_audit.get("packet_field_count") == EXPECTED_PPMI_PACKET_FIELD_COUNT
+        and ppmi_user_fill_checklist_audit.get("email_field_count") == EXPECTED_PPMI_EMAIL_FIELD_COUNT
+        and ppmi_user_fill_checklist_audit.get("submission_metadata_field_count")
+        == EXPECTED_PPMI_SUBMISSION_METADATA_FIELD_COUNT
+        and len(ppmi_user_fill_checklist_audit.get("required_placeholders", []))
+        == EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT
+        and len(ppmi_user_fill_checklist_audit.get("packet_fields", [])) == EXPECTED_PPMI_PACKET_FIELD_COUNT
+        and len(ppmi_user_fill_checklist_audit.get("email_fields", [])) == EXPECTED_PPMI_EMAIL_FIELD_COUNT
+        and ppmi_user_fill_checklist_audit.get("submission_metadata_placeholders")
+        == [
+            "<ISO8601_UTC>",
+            "<non_protected_channel>",
+            "<non_protected_submitter>",
+            "<non_protected_receipt>",
+        ]
+        and ppmi_user_fill_checklist_audit.get("completed_packet_included") is False
+        and ppmi_user_fill_checklist_audit.get("protected_data_included") is False
+        and ppmi_user_fill_checklist_audit.get("goal_complete") is False
+        and ppmi_schema_probe_checklist_audit.get("passed") is True
+        and ppmi_schema_probe_checklist_audit.get("decision") == "ppmi_verily_schema_probe_checklist_ready"
+        and ppmi_schema_probe_checklist_audit.get("checklist") == "scripts/ppmi_verily_schema_probe_checklist.md"
+        and ppmi_schema_probe_checklist_audit.get("schema_probe_artifact_created") is False
+        and ppmi_schema_probe_checklist_audit.get("protected_data_included") is False
+        and ppmi_schema_probe_checklist_audit.get("goal_complete") is False
+        and "do not use before data-owner approval" in ppmi_schema_probe_checklist.lower()
+        and "scripts/record_schema_probe_report.py" in ppmi_schema_probe_checklist
+        and "scripts/ppmi_verily_schema_probe_report_template.md" in ppmi_schema_probe_checklist
+        and "scripts/validate_ppmi_verily_target_free_manifest.py" in ppmi_schema_probe_checklist
+        and ppmi_schema_probe_template_audit.get("passed") is True
+        and ppmi_schema_probe_template_audit.get("decision") == "ppmi_verily_schema_probe_report_template_ready"
+        and ppmi_schema_probe_template_audit.get("template")
+        == "scripts/ppmi_verily_schema_probe_report_template.md"
+        and ppmi_schema_probe_template_audit.get("schema_probe_artifact_created") is False
+        and ppmi_schema_probe_template_audit.get("protected_data_included") is False
+        and ppmi_schema_probe_template_audit.get("goal_complete") is False
+        and "post-approval scratch template" in ppmi_schema_probe_template.lower()
+        and "do not use before data-owner approval" in ppmi_schema_probe_template.lower()
+        and "do not commit a filled copy" in ppmi_schema_probe_template.lower()
+        and "scripts/record_schema_probe_report.py" in ppmi_schema_probe_template
+        and "scripts/validate_ppmi_verily_schema_probe_report.py" in ppmi_schema_probe_template
+        and "scripts/validate_ppmi_verily_target_free_manifest.py" in ppmi_schema_probe_template
+        and ppmi_schema_probe_report_validator_audit.get("passed") is True
+        and ppmi_schema_probe_report_validator_audit.get("decision")
+        == "ppmi_verily_schema_probe_report_validator_ready"
+        and ppmi_schema_probe_report_validator_audit.get("validator")
+        == "scripts/validate_ppmi_verily_schema_probe_report.py"
+        and ppmi_schema_probe_report_validator_audit.get("not_a_schema_probe_artifact") is True
+        and ppmi_schema_probe_report_validator_audit.get("protected_data_included") is False
+        and ppmi_schema_probe_report_validator_audit.get("goal_complete") is False
+        and ppmi_target_free_manifest_validator_audit.get("passed") is True
+        and ppmi_target_free_manifest_validator_audit.get("decision")
+        == "ppmi_verily_target_free_manifest_validator_ready"
+        and ppmi_target_free_manifest_validator_audit.get("template")
+        == "scripts/ppmi_verily_target_free_manifest_template.json"
+        and ppmi_target_free_manifest_validator_audit.get("validator")
+        == "scripts/validate_ppmi_verily_target_free_manifest.py"
+        and ppmi_target_free_manifest_validator_audit.get("not_a_feature_manifest_artifact") is True
+        and ppmi_target_free_manifest_validator_audit.get("not_a_schema_probe_artifact") is True
+        and ppmi_target_free_manifest_validator_audit.get("not_a_preregistration") is True
+        and ppmi_target_free_manifest_validator_audit.get("protected_data_included") is False
+        and ppmi_target_free_manifest_validator_audit.get("credentials_or_tokens_included") is False
+        and ppmi_target_free_manifest_validator_audit.get("goal_complete") is False
+        and ppmi_completed_packet_validator_audit.get("passed") is True
+        and ppmi_completed_packet_validator_audit.get("decision")
+        == "ppmi_verily_completed_packet_validator_ready"
+        and ppmi_completed_packet_validator_audit.get("validator")
+        == "scripts/validate_ppmi_verily_completed_packet.py"
+        and ppmi_completed_packet_validator_audit.get("goal_complete") is False
+        and any(
+            row.get("name") == "validator output does not echo completed packet path or filename"
+            and row.get("passed") is True
+            for row in ppmi_completed_packet_validator_audit.get("checks", [])
+        )
+        and any(
+            row.get("name") == "synthetic completed packet passes without recording content"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("packet_identity_redacted") is True
+            and row.get("evidence", {}).get("packet_path_reported") is False
+            for row in ppmi_completed_packet_validator_audit.get("checks", [])
+        )
+        and ppmi_submission_bundle.get("passed") is True
+        and ppmi_submission_bundle.get("decision") == "ppmi_verily_submission_bundle_ready"
+        and ppmi_submission_bundle.get("completed_packet_included") is False
+        and ppmi_submission_bundle.get("protected_data_included") is False
+        and ppmi_submission_bundle.get("content_boundary", {}).get("completed_packet_included")
+        is False
+        and ppmi_submission_bundle.get("content_boundary", {}).get("completed_email_included")
+        is False
+        and ppmi_submission_bundle.get("content_boundary", {}).get("protected_data_included")
+        is False
+        and ppmi_submission_bundle.get("content_boundary", {}).get("credentials_or_tokens_included")
+        is False
+        and ppmi_submission_bundle.get("content_boundary", {}).get("local_completed_paths_reported")
+        is False
+        and ppmi_submission_bundle.get("fill_fields", {}).get("source_checklist")
+        == "scripts/ppmi_verily_user_fill_checklist.md"
+        and ppmi_submission_bundle.get("fill_fields", {}).get("packet_field_count") == 13
+        and ppmi_submission_bundle.get("fill_fields", {}).get("email_field_count") == 12
+        and ppmi_submission_bundle.get("fill_fields", {}).get("submission_metadata_field_count") == 4
+        and any(
+            step.get("step_id") == "preflight_completed_package"
+            and "scripts/validate_ppmi_verily_submission_package.py" in step.get("tools", [])
+            for step in ppmi_submission_bundle.get("next_steps", [])
+        )
+        and any(
+            step.get("step_id") == "record_submission_metadata"
+            and "scripts/record_access_submission.py" in step.get("command_template", "")
+            for step in ppmi_submission_bundle.get("next_steps", [])
+        )
+        and any(
+            step.get("step_id") == "record_approval_metadata"
+            and "scripts/record_access_approval.py" in step.get("command_template", "")
+            and step.get("blocked_until_approval") is True
+            and step.get("protected_compute_allowed") is False
+            for step in ppmi_submission_bundle.get("next_steps", [])
+        )
+        and ppmi_submission_bundle.get("goal_complete") is False
+        and (
+            lifecycle_state != "packet_ready"
+            or (
+                ppmi_current_submission_handoff.get("passed") is True
+                and ppmi_current_submission_handoff.get("decision")
+                == "ppmi_verily_current_submission_handoff_ready"
+                and ppmi_current_submission_handoff.get("goal_complete") is False
+                and ppmi_current_submission_handoff.get("not_a_model_result") is True
+                and ppmi_current_submission_handoff.get("not_access_approval") is True
+                and ppmi_current_submission_handoff.get("not_a_schema_probe_artifact") is True
+                and ppmi_current_submission_handoff.get("not_a_preregistration") is True
+                and ppmi_current_submission_handoff.get("not_a_submission_record") is True
+                and ppmi_current_submission_handoff.get("protected_data_included") is False
+                and ppmi_current_submission_handoff.get("credentials_or_tokens_included") is False
+                and ppmi_current_submission_handoff.get("record_paths_reported") is False
+                and ppmi_current_submission_handoff.get("fill_fields", {}).get("source_checklist")
+                == "scripts/ppmi_verily_user_fill_checklist.md"
+                and ppmi_current_submission_handoff.get("fill_fields", {}).get("packet_field_count") == 13
+                and ppmi_current_submission_handoff.get("fill_fields", {}).get("email_field_count") == 12
+                and ppmi_current_submission_handoff.get("fill_fields", {}).get("submission_metadata_field_count") == 4
+                and ppmi_current_submission_handoff.get("current_action", {}).get("action_id")
+                == "submit_ppmi_verily_access_request"
+                and ppmi_current_submission_handoff.get("current_action", {}).get("safe_to_execute_code_now")
+                is False
+                and ppmi_current_submission_handoff.get("package_artifacts", {}).get(
+                    "completed_package_validator"
+                )
+                == "scripts/validate_ppmi_verily_submission_package.py"
+                and ppmi_current_submission_handoff.get("workflow_command_sequence")
+                == EXPECTED_PPMI_WORKFLOW_COMMAND_SEQUENCE
+                and any(
+                    row.get("name")
+                    == "current handoff exposes submission and approval metadata recorder commands"
+                    and row.get("passed") is True
+                    for row in ppmi_current_submission_handoff.get("checks", [])
+                )
+                and any(
+                    row.get("name") == "workflow command sequence is complete and ordered"
+                    and row.get("passed") is True
+                    for row in ppmi_current_submission_handoff.get("checks", [])
+                )
+                and ppmi_current_submission_handoff.get("hard_failures") == []
+            )
+        )
+        and ppmi_zeroshot_blueprint_audit.get("passed") is True
+        and ppmi_zeroshot_blueprint_audit.get("decision") == "ppmi_verily_zeroshot_blueprint_ready"
+        and ppmi_zeroshot_blueprint_audit.get("not_a_model_result") is True
+        and ppmi_zeroshot_blueprint_audit.get("not_access_approval") is True
+        and ppmi_zeroshot_blueprint_audit.get("not_a_schema_probe_artifact") is True
+        and ppmi_zeroshot_blueprint_audit.get("not_a_preregistration") is True
+        and ppmi_zeroshot_blueprint_audit.get("protected_data_included") is False
+        and ppmi_zeroshot_blueprint_audit.get("credentials_or_tokens_included") is False
+        and ppmi_zeroshot_blueprint_audit.get("goal_complete") is False
+        and any(
+            row.get("name")
+            == "blueprint is anchored to exact pro-results prompt and rank4 directive"
+            and row.get("passed") is True
+            for row in ppmi_zeroshot_blueprint_audit.get("checks", [])
+        )
+        and t3_slotf_replication_audit.get("passed") is True
+        and t3_slotf_replication_audit.get("decision") == "slotF_replication_boundary_lift_not_promoted"
+        and t3_slotf_replication_audit.get("hard_failures") == []
+        and t3_slotf_replication_audit.get("goal_complete") is False
+        and all(
+            row.get("replicated_gate_pass") is False
+            for row in t3_slotf_replication_audit.get("coverage_rows", {}).values()
+        )
+        and all(
+            term.lower() in ppmi_runbook.lower()
+            for term in [
+                "persistent homology",
+                "multifractal",
+                "gradientboostingregressor",
+                "version 7.0",
+                "15 feb 2026",
+                "30 days",
+                "pdf or word",
+            ]
+        )
+        and all(
+            term.lower() in ppmi_packet.lower()
+            for term in [
+                "persistent homology",
+                "multifractal",
+                "gradientboostingregressor",
+                "no k-search",
+                "version 7.0",
+                "15 feb 2026",
+                "30 days",
+                "pdf or word",
+            ]
+        ),
+        {
+            "proresults_audit": {
+                "all_numbered_items_covered_or_access_blocked": proresults_audit.get(
+                    "all_numbered_items_covered_or_access_blocked"
+                ),
+                "goal_complete": proresults_audit.get("goal_complete"),
+                "hard_gaps": proresults_audit.get("hard_gaps"),
+                "t1_best_attempt": proresults_t1_best,
+                "completion_audit_passed": proresults_audit.get("completion_audit_passed"),
+                "completion_audit_failures": proresults_audit.get("completion_audit_failures"),
+                "completion_audit_check_count": len(
+                    proresults_audit.get("completion_audit_checklist", [])
+                ),
+                "prompt_source": proresults_audit.get("prompt_source"),
+                "explicit_directive_checklist_passed": proresults_audit.get(
+                    "explicit_directive_checklist_passed"
+                ),
+                "explicit_directive_checklist_failures": proresults_audit.get(
+                    "explicit_directive_checklist_failures"
+                ),
+                "explicit_directive_check_count": len(
+                    proresults_audit.get("explicit_directive_checklist", [])
+                ),
+                "rejected_temptation_guard_passed": proresults_audit.get(
+                    "rejected_temptation_guard_passed"
+                ),
+                "rejected_temptation_guard_failures": proresults_audit.get(
+                    "rejected_temptation_guard_failures"
+                ),
+                "checks_passed": proresults_audit.get("checks_passed"),
+                "check_failures": proresults_audit.get("check_failures"),
+                "combined_check_count": len(proresults_audit.get("checks", [])),
+                "external_access_state": proresults_audit.get("external_access_state"),
+                "current_verified_next_action": proresults_audit.get(
+                    "current_verified_next_action"
+                ),
+                "next_non_redundant_actions": proresults_audit.get(
+                    "next_non_redundant_actions"
+                ),
+                "s13_s15_check_passed": any(
+                    row.get("id") == "s13_s15_t3_transfer_extension_failed_and_not_promoted"
+                    and row.get("passed") is True
+                    for row in proresults_audit.get("completion_audit_checklist", [])
+                ),
+            },
+            "ppmi_packet_audit": {
+                "passed": ppmi_packet_audit.get("passed"),
+                "decision": ppmi_packet_audit.get("decision"),
+                "proresults_external_blueprint": ppmi_packet_audit.get("checks", {}).get(
+                    "proresults_external_blueprint", {}
+                ),
+                "official_sources": ppmi_packet_audit.get("checks", {}).get("official_sources", {}),
+                "tier3_submission": ppmi_packet_audit.get("checks", {}).get("tier3_submission", {}),
+                "required_packet_fields": ppmi_packet_audit.get("checks", {}).get(
+                    "required_packet_fields", {}
+                ),
+            },
+            "ppmi_submit_format_audit": {
+                "passed": ppmi_submit_format_audit.get("passed"),
+                "decision": ppmi_submit_format_audit.get("decision"),
+                "output_docx": ppmi_submit_format_audit.get("output_docx"),
+                "hard_failures": ppmi_submit_format_audit.get("hard_failures"),
+            },
+            "ppmi_submission_email_template_audit": {
+                "passed": ppmi_email_template_audit.get("passed"),
+                "decision": ppmi_email_template_audit.get("decision"),
+                "template": ppmi_email_template_audit.get("template"),
+                "hard_failures": ppmi_email_template_audit.get("hard_failures"),
+            },
+            "ppmi_submission_email_validator_audit": {
+                "passed": ppmi_email_validator_audit.get("passed"),
+                "decision": ppmi_email_validator_audit.get("decision"),
+                "validator": ppmi_email_validator_audit.get("validator"),
+                "hard_failures": ppmi_email_validator_audit.get("hard_failures"),
+                "redaction_check_passed": any(
+                    row.get("name") == "validator output does not echo completed email path or filename"
+                    and row.get("passed") is True
+                    for row in ppmi_email_validator_audit.get("checks", [])
+                ),
+            },
+            "ppmi_submission_package_validator_audit": {
+                "passed": ppmi_package_validator_audit.get("passed"),
+                "decision": ppmi_package_validator_audit.get("decision"),
+                "validator": ppmi_package_validator_audit.get("validator"),
+                "hard_failures": ppmi_package_validator_audit.get("hard_failures"),
+                "redaction_check_passed": any(
+                    row.get("name") == "validator output does not echo package paths or filenames"
+                    and row.get("passed") is True
+                    for row in ppmi_package_validator_audit.get("checks", [])
+                ),
+            },
+            "ppmi_user_fill_checklist_audit": {
+                "passed": ppmi_user_fill_checklist_audit.get("passed"),
+                "decision": ppmi_user_fill_checklist_audit.get("decision"),
+                "checklist": ppmi_user_fill_checklist_audit.get("checklist"),
+                "required_placeholder_count": ppmi_user_fill_checklist_audit.get(
+                    "required_placeholder_count"
+                ),
+                "packet_field_count": ppmi_user_fill_checklist_audit.get("packet_field_count"),
+                "email_field_count": ppmi_user_fill_checklist_audit.get("email_field_count"),
+                "submission_metadata_field_count": ppmi_user_fill_checklist_audit.get(
+                    "submission_metadata_field_count"
+                ),
+                "hard_failures": ppmi_user_fill_checklist_audit.get("hard_failures"),
+            },
+            "ppmi_schema_probe_checklist_audit": {
+                "passed": ppmi_schema_probe_checklist_audit.get("passed"),
+                "decision": ppmi_schema_probe_checklist_audit.get("decision"),
+                "checklist": ppmi_schema_probe_checklist_audit.get("checklist"),
+                "schema_probe_artifact_created": ppmi_schema_probe_checklist_audit.get(
+                    "schema_probe_artifact_created"
+                ),
+                "hard_failures": ppmi_schema_probe_checklist_audit.get("hard_failures"),
+            },
+            "ppmi_schema_probe_report_template_audit": {
+                "passed": ppmi_schema_probe_template_audit.get("passed"),
+                "decision": ppmi_schema_probe_template_audit.get("decision"),
+                "template": ppmi_schema_probe_template_audit.get("template"),
+                "schema_probe_artifact_created": ppmi_schema_probe_template_audit.get(
+                    "schema_probe_artifact_created"
+                ),
+                "hard_failures": ppmi_schema_probe_template_audit.get("hard_failures"),
+            },
+            "ppmi_schema_probe_report_validator_audit": {
+                "passed": ppmi_schema_probe_report_validator_audit.get("passed"),
+                "decision": ppmi_schema_probe_report_validator_audit.get("decision"),
+                "validator": ppmi_schema_probe_report_validator_audit.get("validator"),
+                "hard_failures": ppmi_schema_probe_report_validator_audit.get("hard_failures"),
+            },
+            "ppmi_target_free_manifest_validator_audit": {
+                "passed": ppmi_target_free_manifest_validator_audit.get("passed"),
+                "decision": ppmi_target_free_manifest_validator_audit.get("decision"),
+                "template": ppmi_target_free_manifest_validator_audit.get("template"),
+                "validator": ppmi_target_free_manifest_validator_audit.get("validator"),
+                "hard_failures": ppmi_target_free_manifest_validator_audit.get("hard_failures"),
+            },
+            "ppmi_completed_packet_validator_audit": {
+                "passed": ppmi_completed_packet_validator_audit.get("passed"),
+                "decision": ppmi_completed_packet_validator_audit.get("decision"),
+                "validator": ppmi_completed_packet_validator_audit.get("validator"),
+                "hard_failures": ppmi_completed_packet_validator_audit.get("hard_failures"),
+                "redaction_check_passed": any(
+                    row.get("name")
+                    == "validator output does not echo completed packet path or filename"
+                    and row.get("passed") is True
+                    for row in ppmi_completed_packet_validator_audit.get("checks", [])
+                ),
+            },
+            "ppmi_submission_bundle": {
+                "passed": ppmi_submission_bundle.get("passed"),
+                "decision": ppmi_submission_bundle.get("decision"),
+                "completed_packet_included": ppmi_submission_bundle.get("completed_packet_included"),
+                "protected_data_included": ppmi_submission_bundle.get("protected_data_included"),
+                "content_boundary": ppmi_submission_bundle.get("content_boundary"),
+                "next_steps": ppmi_submission_bundle.get("next_steps"),
+            },
+            "ppmi_current_submission_handoff": {
+                "passed": ppmi_current_submission_handoff.get("passed"),
+                "decision": ppmi_current_submission_handoff.get("decision"),
+                "current_action": ppmi_current_submission_handoff.get("current_action"),
+                "package_artifacts": ppmi_current_submission_handoff.get("package_artifacts"),
+                "content_boundary": ppmi_current_submission_handoff.get("content_boundary"),
+            },
+                "ppmi_zeroshot_blueprint_audit": {
+                    "passed": ppmi_zeroshot_blueprint_audit.get("passed"),
+                    "decision": ppmi_zeroshot_blueprint_audit.get("decision"),
+                    "blueprint": ppmi_zeroshot_blueprint_audit.get("blueprint"),
+                    "hard_failures": ppmi_zeroshot_blueprint_audit.get("hard_failures"),
+                    "prompt_trace_check_passed": any(
+                        row.get("name")
+                        == "blueprint is anchored to exact pro-results prompt and rank4 directive"
+                        and row.get("passed") is True
+                        for row in ppmi_zeroshot_blueprint_audit.get("checks", [])
+                    ),
+                },
+            "t3_slotF_replication_audit": {
+                "passed": t3_slotf_replication_audit.get("passed"),
+                "decision": t3_slotf_replication_audit.get("decision"),
+                "coverage_rows": t3_slotf_replication_audit.get("coverage_rows"),
+            },
+        },
     )
     v.check(
         "WATCH-PD runbook preserves request-first no-scaffold boundary",
@@ -1933,6 +3242,7 @@ def main() -> None:
         and external_access_readiness.get("summary", {}).get("compute_ready_route_count") == 0
         and external_access_readiness.get("summary", {}).get("hard_failure_count") == 0
         and external_access_readiness.get("summary", {}).get("top_priority_route") == "PPMI / Verily Study Watch"
+        and external_access_readiness.get("summary", {}).get("ppmi_submission_support_ready") is True
         and external_access_readiness.get("decision") == "access_packets_ready_no_compute"
         and access_rows.get("PPMI / Verily Study Watch", {}).get("action_packet_ready") is True
         and access_rows.get("Personalized Parkinson Project / PD Virtual Motor Exam", {}).get("action_packet_ready") is True
@@ -1952,8 +3262,1080 @@ def main() -> None:
                     "action_packet_ready": row.get("action_packet_ready"),
                     "remote_job_allowed_now": row.get("remote_job_allowed_now"),
                     "runbook": row.get("runbook", {}).get("path"),
+                    "submission_support": row.get("submission_support"),
                 }
                 for name, row in access_rows.items()
+            },
+        },
+    )
+    v.check(
+        "external access queue exposes generic packet preflight while keeping compute blocked",
+        access_request_packet_validator_audit.get("passed") is True
+        and access_request_packet_validator_audit.get("decision")
+        == "access_request_packet_validator_ready"
+        and access_request_packet_validator_audit.get("validator")
+        == "scripts/validate_access_request_packet.py"
+        and len(access_request_packet_validator_audit.get("route_results", {})) == 6
+        and access_request_packet_validator_audit.get("not_a_submission_record") is True
+        and access_request_packet_validator_audit.get("not_access_approval") is True
+        and access_request_packet_validator_audit.get("not_a_schema_probe_artifact") is True
+        and access_request_packet_validator_audit.get("not_a_model_result") is True
+        and access_request_packet_validator_audit.get("goal_complete") is False
+        and access_request_packet_validator_audit.get("protected_data_included") is False
+        and access_request_packet_validator_audit.get("credentials_or_tokens_included") is False
+        and access_request_packet_validator_audit.get("hard_failures") == []
+        and external_access_queue_status_audit.get("passed") is True
+        and external_access_queue_status_audit.get("decision") == "external_access_queue_status_ready"
+        and external_access_queue_status_audit.get("goal_complete") is False
+        and external_access_queue_status_audit.get("not_a_model_result") is True
+        and external_access_queue_status_audit.get("source_audit")
+        == "results/access_submission_tracker_20260509.json"
+        and external_access_queue_status_audit.get("packet_validator_audit")
+        == "results/access_request_packet_validator_audit_20260515.json"
+        and external_access_queue_status_audit.get("summary", {}).get("submit_ready_route_count") == 6
+        and external_access_queue_status_audit.get("summary", {}).get("compute_ready_route_count") == 0
+        and external_access_queue_status_audit.get("summary", {}).get("hard_failure_count") == 0
+        and external_access_queue_status_audit.get("content_boundary", {}).get("completed_packets_included")
+        is False
+        and external_access_queue_status_audit.get("content_boundary", {}).get("protected_data_included")
+        is False
+        and external_access_queue_status_audit.get("content_boundary", {}).get("record_paths_reported")
+        is False
+        and external_queue_ppmi_formula_gate.get("validator_gate")
+        == "ppmi_route_specific_formula_contract"
+        and external_queue_ppmi_formula_gate.get("negative_fixture_hard_failures")
+        == ["ppmi_route_specific_formula_contract"]
+        and external_queue_ppmi_formula_gate.get("track_c_fixed_branch", {}).get("K") == 250
+        and external_queue_ppmi_formula_gate.get("x4_v3_gsp_compatibility_policy")
+        == PPMI_X4_V3_GSP_COMPATIBILITY_POLICY
+        and external_queue_ppmi_result_gate.get("validator_gate")
+        == "ppmi_route_specific_result_contract"
+        and external_queue_ppmi_result_gate.get("negative_fixture_hard_failures")
+        == ["ppmi_route_specific_result_contract"]
+        and external_queue_ppmi_result_gate.get("track_c_fixed_branch", {}).get("K") == 250
+        and external_queue_ppmi_result_gate.get("x4_v3_gsp_compatibility_policy")
+        == PPMI_X4_V3_GSP_COMPATIBILITY_POLICY
+        and all(row.get("passed") is True for row in external_access_queue_status_audit.get("checks", [])),
+        {
+            "packet_validator": {
+                "decision": access_request_packet_validator_audit.get("decision"),
+                "route_count": len(access_request_packet_validator_audit.get("route_results", {})),
+                "hard_failures": access_request_packet_validator_audit.get("hard_failures"),
+            },
+            "queue_status": {
+                "decision": external_access_queue_status_audit.get("decision"),
+                "summary": external_access_queue_status_audit.get("summary"),
+                "content_boundary": external_access_queue_status_audit.get("content_boundary"),
+                "ppmi_contract_gates": external_queue_ppmi_gates,
+            },
+        },
+    )
+    v.check(
+        "external access queue exposes generic fill checklist while keeping compute blocked",
+        access_request_fill_checklist_audit.get("passed") is True
+        and access_request_fill_checklist_audit.get("decision")
+        == "access_request_fill_checklist_ready"
+        and access_request_fill_checklist_audit.get("script")
+        == "scripts/show_access_request_fill_checklist.py"
+        and access_request_fill_checklist_audit.get("route_count") == 6
+        and access_request_fill_checklist_audit.get("not_a_submission_record") is True
+        and access_request_fill_checklist_audit.get("not_access_approval") is True
+        and access_request_fill_checklist_audit.get("not_a_schema_probe_artifact") is True
+        and access_request_fill_checklist_audit.get("not_a_feature_manifest_artifact") is True
+        and access_request_fill_checklist_audit.get("not_a_model_result") is True
+        and access_request_fill_checklist_audit.get("goal_complete") is False
+        and access_request_fill_checklist_audit.get("protected_data_included") is False
+        and access_request_fill_checklist_audit.get("credentials_or_tokens_included") is False
+        and access_request_fill_checklist_audit.get("hard_failures") == []
+        and external_access_queue_status_audit.get("passed") is True
+        and external_access_queue_status_audit.get("decision") == "external_access_queue_status_ready"
+        and external_access_queue_status_audit.get("fill_checklist_audit")
+        == "results/access_request_fill_checklist_audit_20260515.json"
+        and all(row.get("passed") is True for row in external_access_queue_status_audit.get("checks", [])),
+        {
+            "fill_checklist": {
+                "decision": access_request_fill_checklist_audit.get("decision"),
+                "route_count": access_request_fill_checklist_audit.get("route_count"),
+                "hard_failures": access_request_fill_checklist_audit.get("hard_failures"),
+            },
+            "queue_status": {
+                "decision": external_access_queue_status_audit.get("decision"),
+                "fill_checklist_audit": external_access_queue_status_audit.get(
+                    "fill_checklist_audit"
+                ),
+            },
+        },
+    )
+    v.check(
+        "external access queue exposes a stable submission index while keeping compute blocked",
+        external_access_submission_index_audit.get("passed") is True
+        and external_access_submission_index_audit.get("decision")
+        == "external_access_submission_index_ready"
+        and external_access_submission_index_audit.get("writer")
+        == "scripts/write_external_access_submission_index.py"
+        and external_access_submission_index_audit.get("index_json")
+        == "results/external_access_submission_index_20260515.json"
+        and external_access_submission_index_audit.get("index_markdown")
+        == "results/external_access_submission_index_20260515.md"
+        and external_access_submission_index_audit.get("not_a_submission_record") is True
+        and external_access_submission_index_audit.get("not_access_approval") is True
+        and external_access_submission_index_audit.get("not_a_schema_probe_artifact") is True
+        and external_access_submission_index_audit.get("not_a_feature_manifest_artifact") is True
+        and external_access_submission_index_audit.get("not_a_model_result") is True
+        and external_access_submission_index_audit.get("goal_complete") is False
+        and external_access_submission_index_audit.get("protected_data_included") is False
+        and external_access_submission_index_audit.get("credentials_or_tokens_included") is False
+        and external_access_submission_index_audit.get("hard_failures") == []
+        and any(
+            row.get("name") == "every route exposes an ordered workflow command sequence"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("workflow_by_route", {}).get("ppmi_verily")
+            == [
+                "validate_completed_packet",
+                "validate_completed_email",
+                "validate_completed_package",
+                "record_submission_metadata",
+                "record_approval_metadata",
+                "validate_schema_probe_report",
+                "validate_target_free_manifest",
+                "validate_formula_sha_record",
+                "validate_zeroshot_result_record",
+            ]
+            for row in external_access_submission_index_audit.get("checks", [])
+        )
+        and external_access_queue_status_audit.get("passed") is True
+        and external_access_queue_status_audit.get("decision") == "external_access_queue_status_ready"
+        and external_access_queue_status_audit.get("submission_index_audit")
+        == "results/external_access_submission_index_audit_20260515.json"
+        and all(row.get("passed") is True for row in external_access_queue_status_audit.get("checks", [])),
+        {
+            "submission_index": {
+                "decision": external_access_submission_index_audit.get("decision"),
+                "index_markdown": external_access_submission_index_audit.get("index_markdown"),
+                "hard_failures": external_access_submission_index_audit.get("hard_failures"),
+                "workflow_check": next(
+                    (
+                        row
+                        for row in external_access_submission_index_audit.get("checks", [])
+                        if row.get("name")
+                        == "every route exposes an ordered workflow command sequence"
+                    ),
+                    {},
+                ),
+            },
+            "queue_status": {
+                "decision": external_access_queue_status_audit.get("decision"),
+                "submission_index_audit": external_access_queue_status_audit.get(
+                    "submission_index_audit"
+                ),
+            },
+        },
+    )
+    v.check(
+        "external access queue exposes all-route lifecycle status while keeping compute blocked",
+        external_access_lifecycle_status_audit.get("passed") is True
+        and external_access_lifecycle_status_audit.get("decision")
+        == "external_access_lifecycle_status_ready"
+        and external_access_lifecycle_status_audit.get("status_helper")
+        == "scripts/show_external_access_lifecycle.py"
+        and external_access_lifecycle_status_audit.get("not_a_submission_record") is True
+        and external_access_lifecycle_status_audit.get("not_access_approval") is True
+        and external_access_lifecycle_status_audit.get("not_a_schema_probe_artifact") is True
+        and external_access_lifecycle_status_audit.get("not_a_model_result") is True
+        and external_access_lifecycle_status_audit.get("goal_complete") is False
+        and external_access_lifecycle_status_audit.get("protected_data_included") is False
+        and external_access_lifecycle_status_audit.get("credentials_or_tokens_included") is False
+        and external_access_lifecycle_status_audit.get("hard_failures") == []
+        and any(
+            row.get("name")
+            == "every route exposes an ordered lifecycle workflow command sequence"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("default_workflow_by_route", {}).get("ppmi_verily")
+            == [
+                "validate_completed_packet",
+                "validate_completed_email",
+                "validate_completed_package",
+                "record_submission_metadata",
+                "record_approval_metadata",
+                "validate_schema_probe_report",
+                "validate_target_free_manifest",
+                "validate_formula_sha_record",
+                "validate_zeroshot_result_record",
+            ]
+            for row in external_access_lifecycle_status_audit.get("checks", [])
+        )
+        and external_access_queue_status_audit.get("passed") is True
+        and external_access_queue_status_audit.get("decision") == "external_access_queue_status_ready"
+        and external_access_queue_status_audit.get("lifecycle_status_audit")
+        == "results/external_access_lifecycle_status_audit_20260515.json"
+        and all(row.get("passed") is True for row in external_access_queue_status_audit.get("checks", [])),
+        {
+            "lifecycle_status": {
+                "decision": external_access_lifecycle_status_audit.get("decision"),
+                "status_helper": external_access_lifecycle_status_audit.get("status_helper"),
+                "hard_failures": external_access_lifecycle_status_audit.get("hard_failures"),
+                "workflow_check": next(
+                    (
+                        row
+                        for row in external_access_lifecycle_status_audit.get("checks", [])
+                        if row.get("name")
+                        == "every route exposes an ordered lifecycle workflow command sequence"
+                    ),
+                    {},
+                ),
+            },
+            "queue_status": {
+                "decision": external_access_queue_status_audit.get("decision"),
+                "lifecycle_status_audit": external_access_queue_status_audit.get(
+                    "lifecycle_status_audit"
+                ),
+            },
+        },
+    )
+    v.check(
+        "external access queue exposes generic schema-probe handoff while keeping compute blocked",
+        external_schema_probe_handoff_audit.get("passed") is True
+        and external_schema_probe_handoff_audit.get("decision")
+        == "external_schema_probe_handoff_ready"
+        and external_schema_probe_handoff_audit.get("writer")
+        == "scripts/write_external_schema_probe_handoff.py"
+        and external_schema_probe_handoff_audit.get("handoff_json")
+        == "results/external_schema_probe_handoff_20260515.json"
+        and external_schema_probe_handoff_audit.get("handoff_markdown")
+        == "results/external_schema_probe_handoff_20260515.md"
+        and external_schema_probe_handoff_audit.get("route_count") == 6
+        and external_schema_probe_handoff_audit.get("not_a_submission_record") is True
+        and external_schema_probe_handoff_audit.get("not_access_approval") is True
+        and external_schema_probe_handoff_audit.get("not_a_schema_probe_artifact") is True
+        and external_schema_probe_handoff_audit.get("not_a_feature_manifest_artifact") is True
+        and external_schema_probe_handoff_audit.get("not_a_preregistration") is True
+        and external_schema_probe_handoff_audit.get("not_a_model_result") is True
+        and external_schema_probe_handoff_audit.get("goal_complete") is False
+        and external_schema_probe_handoff_audit.get("protected_data_included") is False
+        and external_schema_probe_handoff_audit.get("credentials_or_tokens_included") is False
+        and external_schema_probe_handoff_audit.get("hard_failures") == []
+        and external_schema_probe_handoff_audit.get(
+            "post_approval_workflow_step_ids_by_route", {}
+        ).get("ppmi_verily")
+        == EXPECTED_SCHEMA_POST_APPROVAL_WORKFLOW_STEP_IDS
+        and all(
+            steps == EXPECTED_SCHEMA_POST_APPROVAL_WORKFLOW_STEP_IDS
+            for steps in external_schema_probe_handoff_audit.get(
+                "post_approval_workflow_step_ids_by_route", {}
+            ).values()
+        )
+        and external_access_queue_status_audit.get("passed") is True
+        and external_access_queue_status_audit.get("decision") == "external_access_queue_status_ready"
+        and external_access_queue_status_audit.get("schema_probe_handoff_audit")
+        == "results/external_schema_probe_handoff_audit_20260515.json"
+        and all(row.get("passed") is True for row in external_access_queue_status_audit.get("checks", [])),
+        {
+            "schema_probe_handoff": {
+                "decision": external_schema_probe_handoff_audit.get("decision"),
+                "handoff_markdown": external_schema_probe_handoff_audit.get("handoff_markdown"),
+                "hard_failures": external_schema_probe_handoff_audit.get("hard_failures"),
+                "post_approval_workflow_step_ids_by_route": (
+                    external_schema_probe_handoff_audit.get(
+                        "post_approval_workflow_step_ids_by_route"
+                    )
+                ),
+            },
+            "queue_status": {
+                "decision": external_access_queue_status_audit.get("decision"),
+                "schema_probe_handoff_audit": external_access_queue_status_audit.get(
+                    "schema_probe_handoff_audit"
+                ),
+            },
+        },
+    )
+    v.check(
+        "external access queue exposes generic schema-probe report preflight while keeping compute blocked",
+        external_schema_probe_report_validator_audit.get("passed") is True
+        and external_schema_probe_report_validator_audit.get("decision")
+        == "external_schema_probe_report_validator_ready"
+        and external_schema_probe_report_validator_audit.get("validator")
+        == "scripts/validate_schema_probe_report.py"
+        and len(external_schema_probe_report_validator_audit.get("route_results", {})) == 6
+        and external_schema_probe_report_validator_audit.get("not_a_submission_record") is True
+        and external_schema_probe_report_validator_audit.get("not_access_approval") is True
+        and external_schema_probe_report_validator_audit.get("not_a_schema_probe_artifact") is True
+        and external_schema_probe_report_validator_audit.get("not_a_model_result") is True
+        and external_schema_probe_report_validator_audit.get("goal_complete") is False
+        and external_schema_probe_report_validator_audit.get("protected_data_included") is False
+        and external_schema_probe_report_validator_audit.get("credentials_or_tokens_included") is False
+        and external_schema_probe_report_validator_audit.get("hard_failures") == []
+        and external_access_queue_status_audit.get("passed") is True
+        and external_access_queue_status_audit.get("decision") == "external_access_queue_status_ready"
+        and external_access_queue_status_audit.get("schema_probe_report_validator_audit")
+        == "results/external_schema_probe_report_validator_audit_20260515.json"
+        and all(row.get("passed") is True for row in external_access_queue_status_audit.get("checks", [])),
+        {
+            "schema_probe_report_validator": {
+                "decision": external_schema_probe_report_validator_audit.get("decision"),
+                "route_count": len(external_schema_probe_report_validator_audit.get("route_results", {})),
+                "hard_failures": external_schema_probe_report_validator_audit.get("hard_failures"),
+            },
+            "queue_status": {
+                "decision": external_access_queue_status_audit.get("decision"),
+                "schema_probe_report_validator_audit": external_access_queue_status_audit.get(
+                    "schema_probe_report_validator_audit"
+                ),
+            },
+        },
+    )
+    v.check(
+        "external access queue exposes generic target-free manifest preflight while keeping compute blocked",
+        external_target_free_manifest_validator_audit.get("passed") is True
+        and external_target_free_manifest_validator_audit.get("decision")
+        == "external_target_free_manifest_validator_ready"
+        and external_target_free_manifest_validator_audit.get("validator")
+        == "scripts/validate_target_free_manifest.py"
+        and len(external_target_free_manifest_validator_audit.get("route_results", {})) == 6
+        and external_target_free_manifest_validator_audit.get("not_a_submission_record") is True
+        and external_target_free_manifest_validator_audit.get("not_access_approval") is True
+        and external_target_free_manifest_validator_audit.get("not_a_schema_probe_artifact") is True
+        and external_target_free_manifest_validator_audit.get("not_a_preregistration") is True
+        and external_target_free_manifest_validator_audit.get("not_a_feature_manifest_artifact") is True
+        and external_target_free_manifest_validator_audit.get("not_a_model_result") is True
+        and external_target_free_manifest_validator_audit.get("goal_complete") is False
+        and external_target_free_manifest_validator_audit.get("protected_data_included") is False
+        and external_target_free_manifest_validator_audit.get("credentials_or_tokens_included") is False
+        and external_target_free_manifest_validator_audit.get("hard_failures") == []
+        and external_access_queue_status_audit.get("passed") is True
+        and external_access_queue_status_audit.get("decision") == "external_access_queue_status_ready"
+        and external_access_queue_status_audit.get("target_free_manifest_validator_audit")
+        == "results/external_target_free_manifest_validator_audit_20260515.json"
+        and all(row.get("passed") is True for row in external_access_queue_status_audit.get("checks", [])),
+        {
+            "target_free_manifest_validator": {
+                "decision": external_target_free_manifest_validator_audit.get("decision"),
+                "route_count": len(external_target_free_manifest_validator_audit.get("route_results", {})),
+                "hard_failures": external_target_free_manifest_validator_audit.get("hard_failures"),
+            },
+            "queue_status": {
+                "decision": external_access_queue_status_audit.get("decision"),
+                "target_free_manifest_validator_audit": external_access_queue_status_audit.get(
+                    "target_free_manifest_validator_audit"
+                ),
+            },
+        },
+    )
+    v.check(
+        "external access queue exposes generic target-free manifest templates while keeping compute blocked",
+        external_target_free_manifest_templates_audit.get("passed") is True
+        and external_target_free_manifest_templates_audit.get("decision")
+        == "external_target_free_manifest_templates_ready"
+        and external_target_free_manifest_templates_audit.get("writer")
+        == "scripts/write_external_target_free_manifest_templates.py"
+        and external_target_free_manifest_templates_audit.get("templates_json")
+        == "results/external_target_free_manifest_templates_20260515.json"
+        and external_target_free_manifest_templates_audit.get("templates_markdown")
+        == "results/external_target_free_manifest_templates_20260515.md"
+        and external_target_free_manifest_templates_audit.get("route_count") == 6
+        and external_target_free_manifest_templates_audit.get("not_a_submission_record") is True
+        and external_target_free_manifest_templates_audit.get("not_access_approval") is True
+        and external_target_free_manifest_templates_audit.get("not_a_schema_probe_artifact") is True
+        and external_target_free_manifest_templates_audit.get("not_a_feature_manifest_artifact") is True
+        and external_target_free_manifest_templates_audit.get("not_a_preregistration") is True
+        and external_target_free_manifest_templates_audit.get("not_a_model_result") is True
+        and external_target_free_manifest_templates_audit.get("goal_complete") is False
+        and external_target_free_manifest_templates_audit.get("protected_data_included") is False
+        and external_target_free_manifest_templates_audit.get("credentials_or_tokens_included") is False
+        and external_target_free_manifest_templates_audit.get("hard_failures") == []
+        and external_target_free_manifest_templates_audit.get(
+            "post_schema_workflow_step_ids_by_route", {}
+        ).get("ppmi_verily")
+        == EXPECTED_TARGET_FREE_POST_SCHEMA_WORKFLOW_STEP_IDS
+        and all(
+            steps == EXPECTED_TARGET_FREE_POST_SCHEMA_WORKFLOW_STEP_IDS
+            for steps in external_target_free_manifest_templates_audit.get(
+                "post_schema_workflow_step_ids_by_route", {}
+            ).values()
+        )
+        and external_access_queue_status_audit.get("passed") is True
+        and external_access_queue_status_audit.get("decision") == "external_access_queue_status_ready"
+        and external_access_queue_status_audit.get("target_free_manifest_templates_audit")
+        == "results/external_target_free_manifest_templates_audit_20260515.json"
+        and all(row.get("passed") is True for row in external_access_queue_status_audit.get("checks", [])),
+        {
+            "target_free_manifest_templates": {
+                "decision": external_target_free_manifest_templates_audit.get("decision"),
+                "templates_markdown": external_target_free_manifest_templates_audit.get(
+                    "templates_markdown"
+                ),
+                "hard_failures": external_target_free_manifest_templates_audit.get(
+                    "hard_failures"
+                ),
+                "post_schema_workflow_step_ids_by_route": (
+                    external_target_free_manifest_templates_audit.get(
+                        "post_schema_workflow_step_ids_by_route"
+                    )
+                ),
+            },
+            "queue_status": {
+                "decision": external_access_queue_status_audit.get("decision"),
+                "target_free_manifest_templates_audit": external_access_queue_status_audit.get(
+                    "target_free_manifest_templates_audit"
+                ),
+            },
+        },
+    )
+    v.check(
+        "external access queue exposes generic zero-shot blueprint handoff while keeping compute blocked",
+        external_zeroshot_blueprint_handoff_audit.get("passed") is True
+        and external_zeroshot_blueprint_handoff_audit.get("decision")
+        == "external_zeroshot_blueprint_handoff_ready"
+        and external_zeroshot_blueprint_handoff_audit.get("writer")
+        == "scripts/write_external_zeroshot_blueprint_handoff.py"
+        and external_zeroshot_blueprint_handoff_audit.get("handoff_json")
+        == "results/external_zeroshot_blueprint_handoff_20260515.json"
+        and external_zeroshot_blueprint_handoff_audit.get("handoff_markdown")
+        == "results/external_zeroshot_blueprint_handoff_20260515.md"
+        and external_zeroshot_blueprint_handoff_audit.get("route_count") == 6
+        and external_zeroshot_blueprint_handoff_audit.get("not_a_submission_record") is True
+        and external_zeroshot_blueprint_handoff_audit.get("not_access_approval") is True
+        and external_zeroshot_blueprint_handoff_audit.get("not_a_schema_probe_artifact") is True
+        and external_zeroshot_blueprint_handoff_audit.get("not_a_feature_manifest_artifact") is True
+        and external_zeroshot_blueprint_handoff_audit.get("not_a_preregistration") is True
+        and external_zeroshot_blueprint_handoff_audit.get("not_a_model_result") is True
+        and external_zeroshot_blueprint_handoff_audit.get("goal_complete") is False
+        and external_zeroshot_blueprint_handoff_audit.get("protected_data_included") is False
+        and external_zeroshot_blueprint_handoff_audit.get("credentials_or_tokens_included") is False
+        and external_zeroshot_blueprint_handoff_audit.get("hard_failures") == []
+        and external_access_queue_status_audit.get("passed") is True
+        and external_access_queue_status_audit.get("decision") == "external_access_queue_status_ready"
+        and external_access_queue_status_audit.get("zeroshot_blueprint_handoff_audit")
+        == "results/external_zeroshot_blueprint_handoff_audit_20260515.json"
+        and all(row.get("passed") is True for row in external_access_queue_status_audit.get("checks", [])),
+        {
+            "zeroshot_blueprint_handoff": {
+                "decision": external_zeroshot_blueprint_handoff_audit.get("decision"),
+                "handoff_markdown": external_zeroshot_blueprint_handoff_audit.get(
+                    "handoff_markdown"
+                ),
+                "hard_failures": external_zeroshot_blueprint_handoff_audit.get(
+                    "hard_failures"
+                ),
+            },
+            "queue_status": {
+                "decision": external_access_queue_status_audit.get("decision"),
+                "zeroshot_blueprint_handoff_audit": external_access_queue_status_audit.get(
+                    "zeroshot_blueprint_handoff_audit"
+                ),
+            },
+        },
+    )
+    v.check(
+        "external access queue exposes PPMI route-specific formula-SHA contract while keeping compute blocked",
+        external_formula_sha_templates_audit.get("passed") is True
+        and external_formula_sha_templates_audit.get("decision")
+        == "external_formula_sha_templates_ready"
+        and external_formula_sha_templates_audit.get("writer")
+        == "scripts/write_external_formula_sha_templates.py"
+        and external_formula_sha_templates_audit.get("validator")
+        == "scripts/validate_external_formula_sha_record.py"
+        and external_formula_sha_templates_audit.get("templates_json")
+        == "results/external_formula_sha_templates_20260515.json"
+        and external_formula_sha_templates_audit.get("templates_markdown")
+        == "results/external_formula_sha_templates_20260515.md"
+        and external_formula_sha_templates_audit.get("template_dir")
+        == "results/external_formula_sha_templates_20260515"
+        and external_formula_sha_templates_audit.get("route_count") == 6
+        and external_formula_sha_templates_audit.get("not_a_submission_record") is True
+        and external_formula_sha_templates_audit.get("not_access_approval") is True
+        and external_formula_sha_templates_audit.get("not_a_schema_probe_artifact") is True
+        and external_formula_sha_templates_audit.get("not_a_feature_manifest_artifact") is True
+        and external_formula_sha_templates_audit.get("not_a_preregistration") is True
+        and external_formula_sha_templates_audit.get("not_a_model_result") is True
+        and external_formula_sha_templates_audit.get("goal_complete") is False
+        and external_formula_sha_templates_audit.get("protected_data_included") is False
+        and external_formula_sha_templates_audit.get("credentials_or_tokens_included") is False
+        and external_formula_sha_templates_audit.get("hard_failures") == []
+        and external_formula_sha_templates_audit.get(
+            "post_formula_workflow_step_ids_by_route", {}
+        ).get("ppmi_verily")
+        == EXPECTED_FORMULA_POST_FORMULA_WORKFLOW_STEP_IDS
+        and all(
+            steps == EXPECTED_FORMULA_POST_FORMULA_WORKFLOW_STEP_IDS
+            for steps in external_formula_sha_templates_audit.get(
+                "post_formula_workflow_step_ids_by_route", {}
+            ).values()
+        )
+        and external_formula_sha_ppmi.get("ppmi_formula_contract_present") is True
+        and external_formula_sha_ppmi.get("ppmi_contract_negative_failed") is True
+        and external_formula_sha_ppmi.get("ppmi_bad_contract_hard_failures")
+        == ["ppmi_route_specific_formula_contract"]
+        and external_access_queue_status_audit.get("passed") is True
+        and external_access_queue_status_audit.get("decision") == "external_access_queue_status_ready"
+        and external_access_queue_status_audit.get("formula_sha_templates_audit")
+        == "results/external_formula_sha_templates_audit_20260515.json"
+        and external_queue_ppmi_formula_gate.get("validator_gate")
+        == "ppmi_route_specific_formula_contract"
+        and external_queue_ppmi_formula_gate.get("negative_fixture_hard_failures")
+        == ["ppmi_route_specific_formula_contract"]
+        and external_queue_ppmi_formula_gate.get("x4_v3_gsp_compatibility_policy")
+        == PPMI_X4_V3_GSP_COMPATIBILITY_POLICY
+        and all(row.get("passed") is True for row in external_access_queue_status_audit.get("checks", [])),
+        {
+            "formula_sha_templates": {
+                "decision": external_formula_sha_templates_audit.get("decision"),
+                "templates_markdown": external_formula_sha_templates_audit.get(
+                    "templates_markdown"
+                ),
+                "hard_failures": external_formula_sha_templates_audit.get("hard_failures"),
+                "post_formula_workflow_step_ids_by_route": (
+                    external_formula_sha_templates_audit.get(
+                        "post_formula_workflow_step_ids_by_route"
+                    )
+                ),
+                "ppmi_formula_contract_present": external_formula_sha_ppmi.get(
+                    "ppmi_formula_contract_present"
+                ),
+                "ppmi_contract_negative_failed": external_formula_sha_ppmi.get(
+                    "ppmi_contract_negative_failed"
+                ),
+                "ppmi_bad_contract_hard_failures": external_formula_sha_ppmi.get(
+                    "ppmi_bad_contract_hard_failures"
+                ),
+            },
+            "queue_status": {
+                "decision": external_access_queue_status_audit.get("decision"),
+                "formula_sha_templates_audit": external_access_queue_status_audit.get(
+                    "formula_sha_templates_audit"
+                ),
+                "ppmi_contract_gate": external_queue_ppmi_formula_gate,
+            },
+        },
+    )
+    v.check(
+        "external access queue exposes PPMI route-specific zero-shot result contract while keeping compute blocked",
+        external_zeroshot_result_templates_audit.get("passed") is True
+        and external_zeroshot_result_templates_audit.get("decision")
+        == "external_zeroshot_result_templates_ready"
+        and external_zeroshot_result_templates_audit.get("writer")
+        == "scripts/write_external_zeroshot_result_templates.py"
+        and external_zeroshot_result_templates_audit.get("validator")
+        == "scripts/validate_external_zeroshot_result_record.py"
+        and external_zeroshot_result_templates_audit.get("templates_json")
+        == "results/external_zeroshot_result_templates_20260515.json"
+        and external_zeroshot_result_templates_audit.get("templates_markdown")
+        == "results/external_zeroshot_result_templates_20260515.md"
+        and external_zeroshot_result_templates_audit.get("template_dir")
+        == "results/external_zeroshot_result_templates_20260515"
+        and external_zeroshot_result_templates_audit.get("route_count") == 6
+        and external_zeroshot_result_templates_audit.get("not_a_submission_record") is True
+        and external_zeroshot_result_templates_audit.get("not_access_approval") is True
+        and external_zeroshot_result_templates_audit.get("not_a_schema_probe_artifact") is True
+        and external_zeroshot_result_templates_audit.get("not_a_feature_manifest_artifact") is True
+        and external_zeroshot_result_templates_audit.get("not_a_preregistration") is True
+        and external_zeroshot_result_templates_audit.get("not_a_model_result") is True
+        and external_zeroshot_result_templates_audit.get("goal_complete") is False
+        and external_zeroshot_result_templates_audit.get("protected_data_included") is False
+        and external_zeroshot_result_templates_audit.get("credentials_or_tokens_included") is False
+        and external_zeroshot_result_templates_audit.get("hard_failures") == []
+        and external_zeroshot_result_templates_audit.get(
+            "post_score_reporting_workflow_step_ids_by_route", {}
+        ).get("ppmi_verily")
+        == EXPECTED_ZEROSHOT_RESULT_POST_SCORE_WORKFLOW_STEP_IDS
+        and all(
+            steps == EXPECTED_ZEROSHOT_RESULT_POST_SCORE_WORKFLOW_STEP_IDS
+            for steps in external_zeroshot_result_templates_audit.get(
+                "post_score_reporting_workflow_step_ids_by_route", {}
+            ).values()
+        )
+        and external_zeroshot_result_ppmi.get("ppmi_result_contract_present") is True
+        and external_zeroshot_result_ppmi.get("ppmi_contract_negative_failed") is True
+        and external_zeroshot_result_ppmi.get("ppmi_bad_contract_hard_failures")
+        == ["ppmi_route_specific_result_contract"]
+        and external_access_queue_status_audit.get("passed") is True
+        and external_access_queue_status_audit.get("decision") == "external_access_queue_status_ready"
+        and external_access_queue_status_audit.get("zeroshot_result_templates_audit")
+        == "results/external_zeroshot_result_templates_audit_20260515.json"
+        and external_queue_ppmi_result_gate.get("validator_gate")
+        == "ppmi_route_specific_result_contract"
+        and external_queue_ppmi_result_gate.get("negative_fixture_hard_failures")
+        == ["ppmi_route_specific_result_contract"]
+        and external_queue_ppmi_result_gate.get("x4_v3_gsp_compatibility_policy")
+        == PPMI_X4_V3_GSP_COMPATIBILITY_POLICY
+        and all(row.get("passed") is True for row in external_access_queue_status_audit.get("checks", [])),
+        {
+            "zeroshot_result_templates": {
+                "decision": external_zeroshot_result_templates_audit.get("decision"),
+                "templates_markdown": external_zeroshot_result_templates_audit.get(
+                    "templates_markdown"
+                ),
+                "hard_failures": external_zeroshot_result_templates_audit.get(
+                    "hard_failures"
+                ),
+                "post_score_reporting_workflow_step_ids_by_route": (
+                    external_zeroshot_result_templates_audit.get(
+                        "post_score_reporting_workflow_step_ids_by_route"
+                    )
+                ),
+                "ppmi_result_contract_present": external_zeroshot_result_ppmi.get(
+                    "ppmi_result_contract_present"
+                ),
+                "ppmi_contract_negative_failed": external_zeroshot_result_ppmi.get(
+                    "ppmi_contract_negative_failed"
+                ),
+                "ppmi_bad_contract_hard_failures": external_zeroshot_result_ppmi.get(
+                    "ppmi_bad_contract_hard_failures"
+                ),
+            },
+            "queue_status": {
+                "decision": external_access_queue_status_audit.get("decision"),
+                "zeroshot_result_templates_audit": external_access_queue_status_audit.get(
+                    "zeroshot_result_templates_audit"
+                ),
+                "ppmi_contract_gate": external_queue_ppmi_result_gate,
+            },
+        },
+    )
+    v.check(
+        "access submission and approval recorders keep PPMI lifecycle compute-blocked",
+        access_submission_tracker.get("decision") == "access_submission_tracker_ready"
+        and access_submission_tracker.get("summary", {}).get("passed") is True
+        and access_submission_tracker.get("summary", {}).get("submit_ready_route_count") == 6
+        and access_submission_tracker.get("summary", {}).get("compute_ready_route_count") == 0
+        and access_submission_tracker.get("summary", {}).get("hard_failure_count") == 0
+        and ppmi_submission_route.get("packet", {}).get("passed") is True
+        and ppmi_submission_route.get("remote_job_allowed_now") is False
+        and ppmi_submission_route.get("scaffold_allowed_now") is False
+        and ppmi_official_recheck.get("official_sources_passed") is True
+        and ppmi_official_recheck.get("tier3_submission_passed") is True
+        and ppmi_official_recheck.get("required_packet_fields_passed") is True
+        and ppmi_submit_format_audit.get("passed") is True
+        and ppmi_submit_format_audit.get("decision") == "ppmi_verily_word_template_ready_to_fill"
+        and ppmi_email_template_audit.get("passed") is True
+        and ppmi_email_template_audit.get("decision") == "ppmi_verily_submission_email_template_ready"
+        and ppmi_email_validator_audit.get("passed") is True
+        and ppmi_email_validator_audit.get("decision") == "ppmi_verily_submission_email_validator_ready"
+        and (ppmi_submission_route.get("completed_package_validator") or {}).get("validator")
+        == "scripts/validate_ppmi_verily_submission_package.py"
+        and (ppmi_submission_route.get("completed_package_validator") or {}).get("not_a_submission_record")
+        is True
+        and (ppmi_submission_route.get("completed_package_validator") or {}).get("not_access_approval")
+        is True
+        and (ppmi_submission_route.get("completed_package_validator") or {}).get("not_a_model_result")
+        is True
+        and (ppmi_submission_route.get("completed_package_validator") or {}).get("protected_data_included")
+        is False
+        and ppmi_user_fill_checklist_audit.get("passed") is True
+        and ppmi_user_fill_checklist_audit.get("decision") == "ppmi_verily_user_fill_checklist_ready"
+        and ppmi_user_fill_checklist_audit.get("required_placeholder_count")
+        == EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT
+        and ppmi_user_fill_checklist_audit.get("packet_field_count") == EXPECTED_PPMI_PACKET_FIELD_COUNT
+        and ppmi_user_fill_checklist_audit.get("email_field_count") == EXPECTED_PPMI_EMAIL_FIELD_COUNT
+        and ppmi_user_fill_checklist_audit.get("submission_metadata_field_count")
+        == EXPECTED_PPMI_SUBMISSION_METADATA_FIELD_COUNT
+        and ppmi_schema_probe_checklist_audit.get("passed") is True
+        and ppmi_schema_probe_checklist_audit.get("decision") == "ppmi_verily_schema_probe_checklist_ready"
+        and ppmi_schema_probe_template_audit.get("passed") is True
+        and ppmi_schema_probe_template_audit.get("decision") == "ppmi_verily_schema_probe_report_template_ready"
+        and ppmi_completed_packet_validator_audit.get("passed") is True
+        and ppmi_completed_packet_validator_audit.get("decision") == "ppmi_verily_completed_packet_validator_ready"
+        and any(
+            row.get("name") == "validator output does not echo completed email path or filename"
+            and row.get("passed") is True
+            for row in ppmi_email_validator_audit.get("checks", [])
+        )
+        and any(
+            row.get("name") == "validator output does not echo completed packet path or filename"
+            and row.get("passed") is True
+            for row in ppmi_completed_packet_validator_audit.get("checks", [])
+        )
+        and ppmi_submission_bundle.get("passed") is True
+        and ppmi_submission_bundle.get("decision") == "ppmi_verily_submission_bundle_ready"
+        and ppmi_submission_bundle.get("content_boundary", {}).get("completed_packet_included")
+        is False
+        and ppmi_submission_bundle.get("content_boundary", {}).get("completed_email_included")
+        is False
+        and ppmi_submission_bundle.get("content_boundary", {}).get("protected_data_included")
+        is False
+        and ppmi_submission_bundle.get("content_boundary", {}).get("credentials_or_tokens_included")
+        is False
+        and ppmi_submission_bundle.get("fill_fields", {}).get("source_checklist")
+        == "scripts/ppmi_verily_user_fill_checklist.md"
+        and ppmi_submission_bundle.get("fill_fields", {}).get("packet_field_count") == 13
+        and ppmi_submission_bundle.get("fill_fields", {}).get("email_field_count") == 12
+        and ppmi_submission_bundle.get("fill_fields", {}).get("submission_metadata_field_count") == 4
+        and any(
+            step.get("step_id") == "preflight_completed_package"
+            and "scripts/validate_ppmi_verily_submission_package.py" in step.get("tools", [])
+            for step in ppmi_submission_bundle.get("next_steps", [])
+        )
+        and any(
+            step.get("step_id") == "record_submission_metadata"
+            and "scripts/record_access_submission.py" in step.get("command_template", "")
+            for step in ppmi_submission_bundle.get("next_steps", [])
+        )
+        and any(
+            step.get("step_id") == "record_approval_metadata"
+            and "scripts/record_access_approval.py" in step.get("command_template", "")
+            and step.get("blocked_until_approval") is True
+            and step.get("protected_compute_allowed") is False
+            for step in ppmi_submission_bundle.get("next_steps", [])
+        )
+        and (
+            lifecycle_state != "packet_ready"
+            or (
+                ppmi_current_submission_handoff.get("passed") is True
+                and ppmi_current_submission_handoff.get("decision")
+                == "ppmi_verily_current_submission_handoff_ready"
+                and ppmi_current_submission_handoff.get("goal_complete") is False
+                and ppmi_current_submission_handoff.get("not_a_model_result") is True
+                and ppmi_current_submission_handoff.get("not_access_approval") is True
+                and ppmi_current_submission_handoff.get("not_a_schema_probe_artifact") is True
+                and ppmi_current_submission_handoff.get("not_a_preregistration") is True
+                and ppmi_current_submission_handoff.get("not_a_submission_record") is True
+                and ppmi_current_submission_handoff.get("protected_data_included") is False
+                and ppmi_current_submission_handoff.get("credentials_or_tokens_included") is False
+                and ppmi_current_submission_handoff.get("record_paths_reported") is False
+                and ppmi_current_submission_handoff.get("fill_fields", {}).get("source_checklist")
+                == "scripts/ppmi_verily_user_fill_checklist.md"
+                and ppmi_current_submission_handoff.get("fill_fields", {}).get("packet_field_count") == 13
+                and ppmi_current_submission_handoff.get("fill_fields", {}).get("email_field_count") == 12
+                and ppmi_current_submission_handoff.get("fill_fields", {}).get("submission_metadata_field_count") == 4
+                and ppmi_current_submission_handoff.get("current_action", {}).get("action_id")
+                == "submit_ppmi_verily_access_request"
+                and ppmi_current_submission_handoff.get("current_action", {}).get("safe_to_execute_code_now")
+                is False
+                and ppmi_current_submission_handoff.get("package_artifacts", {}).get(
+                    "completed_package_validator"
+                )
+                == "scripts/validate_ppmi_verily_submission_package.py"
+                and ppmi_current_submission_handoff.get("workflow_command_sequence")
+                == EXPECTED_PPMI_WORKFLOW_COMMAND_SEQUENCE
+                and any(
+                    row.get("name")
+                    == "current handoff exposes submission and approval metadata recorder commands"
+                    and row.get("passed") is True
+                    for row in ppmi_current_submission_handoff.get("checks", [])
+                )
+                and any(
+                    row.get("name") == "workflow command sequence is complete and ordered"
+                    and row.get("passed") is True
+                    for row in ppmi_current_submission_handoff.get("checks", [])
+                )
+                and ppmi_current_submission_handoff.get("hard_failures") == []
+            )
+        )
+        and ppmi_zeroshot_blueprint_audit.get("passed") is True
+        and ppmi_zeroshot_blueprint_audit.get("decision") == "ppmi_verily_zeroshot_blueprint_ready"
+        and ppmi_zeroshot_blueprint_audit.get("goal_complete") is False
+        and access_submission_recorder_audit.get("passed") is True
+        and access_submission_recorder_audit.get("decision") == "access_submission_recorder_passed"
+        and access_submission_recorder_audit.get("hard_failures") == []
+        and access_submission_recorder_audit.get("goal_complete") is False
+        and access_submission_recorder_audit.get("not_a_model_result") is True
+        and all(row.get("passed") is True for row in access_submission_recorder_audit.get("checks", []))
+        and any(
+            row.get("name") == "recorder refuses synthetic or audit-only submission sources"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("returncode") != 0
+            for row in access_submission_recorder_audit.get("checks", [])
+        )
+        and any(
+            row.get("name") == "recorder refuses unfilled submission command-template placeholders"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("returncode") != 0
+            for row in access_submission_recorder_audit.get("checks", [])
+        )
+        and "submitted-pending-approval" in access_submission_recorder_audit.get("claim", "")
+        and "all protected-data/model actions stay blocked" in access_submission_recorder_audit.get("claim", "")
+        and "synthetic or audit-only submission sources are rejected"
+        in access_submission_recorder_audit.get("claim", "")
+        and "unfilled command-template placeholders are rejected"
+        in access_submission_recorder_audit.get("claim", "")
+        and access_approval_recorder_audit.get("passed") is True
+        and access_approval_recorder_audit.get("decision") == "access_approval_recorder_passed"
+        and access_approval_recorder_audit.get("hard_failures") == []
+        and access_approval_recorder_audit.get("goal_complete") is False
+        and access_approval_recorder_audit.get("not_a_model_result") is True
+        and all(row.get("passed") is True for row in access_approval_recorder_audit.get("checks", []))
+        and any(
+            row.get("name") == "recorder refuses synthetic or audit-only approval sources"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("returncode") != 0
+            for row in access_approval_recorder_audit.get("checks", [])
+        )
+        and any(
+            row.get("name") == "recorder refuses unfilled approval command-template placeholders"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("returncode") != 0
+            for row in access_approval_recorder_audit.get("checks", [])
+        )
+        and "read-only schema probing" in access_approval_recorder_audit.get("claim", "")
+        and "canonical updates remain blocked" in access_approval_recorder_audit.get("claim", "")
+        and "synthetic or audit-only approval sources are rejected"
+        in access_approval_recorder_audit.get("claim", "")
+        and "unfilled command-template placeholders are rejected"
+        in access_approval_recorder_audit.get("claim", "")
+        and schema_probe_recorder_audit.get("passed") is True
+        and schema_probe_recorder_audit.get("decision") == "schema_probe_recorder_passed"
+        and schema_probe_recorder_audit.get("hard_failures") == []
+        and schema_probe_recorder_audit.get("goal_complete") is False
+        and schema_probe_recorder_audit.get("not_a_model_result") is True
+        and all(row.get("passed") is True for row in schema_probe_recorder_audit.get("checks", []))
+        and any(
+            row.get("name") == "approval record identity is redacted in schema-probe artifact and errors"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("approval_record_identity_redacted") is True
+            and row.get("evidence", {}).get("approval_record_path_reported") is False
+            and row.get("evidence", {}).get("approval_record_path_present") is False
+            and row.get("evidence", {}).get("missing_error_path_echoed") is False
+            and row.get("evidence", {}).get("missing_error_filename_echoed") is False
+            and row.get("evidence", {}).get("bad_error_path_echoed") is False
+            and row.get("evidence", {}).get("bad_error_filename_echoed") is False
+            for row in schema_probe_recorder_audit.get("checks", [])
+        )
+        and any(
+            row.get("name") == "synthetic approval record cannot unlock schema-probe recording"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("attempt_returncode") != 0
+            and row.get("evidence", {}).get("synthetic_error_path_echoed") is False
+            and row.get("evidence", {}).get("synthetic_error_filename_echoed") is False
+            for row in schema_probe_recorder_audit.get("checks", [])
+        )
+        and any(
+            row.get("name") == "recorder refuses unfilled schema-probe command-template placeholders"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("returncode") != 0
+            for row in schema_probe_recorder_audit.get("checks", [])
+        )
+        and "approval-record local identity is redacted" in schema_probe_recorder_audit.get("claim", "")
+        and "synthetic audit-only approval records cannot unlock schema-probe recording"
+        in schema_probe_recorder_audit.get("claim", "")
+        and "unfilled schema-probe command-template placeholders are rejected"
+        in schema_probe_recorder_audit.get("claim", "")
+        and state_aware_access_lifecycle_ready
+        and (
+            lifecycle_state != "packet_ready"
+            or packet_ready_current_action_support_ready
+        )
+        and lifecycle_pre_submission_handoff.get("from_tracker") is True
+        and lifecycle_pre_submission_handoff.get("checklist")
+        == "scripts/ppmi_verily_user_fill_checklist.md"
+        and lifecycle_pre_submission_handoff.get("completed_packet_validator")
+        == "scripts/validate_ppmi_verily_completed_packet.py"
+        and lifecycle_pre_submission_handoff.get("completed_email_validator")
+        == "scripts/validate_ppmi_verily_submission_email.py"
+        and lifecycle_pre_submission_handoff.get("completed_package_validator")
+        == "scripts/validate_ppmi_verily_submission_package.py"
+        and lifecycle_pre_submission_handoff.get("submission_email_template")
+        == "scripts/ppmi_verily_submission_email_template.md"
+        and lifecycle_pre_submission_handoff.get("not_a_submission_record") is True
+        and lifecycle_pre_submission_handoff.get("not_access_approval") is True
+        and lifecycle_pre_submission_handoff.get("not_a_model_result") is True
+        and lifecycle_pre_submission_handoff.get("protected_data_included") is False
+        and lifecycle_pre_submission_handoff.get("credentials_or_tokens_included") is False
+        and "scripts/record_access_submission.py"
+        in lifecycle_pre_submission_handoff.get("record_submission_command_template", "")
+        and "<ISO8601_UTC>"
+        in lifecycle_pre_submission_handoff.get("record_submission_command_template", "")
+        and "<non_protected_channel>"
+        in lifecycle_pre_submission_handoff.get("record_submission_command_template", "")
+        and "<non_protected_submitter>"
+        in lifecycle_pre_submission_handoff.get("record_submission_command_template", "")
+        and "<non_protected_receipt>"
+        in lifecycle_pre_submission_handoff.get("record_submission_command_template", "")
+        and "--pre-submission-preflight-passed"
+        in lifecycle_pre_submission_handoff.get("record_submission_command_template", "")
+        and "<portal-or-email>"
+        not in lifecycle_pre_submission_handoff.get("record_submission_command_template", "")
+        and "<approved-submitter>"
+        not in lifecycle_pre_submission_handoff.get("record_submission_command_template", "")
+        and "<non-protected-receipt>"
+        not in lifecycle_pre_submission_handoff.get("record_submission_command_template", "")
+        and "scripts/record_access_approval.py"
+        in lifecycle_pre_submission_handoff.get("record_approval_command_template", "")
+        and "<ISO8601_UTC>"
+        in lifecycle_pre_submission_handoff.get("record_approval_command_template", "")
+        and "<non_protected_approval_source>"
+        in lifecycle_pre_submission_handoff.get("record_approval_command_template", "")
+        and "<approval-notice>"
+        not in lifecycle_pre_submission_handoff.get("record_approval_command_template", "")
+        and "<non-protected-approval-source>"
+        not in lifecycle_pre_submission_handoff.get("record_approval_command_template", "")
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get("checklist")
+        == "scripts/ppmi_verily_schema_probe_checklist.md"
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get("audit_passed")
+        is True
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "report_template"
+        )
+        == "scripts/ppmi_verily_schema_probe_report_template.md"
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "report_template_audit_passed"
+        )
+        is True
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "report_validator"
+        )
+        == "scripts/validate_ppmi_verily_schema_probe_report.py"
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "report_validator_audit_passed"
+        )
+        is True
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "schema_probe_artifact_created"
+        )
+        is False
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "protected_data_included"
+        )
+        is False
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "report_template_schema_probe_artifact_created"
+        )
+        is False
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "report_template_protected_data_included"
+        )
+        is False
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "report_validator_not_a_schema_probe_artifact"
+        )
+        is True
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "report_validator_protected_data_included"
+        )
+        is False
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "target_free_manifest_validator"
+        )
+        == "scripts/validate_ppmi_verily_target_free_manifest.py"
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "target_free_manifest_validator_audit_passed"
+        )
+        is True
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "target_free_manifest_not_a_feature_manifest_artifact"
+        )
+        is True
+        and access_lifecycle_state_handoff.get("post_approval_schema_probe_handoff", {}).get(
+            "target_free_manifest_protected_data_included"
+        )
+        is False
+        and all(row.get("passed") is True for row in access_lifecycle_state_handoff.get("checks", []))
+        and any(
+            row.get("name") == "state-aware handoff exposes approval metadata recorder for submitted state"
+            and row.get("passed") is True
+            for row in access_lifecycle_state_handoff.get("checks", [])
+        )
+        and any(
+            row.get("name") == "synthetic submission metadata is not treated as real lifecycle submission"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("synthetic_source_rejected") is True
+            for row in access_lifecycle_state_handoff.get("checks", [])
+        )
+        and any(
+            row.get("name") == "synthetic approval metadata is not treated as real lifecycle approval"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("synthetic_source_rejected") is True
+            for row in access_lifecycle_state_handoff.get("checks", [])
+        )
+        and "Synthetic or audit-only submission/approval metadata is not treated as real lifecycle evidence"
+        in access_lifecycle_state_handoff.get("claim", "")
+        and ppmi_next_action_status_audit.get("passed") is True
+        and ppmi_next_action_status_audit.get("decision") == "ppmi_verily_next_action_status_ready"
+        and ppmi_next_action_status_audit.get("goal_complete") is False
+        and ppmi_next_action_status_audit.get("not_a_model_result") is True
+        and ppmi_next_action_status_audit.get("source_audit")
+        == "results/access_lifecycle_state_handoff_20260515.json"
+        and ppmi_next_action_status_audit.get("current_submission_handoff")
+        == "results/ppmi_verily_current_submission_handoff_20260515.json"
+        and ppmi_next_action_status_audit.get("content_boundary", {}).get("record_paths_reported")
+        is False
+        and ppmi_next_action_status_audit.get("content_boundary", {}).get("protected_data_included")
+        is False
+        and all(row.get("passed") is True for row in ppmi_next_action_status_audit.get("checks", []))
+        and any(
+            row.get("name") == "json command returns a redacted status object"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("workflow_command_sequence")
+            == EXPECTED_PPMI_WORKFLOW_COMMAND_SEQUENCE
+            for row in ppmi_next_action_status_audit.get("checks", [])
+        ),
+        {
+            "access_submission_tracker": {
+                **access_submission_tracker.get("summary", {}),
+                "ppmi_official_source_recheck": ppmi_official_recheck,
+                "ppmi_word_template": ppmi_submit_format_audit.get("output_docx"),
+                "ppmi_submission_email_template": ppmi_email_template_audit.get("template"),
+                "ppmi_submission_email_validator": ppmi_email_validator_audit.get("validator"),
+                "ppmi_submission_package_validator": (
+                    ppmi_submission_route.get("completed_package_validator") or {}
+                ).get("validator"),
+                "ppmi_user_fill_checklist": ppmi_user_fill_checklist_audit.get("checklist"),
+                "ppmi_schema_probe_checklist": ppmi_schema_probe_checklist_audit.get("checklist"),
+                "ppmi_schema_probe_report_template": ppmi_schema_probe_template_audit.get("template"),
+                "ppmi_target_free_manifest_template": ppmi_target_free_manifest_validator_audit.get("template"),
+                "ppmi_target_free_manifest_validator": ppmi_target_free_manifest_validator_audit.get("validator"),
+                "ppmi_completed_packet_validator": ppmi_completed_packet_validator_audit.get("validator"),
+                "ppmi_submission_bundle": "results/ppmi_verily_submission_bundle_20260515.json",
+                "ppmi_current_submission_handoff": "results/ppmi_verily_current_submission_handoff_20260515.json",
+                "ppmi_zeroshot_blueprint": "results/ppmi_verily_zeroshot_blueprint_20260515.json",
+            },
+            "access_submission_recorder": {
+                "passed": access_submission_recorder_audit.get("passed"),
+                "decision": access_submission_recorder_audit.get("decision"),
+                "hard_failures": access_submission_recorder_audit.get("hard_failures"),
+                "claim": access_submission_recorder_audit.get("claim"),
+            },
+            "access_approval_recorder": {
+                "passed": access_approval_recorder_audit.get("passed"),
+                "decision": access_approval_recorder_audit.get("decision"),
+                "hard_failures": access_approval_recorder_audit.get("hard_failures"),
+                "claim": access_approval_recorder_audit.get("claim"),
+            },
+            "schema_probe_recorder": {
+                "passed": schema_probe_recorder_audit.get("passed"),
+                "decision": schema_probe_recorder_audit.get("decision"),
+                "hard_failures": schema_probe_recorder_audit.get("hard_failures"),
+                "redaction_check_passed": any(
+                    row.get("name")
+                    == "approval record identity is redacted in schema-probe artifact and errors"
+                    and row.get("passed") is True
+                    for row in schema_probe_recorder_audit.get("checks", [])
+                ),
+                "claim": schema_probe_recorder_audit.get("claim"),
+            },
+            "current_next_action_handoff": {
+                "passed": current_next_action_handoff.get("passed"),
+                "decision": current_next_action_handoff.get("decision"),
+                "local_access_state": current_next_action_handoff.get("local_access_state"),
+                "next_action": current_next_action_handoff.get("next_action"),
+            },
+            "ppmi_current_submission_handoff": {
+                "passed": ppmi_current_submission_handoff.get("passed"),
+                "decision": ppmi_current_submission_handoff.get("decision"),
+                "current_action": ppmi_current_submission_handoff.get("current_action"),
+                "package_artifacts": ppmi_current_submission_handoff.get("package_artifacts"),
+                "content_boundary": ppmi_current_submission_handoff.get("content_boundary"),
+            },
+            "access_lifecycle_state_handoff": {
+                "passed": access_lifecycle_state_handoff.get("passed"),
+                "decision": access_lifecycle_state_handoff.get("decision"),
+                "current_lifecycle_state": access_lifecycle_state_handoff.get("current_lifecycle_state"),
+                "current_action": access_lifecycle_state_handoff.get("current_action"),
+                "pre_submission_handoff": access_lifecycle_state_handoff.get(
+                    "pre_submission_handoff"
+                ),
+                "post_approval_schema_probe_handoff": access_lifecycle_state_handoff.get(
+                    "post_approval_schema_probe_handoff"
+                ),
+                "local_counts": access_lifecycle_state_handoff.get("local_counts"),
+            },
+            "ppmi_next_action_status": {
+                "passed": ppmi_next_action_status_audit.get("passed"),
+                "decision": ppmi_next_action_status_audit.get("decision"),
+                "source_audit": ppmi_next_action_status_audit.get("source_audit"),
+                "current_submission_handoff": ppmi_next_action_status_audit.get(
+                    "current_submission_handoff"
+                ),
+                "content_boundary": ppmi_next_action_status_audit.get("content_boundary"),
+                "workflow_command_sequence": EXPECTED_PPMI_WORKFLOW_COMMAND_SEQUENCE,
             },
         },
     )
@@ -1961,6 +4343,50 @@ def main() -> None:
         row.get("synapse_id")
         for row in raw_recovery_runbook_audit.get("entity_checks", {}).values()
     }
+    v.check(
+        "T1/T3 goal-status helper exposes current hard gaps and access action",
+        t1_t3_goal_status_audit.get("passed") is True
+        and t1_t3_goal_status_audit.get("decision") == "t1_t3_goal_status_ready"
+        and t1_t3_goal_status_audit.get("goal_complete") is False
+        and t1_t3_goal_status_audit.get("not_a_model_result") is True
+        and t1_t3_goal_status_audit.get("not_access_submission") is True
+        and t1_t3_goal_status_audit.get("not_access_approval") is True
+        and t1_t3_goal_status_audit.get("not_a_schema_probe") is True
+        and t1_t3_goal_status_audit.get("hard_failures") == []
+        and t1_t3_goal_status_audit.get("content_boundary", {}).get("protected_data_included")
+        is False
+        and t1_t3_goal_status_audit.get("content_boundary", {}).get("record_paths_reported")
+        is False
+        and t1_t3_goal_status_audit.get("source_audits", {}).get("proresults")
+        == "results/proresults_prompt_to_artifact_audit_20260515.json"
+        and all(row.get("passed") is True for row in t1_t3_goal_status_audit.get("checks", []))
+        and any(
+            row.get("name")
+            == "status helper refreshes lifecycle and queue state by default"
+            and row.get("passed") is True
+            for row in t1_t3_goal_status_audit.get("checks", [])
+        )
+        and any(
+            row.get("name") == "status helper exposes executable access command templates"
+            and row.get("passed") is True
+            for row in t1_t3_goal_status_audit.get("checks", [])
+        )
+        and any(
+            row.get("name") == "json status is a redacted incomplete-goal object"
+            and row.get("passed") is True
+            and row.get("evidence", {}).get("next_action", {}).get("action_id")
+            == expected_lifecycle_action_id
+            and row.get("evidence", {}).get("next_non_redundant_actions")
+            == proresults_audit.get("next_non_redundant_actions")
+            and row.get("evidence", {}).get("external_access_summary", {}).get(
+                "compute_ready_route_count"
+            )
+            == 0
+            and len(row.get("evidence", {}).get("hard_gaps", [])) == 2
+            for row in t1_t3_goal_status_audit.get("checks", [])
+        ),
+        {"audit": t1_t3_goal_status_audit},
+    )
     v.check(
         "WearGait raw-data recovery runbook fills provenance blocker without download",
         raw_recovery_runbook_audit.get("passed") is True
@@ -2036,9 +4462,9 @@ def main() -> None:
         and "Current Post-Audit WearGait-PD Benchmark" in readme
         and "T1 canonical floor" in readme
         and "0.6550" in readme
-        and "T1 strongest candidate" in readme
-        and "0.7366" in readme
-        and "N=93" in readme
+        and "T1 corrected candidate" in readme
+        and "0.7170" in readme
+        and "N=92" in readme
         and "T3 current" in readme
         and "0.3784" in readme
         and "0.150" in readme
@@ -2142,6 +4568,7 @@ def main() -> None:
         and prompt_statuses.get("Completion condition: break T1 and/or T3 ceiling") == "not_complete"
         and "TLVMC/DeFOG iter51 is complete" in prompt_audit_md
         and "External access readiness audit passes with `6` access/request packets ready and `0` compute-ready routes before approval" in prompt_audit_md
+        and "Current next-action handoff passes with `0` real submissions, `0` real approvals, and `0` schema-probe artifacts" in prompt_audit_md
         and "Task-plan current-scope audit passes with `task_plan_current_scope_guard_passed`" in prompt_audit_md
         and "Paper generator routing audit passes with `current_paper_renderer_route_guard_passed`" in prompt_audit_md
         and "Legacy manuscript-surface audit passes with `legacy_manuscript_surfaces_quarantined`" in prompt_audit_md
@@ -2616,7 +5043,7 @@ def main() -> None:
         and canonical_claim_audit.get("stale_findings") == []
         and canonical_claim_audit.get("missing_required_snippets") == []
         and canonical_claim_audit.get("current_expected", {}).get("t1_canonical_ccc") == "0.6550"
-        and canonical_claim_audit.get("current_expected", {}).get("t1_candidate_ccc") == "0.7366"
+        and canonical_claim_audit.get("current_expected", {}).get("t1_candidate_ccc") == "0.7170"
         and canonical_claim_audit.get("current_expected", {}).get("t3_current_ccc") == "0.3784"
         and canonical_claim_audit.get("current_expected", {}).get("t3_loso_ccc") == "0.150"
         and "Old T3 numbers may appear only when labelled historical" in canonical_claim_audit_md
@@ -2826,11 +5253,12 @@ def main() -> None:
         remaining_blocker_action_audit.get("script") == "audit_remaining_blocker_actions.py"
         and remaining_blocker_action_audit.get("passed") is True
         and remaining_blocker_action_audit.get("source_goal_complete") is False
-        and remaining_blocker_action_audit.get("source_blocker_count") == 36
+        and remaining_blocker_action_audit.get("source_blocker_count") == 37
         and remaining_blocker_action_audit.get("unmatched_blockers") == []
         and remaining_blocker_action_audit.get("ambiguous_blockers") == []
         and remaining_blocker_action_audit.get("local_model_actions") == []
         and remaining_blocker_action_audit.get("action_type_counts", {}).get("no_local_weargait_model_run") == 8
+        and remaining_blocker_action_audit.get("action_type_counts", {}).get("paper_uncertainty_only") == 2
         and remaining_blocker_action_audit.get("action_type_counts", {}).get("requires_user_or_data_owner_access") == 8
         and remaining_blocker_action_audit.get("action_type_counts", {}).get("requires_weargait_raw_data_restore") == 2
         and remaining_blocker_action_audit.get("action_type_counts", {}).get("paper_transportability_only") == 4
@@ -3045,6 +5473,16 @@ def main() -> None:
     t1_candidate_fully_cleared = bool(t1_p2_verdict.get("p2_robust_one_sided_pass"))
     t1_iter46_above_iter12_strict = bool(t1_iter46_cmp.get("verdict", {}).get("above_iter12_same_sids"))
     t1_iter46_above_iter34 = bool(t1_iter46_cmp.get("verdict", {}).get("above_iter34_same_sids"))
+    t1_x4_frac_min = min(
+        float(v)
+        for v in (t1_x4_seed_a.get("frac_pos"), t1_x4_seed_b.get("frac_pos"))
+        if isinstance(v, (int, float))
+    )
+    t1_x4_passes_gate = bool(
+        isinstance(t1_x4_bag.get("delta_ccc"), (int, float))
+        and t1_x4_bag.get("delta_ccc") >= 0.025
+        and t1_x4_frac_min >= 0.95
+    )
     t3_corrected_ccc = float(min_current.get("new_refit_metrics", {}).get("ccc", 0.0))
     t3_ceiling_broken = bool(t3_corrected_ccc > 0.5227 + 5e-4)
     hssayeni_blocked = bool(denied_requirements)
@@ -3067,7 +5505,8 @@ def main() -> None:
         blockers.append("iter40 local-residual wildcard failed its 5-fold gate.")
         blockers.append("iter50 low-degree nested convex mix failed its corrected-target 5-fold gate; nested-convex CCC was 0.3083 vs baseline 0.3759.")
         blockers.append("iter42 primary Part III proration failed; loose le7 sensitivity is not promotable.")
-        blockers.append("Current conformal/abstention shows wide T3 intervals and no deployable abstention rescue.")
+        blockers.append("T3 Slot F CQR-width abstention opens a deployable-secondary boundary result (0.4237 @70%, 0.5370 @50%), but the seed-101 replication still fails the frac>full >= 0.95 promotion gate, so it does not rescue the full-cohort T3 ceiling.")
+        blockers.append("T3 S13/S15 PH/MFDFA transfer extension is closed without promotion: S13 JOINT failed the 5-fold screen and S15 retained-bootstrap frac>full remains below 0.95 at both 70% and 50% coverage.")
         blockers.append("COPS iter49 full zero-shot is external-validity evidence only: wrist-only transfer is null, clinical+wrist transfer is partial, and it cannot update the internal T3 headline.")
         blockers.append("TLVMC/DeFOG iter51 is partial external-validity evidence only: Track A lower-back magnitude CCC is 0.2695 with compressed predictions, and no external outcome can update the internal T3 headline.")
         blockers.append("PDFE turning-in-place iter52 is external-validity evidence only: WearGait shank transfer is negative (Track A CCC -0.1008), clinical+shank transfer is weak/uncertain (Track B 0.1340 with CI crossing zero), and no external outcome can update the internal T3 headline.")
@@ -3088,10 +5527,12 @@ def main() -> None:
     if not t1_break_attempted:
         blockers.append("T1 has no candidate above the canonical floor.")
     if t1_break_attempted and not t1_candidate_fully_cleared:
-        blockers.append("T1 iter34 is above the canonical floor but remains a candidate: P2 noisy-test robustness has no point-estimate leak, but its bootstrap upper bound crosses the +0.05 margin.")
-        blockers.append("T1 iter34 also carries an auxiliary-label/order caveat: NLS036 had invalid auxiliary item15=18; random chain order puts item15 upstream of T1 items in 2/3 locked seeds, though the all-base stale-vs-valid 5-fold common-SID delta was only -0.0008 CCC. No post-hoc N=92 lockbox is planned.")
+        blockers.append("T1 hygiene-corrected iter34 is above the canonical floor but remains a candidate: CCC 0.7170 on N=92, below the superseded original N=93 iter34 value 0.7366.")
+        blockers.append("T1 iter34 still carries robustness caveats: the original P2 noisy-test bootstrap upper bound crosses the +0.05 margin, and the valid-auxiliary rerun degraded rather than broke the old ceiling.")
     if not t1_iter46_above_iter12_strict or not t1_iter46_above_iter34:
         blockers.append("T1 iter46 ET-only robustification did not break iter34 and did not strictly clear iter12.")
+    if not t1_x4_passes_gate:
+        blockers.append("T1 X4 equal-weight 2-bag is the strongest current in-cohort lift (CCC 0.7345, delta +0.0175 vs iter34, frac>0 0.910/0.911), but it misses the delta >= +0.025 and frac>0 >= 0.95 promotion gates; report only as near-miss/external-replication candidate.")
 
     hard_failures = v.hard_failures
     report = {
@@ -3099,12 +5540,149 @@ def main() -> None:
         "script": "verify_current_goal_state.py",
         "current_state_verified": not hard_failures,
         "goal_complete": goal_complete,
+        "next_allowed_action": proresults_audit.get("next_allowed_action"),
+        "next_action": lifecycle_next_action,
+        "access_lifecycle_current_action": access_lifecycle_state_handoff.get("current_action"),
+        "pre_submission_handoff": access_lifecycle_state_handoff.get(
+            "pre_submission_handoff"
+        ),
+        "ppmi_next_action_status": {
+            "decision": ppmi_next_action_status_audit.get("decision"),
+            "source_audit": ppmi_next_action_status_audit.get("source_audit"),
+            "current_submission_handoff": ppmi_next_action_status_audit.get(
+                "current_submission_handoff"
+            ),
+        },
+        "t1_t3_goal_status": {
+            "decision": t1_t3_goal_status_audit.get("decision"),
+            "status_script": t1_t3_goal_status_audit.get("status_script"),
+            "goal_complete": t1_t3_goal_status_audit.get("goal_complete"),
+            "source_audits": t1_t3_goal_status_audit.get("source_audits"),
+            "next_non_redundant_actions": proresults_audit.get(
+                "next_non_redundant_actions"
+            ),
+        },
+        "ppmi_current_submission_handoff": {
+            "decision": ppmi_current_submission_handoff.get("decision"),
+            "current_action": ppmi_current_submission_handoff.get("current_action"),
+            "package_artifacts": ppmi_current_submission_handoff.get("package_artifacts"),
+            "post_approval_artifacts": ppmi_current_submission_handoff.get(
+                "post_approval_artifacts"
+            ),
+            "workflow_command_sequence": ppmi_current_submission_handoff.get(
+                "workflow_command_sequence"
+            ),
+            "goal_complete": ppmi_current_submission_handoff.get("goal_complete"),
+        },
+        "ppmi_zeroshot_blueprint": {
+            "decision": ppmi_zeroshot_blueprint_audit.get("decision"),
+            "blueprint": ppmi_zeroshot_blueprint_audit.get("blueprint"),
+            "goal_complete": ppmi_zeroshot_blueprint_audit.get("goal_complete"),
+        },
+        "ppmi_target_free_manifest_validator": {
+            "decision": ppmi_target_free_manifest_validator_audit.get("decision"),
+            "template": ppmi_target_free_manifest_validator_audit.get("template"),
+            "validator": ppmi_target_free_manifest_validator_audit.get("validator"),
+            "goal_complete": ppmi_target_free_manifest_validator_audit.get("goal_complete"),
+        },
+        "post_approval_schema_probe_handoff": access_lifecycle_state_handoff.get(
+            "post_approval_schema_probe_handoff"
+        ),
+        "external_schema_probe_handoff": {
+            "decision": external_schema_probe_handoff_audit.get("decision"),
+            "handoff_markdown": external_schema_probe_handoff_audit.get("handoff_markdown"),
+            "route_count": external_schema_probe_handoff_audit.get("route_count"),
+            "goal_complete": external_schema_probe_handoff_audit.get("goal_complete"),
+            "post_approval_workflow_step_ids_by_route": (
+                external_schema_probe_handoff_audit.get(
+                    "post_approval_workflow_step_ids_by_route"
+                )
+            ),
+        },
+        "external_target_free_manifest_templates": {
+            "decision": external_target_free_manifest_templates_audit.get("decision"),
+            "templates_markdown": external_target_free_manifest_templates_audit.get(
+                "templates_markdown"
+            ),
+            "route_count": external_target_free_manifest_templates_audit.get("route_count"),
+            "goal_complete": external_target_free_manifest_templates_audit.get("goal_complete"),
+            "post_schema_workflow_step_ids_by_route": (
+                external_target_free_manifest_templates_audit.get(
+                    "post_schema_workflow_step_ids_by_route"
+                )
+            ),
+        },
+        "external_zeroshot_blueprint_handoff": {
+            "decision": external_zeroshot_blueprint_handoff_audit.get("decision"),
+            "handoff_markdown": external_zeroshot_blueprint_handoff_audit.get(
+                "handoff_markdown"
+            ),
+            "route_count": external_zeroshot_blueprint_handoff_audit.get("route_count"),
+            "goal_complete": external_zeroshot_blueprint_handoff_audit.get("goal_complete"),
+        },
+        "external_formula_sha_templates": {
+            "decision": external_formula_sha_templates_audit.get("decision"),
+            "templates_markdown": external_formula_sha_templates_audit.get(
+                "templates_markdown"
+            ),
+            "route_count": external_formula_sha_templates_audit.get("route_count"),
+            "ppmi_formula_contract_present": external_formula_sha_ppmi.get(
+                "ppmi_formula_contract_present"
+            ),
+            "ppmi_contract_negative_failed": external_formula_sha_ppmi.get(
+                "ppmi_contract_negative_failed"
+            ),
+            "ppmi_bad_contract_hard_failures": external_formula_sha_ppmi.get(
+                "ppmi_bad_contract_hard_failures"
+            ),
+            "post_formula_workflow_step_ids_by_route": (
+                external_formula_sha_templates_audit.get(
+                    "post_formula_workflow_step_ids_by_route"
+                )
+            ),
+            "goal_complete": external_formula_sha_templates_audit.get("goal_complete"),
+        },
+        "external_zeroshot_result_templates": {
+            "decision": external_zeroshot_result_templates_audit.get("decision"),
+            "templates_markdown": external_zeroshot_result_templates_audit.get(
+                "templates_markdown"
+            ),
+            "route_count": external_zeroshot_result_templates_audit.get("route_count"),
+            "ppmi_result_contract_present": external_zeroshot_result_ppmi.get(
+                "ppmi_result_contract_present"
+            ),
+            "ppmi_contract_negative_failed": external_zeroshot_result_ppmi.get(
+                "ppmi_contract_negative_failed"
+            ),
+            "ppmi_bad_contract_hard_failures": external_zeroshot_result_ppmi.get(
+                "ppmi_bad_contract_hard_failures"
+            ),
+            "post_score_reporting_workflow_step_ids_by_route": (
+                external_zeroshot_result_templates_audit.get(
+                    "post_score_reporting_workflow_step_ids_by_route"
+                )
+            ),
+            "goal_complete": external_zeroshot_result_templates_audit.get("goal_complete"),
+        },
         "t1_break_attempted": t1_break_attempted,
         "t1_candidate_fully_cleared": t1_candidate_fully_cleared,
         "t1_iter46_above_iter12_strict": t1_iter46_above_iter12_strict,
         "t1_iter46_above_iter34": t1_iter46_above_iter34,
+        "t1_x4_equal_weight_2bag": {
+            "ccc": t1_x4_bag.get("loocv_ccc"),
+            "delta_vs_iter34": t1_x4_bag.get("delta_ccc"),
+            "delta_mae": t1_x4_bag.get("delta_mae"),
+            "frac_positive_seed_A": t1_x4_seed_a.get("frac_pos"),
+            "frac_positive_seed_B": t1_x4_seed_b.get("frac_pos"),
+            "frac_positive_min": t1_x4_frac_min,
+            "passes_gate": t1_x4_passes_gate,
+            "verdict": t1_x4.get("verdict_provisional"),
+            "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074106Z.json",
+        },
         "t3_ceiling_broken": t3_ceiling_broken,
         "hssayeni_dua_blocked": hssayeni_blocked,
+        "completion_audit_goal_complete": proresults_audit.get("goal_complete"),
+        "completion_audit_hard_gaps": proresults_audit.get("hard_gaps"),
         "blockers": blockers,
         "hard_failures": hard_failures,
         "checks": v.checks,

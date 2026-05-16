@@ -1,0 +1,13 @@
+{
+  "cell": "F_joint_t1_t3",
+  "n": 92,
+  "single_task_t1_ccc": 0.6384075107261011,
+  "single_task_t3_ccc": 0.3286806131188541,
+  "multi_task_ridge_t1_ccc": 0.0023824201029527393,
+  "multi_task_ridge_t3_ccc": 3.0694628272649944e-05,
+  "delta_t1_joint_vs_single": -0.6360250906231484,
+  "delta_t3_joint_vs_single": -0.32864991849058145,
+  "comparator_iter34_t1_canonical": 0.717,
+  "comparator_iter47_t3_canonical": 0.3784,
+  "seed": 42
+}

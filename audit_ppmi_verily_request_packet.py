@@ -20,17 +20,43 @@ RUNBOOK = ROOT / "scripts" / "ppmi_verily_setup.md"
 OUT_JSON = ROOT / "results" / "ppmi_verily_request_packet_audit_20260509.json"
 OUT_MD = ROOT / "results" / "ppmi_verily_request_packet_audit_20260509.md"
 
+OFFICIAL_SOURCE_RECHECK = {
+    "verified_on": "2026-05-16",
+    "access_page": "https://www.ppmi-info.org/access-data-specimens/download-data",
+    "guidelines_pdf": "https://www.ppmi-info.org/sites/default/files/docs/PPMI%20Data%20Access%20Guidelines.pdf",
+    "access_page_requirements": [
+        "sign the Data Use Agreement",
+        "submit an online application",
+        "comply with the Publications Policy",
+        "Data and Publications Committee review within one week",
+    ],
+    "guidelines_version": "Version 7.0, 15 Feb 2026",
+    "tier3_contact": "resources@michaeljfox.org",
+    "tier3_review_target": "30 days after receipt",
+    "tier3_verily_access_level": "Tier 3",
+}
 
 REQUIRED_CHECKS: dict[str, list[str]] = {
     "official_sources": [
         "ppmi-info.org/access-data-specimens/download-data",
         "ppmi data access guidelines",
+        "version 7.0",
+        "15 feb 2026",
         "nature.com/articles/s41531-025-01034-8",
+    ],
+    "official_source_recheck_20260516": [
+        "current official source recheck on 2026-05-16",
+        "sign the data use agreement",
+        "submit an online application",
+        "comply with the publications policy",
+        "data and publications committee within one week",
     ],
     "tier3_submission": [
         "verily raw device data",
         "tier 3",
         "resources@michaeljfox.org",
+        "pdf or word",
+        "30 days",
     ],
     "specific_data_inventory": [
         "raw triaxial accelerometer",
@@ -52,6 +78,7 @@ REQUIRED_CHECKS: dict[str, list[str]] = {
         "analysis synopsis",
         "named research team",
         "data custodian",
+        "all requesting research-team members",
     ],
     "purpose_and_no_sharing": [
         "will not be shared beyond investigators named",
@@ -72,6 +99,19 @@ REQUIRED_CHECKS: dict[str, list[str]] = {
         "formula_sha256",
         "valid-range",
         "manifest sidecars",
+    ],
+    "proresults_external_blueprint": [
+        "ppmi_verily_zeroshot_blueprint_20260515.json",
+        "analysis-order and no-search boundary",
+        "not a preregistration",
+        "persistent homology",
+        "multifractal detrended fluctuation analysis",
+        "ph/mfdfa",
+        "topofractal",
+        "k=250",
+        "gradientboostingregressor",
+        "no k-search",
+        "no endpoint switching",
     ],
     "no_premature_compute_boundary": [
         "not be presented as an internal weargait-pd canonical",
@@ -107,6 +147,20 @@ def main() -> None:
     if runbook_exists:
         runbook_text = RUNBOOK.read_text(encoding="utf-8", errors="replace").lower()
         runbook_mentions_packet = "ppmi_verily_tier3_request_packet.md" in runbook_text
+        runbook_official_recheck_passed, runbook_official_recheck_missing = contains_all(
+            runbook_text,
+            REQUIRED_CHECKS["official_source_recheck_20260516"]
+            + [
+                "verily raw device data",
+                "version 7.0",
+                "15 feb 2026",
+                "resources@michaeljfox.org",
+                "30 days after receipt",
+            ],
+        )
+    else:
+        runbook_official_recheck_passed = False
+        runbook_official_recheck_missing = ["missing_ppmi_runbook"]
 
     hard_failures: list[str] = []
     if not packet_exists:
@@ -117,6 +171,8 @@ def main() -> None:
         hard_failures.append("packet_missing_required_terms")
     if not runbook_mentions_packet:
         hard_failures.append("runbook_does_not_link_packet_template")
+    if not runbook_official_recheck_passed:
+        hard_failures.append("runbook_missing_current_official_source_recheck")
 
     result = {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -127,6 +183,15 @@ def main() -> None:
         "packet_exists": packet_exists,
         "runbook_exists": runbook_exists,
         "runbook_mentions_packet": runbook_mentions_packet,
+        "official_source_recheck": {
+            **OFFICIAL_SOURCE_RECHECK,
+            "packet_terms_passed": checks["official_source_recheck_20260516"]["passed"],
+            "runbook_terms_passed": runbook_official_recheck_passed,
+            "runbook_missing_terms": runbook_official_recheck_missing,
+            "not_access_submission": True,
+            "not_access_approval": True,
+            "not_a_schema_probe": True,
+        },
         "checks": checks,
         "missing": missing,
         "hard_failures": hard_failures,
@@ -157,6 +222,8 @@ def main() -> None:
         f"- Decision: `{result['decision']}`",
         f"- Packet: `{result['packet']}`",
         f"- Runbook links packet: `{runbook_mentions_packet}`",
+        f"- Official source recheck: `{OFFICIAL_SOURCE_RECHECK['verified_on']}`",
+        f"- Runbook official-source terms passed: `{runbook_official_recheck_passed}`",
         f"- Hard failures: `{len(hard_failures)}`",
         "",
         "## Checks",

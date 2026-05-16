@@ -1,0 +1,965 @@
+{
+  "name": "screen_t1_rank8_tug_phase_ph_mfdfa",
+  "created_at_utc": "20260515T111648Z",
+  "proposal_source": "/tmp/pro-results.txt rank #8",
+  "screen_only": true,
+  "no_loocv_run": true,
+  "cache_path": "results/cache_tug_phase_ph_mfdfa_20260515T111550Z.csv",
+  "cache_manifest": {
+    "script": "cache_tug_phase_ph_mfdfa.py",
+    "script_sha256": "3ae3b80835fc1287914d1c8c547b4a50f1a3e8f071b7192ec8dfbc4e2b302f90",
+    "git_sha": "64edc2a90ab11beed8b0bdb30a69c6c49a8809fc",
+    "command": "cache_tug_phase_ph_mfdfa.py --workers 8 --git-sha 64edc2a90ab11beed8b0bdb30a69c6c49a8809fc",
+    "created_at_utc": "2026-05-15T11:16:09Z",
+    "data_sha256": "edbcdc3ef840ab11d3fcd0bcd09708eb62d3f75c889429bca059fdf2747fee15",
+    "labels_used": false,
+    "fold_scope": "global",
+    "cohort_statistics_used": false,
+    "normalization_scope": "per_subject_phase_window",
+    "leakage_status": "clean_by_construction",
+    "leakage_rationale": "TUG phase windows are deterministic functions of raw LowerBack Acc-Z/Gyr-Z. PH/MFDFA features are extracted per subject/phase with no UPDRS labels, no cohort statistics, and no target-derived selection.",
+    "source_artifacts": [
+      "/home/fiod/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files"
+    ],
+    "host": "DESKTOP-7I2K27V",
+    "n_jobs_seen": 99,
+    "n_subjects": 98,
+    "n_features": 48,
+    "phase_policy": {
+      "sit_to_stand": "LowerBack Acc-Z abs peak in first third, [-0.8s,+2.0s]",
+      "steady_walk": "stand_peak+2.0s to turn_peak-1.0s if >=2.0s",
+      "turning": "LowerBack Gyr-Z abs peak in second half, [-1.0s,+1.5s]",
+      "turn_to_sit": "LowerBack Acc-Z abs peak in final third, [-1.5s,+1.0s]"
+    },
+    "screen_alignment_missing_sids_imputed_foldlocally": [
+      "NLS056"
+    ]
+  },
+  "preregistration_master": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "n": 92,
+  "baseline_iter34_ccc": 0.717038,
+  "arms": [
+    {
+      "arm": "primary_nonretracted_item12_mfdfa_item13_ph",
+      "item_feature_specs": [
+        {
+          "item": 12,
+          "family": "mfdfa",
+          "phases": [
+            "turning",
+            "turn_to_sit"
+          ],
+          "n_cols": 14,
+          "cols": [
+            "phase_turn_to_sit_mfdfa_trunk_pitch_asymmetry",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_delta_alpha",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_h_q0",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_neg5",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_pos5",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_h_range",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_hurst_q2",
+            "phase_turning_mfdfa_trunk_pitch_asymmetry",
+            "phase_turning_mfdfa_trunk_pitch_delta_alpha",
+            "phase_turning_mfdfa_trunk_pitch_h_q0",
+            "phase_turning_mfdfa_trunk_pitch_h_q_neg5",
+            "phase_turning_mfdfa_trunk_pitch_h_q_pos5",
+            "phase_turning_mfdfa_trunk_pitch_h_range",
+            "phase_turning_mfdfa_trunk_pitch_hurst_q2"
+          ]
+        },
+        {
+          "item": 13,
+          "family": "ph",
+          "phases": [
+            "sit_to_stand",
+            "steady_walk"
+          ],
+          "n_cols": 8,
+          "cols": [
+            "phase_sit_to_stand_ph_sacrum_ang_h1_max",
+            "phase_sit_to_stand_ph_sacrum_ang_h1_med",
+            "phase_sit_to_stand_ph_trunk_pitch_h1_max",
+            "phase_sit_to_stand_ph_trunk_pitch_h1_med",
+            "phase_steady_walk_ph_sacrum_ang_h1_max",
+            "phase_steady_walk_ph_sacrum_ang_h1_med",
+            "phase_steady_walk_ph_trunk_pitch_h1_max",
+            "phase_steady_walk_ph_trunk_pitch_h1_med"
+          ]
+        }
+      ],
+      "baseline": {
+        "ccc": 0.717038,
+        "mae": 1.735602,
+        "pred_std": 3.105823,
+        "pred_mean": 4.05766
+      },
+      "seed_summaries": [
+        {
+          "seed": 42,
+          "candidate": {
+            "ccc": 0.71915,
+            "mae": 1.712487,
+            "pred_std": 3.121342,
+            "pred_mean": 4.05539
+          },
+          "delta_ccc": 0.002112,
+          "delta_mae": -0.023114,
+          "correction_std_by_item": {
+            "12": 0.145295,
+            "13": 0.111345
+          }
+        },
+        {
+          "seed": 1337,
+          "candidate": {
+            "ccc": 0.717349,
+            "mae": 1.726023,
+            "pred_std": 3.14285,
+            "pred_mean": 4.042834
+          },
+          "delta_ccc": 0.000311,
+          "delta_mae": -0.009579,
+          "correction_std_by_item": {
+            "12": 0.164595,
+            "13": 0.118151
+          }
+        },
+        {
+          "seed": 7,
+          "candidate": {
+            "ccc": 0.719853,
+            "mae": 1.716885,
+            "pred_std": 3.143141,
+            "pred_mean": 4.05251
+          },
+          "delta_ccc": 0.002815,
+          "delta_mae": -0.018717,
+          "correction_std_by_item": {
+            "12": 0.14558,
+            "13": 0.125749
+          }
+        }
+      ],
+      "seed_mean_delta_ccc": 0.001746,
+      "seed_delta_std": 0.001291,
+      "ensemble": {
+        "candidate": {
+          "ccc": 0.718994,
+          "mae": 1.715815,
+          "pred_std": 3.134984,
+          "pred_mean": 4.050245
+        },
+        "delta_ccc": 0.001956,
+        "delta_mae": -0.019786,
+        "bootstrap": {
+          "n_boot": 2000,
+          "median_delta": 0.002089,
+          "ci95": [
+            -0.006725,
+            0.01184
+          ],
+          "frac_positive": 0.681
+        }
+      },
+      "promotion_gate_pass": false
+    },
+    {
+      "arm": "full_rank8_item10_12_mfdfa_item13_14_ph",
+      "item_feature_specs": [
+        {
+          "item": 10,
+          "family": "mfdfa",
+          "phases": [
+            "steady_walk",
+            "turning"
+          ],
+          "n_cols": 14,
+          "cols": [
+            "phase_steady_walk_mfdfa_trunk_pitch_asymmetry",
+            "phase_steady_walk_mfdfa_trunk_pitch_delta_alpha",
+            "phase_steady_walk_mfdfa_trunk_pitch_h_q0",
+            "phase_steady_walk_mfdfa_trunk_pitch_h_q_neg5",
+            "phase_steady_walk_mfdfa_trunk_pitch_h_q_pos5",
+            "phase_steady_walk_mfdfa_trunk_pitch_h_range",
+            "phase_steady_walk_mfdfa_trunk_pitch_hurst_q2",
+            "phase_turning_mfdfa_trunk_pitch_asymmetry",
+            "phase_turning_mfdfa_trunk_pitch_delta_alpha",
+            "phase_turning_mfdfa_trunk_pitch_h_q0",
+            "phase_turning_mfdfa_trunk_pitch_h_q_neg5",
+            "phase_turning_mfdfa_trunk_pitch_h_q_pos5",
+            "phase_turning_mfdfa_trunk_pitch_h_range",
+            "phase_turning_mfdfa_trunk_pitch_hurst_q2"
+          ]
+        },
+        {
+          "item": 12,
+          "family": "mfdfa",
+          "phases": [
+            "turning",
+            "turn_to_sit"
+          ],
+          "n_cols": 14,
+          "cols": [
+            "phase_turn_to_sit_mfdfa_trunk_pitch_asymmetry",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_delta_alpha",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_h_q0",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_neg5",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_pos5",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_h_range",
+            "phase_turn_to_sit_mfdfa_trunk_pitch_hurst_q2",
+            "phase_turning_mfdfa_trunk_pitch_asymmetry",
+            "phase_turning_mfdfa_trunk_pitch_delta_alpha",
+            "phase_turning_mfdfa_trunk_pitch_h_q0",
+            "phase_turning_mfdfa_trunk_pitch_h_q_neg5",
+            "phase_turning_mfdfa_trunk_pitch_h_q_pos5",
+            "phase_turning_mfdfa_trunk_pitch_h_range",
+            "phase_turning_mfdfa_trunk_pitch_hurst_q2"
+          ]
+        },
+        {
+          "item": 13,
+          "family": "ph",
+          "phases": [
+            "sit_to_stand",
+            "steady_walk"
+          ],
+          "n_cols": 8,
+          "cols": [
+            "phase_sit_to_stand_ph_sacrum_ang_h1_max",
+            "phase_sit_to_stand_ph_sacrum_ang_h1_med",
+            "phase_sit_to_stand_ph_trunk_pitch_h1_max",
+            "phase_sit_to_stand_ph_trunk_pitch_h1_med",
+            "phase_steady_walk_ph_sacrum_ang_h1_max",
+            "phase_steady_walk_ph_sacrum_ang_h1_med",
+            "phase_steady_walk_ph_trunk_pitch_h1_max",
+            "phase_steady_walk_ph_trunk_pitch_h1_med"
+          ]
+        },
+        {
+          "item": 14,
+          "family": "ph",
+          "phases": [
+            "sit_to_stand",
+            "turning",
+            "turn_to_sit"
+          ],
+          "n_cols": 12,
+          "cols": [
+            "phase_sit_to_stand_ph_sacrum_ang_h1_max",
+            "phase_sit_to_stand_ph_sacrum_ang_h1_med",
+            "phase_sit_to_stand_ph_trunk_pitch_h1_max",
+            "phase_sit_to_stand_ph_trunk_pitch_h1_med",
+            "phase_turn_to_sit_ph_sacrum_ang_h1_max",
+            "phase_turn_to_sit_ph_sacrum_ang_h1_med",
+            "phase_turn_to_sit_ph_trunk_pitch_h1_max",
+            "phase_turn_to_sit_ph_trunk_pitch_h1_med",
+            "phase_turning_ph_sacrum_ang_h1_max",
+            "phase_turning_ph_sacrum_ang_h1_med",
+            "phase_turning_ph_trunk_pitch_h1_max",
+            "phase_turning_ph_trunk_pitch_h1_med"
+          ]
+        }
+      ],
+      "baseline": {
+        "ccc": 0.717038,
+        "mae": 1.735602,
+        "pred_std": 3.105823,
+        "pred_mean": 4.05766
+      },
+      "seed_summaries": [
+        {
+          "seed": 42,
+          "candidate": {
+            "ccc": 0.711736,
+            "mae": 1.75357,
+            "pred_std": 3.136385,
+            "pred_mean": 4.021625
+          },
+          "delta_ccc": -0.005302,
+          "delta_mae": 0.017968,
+          "correction_std_by_item": {
+            "10": 0.1312,
+            "12": 0.145295,
+            "13": 0.111345,
+            "14": 0.101224
+          }
+        },
+        {
+          "seed": 1337,
+          "candidate": {
+            "ccc": 0.711092,
+            "mae": 1.760095,
+            "pred_std": 3.156107,
+            "pred_mean": 4.007164
+          },
+          "delta_ccc": -0.005946,
+          "delta_mae": 0.024494,
+          "correction_std_by_item": {
+            "10": 0.108909,
+            "12": 0.164595,
+            "13": 0.118151,
+            "14": 0.081048
+          }
+        },
+        {
+          "seed": 7,
+          "candidate": {
+            "ccc": 0.712868,
+            "mae": 1.751754,
+            "pred_std": 3.155543,
+            "pred_mean": 4.014371
+          },
+          "delta_ccc": -0.00417,
+          "delta_mae": 0.016152,
+          "correction_std_by_item": {
+            "10": 0.099481,
+            "12": 0.14558,
+            "13": 0.125749,
+            "14": 0.105029
+          }
+        }
+      ],
+      "seed_mean_delta_ccc": -0.005139,
+      "seed_delta_std": 0.000899,
+      "ensemble": {
+        "candidate": {
+          "ccc": 0.712388,
+          "mae": 1.749369,
+          "pred_std": 3.147457,
+          "pred_mean": 4.014386
+        },
+        "delta_ccc": -0.00465,
+        "delta_mae": 0.013768,
+        "bootstrap": {
+          "n_boot": 2000,
+          "median_delta": -0.004476,
+          "ci95": [
+            -0.014695,
+            0.006267
+          ],
+          "frac_positive": 0.198
+        }
+      },
+      "promotion_gate_pass": false
+    }
+  ],
+  "null_results": {
+    "scrambled_y": [
+      {
+        "arm": "primary_nonretracted_item12_mfdfa_item13_ph",
+        "item_feature_specs": [
+          {
+            "item": 12,
+            "family": "mfdfa",
+            "phases": [
+              "turning",
+              "turn_to_sit"
+            ],
+            "n_cols": 14,
+            "cols": [
+              "phase_turn_to_sit_mfdfa_trunk_pitch_asymmetry",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_delta_alpha",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q0",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_range",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_hurst_q2",
+              "phase_turning_mfdfa_trunk_pitch_asymmetry",
+              "phase_turning_mfdfa_trunk_pitch_delta_alpha",
+              "phase_turning_mfdfa_trunk_pitch_h_q0",
+              "phase_turning_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_turning_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_turning_mfdfa_trunk_pitch_h_range",
+              "phase_turning_mfdfa_trunk_pitch_hurst_q2"
+            ]
+          },
+          {
+            "item": 13,
+            "family": "ph",
+            "phases": [
+              "sit_to_stand",
+              "steady_walk"
+            ],
+            "n_cols": 8,
+            "cols": [
+              "phase_sit_to_stand_ph_sacrum_ang_h1_max",
+              "phase_sit_to_stand_ph_sacrum_ang_h1_med",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_max",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_med",
+              "phase_steady_walk_ph_sacrum_ang_h1_max",
+              "phase_steady_walk_ph_sacrum_ang_h1_med",
+              "phase_steady_walk_ph_trunk_pitch_h1_max",
+              "phase_steady_walk_ph_trunk_pitch_h1_med"
+            ]
+          }
+        ],
+        "baseline": {
+          "ccc": 0.717038,
+          "mae": 1.735602,
+          "pred_std": 3.105823,
+          "pred_mean": 4.05766
+        },
+        "seed_summaries": [
+          {
+            "seed": 42,
+            "candidate": {
+              "ccc": 0.717093,
+              "mae": 1.753957,
+              "pred_std": 3.135641,
+              "pred_mean": 4.054854
+            },
+            "delta_ccc": 5.5e-05,
+            "delta_mae": 0.018355,
+            "correction_std_by_item": {
+              "12": 0.122805,
+              "13": 0.131853
+            }
+          },
+          {
+            "seed": 1337,
+            "candidate": {
+              "ccc": 0.717683,
+              "mae": 1.751131,
+              "pred_std": 3.151882,
+              "pred_mean": 4.073059
+            },
+            "delta_ccc": 0.000646,
+            "delta_mae": 0.01553,
+            "correction_std_by_item": {
+              "12": 0.122281,
+              "13": 0.132368
+            }
+          },
+          {
+            "seed": 7,
+            "candidate": {
+              "ccc": 0.715079,
+              "mae": 1.760993,
+              "pred_std": 3.141801,
+              "pred_mean": 4.063415
+            },
+            "delta_ccc": -0.001959,
+            "delta_mae": 0.025392,
+            "correction_std_by_item": {
+              "12": 0.120585,
+              "13": 0.135578
+            }
+          }
+        ],
+        "seed_mean_delta_ccc": -0.000419,
+        "seed_delta_std": 0.001366,
+        "ensemble": {
+          "candidate": {
+            "ccc": 0.716837,
+            "mae": 1.752668,
+            "pred_std": 3.14228,
+            "pred_mean": 4.063776
+          },
+          "delta_ccc": -0.000201,
+          "delta_mae": 0.017067,
+          "bootstrap": {
+            "n_boot": 2000,
+            "median_delta": -0.000133,
+            "ci95": [
+              -0.005909,
+              0.006527
+            ],
+            "frac_positive": 0.479
+          }
+        },
+        "promotion_gate_pass": false
+      },
+      {
+        "arm": "full_rank8_item10_12_mfdfa_item13_14_ph",
+        "item_feature_specs": [
+          {
+            "item": 10,
+            "family": "mfdfa",
+            "phases": [
+              "steady_walk",
+              "turning"
+            ],
+            "n_cols": 14,
+            "cols": [
+              "phase_steady_walk_mfdfa_trunk_pitch_asymmetry",
+              "phase_steady_walk_mfdfa_trunk_pitch_delta_alpha",
+              "phase_steady_walk_mfdfa_trunk_pitch_h_q0",
+              "phase_steady_walk_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_steady_walk_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_steady_walk_mfdfa_trunk_pitch_h_range",
+              "phase_steady_walk_mfdfa_trunk_pitch_hurst_q2",
+              "phase_turning_mfdfa_trunk_pitch_asymmetry",
+              "phase_turning_mfdfa_trunk_pitch_delta_alpha",
+              "phase_turning_mfdfa_trunk_pitch_h_q0",
+              "phase_turning_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_turning_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_turning_mfdfa_trunk_pitch_h_range",
+              "phase_turning_mfdfa_trunk_pitch_hurst_q2"
+            ]
+          },
+          {
+            "item": 12,
+            "family": "mfdfa",
+            "phases": [
+              "turning",
+              "turn_to_sit"
+            ],
+            "n_cols": 14,
+            "cols": [
+              "phase_turn_to_sit_mfdfa_trunk_pitch_asymmetry",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_delta_alpha",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q0",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_range",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_hurst_q2",
+              "phase_turning_mfdfa_trunk_pitch_asymmetry",
+              "phase_turning_mfdfa_trunk_pitch_delta_alpha",
+              "phase_turning_mfdfa_trunk_pitch_h_q0",
+              "phase_turning_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_turning_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_turning_mfdfa_trunk_pitch_h_range",
+              "phase_turning_mfdfa_trunk_pitch_hurst_q2"
+            ]
+          },
+          {
+            "item": 13,
+            "family": "ph",
+            "phases": [
+              "sit_to_stand",
+              "steady_walk"
+            ],
+            "n_cols": 8,
+            "cols": [
+              "phase_sit_to_stand_ph_sacrum_ang_h1_max",
+              "phase_sit_to_stand_ph_sacrum_ang_h1_med",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_max",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_med",
+              "phase_steady_walk_ph_sacrum_ang_h1_max",
+              "phase_steady_walk_ph_sacrum_ang_h1_med",
+              "phase_steady_walk_ph_trunk_pitch_h1_max",
+              "phase_steady_walk_ph_trunk_pitch_h1_med"
+            ]
+          },
+          {
+            "item": 14,
+            "family": "ph",
+            "phases": [
+              "sit_to_stand",
+              "turning",
+              "turn_to_sit"
+            ],
+            "n_cols": 12,
+            "cols": [
+              "phase_sit_to_stand_ph_sacrum_ang_h1_max",
+              "phase_sit_to_stand_ph_sacrum_ang_h1_med",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_max",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_med",
+              "phase_turn_to_sit_ph_sacrum_ang_h1_max",
+              "phase_turn_to_sit_ph_sacrum_ang_h1_med",
+              "phase_turn_to_sit_ph_trunk_pitch_h1_max",
+              "phase_turn_to_sit_ph_trunk_pitch_h1_med",
+              "phase_turning_ph_sacrum_ang_h1_max",
+              "phase_turning_ph_sacrum_ang_h1_med",
+              "phase_turning_ph_trunk_pitch_h1_max",
+              "phase_turning_ph_trunk_pitch_h1_med"
+            ]
+          }
+        ],
+        "baseline": {
+          "ccc": 0.717038,
+          "mae": 1.735602,
+          "pred_std": 3.105823,
+          "pred_mean": 4.05766
+        },
+        "seed_summaries": [
+          {
+            "seed": 42,
+            "candidate": {
+              "ccc": 0.716045,
+              "mae": 1.790968,
+              "pred_std": 3.15776,
+              "pred_mean": 4.026958
+            },
+            "delta_ccc": -0.000993,
+            "delta_mae": 0.055366,
+            "correction_std_by_item": {
+              "10": 0.111774,
+              "12": 0.122805,
+              "13": 0.131853,
+              "14": 0.150615
+            }
+          },
+          {
+            "seed": 1337,
+            "candidate": {
+              "ccc": 0.716364,
+              "mae": 1.779661,
+              "pred_std": 3.167087,
+              "pred_mean": 4.056345
+            },
+            "delta_ccc": -0.000674,
+            "delta_mae": 0.044059,
+            "correction_std_by_item": {
+              "10": 0.130292,
+              "12": 0.122281,
+              "13": 0.132368,
+              "14": 0.144513
+            }
+          },
+          {
+            "seed": 7,
+            "candidate": {
+              "ccc": 0.710208,
+              "mae": 1.79672,
+              "pred_std": 3.148883,
+              "pred_mean": 4.036334
+            },
+            "delta_ccc": -0.006829,
+            "delta_mae": 0.061118,
+            "correction_std_by_item": {
+              "10": 0.140625,
+              "12": 0.120585,
+              "13": 0.135578,
+              "14": 0.152243
+            }
+          }
+        ],
+        "seed_mean_delta_ccc": -0.002832,
+        "seed_delta_std": 0.003465,
+        "ensemble": {
+          "candidate": {
+            "ccc": 0.714735,
+            "mae": 1.787381,
+            "pred_std": 3.155911,
+            "pred_mean": 4.039879
+          },
+          "delta_ccc": -0.002303,
+          "delta_mae": 0.05178,
+          "bootstrap": {
+            "n_boot": 2000,
+            "median_delta": -0.002628,
+            "ci95": [
+              -0.01385,
+              0.00898
+            ],
+            "frac_positive": 0.334
+          }
+        },
+        "promotion_gate_pass": false
+      }
+    ],
+    "sid_shuffle": [
+      {
+        "arm": "primary_nonretracted_item12_mfdfa_item13_ph",
+        "item_feature_specs": [
+          {
+            "item": 12,
+            "family": "mfdfa",
+            "phases": [
+              "turning",
+              "turn_to_sit"
+            ],
+            "n_cols": 14,
+            "cols": [
+              "phase_turn_to_sit_mfdfa_trunk_pitch_asymmetry",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_delta_alpha",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q0",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_range",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_hurst_q2",
+              "phase_turning_mfdfa_trunk_pitch_asymmetry",
+              "phase_turning_mfdfa_trunk_pitch_delta_alpha",
+              "phase_turning_mfdfa_trunk_pitch_h_q0",
+              "phase_turning_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_turning_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_turning_mfdfa_trunk_pitch_h_range",
+              "phase_turning_mfdfa_trunk_pitch_hurst_q2"
+            ]
+          },
+          {
+            "item": 13,
+            "family": "ph",
+            "phases": [
+              "sit_to_stand",
+              "steady_walk"
+            ],
+            "n_cols": 8,
+            "cols": [
+              "phase_sit_to_stand_ph_sacrum_ang_h1_max",
+              "phase_sit_to_stand_ph_sacrum_ang_h1_med",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_max",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_med",
+              "phase_steady_walk_ph_sacrum_ang_h1_max",
+              "phase_steady_walk_ph_sacrum_ang_h1_med",
+              "phase_steady_walk_ph_trunk_pitch_h1_max",
+              "phase_steady_walk_ph_trunk_pitch_h1_med"
+            ]
+          }
+        ],
+        "baseline": {
+          "ccc": 0.717038,
+          "mae": 1.735602,
+          "pred_std": 3.105823,
+          "pred_mean": 4.05766
+        },
+        "seed_summaries": [
+          {
+            "seed": 42,
+            "candidate": {
+              "ccc": 0.704985,
+              "mae": 1.776455,
+              "pred_std": 3.109063,
+              "pred_mean": 4.065952
+            },
+            "delta_ccc": -0.012053,
+            "delta_mae": 0.040853,
+            "correction_std_by_item": {
+              "12": 0.114044,
+              "13": 0.137332
+            }
+          },
+          {
+            "seed": 1337,
+            "candidate": {
+              "ccc": 0.710789,
+              "mae": 1.755866,
+              "pred_std": 3.112945,
+              "pred_mean": 4.066057
+            },
+            "delta_ccc": -0.006249,
+            "delta_mae": 0.020264,
+            "correction_std_by_item": {
+              "12": 0.101379,
+              "13": 0.134585
+            }
+          },
+          {
+            "seed": 7,
+            "candidate": {
+              "ccc": 0.705359,
+              "mae": 1.777124,
+              "pred_std": 3.11828,
+              "pred_mean": 4.02722
+            },
+            "delta_ccc": -0.011678,
+            "delta_mae": 0.041522,
+            "correction_std_by_item": {
+              "12": 0.133596,
+              "13": 0.149116
+            }
+          }
+        ],
+        "seed_mean_delta_ccc": -0.009993,
+        "seed_delta_std": 0.003248,
+        "ensemble": {
+          "candidate": {
+            "ccc": 0.707302,
+            "mae": 1.768817,
+            "pred_std": 3.112473,
+            "pred_mean": 4.053076
+          },
+          "delta_ccc": -0.009736,
+          "delta_mae": 0.033216,
+          "bootstrap": {
+            "n_boot": 2000,
+            "median_delta": -0.009396,
+            "ci95": [
+              -0.021666,
+              -0.000919
+            ],
+            "frac_positive": 0.012
+          }
+        },
+        "promotion_gate_pass": false
+      },
+      {
+        "arm": "full_rank8_item10_12_mfdfa_item13_14_ph",
+        "item_feature_specs": [
+          {
+            "item": 10,
+            "family": "mfdfa",
+            "phases": [
+              "steady_walk",
+              "turning"
+            ],
+            "n_cols": 14,
+            "cols": [
+              "phase_steady_walk_mfdfa_trunk_pitch_asymmetry",
+              "phase_steady_walk_mfdfa_trunk_pitch_delta_alpha",
+              "phase_steady_walk_mfdfa_trunk_pitch_h_q0",
+              "phase_steady_walk_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_steady_walk_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_steady_walk_mfdfa_trunk_pitch_h_range",
+              "phase_steady_walk_mfdfa_trunk_pitch_hurst_q2",
+              "phase_turning_mfdfa_trunk_pitch_asymmetry",
+              "phase_turning_mfdfa_trunk_pitch_delta_alpha",
+              "phase_turning_mfdfa_trunk_pitch_h_q0",
+              "phase_turning_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_turning_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_turning_mfdfa_trunk_pitch_h_range",
+              "phase_turning_mfdfa_trunk_pitch_hurst_q2"
+            ]
+          },
+          {
+            "item": 12,
+            "family": "mfdfa",
+            "phases": [
+              "turning",
+              "turn_to_sit"
+            ],
+            "n_cols": 14,
+            "cols": [
+              "phase_turn_to_sit_mfdfa_trunk_pitch_asymmetry",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_delta_alpha",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q0",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_h_range",
+              "phase_turn_to_sit_mfdfa_trunk_pitch_hurst_q2",
+              "phase_turning_mfdfa_trunk_pitch_asymmetry",
+              "phase_turning_mfdfa_trunk_pitch_delta_alpha",
+              "phase_turning_mfdfa_trunk_pitch_h_q0",
+              "phase_turning_mfdfa_trunk_pitch_h_q_neg5",
+              "phase_turning_mfdfa_trunk_pitch_h_q_pos5",
+              "phase_turning_mfdfa_trunk_pitch_h_range",
+              "phase_turning_mfdfa_trunk_pitch_hurst_q2"
+            ]
+          },
+          {
+            "item": 13,
+            "family": "ph",
+            "phases": [
+              "sit_to_stand",
+              "steady_walk"
+            ],
+            "n_cols": 8,
+            "cols": [
+              "phase_sit_to_stand_ph_sacrum_ang_h1_max",
+              "phase_sit_to_stand_ph_sacrum_ang_h1_med",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_max",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_med",
+              "phase_steady_walk_ph_sacrum_ang_h1_max",
+              "phase_steady_walk_ph_sacrum_ang_h1_med",
+              "phase_steady_walk_ph_trunk_pitch_h1_max",
+              "phase_steady_walk_ph_trunk_pitch_h1_med"
+            ]
+          },
+          {
+            "item": 14,
+            "family": "ph",
+            "phases": [
+              "sit_to_stand",
+              "turning",
+              "turn_to_sit"
+            ],
+            "n_cols": 12,
+            "cols": [
+              "phase_sit_to_stand_ph_sacrum_ang_h1_max",
+              "phase_sit_to_stand_ph_sacrum_ang_h1_med",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_max",
+              "phase_sit_to_stand_ph_trunk_pitch_h1_med",
+              "phase_turn_to_sit_ph_sacrum_ang_h1_max",
+              "phase_turn_to_sit_ph_sacrum_ang_h1_med",
+              "phase_turn_to_sit_ph_trunk_pitch_h1_max",
+              "phase_turn_to_sit_ph_trunk_pitch_h1_med",
+              "phase_turning_ph_sacrum_ang_h1_max",
+              "phase_turning_ph_sacrum_ang_h1_med",
+              "phase_turning_ph_trunk_pitch_h1_max",
+              "phase_turning_ph_trunk_pitch_h1_med"
+            ]
+          }
+        ],
+        "baseline": {
+          "ccc": 0.717038,
+          "mae": 1.735602,
+          "pred_std": 3.105823,
+          "pred_mean": 4.05766
+        },
+        "seed_summaries": [
+          {
+            "seed": 42,
+            "candidate": {
+              "ccc": 0.69975,
+              "mae": 1.804517,
+              "pred_std": 3.098943,
+              "pred_mean": 4.048196
+            },
+            "delta_ccc": -0.017288,
+            "delta_mae": 0.068915,
+            "correction_std_by_item": {
+              "10": 0.111447,
+              "12": 0.114044,
+              "13": 0.137332,
+              "14": 0.099668
+            }
+          },
+          {
+            "seed": 1337,
+            "candidate": {
+              "ccc": 0.709018,
+              "mae": 1.771422,
+              "pred_std": 3.094333,
+              "pred_mean": 4.034656
+            },
+            "delta_ccc": -0.00802,
+            "delta_mae": 0.03582,
+            "correction_std_by_item": {
+              "10": 0.127715,
+              "12": 0.101379,
+              "13": 0.134585,
+              "14": 0.111082
+            }
+          },
+          {
+            "seed": 7,
+            "candidate": {
+              "ccc": 0.699564,
+              "mae": 1.801809,
+              "pred_std": 3.103697,
+              "pred_mean": 4.021658
+            },
+            "delta_ccc": -0.017473,
+            "delta_mae": 0.066208,
+            "correction_std_by_item": {
+              "10": 0.118936,
+              "12": 0.133596,
+              "13": 0.149116,
+              "14": 0.106605
+            }
+          }
+        ],
+        "seed_mean_delta_ccc": -0.01426,
+        "seed_delta_std": 0.005405,
+        "ensemble": {
+          "candidate": {
+            "ccc": 0.703403,
+            "mae": 1.789715,
+            "pred_std": 3.096526,
+            "pred_mean": 4.034837
+          },
+          "delta_ccc": -0.013635,
+          "delta_mae": 0.054113,
+          "bootstrap": {
+            "n_boot": 2000,
+            "median_delta": -0.013415,
+            "ci95": [
+              -0.028534,
+              -0.003074
+            ],
+            "frac_positive": 0.004
+          }
+        },
+        "promotion_gate_pass": false
+      }
+    ]
+  },
+  "promotion_gate": {
+    "delta_ccc_min": 0.025,
+    "bootstrap_frac_positive_min": 0.95,
+    "seed_delta_std_max": 0.02,
+    "mae_degradation_max": 0.025
+  },
+  "verdict": "SCREEN_FAIL_NO_LOOCV"
+}

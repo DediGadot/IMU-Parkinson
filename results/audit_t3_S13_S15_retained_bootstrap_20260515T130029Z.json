@@ -1,0 +1,127 @@
+{
+  "name": "audit_t3_S13_S15_retained_bootstrap",
+  "created_at_utc": "20260515T130029Z",
+  "n_cohort": 95,
+  "iter47_full_ccc": 0.378367,
+  "slotF_ref_70": 0.4237,
+  "slotF_ref_50": 0.537,
+  "n_bootstrap": 5000,
+  "results": {
+    "cov_70": {
+      "iter47_retain_by_corrPH_mag": {
+        "n_retained": 66,
+        "actual_coverage": 0.6947,
+        "ccc_retained": 0.3307,
+        "delta_vs_full_cohort_iter47": -0.0477,
+        "delta_vs_slotF_ref": -0.093,
+        "bootstrap_frac_pos_vs_full": 0.2948,
+        "bootstrap_ci95_vs_full": [
+          -0.2028,
+          0.0744
+        ],
+        "bootstrap_median_vs_full": -0.0352,
+        "beats_full_iter47_uncorrected": false
+      },
+      "iter47_retain_by_corrJOINT_mag": {
+        "n_retained": 66,
+        "actual_coverage": 0.6947,
+        "ccc_retained": 0.4302,
+        "delta_vs_full_cohort_iter47": 0.0518,
+        "delta_vs_slotF_ref": 0.0065,
+        "bootstrap_frac_pos_vs_full": 0.8846,
+        "bootstrap_ci95_vs_full": [
+          -0.0327,
+          0.1199
+        ],
+        "bootstrap_median_vs_full": 0.0444,
+        "beats_full_iter47_uncorrected": false
+      },
+      "s13PH_retain_by_corrPH_mag": {
+        "n_retained": 66,
+        "actual_coverage": 0.6947,
+        "ccc_retained": 0.3635,
+        "delta_vs_full_cohort_iter47": -0.0149,
+        "delta_vs_slotF_ref": -0.0602,
+        "bootstrap_frac_pos_vs_full": 0.4886,
+        "bootstrap_ci95_vs_full": [
+          -0.1647,
+          0.1165
+        ],
+        "bootstrap_median_vs_full": -0.0022,
+        "beats_full_iter47_uncorrected": false
+      },
+      "s13JOINT_retain_by_corrJOINT_mag": {
+        "n_retained": 66,
+        "actual_coverage": 0.6947,
+        "ccc_retained": 0.4441,
+        "delta_vs_full_cohort_iter47": 0.0657,
+        "delta_vs_slotF_ref": 0.0204,
+        "bootstrap_frac_pos_vs_full": 0.9176,
+        "bootstrap_ci95_vs_full": [
+          -0.0279,
+          0.1513
+        ],
+        "bootstrap_median_vs_full": 0.0641,
+        "beats_full_iter47_uncorrected": false
+      }
+    },
+    "cov_50": {
+      "iter47_retain_by_corrPH_mag": {
+        "n_retained": 48,
+        "actual_coverage": 0.5053,
+        "ccc_retained": 0.3949,
+        "delta_vs_full_cohort_iter47": 0.0165,
+        "delta_vs_slotF_ref": -0.1421,
+        "bootstrap_frac_pos_vs_full": 0.5516,
+        "bootstrap_ci95_vs_full": [
+          -0.21,
+          0.1606
+        ],
+        "bootstrap_median_vs_full": 0.0112,
+        "beats_full_iter47_uncorrected": false
+      },
+      "iter47_retain_by_corrJOINT_mag": {
+        "n_retained": 48,
+        "actual_coverage": 0.5053,
+        "ccc_retained": 0.4464,
+        "delta_vs_full_cohort_iter47": 0.0681,
+        "delta_vs_slotF_ref": -0.0906,
+        "bootstrap_frac_pos_vs_full": 0.9274,
+        "bootstrap_ci95_vs_full": [
+          -0.038,
+          0.1909
+        ],
+        "bootstrap_median_vs_full": 0.0831,
+        "beats_full_iter47_uncorrected": false
+      },
+      "s13PH_retain_by_corrPH_mag": {
+        "n_retained": 48,
+        "actual_coverage": 0.5053,
+        "ccc_retained": 0.3931,
+        "delta_vs_full_cohort_iter47": 0.0147,
+        "delta_vs_slotF_ref": -0.1439,
+        "bootstrap_frac_pos_vs_full": 0.5258,
+        "bootstrap_ci95_vs_full": [
+          -0.2132,
+          0.155
+        ],
+        "bootstrap_median_vs_full": 0.0064,
+        "beats_full_iter47_uncorrected": false
+      },
+      "s13JOINT_retain_by_corrJOINT_mag": {
+        "n_retained": 48,
+        "actual_coverage": 0.5053,
+        "ccc_retained": 0.4595,
+        "delta_vs_full_cohort_iter47": 0.0811,
+        "delta_vs_slotF_ref": -0.0775,
+        "bootstrap_frac_pos_vs_full": 0.944,
+        "bootstrap_ci95_vs_full": [
+          -0.0283,
+          0.203
+        ],
+        "bootstrap_median_vs_full": 0.0963,
+        "beats_full_iter47_uncorrected": false
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "expected": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ],
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ]
+      },
+      "name": "schema-probe specs cover all packet-ready external routes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ]
+      },
+      "name": "specs validate for priority external routes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "approved access is required before schema probing",
+          "missing probe sections: subject_linkage, visit_or_session_linkage, sensor_metadata, target_metadata, missingness_policy, grouping_policy, hard_stops",
+          "missing grouping keys: visit_id",
+          "missing target columns: updrs3",
+          "missing sensor modalities: wrist_accelerometer",
+          "valid_subject_count is below minimum 20"
+        ]
+      },
+      "name": "incomplete pre-access probe cannot preregister",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "artifact_path": "results/watchpd_probe_YYYYMMDD.json",
+        "errors": []
+      },
+      "name": "complete read-only schema probe can unlock preregistration",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "probe artifact includes protected row dump",
+          "schema probe must not write preregistration",
+          "schema probe must not start model run"
+        ]
+      },
+      "name": "probe contract rejects protected dumps or premature modeling",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "protected external dataset requires external_readiness with a clean schema_probe",
+          "missing required artifact kind: schema_probe"
+        ]
+      },
+      "name": "protected external ExperimentSpec requires clean schema probe",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [],
+        "schema_probe_artifact": "results/watchpd_probe_YYYYMMDD.json"
+      },
+      "name": "protected external ExperimentSpec accepts clean schema probe artifact",
+      "passed": true
+    }
+  ],
+  "claim": "After external access approval, all six packet-ready external routes have typed read-only schema-probe specs; only a clean probe can unlock preregistration, protected row dumps, preregistration, and model runs remain prohibited inside the probe artifact, and protected external ExperimentSpec objects must carry that clean probe evidence before preregistration or run commands validate.",
+  "covered_route_ids": [
+    "ppmi_verily",
+    "ppp_pd_vme",
+    "watchpd",
+    "cns_portugal_lobo",
+    "hssayeni_mjff",
+    "icicle_gait"
+  ],
+  "decision": "external_schema_probe_contract_passed",
+  "generated_at_utc": "2026-05-16T12:44:22+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_external_schema_probe_contract.py"
+}

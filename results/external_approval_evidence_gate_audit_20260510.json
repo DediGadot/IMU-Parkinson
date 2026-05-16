@@ -1,0 +1,67 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "errors": []
+      },
+      "name": "clean approval evidence validates without protected content",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "schema_probe stage requires access approval evidence"
+        ]
+      },
+      "name": "schema probe blocks on route boolean without approval evidence",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": []
+      },
+      "name": "schema probe accepts clean approval evidence",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "approval source is required",
+          "data use terms must be accepted",
+          "protected data storage plan must be documented",
+          "approval evidence must not include protected row data",
+          "approval evidence must not include credentials or tokens"
+        ]
+      },
+      "name": "approval evidence rejects placeholders, protected rows, and credentials",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "access_approval: approval evidence route_id does not match route"
+        ]
+      },
+      "name": "approval evidence route mismatch blocks schema probe",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors_without_evidence": [
+          "preregister stage requires access approval evidence",
+          "preregister stage requires schema_probe content evidence"
+        ]
+      },
+      "name": "protected preregistration requires approval evidence after schema probe",
+      "passed": true
+    }
+  ],
+  "claim": "Protected external schema probes and protected preregistration now require explicit AccessApprovalEvidence; approved_access booleans alone are insufficient, and approval evidence must not include protected rows, credentials, or tokens.",
+  "decision": "external_approval_evidence_gate_passed",
+  "generated_at_utc": "2026-05-16T12:51:48+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_external_approval_evidence_gate.py"
+}

@@ -1,0 +1,370 @@
+{
+  "name": "screen_t1_topofractal8_sumaware",
+  "created_at_utc": "20260515T103452Z",
+  "objective": "screen target-free TopoFractal-8 compression plus sum-aware Bayesian residual composer",
+  "screen_only": true,
+  "promotion_gate": {
+    "mean_seed_delta_ccc_min": 0.025,
+    "seed_delta_std_max": 0.02,
+    "ensemble_bootstrap_frac_positive_min": 0.95,
+    "max_material_mae_degradation": 0.05,
+    "gate_pass": false
+  },
+  "formula_sha256": "229f7d556f5ec8b05515a3f1b7dc8b2f6e3f7c28b135334f7648eafe9fcf8d14",
+  "feature_cache": "results/cache_stepfunction_spd_klc_crqa_mfdfa_ph_20260515T072624Z.csv",
+  "oof_npz": "results/t1_iter34_per_item_oof_20260511_044242.npz",
+  "n": 92,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "group_specs": [
+    {
+      "name": "ph_trunk_h1_max",
+      "pattern": "_ph_trunk_pitch_h1_max",
+      "columns": [
+        "task_TUG_ph_trunk_pitch_h1_max",
+        "task_SelfPace_ph_trunk_pitch_h1_max",
+        "task_HurriedPace_ph_trunk_pitch_h1_max",
+        "task_TandemGait_ph_trunk_pitch_h1_max",
+        "task_Balance_ph_trunk_pitch_h1_max",
+        "task_SelfPace_mat_ph_trunk_pitch_h1_max",
+        "task_HurriedPace_mat_ph_trunk_pitch_h1_max",
+        "task_SelfPace_matTURN_ph_trunk_pitch_h1_max"
+      ]
+    },
+    {
+      "name": "ph_trunk_h1_med",
+      "pattern": "_ph_trunk_pitch_h1_med",
+      "columns": [
+        "task_TUG_ph_trunk_pitch_h1_med",
+        "task_SelfPace_ph_trunk_pitch_h1_med",
+        "task_HurriedPace_ph_trunk_pitch_h1_med",
+        "task_TandemGait_ph_trunk_pitch_h1_med",
+        "task_Balance_ph_trunk_pitch_h1_med",
+        "task_SelfPace_mat_ph_trunk_pitch_h1_med",
+        "task_HurriedPace_mat_ph_trunk_pitch_h1_med",
+        "task_SelfPace_matTURN_ph_trunk_pitch_h1_med"
+      ]
+    },
+    {
+      "name": "ph_sacrum_h1_max",
+      "pattern": "_ph_sacrum_ang_h1_max",
+      "columns": [
+        "task_TUG_ph_sacrum_ang_h1_max",
+        "task_SelfPace_ph_sacrum_ang_h1_max",
+        "task_HurriedPace_ph_sacrum_ang_h1_max",
+        "task_TandemGait_ph_sacrum_ang_h1_max",
+        "task_Balance_ph_sacrum_ang_h1_max",
+        "task_SelfPace_mat_ph_sacrum_ang_h1_max",
+        "task_HurriedPace_mat_ph_sacrum_ang_h1_max",
+        "task_SelfPace_matTURN_ph_sacrum_ang_h1_max"
+      ]
+    },
+    {
+      "name": "ph_sacrum_h1_med",
+      "pattern": "_ph_sacrum_ang_h1_med",
+      "columns": [
+        "task_TUG_ph_sacrum_ang_h1_med",
+        "task_SelfPace_ph_sacrum_ang_h1_med",
+        "task_HurriedPace_ph_sacrum_ang_h1_med",
+        "task_TandemGait_ph_sacrum_ang_h1_med",
+        "task_Balance_ph_sacrum_ang_h1_med",
+        "task_SelfPace_mat_ph_sacrum_ang_h1_med",
+        "task_HurriedPace_mat_ph_sacrum_ang_h1_med",
+        "task_SelfPace_matTURN_ph_sacrum_ang_h1_med"
+      ]
+    },
+    {
+      "name": "mfdfa_delta_alpha",
+      "pattern": "_mfdfa_trunk_pitch_delta_alpha",
+      "columns": [
+        "task_TUG_mfdfa_trunk_pitch_delta_alpha",
+        "task_SelfPace_mfdfa_trunk_pitch_delta_alpha",
+        "task_HurriedPace_mfdfa_trunk_pitch_delta_alpha",
+        "task_TandemGait_mfdfa_trunk_pitch_delta_alpha",
+        "task_Balance_mfdfa_trunk_pitch_delta_alpha",
+        "task_SelfPace_mat_mfdfa_trunk_pitch_delta_alpha",
+        "task_HurriedPace_mat_mfdfa_trunk_pitch_delta_alpha",
+        "task_SelfPace_matTURN_mfdfa_trunk_pitch_delta_alpha"
+      ]
+    },
+    {
+      "name": "mfdfa_asymmetry",
+      "pattern": "_mfdfa_trunk_pitch_asymmetry",
+      "columns": [
+        "task_TUG_mfdfa_trunk_pitch_asymmetry",
+        "task_SelfPace_mfdfa_trunk_pitch_asymmetry",
+        "task_HurriedPace_mfdfa_trunk_pitch_asymmetry",
+        "task_TandemGait_mfdfa_trunk_pitch_asymmetry",
+        "task_Balance_mfdfa_trunk_pitch_asymmetry",
+        "task_SelfPace_mat_mfdfa_trunk_pitch_asymmetry",
+        "task_HurriedPace_mat_mfdfa_trunk_pitch_asymmetry",
+        "task_SelfPace_matTURN_mfdfa_trunk_pitch_asymmetry"
+      ]
+    },
+    {
+      "name": "mfdfa_hurst_q2",
+      "pattern": "_mfdfa_trunk_pitch_hurst_q2",
+      "columns": [
+        "task_TUG_mfdfa_trunk_pitch_hurst_q2",
+        "task_SelfPace_mfdfa_trunk_pitch_hurst_q2",
+        "task_HurriedPace_mfdfa_trunk_pitch_hurst_q2",
+        "task_TandemGait_mfdfa_trunk_pitch_hurst_q2",
+        "task_Balance_mfdfa_trunk_pitch_hurst_q2",
+        "task_SelfPace_mat_mfdfa_trunk_pitch_hurst_q2",
+        "task_HurriedPace_mat_mfdfa_trunk_pitch_hurst_q2",
+        "task_SelfPace_matTURN_mfdfa_trunk_pitch_hurst_q2"
+      ]
+    },
+    {
+      "name": "mfdfa_h_range",
+      "pattern": "_mfdfa_trunk_pitch_h_range",
+      "columns": [
+        "task_TUG_mfdfa_trunk_pitch_h_range",
+        "task_SelfPace_mfdfa_trunk_pitch_h_range",
+        "task_HurriedPace_mfdfa_trunk_pitch_h_range",
+        "task_TandemGait_mfdfa_trunk_pitch_h_range",
+        "task_Balance_mfdfa_trunk_pitch_h_range",
+        "task_SelfPace_mat_mfdfa_trunk_pitch_h_range",
+        "task_HurriedPace_mat_mfdfa_trunk_pitch_h_range",
+        "task_SelfPace_matTURN_mfdfa_trunk_pitch_h_range"
+      ]
+    }
+  ],
+  "lambda_grid": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "model": "BayesianRidge",
+  "seed_summaries": {
+    "42": {
+      "baseline": {
+        "n": 92,
+        "ccc": 0.717,
+        "cal_slope": 0.8151,
+        "mae": 1.7356,
+        "r": 0.7223,
+        "pred_mean": 4.058,
+        "pred_std": 3.106,
+        "true_mean": 4.033,
+        "true_std": 2.752,
+        "label": "seed_42_baseline"
+      },
+      "candidate": {
+        "n": 92,
+        "ccc": 0.7147,
+        "cal_slope": 0.813,
+        "mae": 1.7447,
+        "r": 0.72,
+        "pred_mean": 4.042,
+        "pred_std": 3.108,
+        "true_mean": 4.033,
+        "true_std": 2.752,
+        "label": "seed_42_candidate"
+      },
+      "delta_ccc": -0.0022999999999999687,
+      "delta_mae": 0.009099999999999886,
+      "bootstrap": {
+        "n_boot": 2000,
+        "median_delta": -0.002343070010873527,
+        "ci95_lower": -0.0053717597961278705,
+        "ci95_upper": -0.0002627717865187313,
+        "frac_positive": 0.0115
+      }
+    },
+    "1337": {
+      "baseline": {
+        "n": 92,
+        "ccc": 0.717,
+        "cal_slope": 0.8151,
+        "mae": 1.7356,
+        "r": 0.7223,
+        "pred_mean": 4.058,
+        "pred_std": 3.106,
+        "true_mean": 4.033,
+        "true_std": 2.752,
+        "label": "seed_1337_baseline"
+      },
+      "candidate": {
+        "n": 92,
+        "ccc": 0.717,
+        "cal_slope": 0.8151,
+        "mae": 1.7356,
+        "r": 0.7223,
+        "pred_mean": 4.058,
+        "pred_std": 3.106,
+        "true_mean": 4.033,
+        "true_std": 2.752,
+        "label": "seed_1337_candidate"
+      },
+      "delta_ccc": 0.0,
+      "delta_mae": 0.0,
+      "bootstrap": {
+        "n_boot": 2000,
+        "median_delta": 0.0,
+        "ci95_lower": 0.0,
+        "ci95_upper": 0.0,
+        "frac_positive": 0.0
+      }
+    },
+    "7": {
+      "baseline": {
+        "n": 92,
+        "ccc": 0.717,
+        "cal_slope": 0.8151,
+        "mae": 1.7356,
+        "r": 0.7223,
+        "pred_mean": 4.058,
+        "pred_std": 3.106,
+        "true_mean": 4.033,
+        "true_std": 2.752,
+        "label": "seed_7_baseline"
+      },
+      "candidate": {
+        "n": 92,
+        "ccc": 0.717,
+        "cal_slope": 0.8151,
+        "mae": 1.7356,
+        "r": 0.7223,
+        "pred_mean": 4.058,
+        "pred_std": 3.106,
+        "true_mean": 4.033,
+        "true_std": 2.752,
+        "label": "seed_7_candidate"
+      },
+      "delta_ccc": 0.0,
+      "delta_mae": 0.0,
+      "bootstrap": {
+        "n_boot": 2000,
+        "median_delta": 0.0,
+        "ci95_lower": 0.0,
+        "ci95_upper": 0.0,
+        "frac_positive": 0.0
+      }
+    }
+  },
+  "ensemble_summary": {
+    "baseline": {
+      "n": 92,
+      "ccc": 0.717,
+      "cal_slope": 0.8151,
+      "mae": 1.7356,
+      "r": 0.7223,
+      "pred_mean": 4.058,
+      "pred_std": 3.106,
+      "true_mean": 4.033,
+      "true_std": 2.752,
+      "label": "ensemble_mean_baseline"
+    },
+    "candidate": {
+      "n": 92,
+      "ccc": 0.7163,
+      "cal_slope": 0.8144,
+      "mae": 1.7386,
+      "r": 0.7215,
+      "pred_mean": 4.052,
+      "pred_std": 3.106,
+      "true_mean": 4.033,
+      "true_std": 2.752,
+      "label": "ensemble_mean_candidate"
+    },
+    "delta_ccc": -0.0006999999999999229,
+    "delta_mae": 0.0029999999999998916,
+    "bootstrap": {
+      "n_boot": 2000,
+      "median_delta": -0.0007758448388504036,
+      "ci95_lower": -0.0017730980035070621,
+      "ci95_upper": -4.68551220042418e-05,
+      "frac_positive": 0.0195
+    }
+  },
+  "seed_mean_delta_ccc": -0.0007666666666666563,
+  "seed_delta_std": 0.001084230397819358,
+  "null_results": {
+    "scrambled_y": {
+      "baseline": {
+        "n": 92,
+        "ccc": 0.717,
+        "cal_slope": 0.8151,
+        "mae": 1.7356,
+        "r": 0.7223,
+        "pred_mean": 4.058,
+        "pred_std": 3.106,
+        "true_mean": 4.033,
+        "true_std": 2.752,
+        "label": "scrambled_y_baseline"
+      },
+      "candidate": {
+        "n": 92,
+        "ccc": 0.602,
+        "cal_slope": 0.6471,
+        "mae": 1.9993,
+        "r": 0.6036,
+        "pred_mean": 4.106,
+        "pred_std": 2.95,
+        "true_mean": 4.033,
+        "true_std": 2.752,
+        "label": "scrambled_y_candidate"
+      },
+      "delta_ccc": -0.11499999999999999,
+      "delta_mae": 0.26370000000000005,
+      "bootstrap": {
+        "n_boot": 2000,
+        "median_delta": -0.11583670484872172,
+        "ci95_lower": -0.21680568914583928,
+        "ci95_upper": -0.05012274689656203,
+        "frac_positive": 0.001
+      }
+    },
+    "sid_shuffle": {
+      "baseline": {
+        "n": 92,
+        "ccc": 0.717,
+        "cal_slope": 0.8151,
+        "mae": 1.7356,
+        "r": 0.7223,
+        "pred_mean": 4.058,
+        "pred_std": 3.106,
+        "true_mean": 4.033,
+        "true_std": 2.752,
+        "label": "sid_shuffle_baseline"
+      },
+      "candidate": {
+        "n": 92,
+        "ccc": 0.708,
+        "cal_slope": 0.8097,
+        "mae": 1.7759,
+        "r": 0.7137,
+        "pred_mean": 3.992,
+        "pred_std": 3.122,
+        "true_mean": 4.033,
+        "true_std": 2.752,
+        "label": "sid_shuffle_candidate"
+      },
+      "delta_ccc": -0.009000000000000008,
+      "delta_mae": 0.0403,
+      "bootstrap": {
+        "n_boot": 2000,
+        "median_delta": -0.008813466475962983,
+        "ci95_lower": -0.0191018539093904,
+        "ci95_upper": -0.0015570636228255236,
+        "frac_positive": 0.009
+      }
+    },
+    "test_only_canary": {
+      "max_abs_prediction_diff_vs_real_seed": 0.0,
+      "passes": true
+    },
+    "retrieval_library_exclusion": {
+      "status": "not_applicable",
+      "rationale": "No retrieval library, nearest-neighbor reference set, or recording library is used."
+    }
+  },
+  "verdict": "SCREEN_FAIL_NO_LOOCV",
+  "interpretation": "If failed, this closes the remaining target-free TopoFractal-8 sum-aware composer wording from /tmp/pro-results.txt for internal T1 headline purposes without changing canonical numbers."
+}

@@ -1,0 +1,466 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "canonical_update_policy": "disabled_for_hygiene_correction_replication",
+        "is_canonical_update": false,
+        "n": 92
+      },
+      "name": "current corrected result is N=92 and non-canonical",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "current_common_ccc": 0.7170378403014925,
+        "delta": 0.053158687596614906,
+        "iter12_common_ccc": 0.6638791527048776
+      },
+      "name": "corrected candidate still lifts over iter12 on common SIDs",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "current_common_ccc": 0.7170378403014925,
+        "delta": -0.015290041385922049,
+        "original_common_ccc": 0.7323278816874146
+      },
+      "name": "corrected candidate is degraded versus original iter34 on common SIDs",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "abs_delta": 0.039776406018535826,
+        "ccc_without_subject": 0.6772614342829567,
+        "delta_without_minus_full": -0.039776406018535826,
+        "prediction": 13.753093004963276,
+        "sid": "NLS196",
+        "signed_error_pred_minus_true": -0.2469069950367242,
+        "target": 14.0
+      },
+      "name": "no single-subject redline above 0.05 leave-one CCC impact",
+      "passed": true
+    }
+  ],
+  "current_metrics": {
+    "ccc": 0.7170378403014925,
+    "mae": 1.7356018162374585,
+    "n": 92,
+    "pred_mean": 4.057659651935727,
+    "pred_std": 3.105823011863579,
+    "r": 0.7223066495976541,
+    "true_mean": 4.032608695652174,
+    "true_std": 2.752276081625825
+  },
+  "decision": "diagnostic_only_external_data_first_remains",
+  "delta_current_vs_iter12_common_ccc": 0.053158687596614906,
+  "delta_current_vs_original_common_ccc": -0.015290041385922049,
+  "generated_at_utc": "2026-05-10T20:56:56+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "inputs": {
+    "current_result": "results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+    "iter12_result": "results/t1_iter12_honest_composite.json",
+    "original_iter34_result": "results/lockbox_t1_iter34_hybrid_20260506_141720.json"
+  },
+  "interpretation": "The hygiene-corrected T1 candidate keeps a common-SID lift over iter12, but it is lower than the original contaminated/caveated iter34. Residual structure is mostly tail/site/postural-item anatomy already represented in previous failed local screens, so this audit does not justify a new WearGait-only lockbox. The architecture recommendation remains external-data-first.",
+  "item_residual_rows": [
+    {
+      "abs_error_corr": 0.06712691439914117,
+      "item": 14,
+      "signed_error_corr": -0.3407053183650556,
+      "target_mean": 0.967391304347826
+    },
+    {
+      "abs_error_corr": 0.3070766437095571,
+      "item": 13,
+      "signed_error_corr": -0.23184598681488072,
+      "target_mean": 1.0217391304347827
+    },
+    {
+      "abs_error_corr": 0.22661719137700775,
+      "item": 12,
+      "signed_error_corr": -0.08673323621594416,
+      "target_mean": 0.5543478260869565
+    },
+    {
+      "abs_error_corr": 0.14137002504948498,
+      "item": 9,
+      "signed_error_corr": -0.008674746837293095,
+      "target_mean": 0.2717391304347826
+    },
+    {
+      "abs_error_corr": 0.12945260406944833,
+      "item": 10,
+      "signed_error_corr": -0.09120039300575869,
+      "target_mean": 1.0326086956521738
+    },
+    {
+      "abs_error_corr": 0.08543624790818317,
+      "item": 11,
+      "signed_error_corr": -0.10838104425421255,
+      "target_mean": 0.18478260869565216
+    }
+  ],
+  "iter12_common_sid_metrics": {
+    "ccc": 0.6638791527048776,
+    "mae": 1.5301119340639264,
+    "n": 92,
+    "pred_mean": 4.071482072596097,
+    "pred_std": 1.9475645573200822,
+    "r": 0.7040737704034116,
+    "true_mean": 4.032608695652174,
+    "true_std": 2.752276081625825
+  },
+  "not_a_model_run": true,
+  "original_iter34_common_sid_metrics": {
+    "ccc": 0.7323278816874146,
+    "mae": 1.7160097394141371,
+    "n": 92,
+    "pred_mean": 4.048069551591875,
+    "pred_std": 3.1311312187551796,
+    "r": 0.7384366175401147,
+    "true_mean": 4.032608695652174,
+    "true_std": 2.752276081625825
+  },
+  "passed": true,
+  "prediction_corr_current_vs_iter12": 0.8387638242802563,
+  "prediction_corr_current_vs_original": 0.9835331843225376,
+  "residual_correlations": {
+    "hy_abs_error": 0.15550858974005977,
+    "hy_signed_error": 0.35998466381476035,
+    "obs_abs_error": 0.08743625922215514,
+    "obs_signed_error": -0.14408891951826616,
+    "target_abs_error": 0.25606082038401845,
+    "target_signed_error": -0.23055456871675759
+  },
+  "rows_csv": "results/t1_hygiene_residual_anatomy_rows_20260510.csv",
+  "script": "audit_t1_hygiene_residual_anatomy.py",
+  "site_rows": [
+    {
+      "ccc": 0.712224189442424,
+      "mae": 1.8035769791433738,
+      "mean_signed_error_pred_minus_true": 0.21229340602157606,
+      "n": 67,
+      "site": "NLS"
+    },
+    {
+      "ccc": 0.6250849605863721,
+      "mae": 1.553428379649605,
+      "mean_signed_error_pred_minus_true": -0.4767588090143456,
+      "n": 25,
+      "site": "WPD"
+    }
+  ],
+  "target_quantile_rows": [
+    {
+      "bin": 0,
+      "ccc": -0.0768966462453132,
+      "mae": 1.591164337718942,
+      "mean_signed_error_pred_minus_true": 1.2282165546207695,
+      "n": 15,
+      "target_max": 1.0,
+      "target_min": 0.0
+    },
+    {
+      "bin": 1,
+      "ccc": -0.0003508419638181711,
+      "mae": 1.2118187242960687,
+      "mean_signed_error_pred_minus_true": 0.14437860314241227,
+      "n": 30,
+      "target_max": 3.0,
+      "target_min": 2.0
+    },
+    {
+      "bin": 2,
+      "ccc": 0.0,
+      "mae": 1.47034061282179,
+      "mean_signed_error_pred_minus_true": -0.2439473823321375,
+      "n": 15,
+      "target_max": 4.0,
+      "target_min": 4.0
+    },
+    {
+      "bin": 3,
+      "ccc": 0.5726824862769951,
+      "mae": 2.4186947220891604,
+      "mean_signed_error_pred_minus_true": -0.5247096156410904,
+      "n": 32,
+      "target_max": 14.0,
+      "target_min": 5.0
+    }
+  ],
+  "top_abs_error_subjects": [
+    {
+      "abs_error": 4.915195765367709,
+      "hy": 3.0,
+      "item_10": 0.0,
+      "item_11": 0.0,
+      "item_12": 0.0,
+      "item_13": 2.0,
+      "item_14": 0.0,
+      "item_9": 0.0,
+      "iter12_pred_common_sid": 4.390472857172681,
+      "obs_subscore": 4.0,
+      "original_iter34_pred_common_sid": 6.348125001415002,
+      "sid": "NLS121",
+      "signed_error_pred_minus_true": 4.915195765367709,
+      "site": "NLS",
+      "y_pred": 6.915195765367709,
+      "y_true": 2.0
+    },
+    {
+      "abs_error": 4.85586939364903,
+      "hy": 4.0,
+      "item_10": 2.0,
+      "item_11": 1.0,
+      "item_12": 3.0,
+      "item_13": 2.0,
+      "item_14": 2.0,
+      "item_9": 1.0,
+      "iter12_pred_common_sid": 11.433425473983425,
+      "obs_subscore": 19.0,
+      "original_iter34_pred_common_sid": 15.538591102085022,
+      "sid": "NLS033",
+      "signed_error_pred_minus_true": 4.85586939364903,
+      "site": "NLS",
+      "y_pred": 15.85586939364903,
+      "y_true": 11.0
+    },
+    {
+      "abs_error": 4.655838500833068,
+      "hy": 2.0,
+      "item_10": 1.0,
+      "item_11": 1.0,
+      "item_12": 0.0,
+      "item_13": 2.0,
+      "item_14": 1.0,
+      "item_9": 1.0,
+      "iter12_pred_common_sid": 2.2747157783049716,
+      "obs_subscore": 15.0,
+      "original_iter34_pred_common_sid": 1.4226085445014744,
+      "sid": "NLS160",
+      "signed_error_pred_minus_true": -4.655838500833068,
+      "site": "NLS",
+      "y_pred": 1.3441614991669324,
+      "y_true": 6.0
+    },
+    {
+      "abs_error": 4.630926092762936,
+      "hy": 4.0,
+      "item_10": 2.0,
+      "item_11": 0.0,
+      "item_12": 1.0,
+      "item_13": 1.0,
+      "item_14": 1.0,
+      "item_9": 1.0,
+      "iter12_pred_common_sid": 3.9765523269390477,
+      "obs_subscore": 15.0,
+      "original_iter34_pred_common_sid": 9.583789440488447,
+      "sid": "NLS187",
+      "signed_error_pred_minus_true": 4.630926092762936,
+      "site": "NLS",
+      "y_pred": 10.630926092762936,
+      "y_true": 6.0
+    },
+    {
+      "abs_error": 4.385458363707203,
+      "hy": 3.0,
+      "item_10": 2.0,
+      "item_11": 0.0,
+      "item_12": 3.0,
+      "item_13": 1.0,
+      "item_14": 2.0,
+      "item_9": 1.0,
+      "iter12_pred_common_sid": 8.366086680593192,
+      "obs_subscore": 21.0,
+      "original_iter34_pred_common_sid": 13.408914888642874,
+      "sid": "NLS124",
+      "signed_error_pred_minus_true": 4.385458363707203,
+      "site": "NLS",
+      "y_pred": 13.385458363707203,
+      "y_true": 9.0
+    },
+    {
+      "abs_error": 4.281895725364751,
+      "hy": 2.0,
+      "item_10": 0.0,
+      "item_11": 0.0,
+      "item_12": 0.0,
+      "item_13": 0.0,
+      "item_14": 0.0,
+      "item_9": 0.0,
+      "iter12_pred_common_sid": 4.230222684301593,
+      "obs_subscore": 5.0,
+      "original_iter34_pred_common_sid": 4.294209898336278,
+      "sid": "NLS192",
+      "signed_error_pred_minus_true": 4.281895725364751,
+      "site": "NLS",
+      "y_pred": 4.281895725364751,
+      "y_true": 0.0
+    },
+    {
+      "abs_error": 4.239227397525756,
+      "hy": 2.0,
+      "item_10": 2.0,
+      "item_11": 0.0,
+      "item_12": 3.0,
+      "item_13": 1.0,
+      "item_14": 1.0,
+      "item_9": 1.0,
+      "iter12_pred_common_sid": 7.362917838998682,
+      "obs_subscore": 15.0,
+      "original_iter34_pred_common_sid": 4.380774502756968,
+      "sid": "NLS056",
+      "signed_error_pred_minus_true": -4.239227397525756,
+      "site": "NLS",
+      "y_pred": 3.760772602474244,
+      "y_true": 8.0
+    },
+    {
+      "abs_error": 4.231794634611059,
+      "hy": 2.0,
+      "item_10": 2.0,
+      "item_11": 3.0,
+      "item_12": 0.0,
+      "item_13": 2.0,
+      "item_14": 2.0,
+      "item_9": 0.0,
+      "iter12_pred_common_sid": 3.709902463759546,
+      "obs_subscore": 15.0,
+      "original_iter34_pred_common_sid": 4.7449367426228095,
+      "sid": "NLS191",
+      "signed_error_pred_minus_true": -4.231794634611059,
+      "site": "NLS",
+      "y_pred": 4.768205365388941,
+      "y_true": 9.0
+    },
+    {
+      "abs_error": 4.120037765643354,
+      "hy": 0.0,
+      "item_10": 2.0,
+      "item_11": 0.0,
+      "item_12": 4.0,
+      "item_13": 2.0,
+      "item_14": 2.0,
+      "item_9": 0.0,
+      "iter12_pred_common_sid": 5.454530188433322,
+      "obs_subscore": 13.0,
+      "original_iter34_pred_common_sid": 5.581433222888312,
+      "sid": "NLS069",
+      "signed_error_pred_minus_true": -4.120037765643354,
+      "site": "NLS",
+      "y_pred": 5.879962234356646,
+      "y_true": 10.0
+    },
+    {
+      "abs_error": 4.096018575787012,
+      "hy": 3.0,
+      "item_10": 2.0,
+      "item_11": 0.0,
+      "item_12": 1.0,
+      "item_13": 2.0,
+      "item_14": 0.0,
+      "item_9": 0.0,
+      "iter12_pred_common_sid": 4.040625688258103,
+      "obs_subscore": 14.0,
+      "original_iter34_pred_common_sid": 8.927417576615275,
+      "sid": "NLS179",
+      "signed_error_pred_minus_true": 4.096018575787012,
+      "site": "NLS",
+      "y_pred": 9.096018575787012,
+      "y_true": 5.0
+    }
+  ],
+  "top_leave_one_influence": [
+    {
+      "abs_delta": 0.039776406018535826,
+      "ccc_without_subject": 0.6772614342829567,
+      "delta_without_minus_full": -0.039776406018535826,
+      "prediction": 13.753093004963276,
+      "sid": "NLS196",
+      "signed_error_pred_minus_true": -0.2469069950367242,
+      "target": 14.0
+    },
+    {
+      "abs_delta": 0.021600529311910366,
+      "ccc_without_subject": 0.6954373109895822,
+      "delta_without_minus_full": -0.021600529311910366,
+      "prediction": 15.85586939364903,
+      "sid": "NLS033",
+      "signed_error_pred_minus_true": 4.85586939364903,
+      "target": 11.0
+    },
+    {
+      "abs_delta": 0.02018598584110165,
+      "ccc_without_subject": 0.6968518544603909,
+      "delta_without_minus_full": -0.02018598584110165,
+      "prediction": 10.808973898938739,
+      "sid": "NLS201",
+      "signed_error_pred_minus_true": -1.1910261010612615,
+      "target": 12.0
+    },
+    {
+      "abs_delta": 0.013133788259246493,
+      "ccc_without_subject": 0.730171628560739,
+      "delta_without_minus_full": 0.013133788259246493,
+      "prediction": 6.915195765367709,
+      "sid": "NLS121",
+      "signed_error_pred_minus_true": 4.915195765367709,
+      "target": 2.0
+    },
+    {
+      "abs_delta": 0.011819029556165983,
+      "ccc_without_subject": 0.7288568698576585,
+      "delta_without_minus_full": 0.011819029556165983,
+      "prediction": 1.3441614991669324,
+      "sid": "NLS160",
+      "signed_error_pred_minus_true": -4.655838500833068,
+      "target": 6.0
+    },
+    {
+      "abs_delta": 0.00871484394690003,
+      "ccc_without_subject": 0.7257526842483926,
+      "delta_without_minus_full": 0.00871484394690003,
+      "prediction": 4.281895725364751,
+      "sid": "NLS192",
+      "signed_error_pred_minus_true": 4.281895725364751,
+      "target": 0.0
+    },
+    {
+      "abs_delta": 0.008644273025887994,
+      "ccc_without_subject": 0.7083935672756045,
+      "delta_without_minus_full": -0.008644273025887994,
+      "prediction": 13.385458363707203,
+      "sid": "NLS124",
+      "signed_error_pred_minus_true": 4.385458363707203,
+      "target": 9.0
+    },
+    {
+      "abs_delta": 0.008643358484302865,
+      "ccc_without_subject": 0.7256811987857954,
+      "delta_without_minus_full": 0.008643358484302865,
+      "prediction": 3.760772602474244,
+      "sid": "NLS056",
+      "signed_error_pred_minus_true": -4.239227397525756,
+      "target": 8.0
+    },
+    {
+      "abs_delta": 0.006939618875794307,
+      "ccc_without_subject": 0.7239774591772868,
+      "delta_without_minus_full": 0.006939618875794307,
+      "prediction": 4.768205365388941,
+      "sid": "NLS191",
+      "signed_error_pred_minus_true": -4.231794634611059,
+      "target": 9.0
+    },
+    {
+      "abs_delta": 0.006844483450550887,
+      "ccc_without_subject": 0.7238823237520434,
+      "delta_without_minus_full": 0.006844483450550887,
+      "prediction": 5.554488245644539,
+      "sid": "NLS146",
+      "signed_error_pred_minus_true": 3.5544882456445386,
+      "target": 2.0
+    }
+  ]
+}

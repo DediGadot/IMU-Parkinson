@@ -1,0 +1,132 @@
+{
+  "name": "proresults_ablation_summary",
+  "created_at_utc": "20260515T105447Z",
+  "preregistration": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "iter34_baseline_ccc": 0.717,
+  "iter34_baseline_n": 92,
+  "iter12_floor_ccc": 0.655,
+  "fwer_policy": {
+    "headline_family_n": 5,
+    "headline_gate_frac_pos": 0.99,
+    "deployable_lifetime_n": 10,
+    "deployable_gate_frac_pos": 0.995,
+    "mcid": 0.025
+  },
+  "headline_slots": {
+    "S1_sumaware_bayesian": {
+      "real_lockbox_path": "results/lockbox_t1_S1_sumaware_bayesian_20260515T104943Z.json",
+      "verdict": {
+        "delta_ccc": -0.0075,
+        "frac_pos": 0.0035,
+        "fivefold_mean_delta": -0.0117,
+        "fivefold_seed_std": 0.0043,
+        "verdict_script": "KILL",
+        "verdict_aggregator": "NEGATIVE_DELTA"
+      },
+      "nulls": {
+        "n1_scrambled_y_ccc": 0.7045,
+        "n2_sid_shuffle_ccc": 0.7127,
+        "n1_pass": false,
+        "n2_pass": false
+      },
+      "scrambled_y_path": "results/lockbox_t1_S1_sumaware_bayesian_20260515T105229Z_scrambled_y.json",
+      "sid_shuffle_path": "results/lockbox_t1_S1_sumaware_bayesian_20260515T105230Z_sid_shuffle.json"
+    },
+    "S2_topofractal8": {
+      "real_lockbox_path": "results/lockbox_t1_S2_topofractal8_20260515T104933Z.json",
+      "verdict": {
+        "delta_ccc": -0.0245,
+        "frac_pos": 0.013,
+        "fivefold_mean_delta": -0.027,
+        "fivefold_seed_std": 0.0031,
+        "verdict_script": "FAIL",
+        "verdict_aggregator": "NEGATIVE_DELTA"
+      },
+      "nulls": {
+        "n1_scrambled_y_ccc": 0.71,
+        "n2_sid_shuffle_ccc": 0.7147,
+        "n1_pass": false,
+        "n2_pass": false
+      },
+      "scrambled_y_path": "results/lockbox_t1_S2_topofractal8_20260515T105216Z_scrambled_y.json",
+      "sid_shuffle_path": "results/lockbox_t1_S2_topofractal8_20260515T105223Z_sid_shuffle.json"
+    },
+    "S3_ordinal_composer": {
+      "real_lockbox_path": "results/lockbox_t1_S3_ordinal_composer_20260515T105214Z.json",
+      "verdict": {
+        "delta_ccc": null,
+        "frac_pos": null,
+        "fivefold_mean_delta": null,
+        "fivefold_seed_std": null,
+        "verdict_script": "KILL_CLASS_N",
+        "verdict_aggregator": "FAIL"
+      },
+      "nulls": {
+        "n1_scrambled_y_ccc": null,
+        "n2_sid_shuffle_ccc": null,
+        "n1_pass": false,
+        "n2_pass": false
+      },
+      "scrambled_y_path": "results/lockbox_t1_S3_ordinal_composer_20260515T105305Z_scrambled_y.json",
+      "sid_shuffle_path": "results/lockbox_t1_S3_ordinal_composer_20260515T105314Z_sid_shuffle.json"
+    },
+    "S5_microbatch_item13only_audit": {
+      "real_lockbox_path": "results/lockbox_t1_S5_microbatch_item13only_audit_20260515T104934Z.json",
+      "verdict": {
+        "delta_ccc": null,
+        "frac_pos": null,
+        "fivefold_mean_delta": null,
+        "fivefold_seed_std": null,
+        "verdict_script": null,
+        "verdict_aggregator": "FAIL"
+      },
+      "nulls": {
+        "n1_scrambled_y_ccc": null,
+        "n2_sid_shuffle_ccc": null,
+        "n1_pass": false,
+        "n2_pass": false
+      },
+      "scrambled_y_path": "results/lockbox_t1_S5_microbatch_item13only_audit_20260515T105217Z_scrambled_y.json",
+      "sid_shuffle_path": "results/lockbox_t1_S5_microbatch_item13only_audit_20260515T105231Z_sid_shuffle.json"
+    }
+  },
+  "descriptiveness_slot": {
+    "S6_stability_sparse_score": {
+      "real_lockbox_path": "results/lockbox_t1_S6_stability_sparse_score_20260515T104957Z.json",
+      "n_stable_cols_item_13": 0,
+      "n_stable_cols_item_14": 0,
+      "n_stable_cols_item_10": 0,
+      "verdict": "DESCRIPTIVENESS_RECORDED"
+    }
+  },
+  "deployable_secondary_slot": {
+    "S7_multiitem_topology_abstention": {
+      "real_lockbox_path": "results/lockbox_t1_S7_multiitem_topology_abstention_20260515T104937Z.json",
+      "per_coverage": {
+        "cov_70": {
+          "slotD_baseline_ccc": 0.7876,
+          "S7_retained_ccc": null,
+          "delta_vs_slotD": null,
+          "frac_pos": null,
+          "verdict_aggregator": "FAIL"
+        },
+        "cov_50": {
+          "slotD_baseline_ccc": 0.8338,
+          "S7_retained_ccc": null,
+          "delta_vs_slotD": null,
+          "frac_pos": null,
+          "verdict_aggregator": "FAIL"
+        }
+      },
+      "nulls": {
+        "n1_scrambled_y_ccc": null,
+        "n2_sid_shuffle_ccc": null,
+        "n1_pass": false,
+        "n2_pass": false
+      },
+      "slotD_baseline_cov_70": 0.7876,
+      "slotD_baseline_cov_50": 0.8338
+    }
+  },
+  "overall_verdict": "NEGATIVE_ABLATION_CLOSURE_OF_PRORESULTS_IDEAS"
+}

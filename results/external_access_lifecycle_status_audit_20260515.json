@@ -1,0 +1,964 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "script": "scripts/show_external_access_lifecycle.py"
+      },
+      "name": "status helper exists",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "returncode": 0,
+        "summary": {
+          "action_counts": {
+            "submit_access_request": 6
+          },
+          "credentials_or_tokens_included": false,
+          "non_audit_approval_record_count": 0,
+          "non_audit_schema_probe_record_count": 0,
+          "non_audit_submission_record_count": 0,
+          "protected_data_included": false,
+          "record_identities_redacted": true,
+          "record_paths_reported": false,
+          "state_counts": {
+            "packet_ready": 6
+          }
+        }
+      },
+      "name": "default status shows six packet-ready routes and zero records",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "returncode": 0,
+        "tail": "t_path_outside_git>\n   5. validate_target_free_manifest: uv run python scripts/validate_target_free_manifest.py --route-id icicle_gait --manifest <completed_target_free_manifest_path_outside_git>\n   6. validate_formula_sha_record: uv run python scripts/validate_external_formula_sha_record.py --route-id icicle_gait --record <completed_formula_sha_record_path_outside_git>\n   7. validate_zeroshot_result_record: uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>\n   Post-approval schema report validator: uv run python scripts/validate_schema_probe_report.py --route-id icicle_gait --report <completed_schema_probe_report_path_outside_git>\n   Post-schema target-free manifest validator: uv run python scripts/validate_target_free_manifest.py --route-id icicle_gait --manifest <completed_target_free_manifest_path_outside_git>\n   Post-manifest formula-SHA validator: uv run python scripts/validate_external_formula_sha_record.py --route-id icicle_gait --record <completed_formula_sha_record_path_outside_git>\n   Post-score aggregate result validator: uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>\n\nBoundary: record identities are redacted; completed packets, approvals, protected rows, credentials, schema-probe outputs, downloads, caches, preregistrations, model runs, and canonical claim updates are not included.\nSource tracker: results/access_submission_tracker_20260509.json\n"
+      },
+      "name": "text status is content-free and action-oriented",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ppmi_verily": {
+          "action": "submit_access_request",
+          "allowed_now": [
+            "submit access request"
+          ],
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "commands": {
+            "ppmi_current_submission_handoff": "results/ppmi_verily_current_submission_handoff_20260515.md",
+            "recommended_next": "uv run python scripts/show_ppmi_verily_next_action.py",
+            "record_approval_metadata": "uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id ppmi_verily --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+            "record_submission_metadata": "uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+            "show_fill_checklist": "uv run python scripts/show_ppmi_verily_next_action.py",
+            "validate_completed_email": "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+            "validate_completed_package": "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+            "validate_completed_packet": "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+            "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+            "validate_schema_probe_report": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+            "validate_target_free_manifest": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+            "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "errors": [],
+          "has_approval_record": false,
+          "has_schema_probe_record": false,
+          "has_submission_record": false,
+          "id": "ppmi_verily",
+          "lifecycle_state": "packet_ready",
+          "name": "PPMI / Verily Study Watch",
+          "packet": "scripts/ppmi_verily_tier3_request_packet.md",
+          "priority": 1,
+          "record_identities_redacted": true,
+          "record_paths_reported": false,
+          "requires_user_action": true,
+          "runbook": "scripts/ppmi_verily_setup.md",
+          "safe_to_execute_code": false,
+          "workflow_command_sequence": [
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+              "step_id": "validate_completed_packet"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+              "step_id": "validate_completed_email"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+              "step_id": "validate_completed_package"
+            },
+            {
+              "command": "uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+              "step_id": "record_submission_metadata"
+            },
+            {
+              "command": "uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+              "step_id": "record_approval_metadata"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+              "step_id": "validate_schema_probe_report"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+              "step_id": "validate_target_free_manifest"
+            },
+            {
+              "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+              "step_id": "validate_formula_sha_record"
+            },
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            }
+          ]
+        }
+      },
+      "name": "PPMI route recommends the stricter PPMI-specific current handoff",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ppmi_verily": {
+          "action": "submit_access_request",
+          "allowed_now": [
+            "submit access request"
+          ],
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "commands": {
+            "ppmi_current_submission_handoff": "results/ppmi_verily_current_submission_handoff_20260515.md",
+            "recommended_next": "uv run python scripts/show_ppmi_verily_next_action.py",
+            "record_approval_metadata": "uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id ppmi_verily --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+            "record_submission_metadata": "uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+            "show_fill_checklist": "uv run python scripts/show_ppmi_verily_next_action.py",
+            "validate_completed_email": "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+            "validate_completed_package": "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+            "validate_completed_packet": "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+            "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+            "validate_schema_probe_report": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+            "validate_target_free_manifest": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+            "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "errors": [],
+          "has_approval_record": false,
+          "has_schema_probe_record": false,
+          "has_submission_record": false,
+          "id": "ppmi_verily",
+          "lifecycle_state": "packet_ready",
+          "name": "PPMI / Verily Study Watch",
+          "packet": "scripts/ppmi_verily_tier3_request_packet.md",
+          "priority": 1,
+          "record_identities_redacted": true,
+          "record_paths_reported": false,
+          "requires_user_action": true,
+          "runbook": "scripts/ppmi_verily_setup.md",
+          "safe_to_execute_code": false,
+          "workflow_command_sequence": [
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+              "step_id": "validate_completed_packet"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+              "step_id": "validate_completed_email"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+              "step_id": "validate_completed_package"
+            },
+            {
+              "command": "uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+              "step_id": "record_submission_metadata"
+            },
+            {
+              "command": "uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+              "step_id": "record_approval_metadata"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+              "step_id": "validate_schema_probe_report"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+              "step_id": "validate_target_free_manifest"
+            },
+            {
+              "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+              "step_id": "validate_formula_sha_record"
+            },
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            }
+          ]
+        }
+      },
+      "name": "PPMI route exposes PPMI-specific pre-submit validators",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "default_workflow_by_route": {
+          "cns_portugal_lobo": [
+            "validate_completed_packet",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "hssayeni_mjff": [
+            "validate_completed_packet",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "icicle_gait": [
+            "validate_completed_packet",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "ppmi_verily": [
+            "validate_completed_packet",
+            "validate_completed_email",
+            "validate_completed_package",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "ppp_pd_vme": [
+            "validate_completed_packet",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "watchpd": [
+            "validate_completed_packet",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ]
+        },
+        "synthetic_workflow_by_route": {
+          "cns_portugal_lobo": [
+            "validate_completed_packet",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "hssayeni_mjff": [
+            "validate_completed_packet",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "icicle_gait": [
+            "validate_completed_packet",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "ppmi_verily": [
+            "validate_completed_packet",
+            "validate_completed_email",
+            "validate_completed_package",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "ppp_pd_vme": [
+            "validate_completed_packet",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "watchpd": [
+            "validate_completed_packet",
+            "record_submission_metadata",
+            "record_approval_metadata",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ]
+        }
+      },
+      "name": "every route exposes an ordered lifecycle workflow command sequence",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "commands_by_route": {
+          "cns_portugal_lobo": {
+            "approval": "uv run python scripts/record_access_approval.py --route-id cns_portugal_lobo --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "email": null,
+            "package": null,
+            "packet": "uv run python scripts/validate_access_request_packet.py --route-id cns_portugal_lobo --packet <completed_packet_path_outside_git>",
+            "submission": "uv run python scripts/record_access_submission.py --route-id cns_portugal_lobo --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed"
+          },
+          "hssayeni_mjff": {
+            "approval": "uv run python scripts/record_access_approval.py --route-id hssayeni_mjff --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "email": null,
+            "package": null,
+            "packet": "uv run python scripts/validate_access_request_packet.py --route-id hssayeni_mjff --packet <completed_packet_path_outside_git>",
+            "submission": "uv run python scripts/record_access_submission.py --route-id hssayeni_mjff --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed"
+          },
+          "icicle_gait": {
+            "approval": "uv run python scripts/record_access_approval.py --route-id icicle_gait --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "email": null,
+            "package": null,
+            "packet": "uv run python scripts/validate_access_request_packet.py --route-id icicle_gait --packet <completed_packet_path_outside_git>",
+            "submission": "uv run python scripts/record_access_submission.py --route-id icicle_gait --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed"
+          },
+          "ppmi_verily": {
+            "approval": "uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "email": "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+            "package": "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+            "packet": "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+            "submission": "uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed"
+          },
+          "ppp_pd_vme": {
+            "approval": "uv run python scripts/record_access_approval.py --route-id ppp_pd_vme --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "email": null,
+            "package": null,
+            "packet": "uv run python scripts/validate_access_request_packet.py --route-id ppp_pd_vme --packet <completed_packet_path_outside_git>",
+            "submission": "uv run python scripts/record_access_submission.py --route-id ppp_pd_vme --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed"
+          },
+          "watchpd": {
+            "approval": "uv run python scripts/record_access_approval.py --route-id watchpd --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "email": null,
+            "package": null,
+            "packet": "uv run python scripts/validate_access_request_packet.py --route-id watchpd --packet <completed_packet_path_outside_git>",
+            "submission": "uv run python scripts/record_access_submission.py --route-id watchpd --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed"
+          }
+        }
+      },
+      "name": "every route exposes packet, submission, and approval command gates",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ppmi_verily": {
+          "action": "submit_access_request",
+          "allowed_now": [
+            "submit access request"
+          ],
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "commands": {
+            "ppmi_current_submission_handoff": "results/ppmi_verily_current_submission_handoff_20260515.md",
+            "recommended_next": "uv run python scripts/show_ppmi_verily_next_action.py",
+            "record_approval_metadata": "uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id ppmi_verily --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+            "record_submission_metadata": "uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+            "show_fill_checklist": "uv run python scripts/show_ppmi_verily_next_action.py",
+            "validate_completed_email": "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+            "validate_completed_package": "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+            "validate_completed_packet": "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+            "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+            "validate_schema_probe_report": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+            "validate_target_free_manifest": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+            "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "errors": [],
+          "has_approval_record": false,
+          "has_schema_probe_record": false,
+          "has_submission_record": false,
+          "id": "ppmi_verily",
+          "lifecycle_state": "packet_ready",
+          "name": "PPMI / Verily Study Watch",
+          "packet": "scripts/ppmi_verily_tier3_request_packet.md",
+          "priority": 1,
+          "record_identities_redacted": true,
+          "record_paths_reported": false,
+          "requires_user_action": true,
+          "runbook": "scripts/ppmi_verily_setup.md",
+          "safe_to_execute_code": false,
+          "workflow_command_sequence": [
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+              "step_id": "validate_completed_packet"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+              "step_id": "validate_completed_email"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+              "step_id": "validate_completed_package"
+            },
+            {
+              "command": "uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+              "step_id": "record_submission_metadata"
+            },
+            {
+              "command": "uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+              "step_id": "record_approval_metadata"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+              "step_id": "validate_schema_probe_report"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+              "step_id": "validate_target_free_manifest"
+            },
+            {
+              "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+              "step_id": "validate_formula_sha_record"
+            },
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            }
+          ]
+        }
+      },
+      "name": "PPMI route exposes PPMI-specific post-approval validators",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "commands_by_route": {
+          "cns_portugal_lobo": {
+            "formula_sha": "uv run python scripts/validate_external_formula_sha_record.py --route-id cns_portugal_lobo --record <completed_formula_sha_record_path_outside_git>",
+            "schema_report": "uv run python scripts/validate_schema_probe_report.py --route-id cns_portugal_lobo --report <completed_schema_probe_report_path_outside_git>",
+            "target_free": "uv run python scripts/validate_target_free_manifest.py --route-id cns_portugal_lobo --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "hssayeni_mjff": {
+            "formula_sha": "uv run python scripts/validate_external_formula_sha_record.py --route-id hssayeni_mjff --record <completed_formula_sha_record_path_outside_git>",
+            "schema_report": "uv run python scripts/validate_schema_probe_report.py --route-id hssayeni_mjff --report <completed_schema_probe_report_path_outside_git>",
+            "target_free": "uv run python scripts/validate_target_free_manifest.py --route-id hssayeni_mjff --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "icicle_gait": {
+            "formula_sha": "uv run python scripts/validate_external_formula_sha_record.py --route-id icicle_gait --record <completed_formula_sha_record_path_outside_git>",
+            "schema_report": "uv run python scripts/validate_schema_probe_report.py --route-id icicle_gait --report <completed_schema_probe_report_path_outside_git>",
+            "target_free": "uv run python scripts/validate_target_free_manifest.py --route-id icicle_gait --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "ppmi_verily": {
+            "formula_sha": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+            "schema_report": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+            "target_free": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "ppp_pd_vme": {
+            "formula_sha": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppp_pd_vme --record <completed_formula_sha_record_path_outside_git>",
+            "schema_report": "uv run python scripts/validate_schema_probe_report.py --route-id ppp_pd_vme --report <completed_schema_probe_report_path_outside_git>",
+            "target_free": "uv run python scripts/validate_target_free_manifest.py --route-id ppp_pd_vme --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "watchpd": {
+            "formula_sha": "uv run python scripts/validate_external_formula_sha_record.py --route-id watchpd --record <completed_formula_sha_record_path_outside_git>",
+            "schema_report": "uv run python scripts/validate_schema_probe_report.py --route-id watchpd --report <completed_schema_probe_report_path_outside_git>",
+            "target_free": "uv run python scripts/validate_target_free_manifest.py --route-id watchpd --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>"
+          }
+        }
+      },
+      "name": "every route exposes schema, manifest, formula, and result validators",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ppp_pd_vme": {
+          "action": "wait_for_access_approval",
+          "allowed_now": [
+            "wait for access approval"
+          ],
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "commands": {
+            "ppmi_current_submission_handoff": null,
+            "recommended_next": "uv run python scripts/record_access_approval.py --route-id ppp_pd_vme --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "record_approval_metadata": "uv run python scripts/record_access_approval.py --route-id ppp_pd_vme --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id ppp_pd_vme --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+            "record_submission_metadata": "uv run python scripts/record_access_submission.py --route-id ppp_pd_vme --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+            "show_fill_checklist": "uv run python scripts/show_access_request_fill_checklist.py --route-id ppp_pd_vme",
+            "validate_completed_email": null,
+            "validate_completed_package": null,
+            "validate_completed_packet": "uv run python scripts/validate_access_request_packet.py --route-id ppp_pd_vme --packet <completed_packet_path_outside_git>",
+            "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppp_pd_vme --record <completed_formula_sha_record_path_outside_git>",
+            "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id ppp_pd_vme --report <completed_schema_probe_report_path_outside_git>",
+            "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id ppp_pd_vme --manifest <completed_target_free_manifest_path_outside_git>",
+            "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "errors": [],
+          "has_approval_record": false,
+          "has_schema_probe_record": false,
+          "has_submission_record": true,
+          "id": "ppp_pd_vme",
+          "lifecycle_state": "submitted_pending_approval",
+          "name": "Personalized Parkinson Project / PD Virtual Motor Exam",
+          "packet": "scripts/ppp_pd_vme_request_packet.md",
+          "priority": 2,
+          "record_identities_redacted": true,
+          "record_paths_reported": false,
+          "requires_user_action": true,
+          "runbook": "scripts/ppp_pd_vme_request_setup.md",
+          "safe_to_execute_code": false,
+          "workflow_command_sequence": [
+            {
+              "command": "uv run python scripts/validate_access_request_packet.py --route-id ppp_pd_vme --packet <completed_packet_path_outside_git>",
+              "step_id": "validate_completed_packet"
+            },
+            {
+              "command": "uv run python scripts/record_access_submission.py --route-id ppp_pd_vme --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+              "step_id": "record_submission_metadata"
+            },
+            {
+              "command": "uv run python scripts/record_access_approval.py --route-id ppp_pd_vme --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+              "step_id": "record_approval_metadata"
+            },
+            {
+              "command": "uv run python scripts/validate_schema_probe_report.py --route-id ppp_pd_vme --report <completed_schema_probe_report_path_outside_git>",
+              "step_id": "validate_schema_probe_report"
+            },
+            {
+              "command": "uv run python scripts/validate_target_free_manifest.py --route-id ppp_pd_vme --manifest <completed_target_free_manifest_path_outside_git>",
+              "step_id": "validate_target_free_manifest"
+            },
+            {
+              "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppp_pd_vme --record <completed_formula_sha_record_path_outside_git>",
+              "step_id": "validate_formula_sha_record"
+            },
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            }
+          ]
+        }
+      },
+      "name": "synthetic submitted route waits for approval with compute blocked",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "watchpd": {
+          "action": "run_read_only_schema_probe",
+          "allowed_now": [
+            "read-only schema probe"
+          ],
+          "blocked_actions_now": [
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "commands": {
+            "ppmi_current_submission_handoff": null,
+            "recommended_next": "uv run python scripts/validate_schema_probe_report.py --route-id watchpd --report <completed_schema_probe_report_path_outside_git>",
+            "record_approval_metadata": "uv run python scripts/record_access_approval.py --route-id watchpd --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id watchpd --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+            "record_submission_metadata": "uv run python scripts/record_access_submission.py --route-id watchpd --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+            "show_fill_checklist": "uv run python scripts/show_access_request_fill_checklist.py --route-id watchpd",
+            "validate_completed_email": null,
+            "validate_completed_package": null,
+            "validate_completed_packet": "uv run python scripts/validate_access_request_packet.py --route-id watchpd --packet <completed_packet_path_outside_git>",
+            "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id watchpd --record <completed_formula_sha_record_path_outside_git>",
+            "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id watchpd --report <completed_schema_probe_report_path_outside_git>",
+            "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id watchpd --manifest <completed_target_free_manifest_path_outside_git>",
+            "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "errors": [],
+          "has_approval_record": true,
+          "has_schema_probe_record": false,
+          "has_submission_record": false,
+          "id": "watchpd",
+          "lifecycle_state": "approved_for_schema_probe",
+          "name": "WATCH-PD",
+          "packet": "scripts/watchpd_request_packet.md",
+          "priority": 3,
+          "record_identities_redacted": true,
+          "record_paths_reported": false,
+          "requires_user_action": false,
+          "runbook": "scripts/watchpd_request_setup.md",
+          "safe_to_execute_code": true,
+          "workflow_command_sequence": [
+            {
+              "command": "uv run python scripts/validate_access_request_packet.py --route-id watchpd --packet <completed_packet_path_outside_git>",
+              "step_id": "validate_completed_packet"
+            },
+            {
+              "command": "uv run python scripts/record_access_submission.py --route-id watchpd --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+              "step_id": "record_submission_metadata"
+            },
+            {
+              "command": "uv run python scripts/record_access_approval.py --route-id watchpd --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+              "step_id": "record_approval_metadata"
+            },
+            {
+              "command": "uv run python scripts/validate_schema_probe_report.py --route-id watchpd --report <completed_schema_probe_report_path_outside_git>",
+              "step_id": "validate_schema_probe_report"
+            },
+            {
+              "command": "uv run python scripts/validate_target_free_manifest.py --route-id watchpd --manifest <completed_target_free_manifest_path_outside_git>",
+              "step_id": "validate_target_free_manifest"
+            },
+            {
+              "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id watchpd --record <completed_formula_sha_record_path_outside_git>",
+              "step_id": "validate_formula_sha_record"
+            },
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            }
+          ]
+        }
+      },
+      "name": "synthetic approved route permits only read-only schema probe",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ppmi_verily": {
+          "action": "run_read_only_schema_probe",
+          "allowed_now": [
+            "read-only schema probe"
+          ],
+          "blocked_actions_now": [
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "commands": {
+            "ppmi_current_submission_handoff": "results/ppmi_verily_current_submission_handoff_20260515.md",
+            "recommended_next": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+            "record_approval_metadata": "uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id ppmi_verily --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+            "record_submission_metadata": "uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+            "show_fill_checklist": "uv run python scripts/show_ppmi_verily_next_action.py",
+            "validate_completed_email": "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+            "validate_completed_package": "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+            "validate_completed_packet": "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+            "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+            "validate_schema_probe_report": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+            "validate_target_free_manifest": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+            "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "errors": [],
+          "has_approval_record": true,
+          "has_schema_probe_record": false,
+          "has_submission_record": false,
+          "id": "ppmi_verily",
+          "lifecycle_state": "approved_for_schema_probe",
+          "name": "PPMI / Verily Study Watch",
+          "packet": "scripts/ppmi_verily_tier3_request_packet.md",
+          "priority": 1,
+          "record_identities_redacted": true,
+          "record_paths_reported": false,
+          "requires_user_action": false,
+          "runbook": "scripts/ppmi_verily_setup.md",
+          "safe_to_execute_code": true,
+          "workflow_command_sequence": [
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+              "step_id": "validate_completed_packet"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+              "step_id": "validate_completed_email"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+              "step_id": "validate_completed_package"
+            },
+            {
+              "command": "uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+              "step_id": "record_submission_metadata"
+            },
+            {
+              "command": "uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+              "step_id": "record_approval_metadata"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+              "step_id": "validate_schema_probe_report"
+            },
+            {
+              "command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+              "step_id": "validate_target_free_manifest"
+            },
+            {
+              "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+              "step_id": "validate_formula_sha_record"
+            },
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            }
+          ]
+        }
+      },
+      "name": "synthetic approved PPMI route recommends PPMI-specific schema preflight",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "cns_portugal_lobo": {
+          "action": "review_schema_probe_gates",
+          "allowed_now": [
+            "review schema-probe artifact gates only; no model run or canonical update"
+          ],
+          "blocked_actions_now": [
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "commands": {
+            "ppmi_current_submission_handoff": null,
+            "recommended_next": "uv run python scripts/validate_target_free_manifest.py --route-id cns_portugal_lobo --manifest <completed_target_free_manifest_path_outside_git>",
+            "record_approval_metadata": "uv run python scripts/record_access_approval.py --route-id cns_portugal_lobo --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id cns_portugal_lobo --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+            "record_submission_metadata": "uv run python scripts/record_access_submission.py --route-id cns_portugal_lobo --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+            "show_fill_checklist": "uv run python scripts/show_access_request_fill_checklist.py --route-id cns_portugal_lobo",
+            "validate_completed_email": null,
+            "validate_completed_package": null,
+            "validate_completed_packet": "uv run python scripts/validate_access_request_packet.py --route-id cns_portugal_lobo --packet <completed_packet_path_outside_git>",
+            "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id cns_portugal_lobo --record <completed_formula_sha_record_path_outside_git>",
+            "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id cns_portugal_lobo --report <completed_schema_probe_report_path_outside_git>",
+            "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id cns_portugal_lobo --manifest <completed_target_free_manifest_path_outside_git>",
+            "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "errors": [],
+          "has_approval_record": true,
+          "has_schema_probe_record": true,
+          "has_submission_record": false,
+          "id": "cns_portugal_lobo",
+          "lifecycle_state": "schema_probe_recorded",
+          "name": "CNS Portugal / Lobo IS2022 AX3 gait",
+          "packet": "scripts/cns_portugal_request_packet.md",
+          "priority": 4,
+          "record_identities_redacted": true,
+          "record_paths_reported": false,
+          "requires_user_action": false,
+          "runbook": "scripts/cns_portugal_request_setup.md",
+          "safe_to_execute_code": false,
+          "workflow_command_sequence": [
+            {
+              "command": "uv run python scripts/validate_access_request_packet.py --route-id cns_portugal_lobo --packet <completed_packet_path_outside_git>",
+              "step_id": "validate_completed_packet"
+            },
+            {
+              "command": "uv run python scripts/record_access_submission.py --route-id cns_portugal_lobo --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+              "step_id": "record_submission_metadata"
+            },
+            {
+              "command": "uv run python scripts/record_access_approval.py --route-id cns_portugal_lobo --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+              "step_id": "record_approval_metadata"
+            },
+            {
+              "command": "uv run python scripts/validate_schema_probe_report.py --route-id cns_portugal_lobo --report <completed_schema_probe_report_path_outside_git>",
+              "step_id": "validate_schema_probe_report"
+            },
+            {
+              "command": "uv run python scripts/validate_target_free_manifest.py --route-id cns_portugal_lobo --manifest <completed_target_free_manifest_path_outside_git>",
+              "step_id": "validate_target_free_manifest"
+            },
+            {
+              "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id cns_portugal_lobo --record <completed_formula_sha_record_path_outside_git>",
+              "step_id": "validate_formula_sha_record"
+            },
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            }
+          ]
+        }
+      },
+      "name": "synthetic schema-probe-recorded route blocks modeling",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hssayeni_mjff": {
+          "action": "fix_access_evidence",
+          "allowed_now": [
+            "fix access evidence"
+          ],
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "commands": {
+            "ppmi_current_submission_handoff": null,
+            "recommended_next": null,
+            "record_approval_metadata": "uv run python scripts/record_access_approval.py --route-id hssayeni_mjff --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+            "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id hssayeni_mjff --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+            "record_submission_metadata": "uv run python scripts/record_access_submission.py --route-id hssayeni_mjff --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+            "show_fill_checklist": "uv run python scripts/show_access_request_fill_checklist.py --route-id hssayeni_mjff",
+            "validate_completed_email": null,
+            "validate_completed_package": null,
+            "validate_completed_packet": "uv run python scripts/validate_access_request_packet.py --route-id hssayeni_mjff --packet <completed_packet_path_outside_git>",
+            "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id hssayeni_mjff --record <completed_formula_sha_record_path_outside_git>",
+            "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id hssayeni_mjff --report <completed_schema_probe_report_path_outside_git>",
+            "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id hssayeni_mjff --manifest <completed_target_free_manifest_path_outside_git>",
+            "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "errors": [
+            "schema-probe record exists without approval metadata"
+          ],
+          "has_approval_record": false,
+          "has_schema_probe_record": true,
+          "has_submission_record": false,
+          "id": "hssayeni_mjff",
+          "lifecycle_state": "invalid",
+          "name": "MJFF Levodopa Response / Hssayeni",
+          "packet": "scripts/hssayeni_mjff_dua_request_packet.md",
+          "priority": 5,
+          "record_identities_redacted": true,
+          "record_paths_reported": false,
+          "requires_user_action": false,
+          "runbook": "scripts/synapse_hssayeni_setup.md",
+          "safe_to_execute_code": false,
+          "workflow_command_sequence": [
+            {
+              "command": "uv run python scripts/validate_access_request_packet.py --route-id hssayeni_mjff --packet <completed_packet_path_outside_git>",
+              "step_id": "validate_completed_packet"
+            },
+            {
+              "command": "uv run python scripts/record_access_submission.py --route-id hssayeni_mjff --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+              "step_id": "record_submission_metadata"
+            },
+            {
+              "command": "uv run python scripts/record_access_approval.py --route-id hssayeni_mjff --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+              "step_id": "record_approval_metadata"
+            },
+            {
+              "command": "uv run python scripts/validate_schema_probe_report.py --route-id hssayeni_mjff --report <completed_schema_probe_report_path_outside_git>",
+              "step_id": "validate_schema_probe_report"
+            },
+            {
+              "command": "uv run python scripts/validate_target_free_manifest.py --route-id hssayeni_mjff --manifest <completed_target_free_manifest_path_outside_git>",
+              "step_id": "validate_target_free_manifest"
+            },
+            {
+              "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id hssayeni_mjff --record <completed_formula_sha_record_path_outside_git>",
+              "step_id": "validate_formula_sha_record"
+            },
+            {
+              "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>",
+              "step_id": "validate_zeroshot_result_record"
+            }
+          ]
+        }
+      },
+      "name": "schema probe record without approval fails closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "content_boundary": {
+          "approval_evidence_included": false,
+          "completed_emails_included": false,
+          "completed_packets_included": false,
+          "credentials_or_tokens_included": false,
+          "protected_data_included": false,
+          "record_paths_reported": false,
+          "schema_probe_artifacts_included": false
+        }
+      },
+      "name": "content boundary blocks private artifacts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "forbidden_snippets_found": []
+      },
+      "name": "status output redacts local record identities and private snippets",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "external_access_lifecycle_status_ready",
+  "generated_at_utc": "2026-05-16T12:50:40+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "not_a_schema_probe_artifact": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "passed": true,
+  "protected_data_included": false,
+  "script": "audit_external_access_lifecycle_status.py",
+  "source_tracker": "results/access_submission_tracker_20260509.json",
+  "status_helper": "scripts/show_external_access_lifecycle.py"
+}

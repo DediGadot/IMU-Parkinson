@@ -1,0 +1,25 @@
+{
+  "experiment": "T3 iter41 corrected-target fixed-battery audit",
+  "trigger": "audit_t3_target_stage2_covariates found 3 PD rows with all 33 Part III subitems missing but updrs3=0 via skipna sum",
+  "cohorts": [
+    "drop_allmissing",
+    "complete33"
+  ],
+  "stage2_policies": [
+    "stage2_current",
+    "stage2_no_cv"
+  ],
+  "stage1": "A3_tier1 = H&Y + cv_yrs + cv_sex + cv_dbs, alpha=1.0",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "evaluation": "LOOCV, mean of 3 seed predictions; all 2x2 cells reported",
+  "no_selection_rule": "This audit reports all cells and does not promote a new T3 headline by winner selection.",
+  "note": "The stage2_no_cv policy was included because Stage-2 V2 was found to contain hidden cv_* covariates; the prior 5-fold audit is disclosed in findings/progress.",
+  "created_at_local": "2026-05-08T16:59:54.157957",
+  "created_at_utc": "2026-05-08T13:59:54.157967Z",
+  "git_sha": "unknown",
+  "formula_sha256": "bb5aa8b0d90778070e5d2198d5d93d48fd6ca25d166296c1dd3adae5b64248a7"
+}

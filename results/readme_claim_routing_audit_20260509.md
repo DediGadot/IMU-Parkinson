@@ -13,9 +13,9 @@ README.md must route readers to current post-audit T1/T3 claims and may mention 
 - `Current Post-Audit WearGait-PD Benchmark`: present
 - `T1 canonical floor`: present
 - `0.6550`: present
-- `T1 strongest candidate`: present
-- `0.7366`: present
-- `N=93`: present
+- `T1 corrected candidate`: present
+- `0.7170`: present
+- `N=92`: present
 - `T3 current`: present
 - `0.3784`: present
 - `0.150`: present

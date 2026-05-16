@@ -1,0 +1,74 @@
+{
+  "name": "lockbox_t1_X3_items_9_12_transient_correction",
+  "created_at_utc": "20260516T053517Z",
+  "preregistration": "results/preregistration_t1_post_closure_X_series_20260516.json",
+  "null_mode": "sid_shuffle",
+  "sanity_y_nan": false,
+  "formula_sha256": "04f3d27f946e87afbcae0c3a2c8bfc544f21973c8fb8cf02c45ad37aa11ce4c9",
+  "n_cohort": 92,
+  "n_features_item9": 11,
+  "n_features_item12": 12,
+  "alpha_grid": [
+    10.0,
+    30.0,
+    100.0,
+    300.0,
+    1000.0
+  ],
+  "lambda_fixed": 1.0,
+  "baselines": {
+    "loocv_ccc_t1_sum": 0.7170378403014925,
+    "loocv_mae_t1_sum": 1.7356018162374585
+  },
+  "seed_set_A": {
+    "label": "seed_set_A",
+    "loocv_ccc_t1_sum_baseline": 0.7170378403014925,
+    "loocv_ccc_t1_sum_corrected": 0.7108939488398088,
+    "delta_ccc_t1_sum": -0.006143891461683704,
+    "delta_pearson_r_t1_sum": -0.005537708497380667,
+    "delta_mae_t1_sum": 0.052917342179325866,
+    "bootstrap_t1_sum": {
+      "median": -0.006043763400304436,
+      "ci95": [
+        -0.011986056744288326,
+        -0.00016588291597587103
+      ],
+      "frac_pos": 0.0228
+    },
+    "corr_c9_item9_resid": -0.021185455437546047,
+    "corr_c12_item12_resid": -0.2976357809331094
+  },
+  "seed_set_B": {
+    "label": "seed_set_B",
+    "loocv_ccc_t1_sum_baseline": 0.7170378403014925,
+    "loocv_ccc_t1_sum_corrected": 0.7114455481663341,
+    "delta_ccc_t1_sum": -0.005592292135158439,
+    "delta_pearson_r_t1_sum": -0.0050223528299112585,
+    "delta_mae_t1_sum": 0.051622782820193835,
+    "bootstrap_t1_sum": {
+      "median": -0.00551990319796819,
+      "ci95": [
+        -0.01160194573771578,
+        0.0008646874493818801
+      ],
+      "frac_pos": 0.0416
+    },
+    "corr_c9_item9_resid": -0.001725563550197109,
+    "corr_c12_item12_resid": -0.36436323711101953
+  },
+  "d4_audit_avg_seeds": {
+    "delta_pearson_r_avg": -0.005250008709894449,
+    "delta_mae_avg": 0.05219605509148617,
+    "corr_correction_T1_sum_residual": -0.14937847133423113
+  },
+  "fivefold_screen": {
+    "per_seed_deltas": [
+      -0.003876162548296036,
+      -0.00582771429081641,
+      -0.0044488390652805965
+    ],
+    "mean_delta": -0.004717571968131014,
+    "seed_std": 0.0008190651503347731
+  },
+  "verdict_provisional": "VARIANCE_COMPRESSION_MIRAGE_LIKELY"
+}

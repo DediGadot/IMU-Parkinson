@@ -1,0 +1,143 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "validator": "scripts/validate_ppmi_verily_schema_probe_report.py"
+      },
+      "name": "validator script exists",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_passed",
+        "field_counts": {
+          "grouping_keys_found": 2,
+          "sections_present": 8,
+          "sensor_modalities_found": 1,
+          "target_columns_found": 1
+        },
+        "hard_failures": [],
+        "returncode": 0,
+        "x4_policy": {
+          "external_label_selection_allowed": false,
+          "multinode_anatomical_sensors_present": false,
+          "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+          "v3_gsp_formula_eligible": false
+        }
+      },
+      "name": "synthetic completed schema-probe report passes without recording content",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_failed",
+        "hard_failures": [
+          "placeholders_replaced",
+          "only_allowed_key_value_fields",
+          "forbidden_text_absent",
+          "schema_probe_contract_valid"
+        ],
+        "returncode": 1
+      },
+      "name": "unfinished report template fails preflight",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_failed",
+        "returncode": 1,
+        "validation_errors": [
+          "valid_subject_count is below minimum 20"
+        ]
+      },
+      "name": "low subject count fails schema-probe contract",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_failed",
+        "hard_failures": [
+          "protected_payload_keys_absent",
+          "forbidden_text_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "protected row-like content fails preflight",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_failed",
+        "forbidden_terms_found": [
+          "/home/",
+          ".csv"
+        ],
+        "hard_failures": [
+          "forbidden_text_absent"
+        ],
+        "local_path_echoed": false,
+        "returncode": 1
+      },
+      "name": "local paths and completed-file references fail preflight",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_failed",
+        "hard_failures": [
+          "required_keys_present"
+        ],
+        "missing_keys": [
+          "ppmi_x4_external_label_selection_allowed",
+          "ppmi_x4_multinode_anatomical_sensors_present",
+          "ppmi_x4_v3_gsp_formula_eligible"
+        ],
+        "returncode": 1
+      },
+      "name": "missing X4 eligibility fields fail preflight",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_failed",
+        "returncode": 1,
+        "validation_errors": [
+          "ppmi_x4_v3_gsp_formula_eligible requires ppmi_x4_multinode_anatomical_sensors_present=true",
+          "ppmi_x4_v3_gsp_formula_eligible requires sensor_modalities_found to include weargait_compatible_13node_imu"
+        ]
+      },
+      "name": "X4 formula eligibility requires comparable multi-node sensors",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_x4_output_contains_filename": false,
+        "bad_x4_output_contains_path": false,
+        "local_path_output_contains_filename": false,
+        "local_path_output_contains_path": false,
+        "missing_x4_output_contains_filename": false,
+        "missing_x4_output_contains_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_path": false,
+        "synthetic_output_contains_filename": false,
+        "synthetic_output_contains_path": false,
+        "template_output_contains_filename": false,
+        "template_output_contains_path": false
+      },
+      "name": "validator output does not echo report paths or filenames",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "ppmi_verily_schema_probe_report_validator_ready",
+  "generated_at_utc": "2026-05-16T12:53:15+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "not_a_schema_probe_artifact": true,
+  "not_access_approval": true,
+  "passed": true,
+  "protected_data_included": false,
+  "script": "audit_ppmi_verily_schema_probe_report_validator.py",
+  "validator": "scripts/validate_ppmi_verily_schema_probe_report.py"
+}

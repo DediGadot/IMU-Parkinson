@@ -1,0 +1,108 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "template": "scripts/ppmi_verily_schema_probe_report_template.md"
+      },
+      "name": "template exists and is explicitly post-approval scratch only",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "min_subjects": 20,
+        "required_grouping_keys": [
+          "sid",
+          "visit_id"
+        ],
+        "required_sections": [
+          "file_inventory",
+          "subject_linkage",
+          "visit_or_session_linkage",
+          "sensor_metadata",
+          "target_metadata",
+          "missingness_policy",
+          "grouping_policy",
+          "hard_stops"
+        ],
+        "required_sensor_modalities": [
+          "wrist_accelerometer"
+        ],
+        "required_target_columns": [
+          "updrs3"
+        ]
+      },
+      "name": "template covers PPMI schema-probe required fields",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "command_terms": [
+          "scripts/record_schema_probe_report.py",
+          "scripts/validate_ppmi_verily_schema_probe_report.py",
+          "scripts/validate_ppmi_verily_target_free_manifest.py",
+          "scripts/ppmi_verily_target_free_manifest_template.json",
+          "--report",
+          "--route-id ppmi_verily",
+          "--sections-present",
+          "--grouping-keys-found",
+          "--target-columns-found",
+          "--sensor-modalities-found",
+          "--valid-subject-count",
+          "--ppmi-x4-multinode-anatomical-sensors-present",
+          "--ppmi-x4-v3-gsp-formula-eligible",
+          "--ppmi-x4-external-label-selection-allowed"
+        ],
+        "placeholder_terms": [
+          "<additional_non_protected_grouping_keys_if_needed>",
+          "<additional_non_protected_target_column_names_if_needed>",
+          "<additional_non_protected_sensor_modalities_if_needed>",
+          "<integer_count_at_least_20>",
+          "ppmi_x4_multinode_anatomical_sensors_present=false",
+          "ppmi_x4_v3_gsp_formula_eligible=false",
+          "ppmi_x4_external_label_selection_allowed=false"
+        ]
+      },
+      "name": "template uses only recorder command placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "blocked_terms": [
+          "do not use before data-owner approval",
+          "do not commit a filled copy",
+          "protected row data",
+          "raw samples",
+          "target or label values",
+          "feature matrices",
+          "credentials",
+          "access tokens",
+          "preregistrations",
+          "model runs",
+          "downloads",
+          "cache extractions",
+          "canonical t1/t3 claim updates"
+        ]
+      },
+      "name": "template blocks protected content and model actions",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "checklist": "scripts/ppmi_verily_schema_probe_checklist.md"
+      },
+      "name": "checklist points operators to the template",
+      "passed": true
+    }
+  ],
+  "decision": "ppmi_verily_schema_probe_report_template_ready",
+  "generated_at_utc": "2026-05-16T12:51:38+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "not_access_approval": true,
+  "passed": true,
+  "protected_data_included": false,
+  "schema_probe_artifact_created": false,
+  "script": "audit_ppmi_verily_schema_probe_report_template.py",
+  "template": "scripts/ppmi_verily_schema_probe_report_template.md"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "abstention_sanity_t1_S7_multiitem_topology",
+  "created_at_utc": "20260515T105315Z",
+  "lockbox_target": "lockbox_t1_S7_multiitem_topology_abstention",
+  "retention_rule_form": "g(x) = w\u00b7z(|p34_j - p_AltHead_j|) + w\u00b7z(Mahal_TopoFractal(x)) <= q_cov (y-free)",
+  "correction_rule_form": "c(x) = lambda * Ridge_alpha=100.0(PH(x))_train_fold (y-free at deployment)",
+  "n_subjects": 92,
+  "coverages": [
+    0.7,
+    0.5
+  ],
+  "masks_identical_with_y_nan": true,
+  "test_passes": true
+}

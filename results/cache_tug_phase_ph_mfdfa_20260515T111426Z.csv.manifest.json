@@ -1,0 +1,27 @@
+{
+  "script": "cache_tug_phase_ph_mfdfa.py",
+  "script_sha256": "b29302c2a26bd14c39825eaacad9aa13cda75f7183768a95488358629d185659",
+  "git_sha": "unknown",
+  "command": "cache_tug_phase_ph_mfdfa.py --workers 8",
+  "created_at_utc": "2026-05-15T11:14:44Z",
+  "data_sha256": "edbcdc3ef840ab11d3fcd0bcd09708eb62d3f75c889429bca059fdf2747fee15",
+  "labels_used": false,
+  "fold_scope": "global",
+  "cohort_statistics_used": false,
+  "normalization_scope": "per_subject_phase_window",
+  "leakage_status": "clean_by_construction",
+  "leakage_rationale": "TUG phase windows are deterministic functions of raw LowerBack Acc-Z/Gyr-Z. PH/MFDFA features are extracted per subject/phase with no UPDRS labels, no cohort statistics, and no target-derived selection.",
+  "source_artifacts": [
+    "/home/fiod/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files"
+  ],
+  "host": "DESKTOP-7I2K27V",
+  "n_jobs_seen": 99,
+  "n_subjects": 98,
+  "n_features": 48,
+  "phase_policy": {
+    "sit_to_stand": "LowerBack Acc-Z abs peak in first third, [-0.8s,+2.0s]",
+    "steady_walk": "stand_peak+2.0s to turn_peak-1.0s if >=2.0s",
+    "turning": "LowerBack Gyr-Z abs peak in second half, [-1.0s,+1.5s]",
+    "turn_to_sit": "LowerBack Acc-Z abs peak in final third, [-1.5s,+1.0s]"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "name": "lockbox_t1_S3_ordinal_composer",
+  "created_at_utc": "20260515T105214Z",
+  "preregistration": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "slot": "S3",
+  "null_mode": "real",
+  "split_seed": 20260309,
+  "feature_seed": 31415,
+  "model_seed_list": [
+    42,
+    1337,
+    7
+  ],
+  "alpha_grid": [
+    1.0,
+    10.0,
+    100.0
+  ],
+  "variance_cap_frac": 0.5,
+  "n_full_cohort": 92,
+  "subfamilies": [
+    "ph_trunk_h1_max",
+    "ph_trunk_h1_med",
+    "ph_sacrum_h1_max",
+    "ph_sacrum_h1_med",
+    "mfdfa_delta_alpha",
+    "mfdfa_asymmetry"
+  ],
+  "n_class_ge3_per_item": {
+    "9": 0,
+    "10": 2,
+    "11": 2,
+    "12": 8,
+    "13": 1,
+    "14": 1
+  },
+  "baseline_iter34_loocv_ccc": 0.717,
+  "corrected_loocv_ccc": 0.7044,
+  "delta_loocv_ccc": -0.0127,
+  "baseline_mae": 1.7356,
+  "corrected_mae": 1.7144,
+  "delta_mae": -0.0212,
+  "bootstrap_median_delta": -0.012,
+  "bootstrap_ci95": [
+    -0.0436,
+    0.0099
+  ],
+  "bootstrap_frac_positive": 0.151,
+  "fivefold_ccc_per_seed": {
+    "42": 0.7074,
+    "1337": 0.7082,
+    "7": 0.6954
+  },
+  "fivefold_delta_per_seed": {
+    "42": -0.0096,
+    "1337": -0.0088,
+    "7": -0.0217
+  },
+  "fivefold_mean_delta": -0.0133,
+  "fivefold_kill_gate": 0.01,
+  "kill_fold_fail": true,
+  "kill_class_fail": true,
+  "stability_across_seeds": {
+    "max_per_subject_std": 0.5957366339303929,
+    "mean_per_subject_std": 0.05882691646519528,
+    "unstable_kill": false
+  },
+  "chosen_alphas_loocv": {
+    "9": {
+      "median": 1.0,
+      "mode_count": {
+        "1.0": 92,
+        "10.0": 0,
+        "100.0": 0
+      }
+    },
+    "10": {
+      "median": 10.0,
+      "mode_count": {
+        "1.0": 40,
+        "10.0": 7,
+        "100.0": 45
+      }
+    },
+    "11": {
+      "median": 1.0,
+      "mode_count": {
+        "1.0": 92,
+        "10.0": 0,
+        "100.0": 0
+      }
+    },
+    "12": {
+      "median": 1.0,
+      "mode_count": {
+        "1.0": 88,
+        "10.0": 3,
+        "100.0": 1
+      }
+    },
+    "13": {
+      "median": 1.0,
+      "mode_count": {
+        "1.0": 92,
+        "10.0": 0,
+        "100.0": 0
+      }
+    },
+    "14": {
+      "median": 1.0,
+      "mode_count": {
+        "1.0": 92,
+        "10.0": 0,
+        "100.0": 0
+      }
+    }
+  },
+  "verdict": "KILL_CLASS_N"
+}

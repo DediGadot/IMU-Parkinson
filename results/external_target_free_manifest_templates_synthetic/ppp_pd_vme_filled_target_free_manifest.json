@@ -1,0 +1,43 @@
+{
+  "cohort_statistics_used": "none_or_target_free_sensor_only_aggregates_no_label_statistics",
+  "command": "uv run python scripts/extract_ppp_pd_vme_features_after_approval.py --schema-record synthetic_non_protected_record",
+  "created_at_utc": "2026-05-15T00:00:00+00:00",
+  "credentials_or_tokens_included": false,
+  "data_sha256_or_file_manifest": "synthetic-aggregate-sha256-only",
+  "data_version_or_download_date": "synthetic-no-protected-data",
+  "feature_blocks": [
+    {
+      "columns_or_schema_reference": "synthetic_schema_reference_without_values",
+      "locked_pre_score": true,
+      "name": "study_watch_accelerometer_topofractal_ph_mfdfa",
+      "selection_rule": "predeclared_no_external_label_selection",
+      "source_modality": "study_watch_accelerometer"
+    }
+  ],
+  "feature_matrix_included": false,
+  "fold_scope": "target_free_zero_shot_feature_extraction_only_labels_held_for_final_scoring",
+  "git_sha": "0000000000000000000000000000000000000000",
+  "grouping_keys": [
+    "sid",
+    "visit_id"
+  ],
+  "labels_used": false,
+  "leakage_rationale": "External labels are not loaded or used during feature extraction, feature selection, normalization, outlier filtering, endpoint choice, or model selection.",
+  "leakage_status": "target_free_pre_scoring",
+  "local_paths_included": false,
+  "manifest_stage": "post_schema_pre_scoring_target_free_feature_manifest",
+  "model_predictions_included": false,
+  "normalization_scope": "fixed_from_weargait_or_target_free_unsupervised_before_labels",
+  "protected_data_included": false,
+  "raw_rows_or_samples_included": false,
+  "route_id": "ppp_pd_vme",
+  "schema_probe_artifact_reference": "synthetic_non_protected_ppp_pd_vme_schema_probe_record_hash",
+  "schema_probe_metadata_recorded": true,
+  "script": "scripts/extract_ppp_pd_vme_features_after_approval.py",
+  "status": "template_complete_outside_git_after_schema_probe_metadata_recorded",
+  "target_columns_reserved_for_final_scoring": [
+    "updrs3"
+  ],
+  "target_columns_used_for_feature_selection": [],
+  "target_values_included": false
+}

@@ -1,0 +1,162 @@
+{
+  "name": "T1 Glass-Ceiling Push 2026-05-13 — slot A/B/C single-batch pre-registration",
+  "created_at_utc": "2026-05-13T04:38:52Z",
+  "git_sha": "64edc2a",
+  "status": "draft_locked",
+  "operator": "Claude Opus 4.7 (pd-imu-100x-researcher skill, T1 Glass-Ceiling Push mode)",
+  "user_directive": "use codex cli and gemini cli. deep dive into everything you've learned in this project as a 100x researcher. BREAK T1 CCC GLASS CEILING THROUGH SYSTEMATIC DEBUGGING AND ALGO WORK.",
+
+  "baselines": {
+    "canonical_floor": {
+      "name": "iter12-honest",
+      "script": "compose_t1_iter12_honest.py",
+      "ccc": 0.6550,
+      "n": 94,
+      "filter": "T1-cohort 9-14 valid"
+    },
+    "strongest_candidate": {
+      "name": "iter34 hybrid (hygiene-corrected)",
+      "script": "run_t1_iter34_hybrid_8item_multibase.py",
+      "ccc": 0.7170,
+      "n": 92,
+      "filter": "auxiliary 15/18 valid, NLS036 excluded",
+      "lockbox": "results/lockbox_t1_iter34_hybrid_20260510_233019.json"
+    },
+    "honest_in_cohort_ceiling": {
+      "name": "V2 + V3-GSP nested 2-source CV",
+      "ccc": 0.7285,
+      "delta_vs_iter34": 0.0115,
+      "bca_ci": [-0.010, 0.038],
+      "verdict_2026-05-12": "codex brutal: in-cohort ceiling structurally closed at N=92"
+    }
+  },
+
+  "fwer_policy": {
+    "family_size_n": 4,
+    "family_members": [
+      "iter34 hybrid baseline (incumbent)",
+      "slot_A: 7-item-no-13 chain",
+      "slot_B: V3-GSP feature substitution at item-12 chain step",
+      "slot_C: sklearn GB + K=250 at item-12 chain step"
+    ],
+    "bonferroni_per_slot_gate_frac_gt0": 0.9875,
+    "comparison_baselines_per_slot": [
+      "iter12-honest on the same cohort N as slot result (N=92 after auxiliary filter)",
+      "iter34 hybrid on the same cohort N=92 (incumbent gate)"
+    ],
+    "mcid_above_iter34": 0.025,
+    "screen_promotion_rule": "5-fold mean Δ ≥ +0.020 with seed std < 0.020 OR Δ ≥ +0.030 with seed std < 0.030 → promote to LOOCV; otherwise close slot without LOOCV (avoid selection leakage)",
+    "joint_promotion_gate": "BOTH paired bootstrap frac>0 ≥ 0.9875 AND sign-flip permutation p ≤ 0.0125 vs iter34 on N=92"
+  },
+
+  "seeds": {
+    "split_seed": 20260309,
+    "feature_seed": 20260513,
+    "augmentation_seed": null,
+    "model_seed_list": [42, 1337, 7],
+    "consult_seed": "tri-CLI parallel; codex + gemini + kimi"
+  },
+
+  "cohort": {
+    "primary_n": 92,
+    "filter_rules": "iter34 valid-auxiliary cohort (drop NLS036 + any subject with item-15 or item-18 out of range)",
+    "split_file": "paper3_split.json"
+  },
+
+  "slots": {
+    "A": {
+      "name": "7-item-no-13 chain (architectural pruning) + CCC-descending chain order",
+      "hypothesis": "Combining (a) removal of item 13 (CCC=0.067, IMU-noise) from iter34's 8-item chain and (b) FIXED CCC-descending chain order [12, 10, 14, 9, 11, 15, 18] (load-bearing item first) reduces gradient pollution AND provides high-confidence anchor for downstream weak items, yielding T1 sum CCC ≥ 0.7370 (Δ=+0.020) at N=92.",
+      "mechanism_synthesis_post_tri_cli_2026-05-13": "Codex+Gemini converged on prior 0.03-0.12 for 7-item-drop alone; Gemini surfaced CCC-descending ordering as mechanism enhancement (prior 0.12 alone). Synthesis combines both: drop-13 removes distractor (Phase 0 +0.003 base effect) + CCC-descending provides anchor (item 12 first → conditioning for weak items). Acknowledged meta-leakage caveat: slot design motivated by Phase 0 ablation on same N=92 cohort (not pure tune-on-test — different architecture — but credibility diminished if it passes).",
+      "feature_pool": "V2 K=500 (LGB-importance against T1 residual) — same as iter34, but residual = T1 = sum(items 9-14) computed over the same N=92 cohort",
+      "base_learners": "LGB + XGB-hist + ExtraTrees ensemble — same as iter34",
+      "chain_order": [12, 10, 14, 9, 11, 15, 18],
+      "chain_order_rationale": "Descending iter34 per-item CCC: 12=0.566, 10=0.443, 14=0.317, 9=0.234, 11=0.232, 15+18 aux at end. Item 12 anchor first → weak items condition on high-confidence anchor.",
+      "item13_handling": "drop from chain entirely; T1 sum = sum(predicted_items_9_10_11_12_14) + train_fold_mean(item_13)",
+      "screen_target": "Δ ≥ +0.020 5-fold OOF vs iter34 hybrid on N=92",
+      "loocv_target": "Δ ≥ +0.025 LOOCV vs iter34 hybrid on N=92, frac>0 ≥ 0.9875",
+      "expected_effect": "+0.005 to +0.015 (likely sub-MCID)",
+      "kill_criterion": "screen Δ̄ < +0.010 OR std ≥ 0.025 → close without LOOCV",
+      "expected_wall_clock_min": 25,
+      "script_target": "run_t1_slotA_no13_chain.py",
+      "formula_sha256": "a679d5e540b6994ad4f8b976d072ffc4838cad1ffa95eb5e17d8d918291fe38c",
+      "slot_prereg_path": "results/preregistration_t1_slotA_no13_ccc_descending_20260513_044508.json"
+    },
+    "B": {
+      "name": "V3-GSP feature substitution at item-12 chain step",
+      "hypothesis": "Replacing V2 K=500 features with V3-GSP low-mode-energy + en-bloc-index features (~50 features, no K=500 selection) at the item-12 step ONLY of iter34's 8-item chain raises item-12 LOOCV CCC from 0.566 to ≥ 0.62, lifting T1 sum CCC ≥ 0.7370 (Δ=+0.020) at N=92.",
+      "mechanism": "Per codex 2026-05-12: 'feature changes the base learner predictions BEFORE stacking.' V3-GSP graph-spectrum projections are mathematically orthogonal to V2 (V2 cannot span global multi-sensor coordination). Item 12 has CCC=+0.22 of residual predictability from V3-GSP low-mode features. Targeted substitution at the load-bearing item bypasses K=500 absorption (the WALL is the selection rule, not the features).",
+      "feature_pool_per_step": {
+        "items_9_10_11_14_15_18": "V2 K=500 (iter34 canonical)",
+        "item_12": "V3-GSP low-mode features (drop K=500 selection; use all ~50 GSP-low-mode features)"
+      },
+      "base_learners": "LGB + XGB-hist + ExtraTrees ensemble — same as iter34",
+      "chain_order": [9, 10, 11, 12, 13, 14, 15, 18],
+      "screen_target": "Δ ≥ +0.020 5-fold OOF on item-12 sum and T1 sum vs iter34 hybrid on N=92",
+      "loocv_target": "Δ ≥ +0.025 LOOCV vs iter34 hybrid on N=92, frac>0 ≥ 0.9875",
+      "expected_effect": "+0.010 to +0.020 (boundary; sub-MCID likely)",
+      "kill_criterion": "screen Δ̄ < +0.010 OR std ≥ 0.025 → close without LOOCV",
+      "expected_wall_clock_min": 30,
+      "script_target": "run_t1_slotB_gsp_item12.py",
+      "formula_sha256": "b7de85546f1811b992daa20f0bdf1dddb6330668c159be4184f91543300c021b",
+      "slot_prereg_path": "results/preregistration_t1_slotB_gsp_item12_20260513_050412.json"
+    },
+    "C": {
+      "name": "sklearn GradientBoostingRegressor + K=250 at item-12 chain step",
+      "hypothesis": "Replacing the item-12 step base learner (LGB+XGB+ET ensemble) with sklearn GradientBoostingRegressor(n_estimators=300, max_depth=4, learning_rate=0.05, subsample=0.8) at K=250 univariate-corr-K-best yields item-12 LOOCV CCC ≥ 0.62, lifting T1 sum CCC ≥ 0.7370 at N=92.",
+      "mechanism": "T3 K-sweep wall #69 (2026-05-13) revealed sklearn GB at K=250 univariate-corr-K-best has different bias-variance from LGB at low N: T3 CCC=0.4516 vs iter47 canonical LGB=0.3784 (Δ=+0.073). The hump structure peaks at K=250 with low seed std (0.008). Hypothesis: same hump curve applies to T1 item-12 residual fit. Targeted to load-bearing item only to avoid burning the lift on noise items.",
+      "feature_pool_per_step": {
+        "items_9_10_11_13_14_15_18": "V2 K=500 LGB-importance, base learner ensemble (iter34 canonical)",
+        "item_12": "V2 K=250 univariate-corr-K-best (vs T1-residual), base learner = sklearn GradientBoostingRegressor"
+      },
+      "chain_order": [9, 10, 11, 12, 13, 14, 15, 18],
+      "screen_target": "Δ ≥ +0.020 5-fold OOF vs iter34 hybrid on N=92",
+      "loocv_target": "Δ ≥ +0.025 LOOCV vs iter34 hybrid on N=92, frac>0 ≥ 0.9875",
+      "expected_effect": "+0.005 to +0.015 (sub-MCID likely; orthogonal mechanism transfer from T3 risky)",
+      "kill_criterion": "screen Δ̄ < +0.010 OR std ≥ 0.025 → close without LOOCV",
+      "expected_wall_clock_min": 30,
+      "script_target": "run_t1_slotC_gb_k250_item12.py",
+      "formula_sha256": "11c4597cdd8af346d1708b7db5f713096b2d811dff342c4e3ab8c05faf927d14",
+      "slot_prereg_path": "results/preregistration_t1_slotC_gb_k250_item12_20260513_050620.json"
+    }
+  },
+
+  "diversity_assertion": "Three mechanisms span distinct axes: A=architectural pruning (no feature change), B=feature family substitution (V3-GSP vs V2), C=model class + selection rule (sklearn GB + K=250 vs LGB+XGB+ET + K=500). B and C both target item-12 (the load-bearing item per Phase 0 ablation) by design, but use orthogonal mechanisms.",
+
+  "stopping_rules": {
+    "hard_cap": "3 slots, no retries, no 'one more variant'",
+    "soft_stop": "if slot A clears Bonferroni n=4 (frac>0 ≥ 0.9875 vs BOTH baselines) by wide margin (≥0.99 against both) → stop before B/C",
+    "FWER_trap_acknowledged": "If slot A passes loosely (≥0.9875 only) but B/C fail, joint family-wise effective gate may be unmet — slot A would be reported as 'candidate, uncorrected pass not FWER-corrected'."
+  },
+
+  "audit_trail": {
+    "prior_pushes_referenced": [
+      "2026-05-08 closure (walls 11-13)",
+      "2026-05-10 closure (walls 17-19)",
+      "2026-05-12 systematic V3 closure (walls 26-31)",
+      "2026-05-13 T3 GB K-sweep verification (walls 68-69)"
+    ],
+    "honest_prior_on_pass_probability": "<10% per slot per skill's 2026-05-12 closure verdict (codex+kimi+deepseek+gemini consensus). Slot is justified by user override; outcome is documented either as falsification (likely) or candidate (low prior)."
+  },
+
+  "outcome_2026-05-13": {
+    "all_three_slots_screen_fail": true,
+    "verdicts": {
+      "A": {"per_seed_mean_delta": -0.0004, "std": 0.0035, "pooled_ccc": 0.7150, "verdict": "CLOSE_SLOT_SCREEN_FAIL", "wall_data_point": 70},
+      "B": {"per_seed_mean_delta": -0.0135, "std": 0.0052, "pooled_ccc": 0.7196, "verdict": "CLOSE_SLOT_SCREEN_FAIL", "wall_data_point": 71},
+      "C": {"per_seed_mean_delta": -0.0108, "std": 0.0029, "pooled_ccc": 0.7226, "verdict": "CLOSE_SLOT_SCREEN_FAIL", "wall_data_point": 72}
+    },
+    "fwer_family_status": "all 3 slots closed without lockbox, family-wise gate moot",
+    "iter34_5fold_pooled_baseline_ccc": 0.7155,
+    "iter34_loocv_canonical_ccc": 0.7170,
+    "ccc_5fold_vs_loocv_gap": 0.0015,
+    "comparator_lockbox": "results/iter34_5fold_comparator_20260513_050158.{json,oof.npy}",
+    "tri_cli_priors_calibration": "codex 0.12 (slot A) ≈ actual ~0; gemini 0.03 ≈ actual ~0. Both correctly forecast structural N=92 wall.",
+    "closing_narrative": "Three orthogonal mechanisms (architectural pruning, feature-family substitution, model-class+selection-rule substitution) all empirically validate codex's 2026-05-12 brutal verdict: in-cohort T1 ceiling at N=92 is structurally closed at ~0.7170-0.7285. External cohort access (PPMI/Verily, WATCH-PD, CNS Portugal, etc.) remains the only structural enabler for breaking the +0.025 MCID gate.",
+    "publishable_artifacts": [
+      "T1 conformal abstention lockbox (deployment-mode secondary): 70% coverage CCC=0.7777, 50% coverage CCC=0.8338 — different estimand, FROM 2026-05-12 campaign",
+      "iter34 hygiene-corrected candidate CCC=0.7170 (N=92) — strongest in-cohort candidate, single post-publication replication target",
+      "iter12-honest canonical floor CCC=0.6550 (N=94) — defensible paper baseline"
+    ]
+  }
+}

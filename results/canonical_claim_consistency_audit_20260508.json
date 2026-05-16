@@ -1,10 +1,10 @@
 {
-  "generated_at_utc": "2026-05-09T11:37:30+00:00",
+  "generated_at_utc": "2026-05-10T20:39:39+00:00",
   "script": "audit_canonical_claim_consistency.py",
   "policy": "Old T3 numbers may appear only when labelled historical, superseded, target-contaminated, retracted, archived, or time-local.",
   "current_expected": {
     "t1_canonical_ccc": "0.6550",
-    "t1_candidate_ccc": "0.7366",
+    "t1_candidate_ccc": "0.7170",
     "t3_current_ccc": "0.3784",
     "t3_loso_ccc": "0.150"
   },
@@ -19,50 +19,50 @@
   "docs": [
     {
       "path": "CLAUDE.md",
-      "bytes": 104111,
-      "current_scope_lines": 357,
+      "bytes": 9491,
+      "current_scope_lines": 124,
       "stale_findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "AGENTS.md",
-      "bytes": 77314,
+      "bytes": 76866,
       "current_scope_lines": 154,
       "stale_findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "paper.md",
-      "bytes": 126332,
-      "current_scope_lines": 715,
+      "bytes": 134349,
+      "current_scope_lines": 782,
       "stale_findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "CURRENT_PAPER.html",
-      "bytes": 152163,
-      "current_scope_lines": 3191,
+      "bytes": 162798,
+      "current_scope_lines": 3353,
       "stale_findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "task_plan.md",
-      "bytes": 210495,
-      "current_scope_lines": 295,
+      "bytes": 226425,
+      "current_scope_lines": 303,
       "stale_findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "progress.md",
-      "bytes": 294736,
+      "bytes": 407384,
       "current_scope_lines": 148,
       "stale_findings": [],
       "missing_required_snippets": []
     },
     {
       "path": "findings.md",
-      "bytes": 458594,
-      "current_scope_lines": 1973,
+      "bytes": 590030,
+      "current_scope_lines": 3140,
       "stale_findings": [],
       "missing_required_snippets": []
     },

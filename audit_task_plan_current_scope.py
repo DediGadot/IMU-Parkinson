@@ -21,7 +21,7 @@ REQUIRED_CURRENT_SNIPPETS = [
     "## Current completion criteria (post-iter47)",
     "goal remains **not complete**",
     "Current T1 canonical floor: `0.6550`",
-    "Current T1 ceiling-break candidate: `0.7366`",
+    "Current T1 ceiling-break candidate: `0.7170`",
     "Current T3 internal headline: `0.3784`",
     "current T3 LOSO two-way mean is `0.150`",
     "Old T3 `0.5227`, `0.4694`, `0.341`, `0.3948`, and `0.4092`",

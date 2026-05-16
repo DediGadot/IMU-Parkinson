@@ -1,0 +1,101 @@
+{
+  "timestamp": "20260510_143243",
+  "iso_datetime_utc": "2026-05-10T14:32:43.554159+00:00",
+  "experiment": "T1 iter38 \u2014 FoG events + balance geometry chain-step-routed POST-K=500",
+  "git_head": "unknown",
+  "formula_sha256": "7927e12df2d0f4ee2a02ff16e3329dbc0a502088e61d8fded7d258e15a2aa848",
+  "formula": {
+    "experiment": "T1 iter38 \u2014 FoG event stats + balance geometry routed POST-K=500 for items 11+13",
+    "slot": "B of T1 Glass-Ceiling Push 2026-05-10 (master prereg results/preregistration_t1_ceiling_push_20260510_134829.json, FWER n=4)",
+    "is_post_publication_replication_target": false,
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects_min": 90,
+      "filter": "PD with full items 9-14, 15, 18 (matches iter34 cohort)",
+      "split_file": "results/paper3_split.json"
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "stage1_total_features": 9
+    },
+    "stage2": {
+      "model_ensemble": [
+        "CustomChain(LGB)",
+        "CustomChain(XGB-hist)",
+        "CustomChain(ET)"
+      ],
+      "ensemble_method": "average chain-output across 3 bases per fold per seed",
+      "items_targets_chain": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18
+      ],
+      "items_summed_for_t1": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "auxiliary_items": [
+        15,
+        18
+      ],
+      "feature_select_k": 500,
+      "fog_balance_routing": {
+        "policy": "per-TARGET-ITEM-IDENTITY routing",
+        "item_11_fog": "fog_event_rate + fog_event_duration_mean + fog_event_duration_std appended to chain step where target item id == 11",
+        "item_13_balance": "bal_lumbar_pitch_mean + bal_lumbar_pitch_excur + bal_lumbar_roll_mean + bal_xiphoid_pitch_mean + bal_forehead_pitch_mean appended to chain step where target item id == 13",
+        "all_other_items": "no slot B features appended",
+        "post_K500": true,
+        "K500_pool_unchanged": "V2 only; FoG+bal features never enter K=500 ranking"
+      }
+    },
+    "slot_b_cache": {
+      "csv": "results/fog_events_balance_geometry.csv",
+      "n_features_total": 8,
+      "label_free": true,
+      "fold_scope_at_extraction": "global",
+      "leakage_argument": "FoG events: bandpass envelope thresholding on Lumbar Acc-mag in 3-8 Hz band, no labels. Balance geometry: median pitch/roll on Balance task Euler angles, no labels."
+    },
+    "eval": {
+      "loocv_n_min": 90,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "bases": [
+        "lgb",
+        "xgb",
+        "et"
+      ]
+    },
+    "screen_gate": {
+      "n_splits": 5,
+      "promote": "\u0394\u0304\u2265+0.025 AND frac>0\u22650.95"
+    },
+    "lockbox_rules": [
+      "ONE pre-registered config. ONE LOOCV run. SLOT B of FWER n=4 family.",
+      "Bonferroni gates: frac>0 \u2265 0.9875 vs iter12-honest-n93 AND vs iter34-n93."
+    ]
+  },
+  "variant": "fog_balance_postk500_chainstep_routing",
+  "master_prereg_id": "t1_ceiling_push_20260510_134829",
+  "master_prereg_path": "results/preregistration_t1_ceiling_push_20260510_134829.json",
+  "slot_id": "B",
+  "fwer_family_size_n": 4
+}

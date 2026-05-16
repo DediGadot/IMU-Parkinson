@@ -1,0 +1,48 @@
+{
+  "name": "lockbox_t1_X2e_global_affine",
+  "created_at_utc": "20260516T073605Z",
+  "preregistration": "results/preregistration_t1_post_closure_X_series_20260516.json (X2e diagnostic: global affine vs duration stratification)",
+  "null_mode": "sid_shuffle",
+  "sanity_y_nan": false,
+  "formula_sha256": "6a5e73d6f360ac7aefb8ed30d3f638c493e34fa582c64135d3e01765ce1093be",
+  "n_cohort": 92,
+  "slope_info": {
+    "slope_mean": 0.08669185994649935,
+    "slope_std": 0.007879107307770885,
+    "intercept_mean": 3.680901105328458,
+    "intercept_std": 0.04745408463201953
+  },
+  "baselines": {
+    "loocv_ccc_iter34": 0.09706014567877179,
+    "loocv_mae_iter34": 3.0125578516591167,
+    "loocv_pearson_iter34": 0.09777334569290785
+  },
+  "corrected": {
+    "loocv_ccc": -0.01533415633801205,
+    "loocv_mae": 2.0722378793867553,
+    "loocv_pearson": -0.07336279064106804,
+    "delta_ccc": -0.11239430201678384,
+    "delta_mae": -0.9403199722723614,
+    "delta_pearson_r": -0.1711361363339759
+  },
+  "bootstrap_seed_A": {
+    "median": -0.11390745239735929,
+    "ci95": [
+      -0.23272940611609436,
+      0.007059494651548586
+    ],
+    "frac_pos": 0.03
+  },
+  "bootstrap_seed_B": {
+    "median": -0.11479141989319011,
+    "ci95": [
+      -0.23327223219471876,
+      0.01191567319805014
+    ],
+    "frac_pos": 0.0374
+  },
+  "d4_audit": {
+    "corr_correction_T1_sum_residual": 0.707061152104352
+  },
+  "verdict_provisional": "FAIL"
+}

@@ -1,0 +1,62 @@
+{
+  "checks": [
+    {
+      "errors": [],
+      "name": "complete_internal_bundle_can_update",
+      "passed": true
+    },
+    {
+      "errors": [
+        "result_bundle: metric artifact evidence is required for metrics: results/canonical_claim_update_demo_metrics.json",
+        "canonical_demo: canonical metric source requires metric artifact evidence"
+      ],
+      "name": "metric_source_requires_metric_artifact_evidence",
+      "passed": true
+    },
+    {
+      "name": "missing_required_bundle_artifact_blocks_update",
+      "passed": true
+    },
+    {
+      "errors": [
+        "reporting: missing claim source artifact: results/not_in_bundle.json",
+        "reporting: canonical_demo: metric value mismatch at metrics.ccc: observed 0.5, claim 0.9963",
+        "canonical_demo: claim source artifact is not in the result bundle"
+      ],
+      "name": "claim_source_must_come_from_bundle",
+      "passed": true
+    },
+    {
+      "errors": {
+        "malformed_gate": [
+          "result_bundle must be an ExperimentResultBundle",
+          "reporting_gate must be a ReportingEvidenceGate",
+          "require_internal_update_claim must be a boolean"
+        ],
+        "malformed_nested_gate": [
+          "result_bundle: experiment must be an ExperimentSpec",
+          "result_bundle: artifact_ledger must be an ArtifactLedger",
+          "reporting: surface must be a ReportingSurfaceSpec",
+          "canonical claim update requires at least one updates_internal_canonical claim"
+        ]
+      },
+      "name": "malformed canonical update gate objects fail closed",
+      "passed": true
+    }
+  ],
+  "claim": "Canonical claim updates require a complete ExperimentResultBundle, a passing ReportingEvidenceGate, a bundle-owned source artifact, and MetricArtifactEvidence when the source artifact is a metrics JSON. Malformed canonical update gate objects fail closed before bundle/reporting fields are dereferenced.",
+  "decision": "canonical_claim_update_gate_passed",
+  "demo_artifacts": [
+    "results/canonical_claim_update_demo_preregistration.json",
+    "results/canonical_claim_update_demo_oof.csv",
+    "results/canonical_claim_update_demo_features.csv.manifest.json",
+    "results/canonical_claim_update_demo_rows.csv",
+    "results/canonical_claim_update_demo_metrics.json"
+  ],
+  "generated_at_utc": "2026-05-16T12:44:36+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_canonical_claim_update_gate.py"
+}

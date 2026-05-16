@@ -1,0 +1,36 @@
+{
+  "preregistration_id": "t1_iter40_distillation_slotD_20260511_071000",
+  "created_at_utc": "2026-05-11T07:10:00.171897+00:00",
+  "formula_sha256": "13f97a4d3253ee63c4867e566c5faed786279b21e75bc48a003d2612a939259f",
+  "formula": {
+    "experiment": "T1 iter40 Slot-D-distill \u2014 self-distillation, in-sample teacher labels",
+    "cohort": {
+      "filter": "PD with full items 9-14, 15, 18 (validated loader)",
+      "expected_n_subjects": 92
+    },
+    "teacher": {
+      "config": "iter34 hybrid 8-item chain \u00d7 3 base learners",
+      "trained_on": "outer-train subjects",
+      "labels_used": "y_t1 - s1 residual"
+    },
+    "student": {
+      "model": "LightGBM",
+      "k_features": 500,
+      "target_blend_alpha": 1.0,
+      "target": "alpha * teacher_in_sample_resid + (1-alpha) * y_t1_resid"
+    },
+    "leakage_argument": "Teacher trained on outer-train sees only outer-train labels. Teacher's in-sample predictions on outer-train depend only on outer-train data. Student trained on (V2[outer-train], teacher_in_sample). No outer-test labels enter student training. Student predicts outer-test using V2[outer-test] alone.",
+    "screen_gate": {
+      "delta_mean_vs_iter34_n92": 0.025,
+      "frac_above_zero_paired_bootstrap": 0.95
+    },
+    "fwer_family_n8": true,
+    "loocv_gate_frac_above_zero": 0.99375,
+    "seeds": [
+      42,
+      1337,
+      7
+    ]
+  },
+  "alpha_blend": 1.0
+}

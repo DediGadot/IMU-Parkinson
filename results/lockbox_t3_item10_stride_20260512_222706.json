@@ -1,0 +1,9 @@
+{
+  "name": "t3_item10_stride_correction",
+  "created_at_utc": "2026-05-12T22:27:06.008828+00:00",
+  "item10_stride_ccc": 0.3722,
+  "iter47_baseline_aligned_ccc": 0.3784,
+  "t3_corrected_ccc": 0.3844,
+  "delta": 0.006,
+  "n_aligned": 95
+}

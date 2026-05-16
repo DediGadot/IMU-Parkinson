@@ -30,10 +30,18 @@ from __future__ import annotations
 import os
 
 os.environ.setdefault("PD_IMU_N_CORES", "1")
+# Avoid OpenMP/MKL × ProcessPool fork deadlocks in LightGBM / XGBoost / sklearn
+# (required on RTX 4060 slave fiod@165.22.71.91:2243 per
+# feedback_processpool_spawn_context_required.md). Runtime-only; does not
+# affect formula_sha256.
+for _v in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
+           "BLIS_NUM_THREADS", "VECLIB_MAXIMUM_THREADS", "NUMEXPR_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")
 
 import argparse
 import hashlib
 import json
+import multiprocessing as mp
 import subprocess
 import sys
 import time
@@ -179,7 +187,8 @@ def _hybrid_loocv(seed: int, X, y_t1, X_s1, items, item_order, bases, n_workers:
     ]
     t0 = time.time()
     done = 0
-    with ProcessPoolExecutor(max_workers=n_workers) as ex:
+    ctx = mp.get_context("spawn")  # avoid fork-OpenMP deadlock on RTX 4060 slave
+    with ProcessPoolExecutor(max_workers=n_workers, mp_context=ctx) as ex:
         futs = {ex.submit(_fit_one_fold, job): job[0] for job in jobs}
         for fut in as_completed(futs):
             te_idx, te_pred = fut.result()
@@ -201,7 +210,8 @@ def _iter5_direct_loocv(seed: int, X, y_t1, X_s1, n_workers: int):
         (fid, tr, te, X, y_t1, X_s1, seed)
         for fid, (tr, te) in enumerate(splits)
     ]
-    with ProcessPoolExecutor(max_workers=n_workers) as ex:
+    ctx = mp.get_context("spawn")
+    with ProcessPoolExecutor(max_workers=n_workers, mp_context=ctx) as ex:
         futs = {ex.submit(_i5_one_fold, j): j[0] for j in jobs}
         for fut in as_completed(futs):
             te_idx, te_pred = fut.result()
@@ -494,8 +504,17 @@ def run_lockbox(prereg_file: Path,
     else:
         verdict = "UNKNOWN (iter33-B comparator missing)"
 
-    is_canonical = bool(boot_i5["frac_above_zero"] >= 0.95
-                        and headline["ccc"] > PUBLISHED_T1_LOOCV_CCC)
+    is_metric_lift_vs_baselines = bool(
+        boot_i5["frac_above_zero"] >= 0.95
+        and headline["ccc"] > PUBLISHED_T1_LOOCV_CCC
+    )
+    is_hygiene_correction = bool(prereg.get("is_hygiene_correction_replication"))
+    is_canonical = bool(is_metric_lift_vs_baselines and not is_hygiene_correction)
+    canonical_update_policy = (
+        "disabled_for_hygiene_correction_replication"
+        if is_hygiene_correction
+        else "metric_lift_vs_iter5_and_iter12"
+    )
 
     headline.update({
         "variant": "hybrid_8item_multibase",
@@ -518,6 +537,8 @@ def run_lockbox(prereg_file: Path,
         "bootstrap_delta_vs_iter5": boot_i5,
         "bootstrap_delta_vs_iter33b_8item": iter33b_block,
         "bootstrap_delta_vs_iter30b_v1_random": iter30b_block,
+        "metric_lift_vs_iter5_and_iter12": is_metric_lift_vs_baselines,
+        "canonical_update_policy": canonical_update_policy,
         "is_canonical_update": is_canonical,
         "verdict_vs_iter33b": verdict,
         "per_subject": {

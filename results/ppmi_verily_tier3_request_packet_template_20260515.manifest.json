@@ -1,0 +1,42 @@
+{
+  "command": [
+    "/usr/bin/pandoc",
+    "/home/fiod/medical/scripts/ppmi_verily_tier3_request_packet.md",
+    "--from",
+    "markdown",
+    "--to",
+    "docx",
+    "--standalone",
+    "--metadata",
+    "title=PPMI / Verily Study Watch Tier-3 Request Packet Template",
+    "--output",
+    "/home/fiod/medical/results/ppmi_verily_tier3_request_packet_template_20260515.docx"
+  ],
+  "created_at_utc": "2026-05-16T05:13:21+00:00",
+  "goal_complete": false,
+  "not_a_model_result": true,
+  "output_docx": "results/ppmi_verily_tier3_request_packet_template_20260515.docx",
+  "output_docx_sha256": "47488e6926154a699c65734ebdd8da414483de3481dde116ae37a5298c3cd157",
+  "pandoc_version": "pandoc 3.1.3",
+  "placeholder_count": 13,
+  "placeholders": [
+    "[ADDRESS]",
+    "[ANALYST_NAME]",
+    "[CONTACT]",
+    "[CUSTODIAN_EMAIL]",
+    "[DATA_CUSTODIAN]",
+    "[DEPARTMENT_OR_LAB]",
+    "[EMAIL]",
+    "[INSTITUTION]",
+    "[IRB_ID_OR_STATUS]",
+    "[PI_EMAIL]",
+    "[PI_NAME]",
+    "[PI_PHONE]",
+    "[PPMI_ID]"
+  ],
+  "protected_data_included": false,
+  "script": "scripts/export_ppmi_verily_packet_docx.py",
+  "source": "scripts/ppmi_verily_tier3_request_packet.md",
+  "source_sha256": "6ecddbed85f20648d3995ec1d6ad4a7d9ca3aef3928bc2ef9a8f38769ce665d1",
+  "status": "ready_to_fill_word_template"
+}

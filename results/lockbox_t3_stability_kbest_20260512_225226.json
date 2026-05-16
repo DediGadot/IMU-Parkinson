@@ -1,0 +1,6 @@
+{
+  "name": "t3_stability_kbest",
+  "n_bootstraps": 20,
+  "ccc": 0.4048,
+  "delta_vs_iter47": 0.02639999999999998
+}

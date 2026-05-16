@@ -1,6 +1,6 @@
 {
   "blocker_audit": "results/remaining_blocker_action_audit_20260509.json",
-  "created_at_utc": "2026-05-09T12:40:19.312051+00:00",
+  "created_at_utc": "2026-05-16T12:51:40.361459+00:00",
   "decision": "access_packets_ready_no_compute",
   "hard_failures": [],
   "provenance_recovery": {
@@ -67,6 +67,70 @@
       "scaffold_allowed_now": false,
       "source_count": 4,
       "status": "access_gated_no_scaffold_until_credentials",
+      "submission_support": {
+        "checks": {
+          "completed_email_validator": true,
+          "completed_package_validator": true,
+          "completed_packet_validator": true,
+          "schema_probe_checklist": true,
+          "schema_probe_report_template": true,
+          "submission_bundle": true,
+          "submission_email": true,
+          "user_fill_checklist": true,
+          "word_template": true
+        },
+        "completed_email_validator": {
+          "audit": "results/ppmi_verily_submission_email_validator_audit_20260515.json",
+          "decision": "ppmi_verily_submission_email_validator_ready",
+          "path": "scripts/validate_ppmi_verily_submission_email.py"
+        },
+        "completed_package_validator": {
+          "audit": "results/ppmi_verily_submission_package_validator_audit_20260515.json",
+          "decision": "ppmi_verily_submission_package_validator_ready",
+          "path": "scripts/validate_ppmi_verily_submission_package.py"
+        },
+        "completed_packet_validator": {
+          "audit": "results/ppmi_verily_completed_packet_validator_audit_20260515.json",
+          "decision": "ppmi_verily_completed_packet_validator_ready",
+          "path": "scripts/validate_ppmi_verily_completed_packet.py"
+        },
+        "missing_checks": [],
+        "passed": true,
+        "schema_probe_checklist": {
+          "audit": "results/ppmi_verily_schema_probe_checklist_audit_20260515.json",
+          "decision": "ppmi_verily_schema_probe_checklist_ready",
+          "path": "scripts/ppmi_verily_schema_probe_checklist.md"
+        },
+        "schema_probe_report_template": {
+          "audit": "results/ppmi_verily_schema_probe_report_template_audit_20260515.json",
+          "decision": "ppmi_verily_schema_probe_report_template_ready",
+          "path": "scripts/ppmi_verily_schema_probe_report_template.md"
+        },
+        "submission_bundle": {
+          "audit": "results/ppmi_verily_submission_bundle_20260515.json",
+          "decision": "ppmi_verily_submission_bundle_ready"
+        },
+        "submission_email": {
+          "audit": "results/ppmi_verily_submission_email_template_audit_20260515.json",
+          "decision": "ppmi_verily_submission_email_template_ready",
+          "path": "scripts/ppmi_verily_submission_email_template.md"
+        },
+        "user_fill_checklist": {
+          "audit": "results/ppmi_verily_user_fill_checklist_audit_20260515.json",
+          "decision": "ppmi_verily_user_fill_checklist_ready",
+          "email_field_count": 12,
+          "packet_field_count": 13,
+          "path": "scripts/ppmi_verily_user_fill_checklist.md",
+          "required_placeholder_count": 19,
+          "required_placeholder_list_count": 19,
+          "submission_metadata_field_count": 4
+        },
+        "word_template": {
+          "audit": "results/ppmi_verily_submit_format_audit_20260515.json",
+          "decision": "ppmi_verily_word_template_ready_to_fill",
+          "path": "results/ppmi_verily_tier3_request_packet_template_20260515.docx"
+        }
+      },
       "why": "Largest priority wrist-native Verily route with clinical/sensor data and MDS-UPDRS III/H&Y."
     },
     {
@@ -109,6 +173,7 @@
       "scaffold_allowed_now": false,
       "source_count": 5,
       "status": "access_gated_document_only_no_scaffold_until_access",
+      "submission_support": null,
       "why": "Strong Verily Study Watch peer route with PD-VME active tasks and MDS-UPDRS Part III/subitem labels."
     },
     {
@@ -151,6 +216,7 @@
       "scaffold_allowed_now": false,
       "source_count": 6,
       "status": "request_gated_document_only_no_scaffold_until_access_schema",
+      "submission_support": null,
       "why": "Protocol-relevant route: APDM sensors during MDS-UPDRS Part III plus Apple Watch/iPhone longitudinal data."
     },
     {
@@ -193,6 +259,7 @@
       "scaffold_allowed_now": false,
       "source_count": 4,
       "status": "request_gated_document_only_no_scaffold_until_data",
+      "submission_support": null,
       "why": "Structured 10-meter walk route with wrist and lower-back AX3 plus direct MDS-UPDRS Part III."
     },
     {
@@ -235,6 +302,7 @@
       "scaffold_allowed_now": false,
       "source_count": 7,
       "status": "synapse_dua_gated_no_scaffold_until_access",
+      "submission_support": null,
       "why": "Small but direct MJFF wearable-UPDRS route; existing iter26 scaffold remains DUA-blocked."
     },
     {
@@ -277,6 +345,7 @@
       "scaffold_allowed_now": false,
       "source_count": 3,
       "status": "request_gated_document_only_no_scaffold_until_data",
+      "submission_support": null,
       "why": "Longitudinal lower-back gait route with MDS-UPDRS Part III and H&Y; not wrist-native."
     },
     {
@@ -314,6 +383,7 @@
       "scaffold_allowed_now": false,
       "source_count": 4,
       "status": "watchlist_no_scaffold_until_cvs_release_or_schema",
+      "submission_support": null,
       "why": "Plausible future lower-back longitudinal T3 row, but not compute-ready from current public TVS."
     },
     {
@@ -351,6 +421,7 @@
       "scaffold_allowed_now": false,
       "source_count": 3,
       "status": "request_only_document_only_no_scaffold",
+      "submission_support": null,
       "why": "Potential T3 context only after data-owner approval; not an active application-ready route."
     },
     {
@@ -388,6 +459,7 @@
       "scaffold_allowed_now": false,
       "source_count": 3,
       "status": "request_only_document_only_no_scaffold",
+      "submission_support": null,
       "why": "Potential low-priority T3 context only, after stronger direct routes."
     }
   ],
@@ -398,6 +470,7 @@
     "hard_failure_count": 0,
     "no_local_weargait_model_actions_remaining": 8,
     "passed": true,
+    "ppmi_submission_support_ready": true,
     "provenance_recovery_class": "raw_data_recovery_credentials_needed",
     "route_count": 9,
     "top_priority_route": "PPMI / Verily Study Watch",

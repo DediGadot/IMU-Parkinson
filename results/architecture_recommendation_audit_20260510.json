@@ -1,0 +1,350 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "artifact": "results/architecture_recommendation_20260510.md"
+      },
+      "name": "model architecture recommendation exists and preserves current canonicals",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/software_architecture_audit_20260510.json",
+        "summary": {
+          "category_counts": {
+            "ad_hoc_test_script": 2,
+            "architecture_facade": 26,
+            "audit_verifier": 127,
+            "cache_builder": 39,
+            "canonical_pipeline": 6,
+            "composer": 10,
+            "experiment_runner": 263,
+            "legacy_src_module": 8,
+            "miscellaneous": 27,
+            "paper_reporting": 25,
+            "shared_core": 7,
+            "support_script": 34,
+            "tests": 19
+          },
+          "category_loc": {
+            "ad_hoc_test_script": 530,
+            "architecture_facade": 5033,
+            "audit_verifier": 59244,
+            "cache_builder": 13818,
+            "canonical_pipeline": 2773,
+            "composer": 4061,
+            "experiment_runner": 111895,
+            "legacy_src_module": 1927,
+            "miscellaneous": 5832,
+            "paper_reporting": 32381,
+            "shared_core": 1157,
+            "support_script": 11489,
+            "tests": 6717
+          },
+          "cross_script_edges": 405,
+          "local_import_edges": 1089,
+          "non_exception_cross_script_edges": 401,
+          "python_files": 593,
+          "syntax_unreadable_count": 0,
+          "total_loc": 256857
+        }
+      },
+      "name": "software architecture audit exists and recommends layered facade",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "audit": "results/import_boundary_audit_20260510.json",
+        "baseline": "results/import_boundary_baseline_20260510.json"
+      },
+      "name": "import boundary guard is active and has no new cross-script edges",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "facade_files": [
+          "pd_imu/core/artifacts.py",
+          "pd_imu/core/paths.py",
+          "pd_imu/core/metrics.py",
+          "pd_imu/core/folds.py",
+          "pd_imu/core/targets.py",
+          "pd_imu/core/cache.py"
+        ],
+        "test": "tests/test_pd_imu_facades.py"
+      },
+      "name": "core facade package exists",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "audit": "results/pipeline_spec_contract_audit_20260510.json",
+        "pipeline_files": [
+          "pd_imu/pipelines/__init__.py",
+          "pd_imu/pipelines/spec.py"
+        ],
+        "test": "tests/test_pipeline_spec.py"
+      },
+      "name": "pipeline spec contract exists",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "audit": "results/dataset_feature_contract_audit_20260510.json",
+        "dataset_files": [
+          "pd_imu/datasets/__init__.py",
+          "pd_imu/datasets/probe.py",
+          "pd_imu/datasets/schema.py"
+        ],
+        "feature_files": [
+          "pd_imu/features/__init__.py",
+          "pd_imu/features/spec.py"
+        ],
+        "test": "tests/test_dataset_feature_specs.py"
+      },
+      "name": "dataset and feature contracts exist",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "experiment_files": [
+          "pd_imu/experiments/__init__.py",
+          "pd_imu/experiments/access.py",
+          "pd_imu/experiments/execution.py",
+          "pd_imu/experiments/preregistration.py",
+          "pd_imu/experiments/results.py",
+          "pd_imu/experiments/spec.py"
+        ],
+        "reporting_files": [
+          "pd_imu/reporting/__init__.py",
+          "pd_imu/reporting/claims.py",
+          "pd_imu/reporting/current_truth.py"
+        ],
+        "test": "tests/test_experiment_reporting_specs.py"
+      },
+      "name": "experiment and reporting contracts exist",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "ppmi_submission_support_ready": true,
+        "route_access": "results/external_route_access_contract_audit_20260510.json",
+        "route_plan": "results/external_architecture_route_plan_20260510.json"
+      },
+      "name": "external architecture route plan is access-gated and not compute-ready",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/external_access_packet_integrity_audit_20260510.json"
+      },
+      "name": "external access packet integrity audit is current and compute-blocked",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/external_approval_evidence_gate_audit_20260510.json"
+      },
+      "name": "external approval evidence gate is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/external_submission_evidence_gate_audit_20260510.json"
+      },
+      "name": "external submission evidence gate is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/access_submission_recorder_audit_20260510.json"
+      },
+      "name": "external access submission recorder is local-only and pre-access blocked",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/access_approval_recorder_audit_20260510.json"
+      },
+      "name": "external access approval recorder is local-only and schema-probe-only",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/schema_probe_recorder_audit_20260510.json"
+      },
+      "name": "external schema-probe recorder is local-only and metadata-only",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/external_access_lifecycle_gate_audit_20260510.json"
+      },
+      "name": "external access lifecycle gate is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/external_next_action_gate_audit_20260510.json"
+      },
+      "name": "external next-action gate is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/access_lifecycle_state_handoff_20260515.json"
+      },
+      "name": "state-aware access lifecycle handoff is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/current_external_route_sweep_20260510.json"
+      },
+      "name": "current external route sweep is documented and compute-blocked",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/external_schema_probe_contract_audit_20260510.json"
+      },
+      "name": "external schema probe contract is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/schema_probe_artifact_gate_audit_20260510.json"
+      },
+      "name": "schema-probe artifact content gate is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/experiment_execution_gate_audit_20260510.json"
+      },
+      "name": "experiment execution gate is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/reporting_evidence_gate_audit_20260510.json"
+      },
+      "name": "reporting evidence gate is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/current_truth_registry_audit_20260510.json"
+      },
+      "name": "current internal truth registry is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/canonical_claim_update_gate_audit_20260510.json"
+      },
+      "name": "canonical claim update gate is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/artifact_ledger_contract_audit_20260510.json"
+      },
+      "name": "artifact ledger contract is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/preregistration_artifact_gate_audit_20260510.json"
+      },
+      "name": "preregistration artifact content gate is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/experiment_result_bundle_audit_20260510.json"
+      },
+      "name": "experiment result bundle is defined and audited",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/t1_ceiling_push_closure_audit_20260510.json"
+      },
+      "name": "t1 ceiling-push family closure is represented by screen artifacts",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/t1_hygiene_residual_anatomy_20260510.json"
+      },
+      "name": "t1 hygiene-corrected residual anatomy supports external-data-first decision",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "files": [
+          "findings.md",
+          "progress.md"
+        ]
+      },
+      "name": "findings and progress record the architecture decision",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "artifact": "results/architecture_completion_audit_20260510.json"
+      },
+      "name": "completion audit distinguishes software architecture from model ceiling break",
+      "passed": true,
+      "required": true
+    },
+    {
+      "evidence": {
+        "current_state": "results/current_goal_state_verification_20260508.json",
+        "prompt_audit": "results/prompt_objective_evidence_audit_20260508.json",
+        "reason": "No clean reportable T1/T3 ceiling break exists under current gates."
+      },
+      "name": "model-side active goal remains incomplete",
+      "passed": true,
+      "required": true
+    }
+  ],
+  "completion_blocker": "The software architecture improvement is implemented, but the model-side clean ceiling-break criterion remains unmet.",
+  "decision": "architecture_artifacts_verified_goal_still_open",
+  "generated_at_utc": "2026-05-16T12:44:59+00:00",
+  "hard_failures": [],
+  "objective": "find a better architecture for this codebase, vs. the current one",
+  "objective_complete": false,
+  "passed": true,
+  "script": "audit_architecture_recommendation.py"
+}

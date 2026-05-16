@@ -1,0 +1,106 @@
+{
+  "name": "lockbox_t1_S5_microbatch_item13only_audit",
+  "created_at_utc": "20260515T104934Z",
+  "preregistration_master": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "session": "2026-05-15-PM-microbatch-S5",
+  "null_mode": "real",
+  "n_cohort": 92,
+  "split_seed": 20260309,
+  "model_seeds": [
+    42,
+    1337,
+    7
+  ],
+  "lambda_fixed": 1.0,
+  "n_bootstrap": 2000,
+  "estimand_label": "full_cohort_t1_loocv_ccc_post_correction",
+  "iter34_baseline_canonical_ccc": 0.717,
+  "iter34_loocv_ccc_recomputed": 0.717038,
+  "arms": {
+    "item13_PH_alpha100_PRIMARY": {
+      "arm": "item13_PH_alpha100_PRIMARY",
+      "role": "PRIMARY",
+      "item": 13,
+      "feature_filter": "_ph_",
+      "n_features": 32,
+      "alpha_fixed": 100.0,
+      "lambda_fixed": 1.0,
+      "model_seeds": [
+        42,
+        1337,
+        7
+      ],
+      "loocv_ccc_baseline": 0.717038,
+      "loocv_ccc_corrected": 0.72458,
+      "delta_ccc": 0.007542,
+      "delta_pearson_r": 0.008669,
+      "delta_mae": -0.024183,
+      "corr_correction_item_residual": 0.273239,
+      "corr_correction_sum_residual": 0.118313,
+      "frac_pos_bootstrap": 0.9835,
+      "bootstrap_median": 0.007729,
+      "ci95": [
+        0.000519,
+        0.017445
+      ],
+      "verdict": "PASS_HYPOTHESIS_A"
+    },
+    "item10_MFDFA_alpha1000_AUDIT": {
+      "arm": "item10_MFDFA_alpha1000_AUDIT",
+      "role": "AUDIT",
+      "item": 10,
+      "feature_filter": "mfdfa_",
+      "n_features": 56,
+      "alpha_fixed": 1000.0,
+      "lambda_fixed": 1.0,
+      "model_seeds": [
+        42,
+        1337,
+        7
+      ],
+      "loocv_ccc_baseline": 0.717038,
+      "loocv_ccc_corrected": 0.716887,
+      "delta_ccc": -0.00015,
+      "delta_pearson_r": 0.000402,
+      "delta_mae": 0.013589,
+      "corr_correction_item_residual": 0.134382,
+      "corr_correction_sum_residual": -0.084042,
+      "frac_pos_bootstrap": 0.458,
+      "bootstrap_median": -0.000177,
+      "ci95": [
+        -0.003411,
+        0.003515
+      ],
+      "d4_replication_status": "CONFIRMED_MIRAGE"
+    },
+    "item14_PH_alpha1000_AUDIT": {
+      "arm": "item14_PH_alpha1000_AUDIT",
+      "role": "AUDIT",
+      "item": 14,
+      "feature_filter": "_ph_",
+      "n_features": 32,
+      "alpha_fixed": 1000.0,
+      "lambda_fixed": 1.0,
+      "model_seeds": [
+        42,
+        1337,
+        7
+      ],
+      "loocv_ccc_baseline": 0.717038,
+      "loocv_ccc_corrected": 0.716029,
+      "delta_ccc": -0.001009,
+      "delta_pearson_r": -0.000753,
+      "delta_mae": 0.004586,
+      "corr_correction_item_residual": 0.09255,
+      "corr_correction_sum_residual": -0.150253,
+      "frac_pos_bootstrap": 0.186,
+      "bootstrap_median": -0.001071,
+      "ci95": [
+        -0.003393,
+        0.001149
+      ],
+      "d4_replication_status": "CONFIRMED_MIRAGE"
+    }
+  },
+  "d4_audit_reference": "results/d4_variance_compression_audit_20260515T082806Z.json"
+}

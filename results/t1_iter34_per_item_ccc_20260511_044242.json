@@ -1,0 +1,107 @@
+{
+  "n_subjects": 92,
+  "T1_sum_CCC": 0.7170378403014925,
+  "T1_sum_MAE": 1.7356018162374585,
+  "T1_sum_r": 0.7223066495976541,
+  "per_item": {
+    "9": {
+      "ccc_mean_of_seeds": 0.23402190985953775,
+      "mae_mean_of_seeds": 0.3573835957834951,
+      "r_mean_of_seeds": 0.3130583779137667,
+      "ccc_per_seed": [
+        0.23532934609888567,
+        0.2356876035874254,
+        0.23048489445308287
+      ],
+      "true_mean": 0.2717391304347826,
+      "true_std": 0.491299538260414,
+      "pred_mean": 0.27774802878155197,
+      "pred_std": 0.22072289562051728
+    },
+    "10": {
+      "ccc_mean_of_seeds": 0.4425832212133354,
+      "mae_mean_of_seeds": 0.47875099579137353,
+      "r_mean_of_seeds": 0.5382502661448342,
+      "ccc_per_seed": [
+        0.42810376334610706,
+        0.4362720362861134,
+        0.46098108083478717
+      ],
+      "true_mean": 1.0326086956521738,
+      "true_std": 0.7583031250691263,
+      "pred_mean": 1.0400596669913948,
+      "pred_std": 0.39742807920934337
+    },
+    "11": {
+      "ccc_mean_of_seeds": 0.2318773252515935,
+      "mae_mean_of_seeds": 0.29348710642928494,
+      "r_mean_of_seeds": 0.3244511448158523,
+      "ccc_per_seed": [
+        0.23526456561055772,
+        0.22918796531983912,
+        0.2310898200765503
+      ],
+      "true_mean": 0.18478260869565216,
+      "true_std": 0.5502834808194409,
+      "pred_mean": 0.1844095961285403,
+      "pred_std": 0.2314119355399942
+    },
+    "12": {
+      "ccc_mean_of_seeds": 0.5655239092804749,
+      "mae_mean_of_seeds": 0.5128040233262674,
+      "r_mean_of_seeds": 0.6551845024279802,
+      "ccc_per_seed": [
+        0.566032121637736,
+        0.5664444624866422,
+        0.563922507624149
+      ],
+      "true_mean": 0.5543478260869565,
+      "true_std": 0.9482722324538984,
+      "pred_mean": 0.5497774686146979,
+      "pred_std": 0.5438950448154314
+    },
+    "13": {
+      "ccc_mean_of_seeds": 0.06743656916202519,
+      "mae_mean_of_seeds": 0.6265038953311852,
+      "r_mean_of_seeds": 0.09470485099420695,
+      "ccc_per_seed": [
+        0.06826948095604415,
+        0.06700907412626232,
+        0.06699563415922122
+      ],
+      "true_mean": 1.0217391304347827,
+      "true_std": 0.7368891850729693,
+      "pred_mean": 1.0276530441658545,
+      "pred_std": 0.30829915228699956
+    },
+    "14": {
+      "ccc_mean_of_seeds": 0.31678943447624963,
+      "mae_mean_of_seeds": 0.507113702723215,
+      "r_mean_of_seeds": 0.43852862318671054,
+      "ccc_per_seed": [
+        0.31620648254312744,
+        0.31384995572661306,
+        0.3201738316870951
+      ],
+      "true_mean": 0.967391304347826,
+      "true_std": 0.7290715799014783,
+      "pred_mean": 0.9942596781228512,
+      "pred_std": 0.3118861397995505
+    }
+  },
+  "wall_s_total": 1511.986116886139,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "bases": [
+    "lgb",
+    "xgb",
+    "et"
+  ],
+  "feature_set": "A3_tier1",
+  "supersedes_lockbox": null,
+  "based_on_lockbox": "results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+  "fwer_family_independence_claim": "Per-item disaggregation is a marginalization of the same chain outputs. NOT a new FWER family member; equivalent to reading sub-totals from the same lockbox. Headline T1 sum CCC must match the canonical lockbox at N=92."
+}

@@ -1,0 +1,27 @@
+{
+  "name": "t3_imu_only",
+  "created_at_utc": "2026-05-12T21:19:00.766945+00:00",
+  "purpose": "Orthogonal predictor for T3 conformal abstention pairing with iter47.",
+  "out_of_fwer_family": true,
+  "cohort": "drop_allmissing_validrange",
+  "n_subjects": 95,
+  "stage1": "NONE (no clinical residualization)",
+  "stage2": "LGB on V2 K=500 IMU-only features (no cv_*)",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "k_best": 500,
+  "lgb_params": {
+    "n_estimators": 500,
+    "learning_rate": 0.05,
+    "num_leaves": 15,
+    "min_data_in_leaf": 10,
+    "feature_fraction": 0.8,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 3,
+    "verbose": -1
+  },
+  "formula_sha256": "1405666e8af4d8f7c0dde265bd9442013336059e0bf0515a7047facfd0b56c4f"
+}

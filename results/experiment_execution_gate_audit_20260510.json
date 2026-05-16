@@ -1,0 +1,108 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "schema_probe_errors": [
+          "schema_probe stage requires approved access"
+        ]
+      },
+      "name": "pre-access state allows access request only",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route": "watchpd"
+      },
+      "name": "approved access allows schema probe without binding experiment",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "submitted_lifecycle_errors": [
+          "schema_probe stage requires approved access lifecycle"
+        ]
+      },
+      "name": "access lifecycle is consumed by schema-probe execution gate",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors_without_probe": [
+          "preregister stage requires access approval evidence",
+          "preregister stage requires observed schema_probe artifact: results/watchpd_schema_probe.json",
+          "preregister stage requires schema_probe content evidence"
+        ]
+      },
+      "name": "external preregistration requires observed schema-probe artifact",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors_without_preregistration": [
+          "run stage requires observed preregistration artifact: results/preregistration_watchpd_t3_external.json",
+          "run stage requires preregistration content evidence"
+        ]
+      },
+      "name": "run requires observed preregistration artifact",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "canonical_claim_errors": [
+          "protected external experiments cannot update internal canonical claims",
+          "canonical claim update stage requires CanonicalClaimUpdateGate; ExperimentExecutionGate does not authorize internal canonical updates"
+        ]
+      },
+      "name": "protected external experiments cannot update internal canonical claims",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "canonical_claim_errors": [
+          "canonical claim update stage requires CanonicalClaimUpdateGate; ExperimentExecutionGate does not authorize internal canonical updates"
+        ]
+      },
+      "name": "execution gate delegates canonical updates to reporting gate",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "malformed_gate_errors": [
+          "route must be an ExternalArchitectureRoute",
+          "experiment must be an ExperimentSpec",
+          "observed_artifact_paths entries must be non-empty strings",
+          "artifact_ledger must be an ArtifactLedger",
+          "access_approval_evidence must be an AccessApprovalEvidence",
+          "access_lifecycle must be an AccessRouteLifecycle",
+          "schema_probe_evidence must be a SchemaProbeArtifactEvidence",
+          "preregistration_evidence must be a PreregistrationArtifactEvidence"
+        ],
+        "malformed_ledger_errors": [
+          "artifact_ledger: paths must be a tuple or list",
+          "run stage requires observed preregistration artifact: results/preregistration_watchpd_t3_external.json",
+          "run stage requires preregistration content evidence"
+        ],
+        "malformed_lifecycle_errors": [
+          "access_lifecycle: packet must be an AccessPacketSpec",
+          "schema_probe stage requires approved access lifecycle"
+        ],
+        "malformed_prereg_errors": [
+          "preregistration_evidence must be a PreregistrationArtifactEvidence"
+        ],
+        "observed_artifacts_from_malformed_gate": [
+          "observed.json"
+        ]
+      },
+      "name": "malformed execution gate objects fail closed",
+      "passed": true
+    }
+  ],
+  "claim": "Future external experiment runners have a reusable execution-stage gate: access request, schema probe, preregistration, and run stages are allowed only when route readiness, approved access lifecycle or approval evidence, clean schema-probe evidence, and observed prerequisite artifacts support that stage. Malformed top-level route, experiment, evidence, artifact-ledger, or observed-path inputs fail closed as validation errors. Canonical-claim updates are deliberately delegated to CanonicalClaimUpdateGate rather than authorized by ExperimentExecutionGate.",
+  "decision": "experiment_execution_gate_passed",
+  "generated_at_utc": "2026-05-16T12:44:28+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_experiment_execution_gate.py"
+}

@@ -1,0 +1,62 @@
+{
+  "name": "t3_gb_ksweep_fwer_bootstrap",
+  "created_at_utc": "2026-05-13T03:00:50.361785+00:00",
+  "sweep_file": "lockbox_t3_gb_ksweep_20260513_025319.json",
+  "best_k": 250,
+  "per_seed_ccc": [
+    0.44220402349917337,
+    0.4604535450698351,
+    0.4436270614302729
+  ],
+  "pooled_ccc_full_n95": 0.4515898961717821,
+  "ccc_gb_common": 0.4515898961717821,
+  "ccc_iter47_common": 0.3783671177953899,
+  "delta_raw_common": 0.07322277837639218,
+  "n_common": 95,
+  "bootstrap": {
+    "B": 5000,
+    "mean_delta": 0.07545836058239418,
+    "ci_low": -0.011359060565717456,
+    "ci_high": 0.17803599824391175,
+    "frac_gt_zero": 0.9518,
+    "frac_above_mcid": 0.8602,
+    "sign_flip_p": 0.0964
+  },
+  "fwer_gates": {
+    "uncorrected_0.95": true,
+    "bonferroni_n7_threshold": 0.9928571428571429,
+    "bonferroni_n7_pass": false,
+    "bonferroni_n10_threshold": 0.995,
+    "bonferroni_n10_pass": false
+  },
+  "k_sweep_table": {
+    "100": {
+      "mean": 0.3951,
+      "std": 0.0027
+    },
+    "150": {
+      "mean": 0.4075,
+      "std": 0.0098
+    },
+    "200": {
+      "mean": 0.4272,
+      "std": 0.0022
+    },
+    "250": {
+      "mean": 0.4488,
+      "std": 0.0083
+    },
+    "300": {
+      "mean": 0.4302,
+      "std": 0.0125
+    },
+    "400": {
+      "mean": 0.403,
+      "std": 0.0096
+    },
+    "500": {
+      "mean": 0.3903833991263887,
+      "std": 0.02708252055144647
+    }
+  }
+}

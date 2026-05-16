@@ -1,0 +1,353 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "validator": "scripts/validate_access_request_packet.py"
+      },
+      "name": "validator script exists",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ]
+      },
+      "name": "tracker exposes expected six route ids",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_passed",
+        "hard_failures": [],
+        "returncode": 0
+      },
+      "name": "ppmi_verily synthetic completed packet passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_failed",
+        "remaining_placeholders": 13,
+        "returncode": 1
+      },
+      "name": "ppmi_verily unfinished template fails without allow-placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "allow_placeholders_used": true,
+        "decision": "placeholder_tolerant_access_packet_audit_passed",
+        "not_valid_for_submission": true,
+        "pre_submission_preflight_valid": false,
+        "returncode": 0
+      },
+      "name": "ppmi_verily template passes only with explicit audit flag",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "synthetic_output_contains_filename": false,
+        "synthetic_output_contains_full_path": false,
+        "template_output_contains_filename": false,
+        "template_output_contains_full_path": false
+      },
+      "name": "ppmi_verily output redacts packet path and filename",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_passed",
+        "hard_failures": [],
+        "returncode": 0
+      },
+      "name": "ppp_pd_vme synthetic completed packet passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_failed",
+        "remaining_placeholders": 16,
+        "returncode": 1
+      },
+      "name": "ppp_pd_vme unfinished template fails without allow-placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "allow_placeholders_used": true,
+        "decision": "placeholder_tolerant_access_packet_audit_passed",
+        "not_valid_for_submission": true,
+        "pre_submission_preflight_valid": false,
+        "returncode": 0
+      },
+      "name": "ppp_pd_vme template passes only with explicit audit flag",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "synthetic_output_contains_filename": false,
+        "synthetic_output_contains_full_path": false,
+        "template_output_contains_filename": false,
+        "template_output_contains_full_path": false
+      },
+      "name": "ppp_pd_vme output redacts packet path and filename",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_passed",
+        "hard_failures": [],
+        "returncode": 0
+      },
+      "name": "watchpd synthetic completed packet passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_failed",
+        "remaining_placeholders": 12,
+        "returncode": 1
+      },
+      "name": "watchpd unfinished template fails without allow-placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "allow_placeholders_used": true,
+        "decision": "placeholder_tolerant_access_packet_audit_passed",
+        "not_valid_for_submission": true,
+        "pre_submission_preflight_valid": false,
+        "returncode": 0
+      },
+      "name": "watchpd template passes only with explicit audit flag",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "synthetic_output_contains_filename": false,
+        "synthetic_output_contains_full_path": false,
+        "template_output_contains_filename": false,
+        "template_output_contains_full_path": false
+      },
+      "name": "watchpd output redacts packet path and filename",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_passed",
+        "hard_failures": [],
+        "returncode": 0
+      },
+      "name": "cns_portugal_lobo synthetic completed packet passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_failed",
+        "remaining_placeholders": 11,
+        "returncode": 1
+      },
+      "name": "cns_portugal_lobo unfinished template fails without allow-placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "allow_placeholders_used": true,
+        "decision": "placeholder_tolerant_access_packet_audit_passed",
+        "not_valid_for_submission": true,
+        "pre_submission_preflight_valid": false,
+        "returncode": 0
+      },
+      "name": "cns_portugal_lobo template passes only with explicit audit flag",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "synthetic_output_contains_filename": false,
+        "synthetic_output_contains_full_path": false,
+        "template_output_contains_filename": false,
+        "template_output_contains_full_path": false
+      },
+      "name": "cns_portugal_lobo output redacts packet path and filename",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_passed",
+        "hard_failures": [],
+        "returncode": 0
+      },
+      "name": "hssayeni_mjff synthetic completed packet passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_failed",
+        "remaining_placeholders": 11,
+        "returncode": 1
+      },
+      "name": "hssayeni_mjff unfinished template fails without allow-placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "allow_placeholders_used": true,
+        "decision": "placeholder_tolerant_access_packet_audit_passed",
+        "not_valid_for_submission": true,
+        "pre_submission_preflight_valid": false,
+        "returncode": 0
+      },
+      "name": "hssayeni_mjff template passes only with explicit audit flag",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "synthetic_output_contains_filename": false,
+        "synthetic_output_contains_full_path": false,
+        "template_output_contains_filename": false,
+        "template_output_contains_full_path": false
+      },
+      "name": "hssayeni_mjff output redacts packet path and filename",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_passed",
+        "hard_failures": [],
+        "returncode": 0
+      },
+      "name": "icicle_gait synthetic completed packet passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "access_request_packet_preflight_failed",
+        "remaining_placeholders": 11,
+        "returncode": 1
+      },
+      "name": "icicle_gait unfinished template fails without allow-placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "allow_placeholders_used": true,
+        "decision": "placeholder_tolerant_access_packet_audit_passed",
+        "not_valid_for_submission": true,
+        "pre_submission_preflight_valid": false,
+        "returncode": 0
+      },
+      "name": "icicle_gait template passes only with explicit audit flag",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "synthetic_output_contains_filename": false,
+        "synthetic_output_contains_full_path": false,
+        "template_output_contains_filename": false,
+        "template_output_contains_full_path": false
+      },
+      "name": "icicle_gait output redacts packet path and filename",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "access_request_packet_validator_ready",
+  "generated_at_utc": "2026-05-16T12:50:02+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "not_a_schema_probe_artifact": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "passed": true,
+  "protected_data_included": false,
+  "route_results": {
+    "cns_portugal_lobo": {
+      "redaction_passed": true,
+      "synthetic_decision": "access_request_packet_preflight_passed",
+      "synthetic_hard_failures": [],
+      "synthetic_passed": true,
+      "template_allowed_decision": "placeholder_tolerant_access_packet_audit_passed",
+      "template_allowed_not_valid_for_submission": true,
+      "template_allowed_passed": true,
+      "template_allowed_pre_submission_preflight_valid": false,
+      "template_decision": "access_request_packet_preflight_failed",
+      "template_failed": true,
+      "template_remaining_placeholders": 11
+    },
+    "hssayeni_mjff": {
+      "redaction_passed": true,
+      "synthetic_decision": "access_request_packet_preflight_passed",
+      "synthetic_hard_failures": [],
+      "synthetic_passed": true,
+      "template_allowed_decision": "placeholder_tolerant_access_packet_audit_passed",
+      "template_allowed_not_valid_for_submission": true,
+      "template_allowed_passed": true,
+      "template_allowed_pre_submission_preflight_valid": false,
+      "template_decision": "access_request_packet_preflight_failed",
+      "template_failed": true,
+      "template_remaining_placeholders": 11
+    },
+    "icicle_gait": {
+      "redaction_passed": true,
+      "synthetic_decision": "access_request_packet_preflight_passed",
+      "synthetic_hard_failures": [],
+      "synthetic_passed": true,
+      "template_allowed_decision": "placeholder_tolerant_access_packet_audit_passed",
+      "template_allowed_not_valid_for_submission": true,
+      "template_allowed_passed": true,
+      "template_allowed_pre_submission_preflight_valid": false,
+      "template_decision": "access_request_packet_preflight_failed",
+      "template_failed": true,
+      "template_remaining_placeholders": 11
+    },
+    "ppmi_verily": {
+      "redaction_passed": true,
+      "synthetic_decision": "access_request_packet_preflight_passed",
+      "synthetic_hard_failures": [],
+      "synthetic_passed": true,
+      "template_allowed_decision": "placeholder_tolerant_access_packet_audit_passed",
+      "template_allowed_not_valid_for_submission": true,
+      "template_allowed_passed": true,
+      "template_allowed_pre_submission_preflight_valid": false,
+      "template_decision": "access_request_packet_preflight_failed",
+      "template_failed": true,
+      "template_remaining_placeholders": 13
+    },
+    "ppp_pd_vme": {
+      "redaction_passed": true,
+      "synthetic_decision": "access_request_packet_preflight_passed",
+      "synthetic_hard_failures": [],
+      "synthetic_passed": true,
+      "template_allowed_decision": "placeholder_tolerant_access_packet_audit_passed",
+      "template_allowed_not_valid_for_submission": true,
+      "template_allowed_passed": true,
+      "template_allowed_pre_submission_preflight_valid": false,
+      "template_decision": "access_request_packet_preflight_failed",
+      "template_failed": true,
+      "template_remaining_placeholders": 16
+    },
+    "watchpd": {
+      "redaction_passed": true,
+      "synthetic_decision": "access_request_packet_preflight_passed",
+      "synthetic_hard_failures": [],
+      "synthetic_passed": true,
+      "template_allowed_decision": "placeholder_tolerant_access_packet_audit_passed",
+      "template_allowed_not_valid_for_submission": true,
+      "template_allowed_passed": true,
+      "template_allowed_pre_submission_preflight_valid": false,
+      "template_decision": "access_request_packet_preflight_failed",
+      "template_failed": true,
+      "template_remaining_placeholders": 12
+    }
+  },
+  "script": "audit_access_request_packet_validator.py",
+  "synthetic_dir": "results/access_request_packet_validator_synthetic",
+  "validator": "scripts/validate_access_request_packet.py"
+}

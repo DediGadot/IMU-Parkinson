@@ -1,0 +1,8 @@
+{
+  "name": "t3_knn_ensemble",
+  "K_BEST_tested": [
+    100,
+    300,
+    500
+  ]
+}

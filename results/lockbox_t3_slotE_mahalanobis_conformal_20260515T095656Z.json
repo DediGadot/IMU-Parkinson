@@ -1,0 +1,59 @@
+{
+  "name": "lockbox_t3_slotE_mahalanobis_conformal",
+  "created_at_utc": "20260515T095656Z",
+  "session": "2026-05-15-PM-extended",
+  "preregistration_master": "results/preregistration_t1_ceiling_push_20260515_master.json",
+  "null_mode": "real",
+  "estimand_label": "T3_deployable_secondary_retained_ccc_at_coverage",
+  "y_free_score": "Mahalanobis(x, train_centroid_LOO) in Stage-1 covariate space",
+  "n_full_cohort": 95,
+  "full_cohort_iter47_ccc": 0.3784,
+  "stage1_covariates": [
+    "HY",
+    "cv_yrs",
+    "cv_sex",
+    "cv_dbs"
+  ],
+  "results_per_coverage": {
+    "cov_70": {
+      "coverage": 0.7,
+      "n_retained": 66,
+      "iter47_full_cohort_ccc": 0.3784,
+      "iter47_retained_ccc": 0.2228,
+      "delta_retained_vs_full": -0.1556,
+      "iter47_retained_mae": 7.5221,
+      "bootstrap_retained_ccc_ci95": [
+        -0.0278,
+        0.3958
+      ],
+      "frac_retained_above_full": 0.044
+    },
+    "cov_50": {
+      "coverage": 0.5,
+      "n_retained": 48,
+      "iter47_full_cohort_ccc": 0.3784,
+      "iter47_retained_ccc": 0.1555,
+      "delta_retained_vs_full": -0.2229,
+      "iter47_retained_mae": 6.7078,
+      "bootstrap_retained_ccc_ci95": [
+        -0.0291,
+        0.3176
+      ],
+      "frac_retained_above_full": 0.0045
+    }
+  },
+  "verdicts_per_coverage": {
+    "cov_70": "FAIL",
+    "cov_50": "FAIL"
+  },
+  "gates": {
+    "lifetime_n10_bonferroni_gate": 0.995,
+    "mcid_delta_retained_vs_full": 0.025,
+    "bonferroni_mcid_delta": 0.05
+  },
+  "notes": [
+    "First-of-its-kind T3 deployable-secondary on WearGait-PD per CLAUDE.md 2026-05-14 status.",
+    "Mahalanobis is one of 5 v-next priorities listed; this is the simplest, leakage-clean choice.",
+    "Sanity y_nan check confirms y-freeness (mask identical with y \u2192 nan)."
+  ]
+}

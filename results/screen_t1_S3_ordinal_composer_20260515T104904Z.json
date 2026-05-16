@@ -1,0 +1,188 @@
+{
+  "name": "screen_t1_S3_ordinal_composer",
+  "created_at_utc": "20260515T104904Z",
+  "preregistration": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "slot": "S3",
+  "null_mode": "real",
+  "screen_only": true,
+  "n": 92,
+  "items": [
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "subfamilies": [
+    "ph_trunk_h1_max",
+    "ph_trunk_h1_med",
+    "ph_sacrum_h1_max",
+    "ph_sacrum_h1_med",
+    "mfdfa_delta_alpha",
+    "mfdfa_asymmetry"
+  ],
+  "class_counts_ge3": {
+    "9": 0,
+    "10": 2,
+    "11": 2,
+    "12": 8,
+    "13": 1,
+    "14": 1
+  },
+  "kill_class_fail": true,
+  "alpha_grid": [
+    1.0,
+    10.0,
+    100.0
+  ],
+  "variance_cap_frac": 0.5,
+  "model_seed_list": [
+    42,
+    1337,
+    7
+  ],
+  "baseline": {
+    "ccc": 0.717,
+    "mae": 1.7356,
+    "pred_mean": 4.0577,
+    "pred_std": 3.1058,
+    "true_mean": 4.0326,
+    "true_std": 2.7523
+  },
+  "seed_summaries": [
+    {
+      "seed": 42,
+      "candidate": {
+        "ccc": 0.7074,
+        "mae": 1.7126,
+        "pred_mean": 4.0818,
+        "pred_std": 2.9156,
+        "true_mean": 4.0326,
+        "true_std": 2.7523
+      },
+      "delta_ccc": -0.0096,
+      "delta_mae": -0.023
+    },
+    {
+      "seed": 1337,
+      "candidate": {
+        "ccc": 0.7082,
+        "mae": 1.7363,
+        "pred_mean": 4.1273,
+        "pred_std": 2.9883,
+        "true_mean": 4.0326,
+        "true_std": 2.7523
+      },
+      "delta_ccc": -0.0088,
+      "delta_mae": 0.0007
+    },
+    {
+      "seed": 7,
+      "candidate": {
+        "ccc": 0.6954,
+        "mae": 1.7466,
+        "pred_mean": 4.0834,
+        "pred_std": 2.8941,
+        "true_mean": 4.0326,
+        "true_std": 2.7523
+      },
+      "delta_ccc": -0.0216,
+      "delta_mae": 0.011
+    }
+  ],
+  "seed_mean_delta_ccc": -0.0133,
+  "seed_delta_std": 0.0072,
+  "ensemble_summary": {
+    "candidate": {
+      "ccc": 0.7052,
+      "mae": 1.7227,
+      "pred_mean": 4.0975,
+      "pred_std": 2.9272,
+      "true_mean": 4.0326,
+      "true_std": 2.7523
+    },
+    "delta_ccc": -0.0118,
+    "delta_mae": -0.0129,
+    "bootstrap_median_delta": -0.0116,
+    "bootstrap_ci95": [
+      -0.0385,
+      0.0064
+    ],
+    "bootstrap_frac_positive": 0.116
+  },
+  "promotion_gate": {
+    "mean_seed_delta_ccc_min": 0.025,
+    "seed_delta_std_max": 0.02,
+    "ensemble_bootstrap_frac_positive_min": 0.95,
+    "max_material_mae_degradation": 0.05,
+    "gate_pass": false
+  },
+  "null_results": {
+    "scrambled_y": {
+      "baseline": {
+        "ccc": 0.717,
+        "mae": 1.7356,
+        "pred_mean": 4.0577,
+        "pred_std": 3.1058,
+        "true_mean": 4.0326,
+        "true_std": 2.7523
+      },
+      "seed_mean_delta_ccc": -0.0081,
+      "seed_delta_std": 0.0014,
+      "ensemble": {
+        "candidate": {
+          "ccc": 0.7103,
+          "mae": 1.6964,
+          "pred_mean": 4.0919,
+          "pred_std": 2.9096,
+          "true_mean": 4.0326,
+          "true_std": 2.7523
+        },
+        "delta_ccc": -0.0067,
+        "delta_mae": -0.0392,
+        "bootstrap_median_delta": -0.0065,
+        "bootstrap_ci95": [
+          -0.0256,
+          0.0083
+        ],
+        "bootstrap_frac_positive": 0.2015
+      }
+    },
+    "sid_shuffle": {
+      "baseline": {
+        "ccc": 0.717,
+        "mae": 1.7356,
+        "pred_mean": 4.0577,
+        "pred_std": 3.1058,
+        "true_mean": 4.0326,
+        "true_std": 2.7523
+      },
+      "seed_mean_delta_ccc": -0.0113,
+      "seed_delta_std": 0.0021,
+      "ensemble": {
+        "candidate": {
+          "ccc": 0.707,
+          "mae": 1.7084,
+          "pred_mean": 4.0965,
+          "pred_std": 2.8996,
+          "true_mean": 4.0326,
+          "true_std": 2.7523
+        },
+        "delta_ccc": -0.01,
+        "delta_mae": -0.0272,
+        "bootstrap_median_delta": -0.0101,
+        "bootstrap_ci95": [
+          -0.0345,
+          0.006
+        ],
+        "bootstrap_frac_positive": 0.1395
+      }
+    },
+    "retrieval_library_exclusion": {
+      "status": "not_applicable",
+      "rationale": "No nearest-neighbor or retrieval library is used."
+    }
+  },
+  "verdict": "SCREEN_FAIL_CLASS_N_NO_LOOCV"
+}

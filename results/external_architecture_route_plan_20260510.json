@@ -1,0 +1,189 @@
+{
+  "access_request_route_count": 6,
+  "compute_ready_route_count": 0,
+  "decision": "external_architecture_routes_blocked_until_access",
+  "generated_at_utc": "2026-05-16T12:51:44+00:00",
+  "hard_failures": [],
+  "input_tracker": "results/access_submission_tracker_20260509.json",
+  "malformed_type_guard": {
+    "non_list_plan_errors": [
+      "routes must be a tuple or list"
+    ],
+    "plan_errors": [
+      "routes entries must be ExternalArchitectureRoute",
+      "123: route_id is required",
+      "123: name is required",
+      "123: priority must be an integer",
+      "123: current_allowed_action must be one of: access_request_only, schema_probe_only, monitor_or_document_only",
+      "123: access_blocker is required",
+      "123: request_packet_path must be a string when set",
+      "123: runbook_path must be a string when set",
+      "123: min_subjects must be an integer when set",
+      "123: approved_access must be a boolean",
+      "123: row_level_schema_inspected must be a boolean",
+      "123: valid_subject_count must be an integer when set"
+    ],
+    "route_errors": [
+      "route_id is required",
+      "name is required",
+      "priority must be an integer",
+      "current_allowed_action must be one of: access_request_only, schema_probe_only, monitor_or_document_only",
+      "access_blocker is required",
+      "request_packet_path must be a string when set",
+      "runbook_path must be a string when set",
+      "min_subjects must be an integer when set",
+      "approved_access must be a boolean",
+      "row_level_schema_inspected must be a boolean",
+      "valid_subject_count must be an integer when set"
+    ]
+  },
+  "not_a_model_result": true,
+  "passed": true,
+  "ppmi_submission_support_ready": true,
+  "routes": [
+    {
+      "access_blocker": "PPMI qualified-researcher account, DUA, online application, and DPC approval.",
+      "blocked_actions_now": [
+        "probe script against protected data",
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "can_preregister": false,
+      "can_probe_schema": false,
+      "compute_ready": false,
+      "current_allowed_action": "access_request_only",
+      "id": "ppmi_verily",
+      "name": "PPMI / Verily Study Watch",
+      "priority": 1,
+      "request_packet_path": "scripts/ppmi_verily_tier3_request_packet.md",
+      "runbook_path": "scripts/ppmi_verily_setup.md",
+      "submission_support": {
+        "completed_email_validator": "scripts/validate_ppmi_verily_submission_email.py",
+        "completed_package_validator": "scripts/validate_ppmi_verily_submission_package.py",
+        "completed_packet_validator": "scripts/validate_ppmi_verily_completed_packet.py",
+        "ready": true,
+        "schema_probe_checklist": "scripts/ppmi_verily_schema_probe_checklist.md",
+        "schema_probe_report_template": "scripts/ppmi_verily_schema_probe_report_template.md",
+        "submission_email_template": "scripts/ppmi_verily_submission_email_template.md",
+        "user_fill_checklist": "scripts/ppmi_verily_user_fill_checklist.md",
+        "word_template": "results/ppmi_verily_tier3_request_packet_template_20260515.docx"
+      }
+    },
+    {
+      "access_blocker": "PPP RDSRC/request approval, Qualified Researcher Agreement, fees, and PEP repository access.",
+      "blocked_actions_now": [
+        "probe script against protected data",
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "can_preregister": false,
+      "can_probe_schema": false,
+      "compute_ready": false,
+      "current_allowed_action": "access_request_only",
+      "id": "ppp_pd_vme",
+      "name": "Personalized Parkinson Project / PD Virtual Motor Exam",
+      "priority": 2,
+      "request_packet_path": "scripts/ppp_pd_vme_request_packet.md",
+      "runbook_path": "scripts/ppp_pd_vme_request_setup.md",
+      "submission_support": null
+    },
+    {
+      "access_blocker": "C-Path 3DT Stage 2 membership or accepted WATCH-PD Steering Committee proposal.",
+      "blocked_actions_now": [
+        "probe script against protected data",
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "can_preregister": false,
+      "can_probe_schema": false,
+      "compute_ready": false,
+      "current_allowed_action": "access_request_only",
+      "id": "watchpd",
+      "name": "WATCH-PD",
+      "priority": 3,
+      "request_packet_path": "scripts/watchpd_request_packet.md",
+      "runbook_path": "scripts/watchpd_request_setup.md",
+      "submission_support": null
+    },
+    {
+      "access_blocker": "Author/CNS data-owner approval and row-level AX3 plus Part III schema.",
+      "blocked_actions_now": [
+        "probe script against protected data",
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "can_preregister": false,
+      "can_probe_schema": false,
+      "compute_ready": false,
+      "current_allowed_action": "access_request_only",
+      "id": "cns_portugal_lobo",
+      "name": "CNS Portugal / Lobo IS2022 AX3 gait",
+      "priority": 4,
+      "request_packet_path": "scripts/cns_portugal_request_packet.md",
+      "runbook_path": "scripts/cns_portugal_request_setup.md",
+      "submission_support": null
+    },
+    {
+      "access_blocker": "Synapse DUA/READ approval for syn20681023.",
+      "blocked_actions_now": [
+        "probe script against protected data",
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "can_preregister": false,
+      "can_probe_schema": false,
+      "compute_ready": false,
+      "current_allowed_action": "access_request_only",
+      "id": "hssayeni_mjff",
+      "name": "MJFF Levodopa Response / Hssayeni",
+      "priority": 5,
+      "request_packet_path": "scripts/hssayeni_mjff_dua_request_packet.md",
+      "runbook_path": "scripts/synapse_hssayeni_setup.md",
+      "submission_support": null
+    },
+    {
+      "access_blocker": "Newcastle/data-owner request approval and lower-back AX3 plus MDS-UPDRS schema.",
+      "blocked_actions_now": [
+        "probe script against protected data",
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "can_preregister": false,
+      "can_probe_schema": false,
+      "compute_ready": false,
+      "current_allowed_action": "access_request_only",
+      "id": "icicle_gait",
+      "name": "ICICLE-PD / ICICLE-GAIT",
+      "priority": 6,
+      "request_packet_path": "scripts/icicle_request_packet.md",
+      "runbook_path": "scripts/icicle_request_setup.md",
+      "submission_support": null
+    }
+  ],
+  "script": "audit_external_architecture_route_plan.py",
+  "top_priority_route": "PPMI / Verily Study Watch"
+}

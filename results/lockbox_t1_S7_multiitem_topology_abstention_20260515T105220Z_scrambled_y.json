@@ -1,0 +1,151 @@
+{
+  "name": "lockbox_t1_S7_multiitem_topology_abstention",
+  "created_at_utc": "20260515T105220Z",
+  "preregistration_master": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "estimand_label": "deployable_secondary_retained_ccc_at_coverage",
+  "null_mode": "scrambled_y",
+  "n_full_cohort": 92,
+  "baseline_slotD_retained_ccc_cov_70": 0.7876,
+  "baseline_slotD_retained_ccc_cov_50": 0.8338,
+  "y_free_score": "w1*z|p34_13-p_PH_13|+w2*z|p34_14-p_PH_14|+w3*z|p34_10-p_MFDFA_10|+w4*z*Mahal_TopoFractal",
+  "z_score_note": "Disagreement-source z-normalization is y-free \u2014 uses only x-derived predictions, not y_test.",
+  "arm_weights": {
+    "equal_weights_arm": [
+      0.25,
+      0.25,
+      0.25,
+      0.25
+    ],
+    "inner_5fold_oof_weights_arm": [
+      0.4925128816433093,
+      0.0,
+      0.11002259091180155,
+      0.39746452744488925
+    ]
+  },
+  "topo_cols_used": [
+    "task_TUG_mfdfa_trunk_pitch_delta_alpha",
+    "task_TUG_mfdfa_trunk_pitch_asymmetry",
+    "task_TUG_mfdfa_trunk_pitch_h_range",
+    "task_TUG_ph_trunk_pitch_h1_max",
+    "task_TUG_ph_trunk_pitch_h1_med",
+    "task_TUG_ph_sacrum_ang_h1_max",
+    "task_TUG_ph_sacrum_ang_h1_med",
+    "task_SelfPace_mfdfa_trunk_pitch_delta_alpha",
+    "task_SelfPace_mfdfa_trunk_pitch_asymmetry",
+    "task_SelfPace_mfdfa_trunk_pitch_h_range",
+    "task_SelfPace_ph_trunk_pitch_h1_max",
+    "task_SelfPace_ph_trunk_pitch_h1_med",
+    "task_SelfPace_ph_sacrum_ang_h1_max",
+    "task_SelfPace_ph_sacrum_ang_h1_med",
+    "task_HurriedPace_mfdfa_trunk_pitch_delta_alpha",
+    "task_HurriedPace_mfdfa_trunk_pitch_asymmetry",
+    "task_HurriedPace_mfdfa_trunk_pitch_h_range",
+    "task_HurriedPace_ph_trunk_pitch_h1_max",
+    "task_HurriedPace_ph_trunk_pitch_h1_med",
+    "task_HurriedPace_ph_sacrum_ang_h1_max",
+    "task_HurriedPace_ph_sacrum_ang_h1_med",
+    "task_TandemGait_mfdfa_trunk_pitch_delta_alpha",
+    "task_TandemGait_mfdfa_trunk_pitch_asymmetry",
+    "task_TandemGait_mfdfa_trunk_pitch_h_range",
+    "task_TandemGait_ph_trunk_pitch_h1_max",
+    "task_TandemGait_ph_trunk_pitch_h1_med",
+    "task_TandemGait_ph_sacrum_ang_h1_max",
+    "task_TandemGait_ph_sacrum_ang_h1_med",
+    "task_Balance_mfdfa_trunk_pitch_delta_alpha",
+    "task_Balance_mfdfa_trunk_pitch_asymmetry",
+    "task_Balance_mfdfa_trunk_pitch_h_range",
+    "task_Balance_ph_trunk_pitch_h1_max",
+    "task_Balance_ph_trunk_pitch_h1_med",
+    "task_Balance_ph_sacrum_ang_h1_max",
+    "task_Balance_ph_sacrum_ang_h1_med",
+    "task_SelfPace_mat_mfdfa_trunk_pitch_delta_alpha",
+    "task_SelfPace_mat_mfdfa_trunk_pitch_asymmetry",
+    "task_SelfPace_mat_mfdfa_trunk_pitch_h_range",
+    "task_SelfPace_mat_ph_trunk_pitch_h1_max",
+    "task_SelfPace_mat_ph_trunk_pitch_h1_med",
+    "task_SelfPace_mat_ph_sacrum_ang_h1_max",
+    "task_SelfPace_mat_ph_sacrum_ang_h1_med",
+    "task_HurriedPace_mat_mfdfa_trunk_pitch_delta_alpha",
+    "task_HurriedPace_mat_mfdfa_trunk_pitch_asymmetry",
+    "task_HurriedPace_mat_mfdfa_trunk_pitch_h_range",
+    "task_HurriedPace_mat_ph_trunk_pitch_h1_max",
+    "task_HurriedPace_mat_ph_trunk_pitch_h1_med",
+    "task_HurriedPace_mat_ph_sacrum_ang_h1_max",
+    "task_HurriedPace_mat_ph_sacrum_ang_h1_med",
+    "task_SelfPace_matTURN_mfdfa_trunk_pitch_delta_alpha",
+    "task_SelfPace_matTURN_mfdfa_trunk_pitch_asymmetry",
+    "task_SelfPace_matTURN_mfdfa_trunk_pitch_h_range",
+    "task_SelfPace_matTURN_ph_trunk_pitch_h1_max",
+    "task_SelfPace_matTURN_ph_trunk_pitch_h1_med",
+    "task_SelfPace_matTURN_ph_sacrum_ang_h1_max",
+    "task_SelfPace_matTURN_ph_sacrum_ang_h1_med"
+  ],
+  "per_coverage_results": {
+    "cov_70": {
+      "coverage": 0.7,
+      "arms": {
+        "equal_weights_arm": {
+          "n_retained": 64,
+          "baseline_iter34_retained_ccc": 0.5697,
+          "S7_retained_ccc_uncorrected": 0.5697,
+          "S7_retained_ccc_with_item13_PH_correction": 0.5737,
+          "delta_vs_slotD": -0.2139,
+          "frac_pos_bootstrap": 0.635,
+          "ci95": [
+            -0.0158,
+            0.0267
+          ]
+        },
+        "inner_5fold_oof_weights_arm": {
+          "n_retained": 64,
+          "baseline_iter34_retained_ccc": 0.7558,
+          "S7_retained_ccc_uncorrected": 0.7558,
+          "S7_retained_ccc_with_item13_PH_correction": 0.7591,
+          "delta_vs_slotD": -0.0285,
+          "frac_pos_bootstrap": 0.7455,
+          "ci95": [
+            -0.0073,
+            0.0147
+          ]
+        }
+      }
+    },
+    "cov_50": {
+      "coverage": 0.5,
+      "arms": {
+        "equal_weights_arm": {
+          "n_retained": 46,
+          "baseline_iter34_retained_ccc": 0.566,
+          "S7_retained_ccc_uncorrected": 0.566,
+          "S7_retained_ccc_with_item13_PH_correction": 0.5671,
+          "delta_vs_slotD": -0.2667,
+          "frac_pos_bootstrap": 0.537,
+          "ci95": [
+            -0.0232,
+            0.0274
+          ]
+        },
+        "inner_5fold_oof_weights_arm": {
+          "n_retained": 46,
+          "baseline_iter34_retained_ccc": 0.5759,
+          "S7_retained_ccc_uncorrected": 0.5759,
+          "S7_retained_ccc_with_item13_PH_correction": 0.5717,
+          "delta_vs_slotD": -0.2621,
+          "frac_pos_bootstrap": 0.327,
+          "ci95": [
+            -0.0238,
+            0.017
+          ]
+        }
+      }
+    }
+  },
+  "verdict_per_coverage": {
+    "cov_70": "FAIL",
+    "cov_50": "FAIL"
+  },
+  "lifetime_fwer_n": 10,
+  "bonferroni_frac_pos_gate": 0.995,
+  "mcid_delta_ccc": 0.025
+}

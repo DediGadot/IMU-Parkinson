@@ -1,0 +1,67 @@
+{
+  "name": "lockbox_t3_slotF_cqr_width_conformal",
+  "created_at_utc": "20260515T121511Z",
+  "session": "2026-05-15-PM-extended",
+  "preregistration_master": "results/preregistration_t1_ceiling_push_20260515_master.json",
+  "replication_tag": "slotFrep_seed101",
+  "null_mode": "real",
+  "estimand_label": "T3_deployable_secondary_retained_ccc_at_coverage_via_CQR_width",
+  "y_free_score": "LGB-quantile q95 - q05 width on Stage-1 residual",
+  "n_full_cohort": 95,
+  "full_cohort_iter47_ccc": 0.3784,
+  "quantiles": [
+    0.05,
+    0.95
+  ],
+  "lgb_quantile_params": {
+    "n_estimators": 300,
+    "num_leaves": 15,
+    "learning_rate": 0.05,
+    "min_data_in_leaf": 5,
+    "reg_lambda": 0.0,
+    "verbosity": -1,
+    "n_jobs": 1
+  },
+  "quantile_seed": 101,
+  "bootstrap_seed": 424242,
+  "n_bootstrap": 2000,
+  "n_top_k": 500,
+  "sanity_y_nan_passes": true,
+  "results_per_coverage": {
+    "cov_70": {
+      "coverage": 0.7,
+      "n_retained": 66,
+      "iter47_full_cohort_ccc": 0.3784,
+      "iter47_retained_ccc": 0.4237,
+      "delta_retained_vs_full": 0.0453,
+      "iter47_retained_mae": 7.4893,
+      "bootstrap_retained_ccc_ci95": [
+        0.1962,
+        0.5797
+      ],
+      "frac_retained_above_full": 0.663
+    },
+    "cov_50": {
+      "coverage": 0.5,
+      "n_retained": 48,
+      "iter47_full_cohort_ccc": 0.3784,
+      "iter47_retained_ccc": 0.537,
+      "delta_retained_vs_full": 0.1587,
+      "iter47_retained_mae": 7.1766,
+      "bootstrap_retained_ccc_ci95": [
+        0.3157,
+        0.6791
+      ],
+      "frac_retained_above_full": 0.9295
+    }
+  },
+  "verdicts_per_coverage": {
+    "cov_70": "FAIL",
+    "cov_50": "FAIL"
+  },
+  "gates": {
+    "lifetime_n11_bonferroni_gate": 0.99545,
+    "mcid_delta_retained_vs_full": 0.025,
+    "bonferroni_mcid_delta": 0.05
+  }
+}

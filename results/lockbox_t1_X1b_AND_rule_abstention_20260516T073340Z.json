@@ -1,0 +1,53 @@
+{
+  "name": "lockbox_t1_X1b_AND_rule_abstention",
+  "created_at_utc": "20260516T073340Z",
+  "preregistration": "results/preregistration_t1_post_closure_X_series_20260516.json (X1b = X1 codex fix: AND-rule)",
+  "null_mode": "real",
+  "sanity_y_nan": false,
+  "formula_sha256": "972ebcc8e259a5ce99a4a05b97ac934a6747f7fa11e95190b0df11f46ace97d8",
+  "n_cohort": 92,
+  "fix_rationale": "X1 max() was OR-veto (either signal abstains). X1b AND-rule (both signals must be high to abstain) preserves V2-V3 abstention as floor; HY only refines on within-band cases.",
+  "results_per_coverage": {
+    "cov_70": {
+      "coverage": 0.7,
+      "n_keep_slotD": 64,
+      "n_keep_X1b": 64,
+      "slotD_baseline_retained_ccc": 0.7876194606557665,
+      "X1b_AND_rule_retained_ccc": 0.6836599954042083,
+      "delta_ccc": -0.10395946525155819,
+      "slotD_retained_mae": 1.5943720369493752,
+      "X1b_retained_mae": 1.61536755168234,
+      "flipped_in_vs_slotD": 13,
+      "flipped_out_vs_slotD": 13,
+      "bootstrap": {
+        "median": -0.10457163951718823,
+        "ci95": [
+          -0.3006120342272748,
+          -0.017870599095411832
+        ],
+        "frac_pos": 0.0058
+      }
+    },
+    "cov_50": {
+      "coverage": 0.5,
+      "n_keep_slotD": 46,
+      "n_keep_X1b": 46,
+      "slotD_baseline_retained_ccc": 0.8415274529995428,
+      "X1b_AND_rule_retained_ccc": 0.4386058778432588,
+      "delta_ccc": -0.402921575156284,
+      "slotD_retained_mae": 1.2940699591879323,
+      "X1b_retained_mae": 1.6623267879771353,
+      "flipped_in_vs_slotD": 14,
+      "flipped_out_vs_slotD": 14,
+      "bootstrap": {
+        "median": -0.38738698494833657,
+        "ci95": [
+          -0.639185087044273,
+          -0.17785169372868614
+        ],
+        "frac_pos": 0.0
+      }
+    }
+  },
+  "verdict_provisional": "FAIL"
+}

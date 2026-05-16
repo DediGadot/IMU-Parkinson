@@ -1,0 +1,234 @@
+{
+  "name": "vnext_aux_null_gate_and_t1_mondrian",
+  "created_at_utc": "2026-05-14T15:26:47.402808+00:00",
+  "ts": "20260514T152647Z",
+  "task_1_null_gate": {
+    "task": "cell_A_null_gate",
+    "real_retained_ccc_70": 0.6935398627845398,
+    "N1_scrambled_label_70": 0.5116898549324771,
+    "N2_sid_shuffle_70": 0.6894192414505309,
+    "N3_canary_score_70": 0.6935398627845398,
+    "N4_library_exclusion_pass": true,
+    "N4_findings": [],
+    "N5_transductive_global_quantile_70": 0.6952190508358874,
+    "N5_inductive_minus_transductive": -0.001679188051347591,
+    "gate_pass_summary": {
+      "N1_low_under_scramble": false,
+      "N2_low_under_sid_shuffle": false,
+      "N3_robust_to_tiny_canary": true,
+      "N4_no_banned_libs": true,
+      "N5_gap_consistent_with_LOO": true
+    },
+    "real_full_rows": [
+      {
+        "retained_n": 91,
+        "retained_ccc": 0.3943039068838315,
+        "retained_mae": 7.0828030238242485,
+        "coverage_target": 1.0,
+        "threshold_mean": 17.701287680717027,
+        "threshold_std": 3.6876853276077957
+      },
+      {
+        "retained_n": 77,
+        "retained_ccc": 0.6048696890640186,
+        "retained_mae": 5.592069954197175,
+        "coverage_target": 0.85,
+        "threshold_mean": 13.593500582845412,
+        "threshold_std": 1.6012792931097055
+      },
+      {
+        "retained_n": 65,
+        "retained_ccc": 0.6935398627845398,
+        "retained_mae": 4.438714321920373,
+        "coverage_target": 0.7,
+        "threshold_mean": 10.337062223937528,
+        "threshold_std": 1.785708295441343
+      },
+      {
+        "retained_n": 48,
+        "retained_ccc": 0.848432275018737,
+        "retained_mae": 3.127169912593459,
+        "coverage_target": 0.5,
+        "threshold_mean": 6.6924894584859524,
+        "threshold_std": 1.132861480398722
+      }
+    ],
+    "n1_full_rows": [
+      {
+        "retained_n": 91,
+        "retained_ccc": 0.17204723686888518,
+        "retained_mae": 7.972359255863386,
+        "coverage_target": 1.0,
+        "threshold_mean": 22.712397873504397,
+        "threshold_std": 4.390262111111762
+      },
+      {
+        "retained_n": 78,
+        "retained_ccc": 0.35203582753537577,
+        "retained_mae": 6.444536682444034,
+        "coverage_target": 0.85,
+        "threshold_mean": 14.678790386484392,
+        "threshold_std": 3.8752586849732484
+      },
+      {
+        "retained_n": 65,
+        "retained_ccc": 0.5116898549324771,
+        "retained_mae": 5.220100714751755,
+        "coverage_target": 0.7,
+        "threshold_mean": 11.713161427518758,
+        "threshold_std": 3.3349044396379863
+      },
+      {
+        "retained_n": 48,
+        "retained_ccc": 0.779761494744028,
+        "retained_mae": 3.202273297822917,
+        "coverage_target": 0.5,
+        "threshold_mean": 8.128498035798284,
+        "threshold_std": 1.9809594110469497
+      }
+    ],
+    "n2_full_rows": [
+      {
+        "retained_n": 91,
+        "retained_ccc": 0.42328543662695894,
+        "retained_mae": 6.960232612777458,
+        "coverage_target": 1.0,
+        "threshold_mean": 20.340919335079487,
+        "threshold_std": 3.3968706747092927
+      },
+      {
+        "retained_n": 79,
+        "retained_ccc": 0.5681449140181285,
+        "retained_mae": 5.758872663133811,
+        "coverage_target": 0.85,
+        "threshold_mean": 13.400252066729127,
+        "threshold_std": 0.9651772669396417
+      },
+      {
+        "retained_n": 66,
+        "retained_ccc": 0.6894192414505309,
+        "retained_mae": 4.520066590419047,
+        "coverage_target": 0.7,
+        "threshold_mean": 10.249050601807534,
+        "threshold_std": 1.0494309179704953
+      },
+      {
+        "retained_n": 49,
+        "retained_ccc": 0.8322294475967792,
+        "retained_mae": 3.1136387751343,
+        "coverage_target": 0.5,
+        "threshold_mean": 6.464176485978041,
+        "threshold_std": 1.1247891250987871
+      }
+    ],
+    "n3_full_rows": [
+      {
+        "retained_n": 91,
+        "retained_ccc": 0.3943039068838315,
+        "retained_mae": 7.0828030238242485,
+        "coverage_target": 1.0,
+        "threshold_mean": 17.696032794333345,
+        "threshold_std": 3.692994544134215
+      },
+      {
+        "retained_n": 77,
+        "retained_ccc": 0.6048696890640186,
+        "retained_mae": 5.592069954197175,
+        "coverage_target": 0.85,
+        "threshold_mean": 13.591906904557444,
+        "threshold_std": 1.603540026397692
+      },
+      {
+        "retained_n": 65,
+        "retained_ccc": 0.6935398627845398,
+        "retained_mae": 4.438714321920373,
+        "coverage_target": 0.7,
+        "threshold_mean": 10.335512424641719,
+        "threshold_std": 1.7855897068804492
+      },
+      {
+        "retained_n": 48,
+        "retained_ccc": 0.848432275018737,
+        "retained_mae": 3.127169912593459,
+        "coverage_target": 0.5,
+        "threshold_mean": 6.6908183480180865,
+        "threshold_std": 1.1343200292688673
+      }
+    ],
+    "n5_transductive_rows": [
+      {
+        "retained_n": 95,
+        "retained_ccc": 0.3783671177953899,
+        "retained_mae": 7.528022830280761,
+        "coverage_target": 1.0,
+        "threshold": 23.549352596063677
+      },
+      {
+        "retained_n": 80,
+        "retained_ccc": 0.5623242470319326,
+        "retained_mae": 5.825105701778066,
+        "coverage_target": 0.85,
+        "threshold": 13.489625536342452
+      },
+      {
+        "retained_n": 66,
+        "retained_ccc": 0.6952190508358874,
+        "retained_mae": 4.498742492713773,
+        "coverage_target": 0.7,
+        "threshold": 10.582112827666053
+      },
+      {
+        "retained_n": 48,
+        "retained_ccc": 0.848266647645428,
+        "retained_mae": 2.9984213927427636,
+        "coverage_target": 0.5,
+        "threshold": 6.714381201970479
+      }
+    ]
+  },
+  "task_2_t1_mondrian_cp": {
+    "task": "T1_mondrian_cp",
+    "n": 92,
+    "predictor": "iter34_hybrid_T1_sum",
+    "bins_source": "outer_train_only_LOO_quartile_of_predicted_T1",
+    "rows": [
+      {
+        "retained_n": 88,
+        "retained_ccc": 0.7557474747600864,
+        "retained_mae": 1.619204484720933,
+        "coverage_target": 1.0,
+        "threshold_mean": 4.279308065783087,
+        "threshold_std": 0.6261559215623116
+      },
+      {
+        "retained_n": 76,
+        "retained_ccc": 0.803811112418341,
+        "retained_mae": 1.310015248127059,
+        "coverage_target": 0.85,
+        "threshold_mean": 3.284825721746889,
+        "threshold_std": 0.7037675447753758
+      },
+      {
+        "retained_n": 63,
+        "retained_ccc": 0.8897436611383441,
+        "retained_mae": 1.0058399690232764,
+        "coverage_target": 0.7,
+        "threshold_mean": 2.3862570711711517,
+        "threshold_std": 0.5580665802896001
+      },
+      {
+        "retained_n": 46,
+        "retained_ccc": 0.9520994796977327,
+        "retained_mae": 0.6932328256421707,
+        "coverage_target": 0.5,
+        "threshold_mean": 1.5516331610812428,
+        "threshold_std": 0.625723639614424
+      }
+    ],
+    "monotonicity_violations": 0,
+    "comparator_t1_conformal_v2_only_70%": 0.7777,
+    "comparator_t1_conformal_v2_only_50%": 0.8338,
+    "verdict_70": "BEATS_V2_LOCK",
+    "verdict_50": "BEATS_V2_LOCK"
+  }
+}

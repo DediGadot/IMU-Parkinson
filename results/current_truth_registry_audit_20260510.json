@@ -1,0 +1,135 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "names": [
+          "t1_iter12_canonical_floor",
+          "t1_iter34_strongest_candidate",
+          "t3_iter47_corrected_validrange",
+          "t3_iter47_loso_transportability"
+        ]
+      },
+      "name": "registry has the expected current internal truth entries",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "labels": {
+          "t1_iter12_canonical_floor": "canonical",
+          "t1_iter34_strongest_candidate": "candidate",
+          "t3_iter47_corrected_validrange": "canonical",
+          "t3_iter47_loso_transportability": "canonical"
+        }
+      },
+      "name": "registry preserves canonical vs candidate labels",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "artifact_paths": [
+          "results/t1_iter12_honest_composite.json",
+          "results/preregistration_t1_iter12_honest_20260503_053105.json",
+          "compose_t1_iter12_honest.py",
+          "results/t1_iter12_honest_composite.oof.npy",
+          "results/t1_iter12_batch_integrity_audit_20260508.json",
+          "results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+          "results/preregistration_t1_iter34_hygiene_corrected_20260510_200037.json",
+          "run_t1_iter34_hybrid_8item_multibase.py",
+          "results/lockbox_t1_iter34_hybrid_20260510_233019.oof.npy",
+          "results/t1_iter34_hygiene_corrected_status_20260510.json",
+          "results/iter34_p2_robustness_20260508.json",
+          "results/t1_iter34_aux_order_audit.json",
+          "results/iter47_invalidcode_20260508_194605.json",
+          "results/preregistration_t3_iter47_invalidcode_20260508_194605.json",
+          "run_t3_iter47_invalid_code_fix.py",
+          "results/iter47_invalidcode_rows_20260508_194605.csv",
+          "results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+          "results/t3_iter47_target_integrity_audit_20260508.json",
+          "results/iter47_invalidcode_loso_20260508_195424.json",
+          "results/preregistration_t3_iter47_invalidcode_loso_20260508_195424.json",
+          "results/iter47_invalidcode_loso_rows_20260508_195424.csv"
+        ],
+        "validation_errors": {
+          "t1_iter12_canonical_floor": [],
+          "t1_iter34_strongest_candidate": [],
+          "t3_iter47_corrected_validrange": [],
+          "t3_iter47_loso_transportability": []
+        }
+      },
+      "name": "registry artifact paths exist and claim specs validate",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "gate_errors": [],
+        "metric_errors": {
+          "t1_iter12_canonical_floor": [],
+          "t1_iter34_strongest_candidate": [],
+          "t3_iter47_corrected_validrange": [],
+          "t3_iter47_loso_transportability": []
+        }
+      },
+      "name": "registered metric evidence matches source JSON artifacts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "malformed_registry_entry: command entries must be non-empty strings",
+          "malformed_registry_entry: metric_value_path is required",
+          "malformed_registry_entry: n_subjects_path is required",
+          "malformed_registry_entry: required_artifacts entries must be non-empty strings",
+          "malformed_registry_entry: notes entries must be strings",
+          "malformed_registry_entry: duplicate artifact reference: results/current_truth_registry_demo_prereg.json",
+          "malformed_registry_entry: duplicate artifact reference: results/current_truth_registry_demo_source.json"
+        ]
+      },
+      "name": "registry rejects malformed command/path/artifact metadata",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "malformed_claim_errors": [
+          "claim must be a ClaimSpec",
+          "<invalid claim>: duplicate artifact reference: results/current_truth_registry_demo_prereg.json"
+        ],
+        "malformed_claim_metric_error": "claim must be a ClaimSpec",
+        "malformed_claim_scalar_errors": [
+          "name is required",
+          "label 1 is not allowed",
+          "source_artifact is required",
+          "metric must be a non-empty string when set",
+          "value must be numeric when set",
+          "n_subjects must be an integer when set",
+          "updates_internal_canonical must be a boolean"
+        ]
+      },
+      "name": "registry rejects malformed nested claim objects",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "malformed_root_registry_entry: root must be a string or Path"
+        ]
+      },
+      "name": "registry artifact root/path observation errors fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "source": "CLAUDE.md"
+      },
+      "name": "registry values match the current CLAUDE.md truth table",
+      "passed": true
+    }
+  ],
+  "claim": "Current internal WearGait-PD result claims now have a reusable typed registry that binds canonical/candidate labels, source artifacts, commands, preregistration artifacts, JSON metric paths, and validated supporting-artifact metadata before reporting gates consume them. Malformed nested claim objects fail closed before registry helpers dereference claim fields. Malformed registry roots or artifact observation failures also fail closed as validation errors.",
+  "decision": "current_truth_registry_passed",
+  "generated_at_utc": "2026-05-16T12:44:34+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_current_truth_registry.py"
+}

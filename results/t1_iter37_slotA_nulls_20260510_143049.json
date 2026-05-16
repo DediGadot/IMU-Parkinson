@@ -1,0 +1,8 @@
+{
+  "scrambled_label_ccc": 0.5808,
+  "canary_feature_ccc": 0.5788,
+  "transductive_sanity_ccc": 0.8056,
+  "null_seed": 42,
+  "n_train": 73,
+  "n_test": 19
+}

@@ -1,0 +1,74 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "name": "PPMI / Verily Study Watch",
+        "packet_errors": [],
+        "route_id": "ppmi_verily"
+      },
+      "name": "top-priority packet is submit-ready",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [],
+        "submission": {
+          "approval_claimed": false,
+          "completed_packet_committed": false,
+          "confirmation_reference": "non-protected confirmation id placeholder",
+          "credentials_or_tokens_included": false,
+          "notes": "",
+          "pre_submission_preflight_passed": true,
+          "protected_row_dump_included": false,
+          "route_id": "ppmi_verily",
+          "submission_channel": "non-protected data-owner submission portal",
+          "submitted_at_utc": "2026-05-10T00:00:00Z",
+          "submitted_by": "institutional PI or approved delegate"
+        }
+      },
+      "name": "safe submission evidence validates against the packet",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "allows_schema_probe": false
+      },
+      "name": "submission evidence never unlocks schema probing",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "submission evidence must not include completed packets or signatures",
+          "submission evidence must not include credentials or tokens",
+          "submission evidence must not include protected row data",
+          "submission evidence cannot claim approved access"
+        ]
+      },
+      "name": "unsafe submission evidence is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "submission evidence requires pre-submission preflight assertion",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "submission evidence route_id does not match packet"
+        ]
+      },
+      "name": "submission evidence is route-bound",
+      "passed": true
+    }
+  ],
+  "claim": "Access submissions now have a non-protected evidence contract. A submitted packet can be recorded without committing completed packets, credentials, or protected rows, and submission evidence cannot unlock schema probes or model work.",
+  "decision": "external_submission_evidence_gate_passed",
+  "generated_at_utc": "2026-05-16T12:51:51+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_external_submission_evidence_gate.py"
+}

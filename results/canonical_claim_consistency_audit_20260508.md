@@ -5,7 +5,7 @@ Old T3 numbers may appear only when labelled historical, superseded, target-cont
 ## Expected Current Claims
 
 - `t1_canonical_ccc`: `0.6550`
-- `t1_candidate_ccc`: `0.7366`
+- `t1_candidate_ccc`: `0.7170`
 - `t3_current_ccc`: `0.3784`
 - `t3_loso_ccc`: `0.150`
 

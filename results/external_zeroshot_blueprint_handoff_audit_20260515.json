@@ -1,0 +1,1349 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "returncode": 0,
+        "stdout": "{\n  \"json\": \"results/external_zeroshot_blueprint_handoff_20260515.json\",\n  \"markdown\": \"results/external_zeroshot_blueprint_handoff_20260515.md\",\n  \"route_count\": 6\n}\n"
+      },
+      "name": "writer command succeeds and writes both handoff outputs",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ],
+        "spec_route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ]
+      },
+      "name": "handoff covers six schema-probe routes in contract order",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_contracts": {
+          "cns_portugal_lobo": {
+            "row": {
+              "analysis_order": [
+                "approval_metadata_record",
+                "read_only_schema_probe",
+                "schema_probe_report_preflight",
+                "schema_probe_metadata_record",
+                "target_free_manifest_preflight",
+                "formula_sha256_after_manifest_before_extraction_or_scoring",
+                "zero_shot_external_validation",
+                "aggregate_result_record_preflight_after_external_scoring",
+                "route_only_grouped_sanity_if_zero_shot_fails_or_for_context",
+                "fresh_augmentation_preregistration_only_after_zero_shot"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "claim_boundary": "External rows may support transportability or within-route sanity claims only; they must not be framed as internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+              "id": "cns_portugal_lobo",
+              "locked_no_search_rules": [
+                "no scaffold before approved schema probe",
+                "no cache extraction before schema-probe metadata recorded",
+                "no external labels for zero-shot feature selection",
+                "no PH/MFDFA column search on the external route",
+                "no TopoFractal component-count search on the external route",
+                "no K-search on the external route",
+                "no adaptive stacking before zero-shot results",
+                "no endpoint switching after external outcomes",
+                "no canonical WearGait-PD T1/T3 update from external-only metrics"
+              ],
+              "min_subjects": 20,
+              "name": "CNS Portugal / Lobo AX3 gait",
+              "post_schema_command_templates": {
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id cns_portugal_lobo --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id cns_portugal_lobo --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id cns_portugal_lobo --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "prerequisites": [
+                "non-protected approval metadata record",
+                "read-only schema probe",
+                "schema-probe report validator pass",
+                "schema-probe metadata record",
+                "target-free manifest validator pass",
+                "formula_sha256 recorded after schema and before extraction or scoring",
+                "aggregate external result record validator pass before reporting"
+              ],
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "session_id"
+              ],
+              "required_sensor_modalities": [
+                "ax3_imu"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "supporting_artifacts": {
+                "formula_sha_template": "results/external_formula_sha_templates_20260515/cns_portugal_lobo_formula_sha_record_template.json",
+                "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+                "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id cns_portugal_lobo --record <completed_formula_sha_record_path_outside_git>",
+                "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+                "schema_report_validator": "scripts/validate_schema_probe_report.py",
+                "schema_report_validator_command": "uv run python scripts/validate_schema_probe_report.py --route-id cns_portugal_lobo --report <completed_schema_probe_report_path_outside_git>",
+                "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/cns_portugal_lobo_target_free_manifest_template.json",
+                "target_free_manifest_validator": "scripts/validate_target_free_manifest.py",
+                "target_free_manifest_validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id cns_portugal_lobo --manifest <completed_target_free_manifest_path_outside_git>",
+                "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/cns_portugal_lobo_zeroshot_result_record_template.json",
+                "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+                "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "tracks": [
+                {
+                  "claim_boundary": "external-validity or transportability evidence only; no internal WearGait-PD headline update",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed compatible ax3_imu feature map after schema proves compatibility",
+                    "target-free extraction only before final scoring",
+                    "no external-label feature selection or model selection"
+                  ],
+                  "name": "weargait_trained_sensor_zeroshot",
+                  "purpose": "External zero-shot transport of the fixed compatible IMU branch.",
+                  "sensor_modalities": [
+                    "ax3_imu"
+                  ],
+                  "track_id": "A",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "external comparator only; not a new internal canonical",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed clinical/intake covariate map only if schema proves compatibility",
+                    "same sensor branch as Track A",
+                    "a priori missing-covariate policy before scoring"
+                  ],
+                  "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+                  "purpose": "Iter47-style clinical/intake comparator when compatible fields exist.",
+                  "sensor_modalities": [
+                    "ax3_imu"
+                  ],
+                  "track_id": "B",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "route-internal sanity only; not WearGait deployment performance and not an internal headline update",
+                  "endpoint_scope": "T3 primary via updrs3; T1 only after a future schema record proves full items 9-14 are available and a fresh formula preregistration exists",
+                  "external_label_role": "within-route grouped training/evaluation only",
+                  "grouping_policy": "group by sid+session_id; no subject leakage across folds",
+                  "name": "cns_portugal_lobo_only_grouped_sanity",
+                  "purpose": "Check whether the external route contains within-cohort signal.",
+                  "track_id": "C",
+                  "training_data": "CNS Portugal / Lobo AX3 gait only"
+                },
+                {
+                  "blocked_until": [
+                    "zero-shot evidence exists",
+                    "schema metadata exists",
+                    "target-free manifest preflight passes",
+                    "fresh formula_sha256 preregistration exists before external labels enter development"
+                  ],
+                  "claim_boundary": "cannot update canonical WearGait-PD T1/T3 without promotion gate, null gates, and a full-cohort internal result",
+                  "name": "augmentation_screen_after_zero_shot_only",
+                  "purpose": "Only a later, separately registered WearGait/external augmentation screen.",
+                  "track_id": "D"
+                }
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "CNS Portugal / Lobo AX3 gait",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "session_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "ax3_imu"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "cns_portugal_lobo"
+            }
+          },
+          "hssayeni_mjff": {
+            "row": {
+              "analysis_order": [
+                "approval_metadata_record",
+                "read_only_schema_probe",
+                "schema_probe_report_preflight",
+                "schema_probe_metadata_record",
+                "target_free_manifest_preflight",
+                "formula_sha256_after_manifest_before_extraction_or_scoring",
+                "zero_shot_external_validation",
+                "aggregate_result_record_preflight_after_external_scoring",
+                "route_only_grouped_sanity_if_zero_shot_fails_or_for_context",
+                "fresh_augmentation_preregistration_only_after_zero_shot"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "claim_boundary": "External rows may support transportability or within-route sanity claims only; they must not be framed as internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+              "id": "hssayeni_mjff",
+              "locked_no_search_rules": [
+                "no scaffold before approved schema probe",
+                "no cache extraction before schema-probe metadata recorded",
+                "no external labels for zero-shot feature selection",
+                "no PH/MFDFA column search on the external route",
+                "no TopoFractal component-count search on the external route",
+                "no K-search on the external route",
+                "no adaptive stacking before zero-shot results",
+                "no endpoint switching after external outcomes",
+                "no canonical WearGait-PD T1/T3 update from external-only metrics"
+              ],
+              "min_subjects": 20,
+              "name": "Hssayeni / MJFF Levodopa Response",
+              "post_schema_command_templates": {
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id hssayeni_mjff --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id hssayeni_mjff --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id hssayeni_mjff --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "prerequisites": [
+                "non-protected approval metadata record",
+                "read-only schema probe",
+                "schema-probe report validator pass",
+                "schema-probe metadata record",
+                "target-free manifest validator pass",
+                "formula_sha256 recorded after schema and before extraction or scoring",
+                "aggregate external result record validator pass before reporting"
+              ],
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sensor_modalities": [
+                "geneactiv_wrist_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "supporting_artifacts": {
+                "formula_sha_template": "results/external_formula_sha_templates_20260515/hssayeni_mjff_formula_sha_record_template.json",
+                "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+                "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id hssayeni_mjff --record <completed_formula_sha_record_path_outside_git>",
+                "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+                "schema_report_validator": "scripts/validate_schema_probe_report.py",
+                "schema_report_validator_command": "uv run python scripts/validate_schema_probe_report.py --route-id hssayeni_mjff --report <completed_schema_probe_report_path_outside_git>",
+                "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/hssayeni_mjff_target_free_manifest_template.json",
+                "target_free_manifest_validator": "scripts/validate_target_free_manifest.py",
+                "target_free_manifest_validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id hssayeni_mjff --manifest <completed_target_free_manifest_path_outside_git>",
+                "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/hssayeni_mjff_zeroshot_result_record_template.json",
+                "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+                "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "tracks": [
+                {
+                  "claim_boundary": "external-validity or transportability evidence only; no internal WearGait-PD headline update",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed compatible geneactiv_wrist_accelerometer feature map after schema proves compatibility",
+                    "target-free extraction only before final scoring",
+                    "no external-label feature selection or model selection"
+                  ],
+                  "name": "weargait_trained_sensor_zeroshot",
+                  "purpose": "External zero-shot transport of the fixed compatible IMU branch.",
+                  "sensor_modalities": [
+                    "geneactiv_wrist_accelerometer"
+                  ],
+                  "track_id": "A",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "external comparator only; not a new internal canonical",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed clinical/intake covariate map only if schema proves compatibility",
+                    "same sensor branch as Track A",
+                    "a priori missing-covariate policy before scoring"
+                  ],
+                  "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+                  "purpose": "Iter47-style clinical/intake comparator when compatible fields exist.",
+                  "sensor_modalities": [
+                    "geneactiv_wrist_accelerometer"
+                  ],
+                  "track_id": "B",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "route-internal sanity only; not WearGait deployment performance and not an internal headline update",
+                  "endpoint_scope": "T3 primary via updrs3; T1 only after a future schema record proves full items 9-14 are available and a fresh formula preregistration exists",
+                  "external_label_role": "within-route grouped training/evaluation only",
+                  "grouping_policy": "group by sid+visit_id; no subject leakage across folds",
+                  "name": "hssayeni_mjff_only_grouped_sanity",
+                  "purpose": "Check whether the external route contains within-cohort signal.",
+                  "track_id": "C",
+                  "training_data": "Hssayeni / MJFF Levodopa Response only"
+                },
+                {
+                  "blocked_until": [
+                    "zero-shot evidence exists",
+                    "schema metadata exists",
+                    "target-free manifest preflight passes",
+                    "fresh formula_sha256 preregistration exists before external labels enter development"
+                  ],
+                  "claim_boundary": "cannot update canonical WearGait-PD T1/T3 without promotion gate, null gates, and a full-cohort internal result",
+                  "name": "augmentation_screen_after_zero_shot_only",
+                  "purpose": "Only a later, separately registered WearGait/external augmentation screen.",
+                  "track_id": "D"
+                }
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "Hssayeni / MJFF Levodopa Response",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "geneactiv_wrist_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "hssayeni_mjff"
+            }
+          },
+          "icicle_gait": {
+            "row": {
+              "analysis_order": [
+                "approval_metadata_record",
+                "read_only_schema_probe",
+                "schema_probe_report_preflight",
+                "schema_probe_metadata_record",
+                "target_free_manifest_preflight",
+                "formula_sha256_after_manifest_before_extraction_or_scoring",
+                "zero_shot_external_validation",
+                "aggregate_result_record_preflight_after_external_scoring",
+                "route_only_grouped_sanity_if_zero_shot_fails_or_for_context",
+                "fresh_augmentation_preregistration_only_after_zero_shot"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "claim_boundary": "External rows may support transportability or within-route sanity claims only; they must not be framed as internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+              "id": "icicle_gait",
+              "locked_no_search_rules": [
+                "no scaffold before approved schema probe",
+                "no cache extraction before schema-probe metadata recorded",
+                "no external labels for zero-shot feature selection",
+                "no PH/MFDFA column search on the external route",
+                "no TopoFractal component-count search on the external route",
+                "no K-search on the external route",
+                "no adaptive stacking before zero-shot results",
+                "no endpoint switching after external outcomes",
+                "no canonical WearGait-PD T1/T3 update from external-only metrics"
+              ],
+              "min_subjects": 20,
+              "name": "ICICLE-PD / ICICLE-GAIT",
+              "post_schema_command_templates": {
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id icicle_gait --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id icicle_gait --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id icicle_gait --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "prerequisites": [
+                "non-protected approval metadata record",
+                "read-only schema probe",
+                "schema-probe report validator pass",
+                "schema-probe metadata record",
+                "target-free manifest validator pass",
+                "formula_sha256 recorded after schema and before extraction or scoring",
+                "aggregate external result record validator pass before reporting"
+              ],
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sensor_modalities": [
+                "lower_back_ax3"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "supporting_artifacts": {
+                "formula_sha_template": "results/external_formula_sha_templates_20260515/icicle_gait_formula_sha_record_template.json",
+                "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+                "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id icicle_gait --record <completed_formula_sha_record_path_outside_git>",
+                "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+                "schema_report_validator": "scripts/validate_schema_probe_report.py",
+                "schema_report_validator_command": "uv run python scripts/validate_schema_probe_report.py --route-id icicle_gait --report <completed_schema_probe_report_path_outside_git>",
+                "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/icicle_gait_target_free_manifest_template.json",
+                "target_free_manifest_validator": "scripts/validate_target_free_manifest.py",
+                "target_free_manifest_validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id icicle_gait --manifest <completed_target_free_manifest_path_outside_git>",
+                "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/icicle_gait_zeroshot_result_record_template.json",
+                "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+                "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "tracks": [
+                {
+                  "claim_boundary": "external-validity or transportability evidence only; no internal WearGait-PD headline update",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed compatible lower_back_ax3 feature map after schema proves compatibility",
+                    "target-free extraction only before final scoring",
+                    "no external-label feature selection or model selection"
+                  ],
+                  "name": "weargait_trained_sensor_zeroshot",
+                  "purpose": "External zero-shot transport of the fixed compatible IMU branch.",
+                  "sensor_modalities": [
+                    "lower_back_ax3"
+                  ],
+                  "track_id": "A",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "external comparator only; not a new internal canonical",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed clinical/intake covariate map only if schema proves compatibility",
+                    "same sensor branch as Track A",
+                    "a priori missing-covariate policy before scoring"
+                  ],
+                  "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+                  "purpose": "Iter47-style clinical/intake comparator when compatible fields exist.",
+                  "sensor_modalities": [
+                    "lower_back_ax3"
+                  ],
+                  "track_id": "B",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "route-internal sanity only; not WearGait deployment performance and not an internal headline update",
+                  "endpoint_scope": "T3 primary via updrs3; T1 only after a future schema record proves full items 9-14 are available and a fresh formula preregistration exists",
+                  "external_label_role": "within-route grouped training/evaluation only",
+                  "grouping_policy": "group by sid+visit_id; no subject leakage across folds",
+                  "name": "icicle_gait_only_grouped_sanity",
+                  "purpose": "Check whether the external route contains within-cohort signal.",
+                  "track_id": "C",
+                  "training_data": "ICICLE-PD / ICICLE-GAIT only"
+                },
+                {
+                  "blocked_until": [
+                    "zero-shot evidence exists",
+                    "schema metadata exists",
+                    "target-free manifest preflight passes",
+                    "fresh formula_sha256 preregistration exists before external labels enter development"
+                  ],
+                  "claim_boundary": "cannot update canonical WearGait-PD T1/T3 without promotion gate, null gates, and a full-cohort internal result",
+                  "name": "augmentation_screen_after_zero_shot_only",
+                  "purpose": "Only a later, separately registered WearGait/external augmentation screen.",
+                  "track_id": "D"
+                }
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "ICICLE-PD / ICICLE-GAIT",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "lower_back_ax3"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "icicle_gait"
+            }
+          },
+          "ppmi_verily": {
+            "row": {
+              "analysis_order": [
+                "approval_metadata_record",
+                "read_only_schema_probe",
+                "schema_probe_report_preflight",
+                "schema_probe_metadata_record",
+                "target_free_manifest_preflight",
+                "formula_sha256_after_manifest_before_extraction_or_scoring",
+                "zero_shot_external_validation",
+                "aggregate_result_record_preflight_after_external_scoring",
+                "route_only_grouped_sanity_if_zero_shot_fails_or_for_context",
+                "fresh_augmentation_preregistration_only_after_zero_shot"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "claim_boundary": "External rows may support transportability or within-route sanity claims only; they must not be framed as internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+              "id": "ppmi_verily",
+              "locked_no_search_rules": [
+                "no scaffold before approved schema probe",
+                "no cache extraction before schema-probe metadata recorded",
+                "no external labels for zero-shot feature selection",
+                "no PH/MFDFA column search on the external route",
+                "no TopoFractal component-count search on the external route",
+                "no K-search on the external route",
+                "no adaptive stacking before zero-shot results",
+                "no endpoint switching after external outcomes",
+                "no canonical WearGait-PD T1/T3 update from external-only metrics"
+              ],
+              "min_subjects": 20,
+              "name": "PPMI / Verily Study Watch",
+              "post_schema_command_templates": {
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "prerequisites": [
+                "non-protected approval metadata record",
+                "read-only schema probe",
+                "schema-probe report validator pass",
+                "schema-probe metadata record",
+                "target-free manifest validator pass",
+                "formula_sha256 recorded after schema and before extraction or scoring",
+                "aggregate external result record validator pass before reporting"
+              ],
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sensor_modalities": [
+                "wrist_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_specific_blueprint": {
+                "blueprint": "results/ppmi_verily_zeroshot_blueprint_20260515.json",
+                "blueprint_audit": "results/ppmi_verily_zeroshot_blueprint_audit_20260515.json",
+                "blueprint_markdown": "results/ppmi_verily_zeroshot_blueprint_20260515.md",
+                "formula_sha_policy": "write formula_sha256 after approved schema probe, schema metadata recording, and target-free manifest preflight; validate before extraction or scoring",
+                "must_use_for_exact_track_definitions": true,
+                "required_locked_formula_components": [
+                  "small fixed TopoFractal PH/MFDFA branch",
+                  "canonical comparator",
+                  "separate fixed K=250 sklearn-GB branch for T3 only",
+                  "no omnibus feature expansion",
+                  "no cross-branch adaptive stacking before zero-shot results"
+                ],
+                "route_specific_track_names": {
+                  "A": "weargait_trained_wrist_topofractal_zeroshot",
+                  "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+                  "C": "ppmi_only_subject_grouped_sanity",
+                  "D": "augmentation_screen_after_zero_shot_only"
+                }
+              },
+              "supporting_artifacts": {
+                "formula_sha_template": "results/external_formula_sha_templates_20260515/ppmi_verily_formula_sha_record_template.json",
+                "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+                "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+                "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+                "schema_report_validator": "scripts/validate_ppmi_verily_schema_probe_report.py",
+                "schema_report_validator_command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+                "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/ppmi_verily_target_free_manifest_template.json",
+                "target_free_manifest_validator": "scripts/validate_ppmi_verily_target_free_manifest.py",
+                "target_free_manifest_validator_command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+                "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/ppmi_verily_zeroshot_result_record_template.json",
+                "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+                "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "tracks": [
+                {
+                  "claim_boundary": "external-validity or transportability evidence only; no internal WearGait-PD headline update",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed compatible wrist_accelerometer feature map after schema proves compatibility",
+                    "target-free extraction only before final scoring",
+                    "no external-label feature selection or model selection"
+                  ],
+                  "name": "weargait_trained_sensor_zeroshot",
+                  "purpose": "External zero-shot transport of the fixed compatible IMU branch.",
+                  "sensor_modalities": [
+                    "wrist_accelerometer"
+                  ],
+                  "track_id": "A",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "external comparator only; not a new internal canonical",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed clinical/intake covariate map only if schema proves compatibility",
+                    "same sensor branch as Track A",
+                    "a priori missing-covariate policy before scoring"
+                  ],
+                  "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+                  "purpose": "Iter47-style clinical/intake comparator when compatible fields exist.",
+                  "sensor_modalities": [
+                    "wrist_accelerometer"
+                  ],
+                  "track_id": "B",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "route-internal sanity only; not WearGait deployment performance and not an internal headline update",
+                  "endpoint_scope": "T3 primary via updrs3; T1 only after a future schema record proves full items 9-14 are available and a fresh formula preregistration exists",
+                  "external_label_role": "within-route grouped training/evaluation only",
+                  "grouping_policy": "group by sid+visit_id; no subject leakage across folds",
+                  "name": "ppmi_verily_only_grouped_sanity",
+                  "purpose": "Check whether the external route contains within-cohort signal.",
+                  "track_id": "C",
+                  "training_data": "PPMI / Verily Study Watch only"
+                },
+                {
+                  "blocked_until": [
+                    "zero-shot evidence exists",
+                    "schema metadata exists",
+                    "target-free manifest preflight passes",
+                    "fresh formula_sha256 preregistration exists before external labels enter development"
+                  ],
+                  "claim_boundary": "cannot update canonical WearGait-PD T1/T3 without promotion gate, null gates, and a full-cohort internal result",
+                  "name": "augmentation_screen_after_zero_shot_only",
+                  "purpose": "Only a later, separately registered WearGait/external augmentation screen.",
+                  "track_id": "D"
+                }
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "PPMI / Verily Study Watch",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "wrist_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "ppmi_verily"
+            }
+          },
+          "ppp_pd_vme": {
+            "row": {
+              "analysis_order": [
+                "approval_metadata_record",
+                "read_only_schema_probe",
+                "schema_probe_report_preflight",
+                "schema_probe_metadata_record",
+                "target_free_manifest_preflight",
+                "formula_sha256_after_manifest_before_extraction_or_scoring",
+                "zero_shot_external_validation",
+                "aggregate_result_record_preflight_after_external_scoring",
+                "route_only_grouped_sanity_if_zero_shot_fails_or_for_context",
+                "fresh_augmentation_preregistration_only_after_zero_shot"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "claim_boundary": "External rows may support transportability or within-route sanity claims only; they must not be framed as internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+              "id": "ppp_pd_vme",
+              "locked_no_search_rules": [
+                "no scaffold before approved schema probe",
+                "no cache extraction before schema-probe metadata recorded",
+                "no external labels for zero-shot feature selection",
+                "no PH/MFDFA column search on the external route",
+                "no TopoFractal component-count search on the external route",
+                "no K-search on the external route",
+                "no adaptive stacking before zero-shot results",
+                "no endpoint switching after external outcomes",
+                "no canonical WearGait-PD T1/T3 update from external-only metrics"
+              ],
+              "min_subjects": 20,
+              "name": "Personalized Parkinson Project / PD-VME",
+              "post_schema_command_templates": {
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppp_pd_vme --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id ppp_pd_vme --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id ppp_pd_vme --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "prerequisites": [
+                "non-protected approval metadata record",
+                "read-only schema probe",
+                "schema-probe report validator pass",
+                "schema-probe metadata record",
+                "target-free manifest validator pass",
+                "formula_sha256 recorded after schema and before extraction or scoring",
+                "aggregate external result record validator pass before reporting"
+              ],
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sensor_modalities": [
+                "study_watch_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "supporting_artifacts": {
+                "formula_sha_template": "results/external_formula_sha_templates_20260515/ppp_pd_vme_formula_sha_record_template.json",
+                "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+                "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppp_pd_vme --record <completed_formula_sha_record_path_outside_git>",
+                "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+                "schema_report_validator": "scripts/validate_schema_probe_report.py",
+                "schema_report_validator_command": "uv run python scripts/validate_schema_probe_report.py --route-id ppp_pd_vme --report <completed_schema_probe_report_path_outside_git>",
+                "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/ppp_pd_vme_target_free_manifest_template.json",
+                "target_free_manifest_validator": "scripts/validate_target_free_manifest.py",
+                "target_free_manifest_validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id ppp_pd_vme --manifest <completed_target_free_manifest_path_outside_git>",
+                "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/ppp_pd_vme_zeroshot_result_record_template.json",
+                "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+                "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "tracks": [
+                {
+                  "claim_boundary": "external-validity or transportability evidence only; no internal WearGait-PD headline update",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed compatible study_watch_accelerometer feature map after schema proves compatibility",
+                    "target-free extraction only before final scoring",
+                    "no external-label feature selection or model selection"
+                  ],
+                  "name": "weargait_trained_sensor_zeroshot",
+                  "purpose": "External zero-shot transport of the fixed compatible IMU branch.",
+                  "sensor_modalities": [
+                    "study_watch_accelerometer"
+                  ],
+                  "track_id": "A",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "external comparator only; not a new internal canonical",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed clinical/intake covariate map only if schema proves compatibility",
+                    "same sensor branch as Track A",
+                    "a priori missing-covariate policy before scoring"
+                  ],
+                  "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+                  "purpose": "Iter47-style clinical/intake comparator when compatible fields exist.",
+                  "sensor_modalities": [
+                    "study_watch_accelerometer"
+                  ],
+                  "track_id": "B",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "route-internal sanity only; not WearGait deployment performance and not an internal headline update",
+                  "endpoint_scope": "T3 primary via updrs3; T1 only after a future schema record proves full items 9-14 are available and a fresh formula preregistration exists",
+                  "external_label_role": "within-route grouped training/evaluation only",
+                  "grouping_policy": "group by sid+visit_id; no subject leakage across folds",
+                  "name": "ppp_pd_vme_only_grouped_sanity",
+                  "purpose": "Check whether the external route contains within-cohort signal.",
+                  "track_id": "C",
+                  "training_data": "Personalized Parkinson Project / PD-VME only"
+                },
+                {
+                  "blocked_until": [
+                    "zero-shot evidence exists",
+                    "schema metadata exists",
+                    "target-free manifest preflight passes",
+                    "fresh formula_sha256 preregistration exists before external labels enter development"
+                  ],
+                  "claim_boundary": "cannot update canonical WearGait-PD T1/T3 without promotion gate, null gates, and a full-cohort internal result",
+                  "name": "augmentation_screen_after_zero_shot_only",
+                  "purpose": "Only a later, separately registered WearGait/external augmentation screen.",
+                  "track_id": "D"
+                }
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "Personalized Parkinson Project / PD-VME",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "study_watch_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "ppp_pd_vme"
+            }
+          },
+          "watchpd": {
+            "row": {
+              "analysis_order": [
+                "approval_metadata_record",
+                "read_only_schema_probe",
+                "schema_probe_report_preflight",
+                "schema_probe_metadata_record",
+                "target_free_manifest_preflight",
+                "formula_sha256_after_manifest_before_extraction_or_scoring",
+                "zero_shot_external_validation",
+                "aggregate_result_record_preflight_after_external_scoring",
+                "route_only_grouped_sanity_if_zero_shot_fails_or_for_context",
+                "fresh_augmentation_preregistration_only_after_zero_shot"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "claim_boundary": "External rows may support transportability or within-route sanity claims only; they must not be framed as internal WearGait-PD T1/T3 headline, canonical, deployment, or ceiling-break updates.",
+              "id": "watchpd",
+              "locked_no_search_rules": [
+                "no scaffold before approved schema probe",
+                "no cache extraction before schema-probe metadata recorded",
+                "no external labels for zero-shot feature selection",
+                "no PH/MFDFA column search on the external route",
+                "no TopoFractal component-count search on the external route",
+                "no K-search on the external route",
+                "no adaptive stacking before zero-shot results",
+                "no endpoint switching after external outcomes",
+                "no canonical WearGait-PD T1/T3 update from external-only metrics"
+              ],
+              "min_subjects": 20,
+              "name": "WATCH-PD",
+              "post_schema_command_templates": {
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id watchpd --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id watchpd --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id watchpd --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "prerequisites": [
+                "non-protected approval metadata record",
+                "read-only schema probe",
+                "schema-probe report validator pass",
+                "schema-probe metadata record",
+                "target-free manifest validator pass",
+                "formula_sha256 recorded after schema and before extraction or scoring",
+                "aggregate external result record validator pass before reporting"
+              ],
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sensor_modalities": [
+                "apdm_imu"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "supporting_artifacts": {
+                "formula_sha_template": "results/external_formula_sha_templates_20260515/watchpd_formula_sha_record_template.json",
+                "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+                "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id watchpd --record <completed_formula_sha_record_path_outside_git>",
+                "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+                "schema_report_validator": "scripts/validate_schema_probe_report.py",
+                "schema_report_validator_command": "uv run python scripts/validate_schema_probe_report.py --route-id watchpd --report <completed_schema_probe_report_path_outside_git>",
+                "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/watchpd_target_free_manifest_template.json",
+                "target_free_manifest_validator": "scripts/validate_target_free_manifest.py",
+                "target_free_manifest_validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id watchpd --manifest <completed_target_free_manifest_path_outside_git>",
+                "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/watchpd_zeroshot_result_record_template.json",
+                "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+                "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "tracks": [
+                {
+                  "claim_boundary": "external-validity or transportability evidence only; no internal WearGait-PD headline update",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed compatible apdm_imu feature map after schema proves compatibility",
+                    "target-free extraction only before final scoring",
+                    "no external-label feature selection or model selection"
+                  ],
+                  "name": "weargait_trained_sensor_zeroshot",
+                  "purpose": "External zero-shot transport of the fixed compatible IMU branch.",
+                  "sensor_modalities": [
+                    "apdm_imu"
+                  ],
+                  "track_id": "A",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "external comparator only; not a new internal canonical",
+                  "external_label_role": "final scoring only",
+                  "feature_policy": [
+                    "fixed clinical/intake covariate map only if schema proves compatibility",
+                    "same sensor branch as Track A",
+                    "a priori missing-covariate policy before scoring"
+                  ],
+                  "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+                  "purpose": "Iter47-style clinical/intake comparator when compatible fields exist.",
+                  "sensor_modalities": [
+                    "apdm_imu"
+                  ],
+                  "track_id": "B",
+                  "training_data": "WearGait-PD only"
+                },
+                {
+                  "claim_boundary": "route-internal sanity only; not WearGait deployment performance and not an internal headline update",
+                  "endpoint_scope": "T3 primary via updrs3; T1 only after a future schema record proves full items 9-14 are available and a fresh formula preregistration exists",
+                  "external_label_role": "within-route grouped training/evaluation only",
+                  "grouping_policy": "group by sid+visit_id; no subject leakage across folds",
+                  "name": "watchpd_only_grouped_sanity",
+                  "purpose": "Check whether the external route contains within-cohort signal.",
+                  "track_id": "C",
+                  "training_data": "WATCH-PD only"
+                },
+                {
+                  "blocked_until": [
+                    "zero-shot evidence exists",
+                    "schema metadata exists",
+                    "target-free manifest preflight passes",
+                    "fresh formula_sha256 preregistration exists before external labels enter development"
+                  ],
+                  "claim_boundary": "cannot update canonical WearGait-PD T1/T3 without promotion gate, null gates, and a full-cohort internal result",
+                  "name": "augmentation_screen_after_zero_shot_only",
+                  "purpose": "Only a later, separately registered WearGait/external augmentation screen.",
+                  "track_id": "D"
+                }
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "WATCH-PD",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "apdm_imu"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "watchpd"
+            }
+          }
+        }
+      },
+      "name": "route rows mirror pd_imu schema-probe specs",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "analysis_order": [
+          "approval_metadata_record",
+          "read_only_schema_probe",
+          "schema_probe_report_preflight",
+          "schema_probe_metadata_record",
+          "target_free_manifest_preflight",
+          "formula_sha256_after_manifest_before_extraction_or_scoring",
+          "zero_shot_external_validation",
+          "aggregate_result_record_preflight_after_external_scoring",
+          "route_only_grouped_sanity_if_zero_shot_fails_or_for_context",
+          "fresh_augmentation_preregistration_only_after_zero_shot"
+        ],
+        "track_ids_by_route": {
+          "cns_portugal_lobo": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "hssayeni_mjff": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "icicle_gait": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "ppmi_verily": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "ppp_pd_vme": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "watchpd": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        }
+      },
+      "name": "every route has the locked shared analysis order and four tracks",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "supporting_artifacts": {
+          "cns_portugal_lobo": {
+            "formula_sha_template": "results/external_formula_sha_templates_20260515/cns_portugal_lobo_formula_sha_record_template.json",
+            "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+            "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id cns_portugal_lobo --record <completed_formula_sha_record_path_outside_git>",
+            "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+            "schema_report_validator": "scripts/validate_schema_probe_report.py",
+            "schema_report_validator_command": "uv run python scripts/validate_schema_probe_report.py --route-id cns_portugal_lobo --report <completed_schema_probe_report_path_outside_git>",
+            "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/cns_portugal_lobo_target_free_manifest_template.json",
+            "target_free_manifest_validator": "scripts/validate_target_free_manifest.py",
+            "target_free_manifest_validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id cns_portugal_lobo --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/cns_portugal_lobo_zeroshot_result_record_template.json",
+            "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+            "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "hssayeni_mjff": {
+            "formula_sha_template": "results/external_formula_sha_templates_20260515/hssayeni_mjff_formula_sha_record_template.json",
+            "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+            "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id hssayeni_mjff --record <completed_formula_sha_record_path_outside_git>",
+            "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+            "schema_report_validator": "scripts/validate_schema_probe_report.py",
+            "schema_report_validator_command": "uv run python scripts/validate_schema_probe_report.py --route-id hssayeni_mjff --report <completed_schema_probe_report_path_outside_git>",
+            "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/hssayeni_mjff_target_free_manifest_template.json",
+            "target_free_manifest_validator": "scripts/validate_target_free_manifest.py",
+            "target_free_manifest_validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id hssayeni_mjff --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/hssayeni_mjff_zeroshot_result_record_template.json",
+            "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+            "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "icicle_gait": {
+            "formula_sha_template": "results/external_formula_sha_templates_20260515/icicle_gait_formula_sha_record_template.json",
+            "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+            "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id icicle_gait --record <completed_formula_sha_record_path_outside_git>",
+            "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+            "schema_report_validator": "scripts/validate_schema_probe_report.py",
+            "schema_report_validator_command": "uv run python scripts/validate_schema_probe_report.py --route-id icicle_gait --report <completed_schema_probe_report_path_outside_git>",
+            "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/icicle_gait_target_free_manifest_template.json",
+            "target_free_manifest_validator": "scripts/validate_target_free_manifest.py",
+            "target_free_manifest_validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id icicle_gait --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/icicle_gait_zeroshot_result_record_template.json",
+            "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+            "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "ppmi_verily": {
+            "formula_sha_template": "results/external_formula_sha_templates_20260515/ppmi_verily_formula_sha_record_template.json",
+            "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+            "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+            "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+            "schema_report_validator": "scripts/validate_ppmi_verily_schema_probe_report.py",
+            "schema_report_validator_command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+            "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/ppmi_verily_target_free_manifest_template.json",
+            "target_free_manifest_validator": "scripts/validate_ppmi_verily_target_free_manifest.py",
+            "target_free_manifest_validator_command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/ppmi_verily_zeroshot_result_record_template.json",
+            "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+            "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "ppp_pd_vme": {
+            "formula_sha_template": "results/external_formula_sha_templates_20260515/ppp_pd_vme_formula_sha_record_template.json",
+            "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+            "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppp_pd_vme --record <completed_formula_sha_record_path_outside_git>",
+            "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+            "schema_report_validator": "scripts/validate_schema_probe_report.py",
+            "schema_report_validator_command": "uv run python scripts/validate_schema_probe_report.py --route-id ppp_pd_vme --report <completed_schema_probe_report_path_outside_git>",
+            "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/ppp_pd_vme_target_free_manifest_template.json",
+            "target_free_manifest_validator": "scripts/validate_target_free_manifest.py",
+            "target_free_manifest_validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id ppp_pd_vme --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/ppp_pd_vme_zeroshot_result_record_template.json",
+            "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+            "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>"
+          },
+          "watchpd": {
+            "formula_sha_template": "results/external_formula_sha_templates_20260515/watchpd_formula_sha_record_template.json",
+            "formula_sha_validator": "scripts/validate_external_formula_sha_record.py",
+            "formula_sha_validator_command": "uv run python scripts/validate_external_formula_sha_record.py --route-id watchpd --record <completed_formula_sha_record_path_outside_git>",
+            "schema_probe_handoff": "results/external_schema_probe_handoff_20260515.md",
+            "schema_report_validator": "scripts/validate_schema_probe_report.py",
+            "schema_report_validator_command": "uv run python scripts/validate_schema_probe_report.py --route-id watchpd --report <completed_schema_probe_report_path_outside_git>",
+            "target_free_manifest_template": "results/external_target_free_manifest_templates_20260515/watchpd_target_free_manifest_template.json",
+            "target_free_manifest_validator": "scripts/validate_target_free_manifest.py",
+            "target_free_manifest_validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id watchpd --manifest <completed_target_free_manifest_path_outside_git>",
+            "zeroshot_result_template": "results/external_zeroshot_result_templates_20260515/watchpd_zeroshot_result_record_template.json",
+            "zeroshot_result_validator": "scripts/validate_external_zeroshot_result_record.py",
+            "zeroshot_result_validator_command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>"
+          }
+        }
+      },
+      "name": "every route links schema, manifest, formula, and result preflight artifacts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "formula_template_present": true,
+        "ppmi_schema_command_present": true,
+        "ppmi_target_free_command_present": true,
+        "result_template_present": true
+      },
+      "name": "markdown exposes executable schema-to-result preflight commands",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "locked_no_search_rules": [
+          "no scaffold before approved schema probe",
+          "no cache extraction before schema-probe metadata recorded",
+          "no external labels for zero-shot feature selection",
+          "no PH/MFDFA column search on the external route",
+          "no TopoFractal component-count search on the external route",
+          "no K-search on the external route",
+          "no adaptive stacking before zero-shot results",
+          "no endpoint switching after external outcomes",
+          "no canonical WearGait-PD T1/T3 update from external-only metrics"
+        ]
+      },
+      "name": "no-search and claim-boundary rules are explicit for all routes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "blocked_until_schema_and_manifest": [
+          "download script",
+          "cache extraction",
+          "pre-registration using new labels",
+          "remote job",
+          "model run",
+          "canonical T1/T3 claim update"
+        ]
+      },
+      "name": "blocked actions remain explicit until schema and manifest gates pass",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "schema_decision": "external_schema_probe_handoff_ready",
+        "target_free_decision": "external_target_free_manifest_templates_ready"
+      },
+      "name": "schema and target-free handoff audits already pass",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "formula_decision": "external_formula_sha_templates_ready",
+        "hard_failures": []
+      },
+      "name": "formula-SHA template audit already passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [],
+        "result_decision": "external_zeroshot_result_templates_ready"
+      },
+      "name": "aggregate zero-shot result template audit already passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ppmi_decision": "ppmi_verily_zeroshot_blueprint_ready",
+        "ppmi_hard_failures": [],
+        "ppmi_returncode": 0,
+        "support": {
+          "blueprint": "results/ppmi_verily_zeroshot_blueprint_20260515.json",
+          "blueprint_audit": "results/ppmi_verily_zeroshot_blueprint_audit_20260515.json",
+          "route_id": "ppmi_verily"
+        }
+      },
+      "name": "PPMI route-specific zero-shot blueprint remains wired and audited",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "expected_components": [
+          "small fixed TopoFractal PH/MFDFA branch",
+          "canonical comparator",
+          "separate fixed K=250 sklearn-GB branch for T3 only",
+          "no omnibus feature expansion",
+          "no cross-branch adaptive stacking before zero-shot results"
+        ],
+        "expected_track_names": {
+          "A": "weargait_trained_wrist_topofractal_zeroshot",
+          "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+          "C": "ppmi_only_subject_grouped_sanity",
+          "D": "augmentation_screen_after_zero_shot_only"
+        },
+        "ppmi_route_specific_blueprint": {
+          "blueprint": "results/ppmi_verily_zeroshot_blueprint_20260515.json",
+          "blueprint_audit": "results/ppmi_verily_zeroshot_blueprint_audit_20260515.json",
+          "blueprint_markdown": "results/ppmi_verily_zeroshot_blueprint_20260515.md",
+          "formula_sha_policy": "write formula_sha256 after approved schema probe, schema metadata recording, and target-free manifest preflight; validate before extraction or scoring",
+          "must_use_for_exact_track_definitions": true,
+          "required_locked_formula_components": [
+            "small fixed TopoFractal PH/MFDFA branch",
+            "canonical comparator",
+            "separate fixed K=250 sklearn-GB branch for T3 only",
+            "no omnibus feature expansion",
+            "no cross-branch adaptive stacking before zero-shot results"
+          ],
+          "route_specific_track_names": {
+            "A": "weargait_trained_wrist_topofractal_zeroshot",
+            "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+            "C": "ppmi_only_subject_grouped_sanity",
+            "D": "augmentation_screen_after_zero_shot_only"
+          }
+        }
+      },
+      "name": "PPMI route row exposes exact route-specific blueprint branch contract",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "content_boundary": {
+          "approval_evidence_included": false,
+          "completed_emails_included": false,
+          "completed_packets_included": false,
+          "credentials_or_tokens_included": false,
+          "feature_manifest_artifacts_included": false,
+          "feature_matrix_included": false,
+          "model_outputs_included": false,
+          "preregistration_artifacts_included": false,
+          "protected_data_included": false,
+          "record_paths_reported": false,
+          "row_level_data_included": false,
+          "schema_probe_artifacts_included": false,
+          "target_values_included": false
+        }
+      },
+      "name": "content boundary blocks completed/protected artifacts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "forbidden_snippets_found": []
+      },
+      "name": "handoff output does not expose private artifacts",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "external_zeroshot_blueprint_handoff_ready",
+  "generated_at_utc": "2026-05-16T08:19:58+00:00",
+  "goal_complete": false,
+  "handoff_json": "results/external_zeroshot_blueprint_handoff_20260515.json",
+  "handoff_markdown": "results/external_zeroshot_blueprint_handoff_20260515.md",
+  "hard_failures": [],
+  "not_a_feature_manifest_artifact": true,
+  "not_a_model_result": true,
+  "not_a_preregistration": true,
+  "not_a_schema_probe_artifact": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "passed": true,
+  "protected_data_included": false,
+  "route_count": 6,
+  "route_ids": [
+    "ppmi_verily",
+    "ppp_pd_vme",
+    "watchpd",
+    "cns_portugal_lobo",
+    "hssayeni_mjff",
+    "icicle_gait"
+  ],
+  "script": "audit_external_zeroshot_blueprint_handoff.py",
+  "source_schema_contract": "pd_imu.datasets.external_schema_probe_specs",
+  "writer": "scripts/write_external_zeroshot_blueprint_handoff.py"
+}

@@ -1,0 +1,58 @@
+{
+  "name": "preregistration_t1_ceiling_push_20260515_evening_amendment_01",
+  "created_at_utc": "2026-05-15T18:55:00Z",
+  "amends": "results/preregistration_t1_ceiling_push_20260515_evening_master.json",
+  "amendment_type": "slot_b_substitution",
+  "fwer_family_change": "NONE (n=4 unchanged; Slot B mechanism only)",
+  "rationale": [
+    "Slot A closed FAIL 2026-05-15T18:51Z with mechanism KNOWN: corr(correction, item13_residual)=-0.52 (anti-correlated). The 24-feature mounting-invariant subset (excursion/pkvel/sway/jerk/freeacc) encodes kinetic severity which iter34 absorbs via V2; the item-13 residual after iter34 is the static-posture-geometry component. Static posture lives in pitch_mean/roll_mean — which Slot A DROPPED per the tri-CLI mounting-contamination concern.",
+    "The Redesign Queue from Slot A explicitly identified F50 self-norm recovery as the right move: F50 originally achieved item-13 +0.145 LOOCV on trunk pitch alone via subject-level Euler self-norm; extending to 3-sensor anatomical triplet (Lumbar/Sternum/Forehead) with within-fold self-norm recovers the F50 mechanism at expanded extent.",
+    "The original Slot B (MSE + RQA on items 11/12/14) requires a new ~25-30 min remote cache extraction. Given Slot A's fast-fail and the empirical wall (+0.01 ceiling), spending 30 min on a hypothesis whose detectability is marginal is the wrong compute allocation. The MSE+RQA Slot moves to a new Redesign Queue for a future pre-reg.",
+    "This is NOT a metric-driven amendment: it is mechanism-driven, motivated by Slot A's failure mechanism (which is data about Slot A, not about Slot B). No Slot B execution has begun; no Slot B metric is in scope. Pre-registration discipline preserved."
+  ],
+
+  "slot_B_new": {
+    "label": "F50_self_norm_recovery_3_sensor_item13_correction",
+    "hypothesis_one_sentence": "Within-fold per-subject self-normed pitch_mean+roll_mean Euler features (Lumbar/Sternum/Forehead, 6 cols → 12 self-normed cols) plus the 24 mounting-invariant kinetic features (axial cache, Slot A subset) jointly correct iter34's item-13 residual with a magnitude that recovers F50's per-item +0.145 signal scaled to 3-sensor extent, predicting per-item-13 ΔCCC >= +0.05 and T1_sum LOOCV ΔCCC >= +0.010 versus iter34 with D4 audit clean (Δr > 0, corr(c, sum_resid) > 0, ΔMAE <= 0).",
+    "mechanism_rationale": "F50 (iter17 lockbox, 2026-05-03) achieved item 13 +0.145 LOOCV via Euler self-norm on TRUNK PITCH ONLY (single sensor, single channel). Self-norm = subtract subject median, divide by subject IQR; this removes sensor-mounting offset while preserving postural-deformity magnitude. The 3-sensor triplet (Lumbar/Sternum/Forehead) extends F50 by capturing inter-segment posture alignment (kyphosis arrow direction: lumbar forward + sternum forward + forehead forward = axial flexion; lumbar forward but sternum back = scoliosis pattern). Within-fold self-norm uses ONLY the training fold's subject statistics — no test-fold leakage; pure inductive.",
+    "wall_orthogonality_argument": "Distinct from Slot A which dropped pitch_mean/roll_mean: this slot KEEPS them but self-norms within fold. Distinct from F50 itself (single sensor, single channel) by 3-sensor extension. Distinct from W#84-90 (D4-retracted item-9/10/14 PH corrections): we target item 13 only, the SOLE D4-clean per-item canonical. Distinct from W#93 (today's Slot A item-13-PH tunable Δ=+0.0097) by feature family (raw self-normed Euler vs Takens-embedded PH). Distinct from S8 JOINT today (PH+MFDFA, Δ=+0.0088) by feature family.",
+    "predicted_delta_loocv_t1_sum_ccc": {
+      "low": 0.003,
+      "central": 0.012,
+      "high": 0.025,
+      "reasoning": "Per-item-13 F50 magnitude +0.145 scaled by 3-sensor extension factor (~1.0-1.3) and sum-aggregation efficiency (~0.08-0.15) gives T1_sum lift +0.012-+0.028. Central estimate +0.012 matches Slot A's original predicted central."
+    },
+    "kill_threshold": "5-fold Delta_bar < +0.000 OR per-item-13 r-lift < +0.030 OR D4 corr(c, item13_residual) <= 0 OR D4 ΔMAE > 0 OR ANY 5-null gate fails",
+    "scripts_to_author": [
+      "run_t1_slotB_evening_self_norm_recovery.py"
+    ],
+    "compute_plan": {
+      "extraction": "no new cache — uses existing results/axial_orientation_features.csv (manifested, 100 subjects, 30 features)",
+      "downstream": "master-local ~2-3 min Ridge alpha-grid LOOCV with within-fold subject self-norm pre-step"
+    },
+    "split_seed": 20260309,
+    "feature_seed": 31415,
+    "augmentation_seed": null,
+    "model_seeds_set_A": [42, 1337, 7],
+    "model_seeds_set_B": [101, 202, 303],
+    "alpha_grid_predeclared": [10.0, 30.0, 100.0, 300.0, 1000.0],
+    "alpha_selection_rule": "inner_5fold_oof_residual_ccc_in_train_fold_only",
+    "lambda_fixed": 1.0,
+    "self_norm_method": "within-fold per-subject z-score using subject-level median + IQR over the subject's recordings (computed inside the cache aggregation already; we apply z-score across subjects within training fold ONLY for the pitch_mean/roll_mean columns)",
+    "parameter_provenance": {
+      "alpha_grid": "matches Slot A; no new tuning",
+      "self_norm_basis": "subject-level statistics from the existing axial cache (per-subject mean across recordings); within-fold COHORT z-score for the self-normed pitch_mean/roll_mean cols",
+      "lambda_fixed": "fixed at 1.0 per Slot A tri-CLI synthesis (kimi: lambda inner-CV adds noise at N<100)",
+      "features_kept": "ALL 30 features from axial cache (pitch_mean + pitch_excur + roll_mean + roll_excur + pitch_pkvel + pitch_sway_std + roll_sway_std + pitch_sway_jerk + freeacc_E_init + freeacc_U_pkvel for 3 sensors each); pitch_mean and roll_mean cols receive an ADDITIONAL within-fold cohort z-score transform (the kinetic features do not, since they are already mounting-invariant by construction)"
+    },
+    "formula_sha256_target": "computed_at_script_authorship_time",
+    "five_null_invocation": "same as Slot A pattern: scrambled_y, sid_shuffle, canary_noise, transductive, sanity_y_nan"
+  },
+
+  "slot_b_original_moved_to_redesign_queue": {
+    "label": "MSE_RQA_items_11_12_14_correction (original Slot B)",
+    "moved_at_utc": "2026-05-15T18:55:00Z",
+    "reason": "Compute spend / detectability tradeoff vs F50 self-norm recovery's stronger mechanism and existing cache. Reserved for a post-closure Redesign-Queue pre-reg if Slot B'/Slot C close negative.",
+    "compute_requirement": "remote ~25-30 min new cache extraction + ~3 min downstream"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "abstention_sanity_t3_slotE_mahalanobis",
+  "created_at_utc": "20260515T095643Z",
+  "lockbox_target": "lockbox_t3_slotE_mahalanobis_conformal",
+  "retention_rule_form": "g(x) = Mahalanobis_distance(x, train_centroid_LOO) in stage1_covariate_space",
+  "n_subjects": 95,
+  "masks_identical_with_y_nan": true,
+  "test_passes": true
+}

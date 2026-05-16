@@ -1,0 +1,300 @@
+{
+  "checklist": "scripts/ppmi_verily_user_fill_checklist.md",
+  "checks": [
+    {
+      "evidence": {
+        "path": "scripts/ppmi_verily_user_fill_checklist.md",
+        "size_bytes": 10749
+      },
+      "name": "checklist exists and is non-empty",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "email_placeholder_count": 12,
+        "extra_placeholders": [],
+        "missing_placeholders": [],
+        "packet_placeholder_count": 13,
+        "required_placeholder_count": 19
+      },
+      "name": "all packet/email placeholders are covered",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "extra_in_packet_section": [],
+        "missing_from_packet_section": [],
+        "packet_fields": [
+          "[PI_NAME]",
+          "[INSTITUTION]",
+          "[DEPARTMENT_OR_LAB]",
+          "[PI_EMAIL]",
+          "[PI_PHONE]",
+          "[ADDRESS]",
+          "[IRB_ID_OR_STATUS]",
+          "[CONTACT]",
+          "[PPMI_ID]",
+          "[ANALYST_NAME]",
+          "[EMAIL]",
+          "[DATA_CUSTODIAN]",
+          "[CUSTODIAN_EMAIL]"
+        ],
+        "packet_placeholders": [
+          "[ADDRESS]",
+          "[ANALYST_NAME]",
+          "[CONTACT]",
+          "[CUSTODIAN_EMAIL]",
+          "[DATA_CUSTODIAN]",
+          "[DEPARTMENT_OR_LAB]",
+          "[EMAIL]",
+          "[INSTITUTION]",
+          "[IRB_ID_OR_STATUS]",
+          "[PI_EMAIL]",
+          "[PI_NAME]",
+          "[PI_PHONE]",
+          "[PPMI_ID]"
+        ]
+      },
+      "name": "packet placeholder section matches packet template placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "email_fields": [
+          "[PROJECT_TITLE]",
+          "[PI_NAME]",
+          "[INSTITUTION]",
+          "[PPMI_ID]",
+          "[IRB_ID_OR_STATUS]",
+          "[PI_EMAIL]",
+          "[PI_PHONE]",
+          "[COMPLETED_PACKET_FILENAME]",
+          "[IRB_OR_GOVERNANCE_ATTACHMENT]",
+          "[SECURITY_ATTACHMENT]",
+          "[LOCAL_COMPLETED_PACKET_PATH]",
+          "[LOCAL_COMPLETED_EMAIL_PATH]"
+        ],
+        "email_placeholders": [
+          "[COMPLETED_PACKET_FILENAME]",
+          "[INSTITUTION]",
+          "[IRB_ID_OR_STATUS]",
+          "[IRB_OR_GOVERNANCE_ATTACHMENT]",
+          "[LOCAL_COMPLETED_EMAIL_PATH]",
+          "[LOCAL_COMPLETED_PACKET_PATH]",
+          "[PI_EMAIL]",
+          "[PI_NAME]",
+          "[PI_PHONE]",
+          "[PPMI_ID]",
+          "[PROJECT_TITLE]",
+          "[SECURITY_ATTACHMENT]"
+        ],
+        "extra_in_email_section": [],
+        "missing_from_email_section": []
+      },
+      "name": "email placeholder section matches email template placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "expected_metadata_placeholders": [
+          "<ISO8601_UTC>",
+          "<non_protected_channel>",
+          "<non_protected_submitter>",
+          "<non_protected_receipt>"
+        ],
+        "metadata_placeholders": [
+          "<ISO8601_UTC>",
+          "<non_protected_channel>",
+          "<non_protected_submitter>",
+          "<non_protected_receipt>"
+        ]
+      },
+      "name": "submission metadata placeholders are covered separately",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "missing_snippets": []
+      },
+      "name": "required submission-boundary snippets are present",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "missing_top_level_commands": []
+      },
+      "name": "top-level command shortcuts are present",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "workflow_command_positions": [
+          {
+            "position": 48,
+            "snippet": "uv run python scripts/validate_ppmi_verily_completed_packet.py"
+          },
+          {
+            "position": 377,
+            "snippet": "uv run python scripts/validate_ppmi_verily_submission_email.py"
+          },
+          {
+            "position": 713,
+            "snippet": "uv run python scripts/validate_ppmi_verily_submission_package.py"
+          },
+          {
+            "position": 1681,
+            "snippet": "uv run python scripts/record_access_submission.py"
+          },
+          {
+            "position": 2058,
+            "snippet": "uv run python scripts/record_access_approval.py"
+          },
+          {
+            "position": 2702,
+            "snippet": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py"
+          },
+          {
+            "position": 3067,
+            "snippet": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py"
+          },
+          {
+            "position": 3501,
+            "snippet": "uv run python scripts/validate_external_formula_sha_record.py"
+          },
+          {
+            "position": 4009,
+            "snippet": "uv run python scripts/validate_external_zeroshot_result_record.py"
+          }
+        ]
+      },
+      "name": "workflow commands are printed in execution order",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "lingering_old_recorder_snippets": [],
+        "missing_recorder_snippets": []
+      },
+      "name": "submission recorder command uses aligned non-protected placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "forbidden_snippets_found": []
+      },
+      "name": "obvious secret tokens are absent",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "approval_boundary": true,
+        "status_present": true,
+        "submission_not_approval": true
+      },
+      "name": "checklist remains a user-fill handoff, not a submission or approval",
+      "passed": true
+    }
+  ],
+  "completed_packet_included": false,
+  "credentials_or_tokens_included": false,
+  "decision": "ppmi_verily_user_fill_checklist_ready",
+  "email_field_count": 12,
+  "email_fields": [
+    "[PROJECT_TITLE]",
+    "[PI_NAME]",
+    "[INSTITUTION]",
+    "[PPMI_ID]",
+    "[IRB_ID_OR_STATUS]",
+    "[PI_EMAIL]",
+    "[PI_PHONE]",
+    "[COMPLETED_PACKET_FILENAME]",
+    "[IRB_OR_GOVERNANCE_ATTACHMENT]",
+    "[SECURITY_ATTACHMENT]",
+    "[LOCAL_COMPLETED_PACKET_PATH]",
+    "[LOCAL_COMPLETED_EMAIL_PATH]"
+  ],
+  "email_placeholder_count": 12,
+  "email_template": "scripts/ppmi_verily_submission_email_template.md",
+  "generated_at_utc": "2026-05-16T12:51:38+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "packet": "scripts/ppmi_verily_tier3_request_packet.md",
+  "packet_field_count": 13,
+  "packet_fields": [
+    "[PI_NAME]",
+    "[INSTITUTION]",
+    "[DEPARTMENT_OR_LAB]",
+    "[PI_EMAIL]",
+    "[PI_PHONE]",
+    "[ADDRESS]",
+    "[IRB_ID_OR_STATUS]",
+    "[CONTACT]",
+    "[PPMI_ID]",
+    "[ANALYST_NAME]",
+    "[EMAIL]",
+    "[DATA_CUSTODIAN]",
+    "[CUSTODIAN_EMAIL]"
+  ],
+  "packet_placeholder_count": 13,
+  "passed": true,
+  "protected_data_included": false,
+  "required_placeholder_count": 19,
+  "required_placeholders": [
+    "[ADDRESS]",
+    "[ANALYST_NAME]",
+    "[COMPLETED_PACKET_FILENAME]",
+    "[CONTACT]",
+    "[CUSTODIAN_EMAIL]",
+    "[DATA_CUSTODIAN]",
+    "[DEPARTMENT_OR_LAB]",
+    "[EMAIL]",
+    "[INSTITUTION]",
+    "[IRB_ID_OR_STATUS]",
+    "[IRB_OR_GOVERNANCE_ATTACHMENT]",
+    "[LOCAL_COMPLETED_EMAIL_PATH]",
+    "[LOCAL_COMPLETED_PACKET_PATH]",
+    "[PI_EMAIL]",
+    "[PI_NAME]",
+    "[PI_PHONE]",
+    "[PPMI_ID]",
+    "[PROJECT_TITLE]",
+    "[SECURITY_ATTACHMENT]"
+  ],
+  "required_submission_metadata_placeholders": [
+    "<ISO8601_UTC>",
+    "<non_protected_channel>",
+    "<non_protected_submitter>",
+    "<non_protected_receipt>"
+  ],
+  "script": "audit_ppmi_verily_user_fill_checklist.py",
+  "submission_metadata_field_count": 4,
+  "submission_metadata_placeholders": [
+    "<ISO8601_UTC>",
+    "<non_protected_channel>",
+    "<non_protected_submitter>",
+    "<non_protected_receipt>"
+  ],
+  "top_level_command_snippets": [
+    "uv run python scripts/validate_ppmi_verily_completed_packet.py --packet <completed_packet_path_outside_git>",
+    "uv run python scripts/validate_ppmi_verily_submission_email.py --email <completed_email_path_outside_git>",
+    "uv run python scripts/validate_ppmi_verily_submission_package.py --packet <completed_packet_path_outside_git> --email <completed_email_path_outside_git>",
+    "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+    "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+    "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+    "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+  ],
+  "workflow_command_order_snippets": [
+    "uv run python scripts/validate_ppmi_verily_completed_packet.py",
+    "uv run python scripts/validate_ppmi_verily_submission_email.py",
+    "uv run python scripts/validate_ppmi_verily_submission_package.py",
+    "uv run python scripts/record_access_submission.py",
+    "uv run python scripts/record_access_approval.py",
+    "uv run python scripts/validate_ppmi_verily_schema_probe_report.py",
+    "uv run python scripts/validate_ppmi_verily_target_free_manifest.py",
+    "uv run python scripts/validate_external_formula_sha_record.py",
+    "uv run python scripts/validate_external_zeroshot_result_record.py"
+  ]
+}

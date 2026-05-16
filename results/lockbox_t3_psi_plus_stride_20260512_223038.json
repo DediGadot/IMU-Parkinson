@@ -1,0 +1,15 @@
+{
+  "name": "t3_psi_plus_stride",
+  "created_at_utc": "2026-05-12T22:30:38.283568+00:00",
+  "base_pooled_ccc": 0.4021,
+  "aug_pooled_ccc": 0.3311,
+  "delta_pooled": -0.071,
+  "per_seed_deltas": [
+    -0.0643,
+    -0.056,
+    -0.0889
+  ],
+  "seed_delta_mean": -0.0697,
+  "seed_delta_std": 0.014,
+  "verdict": "FAIL"
+}

@@ -1,0 +1,108 @@
+{
+  "method": "conformal abstention via V2-V3GSP disagreement",
+  "full_cohort_ccc": 0.7345218263626917,
+  "full_cohort_delta_vs_v2": 0.017521826362691728,
+  "abstention_table_disagreement": [
+    {
+      "coverage": 1.0,
+      "retained_n": 92,
+      "ccc_retained": 0.7345218263626918,
+      "mae_retained": 1.750850746996226,
+      "disagreement_threshold": 4.721538409261519
+    },
+    {
+      "coverage": 0.95,
+      "retained_n": 87,
+      "ccc_retained": 0.7348222456682154,
+      "mae_retained": 1.747484853786056,
+      "disagreement_threshold": 2.0772644965137337
+    },
+    {
+      "coverage": 0.9,
+      "retained_n": 82,
+      "ccc_retained": 0.7547161821127089,
+      "mae_retained": 1.6884154450275113,
+      "disagreement_threshold": 1.611166697959196
+    },
+    {
+      "coverage": 0.85,
+      "retained_n": 78,
+      "ccc_retained": 0.7564565168953364,
+      "mae_retained": 1.676695943427686,
+      "disagreement_threshold": 1.5373802794440723
+    },
+    {
+      "coverage": 0.8,
+      "retained_n": 73,
+      "ccc_retained": 0.7538235336379483,
+      "mae_retained": 1.6931456369010722,
+      "disagreement_threshold": 1.322067369571962
+    },
+    {
+      "coverage": 0.75,
+      "retained_n": 69,
+      "ccc_retained": 0.7659957913867701,
+      "mae_retained": 1.670246621942473,
+      "disagreement_threshold": 1.2157095840881809
+    },
+    {
+      "coverage": 0.7,
+      "retained_n": 64,
+      "ccc_retained": 0.7780178145781318,
+      "mae_retained": 1.6228688986916793,
+      "disagreement_threshold": 1.0047358831292694
+    },
+    {
+      "coverage": 0.6,
+      "retained_n": 55,
+      "ccc_retained": 0.8164424512367546,
+      "mae_retained": 1.516935039018555,
+      "disagreement_threshold": 0.8960314427283558
+    },
+    {
+      "coverage": 0.5,
+      "retained_n": 46,
+      "ccc_retained": 0.833240330155974,
+      "mae_retained": 1.320301987223658,
+      "disagreement_threshold": 0.6789049618915386
+    }
+  ],
+  "abstention_table_variance": [
+    {
+      "coverage": 1.0,
+      "retained_n": 92,
+      "ccc_retained": 0.7345218263626918,
+      "ccc_v2_same_subset": 0.7170378403014929
+    },
+    {
+      "coverage": 0.9,
+      "retained_n": 82,
+      "ccc_retained": 0.7547161821127089,
+      "ccc_v2_same_subset": 0.7464524561439418
+    },
+    {
+      "coverage": 0.8,
+      "retained_n": 73,
+      "ccc_retained": 0.7538235336379483,
+      "ccc_v2_same_subset": 0.7510631955168804
+    },
+    {
+      "coverage": 0.7,
+      "retained_n": 64,
+      "ccc_retained": 0.7780178145781318,
+      "ccc_v2_same_subset": 0.7777080871086541
+    },
+    {
+      "coverage": 0.6,
+      "retained_n": 55,
+      "ccc_retained": 0.8164424512367546,
+      "ccc_v2_same_subset": 0.8135072555871611
+    },
+    {
+      "coverage": 0.5,
+      "retained_n": 46,
+      "ccc_retained": 0.833240330155974,
+      "ccc_v2_same_subset": 0.8337665843062159
+    }
+  ]
+}

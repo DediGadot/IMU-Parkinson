@@ -1,0 +1,45 @@
+{
+  "name": "T1 Slot A 5-fold screen",
+  "created_at_utc": "2026-05-13T04:52:32.236795+00:00",
+  "cohort_N": 92,
+  "chain_order": [
+    12,
+    10,
+    14,
+    9,
+    11,
+    15,
+    18
+  ],
+  "per_seed": [
+    {
+      "seed": 42,
+      "ccc_slotA_5fold": 0.6873,
+      "ccc_iter34_loocv_reference": 0.717,
+      "delta": -0.0298,
+      "wall_sec": 120.2
+    },
+    {
+      "seed": 1337,
+      "ccc_slotA_5fold": 0.7067,
+      "ccc_iter34_loocv_reference": 0.717,
+      "delta": -0.0103,
+      "wall_sec": 112.9
+    },
+    {
+      "seed": 7,
+      "ccc_slotA_5fold": 0.6995,
+      "ccc_iter34_loocv_reference": 0.717,
+      "delta": -0.0176,
+      "wall_sec": 134.2
+    }
+  ],
+  "mean_delta": -0.0192,
+  "std_delta": 0.008,
+  "pooled_ccc_slotA": 0.715,
+  "pooled_delta_vs_iter34": -0.0021,
+  "screen_gate": "\u0394\u0304 \u2265 +0.020 AND std < 0.020",
+  "screen_pass": false,
+  "verdict": "CLOSE_SLOT_SCREEN_FAIL",
+  "iter34_canonical_ccc": 0.7170378403014925
+}

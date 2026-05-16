@@ -1,0 +1,190 @@
+{
+  "analysis_order_acknowledged": [
+    "schema_probe_metadata_record",
+    "target_free_manifest_preflight",
+    "formula_sha256_after_manifest_before_extraction_or_scoring",
+    "zero_shot_external_validation"
+  ],
+  "claim_boundary": "External-only metrics are transportability or within-route sanity evidence, not internal WearGait-PD T1/T3 headline updates.",
+  "created_at_utc": "2026-05-15T00:00:00+00:00",
+  "credentials_or_tokens_included": false,
+  "external_labels_used_to_design_formula": false,
+  "feature_matrix_included": false,
+  "formula_json": {
+    "formula_scope": "zero_shot_external_validation",
+    "minimum_linked_subjects": 20,
+    "required_grouping_keys": [
+      "sid",
+      "visit_id"
+    ],
+    "required_sensor_modalities": [
+      "wrist_accelerometer"
+    ],
+    "required_target_columns": [
+      "updrs3"
+    ],
+    "route_id": "ppmi_verily",
+    "route_specific_blueprint_contract": {
+      "blueprint_audit_record_id": "ppmi_verily_zeroshot_blueprint_audit_20260515",
+      "blueprint_record_id": "ppmi_verily_zeroshot_blueprint_20260515",
+      "blueprint_sha256": "4540fbc00a3bb92b6bedca34e954bb0e8ae00cbee30ee6f9651c56229591e13f",
+      "global_branch_policy": {
+        "cross_branch_adaptive_stacking_before_zero_shot_results": false,
+        "external_label_branch_selection": false,
+        "omnibus_feature_expansion": false
+      },
+      "must_use_for_exact_track_definitions": true,
+      "path_references_in_completed_formula_record": false,
+      "required_locked_formula_components": [
+        "small fixed TopoFractal PH/MFDFA branch",
+        "canonical comparator",
+        "separate fixed K=250 sklearn-GB branch for T3 only",
+        "no omnibus feature expansion",
+        "no cross-branch adaptive stacking before zero-shot results"
+      ],
+      "route_specific_track_names": {
+        "A": "weargait_trained_wrist_topofractal_zeroshot",
+        "B": "weargait_trained_clinical_plus_wrist_zeroshot",
+        "C": "ppmi_only_subject_grouped_sanity",
+        "D": "augmentation_screen_after_zero_shot_only"
+      },
+      "track_a_required_branch_type": "small_fixed_topofractal",
+      "track_b_required_branch_type": "canonical_comparator",
+      "track_c_required_fixed_branch": {
+        "K": 300,
+        "endpoint_scope": "T3 only",
+        "formula_sha256": "489ca6bbc96520c2ea56cc53ee52b03542bec799f9bd41c34d9c9ef5b61ebee4",
+        "model": "sklearn.ensemble.GradientBoostingRegressor",
+        "selector": "univariate_corr_top_K"
+      },
+      "x4_v3_gsp_compatibility_policy": {
+        "can_enter_formula_if": "approved schema probe proves comparable multi-node anatomical sensors before formula_sha256 freeze",
+        "external_label_selection_allowed": false,
+        "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+        "status": "excluded_for_wrist_only_ppmi_zero_shot"
+      }
+    },
+    "tracks": [
+      {
+        "branch_contract": {
+          "branch_type": "small_fixed_topofractal",
+          "component_count_policy": "fixed_no_search",
+          "components": [
+            "canonical_compatible_wrist_features",
+            "persistent_homology_summaries",
+            "multifractal_detrended_fluctuation_analysis_summaries"
+          ],
+          "ph_mfdfa_column_search_on_external_route": false,
+          "sensor_modality": "wrist_accelerometer",
+          "topofractal_component_count_search_on_external_route": false,
+          "x4_v3_gsp_compatibility_policy": {
+            "can_enter_formula_if": "approved schema probe proves comparable multi-node anatomical sensors before formula_sha256 freeze",
+            "external_label_selection_allowed": false,
+            "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+            "status": "excluded_for_wrist_only_ppmi_zero_shot"
+          }
+        },
+        "external_label_role": "final scoring only",
+        "feature_source": "target-free compatible wrist branch",
+        "name": "weargait_trained_wrist_topofractal_zeroshot",
+        "track_id": "A",
+        "training_data": "WearGait-PD only"
+      },
+      {
+        "branch_contract": {
+          "branch_type": "canonical_comparator",
+          "clinical_covariate_policy": "schema_proved_fields_only_before_scoring",
+          "comparator_family": "iter47_style_clinical_intake_plus_sensor",
+          "missing_covariate_policy": "declared_before_scoring"
+        },
+        "external_label_role": "final scoring only",
+        "feature_source": "Track A plus schema-proved compatible clinical/intake fields",
+        "name": "weargait_trained_clinical_plus_wrist_zeroshot",
+        "track_id": "B",
+        "training_data": "WearGait-PD only"
+      },
+      {
+        "endpoint_scope": "T3 only",
+        "external_label_role": "within-route grouped training/evaluation only",
+        "fixed_branch": {
+          "K": 300,
+          "formula_sha256": "489ca6bbc96520c2ea56cc53ee52b03542bec799f9bd41c34d9c9ef5b61ebee4",
+          "model": "sklearn.ensemble.GradientBoostingRegressor",
+          "model_params": {
+            "learning_rate": 0.05,
+            "max_depth": 4,
+            "min_samples_leaf": 10,
+            "n_estimators": 300,
+            "random_state": "seed_from_seeds_list",
+            "subsample": 0.8
+          },
+          "seeds": [
+            42,
+            1337,
+            7
+          ],
+          "selector": "univariate_corr_top_K",
+          "stage_1": {
+            "alpha": 1.0,
+            "covariates": [
+              "hy_stage",
+              "cv_years",
+              "cv_sex",
+              "cv_dbs"
+            ],
+            "model": "sklearn.linear_model.Ridge"
+          }
+        },
+        "grouping_policy": "subject_or_visit_grouped_by_schema_keys",
+        "name": "ppmi_only_subject_grouped_sanity",
+        "track_id": "C",
+        "training_data": "PPMI / Verily Study Watch"
+      },
+      {
+        "blocked_until": [
+          "zero-shot evidence exists",
+          "schema metadata exists",
+          "fresh formula_sha256 preregistration exists before PPMI labels enter development"
+        ],
+        "external_label_role": "blocked for this formula record",
+        "name": "augmentation_screen_after_zero_shot_only",
+        "track_id": "D",
+        "training_data": "blocked until zero-shot evidence and fresh preregistration"
+      }
+    ],
+    "transform_policy": {
+      "cross_branch_adaptive_stacking_before_zero_shot_results": false,
+      "external_label_feature_selection": false,
+      "formula_changes_after_scoring": false,
+      "omnibus_feature_expansion": false,
+      "schema_compatible_fields_only": true,
+      "target_free_manifest_required": true
+    }
+  },
+  "formula_name": "ppmi_verily_zero_shot_external_formula",
+  "formula_scope": "zero_shot_external_validation",
+  "formula_sha256": "31cb314473f551511a675a0bd44515291a28cf50f1fc5414516c26e5745d6731",
+  "git_sha": "0000000000000000000000000000000000000000",
+  "local_paths_included": false,
+  "locked_no_search_rules_acknowledged": [
+    "no external labels for zero-shot feature selection",
+    "no PH/MFDFA column search on the external route",
+    "no TopoFractal component-count search on the external route",
+    "no K-search on the external route",
+    "no endpoint switching after external outcomes",
+    "no canonical WearGait-PD T1/T3 update from external-only metrics"
+  ],
+  "model_predictions_included": false,
+  "preregistration_written": false,
+  "protected_data_included": false,
+  "raw_rows_or_samples_included": false,
+  "record_stage": "post_schema_pre_extraction_or_scoring_formula_sha",
+  "route_id": "ppmi_verily",
+  "schema_probe_metadata_recorded": true,
+  "schema_probe_record_reference": "synthetic_non_protected_ppmi_verily_schema_probe_record_hash",
+  "status": "template_complete_outside_git_after_schema_and_manifest_preflight",
+  "target_free_manifest_preflight_passed": true,
+  "target_free_manifest_reference": "synthetic_non_protected_ppmi_verily_target_free_manifest_hash",
+  "target_values_included": false,
+  "target_values_used_to_design_formula": false
+}

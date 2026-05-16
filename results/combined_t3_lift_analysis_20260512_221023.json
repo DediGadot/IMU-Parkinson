@@ -1,0 +1,33 @@
+{
+  "name": "combined_t3_lift_analysis",
+  "n": 95,
+  "ccc_iter47_canonical": 0.3784,
+  "ccc_my_arch_base": 0.4003,
+  "ccc_my_arch_aug_stride": 0.4209,
+  "delta_arch": 0.0219,
+  "delta_stride": 0.0206,
+  "delta_combined": 0.0425,
+  "bootstrap_combined": {
+    "n_iter": 10000,
+    "mean": 0.0446,
+    "ci_low": -0.0418,
+    "ci_high": 0.1408,
+    "frac_gt_zero": 0.8337,
+    "frac_above_mcid": 0.6585
+  },
+  "bootstrap_arch_only": {
+    "mean": 0.025,
+    "ci_low": -0.0484,
+    "ci_high": 0.1121,
+    "frac_gt_zero": 0.7211
+  },
+  "bootstrap_stride_within_arch": {
+    "mean": 0.0196,
+    "ci_low": -0.0334,
+    "ci_high": 0.0678,
+    "frac_gt_zero": 0.7824
+  },
+  "sign_flip_p_combined": 0.1558,
+  "bonferroni_n3_threshold_frac_gt": 0.9833,
+  "combined_clears_bonferroni": false
+}

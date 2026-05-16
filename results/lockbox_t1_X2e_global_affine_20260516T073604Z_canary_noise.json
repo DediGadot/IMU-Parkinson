@@ -1,0 +1,48 @@
+{
+  "name": "lockbox_t1_X2e_global_affine",
+  "created_at_utc": "20260516T073604Z",
+  "preregistration": "results/preregistration_t1_post_closure_X_series_20260516.json (X2e diagnostic: global affine vs duration stratification)",
+  "null_mode": "canary_noise",
+  "sanity_y_nan": false,
+  "formula_sha256": "6a5e73d6f360ac7aefb8ed30d3f638c493e34fa582c64135d3e01765ce1093be",
+  "n_cohort": 92,
+  "slope_info": {
+    "slope_mean": 0.6398092103093354,
+    "slope_std": 0.007498539573777911,
+    "intercept_mean": 1.4363798353649087,
+    "intercept_std": 0.031074031565227943
+  },
+  "baselines": {
+    "loocv_ccc_iter34": 0.7167211562569439,
+    "loocv_mae_iter34": 1.7376184559544325,
+    "loocv_pearson_iter34": 0.7219826738115372
+  },
+  "corrected": {
+    "loocv_ccc": 0.6691645189970006,
+    "loocv_mae": 1.540746198657403,
+    "loocv_pearson": 0.7056876656957929,
+    "delta_ccc": -0.0475566372599433,
+    "delta_mae": -0.19687225729702962,
+    "delta_pearson_r": -0.016295008115744358
+  },
+  "bootstrap_seed_A": {
+    "median": -0.047874711274838444,
+    "ci95": [
+      -0.0970520197162096,
+      0.006079410606441723
+    ],
+    "frac_pos": 0.0414
+  },
+  "bootstrap_seed_B": {
+    "median": -0.04833064485083843,
+    "ci95": [
+      -0.09698296388140468,
+      0.007647171252295713
+    ],
+    "frac_pos": 0.0454
+  },
+  "d4_audit": {
+    "corr_correction_T1_sum_residual": 0.47081639229869326
+  },
+  "verdict_provisional": "FAIL"
+}

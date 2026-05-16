@@ -1,0 +1,355 @@
+{
+  "baseline_ccc": 0.7170378403014925,
+  "checks": [
+    {
+      "evidence": {
+        "name": "preregistration_t1_post_closure_X_series_20260516",
+        "path": "results/preregistration_t1_post_closure_X_series_20260516.json"
+      },
+      "name": "preregistration records X-series context",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ccc": 0.7345218263626917,
+        "delta_ccc": 0.017483986061199164,
+        "delta_mae": 0.015248930758768209,
+        "delta_pearson_r": 0.01865345460581025,
+        "fivefold_screen": {
+          "mean": 0.022630003544980837,
+          "per_fold_deltas": [
+            0.03954615795298744,
+            -0.0025722411755035868,
+            0.006111885373932147,
+            -0.0034961387582085335,
+            0.07356035433169672
+          ],
+          "std": 0.029901951741395972
+        },
+        "frac_positive_seed_A": 0.91,
+        "frac_positive_seed_B": 0.9112,
+        "mae": 1.7508507469962267,
+        "null_mode": "real",
+        "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074106Z.json",
+        "predictor_alignment_corr_v2_v3": 0.9375829752109243,
+        "promotion_gate_pass": false,
+        "sanity_y_nan": false,
+        "verdict": "NEAR_MISS_PRIMARY_GATE_BOTH_SEEDS"
+      },
+      "name": "real X4 result is the expected near-miss",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ccc": 0.0759991274760706,
+        "delta_ccc": 0.005150873433112144,
+        "delta_mae": 0.07284458425011353,
+        "delta_pearson_r": 0.005296431384436015,
+        "fivefold_screen": {
+          "mean": 0.016682779651314296,
+          "per_fold_deltas": [
+            -0.001067647951154032,
+            -0.00010196027085157544,
+            -0.009658534642096848,
+            -0.01340009792328789,
+            0.10764213904396183
+          ],
+          "std": 0.045758615794883495
+        },
+        "frac_positive_seed_A": 0.6234,
+        "frac_positive_seed_B": 0.6084,
+        "mae": 2.952543782938139,
+        "null_mode": "scrambled_y",
+        "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074106Z_scrambled_y.json",
+        "predictor_alignment_corr_v2_v3": 0.9375829752109243,
+        "sanity_y_nan": false,
+        "verdict": "POSITIVE_BUT_SUB_GATE"
+      },
+      "name": "scrambled-label null does not clear promotion gate",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ccc": 0.510339770755687,
+        "delta_ccc": -0.2066980695458055,
+        "delta_mae": 0.2655869093320926,
+        "delta_pearson_r": -0.20779631217521088,
+        "fivefold_screen": {
+          "mean": -0.19167902586858984,
+          "per_fold_deltas": [
+            -0.10603082207348236,
+            -0.3637362674533913,
+            -0.20809864967208125,
+            -0.23209502348155264,
+            -0.04843436666244172
+          ],
+          "std": 0.10895999127669176
+        },
+        "frac_positive_seed_A": 0.0002,
+        "frac_positive_seed_B": 0.0,
+        "mae": 2.001188725569551,
+        "null_mode": "sid_shuffle",
+        "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074105Z_sid_shuffle.json",
+        "predictor_alignment_corr_v2_v3": 0.1562997284058539,
+        "sanity_y_nan": false,
+        "verdict": "FAIL"
+      },
+      "name": "SID-shuffle null collapses the V3-GSP contribution",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ccc": 0.7344189228329259,
+        "delta_ccc": 0.017381082531433334,
+        "delta_mae": 0.015602487514044583,
+        "delta_pearson_r": 0.01855863000091673,
+        "delta_shift_vs_real": 0.00010290352976582984,
+        "fivefold_screen": {
+          "mean": 0.02250370593276745,
+          "per_fold_deltas": [
+            0.03926146735109581,
+            -0.0024982167536440336,
+            0.0061017747944946965,
+            -0.002837797530103048,
+            0.07249130180199381
+          ],
+          "std": 0.029379903299293984
+        },
+        "frac_positive_seed_A": 0.9088,
+        "frac_positive_seed_B": 0.911,
+        "mae": 1.751204303751503,
+        "null_mode": "canary_noise",
+        "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074105Z_canary_noise.json",
+        "predictor_alignment_corr_v2_v3": 0.9374148058181679,
+        "sanity_y_nan": false,
+        "verdict": "NEAR_MISS_PRIMARY_GATE_BOTH_SEEDS"
+      },
+      "name": "canary-noise perturbation preserves the near-miss magnitude",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ccc": 0.7345218263626917,
+        "delta_ccc": 0.017483986061199164,
+        "delta_mae": 0.015248930758768209,
+        "delta_pearson_r": 0.01865345460581025,
+        "delta_shift_vs_real": 0.0,
+        "fivefold_screen": {
+          "mean": 0.022630003544980837,
+          "per_fold_deltas": [
+            0.03954615795298744,
+            -0.0025722411755035868,
+            0.006111885373932147,
+            -0.0034961387582085335,
+            0.07356035433169672
+          ],
+          "std": 0.029901951741395972
+        },
+        "frac_positive_seed_A": 0.91,
+        "frac_positive_seed_B": 0.9112,
+        "mae": 1.7508507469962267,
+        "null_mode": "real",
+        "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074105Z_sanityYnan.json",
+        "predictor_alignment_corr_v2_v3": 0.9375829752109243,
+        "sanity_y_nan": true,
+        "verdict": "NEAR_MISS_PRIMARY_GATE_BOTH_SEEDS"
+      },
+      "name": "sanity-y-nan run is identical to real result",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ccc": 0.16180001268346914,
+        "delta_ccc": -0.5552378276180234,
+        "delta_mae": 2.2970068794147154,
+        "delta_pearson_r": 0.01848099511542911,
+        "fivefold_screen": {
+          "mean": -0.5214523682333522,
+          "per_fold_deltas": [
+            -0.5045981117990924,
+            -0.5609261967711071,
+            -0.6204605991760195,
+            -0.44837992825471673,
+            -0.47289700516582506
+          ],
+          "std": 0.062196597432378986
+        },
+        "frac_positive_seed_A": 0.0,
+        "frac_positive_seed_B": 0.0,
+        "mae": 4.032608695652174,
+        "null_mode": "transductive",
+        "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074105Z_transductive.json",
+        "predictor_alignment_corr_v2_v3": 0.9375829752109243,
+        "sanity_y_nan": false,
+        "verdict": "FAIL"
+      },
+      "name": "transductive z-score variant is diagnostic-only and not promotable",
+      "passed": true
+    }
+  ],
+  "decision": "x4_near_miss_not_promoted",
+  "generated_at_utc": "2026-05-16T08:06:24+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_canonical_claim_update": true,
+  "not_a_model_rerun": true,
+  "null_results": {
+    "canary_noise": {
+      "ccc": 0.7344189228329259,
+      "delta_ccc": 0.017381082531433334,
+      "delta_mae": 0.015602487514044583,
+      "delta_pearson_r": 0.01855863000091673,
+      "fivefold_screen": {
+        "mean": 0.02250370593276745,
+        "per_fold_deltas": [
+          0.03926146735109581,
+          -0.0024982167536440336,
+          0.0061017747944946965,
+          -0.002837797530103048,
+          0.07249130180199381
+        ],
+        "std": 0.029379903299293984
+      },
+      "frac_positive_seed_A": 0.9088,
+      "frac_positive_seed_B": 0.911,
+      "mae": 1.751204303751503,
+      "null_mode": "canary_noise",
+      "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074105Z_canary_noise.json",
+      "predictor_alignment_corr_v2_v3": 0.9374148058181679,
+      "sanity_y_nan": false,
+      "verdict": "NEAR_MISS_PRIMARY_GATE_BOTH_SEEDS"
+    },
+    "sanity_y_nan": {
+      "ccc": 0.7345218263626917,
+      "delta_ccc": 0.017483986061199164,
+      "delta_mae": 0.015248930758768209,
+      "delta_pearson_r": 0.01865345460581025,
+      "fivefold_screen": {
+        "mean": 0.022630003544980837,
+        "per_fold_deltas": [
+          0.03954615795298744,
+          -0.0025722411755035868,
+          0.006111885373932147,
+          -0.0034961387582085335,
+          0.07356035433169672
+        ],
+        "std": 0.029901951741395972
+      },
+      "frac_positive_seed_A": 0.91,
+      "frac_positive_seed_B": 0.9112,
+      "mae": 1.7508507469962267,
+      "null_mode": "real",
+      "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074105Z_sanityYnan.json",
+      "predictor_alignment_corr_v2_v3": 0.9375829752109243,
+      "sanity_y_nan": true,
+      "verdict": "NEAR_MISS_PRIMARY_GATE_BOTH_SEEDS"
+    },
+    "scrambled_y": {
+      "ccc": 0.0759991274760706,
+      "delta_ccc": 0.005150873433112144,
+      "delta_mae": 0.07284458425011353,
+      "delta_pearson_r": 0.005296431384436015,
+      "fivefold_screen": {
+        "mean": 0.016682779651314296,
+        "per_fold_deltas": [
+          -0.001067647951154032,
+          -0.00010196027085157544,
+          -0.009658534642096848,
+          -0.01340009792328789,
+          0.10764213904396183
+        ],
+        "std": 0.045758615794883495
+      },
+      "frac_positive_seed_A": 0.6234,
+      "frac_positive_seed_B": 0.6084,
+      "mae": 2.952543782938139,
+      "null_mode": "scrambled_y",
+      "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074106Z_scrambled_y.json",
+      "predictor_alignment_corr_v2_v3": 0.9375829752109243,
+      "sanity_y_nan": false,
+      "verdict": "POSITIVE_BUT_SUB_GATE"
+    },
+    "sid_shuffle": {
+      "ccc": 0.510339770755687,
+      "delta_ccc": -0.2066980695458055,
+      "delta_mae": 0.2655869093320926,
+      "delta_pearson_r": -0.20779631217521088,
+      "fivefold_screen": {
+        "mean": -0.19167902586858984,
+        "per_fold_deltas": [
+          -0.10603082207348236,
+          -0.3637362674533913,
+          -0.20809864967208125,
+          -0.23209502348155264,
+          -0.04843436666244172
+        ],
+        "std": 0.10895999127669176
+      },
+      "frac_positive_seed_A": 0.0002,
+      "frac_positive_seed_B": 0.0,
+      "mae": 2.001188725569551,
+      "null_mode": "sid_shuffle",
+      "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074105Z_sid_shuffle.json",
+      "predictor_alignment_corr_v2_v3": 0.1562997284058539,
+      "sanity_y_nan": false,
+      "verdict": "FAIL"
+    },
+    "transductive": {
+      "ccc": 0.16180001268346914,
+      "delta_ccc": -0.5552378276180234,
+      "delta_mae": 2.2970068794147154,
+      "delta_pearson_r": 0.01848099511542911,
+      "fivefold_screen": {
+        "mean": -0.5214523682333522,
+        "per_fold_deltas": [
+          -0.5045981117990924,
+          -0.5609261967711071,
+          -0.6204605991760195,
+          -0.44837992825471673,
+          -0.47289700516582506
+        ],
+        "std": 0.062196597432378986
+      },
+      "frac_positive_seed_A": 0.0,
+      "frac_positive_seed_B": 0.0,
+      "mae": 4.032608695652174,
+      "null_mode": "transductive",
+      "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074105Z_transductive.json",
+      "predictor_alignment_corr_v2_v3": 0.9375829752109243,
+      "sanity_y_nan": false,
+      "verdict": "FAIL"
+    }
+  },
+  "passed": true,
+  "promotion_gate": {
+    "delta_min": 0.025,
+    "frac_positive_min": 0.95,
+    "passes": false
+  },
+  "real_result": {
+    "ccc": 0.7345218263626917,
+    "delta_ccc": 0.017483986061199164,
+    "delta_mae": 0.015248930758768209,
+    "delta_pearson_r": 0.01865345460581025,
+    "fivefold_screen": {
+      "mean": 0.022630003544980837,
+      "per_fold_deltas": [
+        0.03954615795298744,
+        -0.0025722411755035868,
+        0.006111885373932147,
+        -0.0034961387582085335,
+        0.07356035433169672
+      ],
+      "std": 0.029901951741395972
+    },
+    "frac_positive_seed_A": 0.91,
+    "frac_positive_seed_B": 0.9112,
+    "mae": 1.7508507469962267,
+    "null_mode": "real",
+    "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074106Z.json",
+    "predictor_alignment_corr_v2_v3": 0.9375829752109243,
+    "sanity_y_nan": false,
+    "verdict": "NEAR_MISS_PRIMARY_GATE_BOTH_SEEDS"
+  },
+  "script": "audit_t1_x4_equal_weight_2bag_status.py"
+}

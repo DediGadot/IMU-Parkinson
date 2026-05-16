@@ -1,0 +1,7 @@
+{
+  "created_at_utc": "2026-05-10T00:00:00Z",
+  "formula_sha256": "7a9f6ae53def75b99d793910285173ae7cbf3614800b1543a6619b4f21b1136a",
+  "git_sha": "abcdef1234567890abcdef1234567890abcdef12",
+  "notes": [],
+  "pipeline_name": "demo_internal_t3"
+}

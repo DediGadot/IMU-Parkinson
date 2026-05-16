@@ -1,0 +1,125 @@
+{
+  "decision": "external_access_packets_integrity_passed_no_compute",
+  "expected_route_ids": [
+    "ppmi_verily",
+    "ppp_pd_vme",
+    "watchpd",
+    "cns_portugal_lobo",
+    "hssayeni_mjff",
+    "icicle_gait"
+  ],
+  "generated_at_utc": "2026-05-16T12:51:44+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "next_valid_action": "Fill and submit the PPMI / Verily packet through the data-owner workflow; after approval, run a read-only schema probe before any preregistration or model run.",
+  "not_a_model_result": true,
+  "objective_link": "External-data-first model architecture path remains the next valid lever after local WearGait-only screens failed.",
+  "passed": true,
+  "script": "audit_external_access_packet_integrity.py",
+  "sub_audits": {
+    "access_submission_tracker": {
+      "output_tail": "{\n  \"passed\": true,\n  \"decision\": \"access_submission_tracker_ready\",\n  \"submit_ready_route_count\": 6,\n  \"compute_ready_route_count\": 0,\n  \"hard_failure_count\": 0\n}\n",
+      "returncode": 0,
+      "script": "audit_access_submission_tracker.py"
+    },
+    "cns_portugal_packet": {
+      "output_tail": "Wrote /home/fiod/medical/results/cns_portugal_request_packet_audit_20260509.json\nWrote /home/fiod/medical/results/cns_portugal_request_packet_audit_20260509.md\npassed=True hard_failures=0\n",
+      "returncode": 0,
+      "script": "audit_cns_portugal_request_packet.py"
+    },
+    "external_access_readiness": {
+      "output_tail": "",
+      "returncode": 0,
+      "script": "audit_external_access_readiness.py"
+    },
+    "external_architecture_route_plan": {
+      "output_tail": "Wrote /home/fiod/medical/results/external_architecture_route_plan_20260510.json\nWrote /home/fiod/medical/results/external_architecture_route_plan_20260510.md\n{\n  \"access_request_route_count\": 6,\n  \"compute_ready_route_count\": 0,\n  \"decision\": \"external_architecture_routes_blocked_until_access\",\n  \"hard_failures\": 0,\n  \"passed\": true\n}\n",
+      "returncode": 0,
+      "script": "audit_external_architecture_route_plan.py"
+    },
+    "hssayeni_mjff_packet": {
+      "output_tail": "Wrote /home/fiod/medical/results/hssayeni_mjff_dua_request_packet_audit_20260509.json\nWrote /home/fiod/medical/results/hssayeni_mjff_dua_request_packet_audit_20260509.md\npassed=True hard_failures=0\n",
+      "returncode": 0,
+      "script": "audit_hssayeni_mjff_dua_request_packet.py"
+    },
+    "icicle_packet": {
+      "output_tail": "Wrote /home/fiod/medical/results/icicle_request_packet_audit_20260509.json\nWrote /home/fiod/medical/results/icicle_request_packet_audit_20260509.md\npassed=True hard_failures=0\n",
+      "returncode": 0,
+      "script": "audit_icicle_request_packet.py"
+    },
+    "ppmi_verily_completed_packet_validator": {
+      "output_tail": "Wrote /home/fiod/medical/results/ppmi_verily_completed_packet_validator_audit_20260515.json\nWrote /home/fiod/medical/results/ppmi_verily_completed_packet_validator_audit_20260515.md\n{\n  \"passed\": true,\n  \"hard_failures\": []\n}\n",
+      "returncode": 0,
+      "script": "audit_ppmi_verily_completed_packet_validator.py"
+    },
+    "ppmi_verily_packet": {
+      "output_tail": "Wrote /home/fiod/medical/results/ppmi_verily_request_packet_audit_20260509.json\nWrote /home/fiod/medical/results/ppmi_verily_request_packet_audit_20260509.md\npassed=True hard_failures=0\n",
+      "returncode": 0,
+      "script": "audit_ppmi_verily_request_packet.py"
+    },
+    "ppmi_verily_schema_probe_report_template": {
+      "output_tail": "Wrote /home/fiod/medical/results/ppmi_verily_schema_probe_report_template_audit_20260515.json\nWrote /home/fiod/medical/results/ppmi_verily_schema_probe_report_template_audit_20260515.md\n{\n  \"decision\": \"ppmi_verily_schema_probe_report_template_ready\",\n  \"hard_failures\": 0,\n  \"passed\": true\n}\n",
+      "returncode": 0,
+      "script": "audit_ppmi_verily_schema_probe_report_template.py"
+    },
+    "ppmi_verily_submission_bundle": {
+      "output_tail": "Wrote /home/fiod/medical/results/ppmi_verily_submission_bundle_20260515.json\nWrote /home/fiod/medical/results/ppmi_verily_submission_bundle_20260515.md\n{\n  \"passed\": true,\n  \"hard_failures\": []\n}\n",
+      "returncode": 0,
+      "script": "audit_ppmi_verily_submission_bundle.py"
+    },
+    "ppmi_verily_submission_email": {
+      "output_tail": "Wrote /home/fiod/medical/results/ppmi_verily_submission_email_template_audit_20260515.json\nWrote /home/fiod/medical/results/ppmi_verily_submission_email_template_audit_20260515.md\n{\n  \"passed\": true,\n  \"hard_failures\": []\n}\n",
+      "returncode": 0,
+      "script": "audit_ppmi_verily_submission_email_template.py"
+    },
+    "ppmi_verily_submission_email_validator": {
+      "output_tail": "Wrote /home/fiod/medical/results/ppmi_verily_submission_email_validator_audit_20260515.json\nWrote /home/fiod/medical/results/ppmi_verily_submission_email_validator_audit_20260515.md\n{\n  \"passed\": true,\n  \"hard_failures\": []\n}\n",
+      "returncode": 0,
+      "script": "audit_ppmi_verily_submission_email_validator.py"
+    },
+    "ppmi_verily_submission_package_validator": {
+      "output_tail": "Wrote /home/fiod/medical/results/ppmi_verily_submission_package_validator_audit_20260515.json\nWrote /home/fiod/medical/results/ppmi_verily_submission_package_validator_audit_20260515.md\n{\n  \"passed\": true,\n  \"hard_failures\": 0\n}\n",
+      "returncode": 0,
+      "script": "audit_ppmi_verily_submission_package_validator.py"
+    },
+    "ppmi_verily_submit_format": {
+      "output_tail": "Wrote /home/fiod/medical/results/ppmi_verily_submit_format_audit_20260515.json\nWrote /home/fiod/medical/results/ppmi_verily_submit_format_audit_20260515.md\n{\n  \"passed\": true,\n  \"hard_failures\": []\n}\n",
+      "returncode": 0,
+      "script": "audit_ppmi_verily_submit_format.py"
+    },
+    "ppmi_verily_user_fill_checklist": {
+      "output_tail": "Wrote /home/fiod/medical/results/ppmi_verily_user_fill_checklist_audit_20260515.json\nWrote /home/fiod/medical/results/ppmi_verily_user_fill_checklist_audit_20260515.md\n{\n  \"passed\": true,\n  \"hard_failures\": 0\n}\n",
+      "returncode": 0,
+      "script": "audit_ppmi_verily_user_fill_checklist.py"
+    },
+    "ppp_pd_vme_packet": {
+      "output_tail": "Wrote /home/fiod/medical/results/ppp_pd_vme_request_packet_audit_20260509.json\nWrote /home/fiod/medical/results/ppp_pd_vme_request_packet_audit_20260509.md\npassed=True hard_failures=0\n",
+      "returncode": 0,
+      "script": "audit_ppp_pd_vme_request_packet.py"
+    },
+    "watchpd_packet": {
+      "output_tail": "Wrote /home/fiod/medical/results/watchpd_request_packet_audit_20260509.json\nWrote /home/fiod/medical/results/watchpd_request_packet_audit_20260509.md\npassed=True hard_failures=0\n",
+      "returncode": 0,
+      "script": "audit_watchpd_request_packet.py"
+    }
+  },
+  "summary": {
+    "access_request_route_count": 6,
+    "application_packet_ready_count": 6,
+    "compute_ready_route_count": 0,
+    "hard_failure_count": 0,
+    "ppmi_completed_packet_validator": "scripts/validate_ppmi_verily_completed_packet.py",
+    "ppmi_schema_probe_report_template": "scripts/ppmi_verily_schema_probe_report_template.md",
+    "ppmi_submission_bundle": "results/ppmi_verily_submission_bundle_20260515.json",
+    "ppmi_submission_email_template": "scripts/ppmi_verily_submission_email_template.md",
+    "ppmi_submission_email_validator": "scripts/validate_ppmi_verily_submission_email.py",
+    "ppmi_submission_package_validator": "scripts/validate_ppmi_verily_submission_package.py",
+    "ppmi_user_fill_checklist": "scripts/ppmi_verily_user_fill_checklist.md",
+    "ppmi_word_template": "results/ppmi_verily_tier3_request_packet_template_20260515.docx",
+    "route_plan_ppmi_submission_support_ready": true,
+    "submit_ready_route_count": 6,
+    "top_priority_route": "PPMI / Verily Study Watch",
+    "warning_count": 0
+  },
+  "warnings": []
+}

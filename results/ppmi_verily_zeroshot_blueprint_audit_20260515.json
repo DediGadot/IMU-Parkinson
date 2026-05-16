@@ -1,0 +1,421 @@
+{
+  "blueprint": "results/ppmi_verily_zeroshot_blueprint_20260515.json",
+  "blueprint_sha256": "4540fbc00a3bb92b6bedca34e954bb0e8ae00cbee30ee6f9651c56229591e13f",
+  "checks": [
+    {
+      "evidence": {
+        "output_tail": "Wrote /home/fiod/medical/results/ppmi_verily_zeroshot_blueprint_20260515.json\nWrote /home/fiod/medical/results/ppmi_verily_zeroshot_blueprint_20260515.md\n{\n  \"blueprint_sha256\": \"4540fbc00a3bb92b6bedca34e954bb0e8ae00cbee30ee6f9651c56229591e13f\",\n  \"goal_complete\": false\n}\n",
+        "returncode": 0
+      },
+      "name": "writer runs and writes blueprint",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "credentials_or_tokens_included": false,
+        "goal_complete": false,
+        "not_a_model_result": true,
+        "not_a_preregistration": true,
+        "not_a_schema_probe": true,
+        "not_access_approval": true,
+        "protected_data_included": false
+      },
+      "name": "blueprint is content-free and not a completion marker",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "proresults_goal_complete": false,
+        "proresults_hard_gaps": [
+          "No T1 full-cohort candidate beats iter34 by the promotion/MCID gate.",
+          "No T3 full-cohort candidate beats iter47 by the promotion/MCID gate."
+        ],
+        "proresults_prompt_source": {
+          "byte_count": 29477,
+          "exists": true,
+          "line_count": 492,
+          "mentions_five_null_gate": true,
+          "mentions_frac_positive_095": true,
+          "mentions_promotion_delta_0025": true,
+          "missing_rank_headers": [],
+          "missing_required_snippets": [],
+          "prompt_path": "/tmp/pro-results.txt",
+          "read_bytes_error": null,
+          "read_ok": true,
+          "required_snippet_count": 19,
+          "sha256": "a07d0311eebb35108ba3c364d9892f76cb8a7ec78bafe2597494bb79f020b135"
+        },
+        "source_prompt_trace": {
+          "best_algorithm_with_data_access": "PPMI/Verily topology-first external transport",
+          "current_best_failed_t1_attempt": {
+            "ccc": 0.7345218263626917,
+            "delta_mae": 0.015248930758768209,
+            "delta_vs_iter34": 0.017483986061199164,
+            "frac_positive": 0.91,
+            "frac_positive_seed_A": 0.91,
+            "frac_positive_seed_B": 0.9112,
+            "mae": 1.7508507469962267,
+            "passes_gate": false,
+            "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074106Z.json",
+            "source": "X4 equal-weight 2-bag V2+V3-GSP",
+            "status_audit": "results/t1_x4_equal_weight_2bag_status_20260516.json",
+            "status_audit_passed": true,
+            "status_decision": "x4_near_miss_not_promoted",
+            "verdict": "NEAR_MISS_PRIMARY_GATE_BOTH_SEEDS"
+          },
+          "prompt_line_count": 492,
+          "prompt_path": "/tmp/pro-results.txt",
+          "prompt_rank": 4,
+          "prompt_rank_requirement": "PPMI/Verily topology-first external transport after access approval",
+          "prompt_sha256": "a07d0311eebb35108ba3c364d9892f76cb8a7ec78bafe2597494bb79f020b135",
+          "required_locked_formula_components": [
+            "small fixed TopoFractal PH/MFDFA branch",
+            "canonical comparator",
+            "separate fixed K=250 sklearn-GB branch for T3 only",
+            "no omnibus feature expansion",
+            "no cross-branch adaptive stacking before zero-shot results"
+          ],
+          "source_audit": "results/proresults_prompt_to_artifact_audit_20260515.json",
+          "source_goal_complete": false,
+          "source_hard_gaps": [
+            "No T1 full-cohort candidate beats iter34 by the promotion/MCID gate.",
+            "No T3 full-cohort candidate beats iter47 by the promotion/MCID gate."
+          ]
+        }
+      },
+      "name": "blueprint is anchored to exact pro-results prompt and rank4 directive",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "current_best_failed_t1_attempt": {
+          "ccc": 0.7345218263626917,
+          "delta_mae": 0.015248930758768209,
+          "delta_vs_iter34": 0.017483986061199164,
+          "frac_positive": 0.91,
+          "frac_positive_seed_A": 0.91,
+          "frac_positive_seed_B": 0.9112,
+          "mae": 1.7508507469962267,
+          "passes_gate": false,
+          "path": "results/lockbox_t1_X4_equal_weight_2bag_20260516T074106Z.json",
+          "source": "X4 equal-weight 2-bag V2+V3-GSP",
+          "status_audit": "results/t1_x4_equal_weight_2bag_status_20260516.json",
+          "status_audit_passed": true,
+          "status_decision": "x4_near_miss_not_promoted",
+          "verdict": "NEAR_MISS_PRIMARY_GATE_BOTH_SEEDS"
+        }
+      },
+      "name": "source trace records X4 as current failed T1 near-miss",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "t1_candidate": {
+          "ccc": 0.7345218263626917,
+          "claim_boundary": "strongest current in-cohort T1 near-miss / external-replication candidate only; not promoted, not canonical, and not directly eligible for wrist-only PPMI Track A/B zero-shot formula",
+          "delta_vs_iter34": 0.017483986061199164,
+          "frac_positive_seed_A": 0.91,
+          "frac_positive_seed_B": 0.9112,
+          "mae": 1.7508507469962267,
+          "n": 92,
+          "name": "T1 X4 equal-weight 2-bag V2+V3-GSP near-miss",
+          "status_audit": "results/t1_x4_equal_weight_2bag_status_20260516.json",
+          "status_decision": "x4_near_miss_not_promoted"
+        },
+        "t1_reference_baseline": {
+          "ccc": 0.717,
+          "claim_boundary": "current iter34 comparator for X4; not canonical floor",
+          "mae": 1.736,
+          "n": 92,
+          "name": "T1 iter34 hygiene-corrected candidate"
+        }
+      },
+      "name": "current T1 references use X4 near-miss with iter34 baseline",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "access_prerequisites": [
+          "standard PPMI approval",
+          "Verily Raw Device Data Tier-3 approval",
+          "metadata-only approval record in .access_approvals",
+          "read-only schema probe",
+          "completed schema-probe report validator pass"
+        ],
+        "route_id": "ppmi_verily"
+      },
+      "name": "route and access prerequisites are explicit",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "analysis_order": [
+          "read_only_schema_probe",
+          "schema_probe_report_preflight",
+          "schema_probe_metadata_record",
+          "target_free_manifest_before_scoring",
+          "formula_sha256_after_manifest_before_extraction_or_scoring",
+          "zero_shot_external_validation",
+          "aggregate_result_record_preflight_after_external_scoring",
+          "ppmi_only_sanity_if_zero_shot_fails_or_for_context",
+          "fresh_augmentation_preregistration_only_after_zero_shot"
+        ]
+      },
+      "name": "rank4 topology-first analysis order is locked",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "schema_requirements": {
+          "minimum_linked_subjects_for_any_scoring": 20,
+          "optional_clinical_covariates": [
+            "hoehn_yahr",
+            "disease_duration_or_age",
+            "sex",
+            "dbs",
+            "medication_state_or_dose_timing"
+          ],
+          "optional_target_fields": [
+            "t1_items_9_14"
+          ],
+          "required_linkage_fields": [
+            "sid",
+            "visit_id"
+          ],
+          "required_sensor_metadata": [
+            "sampling_rate",
+            "axis_frame",
+            "accelerometer_units",
+            "laterality",
+            "visit_or_session_alignment",
+            "medication_state_or_dose_timing_if_available",
+            "wear_or_compliance_metadata"
+          ],
+          "required_sensor_modality": "wrist_accelerometer",
+          "required_target_fields": [
+            "updrs3"
+          ]
+        }
+      },
+      "name": "schema requirements cover linkage, labels, wrist sensor, and minimum N",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "sensor_compatibility_boundaries": {
+          "claim_boundary": "not an internal headline or canonical update",
+          "external_label_selection_allowed": false,
+          "ppmi_zero_shot_default_sensor_scope": "wrist_accelerometer",
+          "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+          "source_audit": "results/t1_x4_equal_weight_2bag_status_20260516.json",
+          "status": "strongest_in_cohort_near_miss_not_promoted",
+          "zero_shot_formula_role": "excluded from Track A/B for wrist-only PPMI schemas; may only enter a future formula if the approved read-only schema probe proves comparable multi-node anatomical sensors before formula SHA freeze"
+        }
+      },
+      "name": "X4 sensor boundary excludes 13-sensor GSP from wrist-only PPMI formula",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "track_a": {
+          "claim_boundary": "external-validity evidence only; no internal WearGait-PD headline update",
+          "feature_policy": [
+            "canonical compatible wrist feature map when schema permits",
+            "small fixed TopoFractal PH/MFDFA representation",
+            "persistent homology summaries from predeclared wrist windows",
+            "multifractal detrended fluctuation analysis summaries from predeclared wrist windows",
+            "exclude X4 13-sensor V2+V3-GSP branch unless schema proves comparable multi-node anatomical sensors before formula freeze"
+          ],
+          "name": "weargait_trained_wrist_topofractal_zeroshot",
+          "ppmi_label_role": "final scoring only",
+          "purpose": "External zero-shot transport of target-free wrist IMU features.",
+          "track_id": "A",
+          "training_data": "WearGait-PD only"
+        }
+      },
+      "name": "Track A is WearGait-trained wrist TopoFractal zero-shot",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "track_b": {
+          "claim_boundary": "external comparator only; not a new internal T3 canonical",
+          "feature_policy": [
+            "iter47-style clinical/intake comparator when compatible covariates exist",
+            "compatible wrist branch from Track A",
+            "a priori missing-covariate policy before scoring"
+          ],
+          "name": "weargait_trained_clinical_plus_wrist_zeroshot",
+          "ppmi_label_role": "final scoring only",
+          "purpose": "Canonical comparator style zero-shot transport with compatible clinical fields.",
+          "track_id": "B",
+          "training_data": "WearGait-PD only"
+        }
+      },
+      "name": "Track B is canonical comparator plus wrist branch",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "track_c": {
+          "claim_boundary": "PPMI-internal sanity only; not WearGait deployment performance and not an internal headline update",
+          "endpoint_scope": "T3 only",
+          "fixed_branch": {
+            "K": 250,
+            "formula_sha256": "489ca6bbc96520c2ea56cc53ee52b03542bec799f9bd41c34d9c9ef5b61ebee4",
+            "model": "sklearn.ensemble.GradientBoostingRegressor",
+            "model_params": {
+              "learning_rate": 0.05,
+              "max_depth": 4,
+              "min_samples_leaf": 10,
+              "n_estimators": 300,
+              "random_state": "seed_from_seeds_list",
+              "subsample": 0.8
+            },
+            "seeds": [
+              42,
+              1337,
+              7
+            ],
+            "selector": "univariate_corr_top_K",
+            "source_blueprint": "results/lockbox_ppmi_replication_blueprint_20260514T151939Z.json",
+            "stage_1": {
+              "alpha": 1.0,
+              "covariates": [
+                "hy_stage",
+                "cv_years",
+                "cv_sex",
+                "cv_dbs"
+              ],
+              "model": "sklearn.linear_model.Ridge"
+            }
+          },
+          "name": "ppmi_only_subject_grouped_sanity",
+          "ppmi_label_role": "within-PPMI training/evaluation only",
+          "purpose": "Determine whether PPMI contains within-cohort signal if zero-shot fails or for context.",
+          "track_id": "C",
+          "training_data": "PPMI only with subject-level grouping"
+        }
+      },
+      "name": "Track C preserves fixed K250 GradientBoostingRegressor branch for T3 only",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "track_d": {
+          "blocked_until": [
+            "zero-shot evidence exists",
+            "schema metadata exists",
+            "fresh formula_sha256 preregistration exists before PPMI labels enter development"
+          ],
+          "claim_boundary": "cannot update canonical WearGait-PD T1/T3 without promotion gate and null gates",
+          "name": "augmentation_screen_after_zero_shot_only",
+          "purpose": "Only a later, separately registered WearGait/PPMI augmentation screen.",
+          "track_id": "D"
+        }
+      },
+      "name": "Track D is blocked until zero-shot evidence and fresh formula preregistration",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "locked_no_search_rules": [
+          "no scaffold before approved schema probe",
+          "no cache extraction before schema-probe metadata recorded",
+          "no PPMI labels for zero-shot feature selection",
+          "no PH/MFDFA column search on PPMI",
+          "no TopoFractal component-count search on PPMI",
+          "no K-search around K=250",
+          "no cross-branch adaptive stacking before zero-shot results",
+          "no X4 13-sensor V2+V3-GSP transfer on wrist-only PPMI unless approved schema proves comparable multi-node sensors before formula freeze",
+          "no endpoint switching after PPMI outcomes",
+          "no canonical WearGait-PD T1/T3 update from external-only metrics"
+        ]
+      },
+      "name": "no-search and claim-boundary rules are explicit",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "manifest_requirements": {
+          "required_fields": [
+            "script",
+            "git_sha",
+            "command",
+            "created_at_utc",
+            "data_version_or_download_date",
+            "data_sha256_or_file_manifest",
+            "labels_used",
+            "fold_scope",
+            "cohort_statistics_used",
+            "normalization_scope",
+            "leakage_status",
+            "leakage_rationale"
+          ],
+          "target_free_feature_manifest_before_scoring": true,
+          "template": "scripts/ppmi_verily_target_free_manifest_template.json",
+          "validator": "scripts/validate_ppmi_verily_target_free_manifest.py",
+          "validator_audit": "results/ppmi_verily_target_free_manifest_validator_audit_20260515.json",
+          "zero_shot_feature_manifest_labels_used": "False before scoring",
+          "zero_shot_fold_scope": "train on WearGait-PD only; PPMI labels held for final scoring"
+        },
+        "reporting_gates": {
+          "aggregate_result_record_preflight_before_reporting": true,
+          "augmentation_delta_min": 0.025,
+          "augmentation_frac_positive_min": 0.95,
+          "external_label_required": true,
+          "internal_headline_update_from_external_only_metrics": false,
+          "null_gates_before_headline": [
+            "scrambled_labels",
+            "sid_shuffle_before_cache_join",
+            "test_only_canary",
+            "retrieval_library_test_exclusion_where_applicable",
+            "transductive_sanity_variant"
+          ]
+        }
+      },
+      "name": "manifest and reporting gates are explicit",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "result_record_requirements": {
+          "aggregate_result_record_after_scoring": true,
+          "claim_scope": "external-validity or route-only sanity evidence only",
+          "excluded_content": [
+            "protected_rows",
+            "target_values",
+            "row_predictions",
+            "feature_matrices",
+            "credentials",
+            "local_protected_paths",
+            "internal_canonical_update_claims"
+          ],
+          "template": "results/external_zeroshot_result_templates_20260515/ppmi_verily_zeroshot_result_record_template.json",
+          "template_index": "results/external_zeroshot_result_templates_20260515.md",
+          "validator": "scripts/validate_external_zeroshot_result_record.py",
+          "validator_audit": "results/external_zeroshot_result_templates_audit_20260515.json"
+        },
+        "zeroshot_result_templates_audit": {
+          "decision": "external_zeroshot_result_templates_ready",
+          "hard_failures": [],
+          "route_count": 6
+        }
+      },
+      "name": "aggregate result-record preflight is explicit before reporting",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "ppmi_verily_zeroshot_blueprint_ready",
+  "generated_at_utc": "2026-05-16T12:53:25+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "not_a_preregistration": true,
+  "not_a_schema_probe_artifact": true,
+  "not_access_approval": true,
+  "passed": true,
+  "protected_data_included": false,
+  "script": "audit_ppmi_verily_zeroshot_blueprint.py"
+}

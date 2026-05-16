@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "produced_by": "cache_fog_events_balance_geometry.py",
+  "script_sha256": "94c8b78fa8a6f095cb8ad9587f53660d486271494123d03a844d28ff50532bbe",
+  "git_sha": "unknown",
+  "iso_datetime_utc": "2026-05-10T14:30:55.829154+00:00",
+  "data_sha256": "74abff8059810b884660899bf11bf78148b2b741a10210a1efa905bdf6b8e8f6",
+  "n_subjects": 100,
+  "n_features": 8,
+  "labels_used": false,
+  "fold_scope": "global",
+  "leakage_status": "clean_by_construction",
+  "leakage_argument": "All features are deterministic signal-processing aggregates of raw IMU. FoG event statistics: bandpass envelope thresholding on Lumbar Acc-mag, no labels referenced. Balance geometry: median pitch/roll on Balance task Euler angles, no labels. Aggregation is per-subject mean across recordings. Slot B of T1 ceiling push (representation change for items 11+13).",
+  "constants_locked": {
+    "fs_hz": 100,
+    "fog_band_lo_hz": 3.0,
+    "fog_band_hi_hz": 8.0,
+    "fog_threshold_sd": 1.5,
+    "fog_min_duration_s": 0.5,
+    "gait_tasks": [
+      "HurriedPace",
+      "SelfPace"
+    ],
+    "balance_tasks": [
+      "Balance"
+    ]
+  },
+  "command": "cache_fog_events_balance_geometry.py",
+  "csv_dir": "/home/fiod/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files",
+  "n_jobs_processed": 299,
+  "out_path": "/home/fiod/pd-imu/results/fog_events_balance_geometry.csv",
+  "included_sids_hash": "4abb6b3faf9230359fdf3d4d4c3f3619cb28e16961209a11731c033915eb497d"
+}

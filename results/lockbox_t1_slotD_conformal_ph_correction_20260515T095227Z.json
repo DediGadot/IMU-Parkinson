@@ -1,0 +1,57 @@
+{
+  "name": "lockbox_t1_slotD_conformal_ph_correction",
+  "created_at_utc": "20260515T095227Z",
+  "session": "2026-05-15-PM-extended",
+  "preregistration_master": "results/preregistration_t1_ceiling_push_20260515_master.json",
+  "null_mode": "real",
+  "estimand_label": "deployable_secondary_retained_ccc_at_coverage",
+  "y_free_score": "abs(v2_oof - v3_gsp_oof)",
+  "y_free_correction": "Ridge alpha=100.0 on item-13 PH features, lambda=1.0 fixed",
+  "n_full_cohort": 92,
+  "results_per_coverage": {
+    "cov_70": {
+      "coverage": 0.7,
+      "n_retained": 64,
+      "baseline_iter34_retained_ccc": 0.7777,
+      "corrected_retained_ccc": 0.7876,
+      "delta_ccc": 0.0099,
+      "baseline_iter34_retained_mae": 1.6327,
+      "corrected_retained_mae": 1.5944,
+      "delta_mae": -0.0383,
+      "bootstrap_median": 0.0102,
+      "bootstrap_ci95": [
+        0.0019,
+        0.023
+      ],
+      "frac_positive": 0.991
+    },
+    "cov_50": {
+      "coverage": 0.5,
+      "n_retained": 46,
+      "baseline_iter34_retained_ccc": 0.8338,
+      "corrected_retained_ccc": 0.8415,
+      "delta_ccc": 0.0078,
+      "baseline_iter34_retained_mae": 1.3323,
+      "corrected_retained_mae": 1.2941,
+      "delta_mae": -0.0382,
+      "bootstrap_median": 0.008,
+      "bootstrap_ci95": [
+        -0.0022,
+        0.0226
+      ],
+      "frac_positive": 0.938
+    }
+  },
+  "verdicts_per_coverage": {
+    "cov_70": "PASS_UNCORRECTED_DELTA_BELOW_MCID",
+    "cov_50": "FAIL"
+  },
+  "gates": {
+    "lifetime_n9_bonferroni_gate": 0.99444,
+    "mcid_delta_ccc": 0.025
+  },
+  "deployable_secondary_baselines_from_conformal_lockbox_20260512": {
+    "cov_70": 0.7777,
+    "cov_50": 0.8338
+  }
+}

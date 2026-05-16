@@ -1,0 +1,79 @@
+{
+  "name": "t3_a_gsp_screen",
+  "created_at_utc": "2026-05-12T21:20:11.723326+00:00",
+  "formula_sha256": "88389a12a6fead4c1fdd5230e2a2aea9514869e33ea249d120fa15e9310e7476",
+  "mode": "5fold_screen_only",
+  "n_subjects": 95,
+  "cohort": "drop_allmissing_validrange",
+  "per_seed_results": [
+    {
+      "seed": 42,
+      "base_ccc": 0.3358,
+      "aug_ccc": 0.3751,
+      "delta_ccc": 0.0393,
+      "gsp_top50_counts_per_fold": [
+        2,
+        6,
+        3,
+        3,
+        4
+      ],
+      "mean_gsp_top50": 3.6,
+      "base_pred_mean": 23.978760298442506,
+      "aug_pred_mean": 24.62471982983244,
+      "y_true_mean": 25.0,
+      "y_true_std": 9.913308439190537
+    },
+    {
+      "seed": 1337,
+      "base_ccc": 0.3944,
+      "aug_ccc": 0.4165,
+      "delta_ccc": 0.0221,
+      "gsp_top50_counts_per_fold": [
+        10,
+        6,
+        2,
+        6,
+        4
+      ],
+      "mean_gsp_top50": 5.6,
+      "base_pred_mean": 25.239694470217675,
+      "aug_pred_mean": 25.526369839285586,
+      "y_true_mean": 25.0,
+      "y_true_std": 9.913308439190537
+    },
+    {
+      "seed": 7,
+      "base_ccc": 0.3008,
+      "aug_ccc": 0.3404,
+      "delta_ccc": 0.0396,
+      "gsp_top50_counts_per_fold": [
+        2,
+        2,
+        1,
+        3,
+        2
+      ],
+      "mean_gsp_top50": 2.0,
+      "base_pred_mean": 24.557476306364016,
+      "aug_pred_mean": 24.90797943155438,
+      "y_true_mean": 25.0,
+      "y_true_std": 9.913308439190537
+    }
+  ],
+  "delta_mean": 0.0337,
+  "delta_std": 0.0082,
+  "mean_gsp_in_top50": 3.73,
+  "kill_criteria": {
+    "delta_min": 0.01,
+    "seed_std_max": 0.025,
+    "gsp_top_min": 2,
+    "killed_by_delta": false,
+    "killed_by_std": false,
+    "killed_by_gsp": false
+  },
+  "verdict": "CLEAR_TO_LOOCV",
+  "ccc_baseline_seed_42_iter47_canonical": 0.3784,
+  "tri_cli_prior_clearing_+0.025": "9% mean (3-15% range)",
+  "decision": "If KILL: no LOOCV. If CLEAR: promote to LOOCV."
+}

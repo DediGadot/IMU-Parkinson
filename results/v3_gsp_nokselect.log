@@ -1,0 +1,34 @@
+
+=== V3-GSP TEST — mode=v3_no_kselect, seeds=[42, 1337, 7] ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92, item_order=[9, 10, 11, 12, 13, 14, 15, 18]
+  V2 feature count = 1751
+  V3-GSP feature count = 550
+  X.shape after mode = (92, 550)
+  use_kselect = False
+    seed=42 fold 20/92 elapsed=173s
+    seed=42 fold 40/92 elapsed=344s
+    seed=42 fold 60/92 elapsed=510s
+    seed=42 fold 80/92 elapsed=683s
+    seed=42 fold 92/92 elapsed=785s
+  seed=42: CCC=0.7240 wall=785s
+    seed=1337 fold 20/92 elapsed=173s
+    seed=1337 fold 40/92 elapsed=328s
+    seed=1337 fold 60/92 elapsed=452s
+    seed=1337 fold 80/92 elapsed=576s
+    seed=1337 fold 92/92 elapsed=650s
+  seed=1337: CCC=0.7247 wall=650s
+    seed=7 fold 20/92 elapsed=127s
+    seed=7 fold 40/92 elapsed=252s
+    seed=7 fold 60/92 elapsed=377s
+    seed=7 fold 80/92 elapsed=502s
+    seed=7 fold 92/92 elapsed=577s
+  seed=7: CCC=0.7227 wall=577s
+
+=== HEADLINE CCC = 0.7240 ===
+  Δ vs iter34 = +0.0070
+  sign-flip p (one-sided, vs iter34) = 0.6307
+  BCa 95% CI on ΔCCC = [-0.0430, +0.0650]
+  decision verdict (uncorrected): FAIL
+
+Wrote /home/fiod/pd-imu/results/lockbox_t1_v3_gsp_v3_no_kselect_20260512_203834.json

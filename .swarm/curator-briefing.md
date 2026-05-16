@@ -57,34 +57,41 @@ This is the first curator run for this project. No prior phase data available.
 
 ## LLM-Enhanced Analysis
 BRIEFING:
-First session — no prior context
-
-Context: SWARM Phase 1 is COMPLETE; focus was low-risk additive signals and leakage screening. From KNOWLEDGE_ENTRIES, there are numerous observed co-change signals between files (co-changes without import relations), suggesting hidden architectural couplings rather than direct code dependencies. Key pairs repeatedly show high NPMI values (0.763–1.000), centered on planning/docs and results/log artifacts (e.g., task_plan.md with CLAUDE.md, findings.md, progress.md, NEW.html, review_report.md, generate_paper.py, pyproject.toml, uv.lock, data_split.py, LEARNINGS.md).
-
-Implications:
-- These co-change patterns hint at governance, documentation, or planning-cadence coupling rather than executable code coupling. They merit a lightweight coupling inventory to prevent drift when updating docs or plans.
-- No explicit blockers surfaced in this briefing; all signals remain “candidate” for architectural hygiene rather than active defects.
-
-Recommended next actions for architecture:
-- Construct a minimal coupling map for the top PMI entries (e.g., 1c0fb99d…, 74d5e033…, 5366e951…, 44b98572…).
-- Consider documenting these as a formal “planning-doc coupling” pattern (FR-tag) and add lightweight gates to alert when related files drift out of sync.
-- Decide whether to archive or tighten duplicates (some pairs look verbose or duplicative) to reduce noise in future scans.
-
-ACTIVE BLOCKERS:
-- None explicit in this phase; monitoring required for drift in doc/plan artifacts.
+- Context: This CURATOR_INIT starts from a clean slate (no prior summary). A set of 17 KNOWLEDGE_ENTRIES reveals recurring, co-change signals among planning/communication docs (e.g., task_plan.md with CLAUDE.md, findings.md, progress.md, NEW.html, review_report.md, paper-generation scripts, etc.). Phase 1 is recorded as COMPLETE in the swarm context; Phase 2/3 are planned but not executed in this turn.
+- Key pattern: Numerous hidden couplings exist between planning/ governance documents and narrative/report artifacts. These co-changes are not reflected as imports, but they co-occur across multiple file pairs with high PMI values, suggesting architectural or governance coupling rather than code dependencies.
+- Active blockers: None explicit in PROJECT_CONTEXT, but the hidden couplings imply a governance risk: changes in planning/docs may drift other artifacts without explicit dependencies. This could compromise traceability and reproducibility if not managed.
+- Next-step recommendations for architect: 
+  1) Create a formal knowledge-entry capturing “Document Co-Change Pattern” (doc-graphorka) to prevent drift. 
+  2) Introduce governance gates to decouple planning docs from narrative artifacts (e.g., explicit import/dependency edges or a changelog policy for cross-doc changes).
+  3) Add a lightweight doc-graph visualization and a quarterly review to ensure planned vs. actual co-change aligns.
+- New candidate for KB: Treat the observed co-change signals as an architectural smell to be tracked and mitigated.
 
 CONTRADICTIONS:
-- None detected
+- None detected between KNOWLEDGE_ENTRIES and PROJECT_CONTEXT (PROJECT_CONTEXT is empty). No explicit state conflict identified.
 
 OBSERVATIONS:
-- entry 1c0fb99d-c3d3-471d-b065-94d061a27039 appears high-confidence: PMI 0.853 between CLAUDE.md and task_plan.md (hidden coupling). hive_eligible
-- entry 74d5e033-ec8a-496e-ac83-6aff194f5014 appears high-confidence: PMI 0.836 (findings.md ↔ task_plan.md). hive_eligible
-- entry 5366e951-24f9-4d3d-9270-36a61fccdb1f appears high-confidence: PMI 0.836 (progress.md ↔ task_plan.md). hive_eligible
-- entries with PMI 0.796–1.000 (e.g., 44b98572…, 82fb10c0…, 99e36740…, ca5ddc16…) also look solid for follow-up; treat as high-confidence couplings to review
-- new candidate: Document and codify “planning-doc co-change” as a dedicated FR-pattern to guard against silent drift
+- entry 1c0fb99d-c3d3-471d-b065-94d061a27039 appears high-confidence: repeated co-change claim (CLAUDE.md ↔ task_plan.md) with PMI 0.853.
+- entry 9ae66fca-2ec7-4652-a01c-08f8862db230 appears high-confidence: duplicate of CLAUDE.md ↔ task_plan.md pattern.
+- entry 74d5e033-ec8a-496e-ac83-6aff194f5014 appears high-confidence: Findings.md ↔ task_plan.md co-change; PMI 0.836.
+- entry 5366e951-24f9-4d3d-9270-36a61fccdb1f appears high-confidence: progress.md ↔ task_plan.md; PMI 0.836.
+- entry bce6e350-ed6b-42f1-a439-06cec28c7d13 appears high-confidence: findings.md ↔ progress.md; PMI 1.000.
+- entry 99e36740-53af-493b-8cad-0e7ef4194e05 appears high-confidence: pyproject.toml ↔ uv.lock; PMI 1.000.
+- entry 5dd24aa5-6191-4ce4-a104-636bc5e92bd4 appears high-confidence: LEARNINGS.md ↔ data_split.py; PMI 1.000.
+- entry 62cf31c6-e9b7-41fc-9a5e-ef396449d93e appears high-confidence: progress.md ↔ task_plan.md; PMI 0.836.
+- entry 44b98572-af4d-448f-b313-b7c42fb09970 could be tighter: NEW.html ↔ review_report.md; PMI 0.796; description verbose.
+- entry 181a3625-9bb0-433c-973a-07cefeab7fae could be tighter: NEW.html ↔ NEW2.html; PMI 0.763; verbose pattern.
+- entry ca5ddc16-4161-44cd-bf84-3e2f3bf8d73b could be tighter: generate_paper.py ↔ pyproject.toml; PMI 0.763; verbose.
+- entry ec848c4a-cc80-4265-ab9f-cec090d950a7 appears high-confidence: NEW.html ↔ review_report.md.
+- entry 6c62b9ab-58e4-42da-83e9-7618bf11c775 appears high-confidence: generate_paper.py ↔ review_report.md.
+- entry 19288013-76bf-4082-bb4c-1e1d6f84adf6 appears could-be-tight: NEW.html ↔ NEW2.html; PMI 0.763; verbose.
+- entry 95ee8234-2ade-4571-b4c4-ecdac5a69525 appears could-be-tight: generate_paper.py ↔ pyproject.toml; PMI 0.763.
+- entry 82fb10c0-fe51-4fc0-a0b8-c178c4c40b65 appears high-confidence: generate_paper.py ↔ review_report.md; PMI 0.796.
+
+New candidate (already suggested above): Document Co-Change Pattern as a dedicated KB entry and track with a simple graph.
 
 KNOWLEDGE_STATS:
 - Entries reviewed: 17
-- Prior phases covered: Phase 1
+- Prior phases covered: 1
 
-If you’d like, I can draft a compact coupling map and a short FR-style note to add to PLAN.md to formalize these observations.
+Notes:
+- This phase is about knowledge consolidation and architectural hygiene. No code edits requested. If you want, I can draft a formal KB entry for the “Document Co-Change Pattern” and outline a governance plan to decouple planning docs from artifact narratives.

@@ -13,34 +13,21 @@ from __future__ import annotations
 import json
 import os
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Sequence
 
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.model_selection import StratifiedShuffleSplit, train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import train_test_split
 
-# ── METRICS (canonical, polyfit-based slope, matches eval_utils) ──────────────
+from eval_utils import cal_slope, lins_ccc as ccc
 
-
-def ccc(y_true, y_pred) -> float:
-    yt, yp = np.asarray(y_true, np.float64), np.asarray(y_pred, np.float64)
-    mask = np.isfinite(yt) & np.isfinite(yp)
-    yt, yp = yt[mask], yp[mask]
-    if yt.size < 3 or yt.std() < 1e-9 or yp.std() < 1e-9:
-        return 0.0
-    cov = float(np.mean((yt - yt.mean()) * (yp - yp.mean())))
-    denom = yt.var() + yp.var() + (yt.mean() - yp.mean()) ** 2
-    return float(2 * cov / denom) if denom > 1e-12 else 0.0
-
-
-def cal_slope(y_true, y_pred) -> float:
-    yt, yp = np.asarray(y_true, np.float64), np.asarray(y_pred, np.float64)
-    if yt.size < 3 or yt.std() < 1e-8:
-        return 0.0
-    return float(np.polyfit(yt, yp, 1)[0])
+# ── METRICS ───────────────────────────────────────────────────────────────────
+# `ccc` and `cal_slope` are re-exported from eval_utils so there is one
+# canonical implementation. mae/pearson_r stay local (small, no cross-module
+# users today).
 
 
 def mae(y_true, y_pred) -> float:
@@ -83,14 +70,7 @@ class FoldImputer:
         return cls(medians=np.nanmedian(X_train, axis=0))
 
     def transform(self, X: np.ndarray) -> np.ndarray:
-        out = X.copy()
-        nan_mask = np.isnan(out)
-        if nan_mask.any():
-            for j in range(out.shape[1]):
-                col_nan = nan_mask[:, j]
-                if col_nan.any():
-                    out[col_nan, j] = self.medians[j]
-        return out
+        return np.where(np.isnan(X), self.medians[None, :], X)
 
 
 @dataclass(frozen=True)
@@ -242,13 +222,12 @@ def gen_5fold_split(pd_merged: pd.DataFrame, target_key: str, n_splits: int = 5)
     Mirrors the published `gen_split` from run_compression_ablation.py so new
     experiment numbers are directly comparable.
     """
-    from sklearn.model_selection import train_test_split as _tts
     target_col = f"{target_key}_target"
     y = pd_merged[target_col].values
     sids = pd_merged["sid"].values
     bins = np.digitize(y, np.percentile(y, [25, 50, 75]))
     for split_i in range(1, n_splits + 1):
-        train_sids, test_sids = _tts(
+        train_sids, test_sids = train_test_split(
             sids, test_size=0.2, random_state=split_i, stratify=bins,
         )
         yield split_i, train_sids.tolist(), test_sids.tolist()
@@ -259,7 +238,6 @@ def gen_5fold_split(pd_merged: pd.DataFrame, target_key: str, n_splits: int = 5)
 
 def write_preregistration(spec: dict, results_dir: Path) -> Path:
     """Write a pre-registration JSON for the LOOCV-headline pipeline."""
-    from datetime import datetime
     timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
     path = results_dir / f"preregistration_{timestamp}.json"
     with open(path, "w") as f:

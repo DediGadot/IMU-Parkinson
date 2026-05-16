@@ -1,0 +1,146 @@
+{
+  "checks": {
+    "compute_boundary_terms": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "read-only schema probe",
+        "zero-shot external validation",
+        "not be presented as an internal weargait-pd canonical",
+        "no ppmi label peeking"
+      ]
+    },
+    "docx_exists": {
+      "passed": true,
+      "path": "results/ppmi_verily_tier3_request_packet_template_20260515.docx"
+    },
+    "docx_is_zip_package": {
+      "passed": true,
+      "required_members": [
+        "[Content_Types].xml",
+        "word/document.xml"
+      ]
+    },
+    "manifest_exists": {
+      "passed": true,
+      "path": "results/ppmi_verily_tier3_request_packet_template_20260515.manifest.json"
+    },
+    "manifest_hashes_match": {
+      "actual_docx_sha256": "47488e6926154a699c65734ebdd8da414483de3481dde116ae37a5298c3cd157",
+      "actual_source_sha256": "6ecddbed85f20648d3995ec1d6ad4a7d9ca3aef3928bc2ef9a8f38769ce665d1",
+      "manifest_docx_sha256": "47488e6926154a699c65734ebdd8da414483de3481dde116ae37a5298c3cd157",
+      "manifest_output_docx": "results/ppmi_verily_tier3_request_packet_template_20260515.docx",
+      "manifest_source_sha256": "6ecddbed85f20648d3995ec1d6ad4a7d9ca3aef3928bc2ef9a8f38769ce665d1",
+      "passed": true
+    },
+    "official_tier3_terms": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "verily raw device data",
+        "tier 3",
+        "resources@michaeljfox.org",
+        "pdf or word",
+        "version 7.0",
+        "15 feb 2026",
+        "30 days"
+      ]
+    },
+    "placeholders_preserved": {
+      "docx_placeholders": [
+        "[ADDRESS]",
+        "[ANALYST_NAME]",
+        "[CONTACT]",
+        "[CUSTODIAN_EMAIL]",
+        "[DATA_CUSTODIAN]",
+        "[DEPARTMENT_OR_LAB]",
+        "[EMAIL]",
+        "[INSTITUTION]",
+        "[IRB_ID_OR_STATUS]",
+        "[PI_EMAIL]",
+        "[PI_NAME]",
+        "[PI_PHONE]",
+        "[PPMI_ID]"
+      ],
+      "expected": [
+        "[ADDRESS]",
+        "[ANALYST_NAME]",
+        "[CONTACT]",
+        "[CUSTODIAN_EMAIL]",
+        "[DATA_CUSTODIAN]",
+        "[DEPARTMENT_OR_LAB]",
+        "[EMAIL]",
+        "[INSTITUTION]",
+        "[IRB_ID_OR_STATUS]",
+        "[PI_EMAIL]",
+        "[PI_NAME]",
+        "[PI_PHONE]",
+        "[PPMI_ID]"
+      ],
+      "passed": true,
+      "source_placeholders": [
+        "[ADDRESS]",
+        "[ANALYST_NAME]",
+        "[CONTACT]",
+        "[CUSTODIAN_EMAIL]",
+        "[DATA_CUSTODIAN]",
+        "[DEPARTMENT_OR_LAB]",
+        "[EMAIL]",
+        "[INSTITUTION]",
+        "[IRB_ID_OR_STATUS]",
+        "[PI_EMAIL]",
+        "[PI_NAME]",
+        "[PI_PHONE]",
+        "[PPMI_ID]"
+      ]
+    },
+    "proresults_blueprint_terms": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "persistent homology",
+        "multifractal detrended fluctuation analysis",
+        "topofractal",
+        "k=250",
+        "gradientboostingregressor",
+        "no k-search"
+      ]
+    },
+    "protected_data_absent": {
+      "forbidden_terms_checked": [
+        "synapse_auth_token",
+        "password=",
+        "secret_key"
+      ],
+      "passed": true
+    },
+    "required_packet_fields": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "principal investigator",
+        "intended use",
+        "analysis synopsis",
+        "named research team",
+        "data custodian",
+        "no-sharing"
+      ]
+    },
+    "source_exists": {
+      "passed": true,
+      "path": "scripts/ppmi_verily_tier3_request_packet.md"
+    }
+  },
+  "decision": "ppmi_verily_word_template_ready_to_fill",
+  "generated_at_utc": "2026-05-16T12:51:36+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "manifest": "results/ppmi_verily_tier3_request_packet_template_20260515.manifest.json",
+  "next_action": "Fill user-side placeholders locally and submit through the PPMI access workflow; do not run protected-data compute before approval.",
+  "not_a_model_result": true,
+  "not_access_approval": true,
+  "output_docx": "results/ppmi_verily_tier3_request_packet_template_20260515.docx",
+  "passed": true,
+  "script": "audit_ppmi_verily_submit_format.py",
+  "source": "scripts/ppmi_verily_tier3_request_packet.md"
+}

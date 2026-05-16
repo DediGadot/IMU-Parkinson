@@ -1,0 +1,102 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "errors": [],
+        "path": "results/preregistration_artifact_contract_demo_20260510.json"
+      },
+      "name": "matching preregistration file validates against experiment spec",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "preregistration.formula_sha256 does not match experiment"
+        ]
+      },
+      "name": "stale formula hash is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "malformed_errors": [
+          "preregistration.formula_sha256 must be 64 hex characters",
+          "preregistration.git_sha must be 40 hex characters when provided",
+          "preregistration.notes must be a list"
+        ],
+        "non_object_errors": [
+          "preregistration payload must be an object"
+        ]
+      },
+      "name": "malformed preregistration fields fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_json_errors": [
+          "preregistration artifact source is not valid JSON: bad_preregistration.json",
+          "preregistration artifact path is not declared by experiment",
+          "preregistration.pipeline_name must be a non-empty string",
+          "preregistration.formula_sha256 must be 64 hex characters",
+          "preregistration.created_at_utc must be a non-empty string",
+          "preregistration.git_sha does not match experiment"
+        ],
+        "missing_errors": [
+          "preregistration artifact source is missing: missing_preregistration.json",
+          "preregistration artifact path is not declared by experiment",
+          "preregistration.pipeline_name must be a non-empty string",
+          "preregistration.formula_sha256 must be 64 hex characters",
+          "preregistration.created_at_utc must be a non-empty string",
+          "preregistration.git_sha does not match experiment"
+        ]
+      },
+      "name": "preregistration artifact loader errors fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "preregistration artifact contains prohibited protected-content key: preregistration.rows"
+        ]
+      },
+      "name": "row-like preregistration payload is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "preregistration artifact contains prohibited protected-content key: preregistration.metadata.access_token"
+        ]
+      },
+      "name": "credential-like preregistration payload is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "preregistration artifact path is not declared by experiment"
+        ]
+      },
+      "name": "undeclared preregistration path is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "with_content_errors": [],
+        "without_content_errors": [
+          "run stage requires preregistration content evidence"
+        ]
+      },
+      "name": "run stage requires preregistration content evidence",
+      "passed": true
+    }
+  ],
+  "claim": "Run-stage execution now requires preregistration content evidence, not only an observed preregistration path. Preregistration artifacts also fail closed on malformed scalar fields, missing or invalid source JSON, and row-like or credential-like payload keys.",
+  "decision": "preregistration_artifact_gate_passed",
+  "generated_at_utc": "2026-05-16T12:53:31+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_preregistration_artifact_gate.py"
+}

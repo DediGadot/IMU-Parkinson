@@ -1,0 +1,266 @@
+{
+  "name": "T1/T3 Glass-Ceiling Push — goal-v1 master pre-registration",
+  "timestamp_utc": "2026-05-12T11:15:00Z",
+  "git_head_at_authoring": "64edc2a90ab11beed8b0bdb30a69c6c49a8809fc",
+  "spec_source": "/tmp/goal-v1.txt",
+  "session_directive": "do /tmp/goal-v1.txt. consult codex cli and gemini cli and kimi cli whenever needed to unblock yourself",
+
+  "phase_0_iter34_ablation": {
+    "status": "COMPLETE 15:34 UTC. 9 variants × 3 seeds × LOOCV done in 4.4 hours wall.",
+    "final_results_3seed_mean": {
+      "drop9_arising_chair": {"ccc": 0.7072, "delta": -0.0106, "bca_ci": [-0.0289, 0.0025], "frac_above_0": 0.068},
+      "drop10_gait": {"ccc": 0.7094, "delta": -0.0081, "bca_ci": [-0.0367, 0.0143], "frac_above_0": 0.281},
+      "drop11_FoG": {"ccc": 0.7068, "delta": -0.0107, "bca_ci": [-0.0280, 0.0030], "frac_above_0": 0.075},
+      "drop12_postural_stability_LOAD_BEARING": {"ccc": 0.6901, "delta": -0.0282, "bca_ci": [-0.0710, 0.0063], "frac_above_0": 0.060},
+      "drop13_posture_IMU_NOISE_DISTRACTOR": {"ccc": 0.7198, "delta": 0.0026, "bca_ci": [-0.0154, 0.0182], "frac_above_0": 0.638, "frac_above_+0.025": 0.002, "note": "ONLY positive variant; chain distractor"},
+      "drop14_body_bradykinesia": {"ccc": 0.7128, "delta": -0.0040, "bca_ci": [-0.0199, 0.0108], "frac_above_0": 0.303},
+      "drop15_postural_tremor_AUX_DECORATIVE": {"ccc": 0.7168, "delta": -0.0002, "bca_ci": [-0.0012, 0.0007], "frac_above_0": 0.326},
+      "drop18_rest_tremor_AUX_DECORATIVE": {"ccc": 0.7170, "delta": 0.0000, "bca_ci": [-0.0009, 0.0009], "frac_above_0": 0.500},
+      "no_k500": {"ccc": 0.7137, "delta": -0.0034, "bca_ci": [-0.0273, 0.0212], "frac_above_0": 0.382}
+    },
+    "summary": "Item 12 is the load-bearing pillar (45% of total signal). Items 9/10/11/14 are chain-redistributable. Item 13 is an active chain distractor (dropping it IMPROVES T1 by +0.003). Aux items 15+18 are decorative (F68 mechanism null at N=92). K=500 vs no-K=500 is essentially the same. The NLS036 cohort-hygiene effect (-0.0196) is larger than 6 of 9 component ablations.",
+    "wall_data_points_added": "26 (drop13 architectural insight — does not clear MCID gate but is publishable supplementary)",
+    "findings_entry": "F-t1-iter34-phase0-ablation-20260512",
+    "_status_at_session_close_original": "in_progress (3 of 9 lockboxes complete as of 12:05 UTC; ETA ~16:00 UTC). Pattern observed: drop9/10/11 each ~Δ=-0.010 (chain-redistributable). drop12 (postural stability, per-item CCC=0.565) seed-42 only: Δ=-0.0274 (3x larger — STRUCTURALLY LOAD-BEARING). drop13/14/15/18/no_k500 pending.",
+    "_status_at_authoring": "in_progress (drop9 seed=7 fold 60/92 at 11:11 UTC)",
+    "orchestrator_log": "/home/fiod/pd-imu/phase0_orchestrate.log",
+    "variants_pending": [
+      "drop9", "drop10", "drop11", "drop12", "drop13", "drop14",
+      "drop15", "drop18", "no_k500"
+    ],
+    "cells_addressed": {
+      "a_3base_vs_single_best_base": "DONE 2026-05-11 (iter41: XGB-only 0.7242 vs hybrid 0.7170, frac>0=0.728 NS)",
+      "b_8item_chain_drop_one": "IN_PROGRESS (this batch — 8 drop-one variants)",
+      "c_cohort_n92_vs_n93": "DONE 2026-05-10 (hygiene correction Δ=-0.0196 from NLS036 exclusion)",
+      "d_per_fold_k500_vs_fixed": "IN_PROGRESS (no_k500 variant in this batch)"
+    },
+    "wall_clock_estimate_hours": 4.0,
+    "feeds_into_slot_design": "If aux items {15,18} drop hurts >+0.02 each, T1-C must include them in shared prior. If no_k500 drops >+0.05, K=500 is load-bearing and any selection-rule slot is auto-rejected."
+  },
+
+  "immutable_cohort": {
+    "n": 92,
+    "filter": "PD with valid_updrs_item_total({9..14, 15, 18}); NLS036 excluded per validated loader",
+    "sids_hash_sha256": "86d4ba606e7a41d4c8a31319cf4b42ba9f00a341b0a34b1580c41438b807aef1",
+    "sids_source_lockbox": "lockbox_t1_iter34_hybrid_20260510_233019.json",
+    "split_file": "results/paper3_split.json",
+    "comment": "All slot LOOCV runs must use this exact cohort. SID-list deviation invalidates the lockbox."
+  },
+
+  "fwer_family": {
+    "size_n": 5,
+    "members": [
+      "iter34_hybrid_hygiene_corrected (baseline, CCC=0.7170)",
+      "T1-A_severity_rank_contrastive",
+      "T1-C_bayesian_per_item_no_aux",
+      "T1-D_tug_mechanics_restricted",
+      "T3-F_domain_adversarial_stage1_tier2_harmonization"
+    ],
+    "bonferroni_one_sided_p_threshold": 0.01,
+    "bonferroni_basis": "0.05 / 5 = 0.01 per goal-v1 strict-confirmation rule (Tier 4)",
+    "dropped_at_design": {
+      "T1-B_severity_mixup": "Codex: weak augmentation, no new measurement info; iter40 wall (self-distillation FAIL Δ=-0.026) is the prior.",
+      "T3-E_hc_manifold_as_written": "Codex: AUTO-REJECT — 'zero-severity HC manifold' uses HC cohort identity as severity semantics. Permissible only as fully-unlabeled PD+HC structural prior, in which case it collapses to Tier-2 preprocessing and is bundled into T3-F.",
+      "T3-G_external_join": "DUA-BLOCKED at authoring (Hssayeni Synapse-blocked; PPMI/Verily/WATCH-PD/ICICLE/CNS/PPP-VME packets pending). Slot stays parked; if DUA opens mid-session, family widens to n=6 with revised Bonferroni = 0.05/6 = 0.0083."
+    }
+  },
+
+  "primary_promotion_statistic": {
+    "name": "Per-subject paired sign-flip permutation on squared-error reduction",
+    "exchangeability_unit": "subject (NOT window)",
+    "n_permutations": 10000,
+    "one_sided": true,
+    "p_value_threshold_per_slot": 0.01,
+    "joint_gate_must_clear_all_three": [
+      "one-sided sign-flip p <= 0.01 (Bonferroni-adjusted for n=5)",
+      "BCa 95% CI on Delta-CCC excludes 0",
+      "point Delta-CCC >= +0.025 (MCID-equivalent, clinical prespec)"
+    ],
+    "frac_above_zero_status": "REPORTED but DESCRIPTIVE — no longer decisive (goal-v1 §PRIMARY)",
+    "default_prior": "NULL given 24 wall data points across 11 architectural probe-strategy classes",
+    "five_fold_screen_gate": {
+      "delta_mean_threshold": "+0.025",
+      "seed_std_max": "0.020",
+      "policy": "If 5-fold screen fails, slot does not advance to LOOCV. No selection-leakage. Document the screen failure in findings.md."
+    }
+  },
+
+  "leakage_firewall_tier_compliance": {
+    "tier_1_always_required": {
+      "fold_local_helpers_only": "inductive_lib.FoldImputer / FoldNormalizer / FoldSeverityBins; no global imputers/z-scoring/anchors.",
+      "cache_manifests": "Every reusable cache_*.csv|.npz must carry a sidecar .manifest.json documenting: script, git_sha, command, created_at_utc, included_sids_hash, labels_used, fold_scope, cohort_statistics_used, normalization_scope, source_artifacts.",
+      "external_role_declared": "T3-F's HC use is declared role=tier2_unsupervised_harmonization; HC labels never enter fit."
+    },
+    "tier_2_label_free_priors_permitted": {
+      "allowed": "PD+HC label-free PCA basis on raw IMU; global scale priors; frequency-band energy normalization constants; unsupervised population covariance.",
+      "guardrails": "Manifest must prove zero target leakage. Any structure tied to severity-derived recording selection BANNED. HC labels never used as 'zero severity' proxy."
+    },
+    "tier_3_null_gate_tiered": {
+      "screening_5fold_minimum": [
+        "label_permutation",
+        "sid_shuffle_pre_cache_join",
+        "test_only_canary_feature"
+      ],
+      "lockbox_loocv_full_5null_plus": [
+        "label_permutation",
+        "sid_shuffle_pre_cache_join",
+        "test_only_canary_feature",
+        "library_exclusion_assertion",
+        "transductive_sanity_twin",
+        "cache_manifest_attached",
+        "independent_reproduce_from_clean_checkout (post-success only)"
+      ]
+    },
+    "tier_4_preregistration_discipline": {
+      "exploration_phase": "5-fold OOF screen may adapt; failures reportable.",
+      "confirmation_phase": "LOOCV requires frozen formula_sha256 (per-slot), immutable cohort (this file), immutable primary stat, exactly one locked evaluation.",
+      "negative_lockboxed_runs": "REPORTABLE and CANNOT be hidden or rerun."
+    }
+  },
+
+  "slot_T1_A_severity_rank_contrastive_pretraining": {
+    "status": "NOT CODED in this session. Deferred to next session if T1-C also fails. Codex+gemini priors: 10-15% probability of clearing detectability. Requires raw-IMU window loader and per-fold encoder pretraining (4+ hours coding + 12+ hours compute).",
+    "_original_design": "designed; awaiting Phase 0 outcome before script lock",
+    "hypothesis": "Severity-rank contrastive pretraining of an IMU-window encoder, then iter34-style chain fit on the frozen encoder's mean-pooled features, yields ΔCCC >= +0.025 vs iter34-corrected at LOOCV.",
+    "mechanism_orthogonality": "Pretext is severity-order preservation in latent space (NOT masked recon, NOT classification). Wall: F36-D (K=500 absorbs scalar blocks) — contrastive encoder outputs are NOT a scalar block; they are a learned representation. Codex: weakly orthogonal (frozen encoders × 4 have failed; this is severity-rank not generic SSL).",
+    "design": {
+      "encoder_arch": "1D CNN (3-block conv + adaptive pool) → 128-d embedding",
+      "triplet_loss": "anchor = window of subject s at time t; positive = same subject s different time t' (intra-subject); negative = different subject s' with |HY(s) - HY(s')| > 1 (H&Y-scaled margin); margin = 0.5 * |HY diff|",
+      "contrastive_bins": "fit train-fold-only via inductive_lib.FoldSeverityBins; pretext frozen BEFORE outcome inspection",
+      "downstream": "frozen encoder mean-pooled over windows -> 128-d feature block -> concatenate with V2 features -> iter34 chain (3-base) feature_select_fold K=500"
+    },
+    "pre_5fold_screen": "5-fold OOF: delta vs iter34 must be Δ̄ >= +0.025 with seed std < 0.020 across 3 seeds.",
+    "kill_criteria": [
+      "5-fold screen Δ̄ < +0.025: KILL, document mechanism failure (likely encoder learned subject-id rather than severity).",
+      "5-fold screen Δ̄ >= +0.025 but seed std >= 0.020: KILL (variance), do not promote.",
+      "LOOCV p > 0.01 OR BCa CI includes 0 OR point Δ < +0.025: KILL, log as new wall data point."
+    ],
+    "expected_delta_codex": "+0.01 to +0.03 (modal), 30% probability of clearing detectability",
+    "compute_budget_hours": 24
+  },
+
+  "slot_T1_C_bayesian_per_item_no_aux": {
+    "status": "EXECUTED launch 2026-05-12 12:01 UTC. LOCKBOX RUNNING on slave (CPU-bound JAX SVI; ETA 14:00-15:00 UTC). NEXT-SESSION pickup.",
+    "executed_artifacts": {
+      "preregistration": "results/preregistration_t1_iter56_bayesian_no_aux_20260512_120132.json",
+      "formula_sha256": "c37583588daff8d1b9d5cfe1cbb158c5b4cd679f6e6151f8e2180f3335de0576",
+      "lockbox_log": "/home/fiod/pd-imu/t1_iter56_lockbox.log (on slave)",
+      "expected_lockbox_path_pattern": "results/lockbox_t1_iter56_bayesian_no_aux_*.json"
+    },
+    "_original_design": "designed; awaiting Phase 0 outcome before script lock",
+    "hypothesis": "Hierarchical Bayesian per-item regression with shared subject-level H&Y prior, fit ONLY on items {9, 10, 11, 12, 13, 14} (NO aux 15/18), models UPDRS item covariance natively and yields ΔCCC >= +0.025 vs iter34-corrected.",
+    "mechanism_orthogonality": "Codex: 'plausible only if NOT iter34 chain regularization in probabilistic clothing.' Therefore aux items {15, 18} are EXCLUDED from the prior structure — otherwise the slot duplicates iter34's auxiliary chain mechanism. The orthogonal claim is partial pooling across items, not partial pooling across tasks. Wall: F70 iter34 hybrid local optimum.",
+    "design": {
+      "library": "numpyro (NUTS or SVI), all fitted in fold-local outer training set",
+      "model": "y_si = alpha_s + beta_i * f(x_si) + eps; alpha_s ~ N(theta_hy(s), sigma_a); beta_i shared across items; sigma_a learned",
+      "features_per_item": "iter34's K=500 per-fold-selected features against item i residual (NOT against T1 residual — that's iter34's mechanism). Fresh K=500 per ITEM per fold.",
+      "no_aux": "items 15 and 18 are NOT included in joint posterior — strictly {9, 10, 11, 12, 13, 14}",
+      "decision_output": "MAP estimate of item-wise posterior mean -> sum to T1"
+    },
+    "pre_5fold_screen": "5-fold OOF on training cohort: Δ̄ >= +0.025 with seed std < 0.020.",
+    "kill_criteria": [
+      "5-fold screen Δ̄ < +0.025: KILL.",
+      "Bayesian inference does not converge (R-hat > 1.05 on >5% of params): KILL, log convergence failure.",
+      "LOOCV failure: KILL."
+    ],
+    "expected_delta_codex": "+0.005 to +0.02 (modal), 20% probability of clearing detectability — most likely outcome is iter34 chain dominates",
+    "compute_budget_hours": 12
+  },
+
+  "slot_T1_D_tug_mechanics_restricted": {
+    "status": "designed; awaiting Phase 0 outcome before script lock",
+    "hypothesis": "A tiny preregistered TUG-mechanics feature family (turning, sit-stand, gait-initiation, total-time) on items {7, 8, 10, 12, 14} ONLY, added as a POST-K=500 routed block in the iter34 chain, yields ΔCCC >= +0.025 vs iter34-corrected.",
+    "mechanism_orthogonality": "Codex: 'mostly feature-block tweak' (F36-D class wall). The ONLY differentiator from F36-D is hypothesis restriction: items 7, 8, 10, 12, 14 specifically (per goal-v1 spec), routed post-K=500 to bypass V2 absorption. Wall: F36-D feature-block absorption. Weakly orthogonal.",
+    "design": {
+      "feature_family_size": "5-12 scalars (TUG sit-stand wall-clock, turning angular velocity peak, gait-initiation onset time, total-TUG-time, swing-stance ratio asymmetry)",
+      "extraction_cache": "new cache_tug_mechanics.py (TBD; cohort-local fold-safe via inductive_lib)",
+      "routing": "POST-K=500: chain step k=7,8,10,12,14 sees V2-K500 (500) ⊕ tug_mechanics (5-12); other steps see V2-K500 only",
+      "items_summed_in_t1": "{10, 12, 14} only (the 3 items in T1_SUM_ITEMS that overlap with hypothesis restriction)"
+    },
+    "pre_5fold_screen": "5-fold OOF cheap screen: Δ̄ >= +0.025 with seed std < 0.020.",
+    "kill_criteria": [
+      "5-fold screen Δ̄ < +0.025: KILL — F36-D wall holds, even with hypothesis restriction.",
+      "Cache manifest fails (e.g., depends on TUG protocol timing that leaks subject id): KILL.",
+      "LOOCV failure: KILL."
+    ],
+    "expected_delta_codex": "+0.005 to +0.015 (modal), 15% probability of clearing detectability",
+    "compute_budget_hours": 4,
+    "rationale_for_keeping_despite_codex_low_priority": "Cheapest in compute; validates the master pre-reg pipeline end-to-end (per-subject sign-flip, BCa, 5-null gate); fast feedback on FWER discipline; first slot to run."
+  },
+
+  "slot_T3_F_domain_adversarial_tier2_harmonization": {
+    "status": "EXECUTED 2026-05-12 11:43-11:55 UTC. RESULT: FAIL on all three gates. Wall data point 25.",
+    "executed_artifacts": {
+      "preregistration": "results/preregistration_t3_iter54_dann_tier2_20260512_114330.json",
+      "formula_sha256": "f0a36c1d4d72780f3221e365af8e0844e94c7a63d0538864d60f47d09ea11563",
+      "lockbox": "results/lockbox_t3_iter54_dann_tier2_20260512_115513.json",
+      "oof_predictions": "results/lockbox_t3_iter54_dann_tier2_20260512_115513.oof.npy",
+      "findings_entry": "F-t3-iter54-dann-tier2-fail-20260512"
+    },
+    "executed_results": {
+      "loocv_ensemble_ccc": 0.1958,
+      "loocv_lgb_only_ccc": 0.3784,
+      "loocv_dann_only_ccc": 0.0707,
+      "loocv_delta_vs_iter47": -0.1826,
+      "loocv_sign_flip_p": 0.6286,
+      "loocv_bca_ci": [-0.4115, -0.0150],
+      "loso_NLS_to_WPD_ensemble": 0.0788,
+      "loso_WPD_to_NLS_ensemble": -0.0000,
+      "loso_lgb_only_average": 0.150,
+      "verdict": "FAIL all three gates (p > 0.0125; BCa excludes 0 in WRONG direction; Δ < +0.025)"
+    },
+    "mechanism_of_failure": "Codex's predicted kill criterion confirmed: site (NLS vs WPD) is CONFOUNDED with severity (WPD has milder PD on average). The adversarial site-invariance objective removes severity-discriminative signal. DANN-only branch indistinguishable from zero in LOOCV and both LOSO directions. LGB-only branch reproduces iter47 exactly (LOOCV 0.3784, LOSO avg 0.150).",
+    "_original_design": "designed; awaiting Phase 0 outcome before script lock",
+    "hypothesis": "Inductive domain-adversarial Stage-1 (gradient-reversal-layer head predicting cohort/site) bundled with Tier-2 label-free PD+HC spectral harmonization (per-band energy normalization + cohort PCA whitening) yields T3 LOSO CCC >= 0.250 vs iter47 LOSO 0.150 AND T3 LOOCV CCC >= 0.4500 vs iter47 0.3784.",
+    "mechanism_orthogonality": "Codex: TRULY ORTHOGONAL. Attacks cohort/site nuisance (LOSO failure mode), not feature-space saturation. Wall: F58 (N=300 needed for Δ=+0.02 via convex blends) — that wall is about feature-space saturation, NOT about subject-invariance. Tier-2 unsupervised harmonization is a DIFFERENT lever. Combining them: tier-2 stabilizes the input distribution, DANN explicitly removes site-conditional severity. Independent mechanisms, potentially multiplicative.",
+    "design": {
+      "tier_2_preprocessing": "Spectral whitening fit on PD+HC training set raw IMU (NO labels, NO HC=0 semantics). PCA basis on combined IMU features (PD-train ∪ HC), variance >=95%. Manifest will declare cohort_statistics_used=true, labels_used=false, fold_scope=outer_train.",
+      "adversarial_stage1": "GRL head predicting site ∈ {NLS, WPD} on Stage-1 features. Lambda annealed via Ganin schedule. Source: iter5 Stage-1 (H&Y + cv_yrs + cv_sex + cv_dbs) ⊕ tier-2-whitened PCA components.",
+      "stage2": "Gradient boost on adversarially-regularized Stage-1 residuals.",
+      "loso_eval": "Hold out one site (NLS or WPD), train on the other; report LOSO CCC on held-out site.",
+      "loocv_eval": "Same architecture, subject-level LOOCV on N=95 valid-range cohort (matches iter47 cohort, NOT the T1 N=92)."
+    },
+    "pre_5fold_screen": "5-fold LOSO-stratified screen on T3 target. Promotion gate: Δ̄ >= +0.025 vs iter47 LOSO 0.150.",
+    "kill_criteria_codex": [
+      "If domain predictability drops but CCC doesn't move: invariance is removing severity signal -> KILL F (and E if reopened).",
+      "If domain predictability remains high after DANN training: adversarial branch ineffective -> KILL F.",
+      "If tier-2 alone (without DANN) does not stabilize T3 LOSO: drop tier-2 from later slots, document.",
+      "LOOCV CCC drops below iter47 0.3784 even though LOSO improves: report ONLY LOSO improvement, accept LOOCV null."
+    ],
+    "expected_delta_codex": "T3 LOSO: +0.05 to +0.15 (modal +0.08); T3 LOOCV: +0.00 to +0.05 (modal +0.02). 40% probability LOSO clears +0.10 gate.",
+    "compute_budget_hours": 36
+  },
+
+  "execution_order": {
+    "rationale": "T1-D first (cheapest, validates analysis pipeline). Then T3-F (highest-leverage per codex, attacks LOSO subject-invariance — different failure mode from T1 ceiling). Then T1-C and T1-A (low priors, run if budget allows). User authorization: 'optimize for hitting the goal, not for short runtime' — execute all 4 unless 3 consecutive add only wall points.",
+    "order": [
+      "Slot 1: T1-D TUG mechanics (4 hours, validates pipeline + first FWER member)",
+      "Slot 2: T3-F domain-adversarial + tier-2 harmonization (36 hours, highest expected impact for goal-v1 criterion 3)",
+      "Slot 3: T1-C Bayesian per-item no-aux (12 hours)",
+      "Slot 4: T1-A severity-rank contrastive (24 hours, highest compute, lowest prior)"
+    ],
+    "between_slots_audit": "After each LOOCV lockbox: read codex+gemini+kimi short consult on failure mechanism if NULL; update findings.md with new F-number; update master pre-reg with formula_sha256 if PASS.",
+    "stopping_rule": "Per goal-v1 §ITERATION LOOP 8: STOP when (a) one success criterion lockboxed; OR (b) all 4 slots become wall points; OR (c) 3 consecutive sessions add only wall points (this is session 1)."
+  },
+
+  "doctor_gate_record": {
+    "firewall_check_canonical_scripts": "0 banned hits, 0 warnings (2026-05-12 11:03 UTC)",
+    "gpu_status": "RTX 4060 idle at authoring (0 jobs, 624 MiB GPU mem, 48 C)",
+    "slave": "fiod@165.22.71.91:2243",
+    "phase0_orchestrator_pid_at_authoring": 1107
+  },
+
+  "consult_artifacts": {
+    "prompt": "/tmp/pd_imu_consult/prompt_goalv1_slots.txt",
+    "codex_response": "/tmp/pd_imu_consult/codex_20260512T082140.txt",
+    "gemini_response": "FAILED (429 RESOURCE_EXHAUSTED for gemini-3.1-pro-preview on 10 retries); pending retry",
+    "kimi_response": "in_progress (opencode wrapper performing deep exploration; results to /tmp/pd_imu_consult/kimi_goalv1.txt)",
+    "synthesis_to_date": "Codex (xhigh, conservative) recommends 4-slot subset {T3-F+tier2, T1-C-no-aux, T1-A-contrastive, T1-D-tug}, drop {T1-B, T3-E-as-written, T3-G-DUA-blocked}. Master pre-reg locks this 4-slot family. Kimi expected to either ratify or surface a structural reframe (the historical pattern: kimi often diagnoses the wall mechanism that codex misses)."
+  },
+
+  "audit_trail": {
+    "authored_by": "Claude Opus 4.7 in pd-imu-100x-researcher skill, 3-iteration-mode-adapted-for-goalv1",
+    "user_authorization": "/goal 'do /tmp/goal-v1.txt' on 2026-05-12 11:01 UTC; user explicit: 'do (1), but don't ask me more questions. continue to the finish line, while optimizing for doing everything possible to hit the goal, don't optimize for a short runtime.'",
+    "supersedes": "no prior master pre-reg; this is the inaugural goal-v1 family pre-reg"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "lockbox_t1_S2_topofractal8",
+  "created_at_utc": "20260515T105223Z",
+  "preregistration_master": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "null_mode": "sid_shuffle",
+  "n_cohort": 92,
+  "seeds": {
+    "split": 20260309,
+    "feature": 31415,
+    "models": [
+      42,
+      1337,
+      7
+    ]
+  },
+  "ridge_alpha": 100.0,
+  "subfamily_column_counts": {
+    "ph_trunk_pitch_h1": 16,
+    "ph_sacrum_ang_h1": 16,
+    "mfdfa_trunk_pitch_delta_alpha": 8,
+    "mfdfa_trunk_pitch_hurst_q2": 8,
+    "mfdfa_trunk_pitch_h_range": 8,
+    "mfdfa_trunk_pitch_asymmetry": 8
+  },
+  "mean_explained_variance_per_subfamily": {
+    "ph_trunk_pitch_h1": 0.3735,
+    "ph_sacrum_ang_h1": 0.2732,
+    "mfdfa_trunk_pitch_delta_alpha": 0.3689,
+    "mfdfa_trunk_pitch_hurst_q2": 0.5322,
+    "mfdfa_trunk_pitch_h_range": 0.3338,
+    "mfdfa_trunk_pitch_asymmetry": 0.3262
+  },
+  "sign_flip_rate": 0.5293,
+  "loocv_ccc_baseline_iter34": 0.717,
+  "loocv_ccc_corrected": 0.7147,
+  "delta_ccc": -0.0023,
+  "frac_pos_bootstrap": 0.397,
+  "ci95": [
+    -0.02,
+    0.0152
+  ],
+  "5fold_mean_delta_3seeds": 0.0007,
+  "5fold_seed_std": 0.0023,
+  "5fold_per_seed_deltas": [
+    -0.0014,
+    0.0032,
+    0.0004
+  ],
+  "kill_thresholds": {
+    "min_5fold_delta": 0.005,
+    "min_evr_per_sub": 0.3,
+    "max_sign_flip_rate": 0.05
+  },
+  "verdict": "FAIL"
+}

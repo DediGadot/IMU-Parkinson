@@ -1,0 +1,218 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "record": {
+          "allowed_now": [
+            "read-only schema probe"
+          ],
+          "approval_evidence": {
+            "approved_access": true,
+            "approved_at_utc": "2026-05-10T00:00:00Z",
+            "credentials_or_tokens_included": false,
+            "data_use_terms_accepted": true,
+            "notes": "",
+            "protected_row_dump_included": false,
+            "route_id": "ppmi_verily",
+            "source": "non-protected PPMI approval notice metadata",
+            "storage_plan_documented": true
+          },
+          "approval_metadata_only": true,
+          "blocked_after_approval": [
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "credentials_or_tokens_included": false,
+          "generated_at_utc": "2026-05-16T12:52:21+00:00",
+          "lifecycle": {
+            "approval_evidence": {
+              "approved_access": true,
+              "approved_at_utc": "2026-05-10T00:00:00Z",
+              "credentials_or_tokens_included": false,
+              "data_use_terms_accepted": true,
+              "notes": "",
+              "protected_row_dump_included": false,
+              "route_id": "ppmi_verily",
+              "source": "non-protected PPMI approval notice metadata",
+              "storage_plan_documented": true
+            },
+            "blocked_actions_now": [
+              "download script",
+              "cache extraction",
+              "pre-registration using new labels",
+              "remote job",
+              "model run",
+              "canonical T1/T3 claim update"
+            ],
+            "can_probe_schema": true,
+            "packet": {
+              "blocked_actions_now": [
+                "probe script against protected data",
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "min_placeholders": 5,
+              "name": "PPMI / Verily Study Watch",
+              "packet_audit_path": "results/ppmi_verily_request_packet_audit_20260509.json",
+              "packet_path": "scripts/ppmi_verily_tier3_request_packet.md",
+              "packet_ready": true,
+              "placeholder_count": 13,
+              "priority": 1,
+              "remote_job_allowed_now": false,
+              "route_id": "ppmi_verily",
+              "runbook_path": "scripts/ppmi_verily_setup.md",
+              "runbook_ready": true,
+              "scaffold_allowed_now": false,
+              "submission_status": "ready_to_submit_after_user_fill_and_governance"
+            },
+            "state": "approved_for_schema_probe",
+            "submission_evidence": null
+          },
+          "next_action": {
+            "action": "run_read_only_schema_probe",
+            "allowed_now": [
+              "read-only schema probe"
+            ],
+            "blocked_actions_now": [
+              "download script",
+              "cache extraction",
+              "pre-registration using new labels",
+              "remote job",
+              "model run",
+              "canonical T1/T3 claim update"
+            ],
+            "lifecycle_state": "approved_for_schema_probe",
+            "requires_user_action": false,
+            "route_id": "ppmi_verily",
+            "safe_to_execute_code": true
+          },
+          "protected_data_included": false,
+          "protected_row_dump_included": false,
+          "route_id": "ppmi_verily",
+          "route_name": "PPMI / Verily Study Watch",
+          "submission_record_identity_redacted": true,
+          "submission_record_path_reported": false,
+          "submission_record_present": false
+        },
+        "returncode": 0
+      },
+      "name": "recorder dry-run emits valid PPMI approved-for-schema-probe record",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "approval_evidence": {
+          "approved_access": true,
+          "approved_at_utc": "2026-05-10T00:00:00Z",
+          "credentials_or_tokens_included": false,
+          "data_use_terms_accepted": true,
+          "notes": "",
+          "protected_row_dump_included": false,
+          "route_id": "ppmi_verily",
+          "source": "non-protected PPMI approval notice metadata",
+          "storage_plan_documented": true
+        },
+        "approval_metadata_only": true,
+        "credentials_or_tokens_included": false,
+        "protected_data_included": false,
+        "protected_row_dump_included": false,
+        "submission_record_identity_redacted": true,
+        "submission_record_path_present": false,
+        "submission_record_path_reported": false
+      },
+      "name": "approval record remains metadata-only and excludes protected content",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "next_action": {
+          "action": "run_read_only_schema_probe",
+          "allowed_now": [
+            "read-only schema probe"
+          ],
+          "blocked_actions_now": [
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "lifecycle_state": "approved_for_schema_probe",
+          "requires_user_action": false,
+          "route_id": "ppmi_verily",
+          "safe_to_execute_code": true
+        }
+      },
+      "name": "approved route unlocks only read-only schema probe",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "gitignore": ".gitignore"
+      },
+      "name": "default approval output directory is gitignored",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "refusing to write approval evidence outside .access_approvals/ without --allow-output-outside-ignored-dir\n",
+        "returncode": 1
+      },
+      "name": "recorder refuses non-ignored output path by default",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "approval evidence appears to be synthetic or audit-only metadata\n",
+        "returncode": 1
+      },
+      "name": "recorder refuses synthetic or audit-only approval sources",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "invalid approval evidence: approval source contains an unfilled placeholder; approved_at_utc contains an unfilled placeholder; approval: approval source contains an unfilled placeholder; approval: approved_at_utc contains an unfilled placeholder\n",
+        "returncode": 1
+      },
+      "name": "recorder refuses unfilled approval command-template placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "invalid approval evidence: approval source must not contain local paths or completed-file references; notes must not contain credentials or token-like strings; approval: approval source must not contain local paths or completed-file references; approval: notes must not contain credentials or token-like strings\n",
+        "path_echoed": false,
+        "returncode": 1,
+        "secret_echoed": false
+      },
+      "name": "recorder refuses local approval-file references and token-like metadata",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_error_filename_echoed": false,
+        "bad_error_path_echoed": false,
+        "output_tail": "submission record source is not valid JSON\n",
+        "returncode": 1
+      },
+      "name": "recorder input JSON loader errors fail closed with submission identity redacted",
+      "passed": true
+    }
+  ],
+  "claim": "A top-priority PPMI approval can now be recorded in an ignored local file as metadata-only evidence. Approval unlocks only read-only schema probing; downloads, caches, preregistration, remote jobs, model runs, and canonical updates remain blocked. Malformed submission/approval input JSON fails closed without a traceback or submission-record path/name echo, synthetic or audit-only approval sources are rejected, unfilled command-template placeholders are rejected, and local approval-file references or token-like metadata are rejected without echoing the sensitive value.",
+  "decision": "access_approval_recorder_passed",
+  "generated_at_utc": "2026-05-16T12:52:36+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_access_approval_recorder.py"
+}

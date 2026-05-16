@@ -1,0 +1,143 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "evidence_errors": [],
+        "report_errors": [],
+        "returncode": 0
+      },
+      "name": "recorder dry-run emits valid PPMI schema-probe artifact payload",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ppmi_x4_v3_gsp_policy": {
+          "external_label_selection_allowed": false,
+          "multinode_anatomical_sensors_present": false,
+          "requires_sensor_layout": "WearGait-compatible 13-node anatomical IMU graph",
+          "v3_gsp_formula_eligible": false
+        }
+      },
+      "name": "PPMI X4 V3-GSP eligibility policy is recorded as schema metadata",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "canonical_update_allowed": false,
+        "credentials_or_tokens_included": false,
+        "model_run_started": false,
+        "preregistration_written": false,
+        "protected_data_included": false,
+        "protected_row_dump_included": false,
+        "schema_probe_metadata_only": true
+      },
+      "name": "schema-probe artifact remains metadata-only",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "approval_record_identity_redacted": true,
+        "approval_record_path_present": false,
+        "approval_record_path_reported": false,
+        "bad_error_filename_echoed": false,
+        "bad_error_path_echoed": false,
+        "missing_error_filename_echoed": false,
+        "missing_error_path_echoed": false
+      },
+      "name": "approval record identity is redacted in schema-probe artifact and errors",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "next_action": {
+          "action": "run_read_only_schema_probe",
+          "allowed_now": [
+            "read-only schema probe"
+          ],
+          "blocked_actions_now": [
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "lifecycle_state": "approved_for_schema_probe",
+          "requires_user_action": false,
+          "route_id": "ppmi_verily",
+          "safe_to_execute_code": true
+        }
+      },
+      "name": "approval lifecycle is schema-probe-only before recording",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "low_n_tail": "invalid schema-probe report: valid_subject_count is below minimum 20\n",
+        "prereg_tail": "invalid schema-probe report: schema probe must not write preregistration\n",
+        "protected_rows_tail": "invalid schema-probe report: probe artifact includes protected row dump\n"
+      },
+      "name": "recorder rejects preregistration, protected rows, and low-N probes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "invalid schema-probe report: observed grouping key contains an unfilled placeholder\n",
+        "returncode": 1
+      },
+      "name": "recorder refuses unfilled schema-probe command-template placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "approval record not found\n",
+        "returncode": 1
+      },
+      "name": "real recording requires an approval record",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "approval record source is not valid JSON\n",
+        "returncode": 1
+      },
+      "name": "recorder input JSON loader errors fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "attempt_returncode": 1,
+        "output_tail": "approval record appears to be synthetic or audit-only metadata\n",
+        "synthetic_error_filename_echoed": false,
+        "synthetic_error_path_echoed": false,
+        "synthetic_fixture_removed": true
+      },
+      "name": "synthetic approval record cannot unlock schema-probe recording",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "gitignore": ".gitignore"
+      },
+      "name": "default schema-probe output directory is gitignored",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "approval_returncode": 0,
+        "outside_returncode": 1,
+        "outside_tail": "refusing to write schema-probe evidence outside .schema_probes/ without --allow-output-outside-ignored-dir\n"
+      },
+      "name": "recorder refuses non-ignored output path by default",
+      "passed": true
+    }
+  ],
+  "claim": "A post-approval schema-probe report can now be recorded as a scrubbed SchemaProbeArtifactEvidence payload in .schema_probes/. The recorder requires approval evidence for real writes, rejects row dumps, preregistration, model starts, low-N probes, and non-ignored output paths, and does not change any T1/T3 result. Malformed approval/tracker input JSON fails closed without a traceback, approval-record local identity is redacted from emitted payloads and errors, synthetic audit-only approval records cannot unlock schema-probe recording, and unfilled schema-probe command-template placeholders are rejected.",
+  "decision": "schema_probe_recorder_passed",
+  "generated_at_utc": "2026-05-16T12:53:08+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_schema_probe_recorder.py"
+}

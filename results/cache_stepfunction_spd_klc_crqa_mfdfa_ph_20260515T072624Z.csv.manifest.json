@@ -1,0 +1,22 @@
+{
+  "script": "cache_stepfunction_features.py",
+  "git_sha": "HEAD",
+  "command": "cache_stepfunction_features.py --workers 12 --families spd,klc,crqa,mfdfa,ph",
+  "created_at_utc": "2026-05-15T07:26:24Z",
+  "labels_used": false,
+  "fold_scope": "global",
+  "cohort_statistics_used": false,
+  "normalization_scope": "per_subject_per_window",
+  "families": [
+    "spd",
+    "klc",
+    "crqa",
+    "mfdfa",
+    "ph"
+  ],
+  "n_subjects": 100,
+  "source_artifacts": [
+    "data/raw/weargait-pd/PD PARTICIPANTS/CSV files/"
+  ],
+  "host": "DESKTOP-7I2K27V"
+}

@@ -1,0 +1,7 @@
+sections_present=file_inventory,subject_linkage,visit_or_session_linkage,sensor_metadata,target_metadata,missingness_policy,grouping_policy,hard_stops
+grouping_keys_found=sid,session_id
+target_columns_found=updrs3
+sensor_modalities_found=ax3_imu
+valid_subject_count=120
+hard_stops=none
+raw_rows=synthetic protected row dump for cns_portugal_lobo should fail

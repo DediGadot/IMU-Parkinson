@@ -1,0 +1,12 @@
+{
+  "scrambled_label_ccc": -0.0139,
+  "normal_ccc": 0.579,
+  "canary_feature_ccc": 0.5788,
+  "canary_vs_normal_max_abs_delta": 0.20275940969374773,
+  "canary_vs_normal_mean_abs_delta": 0.05739663142220815,
+  "transductive_sanity_ccc": 0.8056,
+  "null_seed": 42,
+  "n_train": 73,
+  "n_test": 19,
+  "null_gate_pass": false
+}

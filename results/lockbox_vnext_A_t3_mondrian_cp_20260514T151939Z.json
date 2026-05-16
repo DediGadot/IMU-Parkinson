@@ -1,0 +1,47 @@
+{
+  "cell": "A_t3_mondrian_cp",
+  "n": 95,
+  "predictor": "iter47_drop_allmissing_validrange_stage2_current",
+  "bins_source": "outer_train_only_LOO_quartile_of_predicted_T3",
+  "rows": [
+    {
+      "retained_n": 91,
+      "retained_ccc": 0.3943039068838315,
+      "retained_mae": 7.0828030238242485,
+      "coverage_target": 1.0,
+      "threshold_mean": 17.701287680717027,
+      "threshold_std": 3.6876853276077957,
+      "threshold_cv": 0.20832864784322958
+    },
+    {
+      "retained_n": 77,
+      "retained_ccc": 0.6048696890640186,
+      "retained_mae": 5.592069954197175,
+      "coverage_target": 0.85,
+      "threshold_mean": 13.593500582845412,
+      "threshold_std": 1.6012792931097055,
+      "threshold_cv": 0.11779741968234965
+    },
+    {
+      "retained_n": 65,
+      "retained_ccc": 0.6935398627845398,
+      "retained_mae": 4.438714321920373,
+      "coverage_target": 0.7,
+      "threshold_mean": 10.337062223937528,
+      "threshold_std": 1.785708295441343,
+      "threshold_cv": 0.17274814224356505
+    },
+    {
+      "retained_n": 48,
+      "retained_ccc": 0.848432275018737,
+      "retained_mae": 3.127169912593459,
+      "coverage_target": 0.5,
+      "threshold_mean": 6.6924894584859524,
+      "threshold_std": 1.132861480398722,
+      "threshold_cv": 0.16927355469529723
+    }
+  ],
+  "monotonicity_violations": 0,
+  "verdict": "PASS_DEPLOYABLE_SECONDARY",
+  "comparator_baseline_t3_conformal_v2_70%": 0.329
+}

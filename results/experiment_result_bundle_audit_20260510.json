@@ -1,0 +1,388 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "errors": [],
+        "required_paths": [
+          "results/experiment_result_bundle_demo_preregistration.json",
+          "results/experiment_result_bundle_demo_oof.csv",
+          "results/experiment_result_bundle_demo_features.csv.manifest.json",
+          "results/experiment_result_bundle_demo_rows.csv"
+        ]
+      },
+      "name": "complete bundle validates",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "missing required result artifacts: results/experiment_result_bundle_demo_features.csv.manifest.json, results/experiment_result_bundle_demo_rows.csv"
+        ]
+      },
+      "name": "missing result artifacts are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "preregistration: preregistration.formula_sha256 does not match experiment"
+        ]
+      },
+      "name": "stale preregistration evidence is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "records": [
+          {
+            "exists": true,
+            "path": "results/experiment_result_bundle_demo_preregistration.json",
+            "sha256": "de1c29b546189b1736ca44b667d321984ba1bfd794a2f1a369bb4462de4da6ea",
+            "size_bytes": 252
+          },
+          {
+            "exists": true,
+            "path": "results/experiment_result_bundle_demo_oof.csv",
+            "sha256": "184a9cb3220b46e8579117d41298c1518dc702b3e16121846d7f7ec0775c9a0d",
+            "size_bytes": 323
+          },
+          {
+            "exists": true,
+            "path": "results/experiment_result_bundle_demo_features.csv.manifest.json",
+            "sha256": "f4e4148dfcf0bd0b1369b284b51121f387a15c13fc5d5bbc2779e76a8451b7a0",
+            "size_bytes": 559
+          },
+          {
+            "exists": true,
+            "path": "results/experiment_result_bundle_demo_rows.csv",
+            "sha256": "8fa0fa3e2951ca87a9577d8c7b97d67c8e3c11c0f906abcb4fa28f494edd5a56",
+            "size_bytes": 211
+          }
+        ]
+      },
+      "name": "ledger hashes are available for completed bundle artifacts",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "feature manifest content evidence is required",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "manifest has nullish required field: git_sha",
+          "manifest field labels_used must be a boolean",
+          "manifest field git_sha must be 7-64 hex characters",
+          "manifest field data_sha256 must be 64 hex characters",
+          "feature manifest contains prohibited protected-content key: feature_manifest.metadata.access_token",
+          "feature manifest contains prohibited protected-content key: feature_manifest.rows"
+        ]
+      },
+      "name": "feature manifest malformed fields and protected payloads fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_json_errors": [
+          "feature manifest source is not valid JSON: bad_features.csv.manifest.json",
+          "manifest missing required field: script",
+          "manifest missing required field: git_sha",
+          "manifest missing required field: command",
+          "manifest missing required field: created_at_utc",
+          "manifest missing required field: data_sha256",
+          "manifest missing required field: labels_used",
+          "manifest missing required field: fold_scope",
+          "manifest missing required field: cohort_statistics_used",
+          "manifest missing required field: normalization_scope",
+          "manifest missing required field: leakage_status",
+          "manifest missing required field: leakage_rationale",
+          "feature manifest fold_scope does not match feature block",
+          "feature manifest is not headline-safe: invalid_manifest_json"
+        ],
+        "missing_errors": [
+          "feature manifest source is missing: missing_features.csv.manifest.json",
+          "manifest missing required field: script",
+          "manifest missing required field: git_sha",
+          "manifest missing required field: command",
+          "manifest missing required field: created_at_utc",
+          "manifest missing required field: data_sha256",
+          "manifest missing required field: labels_used",
+          "manifest missing required field: fold_scope",
+          "manifest missing required field: cohort_statistics_used",
+          "manifest missing required field: normalization_scope",
+          "manifest missing required field: leakage_status",
+          "manifest missing required field: leakage_rationale",
+          "feature manifest file is missing",
+          "feature manifest fold_scope does not match feature block",
+          "feature manifest is not headline-safe: missing_manifest_diagnostic_only"
+        ]
+      },
+      "name": "feature manifest loader errors fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "prediction artifact content evidence is required",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "prediction artifact source is missing: results/experiment_result_bundle_demo_missing_oof.csv",
+          "prediction artifact path is not declared for kind oof_predictions: results/experiment_result_bundle_demo_missing_oof.csv",
+          "missing prediction artifact grouping column: sid",
+          "missing prediction artifact column: fold",
+          "missing prediction artifact column: y_true",
+          "missing prediction artifact column: y_pred",
+          "prediction artifact row_count must be positive",
+          "prediction artifact row_count is below pipeline.dataset.min_subjects: 20",
+          "prediction artifact unique_group_count is required",
+          "prediction artifact group_fingerprint is required",
+          "prediction artifact duplicate_group_count is required",
+          "oof prediction artifact unique_fold_count is required",
+          "oof prediction artifact fold range summary is required",
+          "oof prediction artifact target range summary is required"
+        ]
+      },
+      "name": "prediction artifact loader errors fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": []
+      },
+      "name": "metric artifact evidence is bound to OOF predictions",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "metric artifact content evidence is required",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "metric artifact value mismatch for ccc: observed -99.0, expected 0.9963"
+        ]
+      },
+      "name": "metric artifacts must match recomputed OOF metrics",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "metric artifact path error for ccc: malformed index [bad] in 'metrics.ccc[bad]'"
+        ]
+      },
+      "name": "metric artifact JSON path syntax errors fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "metric artifact path error for ccc: malformed path 'metrics..ccc'"
+        ]
+      },
+      "name": "metric artifact JSON paths reject empty segments",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "metric artifact recomputed_from_prediction_path is not the required OOF prediction artifact",
+          "metric artifact OOF prediction source error: row 2 has nonnumeric y_true"
+        ]
+      },
+      "name": "metric artifact malformed OOF source fails closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "metric artifact recomputed_from_prediction_path is not the required OOF prediction artifact",
+          "metric artifact OOF prediction source error: OOF prediction artifact is missing: results/experiment_result_bundle_demo_missing_oof.csv"
+        ]
+      },
+      "name": "metric artifact missing OOF source fails closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "malformed_path_errors": [
+          "metric artifact recomputed_from_prediction_path must be a non-empty string",
+          "metric artifact recomputed_from_prediction_path is not the required OOF prediction artifact",
+          "metric artifact OOF prediction source error: OOF prediction artifact path must be a string or Path"
+        ],
+        "unreadable_errors": [
+          "metric artifact recomputed_from_prediction_path is not the required OOF prediction artifact",
+          "metric artifact OOF prediction source error: OOF prediction artifact is not valid UTF-8 CSV: results/experiment_result_bundle_demo_non_utf8_oof.csv"
+        ]
+      },
+      "name": "metric artifact unreadable/malformed OOF source fails closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "invalid_errors": [
+          "metric artifact source is not valid JSON: results/experiment_result_bundle_demo_bad_metrics.json",
+          "metric artifact path is not declared for kind metrics: results/experiment_result_bundle_demo_bad_metrics.json"
+        ],
+        "missing_errors": [
+          "metric artifact source is missing: results/experiment_result_bundle_demo_missing_metrics.json",
+          "metric artifact path is not declared for kind metrics: results/experiment_result_bundle_demo_missing_metrics.json"
+        ]
+      },
+      "name": "metric artifact JSON source loader errors fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "malformed_errors": [
+          "metric artifact payload must be an object",
+          "metric artifact metric_value_paths must be a non-empty object"
+        ],
+        "nonnumeric_errors": [
+          "metric artifact value for ccc must be numeric"
+        ],
+        "protected_errors": [
+          "metric artifact contains prohibited protected-content key: metric_artifact.rows",
+          "metric artifact contains prohibited protected-content key: metric_artifact.metadata.access_token"
+        ]
+      },
+      "name": "metric artifact malformed/protected payloads fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "OOF and row prediction group sets must match",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "malformed prediction artifact content is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "visit-level prediction grouping keys are validated",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "missing visit-level grouping columns are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "blank prediction grouping values are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "ragged prediction rows are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "nonnumeric or nonfinite prediction values are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "prediction digests must be hex sha256 values",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "out-of-range OOF target values are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "invalid OOF fold values are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {},
+      "name": "incomplete OOF fold coverage is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "duplicate required singleton artifact kind: preregistration"
+        ]
+      },
+      "name": "duplicate singleton artifact kinds are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "artifact kind is required",
+          "artifact path is required"
+        ]
+      },
+      "name": "blank artifact kind or path is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "command entries must be non-empty strings",
+          "owner must be a non-empty string",
+          "artifact kind is required",
+          "artifact path is required"
+        ]
+      },
+      "name": "malformed experiment command/owner/artifact metadata is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "name is required",
+          "pipeline must be a PipelineSpec",
+          "preregistration must be a PreregistrationRecord",
+          "artifacts entries must be ExperimentArtifact",
+          "external_readiness must be an ExternalExperimentReadiness"
+        ]
+      },
+      "name": "malformed nested experiment contract objects are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "malformed_bundle_errors": [
+          "experiment must be an ExperimentSpec",
+          "artifact_ledger must be an ArtifactLedger",
+          "feature_manifest_evidence entries must be FeatureManifestArtifactEvidence",
+          "prediction_artifact_evidence must be a tuple or list",
+          "metric_artifact_evidence entries must be MetricArtifactEvidence"
+        ],
+        "malformed_evidence_bundle_errors": [
+          "artifact_ledger: paths must be a tuple or list",
+          "missing required result artifacts: results/experiment_result_bundle_demo_preregistration.json, results/experiment_result_bundle_demo_oof.csv, results/experiment_result_bundle_demo_features.csv.manifest.json, results/experiment_result_bundle_demo_rows.csv",
+          "preregistration_evidence must be a PreregistrationArtifactEvidence",
+          "feature_manifest_evidence entries must be FeatureManifestArtifactEvidence",
+          "feature manifest evidence is required for feature: manifested_features",
+          "prediction_artifact_evidence entries must be PredictionArtifactEvidence",
+          "prediction artifact evidence is required for oof_predictions: results/experiment_result_bundle_demo_oof.csv",
+          "prediction artifact evidence is required for row_predictions: results/experiment_result_bundle_demo_rows.csv",
+          "metric_artifact_evidence must be a tuple or list"
+        ]
+      },
+      "name": "malformed result-bundle nested evidence objects are rejected",
+      "passed": true
+    }
+  ],
+  "claim": "Completed experiments now have a reusable ExperimentResultBundle that ties ExperimentSpec, observed artifacts, matching preregistration evidence, feature manifest content evidence, parsed OOF/row prediction artifact evidence, and metric artifact evidence together; result bundles reject malformed nested evidence objects and malformed artifact ledgers before downstream checks dereference them; feature manifest evidence rejects malformed manifest fields, missing or invalid manifest source JSON, and row-like or credential-like payload keys; metric artifacts must match metrics recomputed from the required OOF prediction artifact, reject malformed JSON metric paths including empty path segments, reject malformed fields plus row-like or credential-like metric payload keys, and fail closed on missing, unreadable, or malformed OOF prediction sources plus missing or invalid metric JSON sources; prediction evidence now fails closed on missing or unreadable prediction CSV sources and validates pipeline grouping keys, nonblank grouping values, non-ragged CSV rows, unique group counts, matching OOF/row group fingerprints, required columns, numeric finite prediction values, OOF target valid ranges, OOF fold ids and fold coverage, row counts, and hex SHA-256 digests for prediction files; experiment specs also reject malformed command/owner/artifact metadata, malformed nested contract objects, blank artifact declarations, and duplicate required singleton artifact kinds.",
+  "decision": "experiment_result_bundle_passed",
+  "generated_at_utc": "2026-05-16T12:53:33+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_experiment_result_bundle.py"
+}

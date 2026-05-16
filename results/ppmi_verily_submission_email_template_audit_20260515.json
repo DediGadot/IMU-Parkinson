@@ -1,0 +1,172 @@
+{
+  "checks": {
+    "completed_email_preflight": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "scripts/validate_ppmi_verily_submission_email.py",
+        "--email",
+        "without recording personal content"
+      ]
+    },
+    "completed_package_preflight": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "scripts/validate_ppmi_verily_submission_package.py",
+        "--packet",
+        "--email",
+        "before sending",
+        "do not use `--allow-placeholders` for a real pre-submission check",
+        "audit-only and its json output is explicitly not valid for submission"
+      ]
+    },
+    "completed_packet_preflight": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "scripts/validate_ppmi_verily_completed_packet.py",
+        "--packet",
+        "without recording personal content"
+      ]
+    },
+    "compute_boundary": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "read-only schema probe",
+        "before any preregistration",
+        "cache extraction",
+        "remote job",
+        "model run",
+        "canonical weargait-pd claim update"
+      ]
+    },
+    "official_source_recheck": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "current official source recheck on 2026-05-16",
+        "data use agreement",
+        "online application",
+        "publications policy",
+        "data and publications committee within one week",
+        "ppmi data access guidelines version 7.0",
+        "verily raw device data as tier 3",
+        "30-day tier-3 review target"
+      ]
+    },
+    "placeholders_present": {
+      "expected": [
+        "[COMPLETED_PACKET_FILENAME]",
+        "[INSTITUTION]",
+        "[IRB_ID_OR_STATUS]",
+        "[PI_EMAIL]",
+        "[PI_NAME]",
+        "[PI_PHONE]",
+        "[PPMI_ID]",
+        "[PROJECT_TITLE]"
+      ],
+      "passed": true,
+      "placeholders": [
+        "[COMPLETED_PACKET_FILENAME]",
+        "[INSTITUTION]",
+        "[IRB_ID_OR_STATUS]",
+        "[IRB_OR_GOVERNANCE_ATTACHMENT]",
+        "[LOCAL_COMPLETED_EMAIL_PATH]",
+        "[LOCAL_COMPLETED_PACKET_PATH]",
+        "[PI_EMAIL]",
+        "[PI_NAME]",
+        "[PI_PHONE]",
+        "[PPMI_ID]",
+        "[PROJECT_TITLE]",
+        "[SECURITY_ATTACHMENT]"
+      ]
+    },
+    "protected_info_boundary": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "do not commit a completed copy",
+        "do not record or commit the completed packet",
+        "credentials",
+        "protected row data",
+        "approval claims"
+      ]
+    },
+    "required_packet_context": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "specific requested tier-3 data",
+        "intended use",
+        "analysis synopsis",
+        "requesting research-team members",
+        "data custodian",
+        "no-sharing"
+      ]
+    },
+    "submission_recorder": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "scripts/record_access_submission.py",
+        "--route-id ppmi_verily",
+        "--submitted-at-utc",
+        "<ISO8601_UTC>",
+        "--submission-channel",
+        "<non_protected_channel>",
+        "--submitted-by",
+        "<non_protected_submitter>",
+        "--confirmation-reference",
+        "<non_protected_receipt>",
+        "submitted-pending-approval",
+        "does not authorize schema probing"
+      ]
+    },
+    "submission_recorder_command_aligned": {
+      "lingering_old_recorder_snippets": [],
+      "passed": true,
+      "required_snippets": [
+        "scripts/record_access_submission.py",
+        "--route-id ppmi_verily",
+        "--submitted-at-utc <ISO8601_UTC>",
+        "--submission-channel <non_protected_channel>",
+        "--submitted-by <non_protected_submitter>",
+        "--confirmation-reference <non_protected_receipt>",
+        "--pre-submission-preflight-passed"
+      ]
+    },
+    "submission_route": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "resources@michaeljfox.org",
+        "tier-3 request",
+        "verily raw device data",
+        "results/ppmi_verily_tier3_request_packet_template_20260515.docx",
+        "pdf"
+      ]
+    },
+    "template_exists": {
+      "passed": true,
+      "path": "scripts/ppmi_verily_submission_email_template.md"
+    },
+    "word_template_audit_passed": {
+      "audit": "results/ppmi_verily_submit_format_audit_20260515.json",
+      "decision": "ppmi_verily_word_template_ready_to_fill",
+      "passed": true,
+      "word_template": "results/ppmi_verily_tier3_request_packet_template_20260515.docx"
+    }
+  },
+  "decision": "ppmi_verily_submission_email_template_ready",
+  "generated_at_utc": "2026-05-16T12:51:36+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "next_action": "Fill the Word packet and email it through the PPMI access workflow; record only non-protected submission metadata after sending.",
+  "not_a_model_result": true,
+  "not_access_approval": true,
+  "passed": true,
+  "script": "audit_ppmi_verily_submission_email_template.py",
+  "template": "scripts/ppmi_verily_submission_email_template.md"
+}

@@ -4,9 +4,9 @@ The active head of task_plan.md must carry explicit post-iter47 completion crite
 
 - Passed: `True`
 - Decision: `task_plan_current_scope_guard_passed`
-- Historical boundary line: `305`
-- Current-scope lines: `304`
-- Archive-scope lines: `1706`
+- Historical boundary line: `425`
+- Current-scope lines: `424`
+- Archive-scope lines: `3792`
 - Hard failures: `0`
 
 ## Current Scope

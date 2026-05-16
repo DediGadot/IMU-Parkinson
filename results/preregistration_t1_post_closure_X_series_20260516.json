@@ -1,0 +1,109 @@
+{
+  "name": "preregistration_t1_post_closure_X_series_20260516",
+  "created_at_utc": "2026-05-16T05:50:00Z",
+  "type": "post-closure findings-driven probe series",
+  "session_id": "post_evening_push_findings_driven",
+  "user_directive_quote": "fix it as a 10x researcher. maximize utilization on the remote server.",
+
+  "motivation": {
+    "evening_push_closure_findings": "Three slot push 2026-05-15 evening closed negative. Data-dive on Slot D's 46 abstained subjects (50% coverage) revealed: (a) items 11/13 are NOT the source of error in hard subjects — items 9/10/12/14 are (1.10-1.19x worse); (b) abstained subjects have +1.8 years longer PD duration (kept 6.5 vs abst 8.3); (c) top-3 hardest subjects (NLS121, NLS187, NLS191) all have H&Y stage inconsistent with motor-exam severity; (d) disagreement score has false-flags where V2-V3 disagree but iter34 nails it.",
+    "implication": "Months of effort on items 11/13 (PH/MFDFA/self-norm/replacement) targeted the wrong items. Real lift opportunities are on the abstention rule (X1) and disease-duration / per-item-9-12 architectures (X2, X3)."
+  },
+
+  "fwer_policy": {
+    "primary_blocking_gate": "replicated-uncorrected α=0.05 + MCID +0.005 + BH-FDR q<=0.10 across the 3 X probes",
+    "report_only": {
+      "lifetime_n_estimate": 31,
+      "notes": "evening push closed at n=28; X-series adds n=3 → n=31. Lifetime Bonferroni gate 0.998 structurally unreachable."
+    },
+    "estimands": {
+      "X1": "deployable_secondary_retained_ccc_at_coverage (vs Slot D 0.7876@70% / 0.8338@50% baseline)",
+      "X2": "full_cohort_t1_loocv_ccc (vs iter34 0.7170 baseline)",
+      "X3": "full_cohort_t1_loocv_ccc (vs iter34 0.7170 baseline)"
+    }
+  },
+
+  "probe_X1": {
+    "label": "two_signal_abstention_v2v3_AND_HY_inconsistency",
+    "hypothesis": "Combining V2-V3-GSP disagreement (Slot D canonical) with H&Y-vs-ŷ_t1 inconsistency as a second y-free signal lifts retained CCC over Slot D baseline at both 70% and 50% coverage by reducing FALSE-FLAG abstentions on subjects where V2-V3 disagree but iter34 is accurate.",
+    "y_free_argument": "Both signals are functions of (x, trained_artifacts) only. H&Y is a clinical feature input column from pd_demographic_clinical_v1.csv (NOT a target). H&Y-to-T1 scaling is via fold-local linear regression on training-fold (H&Y, y_t1) — no test-fold y used.",
+    "design": {
+      "signal_1": "s_disagree(x) = |yhat_v2(x) - yhat_v3_gsp(x)|",
+      "signal_2": "s_hy(x) = |hy_implied_t1(x) - yhat_iter34(x)| where hy_implied_t1(x) = a*HY(x) + b, (a,b) from train-fold OLS regression of y_t1 on H&Y",
+      "combined_score": "z-score normalize each signal on train fold; s_combined(x) = max(z_disagree(x), z_hy(x)) — abstain on subjects with high score on EITHER signal",
+      "coverages": [0.70, 0.50],
+      "comparison_baseline": "Slot D (V2-V3 + item-13 PH correction) retained CCC at same coverage"
+    },
+    "predicted_delta_ccc": {
+      "low": 0.005,
+      "central": 0.015,
+      "high": 0.030,
+      "reasoning": "Catching ~2-3 false-flag subjects per coverage and replacing with true-hard subjects should lift retained CCC by +0.01-0.03"
+    },
+    "kill_threshold": "retained CCC delta < 0 OR ANY 5-null gate fails OR sanity-y-nan fails",
+    "compute": "master-local ~1 min (no LGB, just normalization + Ridge for item-13 correction reuse)",
+    "script": "run_t1_X1_two_signal_abstention.py"
+  },
+
+  "probe_X2": {
+    "label": "disease_duration_stratified_stage2_affine",
+    "hypothesis": "Stratifying training-fold subjects into short-duration (<7 yr PD) and long-duration (>=7 yr PD), fitting a per-stratum affine correction (slope, intercept) on iter34's t1_sum_pred, then applying the stratum-matched correction to the held-out subject lifts T1_sum LOOCV CCC over iter34 baseline by >= +0.005.",
+    "mechanism_rationale": "Data shows +1.8 yr PD duration shift between kept and abstained subjects. Hypothesis: long-duration PD develops different motor signatures (more axial/freezing, less tremor) that iter34's chain doesn't calibrate optimally for both subgroups simultaneously. Affine correction per stratum captures the systematic over/under-prediction bias per group.",
+    "wall_orthogonality": "Distinct from F59 (Stage-1 widening with clinical extras failed): we don't add clinical features to Stage-1; we add a Stage-2 STRATUM-CONDITIONAL CALIBRATION. Distinct from F61 (tail-aware retraining): we stratify by clinical input (duration), not by residual magnitude. Distinct from F58 (1-param blend): we have 2-param per stratum (slope+intercept) trained on outer-train.",
+    "y_free_at_fit": "Stratum membership for held-out subject is determined by their (known) PD duration. Within each stratum, slope+intercept fit on training-fold (yhat_iter34, y_t1) pairs — no test-fold y used.",
+    "design": {
+      "stratification_threshold": 7.0,
+      "threshold_provenance": "median of kept-abstained PD-duration distribution (6.5 + 8.3) / 2 = 7.4; rounded to 7.0; predeclared NOT tuned",
+      "stratum_model": "least-squares affine y_t1 ~ a * yhat_iter34 + b within stratum on training fold",
+      "fallback_if_stratum_too_small": "if either stratum has < 15 training subjects, use the full-fold affine (no stratification) for that fold",
+      "missing_pd_duration_handling": "subjects with NaN years_since_pd assigned to long-duration stratum (conservative, matches WPD subjects who tend to be longer-disease)",
+      "comparison_baseline": "iter34 t1_sum_pred (canonical 0.7170)"
+    },
+    "predicted_delta_ccc": {
+      "low": 0.000,
+      "central": 0.008,
+      "high": 0.020,
+      "reasoning": "Per-stratum N=~45 is small; affine has only 2 params per stratum so overfitting risk is bounded; expected modest lift if duration signal is real"
+    },
+    "kill_threshold": "5-fold Δ̄ < +0.000 OR D4 audit ΔMAE > 0 with corr(correction, sum_resid) <= 0 OR ANY 5-null fails",
+    "compute": "remote ~3-5 min (LGB-free; pure numpy/sklearn affine fits)",
+    "script": "run_t1_X2_duration_stratified_affine.py"
+  },
+
+  "probe_X3": {
+    "label": "items_9_12_transient_targeted_residual_correction",
+    "hypothesis": "A joint item_only Ridge correction on items 9 (chair rise) AND 12 (postural stability) residuals using available phase-locked / TUG-localized features lifts T1_sum LOOCV CCC by >= +0.005 vs iter34, with D4 audit clean. These are the two items where abstained subjects' residual errors are 1.18-1.19x worse.",
+    "mechanism_rationale": "Items 9 and 12 are TRANSIENT sub-second events (chair-rise impulse, pull-test recovery). V2 windowed-spectral features average over full task duration, missing transient signatures. Phase-locked features should capture transient signatures specifically.",
+    "wall_orthogonality": "Distinct from F36-D (phase-locked feature injection INTO iter34's V2 K=500 pool — failed): we use item_only correction architecture (per F-hypothesis-restricted-bypasses-K500). Distinct from F35-C (replacement-LGB for items 9/12 — failed because iter34's chain has signal for items 9 CCC=0.234, 12 CCC=0.566): we CORRECT not REPLACE. Distinct from S5/S8 (item-13 PH/MFDFA): different items, different features.",
+    "design": {
+      "cache_source": "cache_phaselocked_item9.csv if present (else cache_item9_event_moment.csv); cache_phaselocked_item12.csv if present (else cache_item_specific_features.csv item-12 columns); cache_nonlinear_dynamics item-12 RQA features",
+      "architecture": "for each of items 9 and 12 separately: fold-local Ridge α-grid {10, 30, 100, 300, 1000} via inner 5-fold OOF residual CCC; corrected per-item = iter34.item_X_pred + λ*Ridge_α*(prediction). λ=1.0 fixed (per evening push tri-CLI synthesis). Then T1_sum_corrected = iter34.t1_sum_pred + correction_9 + correction_12",
+      "comparison_baseline": "iter34 t1_sum_pred"
+    },
+    "predicted_delta_ccc": {
+      "low": -0.005,
+      "central": 0.005,
+      "high": 0.015,
+      "reasoning": "Slot A/B'/C all FAIL on item-13 correction at +/-0.005 magnitude. Items 9 and 12 may behave similarly. Expected sub-MCID directional positive at best."
+    },
+    "kill_threshold": "5-fold Δ̄ < +0.000 OR D4 corr(correction, sum_resid) <= 0 on either item OR ΔMAE > 0 OR ANY 5-null fails",
+    "compute": "remote ~5 min",
+    "script": "run_t1_X3_items_9_12_transient_correction.py"
+  },
+
+  "execution_plan": {
+    "X1": "master-local (no LGB), launch immediately",
+    "X2": "remote slave (parallel with X3), via gpu.sh",
+    "X3": "remote slave (parallel with X2), via gpu.sh",
+    "audit": "aggregate all 3 in single audit table when all complete",
+    "five_null_gate_per_probe": "scrambled_y, sid_shuffle, canary_noise (for X3), transductive, sanity_y_nan — same pattern as evening push"
+  },
+
+  "do_not": [
+    "Use test-fold y at fit time in ANY probe (Law #9).",
+    "Re-run after seeing metrics (seed shopping).",
+    "Tune stratification threshold post-hoc (X2 predeclared at 7.0).",
+    "Substitute alphas/lambdas/cache sources after seeing intermediate results.",
+    "Extend X1/X2/X3 into iter-X.5 if they fail."
+  ]
+}

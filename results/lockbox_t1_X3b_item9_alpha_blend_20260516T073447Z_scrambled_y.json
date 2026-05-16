@@ -1,0 +1,66 @@
+{
+  "name": "lockbox_t1_X3b_item9_alpha_blend",
+  "created_at_utc": "20260516T073447Z",
+  "preregistration": "results/preregistration_t1_post_closure_X_series_20260516.json (X3b = X3 codex fix: item-9 only, alpha blend)",
+  "null_mode": "scrambled_y",
+  "sanity_y_nan": false,
+  "formula_sha256": "cfbccc65a869fa64884ce2ba2a6b258c95c08f29d1cf4cd282f85b52669751db",
+  "n_cohort": 92,
+  "n_features": 11,
+  "blend_grid": [
+    0.0,
+    0.25,
+    0.5
+  ],
+  "alpha_grid": [
+    10.0,
+    30.0,
+    100.0,
+    300.0,
+    1000.0
+  ],
+  "blend_histogram_seedA": {
+    "blend_0.0": 89,
+    "blend_0.25": 8,
+    "blend_0.5": 179
+  },
+  "baselines": {
+    "loocv_ccc_iter34": 0.7170378403014925,
+    "loocv_mae_iter34": 1.7356018162374585
+  },
+  "seed_set_A": {
+    "label": "seed_set_A",
+    "ccc": 0.7171684005124045,
+    "delta_ccc": 0.00013056021091195635,
+    "mae": 1.7327420902637711,
+    "delta_mae": -0.0028597259736873326,
+    "bootstrap": {
+      "median": 0.00011610011950852206,
+      "ci95": [
+        -0.0013433770521562361,
+        0.0018212009645576406
+      ],
+      "frac_pos": 0.5576
+    }
+  },
+  "seed_set_B": {
+    "label": "seed_set_B",
+    "ccc": 0.716892213321365,
+    "delta_ccc": -0.0001456269801275445,
+    "mae": 1.735845666638931,
+    "delta_mae": 0.0002438504014725673,
+    "bootstrap": {
+      "median": -0.00015315621131334334,
+      "ci95": [
+        -0.0018429870351206522,
+        0.0017433934835817163
+      ],
+      "frac_pos": 0.4354
+    }
+  },
+  "d4_audit": {
+    "corr_correction_T1_sum_residual": -0.04669134870049765,
+    "delta_mae_avg": -0.00152481911938529
+  },
+  "verdict_provisional": "FAIL"
+}

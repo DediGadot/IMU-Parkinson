@@ -22,8 +22,22 @@ BLOCKER_JSON = RESULTS / "remaining_blocker_action_audit_20260509.json"
 RECOVERY_JSON = RESULTS / "weargait_missing_synapse_recovery_preflight_20260509.json"
 RAW_RECOVERY_RUNBOOK = ROOT / "scripts" / "weargait_raw_data_recovery_runbook.md"
 RAW_RECOVERY_RUNBOOK_AUDIT = RESULTS / "weargait_raw_data_recovery_runbook_audit_20260509.json"
+PPMI_SUBMIT_FORMAT_JSON = RESULTS / "ppmi_verily_submit_format_audit_20260515.json"
+PPMI_EMAIL_TEMPLATE_JSON = RESULTS / "ppmi_verily_submission_email_template_audit_20260515.json"
+PPMI_USER_FILL_CHECKLIST_JSON = RESULTS / "ppmi_verily_user_fill_checklist_audit_20260515.json"
+PPMI_SCHEMA_PROBE_CHECKLIST_JSON = RESULTS / "ppmi_verily_schema_probe_checklist_audit_20260515.json"
+PPMI_SCHEMA_PROBE_TEMPLATE_JSON = RESULTS / "ppmi_verily_schema_probe_report_template_audit_20260515.json"
+PPMI_COMPLETED_PACKET_VALIDATOR_JSON = RESULTS / "ppmi_verily_completed_packet_validator_audit_20260515.json"
+PPMI_COMPLETED_EMAIL_VALIDATOR_JSON = RESULTS / "ppmi_verily_submission_email_validator_audit_20260515.json"
+PPMI_COMPLETED_PACKAGE_VALIDATOR_JSON = RESULTS / "ppmi_verily_submission_package_validator_audit_20260515.json"
+PPMI_SUBMISSION_BUNDLE_JSON = RESULTS / "ppmi_verily_submission_bundle_20260515.json"
 OUT_JSON = RESULTS / "external_access_readiness_audit_20260509.json"
 OUT_MD = RESULTS / "external_access_readiness_audit_20260509.md"
+
+EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT = 19
+EXPECTED_PPMI_PACKET_FIELD_COUNT = 13
+EXPECTED_PPMI_EMAIL_FIELD_COUNT = 12
+EXPECTED_PPMI_SUBMISSION_METADATA_FIELD_COUNT = 4
 
 
 ROUTES: list[dict[str, Any]] = [
@@ -164,6 +178,12 @@ def load_json(path: Path) -> dict[str, Any]:
         return json.load(f)
 
 
+def load_json_optional(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    return load_json(path)
+
+
 def contains_any(text: str, choices: tuple[str, ...] | str) -> bool:
     if isinstance(choices, str):
         return choices in text
@@ -236,6 +256,174 @@ def request_packet_status(path_str: str | None, audit_str: str | None) -> dict[s
     }
 
 
+def ppmi_submission_support_status() -> dict[str, Any]:
+    submit_format = load_json_optional(PPMI_SUBMIT_FORMAT_JSON)
+    email_template = load_json_optional(PPMI_EMAIL_TEMPLATE_JSON)
+    user_fill_checklist = load_json_optional(PPMI_USER_FILL_CHECKLIST_JSON)
+    schema_probe_checklist = load_json_optional(PPMI_SCHEMA_PROBE_CHECKLIST_JSON)
+    schema_probe_template = load_json_optional(PPMI_SCHEMA_PROBE_TEMPLATE_JSON)
+    completed_validator = load_json_optional(PPMI_COMPLETED_PACKET_VALIDATOR_JSON)
+    completed_email_validator = load_json_optional(PPMI_COMPLETED_EMAIL_VALIDATOR_JSON)
+    completed_package_validator = load_json_optional(PPMI_COMPLETED_PACKAGE_VALIDATOR_JSON)
+    submission_bundle = load_json_optional(PPMI_SUBMISSION_BUNDLE_JSON)
+
+    checks = {
+        "word_template": (
+            submit_format.get("passed") is True
+            and submit_format.get("decision") == "ppmi_verily_word_template_ready_to_fill"
+            and submit_format.get("output_docx")
+            == "results/ppmi_verily_tier3_request_packet_template_20260515.docx"
+        ),
+        "submission_email": (
+            email_template.get("passed") is True
+            and email_template.get("decision") == "ppmi_verily_submission_email_template_ready"
+            and email_template.get("template") == "scripts/ppmi_verily_submission_email_template.md"
+        ),
+        "user_fill_checklist": (
+            user_fill_checklist.get("passed") is True
+            and user_fill_checklist.get("decision") == "ppmi_verily_user_fill_checklist_ready"
+            and user_fill_checklist.get("checklist") == "scripts/ppmi_verily_user_fill_checklist.md"
+            and user_fill_checklist.get("required_placeholder_count")
+            == EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT
+            and user_fill_checklist.get("packet_field_count") == EXPECTED_PPMI_PACKET_FIELD_COUNT
+            and user_fill_checklist.get("email_field_count") == EXPECTED_PPMI_EMAIL_FIELD_COUNT
+            and user_fill_checklist.get("submission_metadata_field_count")
+            == EXPECTED_PPMI_SUBMISSION_METADATA_FIELD_COUNT
+            and len(user_fill_checklist.get("required_placeholders", []))
+            == EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT
+            and len(user_fill_checklist.get("packet_fields", [])) == EXPECTED_PPMI_PACKET_FIELD_COUNT
+            and len(user_fill_checklist.get("email_fields", [])) == EXPECTED_PPMI_EMAIL_FIELD_COUNT
+            and user_fill_checklist.get("submission_metadata_placeholders")
+            == [
+                "<ISO8601_UTC>",
+                "<non_protected_channel>",
+                "<non_protected_submitter>",
+                "<non_protected_receipt>",
+            ]
+        ),
+        "completed_packet_validator": (
+            completed_validator.get("passed") is True
+            and completed_validator.get("decision") == "ppmi_verily_completed_packet_validator_ready"
+            and completed_validator.get("validator") == "scripts/validate_ppmi_verily_completed_packet.py"
+        ),
+        "completed_email_validator": (
+            completed_email_validator.get("passed") is True
+            and completed_email_validator.get("decision") == "ppmi_verily_submission_email_validator_ready"
+            and completed_email_validator.get("validator") == "scripts/validate_ppmi_verily_submission_email.py"
+        ),
+        "completed_package_validator": (
+            completed_package_validator.get("passed") is True
+            and completed_package_validator.get("decision") == "ppmi_verily_submission_package_validator_ready"
+            and completed_package_validator.get("validator") == "scripts/validate_ppmi_verily_submission_package.py"
+            and completed_package_validator.get("not_a_submission_record") is True
+            and completed_package_validator.get("not_access_approval") is True
+            and completed_package_validator.get("not_a_model_result") is True
+            and completed_package_validator.get("protected_data_included") is False
+            and completed_package_validator.get("credentials_or_tokens_included") is False
+        ),
+        "schema_probe_checklist": (
+            schema_probe_checklist.get("passed") is True
+            and schema_probe_checklist.get("decision") == "ppmi_verily_schema_probe_checklist_ready"
+            and schema_probe_checklist.get("checklist") == "scripts/ppmi_verily_schema_probe_checklist.md"
+            and schema_probe_checklist.get("schema_probe_artifact_created") is False
+            and schema_probe_checklist.get("protected_data_included") is False
+        ),
+        "schema_probe_report_template": (
+            schema_probe_template.get("passed") is True
+            and schema_probe_template.get("decision") == "ppmi_verily_schema_probe_report_template_ready"
+            and schema_probe_template.get("template") == "scripts/ppmi_verily_schema_probe_report_template.md"
+            and schema_probe_template.get("schema_probe_artifact_created") is False
+            and schema_probe_template.get("protected_data_included") is False
+        ),
+        "submission_bundle": (
+            submission_bundle.get("passed") is True
+            and submission_bundle.get("decision") == "ppmi_verily_submission_bundle_ready"
+            and submission_bundle.get("completed_packet_included") is False
+            and submission_bundle.get("protected_data_included") is False
+            and submission_bundle.get("credentials_or_tokens_included") is False
+            and submission_bundle.get("audit_states", {}).get("user_fill_checklist_audit", {}).get("passed") is True
+            and submission_bundle.get("audit_states", {})
+            .get("user_fill_checklist_audit", {})
+            .get("required_placeholder_count")
+            == EXPECTED_PPMI_REQUIRED_PLACEHOLDER_COUNT
+            and submission_bundle.get("audit_states", {})
+            .get("user_fill_checklist_audit", {})
+            .get("packet_field_count")
+            == EXPECTED_PPMI_PACKET_FIELD_COUNT
+            and submission_bundle.get("audit_states", {})
+            .get("user_fill_checklist_audit", {})
+            .get("email_field_count")
+            == EXPECTED_PPMI_EMAIL_FIELD_COUNT
+            and submission_bundle.get("audit_states", {})
+            .get("user_fill_checklist_audit", {})
+            .get("submission_metadata_field_count")
+            == EXPECTED_PPMI_SUBMISSION_METADATA_FIELD_COUNT
+            and submission_bundle.get("audit_states", {}).get("completed_email_validator_audit", {}).get("passed")
+            is True
+            and submission_bundle.get("audit_states", {}).get("completed_package_validator_audit", {}).get("passed")
+            is True
+            and submission_bundle.get("audit_states", {}).get("schema_probe_checklist_audit", {}).get("passed") is True
+            and submission_bundle.get("audit_states", {}).get("schema_probe_report_template_audit", {}).get("passed")
+            is True
+        ),
+    }
+    missing = [name for name, passed in checks.items() if not passed]
+    return {
+        "passed": not missing,
+        "checks": checks,
+        "missing_checks": missing,
+        "word_template": {
+            "audit": str(PPMI_SUBMIT_FORMAT_JSON.relative_to(ROOT)),
+            "path": submit_format.get("output_docx"),
+            "decision": submit_format.get("decision"),
+        },
+        "submission_email": {
+            "audit": str(PPMI_EMAIL_TEMPLATE_JSON.relative_to(ROOT)),
+            "path": email_template.get("template"),
+            "decision": email_template.get("decision"),
+        },
+        "user_fill_checklist": {
+            "audit": str(PPMI_USER_FILL_CHECKLIST_JSON.relative_to(ROOT)),
+            "path": user_fill_checklist.get("checklist"),
+            "decision": user_fill_checklist.get("decision"),
+            "required_placeholder_count": user_fill_checklist.get("required_placeholder_count"),
+            "packet_field_count": user_fill_checklist.get("packet_field_count"),
+            "email_field_count": user_fill_checklist.get("email_field_count"),
+            "submission_metadata_field_count": user_fill_checklist.get("submission_metadata_field_count"),
+            "required_placeholder_list_count": len(user_fill_checklist.get("required_placeholders", [])),
+        },
+        "completed_packet_validator": {
+            "audit": str(PPMI_COMPLETED_PACKET_VALIDATOR_JSON.relative_to(ROOT)),
+            "path": completed_validator.get("validator"),
+            "decision": completed_validator.get("decision"),
+        },
+        "completed_email_validator": {
+            "audit": str(PPMI_COMPLETED_EMAIL_VALIDATOR_JSON.relative_to(ROOT)),
+            "path": completed_email_validator.get("validator"),
+            "decision": completed_email_validator.get("decision"),
+        },
+        "completed_package_validator": {
+            "audit": str(PPMI_COMPLETED_PACKAGE_VALIDATOR_JSON.relative_to(ROOT)),
+            "path": completed_package_validator.get("validator"),
+            "decision": completed_package_validator.get("decision"),
+        },
+        "schema_probe_checklist": {
+            "audit": str(PPMI_SCHEMA_PROBE_CHECKLIST_JSON.relative_to(ROOT)),
+            "path": schema_probe_checklist.get("checklist"),
+            "decision": schema_probe_checklist.get("decision"),
+        },
+        "schema_probe_report_template": {
+            "audit": str(PPMI_SCHEMA_PROBE_TEMPLATE_JSON.relative_to(ROOT)),
+            "path": schema_probe_template.get("template"),
+            "decision": schema_probe_template.get("decision"),
+        },
+        "submission_bundle": {
+            "audit": str(PPMI_SUBMISSION_BUNDLE_JSON.relative_to(ROOT)),
+            "decision": submission_bundle.get("decision"),
+        },
+    }
+
+
 def source_list(route: dict[str, Any]) -> list[str]:
     sources = route.get("sources", route.get("source_urls", []))
     return [str(item) for item in sources if item]
@@ -244,6 +432,7 @@ def source_list(route: dict[str, Any]) -> list[str]:
 def make_route_row(config: dict[str, Any], route: dict[str, Any] | None) -> dict[str, Any]:
     rb = runbook_status(config.get("runbook"))
     packet = request_packet_status(config.get("request_packet"), config.get("request_packet_audit"))
+    submission_support = ppmi_submission_support_status() if config["id"] == "ppmi_verily" else None
     route_sources = source_list(route or {})
     direct_eligible = bool((route or {}).get("direct_t1_t3_eligible"))
     status = str((route or {}).get("status") or (route or {}).get("access_status") or "")
@@ -257,6 +446,13 @@ def make_route_row(config: dict[str, Any], route: dict[str, Any] | None) -> dict
         "access_request_only"
         if config["action_packet_ready_expected"]
         else "monitor_or_document_only"
+    )
+    action_packet_ready = bool(
+        config["action_packet_ready_expected"]
+        and rb["passed"]
+        and runbook_matches_json
+        and packet["passed"]
+        and (submission_support is None or submission_support["passed"])
     )
     return {
         "id": config["id"],
@@ -274,12 +470,8 @@ def make_route_row(config: dict[str, Any], route: dict[str, Any] | None) -> dict
         "route_json_runbook": route_runbook,
         "runbook_matches_json": bool(runbook_matches_json),
         "source_count": len(route_sources),
-        "action_packet_ready": bool(
-            config["action_packet_ready_expected"]
-            and rb["passed"]
-            and runbook_matches_json
-            and packet["passed"]
-        ),
+        "action_packet_ready": action_packet_ready,
+        "submission_support": submission_support,
         "remote_job_allowed_now": False,
         "scaffold_allowed_now": False,
         "first_allowed_action_after_access": config["first_allowed_action_after_access"],
@@ -365,6 +557,14 @@ def main() -> None:
                     "audit_exists": row["request_packet"]["audit_exists"],
                 }
             )
+        if row["id"] == "ppmi_verily" and not (row.get("submission_support") or {}).get("passed"):
+            hard_failures.append(
+                {
+                    "route": row["name"],
+                    "issue": "ppmi_submission_support_incomplete",
+                    "missing_checks": (row.get("submission_support") or {}).get("missing_checks", []),
+                }
+            )
         if row["remote_job_allowed_now"] or row["scaffold_allowed_now"]:
             hard_failures.append({"route": row["name"], "issue": "pre_access_compute_or_scaffold_marked_allowed"})
         if row["priority"] > 6 and row["runbook"]["path"] is None:
@@ -396,6 +596,16 @@ def main() -> None:
         "provenance_recovery_class": provenance_row.get("readiness_class"),
         "hard_failure_count": len(hard_failures),
         "warning_count": len(warnings),
+        "ppmi_submission_support_ready": bool(
+            next(
+                (
+                    (row.get("submission_support") or {}).get("passed")
+                    for row in route_rows
+                    if row["id"] == "ppmi_verily"
+                ),
+                False,
+            )
+        ),
     }
 
     out = {
@@ -429,14 +639,15 @@ def main() -> None:
     lines.append("")
     lines.append("## Ordered Access Queue")
     lines.append("")
-    lines.append("| Priority | Route | Readiness class | Current allowed action | Access blocker | Runbook | Request packet |")
-    lines.append("|---:|---|---|---|---|---|---|")
+    lines.append("| Priority | Route | Readiness class | Current allowed action | Access blocker | Runbook | Request packet | Submission support |")
+    lines.append("|---:|---|---|---|---|---|---|---|")
     for row in sorted(route_rows, key=lambda r: int(r["priority"])):
         rb = row["runbook"]["path"] or "not required"
         packet = row["request_packet"]["path"] or "not required"
+        support = "ready" if (row.get("submission_support") or {}).get("passed") else ("not required" if row["id"] != "ppmi_verily" else "not ready")
         lines.append(
             f"| {row['priority']} | {row['name']} | `{row['readiness_class']}` | "
-            f"`{row['current_allowed_action']}` | {row['access_blocker']} | `{rb}` | `{packet}` |"
+            f"`{row['current_allowed_action']}` | {row['access_blocker']} | `{rb}` | `{packet}` | `{support}` |"
         )
     lines.append("")
     lines.append("## Guardrails")

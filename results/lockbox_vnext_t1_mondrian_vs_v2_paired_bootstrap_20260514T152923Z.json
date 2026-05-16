@@ -1,0 +1,105 @@
+{
+  "name": "vnext_t1_mondrian_vs_v2_paired_bootstrap",
+  "created_at_utc": "2026-05-14T15:36:00.597126+00:00",
+  "ts": "20260514T152923Z",
+  "formula": {
+    "predictor_mondrian": "iter34_hybrid_T1_sum",
+    "score_mondrian": "abs_residual_y_minus_iter34",
+    "bins_mondrian": "outer_train_only_LOO_quartile_of_predicted_T1",
+    "predictor_v2only": "iter34_hybrid_T1_sum (point_pred)",
+    "score_v2only": "abs_p_v2_minus_p_v3_disagreement",
+    "bootstrap_n": 5000,
+    "coverages": [
+      1.0,
+      0.85,
+      0.7,
+      0.5
+    ],
+    "seed": 42
+  },
+  "formula_sha256": "b095f32f8ccad3fd25020ce35ea1757c36208bee642e3c6d1ca0ff678366759a",
+  "n_subjects": 92,
+  "real_table": [
+    {
+      "coverage": 1.0,
+      "n_retained_mond": 88,
+      "ccc_mond": 0.7557474747600864,
+      "n_retained_v2": 91,
+      "ccc_v2": 0.7139864594889813,
+      "delta_mond_minus_v2": 0.041761015271105095
+    },
+    {
+      "coverage": 0.85,
+      "n_retained_mond": 76,
+      "ccc_mond": 0.803811112418341,
+      "n_retained_v2": 77,
+      "ccc_v2": 0.7514101885992726,
+      "delta_mond_minus_v2": 0.05240092381906847
+    },
+    {
+      "coverage": 0.7,
+      "n_retained_mond": 63,
+      "ccc_mond": 0.8897436611383441,
+      "n_retained_v2": 64,
+      "ccc_v2": 0.777708087108654,
+      "delta_mond_minus_v2": 0.11203557402969011
+    },
+    {
+      "coverage": 0.5,
+      "n_retained_mond": 46,
+      "ccc_mond": 0.9520994796977327,
+      "n_retained_v2": 46,
+      "ccc_v2": 0.833766584306216,
+      "delta_mond_minus_v2": 0.1183328953915167
+    }
+  ],
+  "bootstrap_rows": [
+    {
+      "coverage": 1.0,
+      "n_valid": 5000,
+      "delta_mean": 0.015386603704502483,
+      "delta_median": 0.016214230401173535,
+      "delta_ci_low": -0.021712124400114715,
+      "delta_ci_high": 0.043190285757788195,
+      "frac_pos": 0.8662,
+      "frac_ge_mcid": 0.2578,
+      "gate_pass_uncorrected_0_95": false
+    },
+    {
+      "coverage": 0.85,
+      "n_valid": 5000,
+      "delta_mean": 0.05467493287510009,
+      "delta_median": 0.053230285242724495,
+      "delta_ci_low": -0.0155195705126597,
+      "delta_ci_high": 0.13414834352567984,
+      "frac_pos": 0.9402,
+      "frac_ge_mcid": 0.8018,
+      "gate_pass_uncorrected_0_95": false
+    },
+    {
+      "coverage": 0.7,
+      "n_valid": 5000,
+      "delta_mean": 0.09534098558549103,
+      "delta_median": 0.09067506310511081,
+      "delta_ci_low": 0.006674380759574162,
+      "delta_ci_high": 0.21365255847879447,
+      "frac_pos": 0.9816,
+      "frac_ge_mcid": 0.9494,
+      "gate_pass_uncorrected_0_95": true
+    },
+    {
+      "coverage": 0.5,
+      "n_valid": 5000,
+      "delta_mean": 0.11872779503203419,
+      "delta_median": 0.11021729384018064,
+      "delta_ci_low": 0.03748080644714299,
+      "delta_ci_high": 0.2525328952669274,
+      "frac_pos": 0.9964,
+      "frac_ge_mcid": 0.9894,
+      "gate_pass_uncorrected_0_95": true
+    }
+  ],
+  "n_bootstrap": 5000,
+  "seed": 42,
+  "verdict": "T1_MONDRIAN_SUPERSEDES_V2_ONLY"
+}

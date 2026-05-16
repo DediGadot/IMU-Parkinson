@@ -1,0 +1,8 @@
+{
+  "name": "t3_stride_only",
+  "stride_only_ridge_ccc": 0.09049230464849188,
+  "hy_plus_stride_ridge_ccc": 0.1263283191187057,
+  "hy_only_ridge_ccc": 0.1939702185417698,
+  "iter47_canonical_ccc": 0.3784,
+  "delta_hy_stride_vs_iter47": -0.2520716808812943
+}

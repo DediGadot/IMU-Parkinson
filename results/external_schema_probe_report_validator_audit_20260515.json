@@ -1,0 +1,443 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "validator": "scripts/validate_schema_probe_report.py"
+      },
+      "name": "validator script exists",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ]
+      },
+      "name": "schema contracts expose six external route specs",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_passed",
+        "field_counts": {
+          "grouping_keys_found": 2,
+          "sections_present": 8,
+          "sensor_modalities_found": 1,
+          "target_columns_found": 1
+        },
+        "hard_failures": []
+      },
+      "name": "ppmi_verily synthetic completed schema report passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "returncode": 1,
+        "validation_errors": [
+          "valid_subject_count is below minimum 20"
+        ]
+      },
+      "name": "ppmi_verily low subject count fails contract",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent",
+          "forbidden_text_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "ppmi_verily protected row-like content fails",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "low_n_output_contains_filename": false,
+        "low_n_output_contains_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_path": false,
+        "valid_output_contains_filename": false,
+        "valid_output_contains_path": false
+      },
+      "name": "ppmi_verily output redacts report paths and filenames",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_passed",
+        "field_counts": {
+          "grouping_keys_found": 2,
+          "sections_present": 8,
+          "sensor_modalities_found": 1,
+          "target_columns_found": 1
+        },
+        "hard_failures": []
+      },
+      "name": "ppp_pd_vme synthetic completed schema report passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "returncode": 1,
+        "validation_errors": [
+          "valid_subject_count is below minimum 20"
+        ]
+      },
+      "name": "ppp_pd_vme low subject count fails contract",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent",
+          "forbidden_text_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "ppp_pd_vme protected row-like content fails",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "low_n_output_contains_filename": false,
+        "low_n_output_contains_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_path": false,
+        "valid_output_contains_filename": false,
+        "valid_output_contains_path": false
+      },
+      "name": "ppp_pd_vme output redacts report paths and filenames",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_passed",
+        "field_counts": {
+          "grouping_keys_found": 2,
+          "sections_present": 8,
+          "sensor_modalities_found": 1,
+          "target_columns_found": 1
+        },
+        "hard_failures": []
+      },
+      "name": "watchpd synthetic completed schema report passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "returncode": 1,
+        "validation_errors": [
+          "valid_subject_count is below minimum 20"
+        ]
+      },
+      "name": "watchpd low subject count fails contract",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent",
+          "forbidden_text_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "watchpd protected row-like content fails",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "low_n_output_contains_filename": false,
+        "low_n_output_contains_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_path": false,
+        "valid_output_contains_filename": false,
+        "valid_output_contains_path": false
+      },
+      "name": "watchpd output redacts report paths and filenames",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_passed",
+        "field_counts": {
+          "grouping_keys_found": 2,
+          "sections_present": 8,
+          "sensor_modalities_found": 1,
+          "target_columns_found": 1
+        },
+        "hard_failures": []
+      },
+      "name": "cns_portugal_lobo synthetic completed schema report passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "returncode": 1,
+        "validation_errors": [
+          "valid_subject_count is below minimum 20"
+        ]
+      },
+      "name": "cns_portugal_lobo low subject count fails contract",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent",
+          "forbidden_text_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "cns_portugal_lobo protected row-like content fails",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "low_n_output_contains_filename": false,
+        "low_n_output_contains_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_path": false,
+        "valid_output_contains_filename": false,
+        "valid_output_contains_path": false
+      },
+      "name": "cns_portugal_lobo output redacts report paths and filenames",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_passed",
+        "field_counts": {
+          "grouping_keys_found": 2,
+          "sections_present": 8,
+          "sensor_modalities_found": 1,
+          "target_columns_found": 1
+        },
+        "hard_failures": []
+      },
+      "name": "hssayeni_mjff synthetic completed schema report passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "returncode": 1,
+        "validation_errors": [
+          "valid_subject_count is below minimum 20"
+        ]
+      },
+      "name": "hssayeni_mjff low subject count fails contract",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent",
+          "forbidden_text_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "hssayeni_mjff protected row-like content fails",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "low_n_output_contains_filename": false,
+        "low_n_output_contains_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_path": false,
+        "valid_output_contains_filename": false,
+        "valid_output_contains_path": false
+      },
+      "name": "hssayeni_mjff output redacts report paths and filenames",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_schema_probe_report_preflight_passed",
+        "field_counts": {
+          "grouping_keys_found": 2,
+          "sections_present": 8,
+          "sensor_modalities_found": 1,
+          "target_columns_found": 1
+        },
+        "hard_failures": []
+      },
+      "name": "icicle_gait synthetic completed schema report passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "returncode": 1,
+        "validation_errors": [
+          "valid_subject_count is below minimum 20"
+        ]
+      },
+      "name": "icicle_gait low subject count fails contract",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent",
+          "forbidden_text_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "icicle_gait protected row-like content fails",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "low_n_output_contains_filename": false,
+        "low_n_output_contains_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_path": false,
+        "valid_output_contains_filename": false,
+        "valid_output_contains_path": false
+      },
+      "name": "icicle_gait output redacts report paths and filenames",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "external_schema_probe_report_validator_ready",
+  "generated_at_utc": "2026-05-16T06:04:59+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "not_a_schema_probe_artifact": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "passed": true,
+  "protected_data_included": false,
+  "route_results": {
+    "cns_portugal_lobo": {
+      "low_n_failed": true,
+      "low_n_validation_errors": [
+        "valid_subject_count is below minimum 20"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent",
+        "forbidden_text_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "completed_schema_probe_report_preflight_passed",
+      "synthetic_field_counts": {
+        "grouping_keys_found": 2,
+        "sections_present": 8,
+        "sensor_modalities_found": 1,
+        "target_columns_found": 1
+      },
+      "synthetic_passed": true
+    },
+    "hssayeni_mjff": {
+      "low_n_failed": true,
+      "low_n_validation_errors": [
+        "valid_subject_count is below minimum 20"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent",
+        "forbidden_text_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "completed_schema_probe_report_preflight_passed",
+      "synthetic_field_counts": {
+        "grouping_keys_found": 2,
+        "sections_present": 8,
+        "sensor_modalities_found": 1,
+        "target_columns_found": 1
+      },
+      "synthetic_passed": true
+    },
+    "icicle_gait": {
+      "low_n_failed": true,
+      "low_n_validation_errors": [
+        "valid_subject_count is below minimum 20"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent",
+        "forbidden_text_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "completed_schema_probe_report_preflight_passed",
+      "synthetic_field_counts": {
+        "grouping_keys_found": 2,
+        "sections_present": 8,
+        "sensor_modalities_found": 1,
+        "target_columns_found": 1
+      },
+      "synthetic_passed": true
+    },
+    "ppmi_verily": {
+      "low_n_failed": true,
+      "low_n_validation_errors": [
+        "valid_subject_count is below minimum 20"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent",
+        "forbidden_text_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "completed_schema_probe_report_preflight_passed",
+      "synthetic_field_counts": {
+        "grouping_keys_found": 2,
+        "sections_present": 8,
+        "sensor_modalities_found": 1,
+        "target_columns_found": 1
+      },
+      "synthetic_passed": true
+    },
+    "ppp_pd_vme": {
+      "low_n_failed": true,
+      "low_n_validation_errors": [
+        "valid_subject_count is below minimum 20"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent",
+        "forbidden_text_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "completed_schema_probe_report_preflight_passed",
+      "synthetic_field_counts": {
+        "grouping_keys_found": 2,
+        "sections_present": 8,
+        "sensor_modalities_found": 1,
+        "target_columns_found": 1
+      },
+      "synthetic_passed": true
+    },
+    "watchpd": {
+      "low_n_failed": true,
+      "low_n_validation_errors": [
+        "valid_subject_count is below minimum 20"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent",
+        "forbidden_text_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "completed_schema_probe_report_preflight_passed",
+      "synthetic_field_counts": {
+        "grouping_keys_found": 2,
+        "sections_present": 8,
+        "sensor_modalities_found": 1,
+        "target_columns_found": 1
+      },
+      "synthetic_passed": true
+    }
+  },
+  "script": "audit_external_schema_probe_report_validator.py",
+  "synthetic_dir": "results/external_schema_probe_report_validator_synthetic",
+  "validator": "scripts/validate_schema_probe_report.py"
+}

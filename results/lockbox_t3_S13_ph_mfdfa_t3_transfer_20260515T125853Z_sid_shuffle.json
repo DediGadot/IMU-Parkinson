@@ -1,0 +1,79 @@
+{
+  "name": "lockbox_t3_S13_ph_mfdfa_t3_transfer",
+  "created_at_utc": "20260515T125853Z",
+  "session": "2026-05-15-PM-T3-S13-transfer",
+  "null_mode": "sid_shuffle",
+  "n_cohort": 95,
+  "cohort": "drop_allmissing_validrange",
+  "stage2_policy": "stage2_current",
+  "split_seed": 20260309,
+  "model_seeds": [
+    42,
+    1337,
+    7
+  ],
+  "alpha_fixed": 100.0,
+  "lambda_fixed": 1.0,
+  "n_bootstrap": 5000,
+  "preregistration_master": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "fwer_n": 8,
+  "bonferroni_gate": 0.99375,
+  "mcid": 0.025,
+  "iter47_baseline_canonical_ccc": 0.3784,
+  "iter47_baseline_loocv_recomputed_ccc": 0.378367,
+  "n_features_ph": 32,
+  "n_features_mfdfa": 56,
+  "arms": {
+    "ph_only": {
+      "arm": "ph_only",
+      "loocv_ccc_baseline": 0.378367,
+      "loocv_ccc_corrected": 0.350198,
+      "delta_ccc": -0.028169,
+      "delta_pearson_r": -0.04138,
+      "delta_mae": 0.346988,
+      "corr_correction_t3_residual": -0.087616,
+      "frac_pos_bootstrap": 0.1208,
+      "bootstrap_median": -0.028188,
+      "ci95": [
+        -0.084459,
+        0.017537
+      ],
+      "verdict": "FAIL"
+    },
+    "mfdfa_only": {
+      "arm": "mfdfa_only",
+      "loocv_ccc_baseline": 0.378367,
+      "loocv_ccc_corrected": 0.384534,
+      "delta_ccc": 0.006167,
+      "delta_pearson_r": -0.004088,
+      "delta_mae": -0.106704,
+      "corr_correction_t3_residual": 0.11739,
+      "frac_pos_bootstrap": 0.5504,
+      "bootstrap_median": 0.005493,
+      "ci95": [
+        -0.081319,
+        0.091552
+      ],
+      "verdict": "SUB_MCID"
+    },
+    "JOINT": {
+      "arm": "JOINT",
+      "loocv_ccc_baseline": 0.378367,
+      "loocv_ccc_corrected": 0.353082,
+      "delta_ccc": -0.025285,
+      "delta_pearson_r": -0.046887,
+      "delta_mae": 0.327938,
+      "corr_correction_t3_residual": 0.043822,
+      "frac_pos_bootstrap": 0.3174,
+      "bootstrap_median": -0.025031,
+      "ci95": [
+        -0.132964,
+        0.072048
+      ],
+      "verdict": "FAIL"
+    }
+  },
+  "s8_t1_reference_delta": 0.0088,
+  "expected_t3_lift_from_t1_t3_std_scaling": 0.002667,
+  "formula_sha256": "f19952e8a859131dc53f7f1668a11f0f687df6b2f7bedc58c69c9c6fb1834387"
+}

@@ -1,0 +1,87 @@
+{
+  "timestamp_utc": "20260513_050412",
+  "iso_datetime_utc": "2026-05-13T05:04:12.292158+00:00",
+  "name": "T1 Glass-Ceiling Push 2026-05-13 Slot B pre-registration",
+  "formula_sha256": "b7de85546f1811b992daa20f0bdf1dddb6330668c159be4184f91543300c021b",
+  "formula_payload": {
+    "experiment": "T1 Glass-Ceiling Push 2026-05-13 Slot B \u2014 V3-GSP at item-12 chain step + CCC-descending order",
+    "tri_cli_consult": "codex+gemini Slot A consult informed mechanism; CCC-descending order adopted; Slot B-specific consult pending",
+    "is_t1_ceiling_push_2026-05-13_slotB": true,
+    "master_prereg": "results/preregistration_t1_ceiling_push_20260513_043852.json",
+    "fwer_family_size": 4,
+    "fwer_per_slot_gate_frac_gt0": 0.9875,
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "n_subjects_min": 90,
+      "filter": "PD with items 9-14, 15, 18 + V3-GSP feature coverage (N=92)"
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ]
+    },
+    "stage2": {
+      "chain_order": [
+        12,
+        10,
+        14,
+        9,
+        11,
+        13,
+        15,
+        18
+      ],
+      "chain_order_policy": "FIXED CCC-descending; item 12 step first \u2192 no upstream chain features",
+      "per_step_feature_routing": {
+        "item_12": "V3-GSP features ONLY (550 cols, no K=500 selection, fold-local median impute)",
+        "items_9_10_11_13_14_15_18": "V2 K=500 LGB-importance against T1 residual (iter34 standard)"
+      },
+      "feature_select_k_v2": 500,
+      "v3_gsp_cache": "results/v3_gsp_features.csv",
+      "v3_gsp_manifest": "results/v3_gsp_features.csv.manifest.json",
+      "model_ensemble": [
+        "LGBMRegressor(n=500, lr=0.05, num_leaves=15, min_data=10)",
+        "XGBRegressor(hist, n=500, lr=0.05, depth=4, min_child=5)",
+        "ExtraTreesRegressor(n=300, max_depth=10, min_leaf=5)"
+      ],
+      "ensemble_method": "average chain-output across 3 bases per fold per seed",
+      "items_summed_for_t1": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    "eval": {
+      "screen_n_splits": 5,
+      "screen_seeds": [
+        42,
+        1337,
+        7
+      ],
+      "loocv_seeds": [
+        42,
+        1337,
+        7
+      ],
+      "screen_gate": "5-fold \u0394\u0304 vs iter34-5-fold (same KFold seeds) \u2265 +0.020 AND seed std < 0.020",
+      "loocv_gate": "paired bootstrap frac>0 \u2265 0.9875 vs iter34 LOOCV on N=92 AND vs iter12-honest on N=92",
+      "comparator_iter34_loocv_oof": "results/lockbox_t1_iter34_hybrid_20260510_233019.oof.npy",
+      "comparator_iter34_5fold_oof": "results/iter34_5fold_comparator_<latest>.oof.npy"
+    },
+    "leakage_assertions": [
+      "Stage-1 Ridge fit fold-local",
+      "feature_select_fold + impute_fold operate on outer-train only",
+      "V3-GSP imputation: fold-local median, train-fold only",
+      "no global imputers, no cohort-wide z-scoring, no global ranks"
+    ]
+  },
+  "git_sha": "64edc2a90ab11beed8b0bdb30a69c6c49a8809fc"
+}

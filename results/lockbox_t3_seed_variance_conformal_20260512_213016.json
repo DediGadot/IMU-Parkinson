@@ -1,0 +1,122 @@
+{
+  "name": "t3_seed_variance_conformal",
+  "created_at_utc": "2026-05-12T21:30:16.966616+00:00",
+  "formula_sha256": "d3c90d5d0a4de6fc794b5bcd34c249ffcf8763cb9fdd97381c9ef9a7cebe3867",
+  "n": 95,
+  "score_mechanism": "stddev across {iter47_current, iter47_no_cv, IMU_only}",
+  "r_score_abs_err": 0.1242,
+  "rows": [
+    {
+      "coverage_target": 1.0,
+      "retained_n": 94,
+      "retained_ccc": 0.3661,
+      "retained_mae": 7.6001,
+      "retained_ccc_ci_low": 0.1849,
+      "retained_ccc_ci_high": 0.5192,
+      "threshold_mean": 5.9985,
+      "threshold_cv": 0.0061,
+      "kill_threshold_cv_violated": false
+    },
+    {
+      "coverage_target": 0.95,
+      "retained_n": 89,
+      "retained_ccc": 0.41,
+      "retained_mae": 7.4223,
+      "retained_ccc_ci_low": 0.1983,
+      "retained_ccc_ci_high": 0.5361,
+      "threshold_mean": 4.9616,
+      "threshold_cv": 0.0108,
+      "kill_threshold_cv_violated": false
+    },
+    {
+      "coverage_target": 0.9,
+      "retained_n": 84,
+      "retained_ccc": 0.3899,
+      "retained_mae": 7.286,
+      "retained_ccc_ci_low": 0.2062,
+      "retained_ccc_ci_high": 0.5451,
+      "threshold_mean": 4.332,
+      "threshold_cv": 0.0119,
+      "kill_threshold_cv_violated": false
+    },
+    {
+      "coverage_target": 0.85,
+      "retained_n": 80,
+      "retained_ccc": 0.4017,
+      "retained_mae": 7.3042,
+      "retained_ccc_ci_low": 0.1798,
+      "retained_ccc_ci_high": 0.5405,
+      "threshold_mean": 3.1848,
+      "threshold_cv": 0.0141,
+      "kill_threshold_cv_violated": false
+    },
+    {
+      "coverage_target": 0.8,
+      "retained_n": 75,
+      "retained_ccc": 0.371,
+      "retained_mae": 7.0991,
+      "retained_ccc_ci_low": 0.1577,
+      "retained_ccc_ci_high": 0.5401,
+      "threshold_mean": 2.9513,
+      "threshold_cv": 0.0058,
+      "kill_threshold_cv_violated": false
+    },
+    {
+      "coverage_target": 0.75,
+      "retained_n": 71,
+      "retained_ccc": 0.3908,
+      "retained_mae": 6.9405,
+      "retained_ccc_ci_low": 0.1291,
+      "retained_ccc_ci_high": 0.5472,
+      "threshold_mean": 2.6338,
+      "threshold_cv": 0.0181,
+      "kill_threshold_cv_violated": false
+    },
+    {
+      "coverage_target": 0.7,
+      "retained_n": 66,
+      "retained_ccc": 0.329,
+      "retained_mae": 6.874,
+      "retained_ccc_ci_low": 0.0908,
+      "retained_ccc_ci_high": 0.5409,
+      "threshold_mean": 2.3045,
+      "threshold_cv": 0.0311,
+      "kill_threshold_cv_violated": false
+    },
+    {
+      "coverage_target": 0.6,
+      "retained_n": 57,
+      "retained_ccc": 0.3095,
+      "retained_mae": 7.2778,
+      "retained_ccc_ci_low": 0.0057,
+      "retained_ccc_ci_high": 0.5001,
+      "threshold_mean": 1.9139,
+      "threshold_cv": 0.0058,
+      "kill_threshold_cv_violated": false
+    },
+    {
+      "coverage_target": 0.5,
+      "retained_n": 48,
+      "retained_ccc": 0.1979,
+      "retained_mae": 7.6391,
+      "retained_ccc_ci_low": -0.0644,
+      "retained_ccc_ci_high": 0.4641,
+      "threshold_mean": 1.6763,
+      "threshold_cv": 0.0074,
+      "kill_threshold_cv_violated": false
+    }
+  ],
+  "cccs_sorted_by_coverage_desc": [
+    0.3661,
+    0.41,
+    0.3899,
+    0.4017,
+    0.371,
+    0.3908,
+    0.329,
+    0.3095,
+    0.1979
+  ],
+  "monotonicity_violations": 5,
+  "verdict": "PARTIAL_PASS_MONOTONICITY_VIOLATIONS"
+}

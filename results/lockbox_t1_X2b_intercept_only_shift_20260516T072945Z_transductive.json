@@ -1,0 +1,51 @@
+{
+  "name": "lockbox_t1_X2b_intercept_only_shift",
+  "created_at_utc": "20260516T072945Z",
+  "preregistration": "results/preregistration_t1_post_closure_X_series_20260516.json (X2b = X2 fix, intercept-only)",
+  "null_mode": "transductive",
+  "sanity_y_nan": false,
+  "formula_sha256": "fda51f6ba24da34cd6d50305b22cc3a3260056047bd019506058539e2702ffa9",
+  "fix_motivation": "X2 had \u0394_CCC=-0.051 but \u0394_MAE=-0.17 + D4_corr=+0.47. Slope=1 constraint preserves scale.",
+  "duration_threshold_yr": 7.0,
+  "stratum_info": {
+    "n_intercepts_long": 92,
+    "n_intercepts_short": 92,
+    "n_intercepts_full": 0,
+    "mean_intercept_long": 4.3435892436466395,
+    "mean_intercept_short": 3.678235513053829
+  },
+  "n_cohort": 92,
+  "baselines": {
+    "loocv_ccc_iter34": 0.16008300477220996,
+    "loocv_mae_iter34": 4.03417823043515,
+    "loocv_pearson_iter34": 0.7223066495976546
+  },
+  "corrected": {
+    "loocv_ccc": 0.46424903841876247,
+    "loocv_mae": 1.6822328645558855,
+    "loocv_pearson": 0.680655831578159,
+    "delta_ccc": 0.3041660336465525,
+    "delta_mae": -2.3519453658792644,
+    "delta_pearson_r": -0.04165081801949555
+  },
+  "bootstrap_seed_A": {
+    "median": 0.3000491650565866,
+    "ci95": [
+      0.22462662088608645,
+      0.3652136195087803
+    ],
+    "frac_pos": 1.0
+  },
+  "bootstrap_seed_B": {
+    "median": 0.30087583090282227,
+    "ci95": [
+      0.22615210919409176,
+      0.3689768410376951
+    ],
+    "frac_pos": 1.0
+  },
+  "d4_audit": {
+    "corr_correction_T1_sum_residual": 0.0161560555562919
+  },
+  "verdict_provisional": "PRIMARY_GATE_PASS_REPLICATED"
+}

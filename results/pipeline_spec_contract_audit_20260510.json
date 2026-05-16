@@ -1,0 +1,117 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "errors": [],
+        "formula_sha256": "6ea60bb323f4d9d7ab3041dc92d12d7c1eae0ef8f331c740ad2362f7f845aa50"
+      },
+      "name": "valid pipeline spec has stable formula hash",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "name is required",
+          "objective is required",
+          "dataset.name is required",
+          "dataset.cohort is required",
+          "target.name is required",
+          "target.kind is required",
+          "validation.strategy is required",
+          "gate.primary_metric is required",
+          "gate.null_gates must be non-empty",
+          "artifacts.results_prefix is required"
+        ]
+      },
+      "name": "blank component identities are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "duplicate dataset.grouping_key: sid"
+        ]
+      },
+      "name": "duplicate grouping keys are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "duplicate feature block name: v2"
+        ]
+      },
+      "name": "duplicate feature names are rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "feature block name is required",
+          "feature block '' source is required"
+        ]
+      },
+      "name": "blank feature name or source is rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "feature block 'leaky' allows labels_used"
+        ]
+      },
+      "name": "label-using feature blocks remain rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "name is required",
+          "version is required",
+          "objective is required",
+          "dataset.name is required",
+          "dataset.cohort is required",
+          "dataset.grouping_keys entries must be non-empty strings",
+          "dataset.hard_stop_if_below_min must be a boolean",
+          "dataset.protected_access_required must be a boolean",
+          "target.name is required",
+          "target.kind is required",
+          "target.source_columns entries must be non-empty strings",
+          "validation.strategy is required",
+          "validation.group_key is required",
+          "validation.site_key must be a non-empty string when set",
+          "gate.primary_metric is required",
+          "gate.null_gates entries must be non-empty strings",
+          "artifacts.results_prefix is required",
+          "target.missing_policy is not an allowed policy",
+          "target.valid_range must be a two-number tuple",
+          "dataset.min_subjects must be an integer when set",
+          "dataset.external_route_id cannot be empty when set",
+          "validation.n_splits must be an integer when set",
+          "validation.seeds entries must be integers",
+          "gate.min_delta must be numeric when set",
+          "artifacts.preregistration_required must be a boolean",
+          "artifacts.manifest_required must be a boolean",
+          "feature block name is required",
+          "feature block 123 source is required",
+          "feature block 123 manifest_required must be a boolean",
+          "feature block 123 labels_used_allowed must be a boolean",
+          "feature block 123 has invalid fold_scope",
+          "feature block 123 notes entries must be strings",
+          "notes entries must be strings",
+          "metadata must be a dict"
+        ]
+      },
+      "name": "malformed pipeline field types fail closed",
+      "passed": true
+    }
+  ],
+  "claim": "PipelineSpec now fails closed on blank component identities, malformed field types, duplicate grouping keys, duplicate feature block names, blank feature declarations, and label-using feature blocks before preregistration hashes or experiment specs are accepted.",
+  "decision": "pipeline_spec_contract_passed",
+  "generated_at_utc": "2026-05-16T12:51:27+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_pipeline_spec_contract.py"
+}

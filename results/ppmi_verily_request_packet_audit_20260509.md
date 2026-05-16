@@ -6,6 +6,8 @@ This is an access-readiness guard, not a model result and not a completion marke
 - Decision: `ppmi_verily_tier3_request_packet_ready`
 - Packet: `scripts/ppmi_verily_tier3_request_packet.md`
 - Runbook links packet: `True`
+- Official source recheck: `2026-05-16`
+- Runbook official-source terms passed: `True`
 - Hard failures: `0`
 
 ## Checks
@@ -13,6 +15,7 @@ This is an access-readiness guard, not a model result and not a completion marke
 | Check | Status | Missing Terms |
 |---|---|---|
 | `official_sources` | `True` | - |
+| `official_source_recheck_20260516` | `True` | - |
 | `tier3_submission` | `True` | - |
 | `specific_data_inventory` | `True` | - |
 | `clinical_linkage_inventory` | `True` | - |
@@ -20,6 +23,7 @@ This is an access-readiness guard, not a model result and not a completion marke
 | `purpose_and_no_sharing` | `True` | - |
 | `security_plan` | `True` | - |
 | `methodology_guardrails` | `True` | - |
+| `proresults_external_blueprint` | `True` | - |
 | `no_premature_compute_boundary` | `True` | - |
 
 ## Decision

@@ -1,0 +1,956 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "returncode": 0,
+        "stdout": "{\n  \"json\": \"results/external_schema_probe_handoff_20260515.json\",\n  \"markdown\": \"results/external_schema_probe_handoff_20260515.md\",\n  \"route_count\": 6\n}\n"
+      },
+      "name": "writer command succeeds and writes both handoff outputs",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ],
+        "spec_route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ],
+        "tracker_route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ]
+      },
+      "name": "handoff covers six schema-probe routes in contract order",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_contracts": {
+          "cns_portugal_lobo": {
+            "row": {
+              "blocked_before_approval": [
+                "probe script against protected data",
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "id": "cns_portugal_lobo",
+              "min_subjects": 20,
+              "name": "CNS Portugal / Lobo AX3 gait",
+              "post_approval_commands": {
+                "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id cns_portugal_lobo --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id cns_portugal_lobo --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id cns_portugal_lobo --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id cns_portugal_lobo --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "post_approval_workflow_sequence": [
+                {
+                  "command": "uv run python scripts/validate_schema_probe_report.py --route-id cns_portugal_lobo --report <completed_schema_probe_report_path_outside_git>",
+                  "step_id": "validate_schema_probe_report"
+                },
+                {
+                  "command": "uv run python scripts/record_schema_probe_report.py --route-id cns_portugal_lobo --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                  "step_id": "record_schema_probe_metadata"
+                },
+                {
+                  "command": "uv run python scripts/validate_target_free_manifest.py --route-id cns_portugal_lobo --manifest <completed_target_free_manifest_path_outside_git>",
+                  "step_id": "validate_target_free_manifest"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id cns_portugal_lobo --record <completed_formula_sha_record_path_outside_git>",
+                  "step_id": "validate_formula_sha_record"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>",
+                  "step_id": "validate_zeroshot_result_record"
+                }
+              ],
+              "ppmi_specific_support": {},
+              "priority": 4,
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "session_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "ax3_imu"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "CNS Portugal / Lobo AX3 gait",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "session_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "ax3_imu"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "cns_portugal_lobo"
+            }
+          },
+          "hssayeni_mjff": {
+            "row": {
+              "blocked_before_approval": [
+                "probe script against protected data",
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "id": "hssayeni_mjff",
+              "min_subjects": 20,
+              "name": "Hssayeni / MJFF Levodopa Response",
+              "post_approval_commands": {
+                "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id hssayeni_mjff --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id hssayeni_mjff --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id hssayeni_mjff --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id hssayeni_mjff --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "post_approval_workflow_sequence": [
+                {
+                  "command": "uv run python scripts/validate_schema_probe_report.py --route-id hssayeni_mjff --report <completed_schema_probe_report_path_outside_git>",
+                  "step_id": "validate_schema_probe_report"
+                },
+                {
+                  "command": "uv run python scripts/record_schema_probe_report.py --route-id hssayeni_mjff --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                  "step_id": "record_schema_probe_metadata"
+                },
+                {
+                  "command": "uv run python scripts/validate_target_free_manifest.py --route-id hssayeni_mjff --manifest <completed_target_free_manifest_path_outside_git>",
+                  "step_id": "validate_target_free_manifest"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id hssayeni_mjff --record <completed_formula_sha_record_path_outside_git>",
+                  "step_id": "validate_formula_sha_record"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>",
+                  "step_id": "validate_zeroshot_result_record"
+                }
+              ],
+              "ppmi_specific_support": {},
+              "priority": 5,
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "geneactiv_wrist_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "Hssayeni / MJFF Levodopa Response",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "geneactiv_wrist_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "hssayeni_mjff"
+            }
+          },
+          "icicle_gait": {
+            "row": {
+              "blocked_before_approval": [
+                "probe script against protected data",
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "id": "icicle_gait",
+              "min_subjects": 20,
+              "name": "ICICLE-PD / ICICLE-GAIT",
+              "post_approval_commands": {
+                "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id icicle_gait --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id icicle_gait --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id icicle_gait --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id icicle_gait --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "post_approval_workflow_sequence": [
+                {
+                  "command": "uv run python scripts/validate_schema_probe_report.py --route-id icicle_gait --report <completed_schema_probe_report_path_outside_git>",
+                  "step_id": "validate_schema_probe_report"
+                },
+                {
+                  "command": "uv run python scripts/record_schema_probe_report.py --route-id icicle_gait --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                  "step_id": "record_schema_probe_metadata"
+                },
+                {
+                  "command": "uv run python scripts/validate_target_free_manifest.py --route-id icicle_gait --manifest <completed_target_free_manifest_path_outside_git>",
+                  "step_id": "validate_target_free_manifest"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id icicle_gait --record <completed_formula_sha_record_path_outside_git>",
+                  "step_id": "validate_formula_sha_record"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>",
+                  "step_id": "validate_zeroshot_result_record"
+                }
+              ],
+              "ppmi_specific_support": {},
+              "priority": 6,
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "lower_back_ax3"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "ICICLE-PD / ICICLE-GAIT",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "lower_back_ax3"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "icicle_gait"
+            }
+          },
+          "ppmi_verily": {
+            "row": {
+              "blocked_before_approval": [
+                "probe script against protected data",
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "id": "ppmi_verily",
+              "min_subjects": 20,
+              "name": "PPMI / Verily Study Watch",
+              "post_approval_commands": {
+                "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id ppmi_verily --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "post_approval_workflow_sequence": [
+                {
+                  "command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+                  "step_id": "validate_schema_probe_report"
+                },
+                {
+                  "command": "uv run python scripts/record_schema_probe_report.py --route-id ppmi_verily --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                  "step_id": "record_schema_probe_metadata"
+                },
+                {
+                  "command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+                  "step_id": "validate_target_free_manifest"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+                  "step_id": "validate_formula_sha_record"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+                  "step_id": "validate_zeroshot_result_record"
+                }
+              ],
+              "ppmi_specific_support": {
+                "schema_probe_checklist": "scripts/ppmi_verily_schema_probe_checklist.md",
+                "schema_probe_checklist_audit": "results/ppmi_verily_schema_probe_checklist_audit_20260515.json",
+                "schema_probe_report_template": "scripts/ppmi_verily_schema_probe_report_template.md",
+                "schema_probe_report_template_audit": "results/ppmi_verily_schema_probe_report_template_audit_20260515.json",
+                "schema_probe_validator": "scripts/validate_ppmi_verily_schema_probe_report.py",
+                "schema_probe_validator_command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+                "target_free_manifest_template": "scripts/ppmi_verily_target_free_manifest_template.json",
+                "target_free_manifest_validator": "scripts/validate_ppmi_verily_target_free_manifest.py",
+                "target_free_manifest_validator_command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>"
+              },
+              "priority": 1,
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "wrist_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "PPMI / Verily Study Watch",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "wrist_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "ppmi_verily"
+            }
+          },
+          "ppp_pd_vme": {
+            "row": {
+              "blocked_before_approval": [
+                "probe script against protected data",
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "id": "ppp_pd_vme",
+              "min_subjects": 20,
+              "name": "Personalized Parkinson Project / PD-VME",
+              "post_approval_commands": {
+                "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id ppp_pd_vme --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppp_pd_vme --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id ppp_pd_vme --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id ppp_pd_vme --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "post_approval_workflow_sequence": [
+                {
+                  "command": "uv run python scripts/validate_schema_probe_report.py --route-id ppp_pd_vme --report <completed_schema_probe_report_path_outside_git>",
+                  "step_id": "validate_schema_probe_report"
+                },
+                {
+                  "command": "uv run python scripts/record_schema_probe_report.py --route-id ppp_pd_vme --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                  "step_id": "record_schema_probe_metadata"
+                },
+                {
+                  "command": "uv run python scripts/validate_target_free_manifest.py --route-id ppp_pd_vme --manifest <completed_target_free_manifest_path_outside_git>",
+                  "step_id": "validate_target_free_manifest"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppp_pd_vme --record <completed_formula_sha_record_path_outside_git>",
+                  "step_id": "validate_formula_sha_record"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>",
+                  "step_id": "validate_zeroshot_result_record"
+                }
+              ],
+              "ppmi_specific_support": {},
+              "priority": 2,
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "study_watch_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "Personalized Parkinson Project / PD-VME",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "study_watch_accelerometer"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "ppp_pd_vme"
+            }
+          },
+          "watchpd": {
+            "row": {
+              "blocked_before_approval": [
+                "probe script against protected data",
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "blocked_until_schema_and_manifest_gates_pass": [
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "id": "watchpd",
+              "min_subjects": 20,
+              "name": "WATCH-PD",
+              "post_approval_commands": {
+                "record_schema_probe_metadata": "uv run python scripts/record_schema_probe_report.py --route-id watchpd --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id watchpd --record <completed_formula_sha_record_path_outside_git>",
+                "validate_schema_probe_report": "uv run python scripts/validate_schema_probe_report.py --route-id watchpd --report <completed_schema_probe_report_path_outside_git>",
+                "validate_target_free_manifest": "uv run python scripts/validate_target_free_manifest.py --route-id watchpd --manifest <completed_target_free_manifest_path_outside_git>",
+                "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>"
+              },
+              "post_approval_workflow_sequence": [
+                {
+                  "command": "uv run python scripts/validate_schema_probe_report.py --route-id watchpd --report <completed_schema_probe_report_path_outside_git>",
+                  "step_id": "validate_schema_probe_report"
+                },
+                {
+                  "command": "uv run python scripts/record_schema_probe_report.py --route-id watchpd --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+                  "step_id": "record_schema_probe_metadata"
+                },
+                {
+                  "command": "uv run python scripts/validate_target_free_manifest.py --route-id watchpd --manifest <completed_target_free_manifest_path_outside_git>",
+                  "step_id": "validate_target_free_manifest"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id watchpd --record <completed_formula_sha_record_path_outside_git>",
+                  "step_id": "validate_formula_sha_record"
+                },
+                {
+                  "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>",
+                  "step_id": "validate_zeroshot_result_record"
+                }
+              ],
+              "ppmi_specific_support": {},
+              "priority": 3,
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "apdm_imu"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ]
+            },
+            "spec": {
+              "min_subjects": 20,
+              "name": "WATCH-PD",
+              "protected_access_required": true,
+              "required_grouping_keys": [
+                "sid",
+                "visit_id"
+              ],
+              "required_sections": [
+                "file_inventory",
+                "subject_linkage",
+                "visit_or_session_linkage",
+                "sensor_metadata",
+                "target_metadata",
+                "missingness_policy",
+                "grouping_policy",
+                "hard_stops"
+              ],
+              "required_sensor_modalities": [
+                "apdm_imu"
+              ],
+              "required_target_columns": [
+                "updrs3"
+              ],
+              "route_id": "watchpd"
+            }
+          }
+        }
+      },
+      "name": "route rows mirror pd_imu schema-probe specs",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "commands_by_route": {
+          "cns_portugal_lobo": [
+            "record_schema_probe_metadata",
+            "validate_formula_sha_record",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_zeroshot_result_record"
+          ],
+          "hssayeni_mjff": [
+            "record_schema_probe_metadata",
+            "validate_formula_sha_record",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_zeroshot_result_record"
+          ],
+          "icicle_gait": [
+            "record_schema_probe_metadata",
+            "validate_formula_sha_record",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_zeroshot_result_record"
+          ],
+          "ppmi_verily": [
+            "record_schema_probe_metadata",
+            "validate_formula_sha_record",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_zeroshot_result_record"
+          ],
+          "ppp_pd_vme": [
+            "record_schema_probe_metadata",
+            "validate_formula_sha_record",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_zeroshot_result_record"
+          ],
+          "watchpd": [
+            "record_schema_probe_metadata",
+            "validate_formula_sha_record",
+            "validate_schema_probe_report",
+            "validate_target_free_manifest",
+            "validate_zeroshot_result_record"
+          ]
+        }
+      },
+      "name": "every route has post-approval commands with PPMI-specific validator overrides",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "expected_step_ids": [
+          "validate_schema_probe_report",
+          "record_schema_probe_metadata",
+          "validate_target_free_manifest",
+          "validate_formula_sha_record",
+          "validate_zeroshot_result_record"
+        ],
+        "ppmi_workflow": [
+          {
+            "command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+            "step_id": "validate_schema_probe_report"
+          },
+          {
+            "command": "uv run python scripts/record_schema_probe_report.py --route-id ppmi_verily --sections-present <csv> --grouping-keys-found <csv> --target-columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>",
+            "step_id": "record_schema_probe_metadata"
+          },
+          {
+            "command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+            "step_id": "validate_target_free_manifest"
+          },
+          {
+            "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+            "step_id": "validate_formula_sha_record"
+          },
+          {
+            "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+            "step_id": "validate_zeroshot_result_record"
+          }
+        ],
+        "workflow_by_route": {
+          "cns_portugal_lobo": [
+            "validate_schema_probe_report",
+            "record_schema_probe_metadata",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "hssayeni_mjff": [
+            "validate_schema_probe_report",
+            "record_schema_probe_metadata",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "icicle_gait": [
+            "validate_schema_probe_report",
+            "record_schema_probe_metadata",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "ppmi_verily": [
+            "validate_schema_probe_report",
+            "record_schema_probe_metadata",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "ppp_pd_vme": [
+            "validate_schema_probe_report",
+            "record_schema_probe_metadata",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ],
+          "watchpd": [
+            "validate_schema_probe_report",
+            "record_schema_probe_metadata",
+            "validate_target_free_manifest",
+            "validate_formula_sha_record",
+            "validate_zeroshot_result_record"
+          ]
+        }
+      },
+      "name": "every route exposes an ordered post-approval workflow sequence",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "formula_gate_present": true,
+        "result_gate_present": true
+      },
+      "name": "markdown includes formula-SHA and aggregate-result gates",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ppmi_markdown": "columns-found <csv> --sensor-modalities-found <csv> --valid-subject-count <n>`\n- Validate target-free manifest: `uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>`\n- Validate formula-SHA record before extraction or scoring: `uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>`\n- Validate aggregate external result record after scoring: `uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>`\n\nStill blocked until approval and schema/manifest gates pass:\n\n- download script\n- cache extraction\n- pre-registration using new labels\n- remote job\n- model run\n- canonical T1/T3 claim update\n\nPPMI/Verily-specific support:\n\n- Checklist: `scripts/ppmi_verily_schema_probe_checklist.md`\n- Report template: `scripts/ppmi_verily_schema_probe_report_template.md`\n- Checklist audit: `results/ppmi_verily_schema_probe_checklist_audit_20260515.json`\n- Report-template audit: `results/ppmi_verily_schema_probe_report_template_audit_20260515.json`\n- Route-specific validator: `scripts/validate_ppmi_verily_schema_probe_report.py`\n- Route-specific validator command: `uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>`\n- Target-free manifest template: `scripts/ppmi_verily_target_free_manifest_template.json`\n- Target-free manifest validator: `scripts/validate_ppmi_verily_target_free_manifest.py`\n- Target-free manifest validator command: `uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>`\n\n"
+      },
+      "name": "markdown PPMI route uses PPMI-specific schema and manifest validators",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "blocked_before_approval": [
+          "probe script against protected data",
+          "download script",
+          "cache extraction",
+          "pre-registration using new labels",
+          "remote job",
+          "model run",
+          "canonical T1/T3 claim update"
+        ],
+        "blocked_until_schema": [
+          "download script",
+          "cache extraction",
+          "pre-registration using new labels",
+          "remote job",
+          "model run",
+          "canonical T1/T3 claim update"
+        ]
+      },
+      "name": "blocked actions remain explicit before and after schema-probe handoff",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "checklist_decision": "ppmi_verily_schema_probe_checklist_ready",
+        "ppmi_support": {
+          "schema_probe_checklist": "scripts/ppmi_verily_schema_probe_checklist.md",
+          "schema_probe_checklist_audit": "results/ppmi_verily_schema_probe_checklist_audit_20260515.json",
+          "schema_probe_report_template": "scripts/ppmi_verily_schema_probe_report_template.md",
+          "schema_probe_report_template_audit": "results/ppmi_verily_schema_probe_report_template_audit_20260515.json",
+          "schema_probe_validator": "scripts/validate_ppmi_verily_schema_probe_report.py",
+          "schema_probe_validator_command": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+          "target_free_manifest_template": "scripts/ppmi_verily_target_free_manifest_template.json",
+          "target_free_manifest_validator": "scripts/validate_ppmi_verily_target_free_manifest.py",
+          "target_free_manifest_validator_command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>"
+        },
+        "template_decision": "ppmi_verily_schema_probe_report_template_ready"
+      },
+      "name": "PPMI-specific schema-probe template and checklist remain wired and audited",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "content_boundary": {
+          "approval_evidence_included": false,
+          "completed_emails_included": false,
+          "completed_packets_included": false,
+          "credentials_or_tokens_included": false,
+          "feature_manifest_artifacts_included": false,
+          "model_outputs_included": false,
+          "protected_data_included": false,
+          "record_paths_reported": false,
+          "row_level_data_included": false,
+          "schema_probe_artifacts_included": false,
+          "target_values_included": false
+        }
+      },
+      "name": "content boundary blocks completed/protected artifacts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "forbidden_snippets_found": []
+      },
+      "name": "handoff output does not expose private artifacts",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "external_schema_probe_handoff_ready",
+  "generated_at_utc": "2026-05-16T11:40:25+00:00",
+  "goal_complete": false,
+  "handoff_json": "results/external_schema_probe_handoff_20260515.json",
+  "handoff_markdown": "results/external_schema_probe_handoff_20260515.md",
+  "hard_failures": [],
+  "not_a_feature_manifest_artifact": true,
+  "not_a_model_result": true,
+  "not_a_preregistration": true,
+  "not_a_schema_probe_artifact": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "passed": true,
+  "post_approval_workflow_step_ids_by_route": {
+    "cns_portugal_lobo": [
+      "validate_schema_probe_report",
+      "record_schema_probe_metadata",
+      "validate_target_free_manifest",
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ],
+    "hssayeni_mjff": [
+      "validate_schema_probe_report",
+      "record_schema_probe_metadata",
+      "validate_target_free_manifest",
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ],
+    "icicle_gait": [
+      "validate_schema_probe_report",
+      "record_schema_probe_metadata",
+      "validate_target_free_manifest",
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ],
+    "ppmi_verily": [
+      "validate_schema_probe_report",
+      "record_schema_probe_metadata",
+      "validate_target_free_manifest",
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ],
+    "ppp_pd_vme": [
+      "validate_schema_probe_report",
+      "record_schema_probe_metadata",
+      "validate_target_free_manifest",
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ],
+    "watchpd": [
+      "validate_schema_probe_report",
+      "record_schema_probe_metadata",
+      "validate_target_free_manifest",
+      "validate_formula_sha_record",
+      "validate_zeroshot_result_record"
+    ]
+  },
+  "protected_data_included": false,
+  "route_count": 6,
+  "route_ids": [
+    "ppmi_verily",
+    "ppp_pd_vme",
+    "watchpd",
+    "cns_portugal_lobo",
+    "hssayeni_mjff",
+    "icicle_gait"
+  ],
+  "script": "audit_external_schema_probe_handoff.py",
+  "source_schema_contract": "pd_imu.datasets.external_schema_probe_specs",
+  "source_tracker": "results/access_submission_tracker_20260509.json",
+  "writer": "scripts/write_external_schema_probe_handoff.py"
+}

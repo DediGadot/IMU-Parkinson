@@ -1,0 +1,10 @@
+{
+  "cell": "G_item11_hurdle",
+  "n": 92,
+  "continuous_baseline_ccc": 0.22164128257462712,
+  "hurdle_two_stage_ccc": 0.02695549566027233,
+  "delta_hurdle_vs_continuous": -0.19468578691435479,
+  "comparator_iter34_chain_item11_ccc": 0.2318,
+  "seed": 42,
+  "n_positive_subjects": 12
+}

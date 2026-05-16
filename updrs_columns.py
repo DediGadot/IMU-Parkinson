@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import re
 
+import pandas as pd
+
 
 _SIDE_ALIASES = {
     "a": ["a", "r", "right"],
@@ -80,13 +82,8 @@ def candidate_updrs_columns(item_num: int, suffix: str | None = None) -> list[st
 
 def valid_updrs_item_total(item_num: int, value):
     """Return a valid Part III item total, or None for invalid/missing values."""
-    try:
-        import pandas as pd  # local import to keep this helper lightweight
-
-        numeric = pd.to_numeric(value, errors="coerce")
-    except Exception:
-        numeric = value
-    if numeric is None or numeric != numeric:
+    numeric = pd.to_numeric(value, errors="coerce")
+    if numeric is None or pd.isna(numeric):
         return None
     numeric = float(numeric)
     max_value = UPDRS_PART3_ITEM_TOTAL_MAX.get(int(item_num))
@@ -104,13 +101,8 @@ def find_updrs_value(row, columns, item_num: int, suffix: str | None = None):
         if resolved is None:
             continue
         value = row.get(resolved)
-        try:
-            import pandas as pd  # local import to keep this helper lightweight
-
-            numeric = pd.to_numeric(value, errors="coerce")
-        except Exception:
-            numeric = value
-        if numeric is not None and numeric == numeric:
+        numeric = pd.to_numeric(value, errors="coerce")
+        if numeric is not None and not pd.isna(numeric):
             numeric = float(numeric)
             # Raw MDS-UPDRS Part III subitem scores are coded 0-4. Combined
             # item totals have item-specific maxima. The dataset contains at

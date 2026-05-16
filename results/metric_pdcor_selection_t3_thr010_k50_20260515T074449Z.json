@@ -1,0 +1,40 @@
+{
+  "target": "t3",
+  "threshold": 0.1,
+  "max_k": 50,
+  "ridge_alpha": 10.0,
+  "N": 95,
+  "baseline": {
+    "n": 95,
+    "ccc": 0.3784,
+    "cal_slope": 0.2692,
+    "mae": 7.528,
+    "r": 0.4141,
+    "pred_mean": 24.815,
+    "pred_std": 6.446,
+    "true_mean": 25.0,
+    "true_std": 9.913,
+    "label": "canonical_OOF"
+  },
+  "stacked": {
+    "n": 95,
+    "ccc": 0.4252,
+    "cal_slope": 0.3831,
+    "mae": 8.1313,
+    "r": 0.4278,
+    "pred_mean": 25.072,
+    "pred_std": 8.876,
+    "true_mean": 25.0,
+    "true_std": 9.913,
+    "label": "canonical_OOF_plus_pdcor_selection"
+  },
+  "delta_ccc": 0.04680000000000001,
+  "delta_ccc_bootstrap_median": 0.0471783690811893,
+  "delta_ccc_bootstrap_ci_lower": -0.01384204984675324,
+  "delta_ccc_bootstrap_ci_upper": 0.10737472998327807,
+  "delta_ccc_bootstrap_frac_positive": 0.9385,
+  "selected_count_mean": 24.736842105263158,
+  "selected_count_min": 21,
+  "selected_count_max": 32,
+  "wall_time_seconds": 305.4541697502136
+}

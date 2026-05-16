@@ -1,0 +1,110 @@
+{
+  "script": "cache_v3_gsp_features.py",
+  "git_sha": "unknown",
+  "command": "uv run python cache_v3_gsp_features.py",
+  "created_at_utc": "2026-05-12T16:27:08Z",
+  "labels_used": false,
+  "cohort_statistics_used": false,
+  "fold_scope": "global",
+  "normalization_scope": "per-recording temporal variance/RMS; no cross-subject normalization",
+  "graph_definition": {
+    "sensors": [
+      "Forehead",
+      "Xiphoid",
+      "LowerBack",
+      "L_Wrist",
+      "R_Wrist",
+      "L_MidLatThigh",
+      "R_MidLatThigh",
+      "L_LatShank",
+      "R_LatShank",
+      "L_Ankle",
+      "R_Ankle",
+      "L_DorsalFoot",
+      "R_DorsalFoot"
+    ],
+    "edges": [
+      [
+        "Forehead",
+        "Xiphoid"
+      ],
+      [
+        "Xiphoid",
+        "LowerBack"
+      ],
+      [
+        "Xiphoid",
+        "L_Wrist"
+      ],
+      [
+        "Xiphoid",
+        "R_Wrist"
+      ],
+      [
+        "LowerBack",
+        "L_MidLatThigh"
+      ],
+      [
+        "LowerBack",
+        "R_MidLatThigh"
+      ],
+      [
+        "L_MidLatThigh",
+        "L_LatShank"
+      ],
+      [
+        "R_MidLatThigh",
+        "R_LatShank"
+      ],
+      [
+        "L_LatShank",
+        "L_Ankle"
+      ],
+      [
+        "R_LatShank",
+        "R_Ankle"
+      ],
+      [
+        "L_Ankle",
+        "L_DorsalFoot"
+      ],
+      [
+        "R_Ankle",
+        "R_DorsalFoot"
+      ]
+    ],
+    "edges_count": 12
+  },
+  "laplacian_eigvals": [
+    -4.323633092452442e-16,
+    0.12061475842818398,
+    0.1632372217900262,
+    0.6734747465693421,
+    0.9999999999999999,
+    1.0000000000000002,
+    1.0000000000000018,
+    1.8261525108610066,
+    2.3472963553338624,
+    3.1235053774408965,
+    3.5320888862379576,
+    3.905681585730545,
+    5.307948557608188
+  ],
+  "channel_kinds": [
+    "acc",
+    "gyr"
+  ],
+  "tasks": [
+    "SelfPace",
+    "HurriedPace",
+    "TUG",
+    "TandemGait",
+    "Balance"
+  ],
+  "n_features_total": 550,
+  "n_subjects": 100,
+  "source_artifacts": [
+    "raw CSV files in /home/fiod/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files (794 files at extraction time)"
+  ],
+  "rationale": "V3 features orthogonal to V2 \u2014 multi-sensor graph spectrum projection."
+}

@@ -1,0 +1,238 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "approval_evidence": null,
+        "blocked_actions_now": [
+          "probe script against protected data",
+          "download script",
+          "cache extraction",
+          "pre-registration using new labels",
+          "remote job",
+          "model run",
+          "canonical T1/T3 claim update"
+        ],
+        "can_probe_schema": false,
+        "packet": {
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "min_placeholders": 5,
+          "name": "PPMI / Verily Study Watch",
+          "packet_audit_path": "results/ppmi_verily_request_packet_audit_20260509.json",
+          "packet_path": "scripts/ppmi_verily_tier3_request_packet.md",
+          "packet_ready": true,
+          "placeholder_count": 13,
+          "priority": 1,
+          "remote_job_allowed_now": false,
+          "route_id": "ppmi_verily",
+          "runbook_path": "scripts/ppmi_verily_setup.md",
+          "runbook_ready": true,
+          "scaffold_allowed_now": false,
+          "submission_status": "ready_to_submit_after_user_fill_and_governance"
+        },
+        "state": "packet_ready",
+        "submission_evidence": null
+      },
+      "name": "packet-ready route remains pre-access blocked",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "approval_evidence": null,
+        "blocked_actions_now": [
+          "probe script against protected data",
+          "download script",
+          "cache extraction",
+          "pre-registration using new labels",
+          "remote job",
+          "model run",
+          "canonical T1/T3 claim update"
+        ],
+        "can_probe_schema": false,
+        "packet": {
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "min_placeholders": 5,
+          "name": "PPMI / Verily Study Watch",
+          "packet_audit_path": "results/ppmi_verily_request_packet_audit_20260509.json",
+          "packet_path": "scripts/ppmi_verily_tier3_request_packet.md",
+          "packet_ready": true,
+          "placeholder_count": 13,
+          "priority": 1,
+          "remote_job_allowed_now": false,
+          "route_id": "ppmi_verily",
+          "runbook_path": "scripts/ppmi_verily_setup.md",
+          "runbook_ready": true,
+          "scaffold_allowed_now": false,
+          "submission_status": "ready_to_submit_after_user_fill_and_governance"
+        },
+        "state": "submitted_pending_approval",
+        "submission_evidence": {
+          "approval_claimed": false,
+          "completed_packet_committed": false,
+          "confirmation_reference": null,
+          "credentials_or_tokens_included": false,
+          "notes": "",
+          "pre_submission_preflight_passed": true,
+          "protected_row_dump_included": false,
+          "route_id": "ppmi_verily",
+          "submission_channel": "non-protected data-owner submission portal",
+          "submitted_at_utc": "2026-05-10T00:00:00Z",
+          "submitted_by": "institutional PI or approved delegate"
+        }
+      },
+      "name": "submitted route remains pending and cannot probe schema",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "approval_evidence": {
+          "approved_access": true,
+          "approved_at_utc": "2026-05-10T00:00:00Z",
+          "credentials_or_tokens_included": false,
+          "data_use_terms_accepted": true,
+          "notes": "",
+          "protected_row_dump_included": false,
+          "route_id": "ppmi_verily",
+          "source": "non-protected data-owner approval notice",
+          "storage_plan_documented": true
+        },
+        "blocked_actions_now": [
+          "download script",
+          "cache extraction",
+          "pre-registration using new labels",
+          "remote job",
+          "model run",
+          "canonical T1/T3 claim update"
+        ],
+        "can_probe_schema": true,
+        "packet": {
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "min_placeholders": 5,
+          "name": "PPMI / Verily Study Watch",
+          "packet_audit_path": "results/ppmi_verily_request_packet_audit_20260509.json",
+          "packet_path": "scripts/ppmi_verily_tier3_request_packet.md",
+          "packet_ready": true,
+          "placeholder_count": 13,
+          "priority": 1,
+          "remote_job_allowed_now": false,
+          "route_id": "ppmi_verily",
+          "runbook_path": "scripts/ppmi_verily_setup.md",
+          "runbook_ready": true,
+          "scaffold_allowed_now": false,
+          "submission_status": "ready_to_submit_after_user_fill_and_governance"
+        },
+        "state": "approved_for_schema_probe",
+        "submission_evidence": {
+          "approval_claimed": false,
+          "completed_packet_committed": false,
+          "confirmation_reference": null,
+          "credentials_or_tokens_included": false,
+          "notes": "",
+          "pre_submission_preflight_passed": true,
+          "protected_row_dump_included": false,
+          "route_id": "ppmi_verily",
+          "submission_channel": "non-protected data-owner submission portal",
+          "submitted_at_utc": "2026-05-10T00:00:00Z",
+          "submitted_by": "institutional PI or approved delegate"
+        }
+      },
+      "name": "approval unlocks only read-only schema probe state",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "approval: approval evidence route_id does not match route"
+        ]
+      },
+      "name": "route-mismatched approval is invalid",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "approval_errors": [
+          "route_id is required",
+          "approval source is required",
+          "approved_at_utc is required",
+          "approved_access must be a boolean",
+          "data_use_terms_accepted must be a boolean",
+          "storage_plan_documented must be a boolean",
+          "protected_row_dump_included must be a boolean",
+          "credentials_or_tokens_included must be a boolean",
+          "notes must be a string"
+        ],
+        "lifecycle_errors": [
+          "packet must be an AccessPacketSpec"
+        ],
+        "packet_errors": [
+          "route_id is required",
+          "name is required",
+          "priority must be an integer",
+          "packet_path is required",
+          "runbook_path is required",
+          "packet_audit_path must be a string when set",
+          "packet_ready must be a boolean",
+          "runbook_ready must be a boolean",
+          "placeholder_count must be an integer",
+          "submission_status must be ready_to_submit_after_user_fill_and_governance",
+          "remote_job_allowed_now must be a boolean",
+          "scaffold_allowed_now must be a boolean",
+          "blocked_actions_now must be a tuple or list",
+          "missing blocked pre-access action: probe script against protected data",
+          "missing blocked pre-access action: download script",
+          "missing blocked pre-access action: cache extraction",
+          "missing blocked pre-access action: pre-registration using new labels",
+          "missing blocked pre-access action: remote job",
+          "missing blocked pre-access action: model run",
+          "missing blocked pre-access action: canonical T1/T3 claim update"
+        ],
+        "submission_errors": [
+          "route_id is required",
+          "submitted_at_utc is required",
+          "submission_channel is required",
+          "submitted_by is required",
+          "confirmation_reference cannot be nullish when provided",
+          "completed_packet_committed must be a boolean",
+          "credentials_or_tokens_included must be a boolean",
+          "protected_row_dump_included must be a boolean",
+          "approval_claimed must be a boolean",
+          "pre_submission_preflight_passed must be a boolean",
+          "notes must be a string"
+        ]
+      },
+      "name": "malformed access lifecycle field types fail closed",
+      "passed": true
+    }
+  ],
+  "claim": "External access routes now have a fail-closed lifecycle: packet-ready and submitted states remain pre-access blocked, approval evidence unlocks only read-only schema probing, malformed field types fail closed, and downloads/model work remain blocked until later gates.",
+  "decision": "external_access_lifecycle_gate_passed",
+  "generated_at_utc": "2026-05-16T12:53:11+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_external_access_lifecycle_gate.py"
+}

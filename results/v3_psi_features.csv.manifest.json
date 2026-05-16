@@ -1,0 +1,81 @@
+{
+  "script": "cache_v3_psi_features.py",
+  "git_sha": "unknown",
+  "created_at_utc": "2026-05-12T20:03:57Z",
+  "labels_used": false,
+  "cohort_statistics_used": false,
+  "fold_scope": "global",
+  "pairs": [
+    [
+      "LowerBack",
+      "Xiphoid"
+    ],
+    [
+      "LowerBack",
+      "L_LatShank"
+    ],
+    [
+      "LowerBack",
+      "R_LatShank"
+    ],
+    [
+      "LowerBack",
+      "L_Ankle"
+    ],
+    [
+      "LowerBack",
+      "R_Ankle"
+    ],
+    [
+      "Xiphoid",
+      "L_Wrist"
+    ],
+    [
+      "Xiphoid",
+      "R_Wrist"
+    ],
+    [
+      "L_MidLatThigh",
+      "R_MidLatThigh"
+    ],
+    [
+      "L_LatShank",
+      "R_LatShank"
+    ],
+    [
+      "L_Ankle",
+      "R_Ankle"
+    ],
+    [
+      "L_Wrist",
+      "R_Wrist"
+    ]
+  ],
+  "channels": [
+    [
+      "FreeAcc_U",
+      0.5,
+      5.0
+    ],
+    [
+      "Gyr_Z",
+      0.5,
+      4.0
+    ],
+    [
+      "Gyr_X",
+      0.5,
+      5.0
+    ]
+  ],
+  "tasks": [
+    "SelfPace",
+    "HurriedPace",
+    "TUG",
+    "TandemGait",
+    "Balance"
+  ],
+  "rationale": "V3 Phase Synchronization Index (Hilbert PLV) between inter-segment pairs; phase-aware, orthogonal to V2 amplitude aggregates and V3-GSP linear projection.",
+  "n_features_total": 990,
+  "n_subjects": 100
+}

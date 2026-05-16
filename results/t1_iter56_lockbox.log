@@ -1,0 +1,18 @@
+
+=== T1 iter56 Bayesian no-aux LOCKBOX (seeds=(42, 1337, 7)) ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92
+  items modeled: [9, 10, 11, 12, 13, 14]
+  aux items available but EXCLUDED: (15, 18)
+An NVIDIA GPU may be present on this machine, but a CUDA-enabled jaxlib is not installed. Falling back to cpu.
+  seed=42 LOOCV fold 10/92 elapsed=1683.8s
+  seed=42 LOOCV fold 20/92 elapsed=3383.1s
+  seed=42 LOOCV fold 30/92 elapsed=5097.4s
+  seed=42 LOOCV fold 40/92 elapsed=6784.9s
+  seed=42 LOOCV fold 50/92 elapsed=8554.8s
+  seed=42 LOOCV fold 60/92 elapsed=10423.4s
+  seed=42 LOOCV fold 70/92 elapsed=12304.5s
+  seed=42 LOOCV fold 80/92 elapsed=13487.0s
+  seed=42 LOOCV fold 90/92 elapsed=14478.2s
+  seed=42 LOOCV fold 92/92 elapsed=14680.9s
+  seed=42: CCC=0.2851  wall=14681s

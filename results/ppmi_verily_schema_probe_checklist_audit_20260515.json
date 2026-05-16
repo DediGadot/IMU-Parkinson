@@ -1,0 +1,123 @@
+{
+  "checklist": "scripts/ppmi_verily_schema_probe_checklist.md",
+  "checks": [
+    {
+      "evidence": {
+        "checklist": "scripts/ppmi_verily_schema_probe_checklist.md"
+      },
+      "name": "checklist exists and is explicitly post-approval only",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "min_subjects": 20,
+        "required_grouping_keys": [
+          "sid",
+          "visit_id"
+        ],
+        "required_modalities": [
+          "wrist_accelerometer"
+        ],
+        "required_sections": [
+          "file_inventory",
+          "subject_linkage",
+          "visit_or_session_linkage",
+          "sensor_metadata",
+          "target_metadata",
+          "missingness_policy",
+          "grouping_policy",
+          "hard_stops"
+        ],
+        "required_targets": [
+          "updrs3"
+        ]
+      },
+      "name": "checklist references typed PPMI schema-probe contract",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "required_terms": [
+          "do not use before data-owner approval",
+          "read-only schema probe",
+          "protected row data",
+          "raw samples",
+          "label values",
+          "feature matrices",
+          "credentials",
+          "preregistrations",
+          "model runs",
+          "remote jobs",
+          "cache extractions",
+          "canonical t1/t3 claim updates"
+        ]
+      },
+      "name": "checklist keeps protected-data and model actions blocked",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "required_terms": [
+          "accessible table names",
+          "subject identifiers",
+          "visit identifiers",
+          "wearable collection timestamps",
+          "wrist laterality",
+          "13-node anatomical imu graph",
+          "x4 v2+v3-gsp branch remains excluded",
+          "sampling rate",
+          "units",
+          "axis frame",
+          "mds-updrs part iii",
+          "valid value ranges",
+          "hoehn & yahr",
+          "medication state",
+          "dose-timing",
+          "matching windows"
+        ]
+      },
+      "name": "checklist covers PPMI / Verily-specific schema fields",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "required_terms": [
+          "scripts/record_schema_probe_report.py",
+          "scripts/validate_ppmi_verily_target_free_manifest.py",
+          "scripts/ppmi_verily_target_free_manifest_template.json",
+          "results/external_formula_sha_templates_20260515.md",
+          "scripts/validate_external_formula_sha_record.py",
+          "scripts/validate_external_zeroshot_result_record.py",
+          "--route-id ppmi_verily",
+          "--sections-present",
+          "--grouping-keys-found",
+          "--target-columns-found",
+          "--sensor-modalities-found",
+          "--valid-subject-count",
+          "--ppmi-x4-multinode-anatomical-sensors-present",
+          "--ppmi-x4-v3-gsp-formula-eligible",
+          "--ppmi-x4-external-label-selection-allowed"
+        ]
+      },
+      "name": "checklist gives recorder command shape and later gates without creating artifacts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "runbook": "scripts/ppmi_verily_setup.md"
+      },
+      "name": "runbook points to the schema-probe checklist",
+      "passed": true
+    }
+  ],
+  "decision": "ppmi_verily_schema_probe_checklist_ready",
+  "generated_at_utc": "2026-05-16T08:43:39+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "not_access_approval": true,
+  "passed": true,
+  "protected_data_included": false,
+  "schema_probe_artifact_created": false,
+  "script": "audit_ppmi_verily_schema_probe_checklist.py"
+}

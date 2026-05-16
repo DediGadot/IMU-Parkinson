@@ -2,7 +2,7 @@
   "schema_version": 1,
   "produced_by": "cache_phaselocked_item9.py",
   "script_sha256": "8273f53be88c66a2719d347f9109eda4b6d49d04c02ab09af0a3f742e25e920b",
-  "git_sha": "unknown",
+  "git_sha": "09d2e198aea1bf7b1d1553600014b563409046ee",
   "iso_datetime_utc": "2026-05-08T06:06:03.718810+00:00",
   "data_sha256": "cabf7331a4f213981d869af6f29c17b7abfb64f863dd739a93072ba3ed5b2129",
   "n_subjects": 98,
@@ -23,5 +23,7 @@
   "command": "cache_phaselocked_item9.py",
   "csv_dir": "/home/fiod/pd-imu/data/raw/weargait-pd/PD PARTICIPANTS/CSV files",
   "n_jobs_processed": 99,
-  "out_path": "/home/fiod/pd-imu/results/phaselocked_item9_features.csv"
+  "out_path": "/home/fiod/pd-imu/results/phaselocked_item9_features.csv",
+  "manifest_amended_at_utc": "2026-05-10T13:50:00Z",
+  "manifest_amend_reason": "Original extraction did not record git_sha. Amended with the commit containing the script (verified: cache script content unchanged since this commit; script_sha256 unchanged). Required for slot A use under inductive_lib firewall."
 }

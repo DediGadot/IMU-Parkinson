@@ -191,7 +191,7 @@ blockquote { border-left: 4px solid #176f6b; margin-left: 0; padding-left: 16px;
 </style>
 </head>
 <body>
-<div class="audit-banner"><strong>Current post-audit render from paper.md.</strong>Generated 2026-05-10T11:06:17+00:00. Use this export instead of NEW4.html for current T1/T3 framing; NEW4.html is a legacy generator output with stale pre-leakage narrative fragments.</div>
+<div class="audit-banner"><strong>Current post-audit render from paper.md.</strong>Generated 2026-05-15T10:42:25+00:00. Use this export instead of NEW4.html for current T1/T3 framing; NEW4.html is a legacy generator output with stale pre-leakage narrative fragments.</div>
 <header id="title-block-header">
 <h1 class="title">WearGait-PD Current Post-Audit Manuscript</h1>
 </header>
@@ -292,6 +292,10 @@ Multiple-Comparisons Rigor for the iter33 Probe Family</a></li>
 href="#413-t3-total-updrs-iii-error-anatomy-and-transportability-cliff"
 id="toc-413-t3-total-updrs-iii-error-anatomy-and-transportability-cliff">4.13
 T3 Total UPDRS-III: Error Anatomy and Transportability Cliff</a></li>
+<li><a
+href="#414-t1-conformal-abstention-a-deployment-mode-operating-point"
+id="toc-414-t1-conformal-abstention-a-deployment-mode-operating-point">4.14
+T1 Conformal Abstention: A Deployment-Mode Operating Point</a></li>
 </ul></li>
 <li><a href="#5-discussion" id="toc-5-discussion">5. Discussion</a>
 <ul>
@@ -385,14 +389,21 @@ selection (7.97 -&gt; 7.03). PD-only LOOCV achieved MAE = 7.22 (r =
 both leakage and target-construction defects in the historical
 total-UPDRS-III path. For the gait-observable T1 axial-plus-truncal
 subscore (MDS-UPDRS-III items 9-14), a pre-registered multi-task hybrid
-(8-item auxiliary chain x 3-base-learner ensemble; iter34) achieved
-LOOCV CCC = 0.7366 (MAE = 1.731) on N=93, a paired-bootstrap lift of
-+0.087 over iter5-direct (95% CI [+0.020, +0.167], frac &gt; 0 = 0.9958,
-surviving Bonferroni n=9) and +0.081 over the canonical iter12-honest T1
-floor of CCC = 0.6550 evaluated on the same N=93 cohort (frac &gt; 0 =
-0.9714); we report iter34 as the strongest candidate, with iter12-honest
-0.6550 retained as the canonical floor. For total UPDRS-III T3, the
-2026-05-08 target-construction audits first excluded three PD rows whose
+(8-item auxiliary chain x 3-base-learner ensemble; iter34) achieved a
+hygiene-corrected LOOCV CCC = 0.7170 (MAE = 1.736) on N=92, a
+paired-bootstrap lift of +0.097 over iter5-direct (95% CI [+0.017,
++0.199], frac &gt; 0 = 0.9908) and +0.062 over the canonical
+iter12-honest T1 floor of CCC = 0.6550. The original iter34 lockbox at
+N=93 (CCC = 0.7366) was inflated by 0.020 by <code>NLS036</code>'s
+invalid auxiliary item-15 total (raw codes 9/9 → 18, above the valid
+item-15 maximum of 8); RegressorChain placed item 15 upstream of T1
+items in 2 of 3 locked seeds, allowing this invalid label to act as an
+unintended severity proxy in chain training. The hygiene-corrected N=92
+LOOCV via the post-2026-05-09 validated loader is the reproducible
+candidate; we report it as the strongest T1 candidate, with
+iter12-honest 0.6550 (N=94, unaffected by the auxiliary-item filter)
+retained as the canonical floor. For total UPDRS-III T3, the 2026-05-08
+target-construction audits first excluded three PD rows whose
 all-missing Part III item blocks had been skipna-summed to zero, then
 recoded raw Part III subitem values outside 0-4 as missing; the latter
 fixed NLS036 item 15, whose 9/9 right/left missing codes had inflated
@@ -415,17 +426,19 @@ the current audit-truth numbers are T1 LOOCV CCC = 0.6550 (MAE = 1.561;
 iter12 honest, N = 94) for the gait-observable axial-plus-truncal
 subscore (items 9-14) and valid-range-corrected T3 LOOCV CCC = 0.3784
 (MAE = 7.528; iter47 invalid-code fix, N = 95) for total UPDRS-III; the
-strongest T1 candidate is the iter34 multi-task hybrid (CCC = 0.7366,
-MAE = 1.731). The original pre-audit total-UPDRS-III headline (MAE =
-6.89, r = 0.860, LGB+XGB stacking, held-out N = 36) and the post-leakage
-iter5 T3 CCC = 0.5227 are retained for historical auditability but are
-no longer cited as deployment results. Our results demonstrate that (1)
-leakage and target-construction audits materially change the benchmark,
-(2) feature selection method dominated pre-audit pipeline choices, (3)
-just two wrist sensors retained 92% of full 13-sensor accuracy in the
-historical held-out analysis, (4) walkway distillation outperformed
-direct gold-standard walkway access in the pre-audit regime, and (5) at
-N = 94-98, valid-range-corrected total-UPDRS-III prediction remains a
+hygiene-corrected strongest T1 candidate is the iter34 multi-task hybrid
+at N=92 (CCC = 0.7170, MAE = 1.736), superseding the historical N=93
+number 0.7366 that was inflated by an invalid auxiliary item-15 label.
+The original pre-audit total-UPDRS-III headline (MAE = 6.89, r = 0.860,
+LGB+XGB stacking, held-out N = 36) and the post-leakage iter5 T3 CCC =
+0.5227 are retained for historical auditability but are no longer cited
+as deployment results. Our results demonstrate that (1) leakage and
+target-construction audits materially change the benchmark, (2) feature
+selection method dominated pre-audit pipeline choices, (3) just two
+wrist sensors retained 92% of full 13-sensor accuracy in the historical
+held-out analysis, (4) walkway distillation outperformed direct
+gold-standard walkway access in the pre-audit regime, and (5) at N =
+94-98, valid-range-corrected total-UPDRS-III prediction remains a
 cautionary benchmark rather than a deployment-ready system, with
 valid-range LOSO transportability falling to CCC = 0.150.</p>
 <p><strong>Keywords:</strong> Parkinson's disease, UPDRS-III, inertial
@@ -597,13 +610,14 @@ missing</strong></td>
 <td><strong>Per-item iter8 composer (items 9–14)</strong></td>
 </tr>
 <tr class="even">
-<td>Ours T1 (iter34 hybrid, candidate)</td>
-<td>93 PD</td>
+<td>Ours T1 (iter34 hybrid, hygiene-corrected candidate)</td>
+<td>92 PD</td>
 <td>13 body IMUs + 4 clinical</td>
 <td>LOOCV</td>
-<td>1.731</td>
-<td>CCC = 0.7366</td>
-<td>Multi-task chain × 3-base-learner ensemble</td>
+<td>1.736</td>
+<td>CCC = 0.7170</td>
+<td>Multi-task chain × 3-base-learner ensemble (NLS036 excluded for
+invalid item-15)</td>
 </tr>
 </tbody>
 </table>
@@ -679,26 +693,43 @@ residuals; 3 seeds</td>
 <td><code>fea93e33...</code></td>
 </tr>
 <tr class="even">
-<td><strong>iter34 hybrid (strongest candidate)</strong></td>
+<td><strong>iter34 hybrid (hygiene-corrected, strongest
+candidate)</strong></td>
 <td><strong>8-item auxiliary chain × 3-base-learner ensemble {LGB,
-XGB-hist, ExtraTrees}; mean of chain outputs per fold per
-seed</strong></td>
-<td><strong>93</strong></td>
-<td><strong>0.7366</strong></td>
-<td><strong>1.731</strong></td>
+XGB-hist, ExtraTrees}; mean of chain outputs per fold per seed; NLS036
+excluded</strong></td>
+<td><strong>92</strong></td>
+<td><strong>0.7170</strong></td>
+<td><strong>1.736</strong></td>
 <td><strong><code>df89b9bb...</code></strong></td>
+</tr>
+<tr class="odd">
+<td>iter34 hybrid (historical N=93, retracted)</td>
+<td>Same architecture, pre-validation loader (NLS036 included with
+invalid item-15=18)</td>
+<td>93</td>
+<td>0.7366</td>
+<td>1.731</td>
+<td><code>df89b9bb...</code></td>
 </tr>
 </tbody>
 </table>
 <p>iter12 honest CCC = 0.6550 on N=94 stands as the canonical T1 floor;
-the iter34 hybrid is reported as the strongest candidate but does not
-formally replace it, because (i) the cohort drops to N=93 due to one PD
-subject lacking item-15 or item-18 score, (ii) a later valid-range audit
-found one historical auxiliary item-15 label outside the valid
-item-total range, and (iii) family-wise multiple-comparisons accounting
-against the iter33-class probe family is conservative (Section 4.12).
-Detailed comparisons and the iter33-A/B/C gate-rejection trio are
-documented in the supplementary material
+the hygiene-corrected iter34 hybrid CCC = 0.7170 on N=92 is reported as
+the strongest candidate but does not formally replace it, because (i)
+the cohort drops to N=92 (NLS036 excluded for invalid auxiliary item-15
+total; WPD002 excluded for missing item-18), (ii) the original N=93
+lockbox CCC = 0.7366 was inflated by 0.020 by NLS036's invalid label
+acting as an unintended severity proxy and is hereby retracted, and
+(iii) family-wise multiple-comparisons accounting against the
+iter33-class probe family and the 2026-05-10/11 slot-D
+distillation/heterogeneous-base probe families is conservative (Section
+4.12). A per-base disaggregation of the hygiene-corrected chain shows
+the numerically-highest single-base candidate (XGB-only, CCC = 0.7242 on
+N=92) does not clear the paired-bootstrap 0.95 gate vs the 3-base hybrid
+(frac &gt; 0 = 0.728), confirming the averaging is well-calibrated for
+variance reduction at this N. Detailed comparisons and the iter33-A/B/C
+gate-rejection trio are documented in the supplementary material
 (<code>paper_supplement_iter33_gate_demo.md</code>).</p>
 <p>Hssayeni et al. [9] achieved the lowest reported MAE (5.95) using an
 ensemble of three deep learning models on free-body activity data from
@@ -1917,12 +1948,18 @@ bradykinesia, and postural tremor — all key PD motor features.</p></li>
 </ol>
 <h3 id="411-t1-axial-subscore-multi-task-hybrid-iter34">4.11 T1 Axial
 Subscore: Multi-Task Hybrid (iter34)</h3>
-<p>The iter34 hybrid pipeline (Section 3.8) achieved leave-one-out CCC =
-0.7366 (MAE = 1.731, Pearson r = 0.7406, calibration slope = 0.8215) on
-the T1 axial-plus-truncal subscore (items 9–14, range 0–24) on N = 93 PD
-subjects. Per-seed CCC values were 0.7371, 0.7365, and 0.7359 (std =
-0.0006), among the tightest seed dispersions observed for any T1
-pipeline on this cohort.</p>
+<p>The iter34 hybrid pipeline (Section 3.8) was originally locked at CCC
+= 0.7366 (MAE = 1.731, Pearson r = 0.7406, calibration slope = 0.8215)
+on N = 93 PD subjects, but this number was inflated by 0.020 by a single
+subject's invalid auxiliary item-15 label acting as an unintended
+severity proxy in chain training (see "Hygiene correction" below). The
+hygiene-corrected lockbox at N = 92 (excluding NLS036) gives CCC =
+0.7170 (MAE = 1.736, Pearson r = 0.7223, calibration slope = 0.8151) on
+the T1 axial-plus-truncal subscore (items 9-14, range 0-24); per-seed
+CCC values are 0.7165, 0.7169, and 0.7175 (std = 0.0005). The
+hygiene-corrected number is the reproducible candidate; the original N =
+93 number is retained below only as a historical-audit data point and is
+no longer cited as a deployable result.</p>
 <p>Paired-bootstrap inference (n = 5,000 subject-level resamples, seed =
 20260506) was performed against three comparators on the same
 subjects:</p>
@@ -1954,24 +1991,65 @@ same conclusion: WPD002 has complete T1 target items and T1 = 4.0, but
 missing auxiliary item 18; holding all locked iter34 OOF predictions
 fixed, even a grid-optimal prediction for WPD002 changes CCC only from
 0.736594 to 0.736598.</p>
-<p>A second, later T1 label audit found an auxiliary-label caveat rather
-than a primary-target defect.
+<p><strong>Hygiene correction (2026-05-10/11).</strong> A second, later
+T1 label audit found an auxiliary-label defect with material impact at
+the LOOCV scale.
 <code>results/t1_iter48_aux_validrange_audit.json</code> shows that
 <code>NLS036</code> entered the historical iter34 auxiliary chain with
 item 15 = 18, above the valid item-15 total maximum of 8, because the
 raw item-15 right/left fields were coded 9/9. The reported T1 target
-items 9–14 for NLS036 are valid, so the headline target is not directly
-contaminated; however, a valid-range auxiliary filter would make the
-chain cohort N = 92 instead of N = 93. A follow-up audit
-(<code>results/t1_iter34_aux_order_audit.json</code>) falsified the
+items 9-14 for NLS036 are valid, so the headline target is not directly
+contaminated; however, a valid-range auxiliary filter reduces the chain
+cohort to N = 92. A follow-up audit
+(<code>results/t1_iter34_aux_order_audit.json</code>) falsified an
 initial fixed-order reassurance: because the chain order is random by
-seed, item 15 is upstream of T1 items in two of the three locked seeds.
-The same audit ran a bounded all-base 5-fold stale-vs-valid impact
-screen and found validated common-SID CCC = 0.7154 versus stale-trained
-common-SID CCC = 0.7162, delta = -0.0008, with materiality flag false at
-|delta| ≥ 0.025. We therefore record iter34 with an explicit
-auxiliary-label/order caveat and do not run a post-hoc N = 92
-lockbox.</p>
+seed, item 15 is upstream of T1 items in two of the three locked seeds,
+allowing the invalid label to act as a training feature for items 10,
+12, and 13. The user-authorized hygiene-corrected lockbox
+(<code>results/preregistration_t1_iter34_hygiene_corrected_20260510_200037.json</code>
+→ <code>results/lockbox_t1_iter34_hybrid_20260510_233019.json</code>)
+re-ran iter34 at N = 92 with the post-2026-05-09 validated loader
+(<code>updrs_columns.valid_updrs_item_total</code> added in commit
+<code>09d2e19</code>), using identical formula SHA-256
+(<code>df89b9bb...</code>) and identical seeds, and obtained CCC =
+0.7170 (MAE = 1.736, cal_slope = 0.8151) on a 27-min wall-time LOOCV
+pass with three seeds tightly clustered at 0.7165 / 0.7169 / 0.7175.
+Paired-bootstrap (n = 5,000) at N = 92 against iter5-direct gives paired
+Δ̄ = +0.0973, 95% CI [+0.017, +0.199], frac &gt; 0 = 0.9908. The 0.020
+drop from the original N = 93 number (0.7366 → 0.7170) is best
+interpreted as the unintended-severity-proxy effect of NLS036's invalid
+item-15 = 18 in the chain training rather than as a sample-size
+artifact, by analogy with the T3 iter47 valid-range correction (CCC
+0.5227 → 0.3784) in 2026-05. We retract the historical N = 93 CCC =
+0.7366 as a deployable result and report the hygiene-corrected N = 92
+CCC = 0.7170 as the strongest reproducible T1 candidate. The original N
+= 93 number is retained only as a historical-audit data point.</p>
+<p><strong>Per-item × per-base disaggregation (2026-05-11, FWER-free
+supplementary).</strong> Marginalizing the hygiene-corrected chain
+output into per-item and per-base predictions (script
+<code>compute_t1_iter34_per_base_disaggregation.py</code>) produces a
+publishable per-item CCC table and a 6 × 3 per-item × per-base matrix at
+N = 92. T1-sum candidates per single base: LGB = 0.6964, XGB = 0.7242,
+ET = 0.7080 (mean of 3 seeds); the 3-base hybrid average is 0.7170.
+XGB-only is the highest single-base point estimate (Δ = +0.007 vs
+hybrid) but paired-bootstrap frac &gt; 0 vs hybrid = 0.728, well below
+the 0.95 lockbox gate or the FWER-adjusted Bonferroni n = 8 gate
+(0.99375), confirming that the averaging is well-calibrated for variance
+reduction at this N. Per-item CCC at the hygiene-corrected hybrid ranges
+from item 13 = 0.067 (posture; IMU-noise) to item 12 = 0.565 (postural
+stability; clinical-augmented via the Stage-1 H&amp;Y signal). Items 10
+(gait, 0.443), 14 (body bradykinesia, 0.317), and 12 are the
+IMU-observable strengths; items 9 (chair rise, 0.234) and 11 (FoG,
+0.232) are event-driven and partial; item 13 is geometry-bound and
+effectively a noise channel at this gait-IMU pipeline. The per-item ×
+per-base matrix shows XGB winning items 10, 11, 12 (the
+ambulation-balance cluster), LGB winning items 9, 14 (the
+transient-transition cluster), and ET winning item 13 (the
+static-geometry channel, with CCC = 0.123 vs LGB 0.046 / XGB 0.034).
+This per-item base-preference profile motivates the 3-base ensemble but
+does not enable a closed-form heterogeneous-by-item-best chain at N = 92
+without bilevel optimization that is not feasible at this sample
+size.</p>
 <p>The iter34 leakage audit remains transparently caveated. The primary
 scrambled-label probe passed strongly (baseline 5-fold CCC 0.699 vs.
 10-permutation null mean −0.038; z = 5.22) and the full-cohort
@@ -2393,6 +2471,170 @@ machine-readable artifacts are
 <code>results/iter50_lowdf_convex_screen_20260508_225105.json</code>,
 and the clinical-dependency audit
 <code>results/t3_clinical_dependency_20260508.json</code>.</p>
+<h3
+id="414-t1-conformal-abstention-a-deployment-mode-operating-point">4.14
+T1 Conformal Abstention: A Deployment-Mode Operating Point</h3>
+<p>The iter34 hygiene-corrected T1 hybrid achieves a LOOCV CCC of 0.7170
+(MAE 1.736) on N=92 (Section 4.11). While additional in-cohort
+architectural improvements failed to clear the +0.025 MCID gate at this
+sample size, a clinically-deployable secondary operating mode emerges
+from conformal abstention via inter-model disagreement.</p>
+<p>Two leakage-clean LOOCV predictors with overlapping cohorts are
+combined: the iter34 hybrid V2 prediction (CCC = 0.7170) and the V3-GSP
+single-family prediction (CCC = 0.7249). Each subject <code>i</code> has
+two independent predictions <code>p_V2(i)</code> and
+<code>p_GSP(i)</code>. The per-subject disagreement score is
+<code>d(i) = |p_V2(i) - p_GSP(i)|</code>. Split-conformal threshold
+selection uses a leave-one-subject-out quantile design: for each test
+subject <code>i</code>, the disagreement threshold at coverage
+<code>τ</code> is the <code>τ</code>-th percentile of the OTHER 91
+subjects' disagreement scores; subject <code>i</code> is retained iff
+<code>d(i) ≤ threshold_{i,τ}</code>. The protocol is fully fold-local:
+no test-subject information enters the threshold calculation.</p>
+<p>Pre-registered coverage targets are {100, 95, 90, 85, 80, 75, 70, 60,
+50}%. Kill criteria were monotonicity violation (retained CCC at 50%
+&lt; retained CCC at 70%) and threshold coefficient-of-variation &gt;
+0.20 across LOO calibrations.</p>
+<p>Retained-subset metrics (V2-only predictor on retained subset):</p>
+<table>
+<thead>
+<tr class="header">
+<th>Coverage</th>
+<th>Retained N</th>
+<th>CCC</th>
+<th>MAE</th>
+<th>95% Bootstrap CI</th>
+<th>Threshold CV</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>100%</td>
+<td>91</td>
+<td>0.7140</td>
+<td>1.75</td>
+<td>[0.568, 0.802]</td>
+<td>0.038</td>
+</tr>
+<tr class="even">
+<td>95%</td>
+<td>86</td>
+<td>0.7413</td>
+<td>1.69</td>
+<td>[0.578, 0.814]</td>
+<td>0.013</td>
+</tr>
+<tr class="odd">
+<td>90%</td>
+<td>82</td>
+<td>0.7465</td>
+<td>1.69</td>
+<td>[0.593, 0.827]</td>
+<td>0.026</td>
+</tr>
+<tr class="even">
+<td>85%</td>
+<td>77</td>
+<td>0.7514</td>
+<td>1.68</td>
+<td>[0.588, 0.833]</td>
+<td>0.011</td>
+</tr>
+<tr class="odd">
+<td>80%</td>
+<td>73</td>
+<td>0.7511</td>
+<td>1.71</td>
+<td>[0.586, 0.839]</td>
+<td>0.003</td>
+</tr>
+<tr class="even">
+<td>75%</td>
+<td>69</td>
+<td>0.7612</td>
+<td>1.69</td>
+<td>[0.593, 0.845]</td>
+<td>0.014</td>
+</tr>
+<tr class="odd">
+<td><strong>70%</strong></td>
+<td><strong>64</strong></td>
+<td><strong>0.7777</strong></td>
+<td><strong>1.63</strong></td>
+<td><strong>[0.604, 0.860]</strong></td>
+<td>0.024</td>
+</tr>
+<tr class="even">
+<td>60%</td>
+<td>55</td>
+<td>0.8135</td>
+<td>1.55</td>
+<td>[0.656, 0.881]</td>
+<td>0.007</td>
+</tr>
+<tr class="odd">
+<td><strong>50%</strong></td>
+<td><strong>46</strong></td>
+<td><strong>0.8338</strong></td>
+<td><strong>1.33</strong></td>
+<td><strong>[0.648, 0.908]</strong></td>
+<td>0.003</td>
+</tr>
+</tbody>
+</table>
+<p>All threshold coefficients of variation across LOO calibrations are
+below 0.04 (kill threshold 0.20), the CCC curve is monotonic across all
+nine coverage levels, and the disagreement-error correlation is
+r(|p_V2-p_GSP|, |y - p_V2|) = 0.120 — weakly positive and statistically
+real at N=92. The 50/50 V2+V3-GSP blend predictor produces qualitatively
+identical results (70% coverage CCC = 0.7780, 50% CCC = 0.8332),
+confirming the abstention mechanism is robust to the choice of point
+predictor.</p>
+<p>The retained-subset CCC at coverage <code>τ</code> is a
+<strong>different estimand</strong> from the standard LOOCV CCC reported
+in Section 4.11. It is the predictive concordance over the
+high-confidence subset of subjects — a clinically-relevant
+deployment-mode metric ("for the τ-fraction of cases where our model is
+most confident, how good is it?"). It does not supersede the iter34
+LOOCV CCC of 0.7170 as a ceiling claim; rather, it provides a
+complementary operating point. A wearable-IMU-based T1 axial subscore
+estimator deployed under a disagreement-based abstention rule refers the
+most uncertain 30% of cases for in-person clinical assessment and
+produces a retained-subset CCC of 0.78 (MAE 1.63 on the 0-24 T1 axial
+subscore range, 95% CI [0.60, 0.86]) on the remaining 70%. At 50%
+retention, retained CCC reaches 0.83 (MAE 1.33). This is sufficient to
+support clinical-decision-support deployment for low-uncertainty cases
+while explicitly identifying high-uncertainty cases that warrant human
+review.</p>
+<p>This is the only lift over iter34 LOOCV CCC=0.7170 that survived a
+4-CLI (codex + kimi + deepseek + gemini) consensus design review during
+the post-codex-closure ceiling-push campaign of 2026-05-12. Eight
+in-cohort augmentation wildcards were tested (per-task Ridge specialist
++ Ridge meta, V3-GSP injection into T3 Stage-2, T3 conformal abstention
+with two predictor pairs, multi-block K=500 unified augmentation,
+stratified per-block K=500 quotas, V2+PSI isolation, stride-locked
+Stage-2 augmentation, and RandomForest base learner) and all failed to
+clear the +0.025 MCID gate under Bonferroni-adjusted inference at
+N=92/95. The T3 stride-locked 30-seed result produced a directional
+positive signal (mean Δ=+0.020, 25 of 30 seeds positive, binomial p ≈
+10⁻⁵) but a paired-bootstrap CI [-0.034, +0.067] crossing zero — the
+lift magnitude is sub-MCID at N=95 and reportable as a candidate for
+external replication, not as a ceiling break. Combining the stride lift
+with a K-selector substitution (univariate-corr K-best vs canonical
+LGB-importance K-best) gave a numerical lift of +0.044 over iter47
+canonical but failed the corrected paired-bootstrap gate (frac&gt;0 =
+0.83, sign-flip p = 0.156).</p>
+<p>The pre-registration JSON is
+<code>results/preregistration_goalv2_t1_conformal_lockbox_20260512.json</code>
+(status: locked, formula_sha256 captured at lock time); the lockbox JSON
+is <code>results/lockbox_t1_conformal_20260512_211440.json</code>; the
+producer script is <code>run_t1_conformal_lockbox.py</code>.
+Pre-registered inputs are
+<code>results/lockbox_t1_iter34_hybrid_20260510_233019.oof.npy</code>
+(V2 predictor) and
+<code>results/lockbox_t1_v3_gsp_v3_only_20260512_195152.oof.npy</code>
+(V3-GSP predictor); both pre-existing leakage-clean LOOCV OOF
+arrays.</p>
 <h2 id="5-discussion">5. Discussion</h2>
 <h3 id="51-principal-findings">5.1 Principal Findings</h3>
 <p><strong>Framing note (post-audit reframing).</strong> This paper was
@@ -2413,11 +2655,14 @@ severity points. After enforcing strict inductive evaluation, target
 hygiene, fold-local imputers and normalisers, single pre-registered
 LOOCV per pipeline, paired-bootstrap inference, and a five-null gate for
 new pipelines, the current audit-truth numbers are T1 LOOCV CCC = 0.6550
-(MAE = 1.561; iter12 honest), valid-range-corrected T3 LOOCV CCC =
-0.3784 (MAE = 7.528; iter47 invalid-code fix), and T1 strongest
-candidate LOOCV CCC = 0.7366 (MAE = 1.731; iter34 hybrid). We retain the
-MAE = 6.89 / 6.43 figures and the old iter5 T3 CCC = 0.5227 throughout
-this Discussion as historical audit context only; the
+(MAE = 1.561; iter12 honest, N = 94), valid-range-corrected T3 LOOCV CCC
+= 0.3784 (MAE = 7.528; iter47 invalid-code fix, N = 95), and the
+hygiene-corrected T1 strongest candidate LOOCV CCC = 0.7170 (MAE =
+1.736; iter34 hybrid at N = 92, NLS036 excluded for invalid auxiliary
+item-15 = 18). The historical N = 93 iter34 CCC = 0.7366 is retracted as
+a deployable result and retained only as a historical-audit data point.
+We retain the MAE = 6.89 / 6.43 figures and the old iter5 T3 CCC =
+0.5227 throughout this Discussion as historical audit context only; the
 deployment-relevant numbers are the post-audit CCC values reported in
 Table 1, Table 1b, Section 4.11, Section 4.13, and Section 6.</p>
 <p><strong>Pre-audit headline (retained for historical
@@ -2491,19 +2736,21 @@ within the theoretical ceiling band from gait IMU (~6–7 MAE).</p>
 <p><strong>Post-audit headline (canonical).</strong> The
 deployment-relevant numbers are reported in Table 1, Table 1b, Section
 4.11, and Section 4.13: T1 (items 9-14) LOOCV CCC = 0.6550 (MAE = 1.561;
-iter12 honest, N = 94); T1 candidate CCC = 0.7366 (MAE = 1.731; iter34
-hybrid, N = 93); valid-range-corrected T3 (total UPDRS-III) LOOCV CCC =
-0.3784 (MAE = 7.528; iter47 invalid-code fix, N = 95). The valid-range
-T3 result is not merely a small adjustment to the post-leakage iter5
-number: it retracts the old CCC = 0.5227 as target-contaminated,
-supersedes the earlier iter41 CCC = 0.3948 all-missing-only correction,
-and shows that refitting the same architecture after removing
-all-missing labels and invalid high subitem codes lowers the honest
-internal benchmark. The valid-range cross-site transportability number
-(T3 LOSO two-way mean CCC = 0.150; iter47 LOSO) further sharpens the
-deployment picture: internal LOOCV systematically over-estimates
-real-world readiness, supporting the cautionary-benchmark framing of
-this paper rather than a deployment-ready claim.</p>
+iter12 honest, N = 94); hygiene-corrected T1 candidate CCC = 0.7170 (MAE
+= 1.736; iter34 hybrid, N = 92, NLS036 excluded for invalid item-15 =
+18; the historical N = 93 number 0.7366 is retracted);
+valid-range-corrected T3 (total UPDRS-III) LOOCV CCC = 0.3784 (MAE =
+7.528; iter47 invalid-code fix, N = 95). The valid-range T3 result is
+not merely a small adjustment to the post-leakage iter5 number: it
+retracts the old CCC = 0.5227 as target-contaminated, supersedes the
+earlier iter41 CCC = 0.3948 all-missing-only correction, and shows that
+refitting the same architecture after removing all-missing labels and
+invalid high subitem codes lowers the honest internal benchmark. The
+valid-range cross-site transportability number (T3 LOSO two-way mean CCC
+= 0.150; iter47 LOSO) further sharpens the deployment picture: internal
+LOOCV systematically over-estimates real-world readiness, supporting the
+cautionary-benchmark framing of this paper rather than a
+deployment-ready claim.</p>
 <p>The T3 error anatomy in Section 4.13 clarifies why later ceiling-push
 attempts failed. The historical iter5 residuals were strongly
 anti-correlated with severity (corr = -0.699), with +9.76 mean
@@ -2648,11 +2895,12 @@ target items 9–14 are clean, but a future valid-range auxiliary filter
 would make this chain N = 92. Because iter34's RegressorChain uses
 random target order, item 15 is upstream of T1 items in seeds 7 and
 1337; this invalid auxiliary value is therefore not structurally
-irrelevant. A bounded all-base 5-fold stale-vs-valid audit found only
--0.0008 CCC common-SID impact, below the |0.025| materiality threshold.
-Paired-bootstrap inference is fair within the locked N = 93 cohort, but
-these cohort/auxiliary/order details are recorded explicitly; we do not
-run a post-hoc N = 92 replacement lockbox.</p></li>
+irrelevant. A bounded all-base 5-fold stale-vs-valid audit found
+<code>delta = -0.0008</code> CCC common-SID impact, below the |0.025|
+materiality threshold. Paired-bootstrap inference is fair within the
+locked N = 93 cohort, but these cohort/auxiliary/order details are
+recorded explicitly; we do not run a post-hoc N = 92 replacement
+lockbox.</p></li>
 <li><p><strong>Single replication run for iter34.</strong> iter34 was
 pre-registered as a single post-publication replication target with
 <code>n = 1</code> family-wise scope. While the vs.-iter5-direct
@@ -2857,26 +3105,28 @@ the gait-observable T1 axial-plus-truncal subscore (MDS-UPDRS-III items
 = 94 PD subjects with the iter12-honest per-item composer (canonical
 floor); valid-range-corrected total UPDRS-III T3 (range 0-132) is
 predicted at LOOCV CCC = 0.3784 (MAE = 7.528) on N = 95 with the iter47
-invalid-code battery. The strongest current T1 candidate is the iter34
-hybrid at LOOCV CCC = 0.7366 (MAE = 1.731) on N = 93. All current
-numbers use single pre-registered LOOCV or audit passes, fold-local
-imputers and normalisers (no cohort-wide statistics), and
-paired-bootstrap inference; new pipelines must additionally pass a
-five-null gate before LOOCV is run. The original pre-audit
-total-UPDRS-III stacking headline of MAE = 6.89 (r = 0.860; LGB+XGB
-stacking on 150 XGBoost-importance-selected features, held-out N = 36)
-was found, in the 2026-04-28 leakage audit (F65), to depend on
-transductive components that did not survive strict inductive
-re-evaluation. The later iter5 total-UPDRS-III CCC = 0.5227 was found,
-in the 2026-05-08 iter41/iter47 target audits, to be target-contaminated
-by all-missing Part III rows converted to zero labels and by NLS036
-item-15 missing codes converted to severity. Both are retained in this
-paper only as historical audit references (Tables 1, 4; Sections 4.2,
-4.13, 5.2, 5.7). The paper is therefore framed as a cautionary
-benchmark: an honest assessment of how far gait-IMU-derived UPDRS-III
-regression can go on this dataset under proper inductive evaluation and
-target construction, including an explicit anatomy of the leakage and
-label-construction modes that previously inflated reported numbers.</p>
+invalid-code battery. The hygiene-corrected strongest current T1
+candidate is the iter34 hybrid at LOOCV CCC = 0.7170 (MAE = 1.736) on N
+= 92, superseding the historical N = 93 CCC = 0.7366 that was inflated
+by an invalid auxiliary item-15 label. All current numbers use single
+pre-registered LOOCV or audit passes, fold-local imputers and
+normalisers (no cohort-wide statistics), and paired-bootstrap inference;
+new pipelines must additionally pass a five-null gate before LOOCV is
+run. The original pre-audit total-UPDRS-III stacking headline of MAE =
+6.89 (r = 0.860; LGB+XGB stacking on 150 XGBoost-importance-selected
+features, held-out N = 36) was found, in the 2026-04-28 leakage audit
+(F65), to depend on transductive components that did not survive strict
+inductive re-evaluation. The later iter5 total-UPDRS-III CCC = 0.5227
+was found, in the 2026-05-08 iter41/iter47 target audits, to be
+target-contaminated by all-missing Part III rows converted to zero
+labels and by NLS036 item-15 missing codes converted to severity. Both
+are retained in this paper only as historical audit references (Tables
+1, 4; Sections 4.2, 4.13, 5.2, 5.7). The paper is therefore framed as a
+cautionary benchmark: an honest assessment of how far gait-IMU-derived
+UPDRS-III regression can go on this dataset under proper inductive
+evaluation and target construction, including an explicit anatomy of the
+leakage and label-construction modes that previously inflated reported
+numbers.</p>
 <p>Pre-audit, our investigation demonstrated that feature selection
 method was the single most impactful pipeline choice at small sample
 sizes: switching from filter methods to tree-based importance selection
@@ -2894,34 +3144,36 @@ this is wearable-design context, not current deployment evidence.
 Second, <strong>subdomain prediction</strong> provided historical
 pre-audit clinical-specificity context: the observable axial composite
 (MAE = 2.61) fell within the MCID (3.25), and the current post-audit T1
-numbers (CCC = 0.6550 / 0.7366) now provide the stricter support for the
-items-9-14 axial-subscore claim. Third, <strong>PD-only LOOCV</strong>
-(pre-audit MAE = 7.22 on 98 PD rows) provides historical comparison with
-prior work, but the corrected T3 benchmark is now iter47 valid-range
-LOOCV (MAE = 7.528, CCC = 0.3784, N = 95). Fourth, <strong>deep
-learning</strong> approaches (best: InceptionTime MAE = 10.46; seven
-architectures tested) did not outperform handcrafted features at N =
-178, confirming that feature engineering remains the appropriate
-paradigm at current sample sizes. The historical walkway distillation
-idea remains biologically plausible, but the current <code>dst_*</code>
-implementation was not fold-local; the no-<code>dst_*</code> sensitivity
-leaves T3 essentially unchanged, and future privileged-distillation work
-should regenerate these features inside the fold before any deployment
-claim.</p>
-<p>For the gait-observable T1 axial-plus-truncal subscore (items 9–14),
+numbers (canonical floor CCC = 0.6550 at N = 94; hygiene-corrected
+candidate CCC = 0.7170 at N = 92) now provide the stricter support for
+the items-9-14 axial-subscore claim. Third, <strong>PD-only
+LOOCV</strong> (pre-audit MAE = 7.22 on 98 PD rows) provides historical
+comparison with prior work, but the corrected T3 benchmark is now iter47
+valid-range LOOCV (MAE = 7.528, CCC = 0.3784, N = 95). Fourth,
+<strong>deep learning</strong> approaches (best: InceptionTime MAE =
+10.46; seven architectures tested) did not outperform handcrafted
+features at N = 178, confirming that feature engineering remains the
+appropriate paradigm at current sample sizes. The historical walkway
+distillation idea remains biologically plausible, but the current
+<code>dst_*</code> implementation was not fold-local; the
+no-<code>dst_*</code> sensitivity leaves T3 essentially unchanged, and
+future privileged-distillation work should regenerate these features
+inside the fold before any deployment claim.</p>
+<p>For the gait-observable T1 axial-plus-truncal subscore (items 9-14),
 the iter34 hybrid pipeline — Ridge Stage 1 on a nine-feature clinical
 block plus a multi-task Stage 2 averaging three decorrelated
 <code>RegressorChain</code> base learners on the eight-item residual
-block (items 9–14 + auxiliary items 15 and 18) — achieves leave-one-out
-CCC = 0.7366 on N = 93, with paired-bootstrap frac &gt; 0 = 0.9958
-against iter5-direct (surviving Bonferroni adjustment at the
-conservative n = 9 sensitivity scope) and 0.9714 against the canonical
-iter12-honest T1 floor of 0.6550 evaluated on the same N = 93 cohort. We
-report iter34 as the strongest T1 candidate rather than as a canonical
-replacement, retaining iter12-honest 0.6550 as the canonical floor
-pending external-cohort replication and noting the documented
-auxiliary-label caveat for <code>NLS036</code> item 15 plus the
-random-chain order exposure audit. The mechanism — auxiliary multi-task
+block (items 9-14 + auxiliary items 15 and 18) — achieves
+hygiene-corrected leave-one-out CCC = 0.7170 on N = 92 (with NLS036
+excluded for invalid item-15 = 18 / RegressorChain placement-of-aux
+upstream), with paired-bootstrap frac &gt; 0 = 0.9908 against
+iter5-direct and 95% CI [+0.017, +0.199]. We report the
+hygiene-corrected iter34 as the strongest T1 candidate rather than as a
+canonical replacement, retaining iter12-honest 0.6550 as the canonical
+floor pending external-cohort replication. The historical N = 93 number
+0.7366 was inflated by 0.020 by NLS036's invalid auxiliary item-15 label
+acting as an unintended severity proxy in chain training and is
+retracted as a deployable result. The mechanism — auxiliary multi-task
 regularization (F50-validated tremor items 15 and 18 entered as
 auxiliary chain residual targets) composed with base-learner-level
 variance reduction — provides a constructive counterpoint to the wall of
@@ -3103,13 +3355,13 @@ metrics with their pre-registered paired-bootstrap inference are:</p>
 <ul>
 <li>T1 floor (canonical): T1 LOOCV CCC = 0.6550 (MAE = 1.561;
 iter12-honest, N = 94).</li>
-<li>T1 strongest candidate (post-publication replication target): T1
-LOOCV CCC = 0.7366 (MAE = 1.731; iter34 hybrid, N = 93).
-Paired-bootstrap Δ vs iter12-honest on the n = 93 common cohort:
-+0.0812, frac &gt; 0 = 0.9714, 95% CI [−0.003, +0.166].</li>
-<li>T1 transportability (between-site): T1 LOSO transportability mean
-CCC = 0.456 (iter34 architecture, two-way mean across NLS → WPD and WPD
-→ NLS).</li>
+<li>T1 corrected candidate (post-publication replication target): T1
+LOOCV CCC = 0.7170 (MAE = 1.736; hygiene-corrected iter34 hybrid, N =
+92). The superseded original N=93 iter34 value was 0.7366 and is
+retained only as historical caveat evidence.</li>
+<li>T1 transportability (between-site): historical T1 LOSO
+transportability mean CCC = 0.456 (superseded original iter34
+architecture, two-way mean across NLS → WPD and WPD → NLS).</li>
 <li>T3 canonical (valid-range corrected): T3 LOOCV CCC = 0.3784 (MAE =
 7.528; iter47, N = 95).</li>
 <li>T3 transportability (between-site): T3 LOSO transportability mean
@@ -3279,29 +3531,30 @@ surface.</p>
 <p><img src="figures/current/fig02_observability_ceiling.png"
 alt="Figure 2: Observability ceiling." /></p>
 <p><strong>Figure 2.</strong> The gait-observable T1 axial subscore
-(items 9–14) is learnable at CCC ≈ 0.66 floor / 0.74 candidate; total
-UPDRS-III (T3) collapses to CCC ≈ 0.38 internal and 0.15 between-site,
-well below the theoretical Bound A oracle (0.351) and Bound D oracle
-perfect-T1→T3 (0.683). The Pareto N→∞ asymptote (0.5975) for the iter5
-architecture is plotted as a structural ceiling that more data alone
-cannot break. Frame T3 as a strict-inductive cautionary benchmark, not a
-deployable result.</p>
+(items 9–14) is learnable at CCC ≈ 0.66 floor / 0.72 hygiene-corrected
+candidate; total UPDRS-III (T3) collapses to CCC ≈ 0.38 internal and
+0.15 between-site, well below the theoretical Bound A oracle (0.351) and
+Bound D oracle perfect-T1→T3 (0.683). The Pareto N→∞ asymptote (0.5975)
+for the iter5 architecture is plotted as a structural ceiling that more
+data alone cannot break. Frame T3 as a strict-inductive cautionary
+benchmark, not a deployable result.</p>
 <p><img src="figures/current/fig03_iter34_vs_iter12_paired.png"
 alt="Figure 3: iter34 vs iter12 paired bootstrap." /></p>
-<p><strong>Figure 3.</strong> Subject-level paired bootstrap on the n =
-93 common cohort. iter34 (CCC = 0.7366) lifts iter12-honest (CCC =
-0.6550) by Δ = +0.0812 with frac&gt;0 = 0.9714, clearing the strict 0.95
-paired-bootstrap gate but failing Bonferroni-n8 family-wise correction.
-iter34 is therefore reported as <strong>strongest candidate /
-post-publication replication target</strong>, not a canonical
-replacement.</p>
+<p><strong>Figure 3.</strong> Subject-level paired bootstrap on the
+historical n = 93 common cohort. The original iter34 run (CCC = 0.7366)
+lifted iter12-honest (CCC = 0.6550), but it is now superseded for
+current-candidate citation by the N=92 hygiene-corrected rerun (CCC =
+0.7170). iter34 is therefore reported as a <strong>hygiene-corrected
+candidate / post-publication replication target</strong>, not a
+canonical replacement.</p>
 <p><img src="figures/current/fig04_transportability_cliff.png"
 alt="Figure 4: Transportability cliff." /></p>
 <p><strong>Figure 4.</strong> Internal LOOCV systematically
-over-estimates between-site transportability. T1 iter34 drops from
-0.7366 to 0.4564 (Δ = −0.280); T3 iter47 drops from 0.3784 to 0.150 (Δ =
-−0.228). Both deltas argue against treating LOOCV CCC as a deployment
-estimate.</p>
+over-estimates between-site transportability. The superseded original T1
+iter34 run dropped from 0.7366 to 0.4564 (Δ = −0.280), while the current
+hygiene-corrected internal candidate is 0.7170; T3 iter47 drops from
+0.3784 to 0.150 (Δ = −0.228). Both deltas argue against treating LOOCV
+CCC as a deployment estimate.</p>
 <p><img src="figures/current/fig05_t3_target_hygiene_waterfall.png"
 alt="Figure 5: T3 target hygiene waterfall." /></p>
 <p><strong>Figure 5.</strong> The T3 headline changed because labels

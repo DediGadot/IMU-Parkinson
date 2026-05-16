@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-05-10T13:18:25+00:00",
+  "generated_at_utc": "2026-05-16T12:47:12+00:00",
   "script": "audit_task_plan_current_scope.py",
   "policy": "The active head of task_plan.md must carry explicit post-iter47 completion criteria, while older success tiers remain archive-bound.",
   "passed": true,
@@ -7,13 +7,13 @@
   "task_plan": "task_plan.md",
   "historical_boundary": {
     "found": true,
-    "line": 305,
-    "heading_line": 307,
+    "line": 425,
+    "heading_line": 427,
     "heading": "# ACTIVE MISSION \u2014 iter26 Hssayeni MJFF Acquisition (2026-05-05 PM) \u2014 BLOCKED at Synapse DUA gate (F62)",
-    "offset": 70621
+    "offset": 102627
   },
   "current_scope": {
-    "line_count": 304,
+    "line_count": 424,
     "required_snippet_count": 9,
     "missing_required_snippets": [],
     "legacy_success_findings": [],
@@ -21,17 +21,17 @@
     "contains_goal_not_complete": true
   },
   "archive_scope": {
-    "line_count": 1706,
+    "line_count": 3792,
     "checks": [
       {
         "name": "historical_boundary_found",
         "passed": true,
         "evidence": {
           "found": true,
-          "line": 305,
-          "heading_line": 307,
+          "line": 425,
+          "heading_line": 427,
           "heading": "# ACTIVE MISSION \u2014 iter26 Hssayeni MJFF Acquisition (2026-05-05 PM) \u2014 BLOCKED at Synapse DUA gate (F62)",
-          "offset": 70621
+          "offset": 102627
         }
       },
       {

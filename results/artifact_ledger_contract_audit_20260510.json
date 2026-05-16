@@ -1,0 +1,125 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "missing": [
+          "results/definitely_missing_artifact_for_ledger_audit.json"
+        ],
+        "observed": [
+          "results/external_schema_probe_contract_audit_20260510.json",
+          "results/preregistration_t1_ceiling_push_20260510_134829.json",
+          "results/iter47_invalidcode_20260508_194605.json"
+        ]
+      },
+      "name": "ledger observes existing artifacts and missing paths",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "records": [
+          {
+            "exists": true,
+            "path": "results/external_schema_probe_contract_audit_20260510.json",
+            "sha256": "4a12e3bc85519f7bd131b78f0943da89cbf399177998a56fa275e9559d42e2e6",
+            "size_bytes": 3349
+          },
+          {
+            "exists": true,
+            "path": "results/preregistration_t1_ceiling_push_20260510_134829.json",
+            "sha256": "924402d6990912b3cb8c2758884f8ae661c296d2734d1894ecb444a4fdbf3b8c",
+            "size_bytes": 12960
+          },
+          {
+            "exists": true,
+            "path": "results/iter47_invalidcode_20260508_194605.json",
+            "sha256": "af8df030692c2650b0d265b9cdb233d421f6c07f7cd25397c0b64eb217f5fefc",
+            "size_bytes": 8136
+          },
+          {
+            "exists": false,
+            "path": "results/definitely_missing_artifact_for_ledger_audit.json",
+            "sha256": null,
+            "size_bytes": null
+          }
+        ]
+      },
+      "name": "ledger records hashes for existing artifacts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": []
+      },
+      "name": "reporting evidence gate accepts ledger-observed source artifact",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": []
+      },
+      "name": "execution gate accepts ledger-observed schema and preregistration artifacts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "artifact path is required",
+          "artifact path is required",
+          "duplicate artifact path: results/iter47_invalidcode_20260508_194605.json"
+        ]
+      },
+      "name": "ledger rejects blank or duplicate artifact observations",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "from_paths_errors": [
+          "hash_existing must be a boolean",
+          "artifact path must be a string"
+        ],
+        "manual_errors": [
+          "hash_existing must be a boolean",
+          42,
+          "input_errors entries must be non-empty strings",
+          "records entries must be ArtifactRecord",
+          "artifact path must be a string",
+          "artifact exists must be a boolean",
+          "artifact size_bytes must be an integer when set",
+          "artifact sha256 must be 64 hex characters when set",
+          "missing artifact must not include size_bytes",
+          "missing artifact must not include sha256"
+        ],
+        "non_list_errors": [
+          "paths must be a tuple or list"
+        ]
+      },
+      "name": "ledger rejects malformed record fields and hashes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "artifact path could not be hashed: results/artifact_ledger_unhashable_dir: [Errno 21] Is a directory: '/home/fiod/medical/results/artifact_ledger_unhashable_dir'"
+        ],
+        "records": [
+          {
+            "exists": true,
+            "path": "results/artifact_ledger_unhashable_dir",
+            "sha256": null,
+            "size_bytes": 4096
+          }
+        ]
+      },
+      "name": "ledger observation and hash failures fail closed",
+      "passed": true
+    }
+  ],
+  "claim": "Execution and reporting gates can now consume a filesystem-backed ArtifactLedger instead of ad hoc observed path tuples; the ledger also flags blank, duplicate, malformed, fake-hash, or unhashable artifact observations.",
+  "decision": "artifact_ledger_contract_passed",
+  "generated_at_utc": "2026-05-16T12:53:28+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_artifact_ledger_contract.py"
+}

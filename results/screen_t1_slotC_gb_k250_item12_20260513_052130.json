@@ -1,0 +1,46 @@
+{
+  "name": "T1 Slot C 5-fold screen (sklearn GB + K=250 at item-12)",
+  "created_at_utc": "2026-05-13T05:21:30.733170+00:00",
+  "cohort_N": 92,
+  "chain_order": [
+    12,
+    10,
+    14,
+    9,
+    11,
+    13,
+    15,
+    18
+  ],
+  "comparator_label": "iter34_5fold_comparator_20260513_050158",
+  "per_seed": [
+    {
+      "seed": 42,
+      "ccc_slotC_5fold": 0.7006,
+      "ccc_iter34_5fold": 0.7155,
+      "delta": -0.0148,
+      "wall_sec": 151.0
+    },
+    {
+      "seed": 1337,
+      "ccc_slotC_5fold": 0.7065,
+      "ccc_iter34_5fold": 0.7155,
+      "delta": -0.009,
+      "wall_sec": 152.7
+    },
+    {
+      "seed": 7,
+      "ccc_slotC_5fold": 0.707,
+      "ccc_iter34_5fold": 0.7155,
+      "delta": -0.0085,
+      "wall_sec": 119.9
+    }
+  ],
+  "mean_delta": -0.0108,
+  "std_delta": 0.0029,
+  "pooled_ccc_slotC": 0.7226,
+  "pooled_delta_vs_iter34": 0.0071,
+  "screen_gate": "\u0394\u0304 \u2265 +0.020 AND std < 0.020",
+  "screen_pass": false,
+  "verdict": "CLOSE_SLOT_SCREEN_FAIL"
+}

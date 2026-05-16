@@ -1,0 +1,25 @@
+{
+  "baseline": {
+    "created_this_run": false,
+    "edge_count": 401,
+    "path": "results/import_boundary_baseline_20260510.json"
+  },
+  "comparison": {
+    "baseline_edge_count": 401,
+    "current_edge_count": 401,
+    "new_edges": [],
+    "removed_edge_keys": []
+  },
+  "decision": "import_boundary_guard_passed",
+  "generated_at_utc": "2026-05-16T12:44:46+00:00",
+  "hard_failures": [],
+  "package_legacy_boundary": {
+    "allowed_exception_count": 4,
+    "unauthorized_edge_count": 0,
+    "unauthorized_edges": []
+  },
+  "package_legacy_policy": "The pd_imu package may only import historical experiment scripts through pd_imu/core/legacy_experiment_api.py. Any other pd_imu -> run/compose/cache edge fails.",
+  "passed": true,
+  "policy": "New work should import shared core/facade modules instead of importing historical `run_*`, `compose_*`, or `cache_*` scripts. Existing edges in the baseline remain grandfathered as audit archaeology.",
+  "script": "audit_import_boundaries.py"
+}

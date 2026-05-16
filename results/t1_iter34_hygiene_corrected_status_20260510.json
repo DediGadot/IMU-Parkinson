@@ -1,0 +1,89 @@
+{
+  "ccc": 0.717,
+  "checks": [
+    {
+      "evidence": {
+        "path": "results/preregistration_t1_iter34_hygiene_corrected_20260510_200037.json"
+      },
+      "name": "preregistration exists",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "expected_n_subjects": 92,
+        "variant": "hybrid_3base_8item_chain_hygiene_corrected"
+      },
+      "name": "preregistration declares hygiene-corrected N=92 rerun",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "preregistration_file": "preregistration_t1_iter34_hygiene_corrected_20260510_200037.json",
+        "result": "results/lockbox_t1_iter34_hybrid_20260510_233019.json"
+      },
+      "name": "result binds to hygiene-corrected preregistration",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "n": 92,
+        "n_subjects": 92,
+        "per_subject_sids": 92
+      },
+      "name": "result cohort has expected N=92",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "expected_absent_sids": [
+          "NLS036",
+          "WPD002"
+        ],
+        "present": []
+      },
+      "name": "invalid/missing-auxiliary subjects are absent",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ccc": 0.717,
+        "mae": 1.7356
+      },
+      "name": "result has finite CCC and MAE",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "canonical_update_policy": "disabled_for_hygiene_correction_replication",
+        "is_canonical_update": false
+      },
+      "name": "result metadata keeps hygiene rerun non-canonical",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ccc": 0.717,
+        "classification": "corrected_candidate_degraded_but_above_0_700",
+        "iter12_honest_ccc": 0.655,
+        "original_iter34_ccc": 0.7366
+      },
+      "name": "decision-rule classification recorded",
+      "passed": true
+    }
+  ],
+  "decision_rules": {
+    "clean_candidate": "ccc >= 0.7366",
+    "degraded_candidate": "0.7000 <= ccc < 0.7366",
+    "supersession_warranted": "ccc < 0.7000"
+  },
+  "generated_at_utc": "2026-05-10T20:48:24+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_run": true,
+  "passed": true,
+  "preregistration": "results/preregistration_t1_iter34_hygiene_corrected_20260510_200037.json",
+  "result": "results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+  "result_available": true,
+  "script": "audit_t1_iter34_hygiene_corrected.py",
+  "status": "corrected_candidate_degraded_but_above_0_700"
+}

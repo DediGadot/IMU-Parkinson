@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-05-10T13:22:07+00:00",
+  "generated_at_utc": "2026-05-10T15:32:22+00:00",
   "script": "audit_paper_generator_routing.py",
   "policy": "Current paper work must route to render_current_paper.py -> CURRENT_PAPER.html. generate_paper_v4.py / NEW4.html may exist only as explicitly quarantined legacy archaeology.",
   "passed": true,
@@ -57,7 +57,7 @@
       "unguarded_generate_v4_or_new4_hits": [],
       "contains_current_render_command": true,
       "contains_legacy_quarantine": true,
-      "sha256": "f87a6279e2a31365babcc2f1586a461cba2df4a6759246719994228504d1e987"
+      "sha256": "45dc537e6595546b1fe63bb00b77f4cc27a39c723f4c0f3fe8f3f636e6539c29"
     },
     {
       "path": "findings.md",
@@ -66,7 +66,7 @@
       "unguarded_generate_v4_or_new4_hits": [],
       "contains_current_render_command": true,
       "contains_legacy_quarantine": true,
-      "sha256": "405dc256d01da7a2750b827ceef7629f48a0ff8ebef334eb8c6f219eb6f9d67a"
+      "sha256": "4bce5b7d739d1f4663a034be035b8c0923a71a81c596e13230fca024519ad59e"
     },
     {
       "path": "results/current_best_pipeline_artifact_index_20260508.md",

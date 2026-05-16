@@ -1,0 +1,91 @@
+{
+  "analysis_order_acknowledged": [
+    "schema_probe_metadata_record",
+    "target_free_manifest_preflight",
+    "formula_sha256_after_manifest_before_extraction_or_scoring",
+    "zero_shot_external_validation"
+  ],
+  "claim_boundary": "External-only metrics are transportability or within-route sanity evidence, not internal WearGait-PD T1/T3 headline updates.",
+  "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+  "credentials_or_tokens_included": false,
+  "external_labels_used_to_design_formula": false,
+  "feature_matrix_included": false,
+  "formula_json": {
+    "formula_scope": "zero_shot_external_validation",
+    "minimum_linked_subjects": 20,
+    "required_grouping_keys": [
+      "sid",
+      "session_id"
+    ],
+    "required_sensor_modalities": [
+      "ax3_imu"
+    ],
+    "required_target_columns": [
+      "updrs3"
+    ],
+    "route_id": "cns_portugal_lobo",
+    "tracks": [
+      {
+        "external_label_role": "final scoring only",
+        "feature_source": "target-free manifest compatible sensor branch",
+        "name": "weargait_trained_sensor_zeroshot",
+        "track_id": "A",
+        "training_data": "WearGait-PD only"
+      },
+      {
+        "external_label_role": "final scoring only",
+        "feature_source": "Track A plus schema-proved compatible clinical/intake fields",
+        "name": "weargait_trained_clinical_plus_sensor_zeroshot",
+        "track_id": "B",
+        "training_data": "WearGait-PD only"
+      },
+      {
+        "external_label_role": "within-route grouped training/evaluation only",
+        "grouping_policy": "subject_or_visit_grouped_by_schema_keys",
+        "name": "cns_portugal_lobo_only_grouped_sanity",
+        "track_id": "C",
+        "training_data": "CNS Portugal / Lobo AX3 gait"
+      },
+      {
+        "external_label_role": "blocked for this formula record",
+        "name": "augmentation_screen_after_zero_shot_only",
+        "track_id": "D",
+        "training_data": "blocked until zero-shot evidence and fresh preregistration"
+      }
+    ],
+    "transform_policy": {
+      "cross_branch_adaptive_stacking_before_zero_shot_results": false,
+      "external_label_feature_selection": false,
+      "formula_changes_after_scoring": false,
+      "omnibus_feature_expansion": false,
+      "schema_compatible_fields_only": true,
+      "target_free_manifest_required": true
+    }
+  },
+  "formula_name": "cns_portugal_lobo_zero_shot_external_formula",
+  "formula_scope": "zero_shot_external_validation",
+  "formula_sha256": "<FILL_CNS_PORTUGAL_LOBO_FORMULA_SHA256>",
+  "git_sha": "<FILL_GIT_SHA>",
+  "local_paths_included": false,
+  "locked_no_search_rules_acknowledged": [
+    "no external labels for zero-shot feature selection",
+    "no PH/MFDFA column search on the external route",
+    "no TopoFractal component-count search on the external route",
+    "no K-search on the external route",
+    "no endpoint switching after external outcomes",
+    "no canonical WearGait-PD T1/T3 update from external-only metrics"
+  ],
+  "model_predictions_included": false,
+  "preregistration_written": false,
+  "protected_data_included": false,
+  "raw_rows_or_samples_included": false,
+  "record_stage": "post_schema_pre_extraction_or_scoring_formula_sha",
+  "route_id": "cns_portugal_lobo",
+  "schema_probe_metadata_recorded": false,
+  "schema_probe_record_reference": "<FILL_CNS_PORTUGAL_LOBO_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+  "status": "template_complete_outside_git_after_schema_and_manifest_preflight",
+  "target_free_manifest_preflight_passed": false,
+  "target_free_manifest_reference": "<FILL_CNS_PORTUGAL_LOBO_VALIDATED_TARGET_FREE_MANIFEST_HASH_OR_ID>",
+  "target_values_included": false,
+  "target_values_used_to_design_formula": false
+}

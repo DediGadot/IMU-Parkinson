@@ -1,0 +1,78 @@
+{
+  "name": "lockbox_t1_slotD_item13_only_20260515",
+  "created_at_utc": "20260515T083315Z",
+  "preregistration": "results/preregistration_t1_ceiling_push_20260515_master.json",
+  "slot": "slot_D_item13_only_post_d4",
+  "rationale": "Per D4 audit (codex 2026-05-15T08:25Z), items 9/10/14 per-item corrections are calibration mirages with sum-resid cov negative. Item 13 alone has +0.118 cov with T1_sum residual. D1 drops the 3 mirage corrections; D2 replaces iter34's item-13 prediction (CCC=0.07) entirely with PH-Ridge.",
+  "feature_cache": "results/cache_stepfunction_spd_klc_crqa_mfdfa_ph_20260515T072624Z.csv",
+  "oof_npz": "results/t1_iter34_per_item_oof_20260511_044242.npz",
+  "n": 92,
+  "baseline_iter34": {
+    "n": 92,
+    "ccc": 0.717,
+    "cal_slope": 0.8151,
+    "mae": 1.7356,
+    "r": 0.7223,
+    "pred_mean": 4.058,
+    "pred_std": 3.106,
+    "true_mean": 4.033,
+    "true_std": 2.752,
+    "label": "iter34_baseline"
+  },
+  "D1_item13_only_correction": {
+    "metrics": {
+      "n": 92,
+      "ccc": 0.7246,
+      "cal_slope": 0.8347,
+      "mae": 1.7114,
+      "r": 0.731,
+      "pred_mean": 4.047,
+      "pred_std": 3.143,
+      "true_mean": 4.033,
+      "true_std": 2.752,
+      "label": "slotD1_item13_only_correction"
+    },
+    "delta_ccc": 0.007600000000000051,
+    "bootstrap": {
+      "delta_median": 0.007694442108926225,
+      "delta_ci_lower": 0.0008330459086275139,
+      "delta_ci_upper": 0.01740003613061109,
+      "frac_positive": 0.986,
+      "n_boot": 2000
+    }
+  },
+  "D2_item13_replacement": {
+    "metrics": {
+      "n": 92,
+      "ccc": 0.7288,
+      "cal_slope": 0.8085,
+      "mae": 1.6724,
+      "r": 0.7323,
+      "pred_mean": 4.047,
+      "pred_std": 3.039,
+      "true_mean": 4.033,
+      "true_std": 2.752,
+      "label": "slotD2_item13_replacement"
+    },
+    "delta_ccc": 0.011800000000000033,
+    "bootstrap": {
+      "delta_median": 0.01206712980153779,
+      "delta_ci_lower": -0.0037133798432888777,
+      "delta_ci_upper": 0.030225331942898892,
+      "frac_positive": 0.93,
+      "n_boot": 2000
+    },
+    "item_13_replaced_alone_metrics": {
+      "n": 92,
+      "ccc": 0.2574,
+      "cal_slope": 0.1455,
+      "mae": 0.5439,
+      "r": 0.4033,
+      "pred_mean": 1.017,
+      "pred_std": 0.266,
+      "true_mean": 1.022,
+      "true_std": 0.737,
+      "label": "item_13_replaced"
+    }
+  }
+}

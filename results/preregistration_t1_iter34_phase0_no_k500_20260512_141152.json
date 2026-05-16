@@ -1,0 +1,90 @@
+{
+  "timestamp": "20260512_141152",
+  "iso_datetime": "2026-05-12T14:11:52.555920",
+  "experiment": "T1 iter34 Phase 0 ablation \u2014 variant no_k500",
+  "git_head": "unknown",
+  "formula_sha256": "a1866c3ec86ca81ab1b7a164a8608942616b66ef1d890c5f81f105f70f51e64e",
+  "formula": {
+    "experiment": "T1 iter34 Phase 0 ablation \u2014 variant 'no_k500' (drop_item=None, no_k500=True)",
+    "parent_lockbox": "lockbox_t1_iter34_hybrid_20260510_233019.json",
+    "parent_ccc": 0.717,
+    "goal_v1_phase0_cell": "(d) per-fold K=500 vs fixed feature set",
+    "cohort": {
+      "target": "T1 = sum(items 9-14)",
+      "filter": "PD with valid_updrs_item_total({9..14, 15, 18}); hygiene-corrected N=92"
+    },
+    "stage1": {
+      "model": "Ridge",
+      "alpha": 1.0,
+      "feature_set_name": "A3_tier1",
+      "feature_set_extras": [
+        "cv_yrs",
+        "cv_sex",
+        "cv_dbs"
+      ],
+      "per_fold_standardisation": true
+    },
+    "stage2": {
+      "model_ensemble": [
+        "lgb",
+        "xgb",
+        "et"
+      ],
+      "ensemble_method": "average chain output across 3 bases",
+      "items_targets_chain_baseline": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        18
+      ],
+      "drop_item": null,
+      "no_k500": true,
+      "items_summed_for_t1": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "auxiliary_items": [
+        15,
+        18
+      ],
+      "item_target_centering": "subtract per-fold train_mean(item)",
+      "feature_select_method": "none (no_k500)",
+      "feature_select_k": null,
+      "imputation": "fold_local_median",
+      "dropped_item_fallback": "If dropped item is in T1_SUM_ITEMS, the chain no longer predicts it; T1 contribution is train_mean[item] instead. If dropped item is auxiliary, T1 sum is structurally unaffected; only chain regularization changes."
+    },
+    "eval": {
+      "loocv_n_min": 90,
+      "seeds": [
+        42,
+        1337,
+        7
+      ],
+      "bases": [
+        "lgb",
+        "xgb",
+        "et"
+      ],
+      "headline_metric": "CCC of mean-of-3-seed predictions vs y_t1",
+      "comparator_iter34_hygiene_corrected_oof": "lockbox_t1_iter34_hybrid_20260510_233019.oof.npy"
+    },
+    "lockbox_rules": [
+      "Phase 0 ablation cell of goal-v1 master batch.",
+      "Headline = CCC of mean-of-3-seed preds vs hygiene-corrected iter34.",
+      "\u0394-CCC bootstrap (paired, n=5000) against hygiene-corrected iter34 OOF.",
+      "Marginal contribution = ITER34_HYGIENE_CORR_CCC \u2212 this_variant_CCC.",
+      "BCa CI reported on \u0394-CCC (delta = variant \u2212 iter34).",
+      "Not a candidate slot under FWER family; this is mandatory ablation."
+    ]
+  },
+  "variant": "no_k500",
+  "eval_protocol": "LOOCV on hygiene-corrected T1 cohort (N=92, valid_updrs_item_total). Same Stage-1 Ridge, same 3 seeds, same 3-base ensemble as iter34 hygiene-corrected. Chain item_order or feature-selection modified per --variant. Paired-bootstrap \u0394-CCC vs hygiene-corrected iter34 OOF."
+}

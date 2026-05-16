@@ -32,6 +32,9 @@ results/results/
 synapse_credentials.json
 TOKEN.md
 GPU.md
+.access_submissions/
+.access_approvals/
+.schema_probes/
 
 # === OS / editor junk ===
 .DS_Store

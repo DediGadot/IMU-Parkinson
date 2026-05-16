@@ -1,0 +1,531 @@
+{
+  "content_boundary": {
+    "approval_evidence_included": false,
+    "completed_file_references_in_values_allowed": false,
+    "completed_manifest_included": false,
+    "credentials_or_tokens_included": false,
+    "feature_manifest_artifacts_included": false,
+    "feature_matrix_included": false,
+    "local_paths_included": false,
+    "model_outputs_included": false,
+    "path_like_values_allowed": false,
+    "protected_data_included": false,
+    "row_level_data_included": false,
+    "schema_probe_artifacts_included": false,
+    "subject_visit_identifier_value_dumps_allowed": false,
+    "target_values_included": false
+  },
+  "decision": "external_target_free_manifest_templates_ready",
+  "generated_at_utc": "2026-05-16T11:50:26+00:00",
+  "goal_complete": false,
+  "not_a_feature_manifest_artifact": true,
+  "not_a_model_result": true,
+  "not_a_preregistration": true,
+  "not_a_schema_probe_artifact": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "ppmi_specific_support": {
+    "existing_ppmi_template": "scripts/ppmi_verily_target_free_manifest_template.json",
+    "existing_ppmi_template_audit": "results/ppmi_verily_target_free_manifest_validator_audit_20260515.json",
+    "existing_ppmi_validator": "scripts/validate_ppmi_verily_target_free_manifest.py",
+    "existing_ppmi_validator_command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+    "route_id": "ppmi_verily"
+  },
+  "route_count": 6,
+  "routes": [
+    {
+      "blocked_until_manifest_preflight_passes": [
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "id": "ppmi_verily",
+      "min_subjects": 20,
+      "name": "PPMI / Verily Study Watch",
+      "post_schema_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+          "step_id": "validate_target_free_manifest"
+        },
+        {
+          "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+          "step_id": "validate_formula_sha_record"
+        },
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "visit_id"
+      ],
+      "required_sensor_modalities": [
+        "wrist_accelerometer"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "cohort_statistics_used": "none_or_target_free_sensor_only_aggregates_no_label_statistics",
+        "command": "<FILL_PPMI_VERILY_TARGET_FREE_EXTRACTION_COMMAND>",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "data_sha256_or_file_manifest": "<FILL_PPMI_VERILY_AGGREGATE_DATA_SHA256_OR_FILE_MANIFEST>",
+        "data_version_or_download_date": "<FILL_PPMI_VERILY_DATA_VERSION>",
+        "feature_blocks": [
+          {
+            "columns_or_schema_reference": "<FILL_PPMI_VERILY_WRIST_ACCELEROMETER_SCHEMA_REFERENCE_NO_VALUES>",
+            "locked_pre_score": true,
+            "name": "wrist_accelerometer_topofractal_ph_mfdfa",
+            "selection_rule": "predeclared_no_external_label_selection",
+            "source_modality": "wrist_accelerometer"
+          }
+        ],
+        "feature_matrix_included": false,
+        "fold_scope": "target_free_zero_shot_feature_extraction_only_labels_held_for_final_scoring",
+        "git_sha": "<FILL_GIT_SHA>",
+        "grouping_keys": [
+          "sid",
+          "visit_id"
+        ],
+        "labels_used": false,
+        "leakage_rationale": "External labels are not loaded or used during feature extraction, feature selection, normalization, outlier filtering, endpoint choice, or model selection.",
+        "leakage_status": "target_free_pre_scoring",
+        "local_paths_included": false,
+        "manifest_stage": "post_schema_pre_scoring_target_free_feature_manifest",
+        "model_predictions_included": false,
+        "normalization_scope": "fixed_from_weargait_or_target_free_unsupervised_before_labels",
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "route_id": "ppmi_verily",
+        "schema_probe_artifact_reference": "<FILL_PPMI_VERILY_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "schema_probe_metadata_recorded": false,
+        "script": "<FILL_PPMI_VERILY_TARGET_FREE_EXTRACTION_SCRIPT>",
+        "status": "template_complete_outside_git_after_schema_probe_metadata_recorded",
+        "target_columns_reserved_for_final_scoring": [
+          "updrs3"
+        ],
+        "target_columns_used_for_feature_selection": [],
+        "target_values_included": false
+      },
+      "template_path": "results/external_target_free_manifest_templates_20260515/ppmi_verily_target_free_manifest_template.json",
+      "validator_command": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>"
+    },
+    {
+      "blocked_until_manifest_preflight_passes": [
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "id": "ppp_pd_vme",
+      "min_subjects": 20,
+      "name": "Personalized Parkinson Project / PD-VME",
+      "post_schema_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_target_free_manifest.py --route-id ppp_pd_vme --manifest <completed_target_free_manifest_path_outside_git>",
+          "step_id": "validate_target_free_manifest"
+        },
+        {
+          "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppp_pd_vme --record <completed_formula_sha_record_path_outside_git>",
+          "step_id": "validate_formula_sha_record"
+        },
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "visit_id"
+      ],
+      "required_sensor_modalities": [
+        "study_watch_accelerometer"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "cohort_statistics_used": "none_or_target_free_sensor_only_aggregates_no_label_statistics",
+        "command": "<FILL_PPP_PD_VME_TARGET_FREE_EXTRACTION_COMMAND>",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "data_sha256_or_file_manifest": "<FILL_PPP_PD_VME_AGGREGATE_DATA_SHA256_OR_FILE_MANIFEST>",
+        "data_version_or_download_date": "<FILL_PPP_PD_VME_DATA_VERSION>",
+        "feature_blocks": [
+          {
+            "columns_or_schema_reference": "<FILL_PPP_PD_VME_STUDY_WATCH_ACCELEROMETER_SCHEMA_REFERENCE_NO_VALUES>",
+            "locked_pre_score": true,
+            "name": "study_watch_accelerometer_topofractal_ph_mfdfa",
+            "selection_rule": "predeclared_no_external_label_selection",
+            "source_modality": "study_watch_accelerometer"
+          }
+        ],
+        "feature_matrix_included": false,
+        "fold_scope": "target_free_zero_shot_feature_extraction_only_labels_held_for_final_scoring",
+        "git_sha": "<FILL_GIT_SHA>",
+        "grouping_keys": [
+          "sid",
+          "visit_id"
+        ],
+        "labels_used": false,
+        "leakage_rationale": "External labels are not loaded or used during feature extraction, feature selection, normalization, outlier filtering, endpoint choice, or model selection.",
+        "leakage_status": "target_free_pre_scoring",
+        "local_paths_included": false,
+        "manifest_stage": "post_schema_pre_scoring_target_free_feature_manifest",
+        "model_predictions_included": false,
+        "normalization_scope": "fixed_from_weargait_or_target_free_unsupervised_before_labels",
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "route_id": "ppp_pd_vme",
+        "schema_probe_artifact_reference": "<FILL_PPP_PD_VME_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "schema_probe_metadata_recorded": false,
+        "script": "<FILL_PPP_PD_VME_TARGET_FREE_EXTRACTION_SCRIPT>",
+        "status": "template_complete_outside_git_after_schema_probe_metadata_recorded",
+        "target_columns_reserved_for_final_scoring": [
+          "updrs3"
+        ],
+        "target_columns_used_for_feature_selection": [],
+        "target_values_included": false
+      },
+      "template_path": "results/external_target_free_manifest_templates_20260515/ppp_pd_vme_target_free_manifest_template.json",
+      "validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id ppp_pd_vme --manifest <completed_target_free_manifest_path_outside_git>"
+    },
+    {
+      "blocked_until_manifest_preflight_passes": [
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "id": "watchpd",
+      "min_subjects": 20,
+      "name": "WATCH-PD",
+      "post_schema_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_target_free_manifest.py --route-id watchpd --manifest <completed_target_free_manifest_path_outside_git>",
+          "step_id": "validate_target_free_manifest"
+        },
+        {
+          "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id watchpd --record <completed_formula_sha_record_path_outside_git>",
+          "step_id": "validate_formula_sha_record"
+        },
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "visit_id"
+      ],
+      "required_sensor_modalities": [
+        "apdm_imu"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "cohort_statistics_used": "none_or_target_free_sensor_only_aggregates_no_label_statistics",
+        "command": "<FILL_WATCHPD_TARGET_FREE_EXTRACTION_COMMAND>",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "data_sha256_or_file_manifest": "<FILL_WATCHPD_AGGREGATE_DATA_SHA256_OR_FILE_MANIFEST>",
+        "data_version_or_download_date": "<FILL_WATCHPD_DATA_VERSION>",
+        "feature_blocks": [
+          {
+            "columns_or_schema_reference": "<FILL_WATCHPD_APDM_IMU_SCHEMA_REFERENCE_NO_VALUES>",
+            "locked_pre_score": true,
+            "name": "apdm_imu_topofractal_ph_mfdfa",
+            "selection_rule": "predeclared_no_external_label_selection",
+            "source_modality": "apdm_imu"
+          }
+        ],
+        "feature_matrix_included": false,
+        "fold_scope": "target_free_zero_shot_feature_extraction_only_labels_held_for_final_scoring",
+        "git_sha": "<FILL_GIT_SHA>",
+        "grouping_keys": [
+          "sid",
+          "visit_id"
+        ],
+        "labels_used": false,
+        "leakage_rationale": "External labels are not loaded or used during feature extraction, feature selection, normalization, outlier filtering, endpoint choice, or model selection.",
+        "leakage_status": "target_free_pre_scoring",
+        "local_paths_included": false,
+        "manifest_stage": "post_schema_pre_scoring_target_free_feature_manifest",
+        "model_predictions_included": false,
+        "normalization_scope": "fixed_from_weargait_or_target_free_unsupervised_before_labels",
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "route_id": "watchpd",
+        "schema_probe_artifact_reference": "<FILL_WATCHPD_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "schema_probe_metadata_recorded": false,
+        "script": "<FILL_WATCHPD_TARGET_FREE_EXTRACTION_SCRIPT>",
+        "status": "template_complete_outside_git_after_schema_probe_metadata_recorded",
+        "target_columns_reserved_for_final_scoring": [
+          "updrs3"
+        ],
+        "target_columns_used_for_feature_selection": [],
+        "target_values_included": false
+      },
+      "template_path": "results/external_target_free_manifest_templates_20260515/watchpd_target_free_manifest_template.json",
+      "validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id watchpd --manifest <completed_target_free_manifest_path_outside_git>"
+    },
+    {
+      "blocked_until_manifest_preflight_passes": [
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "id": "cns_portugal_lobo",
+      "min_subjects": 20,
+      "name": "CNS Portugal / Lobo AX3 gait",
+      "post_schema_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_target_free_manifest.py --route-id cns_portugal_lobo --manifest <completed_target_free_manifest_path_outside_git>",
+          "step_id": "validate_target_free_manifest"
+        },
+        {
+          "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id cns_portugal_lobo --record <completed_formula_sha_record_path_outside_git>",
+          "step_id": "validate_formula_sha_record"
+        },
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "session_id"
+      ],
+      "required_sensor_modalities": [
+        "ax3_imu"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "cohort_statistics_used": "none_or_target_free_sensor_only_aggregates_no_label_statistics",
+        "command": "<FILL_CNS_PORTUGAL_LOBO_TARGET_FREE_EXTRACTION_COMMAND>",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "data_sha256_or_file_manifest": "<FILL_CNS_PORTUGAL_LOBO_AGGREGATE_DATA_SHA256_OR_FILE_MANIFEST>",
+        "data_version_or_download_date": "<FILL_CNS_PORTUGAL_LOBO_DATA_VERSION>",
+        "feature_blocks": [
+          {
+            "columns_or_schema_reference": "<FILL_CNS_PORTUGAL_LOBO_AX3_IMU_SCHEMA_REFERENCE_NO_VALUES>",
+            "locked_pre_score": true,
+            "name": "ax3_imu_topofractal_ph_mfdfa",
+            "selection_rule": "predeclared_no_external_label_selection",
+            "source_modality": "ax3_imu"
+          }
+        ],
+        "feature_matrix_included": false,
+        "fold_scope": "target_free_zero_shot_feature_extraction_only_labels_held_for_final_scoring",
+        "git_sha": "<FILL_GIT_SHA>",
+        "grouping_keys": [
+          "sid",
+          "session_id"
+        ],
+        "labels_used": false,
+        "leakage_rationale": "External labels are not loaded or used during feature extraction, feature selection, normalization, outlier filtering, endpoint choice, or model selection.",
+        "leakage_status": "target_free_pre_scoring",
+        "local_paths_included": false,
+        "manifest_stage": "post_schema_pre_scoring_target_free_feature_manifest",
+        "model_predictions_included": false,
+        "normalization_scope": "fixed_from_weargait_or_target_free_unsupervised_before_labels",
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "route_id": "cns_portugal_lobo",
+        "schema_probe_artifact_reference": "<FILL_CNS_PORTUGAL_LOBO_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "schema_probe_metadata_recorded": false,
+        "script": "<FILL_CNS_PORTUGAL_LOBO_TARGET_FREE_EXTRACTION_SCRIPT>",
+        "status": "template_complete_outside_git_after_schema_probe_metadata_recorded",
+        "target_columns_reserved_for_final_scoring": [
+          "updrs3"
+        ],
+        "target_columns_used_for_feature_selection": [],
+        "target_values_included": false
+      },
+      "template_path": "results/external_target_free_manifest_templates_20260515/cns_portugal_lobo_target_free_manifest_template.json",
+      "validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id cns_portugal_lobo --manifest <completed_target_free_manifest_path_outside_git>"
+    },
+    {
+      "blocked_until_manifest_preflight_passes": [
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "id": "hssayeni_mjff",
+      "min_subjects": 20,
+      "name": "Hssayeni / MJFF Levodopa Response",
+      "post_schema_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_target_free_manifest.py --route-id hssayeni_mjff --manifest <completed_target_free_manifest_path_outside_git>",
+          "step_id": "validate_target_free_manifest"
+        },
+        {
+          "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id hssayeni_mjff --record <completed_formula_sha_record_path_outside_git>",
+          "step_id": "validate_formula_sha_record"
+        },
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "visit_id"
+      ],
+      "required_sensor_modalities": [
+        "geneactiv_wrist_accelerometer"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "cohort_statistics_used": "none_or_target_free_sensor_only_aggregates_no_label_statistics",
+        "command": "<FILL_HSSAYENI_MJFF_TARGET_FREE_EXTRACTION_COMMAND>",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "data_sha256_or_file_manifest": "<FILL_HSSAYENI_MJFF_AGGREGATE_DATA_SHA256_OR_FILE_MANIFEST>",
+        "data_version_or_download_date": "<FILL_HSSAYENI_MJFF_DATA_VERSION>",
+        "feature_blocks": [
+          {
+            "columns_or_schema_reference": "<FILL_HSSAYENI_MJFF_GENEACTIV_WRIST_ACCELEROMETER_SCHEMA_REFERENCE_NO_VALUES>",
+            "locked_pre_score": true,
+            "name": "geneactiv_wrist_accelerometer_topofractal_ph_mfdfa",
+            "selection_rule": "predeclared_no_external_label_selection",
+            "source_modality": "geneactiv_wrist_accelerometer"
+          }
+        ],
+        "feature_matrix_included": false,
+        "fold_scope": "target_free_zero_shot_feature_extraction_only_labels_held_for_final_scoring",
+        "git_sha": "<FILL_GIT_SHA>",
+        "grouping_keys": [
+          "sid",
+          "visit_id"
+        ],
+        "labels_used": false,
+        "leakage_rationale": "External labels are not loaded or used during feature extraction, feature selection, normalization, outlier filtering, endpoint choice, or model selection.",
+        "leakage_status": "target_free_pre_scoring",
+        "local_paths_included": false,
+        "manifest_stage": "post_schema_pre_scoring_target_free_feature_manifest",
+        "model_predictions_included": false,
+        "normalization_scope": "fixed_from_weargait_or_target_free_unsupervised_before_labels",
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "route_id": "hssayeni_mjff",
+        "schema_probe_artifact_reference": "<FILL_HSSAYENI_MJFF_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "schema_probe_metadata_recorded": false,
+        "script": "<FILL_HSSAYENI_MJFF_TARGET_FREE_EXTRACTION_SCRIPT>",
+        "status": "template_complete_outside_git_after_schema_probe_metadata_recorded",
+        "target_columns_reserved_for_final_scoring": [
+          "updrs3"
+        ],
+        "target_columns_used_for_feature_selection": [],
+        "target_values_included": false
+      },
+      "template_path": "results/external_target_free_manifest_templates_20260515/hssayeni_mjff_target_free_manifest_template.json",
+      "validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id hssayeni_mjff --manifest <completed_target_free_manifest_path_outside_git>"
+    },
+    {
+      "blocked_until_manifest_preflight_passes": [
+        "download script",
+        "cache extraction",
+        "pre-registration using new labels",
+        "remote job",
+        "model run",
+        "canonical T1/T3 claim update"
+      ],
+      "id": "icicle_gait",
+      "min_subjects": 20,
+      "name": "ICICLE-PD / ICICLE-GAIT",
+      "post_schema_workflow_sequence": [
+        {
+          "command": "uv run python scripts/validate_target_free_manifest.py --route-id icicle_gait --manifest <completed_target_free_manifest_path_outside_git>",
+          "step_id": "validate_target_free_manifest"
+        },
+        {
+          "command": "uv run python scripts/validate_external_formula_sha_record.py --route-id icicle_gait --record <completed_formula_sha_record_path_outside_git>",
+          "step_id": "validate_formula_sha_record"
+        },
+        {
+          "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>",
+          "step_id": "validate_zeroshot_result_record"
+        }
+      ],
+      "required_grouping_keys": [
+        "sid",
+        "visit_id"
+      ],
+      "required_sensor_modalities": [
+        "lower_back_ax3"
+      ],
+      "required_target_columns": [
+        "updrs3"
+      ],
+      "template": {
+        "cohort_statistics_used": "none_or_target_free_sensor_only_aggregates_no_label_statistics",
+        "command": "<FILL_ICICLE_GAIT_TARGET_FREE_EXTRACTION_COMMAND>",
+        "created_at_utc": "<FILL_UTC_TIMESTAMP>",
+        "credentials_or_tokens_included": false,
+        "data_sha256_or_file_manifest": "<FILL_ICICLE_GAIT_AGGREGATE_DATA_SHA256_OR_FILE_MANIFEST>",
+        "data_version_or_download_date": "<FILL_ICICLE_GAIT_DATA_VERSION>",
+        "feature_blocks": [
+          {
+            "columns_or_schema_reference": "<FILL_ICICLE_GAIT_LOWER_BACK_AX3_SCHEMA_REFERENCE_NO_VALUES>",
+            "locked_pre_score": true,
+            "name": "lower_back_ax3_topofractal_ph_mfdfa",
+            "selection_rule": "predeclared_no_external_label_selection",
+            "source_modality": "lower_back_ax3"
+          }
+        ],
+        "feature_matrix_included": false,
+        "fold_scope": "target_free_zero_shot_feature_extraction_only_labels_held_for_final_scoring",
+        "git_sha": "<FILL_GIT_SHA>",
+        "grouping_keys": [
+          "sid",
+          "visit_id"
+        ],
+        "labels_used": false,
+        "leakage_rationale": "External labels are not loaded or used during feature extraction, feature selection, normalization, outlier filtering, endpoint choice, or model selection.",
+        "leakage_status": "target_free_pre_scoring",
+        "local_paths_included": false,
+        "manifest_stage": "post_schema_pre_scoring_target_free_feature_manifest",
+        "model_predictions_included": false,
+        "normalization_scope": "fixed_from_weargait_or_target_free_unsupervised_before_labels",
+        "protected_data_included": false,
+        "raw_rows_or_samples_included": false,
+        "route_id": "icicle_gait",
+        "schema_probe_artifact_reference": "<FILL_ICICLE_GAIT_RECORDED_SCHEMA_PROBE_METADATA_HASH_OR_ID>",
+        "schema_probe_metadata_recorded": false,
+        "script": "<FILL_ICICLE_GAIT_TARGET_FREE_EXTRACTION_SCRIPT>",
+        "status": "template_complete_outside_git_after_schema_probe_metadata_recorded",
+        "target_columns_reserved_for_final_scoring": [
+          "updrs3"
+        ],
+        "target_columns_used_for_feature_selection": [],
+        "target_values_included": false
+      },
+      "template_path": "results/external_target_free_manifest_templates_20260515/icicle_gait_target_free_manifest_template.json",
+      "validator_command": "uv run python scripts/validate_target_free_manifest.py --route-id icicle_gait --manifest <completed_target_free_manifest_path_outside_git>"
+    }
+  ],
+  "source_schema_contract": "pd_imu.datasets.external_schema_probe_specs",
+  "template_dir": "results/external_target_free_manifest_templates_20260515"
+}

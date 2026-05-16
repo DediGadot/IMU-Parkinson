@@ -4,12 +4,14 @@ Status: ready-to-fill template. Do not commit a completed copy containing person
 
 Submit only after the standard PPMI access workflow is in progress or approved: qualified-researcher registration, Data Use Agreement, online application, and Publications Policy acknowledgement. The PPMI Data Access Guidelines classify **Verily Raw Device Data** as **Tier 3**; the Tier-3 packet should be emailed to `resources@michaeljfox.org` as a PDF or Word document.
 
-Official sources checked on 2026-05-09:
+Official sources checked on 2026-05-09 and rechecked on 2026-05-15:
 
 - PPMI access page: https://www.ppmi-info.org/access-data-specimens/download-data
 - PPMI FAQ: https://www.ppmi-info.org/help-and-resources/faqs
 - PPMI Data Access Guidelines: https://www.ppmi-info.org/sites/default/files/docs/PPMI%20Data%20Access%20Guidelines.pdf
 - PPMI / Verily Study Watch reference: https://www.nature.com/articles/s41531-025-01034-8
+
+Current official source recheck on 2026-05-16: the PPMI access page says new users must sign the Data Use Agreement, submit an online application, and comply with the Publications Policy; it also says applications are reviewed by the Data and Publications Committee within one week of receipt. PPMI Data Access Guidelines Version 7.0 (15 Feb 2026) says Tier-3 requests should be emailed to `resources@michaeljfox.org` in PDF or Word format and must include the specific requested Tier-3 data, intended use, brief analysis synopsis, all requesting research-team members, and re-acknowledgement of no-sharing and purpose limits. The PPMI Data Access Committee review target for Tier-3 requests is 30 days after receipt. The restricted-dataset table lists **Verily Raw Device Data** as Tier 3 because of file-size transfer restrictions and data complexity.
 
 ## 1. Cover / PI Credentials
 
@@ -70,14 +72,31 @@ Phase 0: read-only schema probe.
 
 Phase 1: zero-shot external validation.
 
+- Use the content-free pre-access route blueprint
+  `results/ppmi_verily_zeroshot_blueprint_20260515.json` as the internal
+  analysis-order and no-search boundary. It is not a preregistration, schema
+  probe, approval record, scaffold, or model result.
 - Train the frozen WearGait-PD feature pipeline on WearGait-PD only.
 - Score PPMI once using a pre-registered feature map and clinical-sensor matching window.
 - Do not use PPMI labels for feature selection, calibration, outlier removal, target transformation, endpoint choice, or hyperparameter search.
+- If raw-enough wrist accelerometry is available, compute a small target-free
+  topology/fractality branch for external replication: persistent homology
+  summaries and multifractal detrended fluctuation analysis summaries from
+  predeclared wrist windows. PPMI labels will not be used to choose PH/MFDFA
+  columns, windows, axes, component counts, or thresholds.
 
 Phase 2: PPMI-only sanity analysis.
 
 - If Phase 1 fails, run a separately labeled subject-level within-PPMI sanity analysis to determine whether PPMI contains harvestable wrist-sensor signal.
 - Report this as PPMI-internal feasibility only, not as WearGait-PD deployment performance.
+- If the read-only schema probe confirms sufficient linked subjects and fields,
+  run at most one fixed T3 tail-model sanity branch from the pre-access
+  blueprint: Stage 1 Ridge on available H&Y/intake covariates, Stage 2 top-250
+  univariate-correlation features, and sklearn
+  `GradientBoostingRegressor(n_estimators=300, max_depth=4,
+  min_samples_leaf=10, subsample=0.8, learning_rate=0.05)`. There will be no
+  K-search, model search, selector search, or threshold tuning.
+- No K-search is allowed around that K=250 branch.
 
 Phase 3: augmentation screen, only if justified after Phase 0.
 
@@ -131,6 +150,10 @@ These are project-internal guardrails for any analysis after access:
 - No PPMI test-fold information in WearGait-PD canonical claims.
 - No pooling of PPMI and WearGait-PD targets without an explicitly pre-registered protocol for protocol, visit-window, medication-state, and sensor-placement differences.
 - No endpoint switching after seeing PPMI outcome metrics.
+- No PPMI-driven PH/MFDFA column selection or TopoFractal component-count
+  selection; topology/fractality branches must be target-free or selected inside
+  training folds only.
+- No PPMI K-search around the K=250 GradientBoostingRegressor branch.
 - MDS-UPDRS valid-range construction must follow the corrected WearGait-PD rule: raw item/subitem values outside their valid range become missing, and all-missing Part III rows do not sum to zero.
 - All PPMI-derived reportable caches must have manifest sidecars documenting script, command, data version/download date, labels used, fold scope, cohort statistics used, normalization scope, leakage status, and leakage rationale.
 - Any augmentation result feeding a WearGait-PD T1/T3 claim requires a fresh pre-registration with `formula_sha256`, cohort definition, feature map, clinical-sensor matching window, split policy, and promotion gate.

@@ -1,0 +1,18 @@
+{
+  "script": "cache_v3_recovery_features.py",
+  "git_sha": "unknown",
+  "created_at_utc": "2026-05-12T18:47:26Z",
+  "labels_used": false,
+  "cohort_statistics_used": false,
+  "fold_scope": "global",
+  "tasks": [
+    "TUG",
+    "Balance",
+    "TandemGait"
+  ],
+  "ar_model_order": 2,
+  "window_seconds": 5.0,
+  "n_features_total": 291,
+  "n_subjects": 99,
+  "rationale": "V3 event-locked AR(2) recovery dynamics; orthogonal temporal response law to V2/V3-GSP."
+}

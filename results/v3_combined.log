@@ -1,0 +1,33 @@
+
+=== V3 COMBINED TEST — mode=v3_combined_kselect, seeds=[42, 1337, 7] ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92
+  V3-GSP feature count = 550
+  V3-MoS feature count = 344
+  X.shape after mode = (92, 894), use_kselect=True
+    seed=42 fold 20/92 elapsed=104s
+    seed=42 fold 40/92 elapsed=205s
+    seed=42 fold 60/92 elapsed=305s
+    seed=42 fold 80/92 elapsed=406s
+    seed=42 fold 92/92 elapsed=473s
+  seed=42: CCC=0.6817
+    seed=1337 fold 20/92 elapsed=102s
+    seed=1337 fold 40/92 elapsed=205s
+    seed=1337 fold 60/92 elapsed=306s
+    seed=1337 fold 80/92 elapsed=406s
+    seed=1337 fold 92/92 elapsed=473s
+  seed=1337: CCC=0.6795
+    seed=7 fold 20/92 elapsed=103s
+    seed=7 fold 40/92 elapsed=203s
+    seed=7 fold 60/92 elapsed=304s
+    seed=7 fold 80/92 elapsed=404s
+    seed=7 fold 92/92 elapsed=470s
+  seed=7: CCC=0.6801
+
+=== HEADLINE CCC = 0.6805 ===
+  Δ vs iter34 = -0.0365
+  sign-flip p = 0.9446
+  BCa CI = [-0.0923, +0.0093]
+  decision: FAIL
+
+Wrote /home/fiod/pd-imu/results/lockbox_t1_v3_combined_v3_combined_kselect_20260512_210738.json

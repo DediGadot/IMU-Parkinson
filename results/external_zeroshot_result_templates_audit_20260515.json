@@ -1,0 +1,1047 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "returncode": 0,
+        "stdout": "{\n  \"json\": \"results/external_zeroshot_result_templates_20260515.json\",\n  \"markdown\": \"results/external_zeroshot_result_templates_20260515.md\",\n  \"template_dir\": \"results/external_zeroshot_result_templates_20260515\",\n  \"route_count\": 6\n}\n"
+      },
+      "name": "writer command succeeds and writes zero-shot result template outputs",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ],
+        "spec_route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ]
+      },
+      "name": "templates cover six schema-probe routes in contract order",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_results": {
+          "cns_portugal_lobo": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/cns_portugal_lobo_zeroshot_result_record_template.json"
+          },
+          "hssayeni_mjff": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/hssayeni_mjff_zeroshot_result_record_template.json"
+          },
+          "icicle_gait": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/icicle_gait_zeroshot_result_record_template.json"
+          },
+          "ppmi_verily": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": [
+              "ppmi_route_specific_result_contract"
+            ],
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "ppmi_route_specific_result_contract",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/ppmi_verily_zeroshot_result_record_template.json"
+          },
+          "ppp_pd_vme": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/ppp_pd_vme_zeroshot_result_record_template.json"
+          },
+          "watchpd": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/watchpd_zeroshot_result_record_template.json"
+          }
+        }
+      },
+      "name": "template route rows mirror schema contracts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "expected_result_stage": "post_score_external_zero_shot_result_record",
+        "expected_template_status": "template_complete_outside_git_after_external_zero_shot_scoring",
+        "prior_gate_keys": [
+          "approved_access_recorded",
+          "schema_probe_metadata_recorded",
+          "target_free_manifest_preflight_passed",
+          "formula_sha_record_preflight_passed"
+        ]
+      },
+      "name": "blank result templates are post-score gated and not completed records",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "expected_step_ids": [
+          "validate_zeroshot_result_record",
+          "audit_external_result_claim_labeling",
+          "audit_prompt_objective_evidence",
+          "verify_current_goal_state"
+        ],
+        "ppmi_workflow": [
+          {
+            "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+            "step_id": "validate_zeroshot_result_record"
+          },
+          {
+            "command": "uv run python audit_external_result_claim_labeling.py",
+            "step_id": "audit_external_result_claim_labeling"
+          },
+          {
+            "command": "uv run python audit_prompt_objective_evidence.py",
+            "step_id": "audit_prompt_objective_evidence"
+          },
+          {
+            "command": "uv run python verify_current_goal_state.py",
+            "step_id": "verify_current_goal_state"
+          }
+        ],
+        "workflow_by_route": {
+          "cns_portugal_lobo": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ],
+          "hssayeni_mjff": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ],
+          "icicle_gait": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ],
+          "ppmi_verily": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ],
+          "ppp_pd_vme": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ],
+          "watchpd": [
+            "validate_zeroshot_result_record",
+            "audit_external_result_claim_labeling",
+            "audit_prompt_objective_evidence",
+            "verify_current_goal_state"
+          ]
+        }
+      },
+      "name": "every route exposes an ordered post-score reporting workflow sequence",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_results": {
+          "cns_portugal_lobo": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/cns_portugal_lobo_zeroshot_result_record_template.json"
+          },
+          "hssayeni_mjff": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/hssayeni_mjff_zeroshot_result_record_template.json"
+          },
+          "icicle_gait": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/icicle_gait_zeroshot_result_record_template.json"
+          },
+          "ppmi_verily": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": [
+              "ppmi_route_specific_result_contract"
+            ],
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "ppmi_route_specific_result_contract",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/ppmi_verily_zeroshot_result_record_template.json"
+          },
+          "ppp_pd_vme": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/ppp_pd_vme_zeroshot_result_record_template.json"
+          },
+          "watchpd": {
+            "internal_hard_failures": [
+              "external_only_claim_boundary",
+              "boundary_flags_false"
+            ],
+            "internal_update_failed": true,
+            "local_path_failed": true,
+            "local_path_hard_failures": [
+              "forbidden_value_snippets_absent"
+            ],
+            "low_n_failed": true,
+            "low_n_hard_failures": [
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "placeholder_count": 20,
+            "placeholder_template_failed": true,
+            "ppmi_bad_contract_hard_failures": null,
+            "ppmi_contract_negative_failed": true,
+            "ppmi_result_contract_present": true,
+            "protected_failed": true,
+            "protected_hard_failures": [
+              "protected_payload_keys_absent"
+            ],
+            "redaction_passed": true,
+            "synthetic_fill_passed": true,
+            "synthetic_hard_failures": [],
+            "template_hard_failures": [
+              "placeholders_replaced",
+              "prior_gates_acknowledged",
+              "formula_sha_format",
+              "track_metrics_are_aggregate_and_plausible"
+            ],
+            "template_path": "results/external_zeroshot_result_templates_20260515/watchpd_zeroshot_result_record_template.json"
+          }
+        }
+      },
+      "name": "all templates are unfinished placeholders and synthetic fills pass",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "ppmi_route_result": {
+          "internal_hard_failures": [
+            "external_only_claim_boundary",
+            "boundary_flags_false"
+          ],
+          "internal_update_failed": true,
+          "local_path_failed": true,
+          "local_path_hard_failures": [
+            "forbidden_value_snippets_absent"
+          ],
+          "low_n_failed": true,
+          "low_n_hard_failures": [
+            "track_metrics_are_aggregate_and_plausible"
+          ],
+          "placeholder_count": 20,
+          "placeholder_template_failed": true,
+          "ppmi_bad_contract_hard_failures": [
+            "ppmi_route_specific_result_contract"
+          ],
+          "ppmi_contract_negative_failed": true,
+          "ppmi_result_contract_present": true,
+          "protected_failed": true,
+          "protected_hard_failures": [
+            "protected_payload_keys_absent"
+          ],
+          "redaction_passed": true,
+          "synthetic_fill_passed": true,
+          "synthetic_hard_failures": [],
+          "template_hard_failures": [
+            "placeholders_replaced",
+            "prior_gates_acknowledged",
+            "formula_sha_format",
+            "ppmi_route_specific_result_contract",
+            "track_metrics_are_aggregate_and_plausible"
+          ],
+          "template_path": "results/external_zeroshot_result_templates_20260515/ppmi_verily_zeroshot_result_record_template.json"
+        }
+      },
+      "name": "PPMI result template carries route-specific track and formula-gate contract",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "false_boundary_keys": [
+          "credentials_or_tokens_included",
+          "feature_matrix_included",
+          "internal_canonical_update_allowed",
+          "local_paths_included",
+          "model_predictions_included",
+          "preregistration_written",
+          "protected_data_included",
+          "raw_rows_or_samples_included",
+          "row_predictions_included",
+          "target_values_included"
+        ],
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ]
+      },
+      "name": "template boundary flags are false and external-only",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "external_formula_sha_templates_ready",
+        "hard_failures": []
+      },
+      "name": "formula-SHA template audit remains ready",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "content_boundary": {
+          "approval_evidence_included": false,
+          "completed_file_references_in_values_allowed": false,
+          "completed_result_records_included": false,
+          "credentials_or_tokens_included": false,
+          "feature_manifest_artifacts_included": false,
+          "feature_matrix_included": false,
+          "local_paths_included": false,
+          "model_outputs_included": false,
+          "path_like_values_allowed": false,
+          "preregistration_artifacts_included": false,
+          "protected_data_included": false,
+          "row_level_data_included": false,
+          "row_predictions_included": false,
+          "schema_probe_artifacts_included": false,
+          "subject_visit_identifier_value_dumps_allowed": false,
+          "target_values_included": false
+        }
+      },
+      "name": "content boundary blocks completed/protected artifacts",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "boundary_excerpt": "\n\nComplete these templates only after route approval, schema metadata, target-free manifest preflight, formula-SHA preflight, and external zero-shot scoring. Keep completed aggregate result records outside git unless a future audit explicitly allows a scrubbed artifact. Do not include protected rows, target values, row predictions, feature matrices, credentials, local paths, or internal canonical update claims. Completed records must also omit path-like values inside otherwise allowed fields: local scratch paths, completed-file extensions, download/file-path strings, and subject/visit identifier value dumps. Validators fail closed on those markers.\n"
+      },
+      "name": "markdown boundary documents stricter value-scrubbing policy",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "forbidden_snippets_found": []
+      },
+      "name": "template output does not expose private artifacts",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "external_zeroshot_result_templates_ready",
+  "generated_at_utc": "2026-05-16T12:20:42+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_feature_manifest_artifact": true,
+  "not_a_model_result": true,
+  "not_a_preregistration": true,
+  "not_a_schema_probe_artifact": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "passed": true,
+  "post_score_reporting_workflow_by_route": {
+    "cns_portugal_lobo": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id cns_portugal_lobo --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ],
+    "hssayeni_mjff": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id hssayeni_mjff --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ],
+    "icicle_gait": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id icicle_gait --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ],
+    "ppmi_verily": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ],
+    "ppp_pd_vme": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppp_pd_vme --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ],
+    "watchpd": [
+      {
+        "command": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id watchpd --record <completed_external_zeroshot_result_record_path_outside_git>",
+        "step_id": "validate_zeroshot_result_record"
+      },
+      {
+        "command": "uv run python audit_external_result_claim_labeling.py",
+        "step_id": "audit_external_result_claim_labeling"
+      },
+      {
+        "command": "uv run python audit_prompt_objective_evidence.py",
+        "step_id": "audit_prompt_objective_evidence"
+      },
+      {
+        "command": "uv run python verify_current_goal_state.py",
+        "step_id": "verify_current_goal_state"
+      }
+    ]
+  },
+  "post_score_reporting_workflow_step_ids_by_route": {
+    "cns_portugal_lobo": [
+      "validate_zeroshot_result_record",
+      "audit_external_result_claim_labeling",
+      "audit_prompt_objective_evidence",
+      "verify_current_goal_state"
+    ],
+    "hssayeni_mjff": [
+      "validate_zeroshot_result_record",
+      "audit_external_result_claim_labeling",
+      "audit_prompt_objective_evidence",
+      "verify_current_goal_state"
+    ],
+    "icicle_gait": [
+      "validate_zeroshot_result_record",
+      "audit_external_result_claim_labeling",
+      "audit_prompt_objective_evidence",
+      "verify_current_goal_state"
+    ],
+    "ppmi_verily": [
+      "validate_zeroshot_result_record",
+      "audit_external_result_claim_labeling",
+      "audit_prompt_objective_evidence",
+      "verify_current_goal_state"
+    ],
+    "ppp_pd_vme": [
+      "validate_zeroshot_result_record",
+      "audit_external_result_claim_labeling",
+      "audit_prompt_objective_evidence",
+      "verify_current_goal_state"
+    ],
+    "watchpd": [
+      "validate_zeroshot_result_record",
+      "audit_external_result_claim_labeling",
+      "audit_prompt_objective_evidence",
+      "verify_current_goal_state"
+    ]
+  },
+  "protected_data_included": false,
+  "route_count": 6,
+  "route_ids": [
+    "ppmi_verily",
+    "ppp_pd_vme",
+    "watchpd",
+    "cns_portugal_lobo",
+    "hssayeni_mjff",
+    "icicle_gait"
+  ],
+  "route_results": {
+    "cns_portugal_lobo": {
+      "internal_hard_failures": [
+        "external_only_claim_boundary",
+        "boundary_flags_false"
+      ],
+      "internal_update_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "low_n_failed": true,
+      "low_n_hard_failures": [
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "placeholder_count": 20,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": null,
+      "ppmi_contract_negative_failed": true,
+      "ppmi_result_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "prior_gates_acknowledged",
+        "formula_sha_format",
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "template_path": "results/external_zeroshot_result_templates_20260515/cns_portugal_lobo_zeroshot_result_record_template.json"
+    },
+    "hssayeni_mjff": {
+      "internal_hard_failures": [
+        "external_only_claim_boundary",
+        "boundary_flags_false"
+      ],
+      "internal_update_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "low_n_failed": true,
+      "low_n_hard_failures": [
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "placeholder_count": 20,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": null,
+      "ppmi_contract_negative_failed": true,
+      "ppmi_result_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "prior_gates_acknowledged",
+        "formula_sha_format",
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "template_path": "results/external_zeroshot_result_templates_20260515/hssayeni_mjff_zeroshot_result_record_template.json"
+    },
+    "icicle_gait": {
+      "internal_hard_failures": [
+        "external_only_claim_boundary",
+        "boundary_flags_false"
+      ],
+      "internal_update_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "low_n_failed": true,
+      "low_n_hard_failures": [
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "placeholder_count": 20,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": null,
+      "ppmi_contract_negative_failed": true,
+      "ppmi_result_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "prior_gates_acknowledged",
+        "formula_sha_format",
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "template_path": "results/external_zeroshot_result_templates_20260515/icicle_gait_zeroshot_result_record_template.json"
+    },
+    "ppmi_verily": {
+      "internal_hard_failures": [
+        "external_only_claim_boundary",
+        "boundary_flags_false"
+      ],
+      "internal_update_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "low_n_failed": true,
+      "low_n_hard_failures": [
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "placeholder_count": 20,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": [
+        "ppmi_route_specific_result_contract"
+      ],
+      "ppmi_contract_negative_failed": true,
+      "ppmi_result_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "prior_gates_acknowledged",
+        "formula_sha_format",
+        "ppmi_route_specific_result_contract",
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "template_path": "results/external_zeroshot_result_templates_20260515/ppmi_verily_zeroshot_result_record_template.json"
+    },
+    "ppp_pd_vme": {
+      "internal_hard_failures": [
+        "external_only_claim_boundary",
+        "boundary_flags_false"
+      ],
+      "internal_update_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "low_n_failed": true,
+      "low_n_hard_failures": [
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "placeholder_count": 20,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": null,
+      "ppmi_contract_negative_failed": true,
+      "ppmi_result_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "prior_gates_acknowledged",
+        "formula_sha_format",
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "template_path": "results/external_zeroshot_result_templates_20260515/ppp_pd_vme_zeroshot_result_record_template.json"
+    },
+    "watchpd": {
+      "internal_hard_failures": [
+        "external_only_claim_boundary",
+        "boundary_flags_false"
+      ],
+      "internal_update_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "low_n_failed": true,
+      "low_n_hard_failures": [
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "placeholder_count": 20,
+      "placeholder_template_failed": true,
+      "ppmi_bad_contract_hard_failures": null,
+      "ppmi_contract_negative_failed": true,
+      "ppmi_result_contract_present": true,
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_fill_passed": true,
+      "synthetic_hard_failures": [],
+      "template_hard_failures": [
+        "placeholders_replaced",
+        "prior_gates_acknowledged",
+        "formula_sha_format",
+        "track_metrics_are_aggregate_and_plausible"
+      ],
+      "template_path": "results/external_zeroshot_result_templates_20260515/watchpd_zeroshot_result_record_template.json"
+    }
+  },
+  "script": "audit_external_zeroshot_result_templates.py",
+  "source_schema_contract": "pd_imu.datasets.external_schema_probe_specs",
+  "template_dir": "results/external_zeroshot_result_templates_20260515",
+  "templates_json": "results/external_zeroshot_result_templates_20260515.json",
+  "templates_markdown": "results/external_zeroshot_result_templates_20260515.md",
+  "validator": "scripts/validate_external_zeroshot_result_record.py",
+  "writer": "scripts/write_external_zeroshot_result_templates.py"
+}

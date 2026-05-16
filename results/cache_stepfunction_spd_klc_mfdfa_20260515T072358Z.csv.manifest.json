@@ -1,0 +1,20 @@
+{
+  "script": "cache_stepfunction_features.py",
+  "git_sha": "HEAD",
+  "command": "cache_stepfunction_features.py --limit 3 --workers 3 --families spd,klc,mfdfa",
+  "created_at_utc": "2026-05-15T07:23:58Z",
+  "labels_used": false,
+  "fold_scope": "global",
+  "cohort_statistics_used": false,
+  "normalization_scope": "per_subject_per_window",
+  "families": [
+    "spd",
+    "klc",
+    "mfdfa"
+  ],
+  "n_subjects": 3,
+  "source_artifacts": [
+    "data/raw/weargait-pd/PD PARTICIPANTS/CSV files/"
+  ],
+  "host": "DESKTOP-7I2K27V"
+}

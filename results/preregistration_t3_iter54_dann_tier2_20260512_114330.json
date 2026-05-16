@@ -1,0 +1,49 @@
+{
+  "timestamp": "20260512_114330",
+  "iso_datetime_utc": "2026-05-12T08:43:30.655502Z",
+  "experiment": "T3 iter54 DANN + Tier-2 \u2014 goal-v1 slot T3-F",
+  "git_head": "unknown",
+  "formula_sha256": "f0a36c1d4d72780f3221e365af8e0844e94c7a63d0538864d60f47d09ea11563",
+  "formula": {
+    "experiment": "T3 iter54 DANN + Tier-2 PCA whitening \u2014 goal-v1 slot T3-F",
+    "cohort": "drop_allmissing_validrange",
+    "stage1": "Ridge alpha=1.0 on H&Y + cv_yrs + cv_sex + cv_dbs (unchanged from iter47)",
+    "tier2_pca": "PD-only PCA whitening on outer-train V2 features; K=64",
+    "stage2_ensemble": [
+      "LGB on K=500 LGB-importance-selected V2 features (iter47-branch)",
+      "DANN MLP on Tier-2 PCA-whitened features; trunk 64->32; GRL site head"
+    ],
+    "dann_hyper": {
+      "epochs": 50,
+      "lr": 0.001,
+      "l2": 0.0001,
+      "lambda_max": 1.0,
+      "schedule": "Ganin 2/(1+exp(-10t/T))-1"
+    },
+    "final_pred": "Stage-1 + 0.5*(LGB residual + DANN residual)",
+    "seeds": [
+      42,
+      1337,
+      7
+    ],
+    "eval": [
+      "LOOCV",
+      "LOSO NLS->WPD",
+      "LOSO WPD->NLS"
+    ],
+    "primary_stat": "per-subject sign-flip permutation (10000) + BCa CI + +0.025 MCID",
+    "fwer": "Bonferroni n=4; p_threshold = 0.05/4 = 0.0125",
+    "comparators": {
+      "loocv": "iter47 CCC=0.3784",
+      "loso": "iter47 LOSO CCC=0.150"
+    },
+    "leakage_firewall": {
+      "tier1": "Fold-local imputation + Stage-1 Ridge + K=500 importance + PCA basis. No global statistics touch test.",
+      "tier2_declaration": "PCA basis is label-free (no labels in covariance/SVD computation). Manifest in lockbox JSON.",
+      "site_labels_in_dann": "Site labels (NLS/WPD) ARE supervised signal for the ADVERSARIAL branch, but the gradient is REVERSED so the trunk LEARNS TO NOT predict site. This is the canonical DANN setup (Ganin et al.). Not a leakage."
+    }
+  },
+  "master_prereg": "preregistration_goalv1_master_20260512.json",
+  "fwer_family_id": "goalv1_n4",
+  "slot_id": "T3-F"
+}

@@ -1,0 +1,17 @@
+{
+  "script": "cache_v3_mos_features.py",
+  "git_sha": "unknown",
+  "created_at_utc": "2026-05-12T17:43:01Z",
+  "labels_used": false,
+  "cohort_statistics_used": false,
+  "fold_scope": "global",
+  "tasks": [
+    "SelfPace",
+    "HurriedPace",
+    "TUG",
+    "TandemGait"
+  ],
+  "n_features_total": 344,
+  "n_subjects": 99,
+  "rationale": "V3 stability-margin features at foot-strike events; orthogonal to V2 (event-locked vs whole-recording aggregates)."
+}

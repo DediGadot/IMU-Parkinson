@@ -1,0 +1,41 @@
+{
+  "name": "t3_conformal_lockbox",
+  "created_at_utc": "2026-05-12T21:24:10.456338+00:00",
+  "git_sha": "64edc2a90ab11beed8b0bdb30a69c6c49a8809fc",
+  "status": "locked",
+  "master_prereg": "results/preregistration_goalv2_master_20260512.json",
+  "design": "split_conformal_leave_one_out_quantile",
+  "predictor_1_iter47": "/home/fiod/medical/results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+  "predictor_2_imu_only": "/home/fiod/medical/results/lockbox_t3_imu_only_20260512_211900.oof.npy",
+  "disagreement_score": "absolute_difference_p_iter47_p_imu",
+  "coverage_targets": [
+    1.0,
+    0.95,
+    0.9,
+    0.85,
+    0.8,
+    0.75,
+    0.7,
+    0.6,
+    0.5
+  ],
+  "seeds_for_bootstrap_rng": [
+    42,
+    1337,
+    7
+  ],
+  "predictor_variants": [
+    "iter47_only",
+    "blend_50_50_iter47_imu"
+  ],
+  "n_bootstrap": 5000,
+  "estimand": "retained_subset_ccc_per_coverage",
+  "kill_criteria": [
+    "Monotonicity violated: CCC at 50% < CCC at 70%",
+    "LOO threshold variance > 20% of mean threshold at any coverage",
+    "Disagreement-error correlation r < 0.10"
+  ],
+  "out_of_fwer_family": true,
+  "rationale": "Different estimand (retained-subset CCC at coverage). Deployment-mode publication parallel to T1 conformal lockbox.",
+  "formula_sha256": "be6e373ae1635fbabc47a1e0147093b51d0b23461651acb77f37aee6450aa8b1"
+}

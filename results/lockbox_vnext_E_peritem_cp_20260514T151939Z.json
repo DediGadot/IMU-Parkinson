@@ -1,0 +1,236 @@
+{
+  "cell": "E_t1_peritem_cp_heatmap",
+  "fwer_family_n": 6,
+  "bonferroni_gate_per_item": 0.9917,
+  "items_data": [
+    {
+      "item": 9,
+      "available": true,
+      "n": 92,
+      "full_ccc_iter34_chain": 0.23402190985953775,
+      "standalone_ccc_iter34_chain": 0.23402190985953775,
+      "rows": [
+        {
+          "retained_n": 91,
+          "retained_ccc": 0.22883048236492676,
+          "retained_mae": 0.3450046869985525,
+          "coverage_target": 1.0,
+          "threshold_mean": 1.4831308027681012
+        },
+        {
+          "retained_n": 77,
+          "retained_ccc": 0.4841718081847139,
+          "retained_mae": 0.24869403994071881,
+          "coverage_target": 0.85,
+          "threshold_mean": 0.7078755889082684
+        },
+        {
+          "retained_n": 64,
+          "retained_ccc": 0.5683469893988321,
+          "retained_mae": 0.18863233350411712,
+          "coverage_target": 0.7,
+          "threshold_mean": 0.4519665394303394
+        },
+        {
+          "retained_n": 46,
+          "retained_ccc": 0.5725826328376937,
+          "retained_mae": 0.13067393945226521,
+          "coverage_target": 0.5,
+          "threshold_mean": 0.26263583252849926
+        }
+      ],
+      "delta_70_vs_full": 0.33432507953929436
+    },
+    {
+      "item": 10,
+      "available": true,
+      "n": 92,
+      "full_ccc_iter34_chain": 0.4425832212133354,
+      "standalone_ccc_iter34_chain": 0.4425832212133354,
+      "rows": [
+        {
+          "retained_n": 91,
+          "retained_ccc": 0.42697913995481707,
+          "retained_mae": 0.4608903723273902,
+          "coverage_target": 1.0,
+          "threshold_mean": 2.1007214175197713
+        },
+        {
+          "retained_n": 78,
+          "retained_ccc": 0.6352067816376068,
+          "retained_mae": 0.34201428319373534,
+          "coverage_target": 0.85,
+          "threshold_mean": 0.9493900601986178
+        },
+        {
+          "retained_n": 64,
+          "retained_ccc": 0.7697504502247289,
+          "retained_mae": 0.24548459332101574,
+          "coverage_target": 0.7,
+          "threshold_mean": 0.6295255149556056
+        },
+        {
+          "retained_n": 46,
+          "retained_ccc": 0.8871266036991753,
+          "retained_mae": 0.15058199852071774,
+          "coverage_target": 0.5,
+          "threshold_mean": 0.33978603808166313
+        }
+      ],
+      "delta_70_vs_full": 0.3271672290113935
+    },
+    {
+      "item": 11,
+      "available": true,
+      "n": 92,
+      "full_ccc_iter34_chain": 0.2318773252515935,
+      "standalone_ccc_iter34_chain": 0.2318773252515935,
+      "rows": [
+        {
+          "retained_n": 91,
+          "retained_ccc": 0.2652050306343065,
+          "retained_mae": 0.2677431260540375,
+          "coverage_target": 1.0,
+          "threshold_mean": 2.633028139451315
+        },
+        {
+          "retained_n": 78,
+          "retained_ccc": 0.5361988890006447,
+          "retained_mae": 0.1505116866283378,
+          "coverage_target": 0.85,
+          "threshold_mean": 0.5272716814711444
+        },
+        {
+          "retained_n": 64,
+          "retained_ccc": 0.6594280091548813,
+          "retained_mae": 0.09959988037743658,
+          "coverage_target": 0.7,
+          "threshold_mean": 0.28428964680709795
+        },
+        {
+          "retained_n": 46,
+          "retained_ccc": 0.8832830590883076,
+          "retained_mae": 0.06244697786974187,
+          "coverage_target": 0.5,
+          "threshold_mean": 0.13282131174475642
+        }
+      ],
+      "delta_70_vs_full": 0.4275506839032878
+    },
+    {
+      "item": 12,
+      "available": true,
+      "n": 92,
+      "full_ccc_iter34_chain": 0.5655239092804749,
+      "standalone_ccc_iter34_chain": 0.5655239092804749,
+      "rows": [
+        {
+          "retained_n": 91,
+          "retained_ccc": 0.5769310081918428,
+          "retained_mae": 0.49012675177218057,
+          "coverage_target": 1.0,
+          "threshold_mean": 2.57164235807585
+        },
+        {
+          "retained_n": 77,
+          "retained_ccc": 0.708633023183351,
+          "retained_mae": 0.3267594350774033,
+          "coverage_target": 0.85,
+          "threshold_mean": 0.8925296517154272
+        },
+        {
+          "retained_n": 64,
+          "retained_ccc": 0.8250399495525883,
+          "retained_mae": 0.2560014284622002,
+          "coverage_target": 0.7,
+          "threshold_mean": 0.5317845491704202
+        },
+        {
+          "retained_n": 46,
+          "retained_ccc": 0.9317543618275405,
+          "retained_mae": 0.17479831359037235,
+          "coverage_target": 0.5,
+          "threshold_mean": 0.36963319387826077
+        }
+      ],
+      "delta_70_vs_full": 0.2595160402721134
+    },
+    {
+      "item": 13,
+      "available": true,
+      "n": 92,
+      "full_ccc_iter34_chain": 0.06743656916202519,
+      "standalone_ccc_iter34_chain": 0.06743656916202519,
+      "rows": [
+        {
+          "retained_n": 91,
+          "retained_ccc": 0.05191832420154816,
+          "retained_mae": 0.6147853263309158,
+          "coverage_target": 1.0,
+          "threshold_mean": 1.6918324474593234
+        },
+        {
+          "retained_n": 78,
+          "retained_ccc": 0.2811285469877163,
+          "retained_mae": 0.4960423882297634,
+          "coverage_target": 0.85,
+          "threshold_mean": 1.1524926001218763
+        },
+        {
+          "retained_n": 64,
+          "retained_ccc": 0.4685761375591084,
+          "retained_mae": 0.3791485999405705,
+          "coverage_target": 0.7,
+          "threshold_mean": 0.8894584402470119
+        },
+        {
+          "retained_n": 46,
+          "retained_ccc": 0.5980747356844412,
+          "retained_mae": 0.23982502723726443,
+          "coverage_target": 0.5,
+          "threshold_mean": 0.569578098802426
+        }
+      ],
+      "delta_70_vs_full": 0.4011395683970832
+    },
+    {
+      "item": 14,
+      "available": true,
+      "n": 92,
+      "full_ccc_iter34_chain": 0.31678943447624963,
+      "standalone_ccc_iter34_chain": 0.31678943447624963,
+      "rows": [
+        {
+          "retained_n": 91,
+          "retained_ccc": 0.34024972508071133,
+          "retained_mae": 0.4964866210575753,
+          "coverage_target": 1.0,
+          "threshold_mean": 1.4724144495938862
+        },
+        {
+          "retained_n": 77,
+          "retained_ccc": 0.5177184764130786,
+          "retained_mae": 0.37705546809518514,
+          "coverage_target": 0.85,
+          "threshold_mean": 1.0237312938009686
+        },
+        {
+          "retained_n": 64,
+          "retained_ccc": 0.68404443682769,
+          "retained_mae": 0.27173088176995036,
+          "coverage_target": 0.7,
+          "threshold_mean": 0.7158726910150258
+        },
+        {
+          "retained_n": 46,
+          "retained_ccc": 0.7606981964503802,
+          "retained_mae": 0.14616212355917085,
+          "coverage_target": 0.5,
+          "threshold_mean": 0.37996119979963333
+        }
+      ],
+      "delta_70_vs_full": 0.3672550023514404
+    }
+  ],
+  "publishable": "item_level_deployability_map"
+}

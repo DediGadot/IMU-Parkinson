@@ -1,0 +1,14 @@
+{
+  "metrics": {
+    "cal_slope": 1.0,
+    "ccc": 0.9963,
+    "label": "",
+    "mae": 0.5,
+    "n": 20,
+    "pred_mean": 20.0,
+    "pred_std": 5.766,
+    "r": 1.0,
+    "true_mean": 19.5,
+    "true_std": 5.766
+  }
+}

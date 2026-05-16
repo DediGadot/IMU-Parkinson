@@ -1,0 +1,401 @@
+Phase 0 orchestrator: 9 variants to run
+  variants = ['drop9', 'drop10', 'drop11', 'drop12', 'drop13', 'drop14', 'drop15', 'drop18', 'no_k500']
+  results dir = /home/fiod/pd-imu/results
+
+========================================================================
+[PHASE 0] variant=drop9
+========================================================================
+
+[drop9] writing prereg...
+fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+PRE-REGISTRATION WRITTEN: /home/fiod/pd-imu/results/preregistration_t1_iter34_phase0_drop9_20260512_111249.json
+  formula_sha256 = 40c4bbe75dc199964ffa231dd4029a0c2ae6f617cfbf6a9ccf49b6182705919a
+[drop9] prereg = preregistration_t1_iter34_phase0_drop9_20260512_111249.json
+[drop9] running LOOCV lockbox...
+
+=== T1 iter34 PHASE 0 LOCKBOX — variant 'drop9' (drop_item=9, no_k500=False), 3 seeds, bases=('lgb', 'xgb', 'et'), n_workers=5 ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92, item_order=[9, 10, 11, 12, 13, 14, 15, 18]
+  chain_items (post-drop) = [10, 11, 12, 13, 14, 15, 18]
+    seed=42 variant fold 20/92 elapsed=94s
+    seed=42 variant fold 40/92 elapsed=185s
+    seed=42 variant fold 60/92 elapsed=277s
+    seed=42 variant fold 80/92 elapsed=368s
+    seed=42 variant fold 92/92 elapsed=427s
+  seed=42: PHASE0-drop9=0.7066 | 427s
+    seed=1337 variant fold 20/92 elapsed=94s
+    seed=1337 variant fold 40/92 elapsed=186s
+    seed=1337 variant fold 60/92 elapsed=278s
+    seed=1337 variant fold 80/92 elapsed=370s
+    seed=1337 variant fold 92/92 elapsed=426s
+  seed=1337: PHASE0-drop9=0.7083 | 427s
+    seed=7 variant fold 20/92 elapsed=94s
+    seed=7 variant fold 40/92 elapsed=186s
+    seed=7 variant fold 60/92 elapsed=278s
+    seed=7 variant fold 80/92 elapsed=368s
+    seed=7 variant fold 92/92 elapsed=426s
+  seed=7: PHASE0-drop9=0.7064 | 426s
+  total wall = 1280s (21.3 min)
+
+=== HEADLINE: variant=drop9 CCC=0.7072, MAE=1.706 ===
+  Δ vs iter34_hygiene (variant−iter34): mean=-0.0106, 95% BCa CI=[-0.0289, +0.0025], frac>0=0.068
+  marginal contribution of drop9 (= iter34 − variant) = +0.0098 CCC
+Wrote /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop9_20260512_113410.json
+      /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop9_20260512_113410.oof.npy
+[drop9] done in 1281s (21.3 min)
+
+========================================================================
+[PHASE 0] variant=drop10
+========================================================================
+
+[drop10] writing prereg...
+fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+PRE-REGISTRATION WRITTEN: /home/fiod/pd-imu/results/preregistration_t1_iter34_phase0_drop10_20260512_113411.json
+  formula_sha256 = 1f955551475601d5da98115de6fcf32f4581b137cd8776898a753593961068c1
+[drop10] prereg = preregistration_t1_iter34_phase0_drop10_20260512_113411.json
+[drop10] running LOOCV lockbox...
+
+=== T1 iter34 PHASE 0 LOCKBOX — variant 'drop10' (drop_item=10, no_k500=False), 3 seeds, bases=('lgb', 'xgb', 'et'), n_workers=5 ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92, item_order=[9, 10, 11, 12, 13, 14, 15, 18]
+  chain_items (post-drop) = [9, 11, 12, 13, 14, 15, 18]
+    seed=42 variant fold 20/92 elapsed=92s
+    seed=42 variant fold 40/92 elapsed=182s
+    seed=42 variant fold 60/92 elapsed=271s
+    seed=42 variant fold 80/92 elapsed=361s
+    seed=42 variant fold 92/92 elapsed=419s
+  seed=42: PHASE0-drop10=0.7095 | 419s
+    seed=1337 variant fold 20/92 elapsed=93s
+    seed=1337 variant fold 40/92 elapsed=186s
+    seed=1337 variant fold 60/92 elapsed=288s
+    seed=1337 variant fold 80/92 elapsed=403s
+    seed=1337 variant fold 92/92 elapsed=478s
+  seed=1337: PHASE0-drop10=0.7093 | 484s
+    seed=7 variant fold 20/92 elapsed=122s
+    seed=7 variant fold 40/92 elapsed=222s
+    seed=7 variant fold 60/92 elapsed=321s
+    seed=7 variant fold 80/92 elapsed=413s
+    seed=7 variant fold 92/92 elapsed=473s
+  seed=7: PHASE0-drop10=0.7092 | 474s
+  total wall = 1376s (22.9 min)
+
+=== HEADLINE: variant=drop10 CCC=0.7094, MAE=1.670 ===
+  Δ vs iter34_hygiene (variant−iter34): mean=-0.0081, 95% BCa CI=[-0.0367, +0.0143], frac>0=0.281
+  marginal contribution of drop10 (= iter34 − variant) = +0.0076 CCC
+Wrote /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop10_20260512_115708.json
+      /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop10_20260512_115708.oof.npy
+[drop10] done in 1377s (23.0 min)
+
+========================================================================
+[PHASE 0] variant=drop11
+========================================================================
+
+[drop11] writing prereg...
+fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+PRE-REGISTRATION WRITTEN: /home/fiod/pd-imu/results/preregistration_t1_iter34_phase0_drop11_20260512_115709.json
+  formula_sha256 = aa669406c1ce2c493d203160d988aa8af77c033d6b7fae4461d5747b5f12c97f
+[drop11] prereg = preregistration_t1_iter34_phase0_drop11_20260512_115709.json
+[drop11] running LOOCV lockbox...
+
+=== T1 iter34 PHASE 0 LOCKBOX — variant 'drop11' (drop_item=11, no_k500=False), 3 seeds, bases=('lgb', 'xgb', 'et'), n_workers=5 ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92, item_order=[9, 10, 11, 12, 13, 14, 15, 18]
+  chain_items (post-drop) = [9, 10, 12, 13, 14, 15, 18]
+    seed=42 variant fold 20/92 elapsed=97s
+    seed=42 variant fold 40/92 elapsed=195s
+    seed=42 variant fold 60/92 elapsed=289s
+    seed=42 variant fold 80/92 elapsed=385s
+    seed=42 variant fold 92/92 elapsed=452s
+  seed=42: PHASE0-drop11=0.7063 | 452s
+    seed=1337 variant fold 20/92 elapsed=99s
+    seed=1337 variant fold 40/92 elapsed=195s
+    seed=1337 variant fold 60/92 elapsed=293s
+    seed=1337 variant fold 80/92 elapsed=389s
+    seed=1337 variant fold 92/92 elapsed=455s
+  seed=1337: PHASE0-drop11=0.7072 | 456s
+    seed=7 variant fold 20/92 elapsed=100s
+    seed=7 variant fold 40/92 elapsed=196s
+    seed=7 variant fold 60/92 elapsed=293s
+    seed=7 variant fold 80/92 elapsed=389s
+    seed=7 variant fold 92/92 elapsed=454s
+  seed=7: PHASE0-drop11=0.7066 | 455s
+  total wall = 1362s (22.7 min)
+
+=== HEADLINE: variant=drop11 CCC=0.7068, MAE=1.737 ===
+  Δ vs iter34_hygiene (variant−iter34): mean=-0.0107, 95% BCa CI=[-0.0280, +0.0030], frac>0=0.075
+  marginal contribution of drop11 (= iter34 − variant) = +0.0102 CCC
+Wrote /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop11_20260512_121953.json
+      /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop11_20260512_121953.oof.npy
+[drop11] done in 1364s (22.7 min)
+
+========================================================================
+[PHASE 0] variant=drop12
+========================================================================
+
+[drop12] writing prereg...
+fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+PRE-REGISTRATION WRITTEN: /home/fiod/pd-imu/results/preregistration_t1_iter34_phase0_drop12_20260512_121953.json
+  formula_sha256 = e1c699da7d294d67ffdcebce06b02cada663e6b03796a5c99d3270360fbcc1d0
+[drop12] prereg = preregistration_t1_iter34_phase0_drop12_20260512_121953.json
+[drop12] running LOOCV lockbox...
+
+=== T1 iter34 PHASE 0 LOCKBOX — variant 'drop12' (drop_item=12, no_k500=False), 3 seeds, bases=('lgb', 'xgb', 'et'), n_workers=5 ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92, item_order=[9, 10, 11, 12, 13, 14, 15, 18]
+  chain_items (post-drop) = [9, 10, 11, 13, 14, 15, 18]
+    seed=42 variant fold 20/92 elapsed=98s
+    seed=42 variant fold 40/92 elapsed=194s
+    seed=42 variant fold 60/92 elapsed=291s
+    seed=42 variant fold 80/92 elapsed=386s
+    seed=42 variant fold 92/92 elapsed=449s
+  seed=42: PHASE0-drop12=0.6896 | 449s
+    seed=1337 variant fold 20/92 elapsed=98s
+    seed=1337 variant fold 40/92 elapsed=195s
+    seed=1337 variant fold 60/92 elapsed=291s
+    seed=1337 variant fold 80/92 elapsed=387s
+    seed=1337 variant fold 92/92 elapsed=448s
+  seed=1337: PHASE0-drop12=0.6903 | 449s
+    seed=7 variant fold 20/92 elapsed=98s
+    seed=7 variant fold 40/92 elapsed=194s
+    seed=7 variant fold 60/92 elapsed=290s
+    seed=7 variant fold 80/92 elapsed=386s
+    seed=7 variant fold 92/92 elapsed=447s
+  seed=7: PHASE0-drop12=0.6902 | 448s
+  total wall = 1345s (22.4 min)
+
+=== HEADLINE: variant=drop12 CCC=0.6901, MAE=1.688 ===
+  Δ vs iter34_hygiene (variant−iter34): mean=-0.0282, 95% BCa CI=[-0.0710, +0.0063], frac>0=0.060
+  marginal contribution of drop12 (= iter34 − variant) = +0.0269 CCC
+Wrote /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop12_20260512_124220.json
+      /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop12_20260512_124220.oof.npy
+[drop12] done in 1347s (22.4 min)
+
+========================================================================
+[PHASE 0] variant=drop13
+========================================================================
+
+[drop13] writing prereg...
+fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+PRE-REGISTRATION WRITTEN: /home/fiod/pd-imu/results/preregistration_t1_iter34_phase0_drop13_20260512_124221.json
+  formula_sha256 = e218a1a8c8f214b5f8e32aab049427b47dbedd568bea7e9cbac56fcc94f1b6c5
+[drop13] prereg = preregistration_t1_iter34_phase0_drop13_20260512_124221.json
+[drop13] running LOOCV lockbox...
+
+=== T1 iter34 PHASE 0 LOCKBOX — variant 'drop13' (drop_item=13, no_k500=False), 3 seeds, bases=('lgb', 'xgb', 'et'), n_workers=5 ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92, item_order=[9, 10, 11, 12, 13, 14, 15, 18]
+  chain_items (post-drop) = [9, 10, 11, 12, 14, 15, 18]
+    seed=42 variant fold 20/92 elapsed=98s
+    seed=42 variant fold 40/92 elapsed=193s
+    seed=42 variant fold 60/92 elapsed=288s
+    seed=42 variant fold 80/92 elapsed=384s
+    seed=42 variant fold 92/92 elapsed=445s
+  seed=42: PHASE0-drop13=0.7186 | 446s
+    seed=1337 variant fold 20/92 elapsed=98s
+    seed=1337 variant fold 40/92 elapsed=194s
+    seed=1337 variant fold 60/92 elapsed=291s
+    seed=1337 variant fold 80/92 elapsed=386s
+    seed=1337 variant fold 92/92 elapsed=448s
+  seed=1337: PHASE0-drop13=0.7200 | 449s
+    seed=7 variant fold 20/92 elapsed=98s
+    seed=7 variant fold 40/92 elapsed=194s
+    seed=7 variant fold 60/92 elapsed=289s
+    seed=7 variant fold 80/92 elapsed=386s
+    seed=7 variant fold 92/92 elapsed=446s
+  seed=7: PHASE0-drop13=0.7205 | 446s
+  total wall = 1341s (22.3 min)
+
+=== HEADLINE: variant=drop13 CCC=0.7198, MAE=1.668 ===
+  Δ vs iter34_hygiene (variant−iter34): mean=+0.0026, 95% BCa CI=[-0.0154, +0.0182], frac>0=0.638
+  marginal contribution of drop13 (= iter34 − variant) = -0.0028 CCC
+Wrote /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop13_20260512_130444.json
+      /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop13_20260512_130444.oof.npy
+[drop13] done in 1342s (22.4 min)
+
+========================================================================
+[PHASE 0] variant=drop14
+========================================================================
+
+[drop14] writing prereg...
+fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+PRE-REGISTRATION WRITTEN: /home/fiod/pd-imu/results/preregistration_t1_iter34_phase0_drop14_20260512_130445.json
+  formula_sha256 = 3373d67aeffd50493f332c276e1b97ab8623c691ba5001a8695412b9762a6302
+[drop14] prereg = preregistration_t1_iter34_phase0_drop14_20260512_130445.json
+[drop14] running LOOCV lockbox...
+
+=== T1 iter34 PHASE 0 LOCKBOX — variant 'drop14' (drop_item=14, no_k500=False), 3 seeds, bases=('lgb', 'xgb', 'et'), n_workers=5 ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92, item_order=[9, 10, 11, 12, 13, 14, 15, 18]
+  chain_items (post-drop) = [9, 10, 11, 12, 13, 15, 18]
+    seed=42 variant fold 20/92 elapsed=98s
+    seed=42 variant fold 40/92 elapsed=193s
+    seed=42 variant fold 60/92 elapsed=289s
+    seed=42 variant fold 80/92 elapsed=384s
+    seed=42 variant fold 92/92 elapsed=446s
+  seed=42: PHASE0-drop14=0.7120 | 447s
+    seed=1337 variant fold 20/92 elapsed=97s
+    seed=1337 variant fold 40/92 elapsed=193s
+    seed=1337 variant fold 60/92 elapsed=287s
+    seed=1337 variant fold 80/92 elapsed=383s
+    seed=1337 variant fold 92/92 elapsed=446s
+  seed=1337: PHASE0-drop14=0.7127 | 446s
+    seed=7 variant fold 20/92 elapsed=103s
+    seed=7 variant fold 40/92 elapsed=201s
+    seed=7 variant fold 60/92 elapsed=296s
+    seed=7 variant fold 80/92 elapsed=391s
+    seed=7 variant fold 92/92 elapsed=454s
+  seed=7: PHASE0-drop14=0.7133 | 455s
+  total wall = 1347s (22.5 min)
+
+=== HEADLINE: variant=drop14 CCC=0.7128, MAE=1.741 ===
+  Δ vs iter34_hygiene (variant−iter34): mean=-0.0040, 95% BCa CI=[-0.0199, +0.0108], frac>0=0.303
+  marginal contribution of drop14 (= iter34 − variant) = +0.0042 CCC
+Wrote /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop14_20260512_132714.json
+      /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop14_20260512_132714.oof.npy
+[drop14] done in 1349s (22.5 min)
+
+========================================================================
+[PHASE 0] variant=drop15
+========================================================================
+
+[drop15] writing prereg...
+fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+PRE-REGISTRATION WRITTEN: /home/fiod/pd-imu/results/preregistration_t1_iter34_phase0_drop15_20260512_132715.json
+  formula_sha256 = f66ace774644eb34852705c5b7dadeccfb3654ac13e39081a03d812280cea63b
+[drop15] prereg = preregistration_t1_iter34_phase0_drop15_20260512_132715.json
+[drop15] running LOOCV lockbox...
+
+=== T1 iter34 PHASE 0 LOCKBOX — variant 'drop15' (drop_item=15, no_k500=False), 3 seeds, bases=('lgb', 'xgb', 'et'), n_workers=5 ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92, item_order=[9, 10, 11, 12, 13, 14, 15, 18]
+  chain_items (post-drop) = [9, 10, 11, 12, 13, 14, 18]
+    seed=42 variant fold 20/92 elapsed=98s
+    seed=42 variant fold 40/92 elapsed=193s
+    seed=42 variant fold 60/92 elapsed=288s
+    seed=42 variant fold 80/92 elapsed=383s
+    seed=42 variant fold 92/92 elapsed=444s
+  seed=42: PHASE0-drop15=0.7164 | 444s
+    seed=1337 variant fold 20/92 elapsed=97s
+    seed=1337 variant fold 40/92 elapsed=192s
+    seed=1337 variant fold 60/92 elapsed=287s
+    seed=1337 variant fold 80/92 elapsed=382s
+    seed=1337 variant fold 92/92 elapsed=446s
+  seed=1337: PHASE0-drop15=0.7166 | 446s
+    seed=7 variant fold 20/92 elapsed=97s
+    seed=7 variant fold 40/92 elapsed=191s
+    seed=7 variant fold 60/92 elapsed=286s
+    seed=7 variant fold 80/92 elapsed=381s
+    seed=7 variant fold 92/92 elapsed=443s
+  seed=7: PHASE0-drop15=0.7172 | 443s
+  total wall = 1334s (22.2 min)
+
+=== HEADLINE: variant=drop15 CCC=0.7168, MAE=1.735 ===
+  Δ vs iter34_hygiene (variant−iter34): mean=-0.0002, 95% BCa CI=[-0.0012, +0.0007], frac>0=0.326
+  marginal contribution of drop15 (= iter34 − variant) = +0.0002 CCC
+Wrote /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop15_20260512_134930.json
+      /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop15_20260512_134930.oof.npy
+[drop15] done in 1336s (22.3 min)
+
+========================================================================
+[PHASE 0] variant=drop18
+========================================================================
+
+[drop18] writing prereg...
+fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+PRE-REGISTRATION WRITTEN: /home/fiod/pd-imu/results/preregistration_t1_iter34_phase0_drop18_20260512_134931.json
+  formula_sha256 = 054756a25f126bc945e431e24a5c3d2b79b2f57e0dc40815bfaad71f5f0546a1
+[drop18] prereg = preregistration_t1_iter34_phase0_drop18_20260512_134931.json
+[drop18] running LOOCV lockbox...
+
+=== T1 iter34 PHASE 0 LOCKBOX — variant 'drop18' (drop_item=18, no_k500=False), 3 seeds, bases=('lgb', 'xgb', 'et'), n_workers=5 ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92, item_order=[9, 10, 11, 12, 13, 14, 15, 18]
+  chain_items (post-drop) = [9, 10, 11, 12, 13, 14, 15]
+    seed=42 variant fold 20/92 elapsed=98s
+    seed=42 variant fold 40/92 elapsed=193s
+    seed=42 variant fold 60/92 elapsed=289s
+    seed=42 variant fold 80/92 elapsed=383s
+    seed=42 variant fold 92/92 elapsed=447s
+  seed=42: PHASE0-drop18=0.7164 | 447s
+    seed=1337 variant fold 20/92 elapsed=98s
+    seed=1337 variant fold 40/92 elapsed=194s
+    seed=1337 variant fold 60/92 elapsed=290s
+    seed=1337 variant fold 80/92 elapsed=386s
+    seed=1337 variant fold 92/92 elapsed=445s
+  seed=1337: PHASE0-drop18=0.7169 | 445s
+    seed=7 variant fold 20/92 elapsed=97s
+    seed=7 variant fold 40/92 elapsed=193s
+    seed=7 variant fold 60/92 elapsed=288s
+    seed=7 variant fold 80/92 elapsed=383s
+    seed=7 variant fold 92/92 elapsed=445s
+  seed=7: PHASE0-drop18=0.7175 | 446s
+  total wall = 1338s (22.3 min)
+
+=== HEADLINE: variant=drop18 CCC=0.7170, MAE=1.735 ===
+  Δ vs iter34_hygiene (variant−iter34): mean=-0.0000, 95% BCa CI=[-0.0009, +0.0009], frac>0=0.500
+  marginal contribution of drop18 (= iter34 − variant) = +0.0000 CCC
+Wrote /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop18_20260512_141151.json
+      /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_drop18_20260512_141151.oof.npy
+[drop18] done in 1340s (22.3 min)
+
+========================================================================
+[PHASE 0] variant=no_k500
+========================================================================
+
+[no_k500] writing prereg...
+fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+PRE-REGISTRATION WRITTEN: /home/fiod/pd-imu/results/preregistration_t1_iter34_phase0_no_k500_20260512_141152.json
+  formula_sha256 = a1866c3ec86ca81ab1b7a164a8608942616b66ef1d890c5f81f105f70f51e64e
+[no_k500] prereg = preregistration_t1_iter34_phase0_no_k500_20260512_141152.json
+[no_k500] running LOOCV lockbox...
+
+=== T1 iter34 PHASE 0 LOCKBOX — variant 'no_k500' (drop_item=None, no_k500=True), 3 seeds, bases=('lgb', 'xgb', 'et'), n_workers=5 ===
+  cohort: T1-only N=94 | with-aux N=92 (aux items used: [15, 18])
+  cohort N=92, item_order=[9, 10, 11, 12, 13, 14, 15, 18]
+  chain_items (post-drop) = [9, 10, 11, 12, 13, 14, 15, 18]
+    seed=42 variant fold 20/92 elapsed=362s
+    seed=42 variant fold 40/92 elapsed=718s
+    seed=42 variant fold 60/92 elapsed=1072s
+    seed=42 variant fold 80/92 elapsed=1423s
+    seed=42 variant fold 92/92 elapsed=1644s
+  seed=42: PHASE0-no_k500=0.7147 | 1644s
+    seed=1337 variant fold 20/92 elapsed=359s
+    seed=1337 variant fold 40/92 elapsed=713s
+    seed=1337 variant fold 60/92 elapsed=1065s
+    seed=1337 variant fold 80/92 elapsed=1417s
+    seed=1337 variant fold 92/92 elapsed=1643s
+  seed=1337: PHASE0-no_k500=0.7144 | 1643s
+    seed=7 variant fold 20/92 elapsed=359s
+    seed=7 variant fold 40/92 elapsed=712s
+    seed=7 variant fold 60/92 elapsed=1067s
+    seed=7 variant fold 80/92 elapsed=1420s
+    seed=7 variant fold 92/92 elapsed=1648s
+  seed=7: PHASE0-no_k500=0.7120 | 1648s
+  total wall = 4936s (82.3 min)
+
+=== HEADLINE: variant=no_k500 CCC=0.7137, MAE=1.820 ===
+  Δ vs iter34_hygiene (variant−iter34): mean=-0.0034, 95% BCa CI=[-0.0273, +0.0212], frac>0=0.382
+  marginal contribution of no_k500 (= iter34 − variant) = +0.0033 CCC
+Wrote /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_no_k500_20260512_153409.json
+      /home/fiod/pd-imu/results/lockbox_t1_iter34_phase0_no_k500_20260512_153409.oof.npy
+[no_k500] done in 4937s (82.3 min)
+
+[PHASE 0 COMPLETE] all 9 variants done in 15681s

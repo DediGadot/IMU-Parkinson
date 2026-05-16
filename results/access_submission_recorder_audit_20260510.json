@@ -1,0 +1,223 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "record": {
+          "allowed_now": [
+            "wait for access approval"
+          ],
+          "blocked_until_approval": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "completed_packet_included": false,
+          "credentials_or_tokens_included": false,
+          "generated_at_utc": "2026-05-16T12:51:56+00:00",
+          "lifecycle": {
+            "approval_evidence": null,
+            "blocked_actions_now": [
+              "probe script against protected data",
+              "download script",
+              "cache extraction",
+              "pre-registration using new labels",
+              "remote job",
+              "model run",
+              "canonical T1/T3 claim update"
+            ],
+            "can_probe_schema": false,
+            "packet": {
+              "blocked_actions_now": [
+                "probe script against protected data",
+                "download script",
+                "cache extraction",
+                "pre-registration using new labels",
+                "remote job",
+                "model run",
+                "canonical T1/T3 claim update"
+              ],
+              "min_placeholders": 5,
+              "name": "PPMI / Verily Study Watch",
+              "packet_audit_path": "results/ppmi_verily_request_packet_audit_20260509.json",
+              "packet_path": "scripts/ppmi_verily_tier3_request_packet.md",
+              "packet_ready": true,
+              "placeholder_count": 13,
+              "priority": 1,
+              "remote_job_allowed_now": false,
+              "route_id": "ppmi_verily",
+              "runbook_path": "scripts/ppmi_verily_setup.md",
+              "runbook_ready": true,
+              "scaffold_allowed_now": false,
+              "submission_status": "ready_to_submit_after_user_fill_and_governance"
+            },
+            "state": "submitted_pending_approval",
+            "submission_evidence": {
+              "approval_claimed": false,
+              "completed_packet_committed": false,
+              "confirmation_reference": "non-protected confirmation id",
+              "credentials_or_tokens_included": false,
+              "notes": "",
+              "pre_submission_preflight_passed": true,
+              "protected_row_dump_included": false,
+              "route_id": "ppmi_verily",
+              "submission_channel": "PPMI access workflow plus Tier-3 Verily packet email",
+              "submitted_at_utc": "2026-05-10T00:00:00Z",
+              "submitted_by": "institutional PI or approved delegate"
+            }
+          },
+          "next_action": {
+            "action": "wait_for_access_approval",
+            "allowed_now": [
+              "wait for access approval"
+            ],
+            "blocked_actions_now": [
+              "probe script against protected data",
+              "download script",
+              "cache extraction",
+              "pre-registration using new labels",
+              "remote job",
+              "model run",
+              "canonical T1/T3 claim update"
+            ],
+            "lifecycle_state": "submitted_pending_approval",
+            "requires_user_action": true,
+            "route_id": "ppmi_verily",
+            "safe_to_execute_code": false
+          },
+          "not_approval": true,
+          "protected_data_included": false,
+          "route_id": "ppmi_verily",
+          "route_name": "PPMI / Verily Study Watch",
+          "submission_evidence": {
+            "approval_claimed": false,
+            "completed_packet_committed": false,
+            "confirmation_reference": "non-protected confirmation id",
+            "credentials_or_tokens_included": false,
+            "notes": "",
+            "pre_submission_preflight_passed": true,
+            "protected_row_dump_included": false,
+            "route_id": "ppmi_verily",
+            "submission_channel": "PPMI access workflow plus Tier-3 Verily packet email",
+            "submitted_at_utc": "2026-05-10T00:00:00Z",
+            "submitted_by": "institutional PI or approved delegate"
+          }
+        },
+        "returncode": 0
+      },
+      "name": "recorder dry-run emits valid PPMI submitted-pending record",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "approval_claimed": false,
+        "completed_packet_included": false,
+        "credentials_or_tokens_included": false,
+        "not_approval": true,
+        "pre_submission_preflight_passed": true,
+        "protected_data_included": false
+      },
+      "name": "submission record remains non-protected and not approval",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "next_action": {
+          "action": "wait_for_access_approval",
+          "allowed_now": [
+            "wait for access approval"
+          ],
+          "blocked_actions_now": [
+            "probe script against protected data",
+            "download script",
+            "cache extraction",
+            "pre-registration using new labels",
+            "remote job",
+            "model run",
+            "canonical T1/T3 claim update"
+          ],
+          "lifecycle_state": "submitted_pending_approval",
+          "requires_user_action": true,
+          "route_id": "ppmi_verily",
+          "safe_to_execute_code": false
+        }
+      },
+      "name": "submitted route keeps all pre-access compute actions blocked",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "gitignore": ".gitignore"
+      },
+      "name": "default submission output directory is gitignored",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "refusing to write submission evidence outside .access_submissions/ without --allow-output-outside-ignored-dir\n",
+        "returncode": 1
+      },
+      "name": "recorder refuses non-ignored output path by default",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "submission evidence appears to be synthetic or audit-only metadata\n",
+        "returncode": 1
+      },
+      "name": "recorder refuses synthetic or audit-only submission sources",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "invalid submission evidence: submitted_at_utc contains an unfilled placeholder; submission_channel contains an unfilled placeholder; submitted_by contains an unfilled placeholder; confirmation_reference contains an unfilled placeholder; submission: submitted_at_utc contains an unfilled placeholder; submission: submission_channel contains an unfilled placeholder; submission: submitted_by contains an unfilled placeholder; submission: confirmation_reference contains an unfilled placeholder\n",
+        "returncode": 1
+      },
+      "name": "recorder refuses unfilled submission command-template placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "invalid submission evidence: pre-submission completed-packet/package preflight must have passed; submission: pre-submission completed-packet/package preflight must have passed\n",
+        "returncode": 1
+      },
+      "name": "recorder refuses submission metadata without pre-submission preflight assertion",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "output_tail": "invalid submission evidence: confirmation_reference must not contain local paths or completed-file references; notes must not contain credentials or token-like strings; submission: confirmation_reference must not contain local paths or completed-file references; submission: notes must not contain credentials or token-like strings\n",
+        "path_echoed": false,
+        "returncode": 1,
+        "secret_echoed": false
+      },
+      "name": "recorder refuses local completed-file references and token-like metadata",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_error_filename_echoed": false,
+        "bad_error_path_echoed": false,
+        "bad_output_tail": "tracker source is not valid JSON\n",
+        "bad_returncode": 1,
+        "missing_error_filename_echoed": false,
+        "missing_error_path_echoed": false,
+        "missing_output_tail": "tracker source is missing\n",
+        "missing_returncode": 1
+      },
+      "name": "recorder input JSON loader errors fail closed with tracker identity redacted",
+      "passed": true
+    }
+  ],
+  "claim": "A top-priority PPMI submission can now be recorded in an ignored local file after user submission, while the lifecycle remains submitted-pending-approval and all protected-data/model actions stay blocked. Malformed tracker JSON fails closed without a traceback or tracker path/name echo, synthetic or audit-only submission sources are rejected, unfilled command-template placeholders are rejected, and local completed-file references or token-like metadata are rejected without echoing the sensitive value.",
+  "decision": "access_submission_recorder_passed",
+  "generated_at_utc": "2026-05-16T12:52:16+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_access_submission_recorder.py"
+}

@@ -2,7 +2,7 @@
 
 Passed: `true`
 Source verifier goal complete: `false`
-Source blockers: `36`
+Source blockers: `37`
 Local WearGait-only model actions remaining: `0`
 Unclassified blockers: `0`
 
@@ -15,6 +15,7 @@ Every current blocker must map to a non-redundant next-action boundary. A new We
 ### Categories
 
 - `clinical_plus_imu_boundary`: 1
+- `deployable_secondary_boundary_not_promoted`: 2
 - `diagnostic_no_single_subject_redline`: 1
 - `external_access_required`: 6
 - `external_access_required_small_or_schema_hidden`: 2
@@ -33,7 +34,6 @@ Every current blocker must map to a non-redundant next-action boundary. A new We
 - `provenance_raw_data_blocked`: 2
 - `t1_candidate_caveated`: 2
 - `target_hygiene_sensitivity_failed`: 1
-- `uncertainty_no_rescue`: 1
 
 ### Action Types
 
@@ -44,7 +44,7 @@ Every current blocker must map to a non-redundant next-action boundary. A new We
 - `no_prereg_no_download`: 3
 - `no_prereg_no_rerun_same_policy`: 1
 - `paper_transportability_only`: 4
-- `paper_uncertainty_only`: 1
+- `paper_uncertainty_only`: 2
 - `requires_user_credentials_or_confirmation`: 1
 - `requires_user_or_data_owner_access`: 8
 - `requires_weargait_raw_data_restore`: 2
@@ -76,23 +76,24 @@ Every current blocker must map to a non-redundant next-action boundary. A new We
 | 14 | `internal_t3_failed_gate` | `no_local_weargait_model_run` | iter40 local-residual wildcard failed its 5-fold gate. |
 | 15 | `internal_t3_failed_gate` | `no_local_weargait_model_run` | iter50 low-degree nested convex mix failed its corrected-target 5-fold gate; nested-convex CCC was 0.3083 vs baseline 0.3759. |
 | 16 | `target_hygiene_sensitivity_failed` | `disclosure_only_no_model_run` | iter42 primary Part III proration failed; loose le7 sensitivity is not promotable. |
-| 17 | `uncertainty_no_rescue` | `paper_uncertainty_only` | Current conformal/abstention shows wide T3 intervals and no deployable abstention rescue. |
-| 18 | `external_result_only` | `paper_transportability_only` | COPS iter49 full zero-shot is external-validity evidence only: wrist-only transfer is null, clinical+wrist transfer is partial, and it cannot update the internal T3 headline. |
-| 19 | `external_result_only` | `paper_transportability_only` | TLVMC/DeFOG iter51 is partial external-validity evidence only: Track A lower-back magnitude CCC is 0.2695 with compressed predictions, and no external outcome can update the internal T3 headline. |
-| 20 | `external_result_only` | `paper_transportability_only` | PDFE turning-in-place iter52 is external-validity evidence only: WearGait shank transfer is negative (Track A CCC -0.1008), clinical+shank transfer is weak/uncertain (Track B 0.1340 with CI crossing zero), and no external outcome can update the internal T3 headline. |
-| 21 | `external_route_stopped_before_scoring` | `no_prereg_no_rerun_same_policy` | Parkinson@Home iter53 is a public direct T3 route but hard-stopped before scoring: only 18 valid OFF PD subjects remained after the frozen feature-readability filter versus the pre-registered N>=20 minimum, so no Track A/C/D metric exists and no internal T3 headline can change. |
-| 22 | `external_access_required` | `requires_user_or_data_owner_access` | Hssayeni/MJFF external data path remains Synapse DUA-blocked. |
-| 23 | `external_access_required` | `requires_user_or_data_owner_access` | PPMI/Verily is a newly documented priority external route, but it also requires PPMI DUA/application credentials before any scaffold or remote job is justified. |
-| 24 | `external_access_required` | `requires_user_or_data_owner_access` | WATCH-PD is a protocol-matched direct T3 route, but it requires C-Path 3DT or Steering Committee access and row-level schema before any scaffold or remote job is justified. |
-| 25 | `external_access_required` | `requires_user_or_data_owner_access` | ICICLE-PD/ICICLE-GAIT is a request-gated lower-back longitudinal T3 route; no scaffold or remote job is justified until data access and schema exist. |
-| 26 | `external_access_required` | `requires_user_or_data_owner_access` | CNS Portugal/Lobo AX3 gait is a request-gated direct T3 route; no scaffold or remote job is justified until author/CNS data access and schema exist. |
-| 27 | `external_watchlist_not_compute_ready` | `monitor_or_request_no_scaffold` | Mobilise-D TVS is not a clinical UPDRS-III regression route, and Mobilise-D CVS remains a release/schema watch route; no scaffold or remote job is justified until row-level data access exists. |
-| 28 | `not_t1_t3_eligible` | `no_prereg_no_download` | Harmonized Upper/Lower Limb Accelerometry is daily-life ActiGraph rehab data with no confirmed Part III/T1 target; no scaffold or remote job is justified for T1/T3 CCC. |
-| 29 | `not_t1_t3_eligible` | `no_prereg_no_download` | Monipar/BIOCLITE are public consumer-smartwatch subitem datasets, but neither has total T3 or the full T1 9-14 composite; no preregistration or download is justified for this objective. |
-| 30 | `not_t1_t3_eligible` | `no_prereg_no_download` | Zenodo 14848598 is a public derived CSF/clinical/gait-summary table, not raw wearable IMU or an auditable T1/T3 sensor-clinical cohort; no preregistration or download is justified. |
-| 31 | `external_access_required_small_or_schema_hidden` | `requires_user_or_data_owner_access` | Fay-Karmon advanced-PD smartwatch monitoring is N=21, request-only, proprietary/schema-hidden, and no T1 route is visible; no scaffold or remote job is justified before author approval and row-level schema. |
-| 32 | `external_access_required_small_or_schema_hidden` | `requires_user_or_data_owner_access` | Marital-dyad GeneActiv social actigraphy is N=27 PD, request-only, daily-life/dyad oriented rather than structured gait/balance, and no T1 route is visible; no scaffold or remote job is justified before author approval and row-level schema. |
-| 33 | `external_access_required` | `requires_user_or_data_owner_access` | Personalized Parkinson Project / PD-VME is a strong Verily-watch peer route, but it is RDSRC-gated and schema-hidden; no scaffold or remote job is justified until access exists. |
-| 34 | `t1_candidate_caveated` | `candidate_disclosure_no_posthoc_lockbox` | T1 iter34 is above the canonical floor but remains a candidate: P2 noisy-test robustness has no point-estimate leak, but its bootstrap upper bound crosses the +0.05 margin. |
-| 35 | `t1_candidate_caveated` | `candidate_disclosure_no_posthoc_lockbox` | T1 iter34 also carries an auxiliary-label/order caveat: NLS036 had invalid auxiliary item15=18; random chain order puts item15 upstream of T1 items in 2/3 locked seeds, though the all-base stale-vs-valid 5-fold common-SID delta was only -0.0008 CCC. No post-hoc N=92 lockbox is planned. |
-| 36 | `internal_t1_followup_failed` | `no_local_weargait_model_run` | T1 iter46 ET-only robustification did not break iter34 and did not strictly clear iter12. |
+| 17 | `deployable_secondary_boundary_not_promoted` | `paper_uncertainty_only` | T3 Slot F CQR-width abstention opens a deployable-secondary boundary result (0.4237 @70%, 0.5370 @50%), but the seed-101 replication still fails the frac>full >= 0.95 promotion gate, so it does not rescue the full-cohort T3 ceiling. |
+| 18 | `deployable_secondary_boundary_not_promoted` | `paper_uncertainty_only` | T3 S13/S15 PH/MFDFA transfer extension is closed without promotion: S13 JOINT failed the 5-fold screen and S15 retained-bootstrap frac>full remains below 0.95 at both 70% and 50% coverage. |
+| 19 | `external_result_only` | `paper_transportability_only` | COPS iter49 full zero-shot is external-validity evidence only: wrist-only transfer is null, clinical+wrist transfer is partial, and it cannot update the internal T3 headline. |
+| 20 | `external_result_only` | `paper_transportability_only` | TLVMC/DeFOG iter51 is partial external-validity evidence only: Track A lower-back magnitude CCC is 0.2695 with compressed predictions, and no external outcome can update the internal T3 headline. |
+| 21 | `external_result_only` | `paper_transportability_only` | PDFE turning-in-place iter52 is external-validity evidence only: WearGait shank transfer is negative (Track A CCC -0.1008), clinical+shank transfer is weak/uncertain (Track B 0.1340 with CI crossing zero), and no external outcome can update the internal T3 headline. |
+| 22 | `external_route_stopped_before_scoring` | `no_prereg_no_rerun_same_policy` | Parkinson@Home iter53 is a public direct T3 route but hard-stopped before scoring: only 18 valid OFF PD subjects remained after the frozen feature-readability filter versus the pre-registered N>=20 minimum, so no Track A/C/D metric exists and no internal T3 headline can change. |
+| 23 | `external_access_required` | `requires_user_or_data_owner_access` | Hssayeni/MJFF external data path remains Synapse DUA-blocked. |
+| 24 | `external_access_required` | `requires_user_or_data_owner_access` | PPMI/Verily is a newly documented priority external route, but it also requires PPMI DUA/application credentials before any scaffold or remote job is justified. |
+| 25 | `external_access_required` | `requires_user_or_data_owner_access` | WATCH-PD is a protocol-matched direct T3 route, but it requires C-Path 3DT or Steering Committee access and row-level schema before any scaffold or remote job is justified. |
+| 26 | `external_access_required` | `requires_user_or_data_owner_access` | ICICLE-PD/ICICLE-GAIT is a request-gated lower-back longitudinal T3 route; no scaffold or remote job is justified until data access and schema exist. |
+| 27 | `external_access_required` | `requires_user_or_data_owner_access` | CNS Portugal/Lobo AX3 gait is a request-gated direct T3 route; no scaffold or remote job is justified until author/CNS data access and schema exist. |
+| 28 | `external_watchlist_not_compute_ready` | `monitor_or_request_no_scaffold` | Mobilise-D TVS is not a clinical UPDRS-III regression route, and Mobilise-D CVS remains a release/schema watch route; no scaffold or remote job is justified until row-level data access exists. |
+| 29 | `not_t1_t3_eligible` | `no_prereg_no_download` | Harmonized Upper/Lower Limb Accelerometry is daily-life ActiGraph rehab data with no confirmed Part III/T1 target; no scaffold or remote job is justified for T1/T3 CCC. |
+| 30 | `not_t1_t3_eligible` | `no_prereg_no_download` | Monipar/BIOCLITE are public consumer-smartwatch subitem datasets, but neither has total T3 or the full T1 9-14 composite; no preregistration or download is justified for this objective. |
+| 31 | `not_t1_t3_eligible` | `no_prereg_no_download` | Zenodo 14848598 is a public derived CSF/clinical/gait-summary table, not raw wearable IMU or an auditable T1/T3 sensor-clinical cohort; no preregistration or download is justified. |
+| 32 | `external_access_required_small_or_schema_hidden` | `requires_user_or_data_owner_access` | Fay-Karmon advanced-PD smartwatch monitoring is N=21, request-only, proprietary/schema-hidden, and no T1 route is visible; no scaffold or remote job is justified before author approval and row-level schema. |
+| 33 | `external_access_required_small_or_schema_hidden` | `requires_user_or_data_owner_access` | Marital-dyad GeneActiv social actigraphy is N=27 PD, request-only, daily-life/dyad oriented rather than structured gait/balance, and no T1 route is visible; no scaffold or remote job is justified before author approval and row-level schema. |
+| 34 | `external_access_required` | `requires_user_or_data_owner_access` | Personalized Parkinson Project / PD-VME is a strong Verily-watch peer route, but it is RDSRC-gated and schema-hidden; no scaffold or remote job is justified until access exists. |
+| 35 | `t1_candidate_caveated` | `candidate_disclosure_no_posthoc_lockbox` | T1 hygiene-corrected iter34 is above the canonical floor but remains a candidate: CCC 0.7170 on N=92, below the superseded original N=93 iter34 value 0.7366. |
+| 36 | `t1_candidate_caveated` | `candidate_disclosure_no_posthoc_lockbox` | T1 iter34 still carries robustness caveats: the original P2 noisy-test bootstrap upper bound crosses the +0.05 margin, and the valid-auxiliary rerun degraded rather than broke the old ceiling. |
+| 37 | `internal_t1_followup_failed` | `no_local_weargait_model_run` | T1 iter46 ET-only robustification did not break iter34 and did not strictly clear iter12. |

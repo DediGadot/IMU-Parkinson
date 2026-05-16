@@ -33,13 +33,43 @@
         "no endpoint switching"
       ]
     },
+    "official_source_recheck_20260516": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "current official source recheck on 2026-05-16",
+        "sign the data use agreement",
+        "submit an online application",
+        "comply with the publications policy",
+        "data and publications committee within one week"
+      ]
+    },
     "official_sources": {
       "missing_terms": [],
       "passed": true,
       "required_terms": [
         "ppmi-info.org/access-data-specimens/download-data",
         "ppmi data access guidelines",
+        "version 7.0",
+        "15 feb 2026",
         "nature.com/articles/s41531-025-01034-8"
+      ]
+    },
+    "proresults_external_blueprint": {
+      "missing_terms": [],
+      "passed": true,
+      "required_terms": [
+        "ppmi_verily_zeroshot_blueprint_20260515.json",
+        "analysis-order and no-search boundary",
+        "not a preregistration",
+        "persistent homology",
+        "multifractal detrended fluctuation analysis",
+        "ph/mfdfa",
+        "topofractal",
+        "k=250",
+        "gradientboostingregressor",
+        "no k-search",
+        "no endpoint switching"
       ]
     },
     "purpose_and_no_sharing": {
@@ -59,7 +89,8 @@
         "intended use",
         "analysis synopsis",
         "named research team",
-        "data custodian"
+        "data custodian",
+        "all requesting research-team members"
       ]
     },
     "security_plan": {
@@ -89,11 +120,13 @@
       "required_terms": [
         "verily raw device data",
         "tier 3",
-        "resources@michaeljfox.org"
+        "resources@michaeljfox.org",
+        "pdf or word",
+        "30 days"
       ]
     }
   },
-  "created_at_utc": "2026-05-09T11:53:20.147286+00:00",
+  "created_at_utc": "2026-05-16T12:51:36.134754+00:00",
   "decision": "ppmi_verily_tier3_request_packet_ready",
   "goal_complete": false,
   "hard_failures": [],
@@ -109,6 +142,27 @@
       "re-acknowledgement of no-sharing and purpose limits"
     ],
     "tier3_verily": "Verily Raw Device Data is Tier 3 and needs a specific request packet"
+  },
+  "official_source_recheck": {
+    "access_page": "https://www.ppmi-info.org/access-data-specimens/download-data",
+    "access_page_requirements": [
+      "sign the Data Use Agreement",
+      "submit an online application",
+      "comply with the Publications Policy",
+      "Data and Publications Committee review within one week"
+    ],
+    "guidelines_pdf": "https://www.ppmi-info.org/sites/default/files/docs/PPMI%20Data%20Access%20Guidelines.pdf",
+    "guidelines_version": "Version 7.0, 15 Feb 2026",
+    "not_a_schema_probe": true,
+    "not_access_approval": true,
+    "not_access_submission": true,
+    "packet_terms_passed": true,
+    "runbook_missing_terms": [],
+    "runbook_terms_passed": true,
+    "tier3_contact": "resources@michaeljfox.org",
+    "tier3_review_target": "30 days after receipt",
+    "tier3_verily_access_level": "Tier 3",
+    "verified_on": "2026-05-16"
   },
   "packet": "scripts/ppmi_verily_tier3_request_packet.md",
   "packet_exists": true,

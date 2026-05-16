@@ -1,0 +1,10 @@
+{
+  "name": "abstention_sanity_t1_S3_ordinal_composer",
+  "created_at_utc": "20260515T104700Z",
+  "lockbox_target": "lockbox_t1_S3_ordinal_composer",
+  "feature_form": "TopoFractal-6-mean + iter34_item_pred_j (y-free)",
+  "model_form": "proportional-odds: 4x LogisticRegression, alpha selected via inner 5-fold on outer train only",
+  "single_fold_smoke_delta": 0.0,
+  "y_test_untouched_after_fold_pass": true,
+  "test_passes": true
+}

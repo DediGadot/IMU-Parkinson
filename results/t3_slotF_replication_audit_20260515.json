@@ -1,0 +1,89 @@
+{
+  "name": "t3_slotF_replication_audit",
+  "created_at_utc": "2026-05-15T12:24:09.049923+00:00",
+  "script": "audit_t3_slotF_replication.py",
+  "not_a_model_result": true,
+  "goal_complete": false,
+  "original_artifact": "results/lockbox_t3_slotF_cqr_width_conformal_20260515T100031Z.json",
+  "replication_artifact": "results/lockbox_t3_slotF_cqr_width_conformal_20260515T121511Z_slotFrep_seed101.json",
+  "replication_seed": 101,
+  "original_seed": 42,
+  "bootstrap_seed": 424242,
+  "gates": {
+    "replicated_uncorrected_frac_gate": 0.95,
+    "replicated_mcid": 0.005,
+    "requires_both_original_and_replication": true
+  },
+  "coverage_rows": {
+    "cov_70": {
+      "original": {
+        "coverage": 0.7,
+        "n_retained": 66,
+        "retained_ccc": 0.4237,
+        "delta_retained_vs_full": 0.0453,
+        "frac_retained_above_full": 0.6315,
+        "ci95": [
+          0.2074,
+          0.5763
+        ],
+        "passes_uncorrected_frac_gate": false,
+        "passes_mcid_005": true,
+        "artifact_verdict": "FAIL"
+      },
+      "replication": {
+        "coverage": 0.7,
+        "n_retained": 66,
+        "retained_ccc": 0.4237,
+        "delta_retained_vs_full": 0.0453,
+        "frac_retained_above_full": 0.663,
+        "ci95": [
+          0.1962,
+          0.5797
+        ],
+        "passes_uncorrected_frac_gate": false,
+        "passes_mcid_005": true,
+        "artifact_verdict": "FAIL"
+      },
+      "same_retained_ccc": true,
+      "same_delta": true,
+      "replicated_gate_pass": false
+    },
+    "cov_50": {
+      "original": {
+        "coverage": 0.5,
+        "n_retained": 48,
+        "retained_ccc": 0.537,
+        "delta_retained_vs_full": 0.1587,
+        "frac_retained_above_full": 0.9285,
+        "ci95": [
+          0.3156,
+          0.6814
+        ],
+        "passes_uncorrected_frac_gate": false,
+        "passes_mcid_005": true,
+        "artifact_verdict": "FAIL"
+      },
+      "replication": {
+        "coverage": 0.5,
+        "n_retained": 48,
+        "retained_ccc": 0.537,
+        "delta_retained_vs_full": 0.1587,
+        "frac_retained_above_full": 0.9295,
+        "ci95": [
+          0.3157,
+          0.6791
+        ],
+        "passes_uncorrected_frac_gate": false,
+        "passes_mcid_005": true,
+        "artifact_verdict": "FAIL"
+      },
+      "same_retained_ccc": true,
+      "same_delta": true,
+      "replicated_gate_pass": false
+    }
+  },
+  "hard_failures": [],
+  "decision": "slotF_replication_boundary_lift_not_promoted",
+  "passed": true,
+  "claim": "Slot F remains a useful T3 deployable-secondary boundary-lift result, but it is not promoted under the replicated-uncorrected gate because neither retained coverage clears frac>full >= 0.95 in both original and seed-101 replication artifacts."
+}

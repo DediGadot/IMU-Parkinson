@@ -22,7 +22,7 @@ MANIFEST = OUT_DIR / "manifest.json"
 
 REQUIRED_SNIPPETS = [
     "T1 LOOCV CCC = 0.6550",
-    "T1 LOOCV CCC = 0.7366",
+    "T1 LOOCV CCC = 0.7170",
     "T1 LOSO transportability mean CCC = 0.456",
     "T3 LOOCV CCC = 0.3784",
     "T3 LOSO transportability mean CCC = 0.150",

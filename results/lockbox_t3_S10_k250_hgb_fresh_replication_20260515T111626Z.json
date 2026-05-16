@@ -1,0 +1,84 @@
+{
+  "name": "lockbox_t3_S10_k250_hgb_fresh_replication",
+  "created_at_utc": "2026-05-15T11:16:26+00:00",
+  "preregistration_master": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "preregistration_file": "/home/fiod/pd-imu/results/preregistration_t3_S10_k250_hgb_fresh_replication_20260515T111626Z.json",
+  "formula_sha256": "c7571f3cdbc53b0071078753363585d8ad0dbff20aa67fe68f39b9351c9e0c08",
+  "git_sha": "unknown",
+  "fwer_family_for_this_slot": {
+    "members": [
+      "iter47_baseline",
+      "S10_k250_hgb_replication"
+    ],
+    "n_members": 2,
+    "bonferroni_gate": 0.975,
+    "single_comparison_gate": 0.95,
+    "justification_for_K250_choice": "External: 2026-05-13 K-sweep monotonic hump locked in lockbox_t3_gb_ksweep_fwer_bootstrap_20260513_030050.json. K=250 is the peak of a smooth response curve; not in-cohort selection from THIS run."
+  },
+  "session": "2026-05-15-PM-S10-replication",
+  "n_cohort": 95,
+  "cohort": "drop_allmissing_validrange",
+  "stage2_policy": "stage2_current",
+  "seeds_fresh": [
+    101,
+    202,
+    303
+  ],
+  "K_features": 250,
+  "stage2_regressor": "HistGradientBoostingRegressor(max_iter=200, learning_rate=0.05, max_depth=4, random_state=seed)",
+  "iter47_baseline_ccc": 0.3784,
+  "iter47_baseline_loocv_recomputed_metrics": {
+    "n": 95,
+    "ccc": 0.3784,
+    "cal_slope": 0.2692,
+    "mae": 7.528,
+    "r": 0.4141,
+    "pred_mean": 24.815,
+    "pred_std": 6.446,
+    "true_mean": 25.0,
+    "true_std": 9.913,
+    "label": "iter47_baseline_loocv"
+  },
+  "k250_hgb_pooled_ccc": 0.3711,
+  "k250_hgb_pooled_metrics": {
+    "n": 95,
+    "ccc": 0.3711,
+    "cal_slope": 0.2607,
+    "mae": 7.3692,
+    "r": 0.4098,
+    "pred_mean": 24.825,
+    "pred_std": 6.306,
+    "true_mean": 25.0,
+    "true_std": 9.913,
+    "label": "S10_k250_hgb_pooled_mean3"
+  },
+  "per_seed_ccc": [
+    0.3711,
+    0.3711,
+    0.3711
+  ],
+  "delta_vs_iter47": -0.007300000000000029,
+  "paired_bootstrap": {
+    "n_boot": 5000,
+    "mean_delta": -0.006348392450847711,
+    "ci95": [
+      -0.08242339489657591,
+      0.07369796920280378
+    ],
+    "frac_gt_0": 0.4274
+  },
+  "bootstrap_frac_pos": 0.4274,
+  "bootstrap_ci95": [
+    -0.08242339489657591,
+    0.07369796920280378
+  ],
+  "verdict": "FAIL",
+  "compares_to_20260513_finding": "K=250 sklearn GB \u0394=+0.0732 frac>0=0.9518 in 2026-05-13 lockbox (results/lockbox_t3_gb_ksweep_fwer_bootstrap_20260513_030050.json)",
+  "ksweep_lockbox": "results/lockbox_t3_gb_ksweep_fwer_bootstrap_20260513_030050.json",
+  "iter47_baseline_csv": "/home/fiod/pd-imu/results/iter47_invalidcode_subject_preds_20260508_194605.csv",
+  "excluded_sids": [
+    "NLS188",
+    "WPD013",
+    "NLS151"
+  ]
+}

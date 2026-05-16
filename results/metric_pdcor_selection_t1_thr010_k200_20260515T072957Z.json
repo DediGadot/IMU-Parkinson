@@ -1,0 +1,40 @@
+{
+  "target": "t1",
+  "threshold": 0.1,
+  "max_k": 200,
+  "ridge_alpha": 10.0,
+  "N": 92,
+  "baseline": {
+    "n": 92,
+    "ccc": 0.717,
+    "cal_slope": 0.8151,
+    "mae": 1.7356,
+    "r": 0.7223,
+    "pred_mean": 4.058,
+    "pred_std": 3.106,
+    "true_mean": 4.033,
+    "true_std": 2.752,
+    "label": "canonical_OOF"
+  },
+  "stacked": {
+    "n": 92,
+    "ccc": 0.0204,
+    "cal_slope": 0.9841,
+    "mae": 4.8799,
+    "r": 0.1012,
+    "pred_mean": 1.276,
+    "pred_std": 26.752,
+    "true_mean": 4.033,
+    "true_std": 2.752,
+    "label": "canonical_OOF_plus_pdcor_selection"
+  },
+  "delta_ccc": -0.6966,
+  "delta_ccc_bootstrap_median": -0.6526867261283888,
+  "delta_ccc_bootstrap_ci_lower": -0.7724850138141783,
+  "delta_ccc_bootstrap_ci_upper": -0.04481666298570574,
+  "delta_ccc_bootstrap_frac_positive": 0.001,
+  "selected_count_mean": 128.4673913043478,
+  "selected_count_min": 101,
+  "selected_count_max": 151,
+  "wall_time_seconds": 174.34844374656677
+}

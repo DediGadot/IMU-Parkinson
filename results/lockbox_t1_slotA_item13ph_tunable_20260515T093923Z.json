@@ -1,0 +1,69 @@
+{
+  "name": "lockbox_t1_slotA_item13ph_tunable",
+  "created_at_utc": "20260515T093923Z",
+  "session": "2026-05-15-PM",
+  "preregistration_master": "results/preregistration_t1_ceiling_push_20260515_master.json",
+  "null_mode": "real",
+  "n": 92,
+  "n_features_ph": 32,
+  "alpha_grid": [
+    10.0,
+    30.0,
+    100.0,
+    300.0,
+    1000.0
+  ],
+  "lambda_grid": [
+    0.25,
+    0.5,
+    0.75,
+    1.0,
+    1.25
+  ],
+  "inner_folds": 5,
+  "baseline_iter34": {
+    "ccc": 0.717,
+    "mae": 1.7356,
+    "r": 0.7223
+  },
+  "corrected_metrics": {
+    "ccc": 0.7268,
+    "mae": 1.7325,
+    "r": 0.7349
+  },
+  "delta": {
+    "ccc": 0.0097,
+    "mae": -0.0031,
+    "r": 0.0126
+  },
+  "bootstrap": {
+    "n_boot": 2000,
+    "median_delta": 0.0103,
+    "ci95_lower": -0.0052,
+    "ci95_upper": 0.0283,
+    "frac_positive": 0.897
+  },
+  "fold_choices": {
+    "alpha_mode": 10,
+    "alpha_distribution": {
+      "10.0": 54,
+      "30.0": 38
+    },
+    "lambda_mode": 1.25,
+    "lambda_distribution": {
+      "1.25": 51,
+      "1.0": 36,
+      "0.75": 4,
+      "0.5": 1
+    }
+  },
+  "d4_audit": {
+    "corr_correction_T1sum_residual": 0.1531
+  },
+  "gates": {
+    "today_n2_bonferroni_gate": 0.975,
+    "lifetime_n6_bonferroni_gate": 0.99167,
+    "mcid_delta_ccc": 0.025
+  },
+  "verdict": "FAIL"
+}

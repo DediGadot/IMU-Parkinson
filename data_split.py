@@ -10,6 +10,7 @@ Usage:
     from data_split import load_split, load_windows_for_subjects
     split = load_split()  # returns {"dev_sids", "test_sids", "subjects"}
 """
+import logging
 import os
 import json
 from pathlib import Path
@@ -20,6 +21,8 @@ from project_paths import DATA_DIR, SPLIT_FILE, ensure_parent
 
 DATA_DIR = str(DATA_DIR)
 SPLIT_FILE = str(SPLIT_FILE)
+
+_log = logging.getLogger(__name__)
 
 FS = 100
 WINDOW_LEN = 1000
@@ -101,8 +104,9 @@ def _get_valid_sids(subjects, tasks=("SelfPace", "HurriedPace")):
             if not os.path.exists(csv_path):
                 continue
             try:
-                df = pd.read_csv(csv_path, nrows=5)
-            except Exception:
+                df = pd.read_csv(csv_path, nrows=0)
+            except Exception as e:
+                _log.warning("Skipping %s in _get_valid_sids: %s", csv_path, e)
                 continue
             missing = [c for c in IMU_COLS if c not in df.columns]
             if not missing:
@@ -181,7 +185,8 @@ def load_windows_for_sids(subjects, sid_list, tasks=("SelfPace", "HurriedPace"))
                 continue
             try:
                 df = pd.read_csv(csv_path)
-            except Exception:
+            except Exception as e:
+                _log.warning("Skipping %s in load_windows_for_sids: %s", csv_path, e)
                 continue
             missing = [c for c in IMU_COLS if c not in df.columns]
             if missing:
@@ -224,7 +229,8 @@ def load_unlabeled_for_sids(subjects, sid_list, tasks):
                 continue
             try:
                 df = pd.read_csv(csv_path)
-            except Exception:
+            except Exception as e:
+                _log.warning("Skipping %s in load_unlabeled_for_sids: %s", csv_path, e)
                 continue
             missing = [c for c in IMU_COLS if c not in df.columns]
             if missing:
@@ -262,8 +268,9 @@ def cv_split_with_val(X, y, sids, n_splits=5, val_frac=0.1, seed=42):
         n_val_subj = max(1, int(len(train_sids_unique) * val_frac))
         val_subjects = set(train_sids_unique[:n_val_subj])
 
-        val_idx = np.array([i for i in fold_train_idx if sids[i] in val_subjects])
-        train_idx = np.array([i for i in fold_train_idx if sids[i] not in val_subjects])
+        val_mask = np.isin(sids[fold_train_idx], list(val_subjects))
+        val_idx = fold_train_idx[val_mask]
+        train_idx = fold_train_idx[~val_mask]
 
         yield train_idx, val_idx, test_idx
 

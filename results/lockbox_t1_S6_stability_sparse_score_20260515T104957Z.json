@@ -1,0 +1,31 @@
+{
+  "name": "lockbox_t1_S6_stability_sparse_score",
+  "created_at_utc": "20260515T104957Z",
+  "preregistration": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "slot": "S6",
+  "estimand": "stable_column_descriptiveness_NOT_HEADLINE_CCC",
+  "n_cohort": 92,
+  "split_seed": 20260309,
+  "bootstrap_seed": 20260515,
+  "n_bootstrap": 100,
+  "stability_freq_gate": 0.6,
+  "leave_task_out_drop_max_pp": 20.0,
+  "sign_consistency_gate": 0.95,
+  "lasso_alphas": [
+    0.001,
+    0.01,
+    0.1,
+    1.0
+  ],
+  "lasso_cv_folds": 5,
+  "pdcor_backend": "pearson_r_fallback",
+  "stable_cols_per_item": {
+    "item_13": [],
+    "item_14": [],
+    "item_10": []
+  },
+  "ph_posture_score_components": [],
+  "mfdfa_gait_score_components": [],
+  "verdict": "DESCRIPTIVENESS_RECORDED",
+  "deployment_note": "Stable column lists are intended to be re-frozen as a fixed formula at external replication (PPMI/Verily). No headline CCC is claimed."
+}

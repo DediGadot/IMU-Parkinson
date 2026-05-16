@@ -1,0 +1,62 @@
+{
+  "cell": "B_t3_cqr",
+  "n": 95,
+  "K": 250,
+  "score": "cqr_width_q95_minus_q05",
+  "seed_results": [
+    {
+      "seed": 42,
+      "ccc_q50_full": 0.2905327747337809
+    },
+    {
+      "seed": 1337,
+      "ccc_q50_full": 0.30961127379975156
+    },
+    {
+      "seed": 7,
+      "ccc_q50_full": 0.32882280736500485
+    }
+  ],
+  "ccc_q50_avg_full": 0.31210648376318095,
+  "rows": [
+    {
+      "retained_n": 94,
+      "retained_ccc": 0.29221218964169626,
+      "retained_mae": 7.666473809686616,
+      "coverage_target": 1.0,
+      "threshold_mean": 25.996370963580993,
+      "threshold_std": 0.2600913408930645,
+      "threshold_cv": 0.010004909579780707
+    },
+    {
+      "retained_n": 80,
+      "retained_ccc": 0.2718016144178916,
+      "retained_mae": 8.057983550536335,
+      "coverage_target": 0.85,
+      "threshold_mean": 19.071219563562682,
+      "threshold_std": 0.01854460075308527,
+      "threshold_cv": 0.0009723867260443288
+    },
+    {
+      "retained_n": 66,
+      "retained_ccc": 0.27374056978363426,
+      "retained_mae": 7.835103566985786,
+      "coverage_target": 0.7,
+      "threshold_mean": 17.18474514995713,
+      "threshold_std": 0.06071748820994297,
+      "threshold_cv": 0.0035332201717343734
+    },
+    {
+      "retained_n": 47,
+      "retained_ccc": 0.27526890949115623,
+      "retained_mae": 8.582800622037086,
+      "coverage_target": 0.5,
+      "threshold_mean": 15.723110543813686,
+      "threshold_std": 0.028746891028414098,
+      "threshold_cv": 0.0018283208623579045
+    }
+  ],
+  "monotonicity_violations": 1,
+  "verdict": "PARTIAL_OR_FAIL",
+  "comparator_baseline_t3_conformal_v2_70%": 0.329
+}

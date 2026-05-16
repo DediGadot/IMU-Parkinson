@@ -1,0 +1,17 @@
+{
+  "script": "cache_v3_titd_features.py",
+  "git_sha": "unknown",
+  "created_at_utc": "2026-05-12T19:17:58Z",
+  "labels_used": false,
+  "cohort_statistics_used": false,
+  "fold_scope": "global",
+  "tasks": [
+    "SelfPace",
+    "HurriedPace",
+    "TandemGait"
+  ],
+  "min_strides": 10,
+  "rationale": "V3 trial-internal temporal drift features (motor fatigability); orthogonal 1st-moment dimension vs V2 (0th moment) and V3-GSP (spatial graph spectrum).",
+  "n_features_total": 96,
+  "n_subjects": 99
+}

@@ -1,0 +1,112 @@
+{
+  "name": "preregistration_t1_ceiling_push_20260515_master",
+  "created_at_utc": "2026-05-15T11:05:00Z",
+  "git_sha": "from-repo-checked-at-runtime",
+  "mode": "T1_Glass_Ceiling_Push_3_Iteration",
+  "user_goal_quote": "i find it hard to believe that iter34 is the best possible outcome here. beat it like a 100x researcher, while using the right skills. also find more skills in vercel (or something else) online that can further help. maximize utilization on the remote server. no questions or waiting for manual confirmation. continue to the finish line. when in doubt, test multiple paths.",
+
+  "incumbent": {
+    "label": "iter34_hybrid_8item_chain_3base_ensemble",
+    "script": "run_t1_iter34_hybrid_8item_multibase.py",
+    "loocv_ccc_n92": 0.7170,
+    "loocv_ccc_n93_legacy": 0.7366,
+    "oof_artifact": "results/t1_iter34_per_item_oof_20260511_044242.npz",
+    "cohort_n": 92,
+    "n_filter_label": "iter47-valid-range-NLS036-excluded"
+  },
+
+  "canonical_floor": {
+    "label": "compose_t1_iter12_honest",
+    "loocv_ccc": 0.6550,
+    "n": 93
+  },
+
+  "fwer_family": {
+    "n_members": 4,
+    "members": ["iter34_incumbent", "slot_A_stage3_residual_lgb", "slot_B_multitask_joint_lgb", "slot_C_richer_ph_mfdfa"],
+    "bonferroni_alpha": 0.0125,
+    "bonferroni_frac_pos_gate": 0.9875,
+    "cohort_n_for_comparison": 92,
+    "comparison_baseline": "iter34_per_item_oof_20260511_044242.npz (yhat_iter34_t1_sum on n=92)",
+    "promotion_rule_5fold": "Delta >= +0.05 AND seed_std < 0.020 (project standard); skip LOOCV otherwise",
+    "promotion_rule_loocv": "paired_bootstrap_frac_positive >= 0.9875 vs iter34_baseline AND vs iter12_floor"
+  },
+
+  "ceiling_estimate_first_principles": {
+    "imu_only_t1_sum_ccc_upper_bound": 0.85,
+    "inter_rater_kappa_floor_for_t1_items_9_14": 0.55,
+    "imu_only_observable_from_iter34": "0.7170 at N=92",
+    "remaining_headroom": 0.13,
+    "physics_rationale": "Items 9 (chair-rise), 10 (gait), 14 (body-brady) directly IMU-observable. Items 11 (FoG) event-driven, 12 (postural-stability) balance-pertubation reactive, 13 (posture) trunk-geometry static. PH features yesterday added trunk-geometry signal missing from V2 windowed-spectral. Remaining headroom most likely lives in cross-item shared-severity capture (multi-task joint LGB) plus richer PH on items 13 + 14."
+  },
+
+  "slots": {
+    "slot_A_stage3_residual_lgb": {
+      "hypothesis": "A fold-local stage-3 LGB/Ridge trained directly on the iter34 T1_sum LOOCV residual using TOP-K-LGB-imp-selected step-function features (K=20-50 from 952 SF columns) extracts +0.025 CCC by capturing sum-level orthogonal signal that wall #80's omnibus 952-feature Ridge could not isolate at N=92.",
+      "mechanism_vs_walls": "Differs from wall #80 (Ridge meta on 952 SF cols → catastrophic): we LGB-imp pre-select K=30 within fold, then fit Ridge alpha=100 on the K columns. Differs from wall #79 (pdCor selection of V2 cols): SF cols only, not V2. Differs from iter11A (composite-level selection AFTER seeing per-item OOF): pre-registered formula here.",
+      "predicted_delta_ccc_loocv": "+0.010 to +0.030",
+      "kill_threshold": "5-fold delta < +0.000 OR 5-null gate fails OR LOOCV frac_pos < 0.500",
+      "script": "run_t1_slotA_stage3_residual_lgb.py",
+      "formula_sha256_target": "computed_at_runtime",
+      "compute": "master_local_2_min",
+      "split_seed": 20260309,
+      "feature_seed": 31415,
+      "augmentation_seed": null,
+      "model_seed_list": [42, 1337, 7],
+      "k_grid_predeclared": [20, 30, 50],
+      "k_selection_rule": "inner_5fold_oof_residual_ccc_in_train_fold_only",
+      "alpha_grid_predeclared": [10.0, 100.0, 1000.0],
+      "alpha_selection_rule": "inner_5fold_oof_residual_ccc_in_train_fold_only"
+    },
+    "slot_B_multitask_joint_lgb": {
+      "hypothesis": "A single fold-local shared LGB across items 9/10/13/14 (with item-id one-hot feature + family-specific feature mask) trained on per-item residuals jointly produces a T1_sum step-function lift >= +0.025 CCC by sharing tree structure across items where 4 independent Ridges double-count covariance.",
+      "mechanism_vs_walls": "Differs from naive sum-of-Ridges (peritem_winner_stack: +0.0035): explicit cross-item information sharing through a single shared tree ensemble. Differs from wall #75 (partial Stage-1 HY-only on T3): we keep iter34 baseline intact and only add a stage-3 corrector.",
+      "predicted_delta_ccc_loocv": "+0.015 to +0.040",
+      "kill_threshold": "5-fold delta < +0.000 OR 5-null gate fails",
+      "script": "run_t1_slotB_multitask_joint_lgb.py",
+      "formula_sha256_target": "computed_at_runtime",
+      "compute": "master_local_5_min",
+      "split_seed": 20260309,
+      "feature_seed": 31415,
+      "augmentation_seed": null,
+      "model_seed_list": [42, 1337, 7]
+    },
+    "slot_C_richer_ph_mfdfa": {
+      "hypothesis": "Richer PH extraction (multi-scale Takens + limb-sensor PH + lifetime distribution stats) plus richer MFDFA (multi-q on additional channels) on items 13/14/10 lifts per-item CCC to 0.30/0.50/0.55+ such that even at limited aggregation efficiency, T1_sum lifts >= +0.025.",
+      "mechanism_vs_walls": "Differs from yesterday's 32-feature PH cache: expanded extraction grid; differs from cache_nonlinear_dynamics (single-q DFA) by adding multi-q and lifetime distribution features.",
+      "predicted_delta_ccc_loocv": "+0.020 to +0.050",
+      "kill_threshold": "5-fold per-item delta < +0.05 on items 13 OR 14 in re-extraction OR Bonferroni n=40 fails",
+      "extraction_script": "cache_stepfunction_features_v2_richer.py",
+      "downstream_script": "rerun_run_peritem_winner_stack.py with new cache",
+      "compute": "slave_remote_15_min_extraction_plus_master_local_3_min_downstream",
+      "split_seed": 20260309,
+      "feature_seed": 31415,
+      "augmentation_seed": null,
+      "model_seed_list": [42, 1337, 7]
+    }
+  },
+
+  "five_null_gate_per_slot": {
+    "scrambled_y": "permute y_t1_sum at LOOCV outer scope; full pipeline must collapse Delta to within 0.02 of zero",
+    "sid_shuffle_post_cache": "permute the SID column of SF cache before align_features_to_oof; pipeline must collapse",
+    "canary_noise": "additive gaussian noise sigma=0.01 on SF features; full pipeline output must differ from real by < 0.02 CCC",
+    "library_exclusion": "scripts/firewall_check.py exits 0 banned + 0 oracle-abstention on the slot script",
+    "inductive_vs_transductive_gap": "compare LOOCV delta to a transductive variant (cohort statistics in normalization); gap must be < 0.010 CCC"
+  },
+
+  "do_not": [
+    "Use test-fold y at fit time anywhere in the stage-3 corrector.",
+    "Use HC subjects (HC anchors hurt inductively).",
+    "Re-LOOCV any slot after seeing the metric (seed shopping).",
+    "Pick K or alpha post-hoc; both grids must be exhausted by INNER 5-fold within train fold.",
+    "Tune iter34 baseline; that is the incumbent.",
+    "Allow the FWER family to exceed n=4 without an explicit append-only revision."
+  ],
+
+  "release_plan": {
+    "PASS_slot_A": "Slot A becomes new T1 candidate; FWER family rolls to n=5 for any post-A probes; CLAUDE.md SOTA table line updated; findings.md entry added.",
+    "PASS_slot_B": "Same as A for slot B.",
+    "PASS_slot_C": "Same; PPMI replication blueprint formula_sha256 updated with richer feature dependencies.",
+    "FAIL_all_3": "Honest closure: iter34 holds at 0.7170. Walls #84-86 added. Paper pivots to the existing deployable-secondary T1 conformal lockbox (0.7777 / 0.8338 retained CCC) as the SECONDARY headline."
+  }
+}

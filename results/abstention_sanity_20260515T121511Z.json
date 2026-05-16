@@ -1,0 +1,9 @@
+{
+  "name": "abstention_sanity_t3_slotF_cqr_width",
+  "created_at_utc": "20260515T121511Z",
+  "lockbox_target": "lockbox_t3_slotF_cqr_width_conformal",
+  "retention_rule_form": "g(x) = quantile_pred_q95(x) - quantile_pred_q05(x) from train-fold quantile heads, NO y_test",
+  "n_subjects": 95,
+  "masks_identical_with_y_nan": true,
+  "test_passes": true
+}

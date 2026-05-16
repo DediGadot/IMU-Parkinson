@@ -1,0 +1,74 @@
+{
+  "name": "lockbox_t1_X3_items_9_12_transient_correction",
+  "created_at_utc": "20260516T053330Z",
+  "preregistration": "results/preregistration_t1_post_closure_X_series_20260516.json",
+  "null_mode": "real",
+  "sanity_y_nan": true,
+  "formula_sha256": "04f3d27f946e87afbcae0c3a2c8bfc544f21973c8fb8cf02c45ad37aa11ce4c9",
+  "n_cohort": 92,
+  "n_features_item9": 11,
+  "n_features_item12": 12,
+  "alpha_grid": [
+    10.0,
+    30.0,
+    100.0,
+    300.0,
+    1000.0
+  ],
+  "lambda_fixed": 1.0,
+  "baselines": {
+    "loocv_ccc_t1_sum": 0.7170378403014925,
+    "loocv_mae_t1_sum": 1.7356018162374585
+  },
+  "seed_set_A": {
+    "label": "seed_set_A",
+    "loocv_ccc_t1_sum_baseline": 0.7170378403014925,
+    "loocv_ccc_t1_sum_corrected": 0.7129703434353813,
+    "delta_ccc_t1_sum": -0.0040674968661111865,
+    "delta_pearson_r_t1_sum": -0.0022585253833540264,
+    "delta_mae_t1_sum": 0.05265075463887192,
+    "bootstrap_t1_sum": {
+      "median": -0.004395103853842175,
+      "ci95": [
+        -0.016284254016453996,
+        0.008378219666988
+      ],
+      "frac_pos": 0.239
+    },
+    "corr_c9_item9_resid": 0.15903746881142916,
+    "corr_c12_item12_resid": -0.02848172936606395
+  },
+  "seed_set_B": {
+    "label": "seed_set_B",
+    "loocv_ccc_t1_sum_baseline": 0.7170378403014925,
+    "loocv_ccc_t1_sum_corrected": 0.7117965677037675,
+    "delta_ccc_t1_sum": -0.005241272597725,
+    "delta_pearson_r_t1_sum": -0.003473472567579461,
+    "delta_mae_t1_sum": 0.05295847025425049,
+    "bootstrap_t1_sum": {
+      "median": -0.00546774719809251,
+      "ci95": [
+        -0.017690572461204347,
+        0.00640399657317558
+      ],
+      "frac_pos": 0.1734
+    },
+    "corr_c9_item9_resid": 0.15903746881142916,
+    "corr_c12_item12_resid": -0.054220267890975386
+  },
+  "d4_audit_avg_seeds": {
+    "delta_pearson_r_avg": -0.0027990273298434953,
+    "delta_mae_avg": 0.05280422013280939,
+    "corr_correction_T1_sum_residual": -0.1117651059059557
+  },
+  "fivefold_screen": {
+    "per_seed_deltas": [
+      -0.00584199440861688,
+      -0.0034174836721512225,
+      -0.005746644680038715
+    ],
+    "mean_delta": -0.005002040920268939,
+    "seed_std": 0.001121127155175176
+  },
+  "verdict_provisional": "VARIANCE_COMPRESSION_MIRAGE_LIKELY"
+}

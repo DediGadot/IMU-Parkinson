@@ -1,0 +1,102 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "validator": "scripts/validate_ppmi_verily_submission_email.py"
+      },
+      "name": "validator script exists",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_email_preflight_failed",
+        "remaining_placeholder_count": 12,
+        "returncode": 1
+      },
+      "name": "unfinished template fails because placeholders remain",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "completed_email_preflight_passed",
+        "email_identity_redacted": true,
+        "email_path_reported": false,
+        "hard_failures": [],
+        "returncode": 0
+      },
+      "name": "synthetic completed email passes without recording content",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_source_missing_terms": [
+          "current official source recheck on 2026-05-16",
+          "data and publications committee within one week",
+          "ppmi data access guidelines version 7.0",
+          "verily raw device data as tier 3",
+          "30-day tier-3 review target"
+        ],
+        "bad_source_returncode": 1,
+        "synthetic_official_source_check": {
+          "missing_terms": [],
+          "passed": true,
+          "required_term_count": 8
+        }
+      },
+      "name": "validator requires current official-source recheck terms",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_angle_returncode": 1,
+        "bad_angle_unexpected": [
+          "<unexpected_protected_detail>"
+        ],
+        "synthetic_allowed_remaining": [
+          "<ISO8601_UTC>",
+          "<non_protected_channel>",
+          "<non_protected_receipt>",
+          "<non_protected_submitter>"
+        ]
+      },
+      "name": "validator permits only aligned recorder placeholders",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_angle_output_contains_filename": false,
+        "bad_angle_output_contains_full_path": false,
+        "bad_source_output_contains_filename": false,
+        "bad_source_output_contains_full_path": false,
+        "synthetic_output_contains_filename": false,
+        "synthetic_output_contains_full_path": false,
+        "template_output_contains_filename": false,
+        "template_output_contains_full_path": false
+      },
+      "name": "validator output does not echo completed email path or filename",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "allow_placeholders_used": true,
+        "decision": "placeholder_tolerant_email_audit_passed",
+        "not_valid_for_submission": true,
+        "pre_submission_preflight_valid": false,
+        "remaining_placeholder_count": 12,
+        "returncode": 0
+      },
+      "name": "template can be audited only with explicit allow-placeholders flag",
+      "passed": true
+    }
+  ],
+  "decision": "ppmi_verily_submission_email_validator_ready",
+  "generated_at_utc": "2026-05-16T12:51:37+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "not_access_approval": true,
+  "passed": true,
+  "script": "audit_ppmi_verily_submission_email_validator.py",
+  "synthetic_email": "results/ppmi_verily_submission_email_validator_synthetic.md",
+  "validator": "scripts/validate_ppmi_verily_submission_email.py"
+}

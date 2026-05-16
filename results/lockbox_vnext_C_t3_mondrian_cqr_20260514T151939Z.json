@@ -1,0 +1,46 @@
+{
+  "cell": "C_t3_mondrian_cqr_joint",
+  "n": 95,
+  "score": "cqr_width_mondrian_quartile_bin",
+  "rows": [
+    {
+      "retained_n": 91,
+      "retained_ccc": 0.2797018475515277,
+      "retained_mae": 7.992442241300228,
+      "coverage_target": 1.0,
+      "threshold_mean": 22.913532193426896,
+      "threshold_std": 1.5107730207393923,
+      "threshold_cv": 0.06593365911401391
+    },
+    {
+      "retained_n": 78,
+      "retained_ccc": 0.26232576233196836,
+      "retained_mae": 8.255914303997047,
+      "coverage_target": 0.85,
+      "threshold_mean": 18.678711013130634,
+      "threshold_std": 1.3102181515362576,
+      "threshold_cv": 0.07014499826113318
+    },
+    {
+      "retained_n": 65,
+      "retained_ccc": 0.18480763865545669,
+      "retained_mae": 8.981189901483587,
+      "coverage_target": 0.7,
+      "threshold_mean": 17.30596061962176,
+      "threshold_std": 1.4742077271864058,
+      "threshold_cv": 0.08518496947895089
+    },
+    {
+      "retained_n": 47,
+      "retained_ccc": 0.23937159818765977,
+      "retained_mae": 9.120340096250914,
+      "coverage_target": 0.5,
+      "threshold_mean": 15.282445930090935,
+      "threshold_std": 1.307817824263142,
+      "threshold_cv": 0.0855764731801253
+    }
+  ],
+  "monotonicity_violations": 2,
+  "verdict": "PARTIAL_OR_FAIL",
+  "comparator_baseline_t3_conformal_v2_70%": 0.329
+}

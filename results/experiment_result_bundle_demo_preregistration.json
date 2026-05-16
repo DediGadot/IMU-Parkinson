@@ -1,0 +1,7 @@
+{
+  "pipeline_name": "bundle_demo_internal_t3",
+  "formula_sha256": "660492f5c7f283364571590427160c33d593d4950a22c7c1a2ddc34a74313b9e",
+  "created_at_utc": "2026-05-10T00:00:00Z",
+  "git_sha": "abcdef1234567890abcdef1234567890abcdef12",
+  "notes": []
+}

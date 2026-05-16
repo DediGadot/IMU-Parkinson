@@ -1,0 +1,60 @@
+{
+  "name": "preregistration_t1_ceiling_push_20260515_evening_amendment_02",
+  "created_at_utc": "2026-05-15T19:05:00Z",
+  "amends": "results/preregistration_t1_ceiling_push_20260515_evening_master.json",
+  "previous_amendment": "results/preregistration_t1_ceiling_push_20260515_evening_amendment_01.json",
+  "amendment_type": "slot_c_substitution",
+  "fwer_family_change": "NONE (n=4 unchanged; Slot C mechanism only)",
+  "rationale": [
+    "Slot C original plan required numpyro/JAX hierarchical Bayesian model with LKJ correlation prior + ordinal cumulative-link. Numpyro is NOT installed on master (matches CLAUDE.md 'remote-only deps' policy). Running Slot C on remote slave would require ~30-45 min compute plus a deps install — infrastructure constraint.",
+    "Slots A and Slot B' both closed FAIL with the SAME mechanism: Ridge-style CORRECTION on item-13 residual at N=92 is dominated by feature-target anti-alignment (corr(c, item13_resid) ~ -0.2 to -0.5). The 'correction' mechanism class is exhausted regardless of feature family.",
+    "The genuinely orthogonal mechanism: F50-style item-13 STANDALONE LGB REPLACEMENT (not correction). Replace iter34.item_13_pred with standalone single-item LGB on axial cache features (full 30 cols, including mounting-affected pitch_mean/roll_mean), then recompute T1_sum = sum_{j != 13} iter34.item_j_pred + standalone.item_13_pred. F50 originally achieved item-13 +0.145 via trunk-pitch self-norm; F35-C wall shows replacement fails when iter34's per-item signal is moderate-to-strong (items 9 CCC=0.234, item 12 CCC=0.566), but item 13's iter34 CCC=0.067 is effectively zero — F35-C wall does NOT apply.",
+    "Replacement-not-correction sidesteps the feature-target anti-alignment problem: standalone LGB fits features → item_13_true directly, not features → item_13_residual (which is whatever-iter34-failed-to-extract).",
+    "Slot C original (hierarchical Bayes + LKJ + ordinal) moves to Redesign Queue for a future pre-reg with remote-Numpyro infrastructure."
+  ],
+
+  "slot_C_new": {
+    "label": "F50_standalone_item13_LGB_replacement",
+    "hypothesis_one_sentence": "A standalone single-task LightGBM (with custom CCC objective variant from F50 methodology) trained on the full 30-feature axial cache (including pitch_mean/roll_mean) predicting item_13_true directly, then REPLACING iter34.item_13_pred in the T1 sum, lifts T1_sum LOOCV CCC by >= +0.005 versus iter34 with item-13 standalone CCC >= 0.15 (vs iter34's 0.067 baseline) and D4 audit clean.",
+    "mechanism_rationale": "Iter34's chain extracts item-13 CCC=0.067 (essentially zero — chain mechanism is gait-kinetic-shared-latent which does not encode static posture geometry). Standalone item-13 LGB on posture-cache features can capture posture geometry directly without the chain's gait-kinetic dilution. F50 trunk-pitch-only standalone reached item-13 +0.145 LOOCV; 3-sensor extension may match or extend. Because we REPLACE (not CORRECT), the standalone is not constrained to predict iter34's residual — it predicts item_13_true directly with no anti-correlation pathology.",
+    "wall_orthogonality_argument": "Distinct from Slot A and Slot B' (correction approaches, both FAIL on this push): replacement is structurally different. Distinct from F35-C wall (replacement fails for items 9, 12) by item-13's near-zero iter34 baseline (F35-C wall is conditioned on iter34's chain having extractable signal for the item, which it does not for item 13). Distinct from F50 itself (single sensor, single channel) by 3-sensor extension + raw cache features.",
+    "predicted_delta_loocv_t1_sum_ccc": {
+      "low": 0.000,
+      "central": 0.010,
+      "high": 0.025,
+      "reasoning": "Per-item-13 standalone CCC plausibly 0.15-0.25 (matching F50 magnitude or modestly better with 3-sensor extension). Propagated to T1_sum via item-13's ~12% variance share, expected ΔCCC ~ 0.005-0.015. Central +0.010."
+    },
+    "kill_threshold": "5-fold Delta_bar < +0.000 OR per-item-13 standalone CCC <= 0.10 OR D4 audit ΔMAE > 0 with corr(replacement, sum_resid) <= 0 OR ANY 5-null gate fails",
+    "scripts_to_author": [
+      "run_t1_slotC_evening_standalone_item13_lgb_replacement.py"
+    ],
+    "compute_plan": {
+      "extraction": "no new cache",
+      "downstream": "master-local ~3-5 min LGB LOOCV with replacement evaluation"
+    },
+    "split_seed": 20260309,
+    "feature_seed": 31415,
+    "augmentation_seed": null,
+    "model_seeds_set_A": [42, 1337, 7],
+    "model_seeds_set_B": [101, 202, 303],
+    "lgb_hyperparams_predeclared": {
+      "objective": "regression",
+      "num_leaves": 15,
+      "learning_rate": 0.05,
+      "n_estimators": 200,
+      "min_data_in_leaf": 5,
+      "feature_fraction": 0.8,
+      "bagging_fraction": 0.8,
+      "bagging_freq": 5
+    },
+    "lgb_hyperparam_provenance": "matches Slot F CQR-width parameter pattern from 2026-05-15 PM (small N=92-95 LGB regression defaults from prior project experimentation). NOT tuned on this slot.",
+    "formula_sha256_target": "computed_at_script_authorship_time",
+    "five_null_invocation": "same as Slots A/B' pattern"
+  },
+
+  "slot_c_original_moved_to_redesign_queue": {
+    "label": "Numpyro_hierarchical_LKJ_residual_correlation_ordinal_T1sum",
+    "moved_at_utc": "2026-05-15T19:05:00Z",
+    "reason": "Numpyro/JAX not installed on master; running on remote requires deps setup + ~30-45 min compute. Slot C re-targeted to a mechanism that fits the master-local compute budget and addresses the Slots A/B' wall directly via replacement instead of correction."
+  }
+}

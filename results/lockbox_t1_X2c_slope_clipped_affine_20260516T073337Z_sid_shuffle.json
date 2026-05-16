@@ -1,0 +1,51 @@
+{
+  "name": "lockbox_t1_X2c_slope_clipped_affine",
+  "created_at_utc": "20260516T073337Z",
+  "preregistration": "results/preregistration_t1_post_closure_X_series_20260516.json (X2c = X2 fix codex-informed: clip slope \u00b15%)",
+  "null_mode": "sid_shuffle",
+  "sanity_y_nan": false,
+  "formula_sha256": "4605261b4a9e3eae0e43040fcdfd8e01b0b6e9fb55974f77b2baa4840e0515c2",
+  "slope_clip": [
+    0.95,
+    1.05
+  ],
+  "stratum_info": {
+    "slope_mean": 0.9500000000000001,
+    "slope_min": 0.95,
+    "slope_max": 0.95,
+    "raw_slope_long_mean": 0.7790996450332102,
+    "raw_slope_short_mean": 0.47287419365148015
+  },
+  "n_cohort": 92,
+  "baselines": {
+    "loocv_ccc_iter34": 0.7170378403014925,
+    "loocv_mae_iter34": 1.7356018162374585
+  },
+  "corrected": {
+    "loocv_ccc": 0.7149204173932311,
+    "loocv_mae": 1.7204599877330824,
+    "delta_ccc": -0.002117422908261446,
+    "delta_mae": -0.015141828504376065,
+    "delta_pearson_r": -0.004678181592234765
+  },
+  "bootstrap_seed_A": {
+    "median": -0.002087054308364089,
+    "ci95": [
+      -0.01177240837127047,
+      0.005918314174389209
+    ],
+    "frac_pos": 0.31
+  },
+  "bootstrap_seed_B": {
+    "median": -0.00202675949564185,
+    "ci95": [
+      -0.01170161838472466,
+      0.006097217916289683
+    ],
+    "frac_pos": 0.3118
+  },
+  "d4_audit": {
+    "corr_correction_T1_sum_residual": 0.21580841426930739
+  },
+  "verdict_provisional": "FAIL"
+}

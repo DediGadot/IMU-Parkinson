@@ -1,0 +1,114 @@
+{
+  "name": "preregistration_stepfunction_features_20260515",
+  "created_at_utc": "2026-05-15T07:30:00Z",
+  "git_sha": "from-repo",
+  "user_goal_quote": "create step-function better features for this codebase. act as a 100x researcher. consult codex cli and gemini cli. explore every angle. maximize utilization on the remote server (ssh -p 2243 fiod@165.22.71.91). use web search. use sota ideas. pick the right metric to assess feature descriptiveness only and optimize against it.",
+
+  "metric_choice": {
+    "primary": "pdCor(F; y | yhat_canonical_OOF)",
+    "definition": "Partial distance correlation between candidate feature block F and target y, conditioned on the canonical pipeline's leave-one-out prediction (iter34 for T1, iter47 for T3). 1-D conditioner sidesteps high-dim curse-of-dim conditioning on full V2.",
+    "secondary": "Delta I_imb(V2 -> y) - I_imb(V2+F -> y)",
+    "secondary_definition": "Information Imbalance change from adding F to V2's feature space, measured by Glielmo PNAS Nexus 2022 kNN-rank statistic.",
+    "rationale": "Both metrics are model-free, fold-local at score time, leakage-clean (the canonical OOF is per-subject leak-clean by F65 audit, the metric uses train-fold-only data for each fold). pdCor has known null distribution and bootstrap CIs detect smaller effect sizes than CCC MDE at N=92.",
+    "leakage_audit_appendix": [
+      "pdCor uses train-fold-only F and y in every fold; test-fold y never enters metric for that fold.",
+      "I_imb is purely distance-based, no learner involved.",
+      "Both primary + secondary computed via metric_lib.py; firewall_check.py confirms 0 banned patterns in metric_lib.py + run_pdcor_score.py + cache_stepfunction_features.py."
+    ]
+  },
+
+  "decision_rule_per_feature_block": {
+    "rule": "F is descriptive iff ALL of: (a) 95% bootstrap CI of fold-aggregated pdCor excludes 0; (b) cohort permutation p-value < 0.01 / k for k blocks tested (Bonferroni); (c) ΔI_imb 95% bootstrap CI excludes 0; (d) downstream Ridge stack on canonical-OOF residuals produces ΔCCC ≥ +0.025 with bootstrap frac>0 ≥ 0.95.",
+    "fwer_family_size": 7,
+    "members": [
+      "spd_features (Riemannian SPD covariance)",
+      "klc_features (Kinematic loop-closure)",
+      "crqa_features (Cross-Recurrence Quantification on bilateral pairs)",
+      "mfdfa_features (Multifractal singularity spectrum on stride series)",
+      "ph_features (Persistent homology H0/H1 on phase-space)",
+      "stacked_top3 (top-3 by pdCor concatenated)",
+      "stacked_top_pdcor_v2 (V2 columns selected by pdCor > 0.10, no new feature extraction)"
+    ],
+    "bonferroni_alpha": 0.00143,
+    "bootstrap_iterations": 2000,
+    "permutation_iterations": 1000
+  },
+
+  "stepfunction_feature_blocks": {
+    "spd_features": {
+      "mechanism": "Per-window 13x13 IMU covariance matrices, log-Euclidean tangent vectorization, eigenvalue spectrum + tangent-PC summaries per subject. Captures whole-body coordination geometry orthogonal to V2's univariate-sensor statistics.",
+      "leak_clean_status": "TARGET-FREE extraction; fold-locality at score time only.",
+      "expected_pdcor": 0.10,
+      "expected_delta_ccc": 0.030,
+      "novel_vs_walls": "Not on any F-wall under same architecture. V3-GSP wall was static body graph; SPD is full covariance manifold."
+    },
+    "klc_features": {
+      "mechanism": "Forward-integrate IMU orientations + accelerations through pelvis-thigh-shank-foot kinematic chain; residual to physical floor constraint at stance + bilateral toe-toe closure during double-stance. Integrates tremor / rigidity jitter that windowed-spectral V2 averages away.",
+      "leak_clean_status": "TARGET-FREE extraction; per-subject fixed body segment lengths (population averages).",
+      "expected_pdcor": 0.08,
+      "expected_delta_ccc": 0.020,
+      "novel_vs_walls": "Not on any F-wall. Gemini-suggested dark horse 2026-05-15."
+    },
+    "crqa_features": {
+      "mechanism": "Cross-recurrence quantification (RR/DET/LAM/TT/L_max) on bilateral phase-space pairs (L<->R foot, L<->R wrist, sternum<->sacrum, etc). Captures phase-coupling breakdown.",
+      "leak_clean_status": "TARGET-FREE; per-window z-score normalization.",
+      "expected_pdcor": 0.06,
+      "expected_delta_ccc": 0.015,
+      "novel_vs_walls": "cache_cross_sensor_coherence used spectral coherence; CRQA is recurrence-based, fundamentally different."
+    },
+    "mfdfa_features": {
+      "mechanism": "Multifractal DFA (Kantelhardt 2002) on stride-time + stride-amplitude + trunk-pitch series. Singularity spectrum width Δα and asymmetry; Hurst exponent.",
+      "leak_clean_status": "TARGET-FREE; per-subject stride detection from foot-accel peaks.",
+      "expected_pdcor": 0.05,
+      "expected_delta_ccc": 0.010,
+      "novel_vs_walls": "Not on any F-wall. cache_nonlinear_dynamics has single-q DFA; multifractal Δα is a different feature."
+    },
+    "ph_features": {
+      "mechanism": "Persistent homology H0/H1 on Takens delay embedding of trunk pitch + sacrum angular velocity. SW1PerS-style periodicity + H1 lifetime entropy. Fallback to spectral graph approximation if ripser unavailable.",
+      "leak_clean_status": "TARGET-FREE; standard delay embedding (m=3, tau=5).",
+      "expected_pdcor": 0.04,
+      "expected_delta_ccc": 0.008,
+      "novel_vs_walls": "Not on any F-wall. Direct from Biomed Signal Proc & Control 2025 PD paper."
+    },
+    "stacked_top_pdcor_v2": {
+      "mechanism": "Stakeholder-defining experiment: select V2 columns whose pdCor(V2_j; y | yhat_iter34_OOF) > 0.10, build Ridge meta-stack on canonical-OOF residuals using selected columns. NO new feature extraction. Tests whether step-function lives in SELECTION RULE, not in new features.",
+      "leak_clean_status": "Fold-local pdCor selection at score time; per-fold Ridge meta uses fold-local imputer + normalizer.",
+      "expected_pdcor_self": "n/a (subset of V2)",
+      "expected_delta_ccc": 0.030,
+      "novel_vs_walls": "Not on any F-wall. This is the highest-value experiment in the session - if it works, it changes the project's architecture; if it fails, it confirms iter34 saturates V2."
+    }
+  },
+
+  "compute_plan": {
+    "primary_substrate": "ssh -p 2243 fiod@165.22.71.91 (RTX 4060, 17 cores, 8GB GPU, idle at session start)",
+    "estimated_extraction_minutes": 30,
+    "estimated_scoring_minutes_per_block": 10,
+    "estimated_total_session_minutes": 90,
+    "GPU_required": false,
+    "ProcessPool_settings": "spawn context, OMP_NUM_THREADS=1 per worker (per feedback_processpool_spawn_context_required.md)"
+  },
+
+  "five_null_gate_per_block": {
+    "scrambled_y": "Refit metric on permuted y; pdCor must collapse to chance distribution.",
+    "sid_shuffle": "Shuffle SIDs between feature cache and OOF; pdCor must collapse.",
+    "canary_noise": "Add isotropic noise to F at sigma=0.01; pdCor must drop <5%.",
+    "library_exclusion": "Static scan for XGBRanker / T_grid / fit(X_all, ...) patterns: zero hits.",
+    "transductive_vs_inductive": "Inductive pdCor (fold-local OOF) vs transductive pdCor (cohort OOF). Gap must be < 0.005."
+  },
+
+  "kpis_for_step_function": {
+    "primary": "ΔpdCor_median ≥ +0.05 for at least one feature block, with 95% bootstrap CI > 0 AND Bonferroni-corrected perm p < 0.01.",
+    "deployment_secondary": "Downstream Ridge meta-stack on canonical-OOF residuals produces ΔCCC ≥ +0.025 with bootstrap frac>0 ≥ 0.95.",
+    "publishable_outcome_negative": "If all 6 blocks fail the primary KPI, evidence is strong that the IMU-information ceiling at N=92 is saturated by V2 + iter34/iter47 architecture. Paper pivots to 'Information-theoretic ceiling analysis of IMU-derived UPDRS-III prediction at N=92' as central methodological contribution.",
+    "publishable_outcome_positive": "ANY winning block becomes the SECOND headline result of the paper; rerun on T1 + T3 to characterize generalization. PPMI replication blueprint extends to the winning feature family."
+  },
+
+  "do_not": [
+    "Use test-fold y in any feature extraction step.",
+    "Use HC subjects as anchors or normalization references (HC anchors hurt inductively).",
+    "Recompute pdCor on the full N=92 after seeing per-block results (selection leakage).",
+    "Use LightGBM device='gpu' (2.2x slower than CPU at N<200).",
+    "Trust a single metric — both pdCor AND ΔI_imb must agree for a positive finding.",
+    "Trust a marginal cohort-level p-value without the fold-local bootstrap CI agreeing."
+  ]
+}

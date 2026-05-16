@@ -1,0 +1,550 @@
+{
+  "artifacts": [
+    {
+      "exists": true,
+      "path": "scripts/ppmi_verily_setup.md",
+      "role": "runbook",
+      "sha256": "b1e3a189b5e3a1f5e8b515aa366228f910dbc400cf8669a9c00b7594a25d6ac8",
+      "size_bytes": 10404
+    },
+    {
+      "exists": true,
+      "path": "scripts/ppmi_verily_tier3_request_packet.md",
+      "role": "source_packet_markdown",
+      "sha256": "6ecddbed85f20648d3995ec1d6ad4a7d9ca3aef3928bc2ef9a8f38769ce665d1",
+      "size_bytes": 11143
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_tier3_request_packet_template_20260515.docx",
+      "role": "word_packet_template",
+      "sha256": "47488e6926154a699c65734ebdd8da414483de3481dde116ae37a5298c3cd157",
+      "size_bytes": 15707
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_tier3_request_packet_template_20260515.manifest.json",
+      "role": "word_packet_manifest",
+      "sha256": "9f03414a1e980b305b7556b8fcce99195ff1b013ecf943d018b54a6f0398a6d2",
+      "size_bytes": 1297
+    },
+    {
+      "exists": true,
+      "path": "scripts/ppmi_verily_submission_email_template.md",
+      "role": "submission_email_template",
+      "sha256": "d7bb049833de77ea0ef784753fcbd57921602c664765d58ffa2007c92e71e308",
+      "size_bytes": 4068
+    },
+    {
+      "exists": true,
+      "path": "scripts/ppmi_verily_user_fill_checklist.md",
+      "role": "user_fill_checklist",
+      "sha256": "b141ab9143ef8fca3358e0a463bc25e117f62b8f6c40b09b3342452309cfd928",
+      "size_bytes": 10749
+    },
+    {
+      "exists": true,
+      "path": "scripts/validate_ppmi_verily_completed_packet.py",
+      "role": "completed_packet_validator",
+      "sha256": "7b6e14e4089b3e8dc9456592578c2c1ba5404d3525852bc5ab3c76405d776fb8",
+      "size_bytes": 6598
+    },
+    {
+      "exists": true,
+      "path": "scripts/validate_ppmi_verily_submission_email.py",
+      "role": "completed_email_validator",
+      "sha256": "5233b94ad45495612fa0c9f67a6a764d98bda627e3a25e5e4a93d9d4c5f4dc49",
+      "size_bytes": 6501
+    },
+    {
+      "exists": true,
+      "path": "scripts/validate_ppmi_verily_submission_package.py",
+      "role": "completed_package_validator",
+      "sha256": "5cabc991ef25b822ae0b82828c8180b7f95d1d099b186b969c7c16d41e314d60",
+      "size_bytes": 8184
+    },
+    {
+      "exists": true,
+      "path": "scripts/show_ppmi_verily_next_action.py",
+      "role": "next_action_status",
+      "sha256": "a8599d33f3fe5e4ba1eb8ab7ac974e68d3c351dd44fbbc86f988398e3ca7b279",
+      "size_bytes": 19157
+    },
+    {
+      "exists": true,
+      "path": "scripts/record_access_submission.py",
+      "role": "submission_recorder",
+      "sha256": "78da75cb7792e1c6a62735c1923e0b2befaf075d7d2aea0ef4305bda59c7c3b4",
+      "size_bytes": 7354
+    },
+    {
+      "exists": true,
+      "path": "scripts/record_access_approval.py",
+      "role": "approval_recorder",
+      "sha256": "964b33d7a76a8683283d3e8c8e434d96b72cb0e0c1fed3429cbfbbcd38e5a1b7",
+      "size_bytes": 8341
+    },
+    {
+      "exists": true,
+      "path": "scripts/ppmi_verily_schema_probe_checklist.md",
+      "role": "schema_probe_checklist",
+      "sha256": "29ad0e502d3f7fdbc5d889456b58c8e3f98bc7374787cbb67b754d6688ff4137",
+      "size_bytes": 5373
+    },
+    {
+      "exists": true,
+      "path": "scripts/ppmi_verily_schema_probe_report_template.md",
+      "role": "schema_probe_report_template",
+      "sha256": "fbfb6375a44931547205e8aad1c186f7ed5f2d78b2ca80ffae25345b3a86c137",
+      "size_bytes": 4101
+    },
+    {
+      "exists": true,
+      "path": "scripts/validate_ppmi_verily_schema_probe_report.py",
+      "role": "schema_probe_report_validator",
+      "sha256": "1b3a59738d108ae4418f1b26ef85f6e53e2b0a34ae99ed51f28e0bea96fbeedf",
+      "size_bytes": 11434
+    },
+    {
+      "exists": true,
+      "path": "scripts/record_schema_probe_report.py",
+      "role": "schema_probe_recorder",
+      "sha256": "483f07e2eca485d59c5ae71ee802c00a5311a522a33c3959f396db925c4bc4e8",
+      "size_bytes": 14491
+    },
+    {
+      "exists": true,
+      "path": "scripts/ppmi_verily_target_free_manifest_template.json",
+      "role": "target_free_manifest_template",
+      "sha256": "7834895323b6c86196a929210abb2012de139655d7d0de46c70caff766022235",
+      "size_bytes": 2053
+    },
+    {
+      "exists": true,
+      "path": "scripts/validate_ppmi_verily_target_free_manifest.py",
+      "role": "target_free_manifest_validator",
+      "sha256": "d084d79deec1864135bbfea478ba7be496831e14ff323712b53d7459e0a05e44",
+      "size_bytes": 10921
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_target_free_manifest_validator_audit_20260515.json",
+      "role": "target_free_manifest_validator_audit",
+      "sha256": "6fcca30668dffe8a352cc58fe8303fdec76c2bdd61f5809072c48700e4d9868a",
+      "size_bytes": 3508
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_zeroshot_blueprint_20260515.json",
+      "role": "ppmi_zeroshot_blueprint",
+      "sha256": "8f6f6c10b93acb7aa4d5e99b613c72f163ac6bfcfd8ec4f1ed04e00cae851c7a",
+      "size_bytes": 13325
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_zeroshot_blueprint_20260515.md",
+      "role": "ppmi_zeroshot_blueprint_md",
+      "sha256": "7aac7a00c2d4be516ec4c37ff5ccb5149703a0b105b03ccbe52f79c59a93452c",
+      "size_bytes": 2568
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_zeroshot_blueprint_audit_20260515.json",
+      "role": "ppmi_zeroshot_blueprint_audit",
+      "sha256": "ccf38b091da76573f886f37828dcbb8d6dab0a86f4957e53971aa1ba7a9972d7",
+      "size_bytes": 17312
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_request_packet_audit_20260509.json",
+      "role": "packet_audit",
+      "sha256": "8d57c9eab6df225ee0e4c863c611132d9282cfb0cda4c10714886e291c861bd0",
+      "size_bytes": 5244
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_submit_format_audit_20260515.json",
+      "role": "word_template_audit",
+      "sha256": "682aba3b748e8b3e09518e52a365b8180b5f06916710ec691b6aec36dffda8b3",
+      "size_bytes": 4253
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_submission_email_template_audit_20260515.json",
+      "role": "email_template_audit",
+      "sha256": "7d7f3ffbdcbe1a6bdabeb46257e83bc118bb21458b1a241e35bcbc86d239a2a9",
+      "size_bytes": 5252
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_user_fill_checklist_audit_20260515.json",
+      "role": "user_fill_checklist_audit",
+      "sha256": "aa5e672d6c6112cacea69f900b1c462d0f0872f0a3ccb74d367e1fd85e7d65e4",
+      "size_bytes": 9468
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_completed_packet_validator_audit_20260515.json",
+      "role": "completed_packet_validator_audit",
+      "sha256": "e417ffe23fa6b97d9b43f0a47ffa83287a98a64c01e0581a7ef5fd29277aea23",
+      "size_bytes": 2767
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_submission_email_validator_audit_20260515.json",
+      "role": "completed_email_validator_audit",
+      "sha256": "8f33e540c2cd6d304e3da4797c7e69859effbd9ae5ffbb8dd993fd35beb07ed9",
+      "size_bytes": 3289
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_submission_package_validator_audit_20260515.json",
+      "role": "completed_package_validator_audit",
+      "sha256": "0a0b846ac6305a5beb50a5be683154fcf4898a8a5d0d8e1f72779c2eb15d7eb7",
+      "size_bytes": 4102
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_schema_probe_checklist_audit_20260515.json",
+      "role": "schema_probe_checklist_audit",
+      "sha256": "8f776eba5ac021dfc837d191d1263ea533d3a450893926a096af07dc8f1c007a",
+      "size_bytes": 3682
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_schema_probe_report_template_audit_20260515.json",
+      "role": "schema_probe_report_template_audit",
+      "sha256": "590d8318fde87aea056122688a1f1912b87f6934530f9b4917a948eb8fa6ad51",
+      "size_bytes": 3412
+    },
+    {
+      "exists": true,
+      "path": "results/ppmi_verily_schema_probe_report_validator_audit_20260515.json",
+      "role": "schema_probe_report_validator_audit",
+      "sha256": "d8bdadc7cd06e116bf35a49db07c35cceba6b1cf6be5c9f48c7b7ac98556ed73",
+      "size_bytes": 4636
+    },
+    {
+      "exists": true,
+      "path": "results/access_submission_tracker_20260509.json",
+      "role": "access_submission_tracker",
+      "sha256": "1f94add0576cd489df62009adfcc0ee3703a0d40287bdb8847b9a575060f2e23",
+      "size_bytes": 27713
+    }
+  ],
+  "audit_states": {
+    "completed_email_validator_audit": {
+      "decision": "ppmi_verily_submission_email_validator_ready",
+      "expected_decision": "ppmi_verily_submission_email_validator_ready",
+      "goal_complete": false,
+      "passed": true,
+      "path": "results/ppmi_verily_submission_email_validator_audit_20260515.json",
+      "redaction_check_passed": true
+    },
+    "completed_package_validator_audit": {
+      "decision": "ppmi_verily_submission_package_validator_ready",
+      "expected_decision": "ppmi_verily_submission_package_validator_ready",
+      "goal_complete": false,
+      "passed": true,
+      "path": "results/ppmi_verily_submission_package_validator_audit_20260515.json",
+      "redaction_check_passed": true,
+      "validator": "scripts/validate_ppmi_verily_submission_package.py"
+    },
+    "completed_packet_validator_audit": {
+      "decision": "ppmi_verily_completed_packet_validator_ready",
+      "expected_decision": "ppmi_verily_completed_packet_validator_ready",
+      "goal_complete": false,
+      "passed": true,
+      "path": "results/ppmi_verily_completed_packet_validator_audit_20260515.json",
+      "redaction_check_passed": true
+    },
+    "email_template_audit": {
+      "decision": "ppmi_verily_submission_email_template_ready",
+      "expected_decision": "ppmi_verily_submission_email_template_ready",
+      "goal_complete": false,
+      "passed": true,
+      "path": "results/ppmi_verily_submission_email_template_audit_20260515.json",
+      "recorder_command_aligned": true
+    },
+    "packet_audit": {
+      "decision": "ppmi_verily_tier3_request_packet_ready",
+      "expected_decision": "ppmi_verily_tier3_request_packet_ready",
+      "goal_complete": false,
+      "passed": true,
+      "path": "results/ppmi_verily_request_packet_audit_20260509.json"
+    },
+    "ppmi_zeroshot_blueprint_audit": {
+      "blueprint": "results/ppmi_verily_zeroshot_blueprint_20260515.json",
+      "decision": "ppmi_verily_zeroshot_blueprint_ready",
+      "expected_decision": "ppmi_verily_zeroshot_blueprint_ready",
+      "goal_complete": false,
+      "passed": true,
+      "path": "results/ppmi_verily_zeroshot_blueprint_audit_20260515.json"
+    },
+    "schema_probe_checklist_audit": {
+      "decision": "ppmi_verily_schema_probe_checklist_ready",
+      "expected_decision": "ppmi_verily_schema_probe_checklist_ready",
+      "goal_complete": false,
+      "passed": true,
+      "path": "results/ppmi_verily_schema_probe_checklist_audit_20260515.json",
+      "schema_probe_artifact_created": false
+    },
+    "schema_probe_report_template_audit": {
+      "decision": "ppmi_verily_schema_probe_report_template_ready",
+      "expected_decision": "ppmi_verily_schema_probe_report_template_ready",
+      "goal_complete": false,
+      "passed": true,
+      "path": "results/ppmi_verily_schema_probe_report_template_audit_20260515.json",
+      "schema_probe_artifact_created": false,
+      "template": "scripts/ppmi_verily_schema_probe_report_template.md"
+    },
+    "schema_probe_report_validator_audit": {
+      "decision": "ppmi_verily_schema_probe_report_validator_ready",
+      "expected_decision": "ppmi_verily_schema_probe_report_validator_ready",
+      "goal_complete": false,
+      "passed": true,
+      "path": "results/ppmi_verily_schema_probe_report_validator_audit_20260515.json",
+      "validator": "scripts/validate_ppmi_verily_schema_probe_report.py"
+    },
+    "target_free_manifest_validator_audit": {
+      "decision": "ppmi_verily_target_free_manifest_validator_ready",
+      "expected_decision": "ppmi_verily_target_free_manifest_validator_ready",
+      "goal_complete": false,
+      "passed": true,
+      "path": "results/ppmi_verily_target_free_manifest_validator_audit_20260515.json",
+      "template": "scripts/ppmi_verily_target_free_manifest_template.json",
+      "validator": "scripts/validate_ppmi_verily_target_free_manifest.py"
+    },
+    "user_fill_checklist_audit": {
+      "audited_email_field_count": 12,
+      "audited_packet_field_count": 13,
+      "decision": "ppmi_verily_user_fill_checklist_ready",
+      "email_field_count": 12,
+      "expected_decision": "ppmi_verily_user_fill_checklist_ready",
+      "fill_fields": {
+        "email_field_count": 12,
+        "email_fields": [
+          "[PROJECT_TITLE]",
+          "[PI_NAME]",
+          "[INSTITUTION]",
+          "[PPMI_ID]",
+          "[IRB_ID_OR_STATUS]",
+          "[PI_EMAIL]",
+          "[PI_PHONE]",
+          "[COMPLETED_PACKET_FILENAME]",
+          "[IRB_OR_GOVERNANCE_ATTACHMENT]",
+          "[SECURITY_ATTACHMENT]",
+          "[LOCAL_COMPLETED_PACKET_PATH]",
+          "[LOCAL_COMPLETED_EMAIL_PATH]"
+        ],
+        "packet_field_count": 13,
+        "packet_fields": [
+          "[PI_NAME]",
+          "[INSTITUTION]",
+          "[DEPARTMENT_OR_LAB]",
+          "[PI_EMAIL]",
+          "[PI_PHONE]",
+          "[ADDRESS]",
+          "[IRB_ID_OR_STATUS]",
+          "[CONTACT]",
+          "[PPMI_ID]",
+          "[ANALYST_NAME]",
+          "[EMAIL]",
+          "[DATA_CUSTODIAN]",
+          "[CUSTODIAN_EMAIL]"
+        ],
+        "source_checklist": "scripts/ppmi_verily_user_fill_checklist.md",
+        "submission_metadata_field_count": 4,
+        "submission_metadata_fields": [
+          "<ISO8601_UTC>",
+          "<non_protected_channel>",
+          "<non_protected_submitter>",
+          "<non_protected_receipt>"
+        ]
+      },
+      "goal_complete": false,
+      "packet_field_count": 13,
+      "passed": true,
+      "path": "results/ppmi_verily_user_fill_checklist_audit_20260515.json",
+      "recorder_command_aligned": true,
+      "required_placeholder_count": 19,
+      "required_placeholder_list_count": 19,
+      "submission_metadata_field_count": 4,
+      "top_level_command_shortcuts_present": true
+    },
+    "word_template_audit": {
+      "decision": "ppmi_verily_word_template_ready_to_fill",
+      "expected_decision": "ppmi_verily_word_template_ready_to_fill",
+      "goal_complete": false,
+      "passed": true,
+      "path": "results/ppmi_verily_submit_format_audit_20260515.json"
+    }
+  },
+  "completed_email_included": false,
+  "completed_packet_included": false,
+  "content_boundary": {
+    "completed_email_included": false,
+    "completed_packet_included": false,
+    "credentials_or_tokens_included": false,
+    "local_completed_paths_reported": false,
+    "not_a_model_result": true,
+    "not_a_preregistration": true,
+    "not_a_schema_probe_artifact": true,
+    "not_access_approval": true,
+    "protected_data_included": false,
+    "record_paths_reported": false
+  },
+  "credentials_or_tokens_included": false,
+  "decision": "ppmi_verily_submission_bundle_ready",
+  "fill_fields": {
+    "email_field_count": 12,
+    "email_fields": [
+      "[PROJECT_TITLE]",
+      "[PI_NAME]",
+      "[INSTITUTION]",
+      "[PPMI_ID]",
+      "[IRB_ID_OR_STATUS]",
+      "[PI_EMAIL]",
+      "[PI_PHONE]",
+      "[COMPLETED_PACKET_FILENAME]",
+      "[IRB_OR_GOVERNANCE_ATTACHMENT]",
+      "[SECURITY_ATTACHMENT]",
+      "[LOCAL_COMPLETED_PACKET_PATH]",
+      "[LOCAL_COMPLETED_EMAIL_PATH]"
+    ],
+    "packet_field_count": 13,
+    "packet_fields": [
+      "[PI_NAME]",
+      "[INSTITUTION]",
+      "[DEPARTMENT_OR_LAB]",
+      "[PI_EMAIL]",
+      "[PI_PHONE]",
+      "[ADDRESS]",
+      "[IRB_ID_OR_STATUS]",
+      "[CONTACT]",
+      "[PPMI_ID]",
+      "[ANALYST_NAME]",
+      "[EMAIL]",
+      "[DATA_CUSTODIAN]",
+      "[CUSTODIAN_EMAIL]"
+    ],
+    "source_checklist": "scripts/ppmi_verily_user_fill_checklist.md",
+    "submission_metadata_field_count": 4,
+    "submission_metadata_fields": [
+      "<ISO8601_UTC>",
+      "<non_protected_channel>",
+      "<non_protected_submitter>",
+      "<non_protected_receipt>"
+    ]
+  },
+  "generated_at_utc": "2026-05-16T12:51:39+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "next_steps": [
+    {
+      "action": "Fill the packet and email locally outside git.",
+      "actor": "user_or_institutional_pi",
+      "protected_compute_allowed": false,
+      "step_id": "fill_local_packet_and_email",
+      "tool": "scripts/ppmi_verily_user_fill_checklist.md"
+    },
+    {
+      "action": "Run the completed packet, email, and combined package validators.",
+      "actor": "user_or_institutional_pi",
+      "protected_compute_allowed": false,
+      "step_id": "preflight_completed_package",
+      "tools": [
+        "scripts/validate_ppmi_verily_completed_packet.py",
+        "scripts/validate_ppmi_verily_submission_email.py",
+        "scripts/validate_ppmi_verily_submission_package.py"
+      ]
+    },
+    {
+      "action": "Submit the completed packet using the submission email template.",
+      "actor": "user_or_institutional_pi",
+      "protected_compute_allowed": false,
+      "step_id": "submit_access_request",
+      "tool": "scripts/ppmi_verily_submission_email_template.md"
+    },
+    {
+      "action": "Record only non-protected submission metadata after sending.",
+      "actor": "user_or_institutional_pi",
+      "command_template": "uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+      "protected_compute_allowed": false,
+      "step_id": "record_submission_metadata"
+    },
+    {
+      "action": "Wait for explicit PPMI/Verily approval before any schema probe.",
+      "actor": "user_or_institutional_pi",
+      "protected_compute_allowed": false,
+      "step_id": "wait_for_data_owner_approval"
+    },
+    {
+      "action": "After approval, record only non-protected approval metadata.",
+      "actor": "approved_user_after_data_owner_approval",
+      "blocked_until_approval": true,
+      "command_template": "uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+      "protected_compute_allowed": false,
+      "step_id": "record_approval_metadata"
+    },
+    {
+      "action": "After approval only, run the read-only schema-probe checklist.",
+      "actor": "approved_user_after_data_owner_approval",
+      "blocked_until_approval": true,
+      "command_templates": {
+        "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+        "validate_schema_probe_report": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+        "validate_target_free_manifest": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+        "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+      },
+      "protected_compute_allowed": true,
+      "step_id": "post_approval_read_only_schema_probe",
+      "tools": [
+        "scripts/ppmi_verily_schema_probe_checklist.md",
+        "scripts/ppmi_verily_schema_probe_report_template.md",
+        "scripts/validate_ppmi_verily_schema_probe_report.py"
+      ]
+    }
+  ],
+  "not_a_model_result": true,
+  "not_access_approval": true,
+  "passed": true,
+  "post_approval_command_templates": {
+    "validate_formula_sha_record": "uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>",
+    "validate_schema_probe_report": "uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>",
+    "validate_target_free_manifest": "uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>",
+    "validate_zeroshot_result_record": "uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>"
+  },
+  "protected_data_included": false,
+  "record_approval_command_template": "uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>",
+  "record_submission_command_template": "uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed",
+  "script": "audit_ppmi_verily_submission_bundle.py",
+  "tracker_check": {
+    "compute_ready_route_count": 0,
+    "decision": "access_submission_tracker_ready",
+    "ppmi_completed_email_validator": "scripts/validate_ppmi_verily_submission_email.py",
+    "ppmi_completed_package_validator": "scripts/validate_ppmi_verily_submission_package.py",
+    "ppmi_completed_packet_validator": "scripts/validate_ppmi_verily_completed_packet.py",
+    "ppmi_email_template": "scripts/ppmi_verily_submission_email_template.md",
+    "ppmi_route_status": "ready_to_submit_after_user_fill_and_governance",
+    "ppmi_word_template": "results/ppmi_verily_tier3_request_packet_template_20260515.docx",
+    "tracker_passed": true
+  },
+  "user_side_sequence": [
+    "Use scripts/ppmi_verily_user_fill_checklist.md to fill the packet/email placeholders without committing personal content.",
+    "Run scripts/show_ppmi_verily_next_action.py to refresh and view the one current safe action.",
+    "Fill the Word packet locally with PI/institutional details.",
+    "Run scripts/validate_ppmi_verily_completed_packet.py on the completed local packet.",
+    "Run scripts/validate_ppmi_verily_submission_email.py on the completed local email draft.",
+    "Run scripts/validate_ppmi_verily_submission_package.py on the completed packet and email together.",
+    "Email the completed packet using scripts/ppmi_verily_submission_email_template.md.",
+    "Record only non-protected submission metadata with `uv run python scripts/record_access_submission.py --route-id ppmi_verily --submitted-at-utc <ISO8601_UTC> --submission-channel <non_protected_channel> --submitted-by <non_protected_submitter> --confirmation-reference <non_protected_receipt> --pre-submission-preflight-passed`.",
+    "Wait for approval; only after approval record non-protected metadata with `uv run python scripts/record_access_approval.py --route-id ppmi_verily --approved-at-utc <ISO8601_UTC> --source <non_protected_approval_source>`.",
+    "After approval, use scripts/ppmi_verily_schema_probe_checklist.md and scripts/ppmi_verily_schema_probe_report_template.md to run only a read-only schema probe.",
+    "Validate the filled local schema-probe report with `uv run python scripts/validate_ppmi_verily_schema_probe_report.py --report <completed_schema_probe_report_path_outside_git>` before recording scrubbed metadata.",
+    "After schema metadata is recorded, use the content-free zero-shot blueprint to write a real formula_sha256 preregistration before extraction.",
+    "Before zero-shot scoring, validate the target-free feature manifest with `uv run python scripts/validate_ppmi_verily_target_free_manifest.py --manifest <completed_target_free_manifest_path_outside_git>`.",
+    "Before extraction or scoring, validate the real formula-SHA record with `uv run python scripts/validate_external_formula_sha_record.py --route-id ppmi_verily --record <completed_formula_sha_record_path_outside_git>`.",
+    "After scoring and before reporting, validate the aggregate result record with `uv run python scripts/validate_external_zeroshot_result_record.py --route-id ppmi_verily --record <completed_external_zeroshot_result_record_path_outside_git>`."
+  ]
+}

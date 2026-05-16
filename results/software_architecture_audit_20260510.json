@@ -1,0 +1,1226 @@
+{
+  "canonical_pipelines": [
+    {
+      "category": "canonical_pipeline",
+      "loc": 264,
+      "local_imports": [
+        "inductive_lib",
+        "project_paths",
+        "updrs_columns"
+      ],
+      "module": "compose_t1_iter12_honest",
+      "path": "compose_t1_iter12_honest.py",
+      "stem": "compose_t1_iter12_honest"
+    },
+    {
+      "category": "canonical_pipeline",
+      "loc": 615,
+      "local_imports": [
+        "inductive_lib",
+        "project_paths",
+        "run_t1_iter33b_8item_chain",
+        "run_t1_iter4",
+        "run_t3_iter2",
+        "run_t3_iter5_clinical"
+      ],
+      "module": "run_t1_iter34_hybrid_8item_multibase",
+      "path": "run_t1_iter34_hybrid_8item_multibase.py",
+      "stem": "run_t1_iter34_hybrid_8item_multibase"
+    },
+    {
+      "category": "canonical_pipeline",
+      "loc": 533,
+      "local_imports": [
+        "inductive_lib",
+        "project_paths",
+        "run_t3_iter2",
+        "run_t3_iter3"
+      ],
+      "module": "run_t3_iter16_site_ipw",
+      "path": "run_t3_iter16_site_ipw.py",
+      "stem": "run_t3_iter16_site_ipw"
+    },
+    {
+      "category": "canonical_pipeline",
+      "loc": 514,
+      "local_imports": [
+        "inductive_lib",
+        "project_paths",
+        "run_t3_iter2",
+        "run_t3_iter3",
+        "run_t3_iter5_clinical"
+      ],
+      "module": "run_t3_iter41_target_fix",
+      "path": "run_t3_iter41_target_fix.py",
+      "stem": "run_t3_iter41_target_fix"
+    },
+    {
+      "category": "canonical_pipeline",
+      "loc": 445,
+      "local_imports": [
+        "inductive_lib",
+        "project_paths",
+        "run_t3_iter3",
+        "run_t3_iter41_target_fix"
+      ],
+      "module": "run_t3_iter47_invalid_code_fix",
+      "path": "run_t3_iter47_invalid_code_fix.py",
+      "stem": "run_t3_iter47_invalid_code_fix"
+    },
+    {
+      "category": "canonical_pipeline",
+      "loc": 402,
+      "local_imports": [
+        "inductive_lib",
+        "project_paths",
+        "run_t3_iter2",
+        "run_t3_iter3"
+      ],
+      "module": "run_t3_iter5_clinical",
+      "path": "run_t3_iter5_clinical.py",
+      "stem": "run_t3_iter5_clinical"
+    }
+  ],
+  "cross_script_edges_sample": [
+    {
+      "source": "audit_ablation_v3_regeneration",
+      "source_category": "audit_verifier",
+      "source_path": "audit_ablation_v3_regeneration.py",
+      "target": "run_ablation_v3",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_dst_walkway_leakage",
+      "source_category": "audit_verifier",
+      "source_path": "audit_dst_walkway_leakage.py",
+      "target": "run_t3_iter2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_dst_walkway_leakage",
+      "source_category": "audit_verifier",
+      "source_path": "audit_dst_walkway_leakage.py",
+      "target": "run_t3_iter41_target_fix",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_dst_walkway_leakage",
+      "source_category": "audit_verifier",
+      "source_path": "audit_dst_walkway_leakage.py",
+      "target": "run_t3_iter47_invalid_code_fix",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_dst_walkway_leakage",
+      "source_category": "audit_verifier",
+      "source_path": "audit_dst_walkway_leakage.py",
+      "target": "run_t3_iter5_clinical",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_iter13_t1_v5_final",
+      "source_category": "audit_verifier",
+      "source_path": "audit_iter13_t1_v5_final.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_per_item_oof_companion_scope",
+      "source_category": "audit_verifier",
+      "source_path": "audit_per_item_oof_companion_scope.py",
+      "target": "compose_t1_iter12_honest",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_runtime_cache_dependencies",
+      "source_category": "audit_verifier",
+      "source_path": "audit_runtime_cache_dependencies.py",
+      "target": "compose_t1_iter12_honest",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_runtime_cache_dependencies",
+      "source_category": "audit_verifier",
+      "source_path": "audit_runtime_cache_dependencies.py",
+      "target": "run_t1_iter33b_8item_chain",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_runtime_cache_dependencies",
+      "source_category": "audit_verifier",
+      "source_path": "audit_runtime_cache_dependencies.py",
+      "target": "run_t3_iter47_invalid_code_fix",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_runtime_cache_dependencies",
+      "source_category": "audit_verifier",
+      "source_path": "audit_runtime_cache_dependencies.py",
+      "target": "run_t3_iter5_clinical",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_strict_nulls_t1_components",
+      "source_category": "audit_verifier",
+      "source_path": "audit_strict_nulls_t1_components.py",
+      "target": "run_per_item_ccc_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_strict_nulls_t1_components",
+      "source_category": "audit_verifier",
+      "source_path": "audit_strict_nulls_t1_components.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_strict_nulls_t1_components",
+      "source_category": "audit_verifier",
+      "source_path": "audit_strict_nulls_t1_components.py",
+      "target": "run_self_norm_cross",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_strict_nulls_t1_components",
+      "source_category": "audit_verifier",
+      "source_path": "audit_strict_nulls_t1_components.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_strict_nulls_t1_components",
+      "source_category": "audit_verifier",
+      "source_path": "audit_strict_nulls_t1_components.py",
+      "target": "run_t1_iter6_lockbox_loocv",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t1_iter12_batch_integrity",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter12_batch_integrity.py",
+      "target": "compose_t1_iter12_honest",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_t1_iter34_aux_order",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_aux_order.py",
+      "target": "run_t1_iter33b_8item_chain",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t1_iter34_aux_order",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_aux_order.py",
+      "target": "run_t1_iter34_hybrid_8item_multibase",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_t1_iter34_aux_order",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_aux_order.py",
+      "target": "run_t1_iter34_leakage_audit",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t1_iter34_aux_order",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_aux_order.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t1_iter34_base_item_decomp",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_base_item_decomp.py",
+      "target": "run_t1_iter33b_8item_chain",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t1_iter34_base_item_decomp",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_base_item_decomp.py",
+      "target": "run_t1_iter34_hybrid_8item_multibase",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_t1_iter34_base_item_decomp",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_base_item_decomp.py",
+      "target": "run_t1_iter34_leakage_audit",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t1_iter34_base_item_decomp",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_base_item_decomp.py",
+      "target": "run_t3_iter2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t1_iter34_base_item_decomp",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_base_item_decomp.py",
+      "target": "run_t3_iter5_clinical",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_t1_iter34_n93_gap",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_n93_gap.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t1_iter34_p2_robustness",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_p2_robustness.py",
+      "target": "run_t1_iter33b_8item_chain",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t1_iter34_p2_robustness",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter34_p2_robustness.py",
+      "target": "run_t1_iter34_leakage_audit",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t1_iter48_aux_validrange",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter48_aux_validrange.py",
+      "target": "run_t1_iter33b_8item_chain",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t1_iter48_aux_validrange",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t1_iter48_aux_validrange.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t3_clinical_dependency",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t3_clinical_dependency.py",
+      "target": "run_t3_iter2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t3_clinical_dependency",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t3_clinical_dependency.py",
+      "target": "run_t3_iter3",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t3_clinical_dependency",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t3_clinical_dependency.py",
+      "target": "run_t3_iter41_target_fix",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_t3_clinical_dependency",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t3_clinical_dependency.py",
+      "target": "run_t3_iter5_clinical",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_t3_iter47_target_integrity",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t3_iter47_target_integrity.py",
+      "target": "run_t3_iter47_invalid_code_fix",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "audit_t3_target_stage2_covariates",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t3_target_stage2_covariates.py",
+      "target": "run_t3_iter2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t3_target_stage2_covariates",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t3_target_stage2_covariates.py",
+      "target": "run_t3_iter3",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "audit_t3_target_stage2_covariates",
+      "source_category": "audit_verifier",
+      "source_path": "audit_t3_target_stage2_covariates.py",
+      "target": "run_t3_iter5_clinical",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "cache_interaction_features",
+      "source_category": "cache_builder",
+      "source_path": "cache_interaction_features.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "cache_tug_phase_ph_mfdfa",
+      "source_category": "cache_builder",
+      "source_path": "cache_tug_phase_ph_mfdfa.py",
+      "target": "cache_stepfunction_features",
+      "target_category": "cache_builder"
+    },
+    {
+      "source": "cache_v2_self_normalized",
+      "source_category": "cache_builder",
+      "source_path": "cache_v2_self_normalized.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_hybrid_v3",
+      "source_category": "composer",
+      "source_path": "compose_hybrid_v3.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_hybrid_v4",
+      "source_category": "composer",
+      "source_path": "compose_hybrid_v4.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_hybrid_v4_interaction",
+      "source_category": "composer",
+      "source_path": "compose_hybrid_v4_interaction.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_hybrid_v5_iter11",
+      "source_category": "composer",
+      "source_path": "compose_hybrid_v5_iter11.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_per_item_subscores",
+      "source_category": "composer",
+      "source_path": "compose_per_item_subscores.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_per_item_subscores",
+      "source_category": "composer",
+      "source_path": "compose_per_item_subscores.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t1_iter14_fog",
+      "source_category": "composer",
+      "source_path": "compose_t1_iter14_fog.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t1_iter14_fog",
+      "source_category": "composer",
+      "source_path": "compose_t1_iter14_fog.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t1_iter15_harnet",
+      "source_category": "composer",
+      "source_path": "compose_t1_iter15_harnet.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t1_iter15_harnet",
+      "source_category": "composer",
+      "source_path": "compose_t1_iter15_harnet.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t1_iter17_unused_channels",
+      "source_category": "composer",
+      "source_path": "compose_t1_iter17_unused_channels.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t1_iter17_unused_channels",
+      "source_category": "composer",
+      "source_path": "compose_t1_iter17_unused_channels.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t1_iter18_indomain_ssl",
+      "source_category": "composer",
+      "source_path": "compose_t1_iter18_indomain_ssl.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t1_iter18_indomain_ssl",
+      "source_category": "composer",
+      "source_path": "compose_t1_iter18_indomain_ssl.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t3_iter19_peritem",
+      "source_category": "composer",
+      "source_path": "compose_t3_iter19_peritem.py",
+      "target": "run_per_item_iter17_hypothesis",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t3_iter19_peritem",
+      "source_category": "composer",
+      "source_path": "compose_t3_iter19_peritem.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t3_iter19_peritem",
+      "source_category": "composer",
+      "source_path": "compose_t3_iter19_peritem.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t3_iter19_peritem",
+      "source_category": "composer",
+      "source_path": "compose_t3_iter19_peritem.py",
+      "target": "run_t3_iter3",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "compose_t3_iter19_peritem",
+      "source_category": "composer",
+      "source_path": "compose_t3_iter19_peritem.py",
+      "target": "run_t3_iter5_clinical",
+      "target_category": "canonical_pipeline"
+    },
+    {
+      "source": "run_ablation_v3",
+      "source_category": "experiment_runner",
+      "source_path": "run_ablation_v3.py",
+      "target": "run_proven_stack",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_ablation_v3_boost",
+      "source_category": "experiment_runner",
+      "source_path": "run_ablation_v3_boost.py",
+      "target": "run_ablation_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_baselines",
+      "source_category": "experiment_runner",
+      "source_path": "run_baselines.py",
+      "target": "run_calibration_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_baselines",
+      "source_category": "experiment_runner",
+      "source_path": "run_baselines.py",
+      "target": "run_inductive_ablation",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_ceiling_stack",
+      "source_category": "experiment_runner",
+      "source_path": "run_ceiling_stack.py",
+      "target": "run_ablation_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_ceiling_stack",
+      "source_category": "experiment_runner",
+      "source_path": "run_ceiling_stack.py",
+      "target": "run_proven_stack",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_clean_benchmark",
+      "source_category": "experiment_runner",
+      "source_path": "run_clean_benchmark.py",
+      "target": "run_proven_stack",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_demo_residual",
+      "source_category": "experiment_runner",
+      "source_path": "run_demo_residual.py",
+      "target": "run_baselines",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_demo_residual",
+      "source_category": "experiment_runner",
+      "source_path": "run_demo_residual.py",
+      "target": "run_inductive_ablation",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_dl_rebenchmark",
+      "source_category": "experiment_runner",
+      "source_path": "run_dl_rebenchmark.py",
+      "target": "run_dl_experiments",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_event_aligned_screen",
+      "source_category": "experiment_runner",
+      "source_path": "run_event_aligned_screen.py",
+      "target": "run_per_item_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_event_features",
+      "source_category": "experiment_runner",
+      "source_path": "run_event_features.py",
+      "target": "run_calibration_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_event_features",
+      "source_category": "experiment_runner",
+      "source_path": "run_event_features.py",
+      "target": "run_inductive_ablation",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_followup_v3",
+      "source_category": "experiment_runner",
+      "source_path": "run_followup_v3.py",
+      "target": "run_ablation_v3",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_fusion_methods",
+      "source_category": "experiment_runner",
+      "source_path": "run_fusion_methods.py",
+      "target": "run_t1_iter4",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_hp_sensitivity",
+      "source_category": "experiment_runner",
+      "source_path": "run_hp_sensitivity.py",
+      "target": "run_ablation_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_hp_sweep",
+      "source_category": "experiment_runner",
+      "source_path": "run_hp_sweep.py",
+      "target": "run_compression_ablation",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_inductive_ablation",
+      "source_category": "experiment_runner",
+      "source_path": "run_inductive_ablation.py",
+      "target": "run_calibration_v2",
+      "target_category": "experiment_runner"
+    },
+    {
+      "source": "run_interaction_lockbox",
+      "source_category": "experiment_runner",
+      "source_path": "run_interaction_lockbox.py",
+      "target": "run_interaction_screen",
+      "target_category": "experiment_runner"
+    }
+  ],
+  "decision": "recommend_layered_facade_no_mass_move",
+  "generated_at_utc": "2026-05-16T12:44:59+00:00",
+  "high_fanin": [
+    {
+      "count": 221,
+      "module": "inductive_lib"
+    },
+    {
+      "count": 206,
+      "module": "project_paths"
+    },
+    {
+      "count": 110,
+      "module": "eval_utils"
+    },
+    {
+      "count": 69,
+      "module": "run_t3_iter5_clinical"
+    },
+    {
+      "count": 65,
+      "module": "run_t1_iter4"
+    },
+    {
+      "count": 63,
+      "module": "run_t3_iter2"
+    },
+    {
+      "count": 50,
+      "module": "data_split"
+    },
+    {
+      "count": 45,
+      "module": "run_t3_iter47_invalid_code_fix"
+    },
+    {
+      "count": 31,
+      "module": "run_t3_iter3"
+    },
+    {
+      "count": 29,
+      "module": "run_t1_iter33b_8item_chain"
+    },
+    {
+      "count": 28,
+      "module": "run_per_item_v2"
+    },
+    {
+      "count": 23,
+      "module": "updrs_columns"
+    },
+    {
+      "count": 13,
+      "module": "run_t3_iter41_target_fix"
+    },
+    {
+      "count": 13,
+      "module": "run_t1_iter34_hybrid_8item_multibase"
+    },
+    {
+      "count": 12,
+      "module": "run_ablation_v2"
+    },
+    {
+      "count": 12,
+      "module": "metric_lib"
+    },
+    {
+      "count": 10,
+      "module": "cache_provenance"
+    },
+    {
+      "count": 8,
+      "module": "lgb_ccc_objective_v2"
+    },
+    {
+      "count": 7,
+      "module": "run_proven_stack"
+    },
+    {
+      "count": 7,
+      "module": "run_inductive_ablation"
+    },
+    {
+      "count": 4,
+      "module": "run_ablation_v3"
+    },
+    {
+      "count": 4,
+      "module": "run_per_item_ccc_v2"
+    },
+    {
+      "count": 4,
+      "module": "run_t1_iter29b_multitask_lgb"
+    },
+    {
+      "count": 4,
+      "module": "run_t1_iter30b_multitask_variants"
+    },
+    {
+      "count": 3,
+      "module": "compose_t1_iter12_honest"
+    }
+  ],
+  "high_fanout": [
+    {
+      "count": 8,
+      "module": "audit_strict_nulls_t1_components"
+    },
+    {
+      "count": 8,
+      "module": "run_t3_S11_observable_decomposition_screen"
+    },
+    {
+      "count": 7,
+      "module": "audit_dst_walkway_leakage"
+    },
+    {
+      "count": 7,
+      "module": "audit_t1_iter34_aux_order"
+    },
+    {
+      "count": 7,
+      "module": "audit_t1_iter34_base_item_decomp"
+    },
+    {
+      "count": 7,
+      "module": "compose_t3_iter19_peritem"
+    },
+    {
+      "count": 7,
+      "module": "run_self_norm_cross_iter11b"
+    },
+    {
+      "count": 7,
+      "module": "run_t1_ceiling_push_slotC"
+    },
+    {
+      "count": 7,
+      "module": "run_t1_v3_combined_test"
+    },
+    {
+      "count": 7,
+      "module": "run_t1_v3_gsp_test"
+    },
+    {
+      "count": 7,
+      "module": "run_t3_S12_unobservability_abstention_screen"
+    },
+    {
+      "count": 7,
+      "module": "run_t3_iter30a_multitask"
+    },
+    {
+      "count": 7,
+      "module": "run_t3_iter31_multitask_lockbox"
+    },
+    {
+      "count": 6,
+      "module": "audit_t3_clinical_dependency"
+    },
+    {
+      "count": 6,
+      "module": "compute_t1_iter34_per_base_disaggregation"
+    },
+    {
+      "count": 6,
+      "module": "compute_t1_iter34_per_item_disaggregation"
+    },
+    {
+      "count": 6,
+      "module": "run_self_norm_cross"
+    },
+    {
+      "count": 6,
+      "module": "run_t1_ceiling_push_probeD_chainpool"
+    },
+    {
+      "count": 6,
+      "module": "run_t1_ceiling_push_slotA"
+    },
+    {
+      "count": 6,
+      "module": "run_t1_ceiling_push_slotD"
+    },
+    {
+      "count": 6,
+      "module": "run_t1_iter28b_multirocket"
+    },
+    {
+      "count": 6,
+      "module": "run_t1_iter29b_validate"
+    },
+    {
+      "count": 6,
+      "module": "run_t1_iter30b_lockbox"
+    },
+    {
+      "count": 6,
+      "module": "run_t1_iter32_ensemble_lockbox"
+    },
+    {
+      "count": 6,
+      "module": "run_t1_iter32_leakage_audit"
+    }
+  ],
+  "high_loc_files": [
+    {
+      "category": "audit_verifier",
+      "loc": 5704,
+      "local_imports": [
+        "cache_provenance"
+      ],
+      "module": "verify_current_goal_state",
+      "path": "verify_current_goal_state.py",
+      "stem": "verify_current_goal_state"
+    },
+    {
+      "category": "paper_reporting",
+      "loc": 5161,
+      "local_imports": [],
+      "module": "generate_paper_v4",
+      "path": "generate_paper_v4.py",
+      "stem": "generate_paper_v4"
+    },
+    {
+      "category": "paper_reporting",
+      "loc": 4949,
+      "local_imports": [],
+      "module": "generate_paper_v3",
+      "path": "generate_paper_v3.py",
+      "stem": "generate_paper_v3"
+    },
+    {
+      "category": "paper_reporting",
+      "loc": 4925,
+      "local_imports": [],
+      "module": "generate_paper_v2",
+      "path": "generate_paper_v2.py",
+      "stem": "generate_paper_v2"
+    },
+    {
+      "category": "paper_reporting",
+      "loc": 4422,
+      "local_imports": [],
+      "module": "generate_paper",
+      "path": "generate_paper.py",
+      "stem": "generate_paper"
+    },
+    {
+      "category": "tests",
+      "loc": 3445,
+      "local_imports": [],
+      "module": "tests.test_experiment_reporting_specs",
+      "path": "tests/test_experiment_reporting_specs.py",
+      "stem": "test_experiment_reporting_specs"
+    },
+    {
+      "category": "audit_verifier",
+      "loc": 3427,
+      "local_imports": [],
+      "module": "audit_proresults_prompt_to_artifact",
+      "path": "audit_proresults_prompt_to_artifact.py",
+      "stem": "audit_proresults_prompt_to_artifact"
+    },
+    {
+      "category": "audit_verifier",
+      "loc": 3272,
+      "local_imports": [],
+      "module": "audit_prompt_objective_evidence",
+      "path": "audit_prompt_objective_evidence.py",
+      "stem": "audit_prompt_objective_evidence"
+    },
+    {
+      "category": "paper_reporting",
+      "loc": 2447,
+      "local_imports": [],
+      "module": "generate_paper_v6",
+      "path": "generate_paper_v6.py",
+      "stem": "generate_paper_v6"
+    },
+    {
+      "category": "paper_reporting",
+      "loc": 2339,
+      "local_imports": [],
+      "module": "generate_paper_v5",
+      "path": "generate_paper_v5.py",
+      "stem": "generate_paper_v5"
+    },
+    {
+      "category": "audit_verifier",
+      "loc": 2036,
+      "local_imports": [],
+      "module": "audit_architecture_completion",
+      "path": "audit_architecture_completion.py",
+      "stem": "audit_architecture_completion"
+    },
+    {
+      "category": "paper_reporting",
+      "loc": 1829,
+      "local_imports": [],
+      "module": "visualize_current_best_pipeline",
+      "path": "visualize_current_best_pipeline.py",
+      "stem": "visualize_current_best_pipeline"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1759,
+      "local_imports": [
+        "data_split",
+        "eval_utils",
+        "project_paths",
+        "updrs_columns"
+      ],
+      "module": "run_pd_only_experiments",
+      "path": "run_pd_only_experiments.py",
+      "stem": "run_pd_only_experiments"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1729,
+      "local_imports": [
+        "data_split",
+        "eval_utils",
+        "project_paths"
+      ],
+      "module": "run_calibration_ablation",
+      "path": "run_calibration_ablation.py",
+      "stem": "run_calibration_ablation"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1589,
+      "local_imports": [
+        "data_split",
+        "project_paths",
+        "updrs_columns"
+      ],
+      "module": "run_rocket_ablation",
+      "path": "run_rocket_ablation.py",
+      "stem": "run_rocket_ablation"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1503,
+      "local_imports": [
+        "data_split",
+        "eval_utils",
+        "project_paths",
+        "updrs_columns"
+      ],
+      "module": "run_sensor_span",
+      "path": "run_sensor_span.py",
+      "stem": "run_sensor_span"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1374,
+      "local_imports": [
+        "data_split",
+        "eval_utils",
+        "project_paths",
+        "updrs_columns"
+      ],
+      "module": "run_step_function",
+      "path": "run_step_function.py",
+      "stem": "run_step_function"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1361,
+      "local_imports": [
+        "data_split"
+      ],
+      "module": "run_v2_experiments",
+      "path": "run_v2_experiments.py",
+      "stem": "run_v2_experiments"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1348,
+      "local_imports": [
+        "data_split",
+        "eval_utils",
+        "project_paths",
+        "updrs_columns"
+      ],
+      "module": "run_compression_ablation",
+      "path": "run_compression_ablation.py",
+      "stem": "run_compression_ablation"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1284,
+      "local_imports": [
+        "data_split",
+        "project_paths"
+      ],
+      "module": "run_dl_experiments",
+      "path": "run_dl_experiments.py",
+      "stem": "run_dl_experiments"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1284,
+      "local_imports": [
+        "data_split"
+      ],
+      "module": "run_v3_ablation",
+      "path": "run_v3_ablation.py",
+      "stem": "run_v3_ablation"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1235,
+      "local_imports": [
+        "data_split",
+        "project_paths",
+        "updrs_columns"
+      ],
+      "module": "run_obs_bias_ablation",
+      "path": "run_obs_bias_ablation.py",
+      "stem": "run_obs_bias_ablation"
+    },
+    {
+      "category": "audit_verifier",
+      "loc": 1198,
+      "local_imports": [],
+      "module": "audit_current_next_action_handoff",
+      "path": "audit_current_next_action_handoff.py",
+      "stem": "audit_current_next_action_handoff"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1166,
+      "local_imports": [
+        "eval_utils",
+        "inductive_lib",
+        "run_t3_iter41_target_fix",
+        "run_t3_iter47_invalid_code_fix"
+      ],
+      "module": "run_vnext_ablation_batch",
+      "path": "run_vnext_ablation_batch.py",
+      "stem": "run_vnext_ablation_batch"
+    },
+    {
+      "category": "experiment_runner",
+      "loc": 1120,
+      "local_imports": [
+        "data_split",
+        "eval_utils",
+        "project_paths",
+        "updrs_columns"
+      ],
+      "module": "run_reviewer_experiments",
+      "path": "run_reviewer_experiments.py",
+      "stem": "run_reviewer_experiments"
+    }
+  ],
+  "passed": true,
+  "recommended_target_architecture": {
+    "layers": [
+      "pd_imu/core: paths, targets, split contracts, metrics, cache provenance, fold-local transforms",
+      "pd_imu/datasets: WearGait and external-cohort loaders returning typed subject/visit tables",
+      "pd_imu/features: manifest-backed cache readers/builders with label-use metadata",
+      "pd_imu/pipelines: reusable fold-local PipelineSpec objects for T1, T3, and external validation",
+      "pd_imu/experiments: thin CLI wrappers that bind preregistration, run spec, and write artifacts",
+      "pd_imu/reporting: claim ledger, figure generation, manuscript/export validation"
+    ],
+    "migration_order": [
+      "Add facades; do not move old run_*.py scripts in bulk.",
+      "Extract only code used by canonical and future external-data paths first.",
+      "Route new experiments through PipelineSpec plus artifact manifest writers.",
+      "Leave historical failed/leaky scripts as audit archaeology with no new imports from them.",
+      "Add an import-boundary guard that blocks new run_* -> run_* dependencies except listed legacy exceptions."
+    ],
+    "principle": "Keep historical experiment scripts immutable and introduce a narrow layered facade for new work."
+  },
+  "script": "audit_software_architecture.py",
+  "shared_core": [
+    {
+      "category": "shared_core",
+      "loc": 166,
+      "local_imports": [],
+      "module": "cache_provenance",
+      "path": "cache_provenance.py",
+      "stem": "cache_provenance"
+    },
+    {
+      "category": "shared_core",
+      "loc": 296,
+      "local_imports": [
+        "project_paths"
+      ],
+      "module": "data_split",
+      "path": "data_split.py",
+      "stem": "data_split"
+    },
+    {
+      "category": "shared_core",
+      "loc": 135,
+      "local_imports": [],
+      "module": "eval_utils",
+      "path": "eval_utils.py",
+      "stem": "eval_utils"
+    },
+    {
+      "category": "shared_core",
+      "loc": 245,
+      "local_imports": [
+        "eval_utils"
+      ],
+      "module": "inductive_lib",
+      "path": "inductive_lib.py",
+      "stem": "inductive_lib"
+    },
+    {
+      "category": "shared_core",
+      "loc": 110,
+      "local_imports": [],
+      "module": "lgb_ccc_objective_v2",
+      "path": "lgb_ccc_objective_v2.py",
+      "stem": "lgb_ccc_objective_v2"
+    },
+    {
+      "category": "shared_core",
+      "loc": 89,
+      "local_imports": [],
+      "module": "project_paths",
+      "path": "project_paths.py",
+      "stem": "project_paths"
+    },
+    {
+      "category": "shared_core",
+      "loc": 116,
+      "local_imports": [],
+      "module": "updrs_columns",
+      "path": "updrs_columns.py",
+      "stem": "updrs_columns"
+    }
+  ],
+  "summary": {
+    "category_counts": {
+      "ad_hoc_test_script": 2,
+      "architecture_facade": 26,
+      "audit_verifier": 127,
+      "cache_builder": 39,
+      "canonical_pipeline": 6,
+      "composer": 10,
+      "experiment_runner": 263,
+      "legacy_src_module": 8,
+      "miscellaneous": 27,
+      "paper_reporting": 25,
+      "shared_core": 7,
+      "support_script": 34,
+      "tests": 19
+    },
+    "category_loc": {
+      "ad_hoc_test_script": 530,
+      "architecture_facade": 5033,
+      "audit_verifier": 59244,
+      "cache_builder": 13818,
+      "canonical_pipeline": 2773,
+      "composer": 4061,
+      "experiment_runner": 111895,
+      "legacy_src_module": 1927,
+      "miscellaneous": 5832,
+      "paper_reporting": 32381,
+      "shared_core": 1157,
+      "support_script": 11489,
+      "tests": 6717
+    },
+    "cross_script_edges": 405,
+    "local_import_edges": 1089,
+    "non_exception_cross_script_edges": 401,
+    "python_files": 593,
+    "syntax_unreadable_count": 0,
+    "total_loc": 256857
+  },
+  "syntax_unreadable": []
+}

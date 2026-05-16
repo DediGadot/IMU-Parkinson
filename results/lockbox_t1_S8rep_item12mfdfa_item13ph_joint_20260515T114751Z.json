@@ -1,0 +1,86 @@
+{
+  "name": "lockbox_t1_S8rep_item12mfdfa_item13ph_joint",
+  "created_at_utc": "20260515T114751Z",
+  "preregistration_master": "results/preregistration_t1t3_proresults_ablation_20260515T133800Z.json",
+  "session": "2026-05-15-PM-microbatch-S8",
+  "null_mode": "real",
+  "n_cohort": 92,
+  "split_seed": 20260309,
+  "model_seeds": [
+    101,
+    202,
+    303
+  ],
+  "alpha_fixed": 100.0,
+  "lambda_fixed": 1.0,
+  "n_bootstrap": 2000,
+  "fwer_n": 7,
+  "bonferroni_gate": 0.992857,
+  "mcid": 0.025,
+  "estimand_label": "full_cohort_t1_loocv_ccc_post_correction",
+  "iter34_baseline_canonical_ccc": 0.717,
+  "iter34_loocv_ccc_recomputed": 0.717038,
+  "n_features_ph": 32,
+  "n_features_mfdfa": 56,
+  "arms": {
+    "item13_only": {
+      "arm": "item13_only",
+      "loocv_ccc_baseline": 0.717038,
+      "loocv_ccc_corrected": 0.72458,
+      "delta_ccc": 0.007542,
+      "delta_pearson_r": 0.008669,
+      "delta_mae": -0.024183,
+      "corr_correction_sum_residual": 0.118313,
+      "frac_pos_bootstrap": 0.981,
+      "bootstrap_median": 0.007744,
+      "ci95": [
+        0.000726,
+        0.017195
+      ],
+      "verdict": "SUB_MCID"
+    },
+    "item12_only": {
+      "arm": "item12_only",
+      "loocv_ccc_baseline": 0.717038,
+      "loocv_ccc_corrected": 0.718494,
+      "delta_ccc": 0.001456,
+      "delta_pearson_r": 0.002216,
+      "delta_mae": 0.008737,
+      "corr_correction_sum_residual": 0.029596,
+      "frac_pos_bootstrap": 0.624,
+      "bootstrap_median": 0.001361,
+      "ci95": [
+        -0.008424,
+        0.011203
+      ],
+      "verdict": "SUB_MCID"
+    },
+    "JOINT": {
+      "arm": "JOINT_item12_item13",
+      "loocv_ccc_baseline": 0.717038,
+      "loocv_ccc_corrected": 0.725826,
+      "delta_ccc": 0.008788,
+      "delta_pearson_r": 0.010746,
+      "delta_mae": -0.014344,
+      "corr_correction_sum_residual": 0.102027,
+      "frac_pos_bootstrap": 0.9275,
+      "bootstrap_median": 0.008962,
+      "ci95": [
+        -0.00319,
+        0.02338
+      ],
+      "verdict": "SUB_MCID"
+    }
+  },
+  "fivefold_mean_delta_3seeds_JOINT": 0.006,
+  "fivefold_seed_std": 0.004082,
+  "fivefold_deltas_per_seed": [
+    0.002578,
+    0.004904,
+    0.010518
+  ],
+  "fivefold_screen_gate_mean": 0.015,
+  "fivefold_screen_gate_std": 0.02,
+  "fivefold_promotion": "BELOW_SCREEN",
+  "verdict_JOINT": "SUB_MCID"
+}

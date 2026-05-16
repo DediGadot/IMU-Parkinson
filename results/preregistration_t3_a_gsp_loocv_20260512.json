@@ -1,0 +1,23 @@
+{
+  "name": "t3_a_gsp_loocv",
+  "created_at_utc": "2026-05-12T21:22:36.130252+00:00",
+  "parent_screen": "results/lockbox_t3_a_gsp_screen_20260512_212011.json",
+  "screen_verdict": "CLEAR_TO_LOOCV",
+  "screen_delta_5fold": 0.0337,
+  "screen_seed_std_5fold": 0.0082,
+  "master_prereg": "results/preregistration_goalv2_master_20260512.json",
+  "cohort": "drop_allmissing_validrange",
+  "n_subjects": 95,
+  "stage1": "Ridge alpha=1 on H&Y + cv_yrs + cv_sex + cv_dbs",
+  "stage2": "LGB on K=500 univariate-corr K-best from V2 + V3-GSP unified pool",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "mcid": 0.025,
+  "bonferroni_n": 3,
+  "frac_gt_threshold": 0.9833,
+  "sign_flip_p_threshold": 0.016700000000000048,
+  "formula_sha256": "a7fa47ae6d11072590b760e074e2be0ed5c92bc0ba905ae3b09b3679760c338d"
+}

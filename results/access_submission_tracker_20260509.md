@@ -26,6 +26,15 @@ This is an operational access tracker, not a model result and not a completion m
 - Packet: `scripts/ppmi_verily_tier3_request_packet.md`
 - Packet audit: `ppmi_verily_tier3_request_packet_ready`
 - Runbook: `scripts/ppmi_verily_setup.md`
+- Current official-source recheck: official_sources=`True`, tier3_submission=`True`, required_packet_fields=`True`.
+- Current Tier-3 submission terms: `verily raw device data`, `tier 3`, `resources@michaeljfox.org`, `pdf or word`, `30 days`
+- Submit-format template: `results/ppmi_verily_tier3_request_packet_template_20260515.docx` (audit passed=`True`, decision=`ppmi_verily_word_template_ready_to_fill`).
+- Submission email template: `scripts/ppmi_verily_submission_email_template.md` (audit passed=`True`, decision=`ppmi_verily_submission_email_template_ready`).
+- User-fill checklist: `scripts/ppmi_verily_user_fill_checklist.md` (audit passed=`True`, decision=`ppmi_verily_user_fill_checklist_ready`, placeholders=`19`, packet_fields=`13`, email_fields=`12`, metadata_fields=`4`).
+- Post-approval schema-probe report template: `scripts/ppmi_verily_schema_probe_report_template.md` (audit passed=`True`, decision=`ppmi_verily_schema_probe_report_template_ready`).
+- Completed-packet preflight: `scripts/validate_ppmi_verily_completed_packet.py` (audit passed=`True`, decision=`ppmi_verily_completed_packet_validator_ready`).
+- Completed-email preflight: `scripts/validate_ppmi_verily_submission_email.py` (audit passed=`True`, decision=`ppmi_verily_submission_email_validator_ready`).
+- Completed-package preflight: `scripts/validate_ppmi_verily_submission_package.py` (audit passed=`True`, decision=`ppmi_verily_submission_package_validator_ready`).
 - Submit via: PPMI access workflow plus Tier-3 Verily Raw Device Data packet to resources@michaeljfox.org.
 - User action: Start or update the qualified-researcher application, complete the DUA/publications-policy steps, then submit the filled Tier-3 packet.
 - Access blocker: PPMI qualified-researcher account, DUA, online application, and DPC approval.

@@ -1,14 +1,15 @@
 {
-  "generated_at_utc": "2026-05-10T13:22:11+00:00",
+  "generated_at_utc": "2026-05-15T15:12:27+00:00",
   "script": "audit_remaining_blocker_actions.py",
   "source": "results/current_goal_state_verification_20260508.json",
-  "source_current_state_verified": false,
+  "source_current_state_verified": true,
   "source_goal_complete": false,
-  "source_blocker_count": 36,
+  "source_blocker_count": 37,
   "policy": "Every current blocker must map to a non-redundant next-action boundary. A new WearGait-only model or lockbox is allowed only if a blocker is classified as local_model_action_allowed; the current audit expects zero.",
   "passed": true,
   "category_counts": {
     "clinical_plus_imu_boundary": 1,
+    "deployable_secondary_boundary_not_promoted": 2,
     "diagnostic_no_single_subject_redline": 1,
     "external_access_required": 6,
     "external_access_required_small_or_schema_hidden": 2,
@@ -26,8 +27,7 @@
     "provenance_credentials_blocked": 1,
     "provenance_raw_data_blocked": 2,
     "t1_candidate_caveated": 2,
-    "target_hygiene_sensitivity_failed": 1,
-    "uncertainty_no_rescue": 1
+    "target_hygiene_sensitivity_failed": 1
   },
   "action_type_counts": {
     "candidate_disclosure_no_posthoc_lockbox": 2,
@@ -37,7 +37,7 @@
     "no_prereg_no_download": 3,
     "no_prereg_no_rerun_same_policy": 1,
     "paper_transportability_only": 4,
-    "paper_uncertainty_only": 1,
+    "paper_uncertainty_only": 2,
     "requires_user_credentials_or_confirmation": 1,
     "requires_user_or_data_owner_access": 8,
     "requires_weargait_raw_data_restore": 2
@@ -59,7 +59,7 @@
       "recommended_next_action": "Provide Synapse credentials/config and explicit confirmation before any large control-CSV recovery."
     },
     {
-      "index": 22,
+      "index": 23,
       "blocker": "Hssayeni/MJFF external data path remains Synapse DUA-blocked.",
       "rule_id": "hssayeni_dua_blocked",
       "multiple_rule_matches": [],
@@ -71,7 +71,7 @@
       "recommended_next_action": "User-side Synapse DUA approval, then run the existing iter26 probe."
     },
     {
-      "index": 23,
+      "index": 24,
       "blocker": "PPMI/Verily is a newly documented priority external route, but it also requires PPMI DUA/application credentials before any scaffold or remote job is justified.",
       "rule_id": "ppmi_access_required",
       "multiple_rule_matches": [],
@@ -83,7 +83,7 @@
       "recommended_next_action": "Apply for PPMI access; then do read-only schema inspection."
     },
     {
-      "index": 24,
+      "index": 25,
       "blocker": "WATCH-PD is a protocol-matched direct T3 route, but it requires C-Path 3DT or Steering Committee access and row-level schema before any scaffold or remote job is justified.",
       "rule_id": "watchpd_access_required",
       "multiple_rule_matches": [],
@@ -95,7 +95,7 @@
       "recommended_next_action": "Request access; no scaffold before files/schema exist."
     },
     {
-      "index": 25,
+      "index": 26,
       "blocker": "ICICLE-PD/ICICLE-GAIT is a request-gated lower-back longitudinal T3 route; no scaffold or remote job is justified until data access and schema exist.",
       "rule_id": "icicle_access_required",
       "multiple_rule_matches": [],
@@ -107,7 +107,7 @@
       "recommended_next_action": "Submit data request; then schema probe only after access."
     },
     {
-      "index": 26,
+      "index": 27,
       "blocker": "CNS Portugal/Lobo AX3 gait is a request-gated direct T3 route; no scaffold or remote job is justified until author/CNS data access and schema exist.",
       "rule_id": "cns_access_required",
       "multiple_rule_matches": [],
@@ -119,7 +119,7 @@
       "recommended_next_action": "Request data/schema from author or CNS before scaffolding."
     },
     {
-      "index": 31,
+      "index": 32,
       "blocker": "Fay-Karmon advanced-PD smartwatch monitoring is N=21, request-only, proprietary/schema-hidden, and no T1 route is visible; no scaffold or remote job is justified before author approval and row-level schema.",
       "rule_id": "fay_karmon_request_only",
       "multiple_rule_matches": [],
@@ -131,7 +131,7 @@
       "recommended_next_action": "Optional author request only; no scaffold before approval and schema."
     },
     {
-      "index": 32,
+      "index": 33,
       "blocker": "Marital-dyad GeneActiv social actigraphy is N=27 PD, request-only, daily-life/dyad oriented rather than structured gait/balance, and no T1 route is visible; no scaffold or remote job is justified before author approval and row-level schema.",
       "rule_id": "marital_dyad_request_only",
       "multiple_rule_matches": [],
@@ -143,7 +143,7 @@
       "recommended_next_action": "Optional author request only; no scaffold before approval and schema."
     },
     {
-      "index": 33,
+      "index": 34,
       "blocker": "Personalized Parkinson Project / PD-VME is a strong Verily-watch peer route, but it is RDSRC-gated and schema-hidden; no scaffold or remote job is justified until access exists.",
       "rule_id": "ppp_rdsrc_gated",
       "multiple_rule_matches": [],
@@ -395,18 +395,30 @@
     },
     {
       "index": 17,
-      "blocker": "Current conformal/abstention shows wide T3 intervals and no deployable abstention rescue.",
-      "rule_id": "conformal_abstention_no_rescue",
+      "blocker": "T3 Slot F CQR-width abstention opens a deployable-secondary boundary result (0.4237 @70%, 0.5370 @50%), but the seed-101 replication still fails the frac>full >= 0.95 promotion gate, so it does not rescue the full-cohort T3 ceiling.",
+      "rule_id": "t3_slotf_boundary_lift_not_promoted",
       "multiple_rule_matches": [],
-      "category": "uncertainty_no_rescue",
+      "category": "deployable_secondary_boundary_not_promoted",
       "action_type": "paper_uncertainty_only",
       "local_model_action_allowed": false,
       "requires_user_or_external_access": false,
-      "reason": "Conformal intervals are useful reporting evidence but do not improve deployable T3 CCC.",
-      "recommended_next_action": "Report intervals/abstention curves as uncertainty evidence."
+      "reason": "Slot F is a y-free deployable-secondary boundary result, but its seed-101 replication still fails the promotion frac gate and cannot update the full-cohort T3 headline.",
+      "recommended_next_action": "Report as a boundary-lift/deployable-secondary result, not as a full-cohort ceiling break; do not rerun local abstention variants without new data or a new pre-registered estimand."
     },
     {
       "index": 18,
+      "blocker": "T3 S13/S15 PH/MFDFA transfer extension is closed without promotion: S13 JOINT failed the 5-fold screen and S15 retained-bootstrap frac>full remains below 0.95 at both 70% and 50% coverage.",
+      "rule_id": "t3_s13_s15_transfer_not_promoted",
+      "multiple_rule_matches": [],
+      "category": "deployable_secondary_boundary_not_promoted",
+      "action_type": "paper_uncertainty_only",
+      "local_model_action_allowed": false,
+      "requires_user_or_external_access": false,
+      "reason": "The PH/MFDFA transfer extension and y-free retained-secondary variant are informative near-misses but do not pass full-cohort or retained-bootstrap promotion gates.",
+      "recommended_next_action": "Record as a non-promoted pro-results closure; do not rerun local T3 retained-abstention variants without new data or a new preregistered estimand."
+    },
+    {
+      "index": 19,
       "blocker": "COPS iter49 full zero-shot is external-validity evidence only: wrist-only transfer is null, clinical+wrist transfer is partial, and it cannot update the internal T3 headline.",
       "rule_id": "cops_external_only",
       "multiple_rule_matches": [],
@@ -418,7 +430,7 @@
       "recommended_next_action": "Report as external row only."
     },
     {
-      "index": 19,
+      "index": 20,
       "blocker": "TLVMC/DeFOG iter51 is partial external-validity evidence only: Track A lower-back magnitude CCC is 0.2695 with compressed predictions, and no external outcome can update the internal T3 headline.",
       "rule_id": "tlvmc_external_only",
       "multiple_rule_matches": [],
@@ -430,7 +442,7 @@
       "recommended_next_action": "Report as external row only."
     },
     {
-      "index": 20,
+      "index": 21,
       "blocker": "PDFE turning-in-place iter52 is external-validity evidence only: WearGait shank transfer is negative (Track A CCC -0.1008), clinical+shank transfer is weak/uncertain (Track B 0.1340 with CI crossing zero), and no external outcome can update the internal T3 headline.",
       "rule_id": "pdfe_external_only",
       "multiple_rule_matches": [],
@@ -442,7 +454,7 @@
       "recommended_next_action": "Report as external row only."
     },
     {
-      "index": 21,
+      "index": 22,
       "blocker": "Parkinson@Home iter53 is a public direct T3 route but hard-stopped before scoring: only 18 valid OFF PD subjects remained after the frozen feature-readability filter versus the pre-registered N>=20 minimum, so no Track A/C/D metric exists and no internal T3 headline can change.",
       "rule_id": "parkinsonathome_hard_stop_no_score",
       "multiple_rule_matches": [],
@@ -454,7 +466,7 @@
       "recommended_next_action": "Do not rerun iter53 under the same preregistration; any shorter-window or fallback policy requires a fresh preregistration and remains external-only."
     },
     {
-      "index": 22,
+      "index": 23,
       "blocker": "Hssayeni/MJFF external data path remains Synapse DUA-blocked.",
       "rule_id": "hssayeni_dua_blocked",
       "multiple_rule_matches": [],
@@ -466,7 +478,7 @@
       "recommended_next_action": "User-side Synapse DUA approval, then run the existing iter26 probe."
     },
     {
-      "index": 23,
+      "index": 24,
       "blocker": "PPMI/Verily is a newly documented priority external route, but it also requires PPMI DUA/application credentials before any scaffold or remote job is justified.",
       "rule_id": "ppmi_access_required",
       "multiple_rule_matches": [],
@@ -478,7 +490,7 @@
       "recommended_next_action": "Apply for PPMI access; then do read-only schema inspection."
     },
     {
-      "index": 24,
+      "index": 25,
       "blocker": "WATCH-PD is a protocol-matched direct T3 route, but it requires C-Path 3DT or Steering Committee access and row-level schema before any scaffold or remote job is justified.",
       "rule_id": "watchpd_access_required",
       "multiple_rule_matches": [],
@@ -490,7 +502,7 @@
       "recommended_next_action": "Request access; no scaffold before files/schema exist."
     },
     {
-      "index": 25,
+      "index": 26,
       "blocker": "ICICLE-PD/ICICLE-GAIT is a request-gated lower-back longitudinal T3 route; no scaffold or remote job is justified until data access and schema exist.",
       "rule_id": "icicle_access_required",
       "multiple_rule_matches": [],
@@ -502,7 +514,7 @@
       "recommended_next_action": "Submit data request; then schema probe only after access."
     },
     {
-      "index": 26,
+      "index": 27,
       "blocker": "CNS Portugal/Lobo AX3 gait is a request-gated direct T3 route; no scaffold or remote job is justified until author/CNS data access and schema exist.",
       "rule_id": "cns_access_required",
       "multiple_rule_matches": [],
@@ -514,7 +526,7 @@
       "recommended_next_action": "Request data/schema from author or CNS before scaffolding."
     },
     {
-      "index": 27,
+      "index": 28,
       "blocker": "Mobilise-D TVS is not a clinical UPDRS-III regression route, and Mobilise-D CVS remains a release/schema watch route; no scaffold or remote job is justified until row-level data access exists.",
       "rule_id": "mobilised_watchlist",
       "multiple_rule_matches": [],
@@ -526,7 +538,7 @@
       "recommended_next_action": "Monitor/request CVS release; no code until row-level wearable plus MDS-UPDRS data exist."
     },
     {
-      "index": 28,
+      "index": 29,
       "blocker": "Harmonized Upper/Lower Limb Accelerometry is daily-life ActiGraph rehab data with no confirmed Part III/T1 target; no scaffold or remote job is justified for T1/T3 CCC.",
       "rule_id": "harmonized_accel_not_eligible",
       "multiple_rule_matches": [],
@@ -538,7 +550,7 @@
       "recommended_next_action": "Do not scaffold or download for this objective."
     },
     {
-      "index": 29,
+      "index": 30,
       "blocker": "Monipar/BIOCLITE are public consumer-smartwatch subitem datasets, but neither has total T3 or the full T1 9-14 composite; no preregistration or download is justified for this objective.",
       "rule_id": "monipar_bioclite_not_eligible",
       "multiple_rule_matches": [],
@@ -550,7 +562,7 @@
       "recommended_next_action": "Do not preregister or download for this objective."
     },
     {
-      "index": 30,
+      "index": 31,
       "blocker": "Zenodo 14848598 is a public derived CSF/clinical/gait-summary table, not raw wearable IMU or an auditable T1/T3 sensor-clinical cohort; no preregistration or download is justified.",
       "rule_id": "zenodo_14848598_not_eligible",
       "multiple_rule_matches": [],
@@ -562,7 +574,7 @@
       "recommended_next_action": "Do not scaffold or download for this objective."
     },
     {
-      "index": 31,
+      "index": 32,
       "blocker": "Fay-Karmon advanced-PD smartwatch monitoring is N=21, request-only, proprietary/schema-hidden, and no T1 route is visible; no scaffold or remote job is justified before author approval and row-level schema.",
       "rule_id": "fay_karmon_request_only",
       "multiple_rule_matches": [],
@@ -574,7 +586,7 @@
       "recommended_next_action": "Optional author request only; no scaffold before approval and schema."
     },
     {
-      "index": 32,
+      "index": 33,
       "blocker": "Marital-dyad GeneActiv social actigraphy is N=27 PD, request-only, daily-life/dyad oriented rather than structured gait/balance, and no T1 route is visible; no scaffold or remote job is justified before author approval and row-level schema.",
       "rule_id": "marital_dyad_request_only",
       "multiple_rule_matches": [],
@@ -586,7 +598,7 @@
       "recommended_next_action": "Optional author request only; no scaffold before approval and schema."
     },
     {
-      "index": 33,
+      "index": 34,
       "blocker": "Personalized Parkinson Project / PD-VME is a strong Verily-watch peer route, but it is RDSRC-gated and schema-hidden; no scaffold or remote job is justified until access exists.",
       "rule_id": "ppp_rdsrc_gated",
       "multiple_rule_matches": [],
@@ -598,8 +610,20 @@
       "recommended_next_action": "Request RDSRC access; no scaffold before approval and schema."
     },
     {
-      "index": 34,
-      "blocker": "T1 iter34 is above the canonical floor but remains a candidate: P2 noisy-test robustness has no point-estimate leak, but its bootstrap upper bound crosses the +0.05 margin.",
+      "index": 35,
+      "blocker": "T1 hygiene-corrected iter34 is above the canonical floor but remains a candidate: CCC 0.7170 on N=92, below the superseded original N=93 iter34 value 0.7366.",
+      "rule_id": "t1_iter34_hygiene_candidate_not_clean_break",
+      "multiple_rule_matches": [],
+      "category": "t1_candidate_caveated",
+      "action_type": "candidate_disclosure_no_posthoc_lockbox",
+      "local_model_action_allowed": false,
+      "requires_user_or_external_access": false,
+      "reason": "The hygiene-corrected iter34 result is the strongest current T1 candidate but remains a caveated candidate rather than a clean canonical ceiling break.",
+      "recommended_next_action": "Frame as strongest caveated candidate/post-publication replication target; do not rerun post-hoc variants."
+    },
+    {
+      "index": 36,
+      "blocker": "T1 iter34 still carries robustness caveats: the original P2 noisy-test bootstrap upper bound crosses the +0.05 margin, and the valid-auxiliary rerun degraded rather than broke the old ceiling.",
       "rule_id": "t1_iter34_p2_caveat",
       "multiple_rule_matches": [],
       "category": "t1_candidate_caveated",
@@ -610,19 +634,7 @@
       "recommended_next_action": "Frame as strongest caveated candidate, not canonical replacement."
     },
     {
-      "index": 35,
-      "blocker": "T1 iter34 also carries an auxiliary-label/order caveat: NLS036 had invalid auxiliary item15=18; random chain order puts item15 upstream of T1 items in 2/3 locked seeds, though the all-base stale-vs-valid 5-fold common-SID delta was only -0.0008 CCC. No post-hoc N=92 lockbox is planned.",
-      "rule_id": "t1_iter34_aux_caveat",
-      "multiple_rule_matches": [],
-      "category": "t1_candidate_caveated",
-      "action_type": "candidate_disclosure_no_posthoc_lockbox",
-      "local_model_action_allowed": false,
-      "requires_user_or_external_access": false,
-      "reason": "The auxiliary-label/order issue is documented and low-materiality; rerunning after discovery would be cohort surgery.",
-      "recommended_next_action": "Document the caveat; do not run a post-hoc N=92 lockbox."
-    },
-    {
-      "index": 36,
+      "index": 37,
       "blocker": "T1 iter46 ET-only robustification did not break iter34 and did not strictly clear iter12.",
       "rule_id": "t1_iter46_failed",
       "multiple_rule_matches": [],

@@ -1,0 +1,11 @@
+{
+  "submission_evidence": {
+    "confirmation_reference": "non-protected receipt 123",
+    "notes": "Non-protected lifecycle audit fixture",
+    "pre_submission_preflight_passed": true,
+    "route_id": "ppp_pd_vme",
+    "submission_channel": "PPP official submission portal",
+    "submitted_at_utc": "2026-05-15T00:00:00Z",
+    "submitted_by": "approved institutional delegate"
+  }
+}

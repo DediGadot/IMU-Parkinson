@@ -1,0 +1,553 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "validator": "scripts/validate_target_free_manifest.py"
+      },
+      "name": "validator script exists",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "route_ids": [
+          "ppmi_verily",
+          "ppp_pd_vme",
+          "watchpd",
+          "cns_portugal_lobo",
+          "hssayeni_mjff",
+          "icicle_gait"
+        ]
+      },
+      "name": "schema contracts expose six external route specs",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "target_free_feature_manifest_preflight_passed",
+        "field_counts": {
+          "feature_blocks": 1,
+          "grouping_keys": 2,
+          "reserved_target_columns": 1,
+          "top_level_keys": 28
+        },
+        "hard_failures": []
+      },
+      "name": "ppmi_verily synthetic target-free manifest passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "labels_not_used_before_scoring",
+          "target_selection_empty",
+          "boundary_flags_false"
+        ],
+        "returncode": 1
+      },
+      "name": "ppmi_verily label use and target-derived selection fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "ppmi_verily protected row-like and credential-like payloads fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "forbidden_value_snippets_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "ppmi_verily local path-like values fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "label_output_contains_filename": false,
+        "local_path_output_contains_filename": false,
+        "local_path_output_contains_scratch_filename": false,
+        "local_path_output_contains_scratch_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_secret_value": false,
+        "safe_output_contains_filename": false,
+        "safe_output_contains_path": false
+      },
+      "name": "ppmi_verily output redacts manifest paths, filenames, and secret-like values",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "target_free_feature_manifest_preflight_passed",
+        "field_counts": {
+          "feature_blocks": 1,
+          "grouping_keys": 2,
+          "reserved_target_columns": 1,
+          "top_level_keys": 28
+        },
+        "hard_failures": []
+      },
+      "name": "ppp_pd_vme synthetic target-free manifest passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "labels_not_used_before_scoring",
+          "target_selection_empty",
+          "boundary_flags_false"
+        ],
+        "returncode": 1
+      },
+      "name": "ppp_pd_vme label use and target-derived selection fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "ppp_pd_vme protected row-like and credential-like payloads fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "forbidden_value_snippets_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "ppp_pd_vme local path-like values fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "label_output_contains_filename": false,
+        "local_path_output_contains_filename": false,
+        "local_path_output_contains_scratch_filename": false,
+        "local_path_output_contains_scratch_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_secret_value": false,
+        "safe_output_contains_filename": false,
+        "safe_output_contains_path": false
+      },
+      "name": "ppp_pd_vme output redacts manifest paths, filenames, and secret-like values",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "target_free_feature_manifest_preflight_passed",
+        "field_counts": {
+          "feature_blocks": 1,
+          "grouping_keys": 2,
+          "reserved_target_columns": 1,
+          "top_level_keys": 28
+        },
+        "hard_failures": []
+      },
+      "name": "watchpd synthetic target-free manifest passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "labels_not_used_before_scoring",
+          "target_selection_empty",
+          "boundary_flags_false"
+        ],
+        "returncode": 1
+      },
+      "name": "watchpd label use and target-derived selection fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "watchpd protected row-like and credential-like payloads fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "forbidden_value_snippets_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "watchpd local path-like values fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "label_output_contains_filename": false,
+        "local_path_output_contains_filename": false,
+        "local_path_output_contains_scratch_filename": false,
+        "local_path_output_contains_scratch_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_secret_value": false,
+        "safe_output_contains_filename": false,
+        "safe_output_contains_path": false
+      },
+      "name": "watchpd output redacts manifest paths, filenames, and secret-like values",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "target_free_feature_manifest_preflight_passed",
+        "field_counts": {
+          "feature_blocks": 1,
+          "grouping_keys": 2,
+          "reserved_target_columns": 1,
+          "top_level_keys": 28
+        },
+        "hard_failures": []
+      },
+      "name": "cns_portugal_lobo synthetic target-free manifest passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "labels_not_used_before_scoring",
+          "target_selection_empty",
+          "boundary_flags_false"
+        ],
+        "returncode": 1
+      },
+      "name": "cns_portugal_lobo label use and target-derived selection fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "cns_portugal_lobo protected row-like and credential-like payloads fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "forbidden_value_snippets_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "cns_portugal_lobo local path-like values fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "label_output_contains_filename": false,
+        "local_path_output_contains_filename": false,
+        "local_path_output_contains_scratch_filename": false,
+        "local_path_output_contains_scratch_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_secret_value": false,
+        "safe_output_contains_filename": false,
+        "safe_output_contains_path": false
+      },
+      "name": "cns_portugal_lobo output redacts manifest paths, filenames, and secret-like values",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "target_free_feature_manifest_preflight_passed",
+        "field_counts": {
+          "feature_blocks": 1,
+          "grouping_keys": 2,
+          "reserved_target_columns": 1,
+          "top_level_keys": 28
+        },
+        "hard_failures": []
+      },
+      "name": "hssayeni_mjff synthetic target-free manifest passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "labels_not_used_before_scoring",
+          "target_selection_empty",
+          "boundary_flags_false"
+        ],
+        "returncode": 1
+      },
+      "name": "hssayeni_mjff label use and target-derived selection fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "hssayeni_mjff protected row-like and credential-like payloads fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "forbidden_value_snippets_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "hssayeni_mjff local path-like values fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "label_output_contains_filename": false,
+        "local_path_output_contains_filename": false,
+        "local_path_output_contains_scratch_filename": false,
+        "local_path_output_contains_scratch_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_secret_value": false,
+        "safe_output_contains_filename": false,
+        "safe_output_contains_path": false
+      },
+      "name": "hssayeni_mjff output redacts manifest paths, filenames, and secret-like values",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "decision": "target_free_feature_manifest_preflight_passed",
+        "field_counts": {
+          "feature_blocks": 1,
+          "grouping_keys": 2,
+          "reserved_target_columns": 1,
+          "top_level_keys": 28
+        },
+        "hard_failures": []
+      },
+      "name": "icicle_gait synthetic target-free manifest passes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "labels_not_used_before_scoring",
+          "target_selection_empty",
+          "boundary_flags_false"
+        ],
+        "returncode": 1
+      },
+      "name": "icicle_gait label use and target-derived selection fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "protected_payload_keys_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "icicle_gait protected row-like and credential-like payloads fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "hard_failures": [
+          "forbidden_value_snippets_absent"
+        ],
+        "returncode": 1
+      },
+      "name": "icicle_gait local path-like values fail",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "label_output_contains_filename": false,
+        "local_path_output_contains_filename": false,
+        "local_path_output_contains_scratch_filename": false,
+        "local_path_output_contains_scratch_path": false,
+        "protected_output_contains_filename": false,
+        "protected_output_contains_secret_value": false,
+        "safe_output_contains_filename": false,
+        "safe_output_contains_path": false
+      },
+      "name": "icicle_gait output redacts manifest paths, filenames, and secret-like values",
+      "passed": true
+    }
+  ],
+  "credentials_or_tokens_included": false,
+  "decision": "external_target_free_manifest_validator_ready",
+  "generated_at_utc": "2026-05-16T06:13:13+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_feature_manifest_artifact": true,
+  "not_a_model_result": true,
+  "not_a_preregistration": true,
+  "not_a_schema_probe_artifact": true,
+  "not_a_submission_record": true,
+  "not_access_approval": true,
+  "passed": true,
+  "protected_data_included": false,
+  "route_results": {
+    "cns_portugal_lobo": {
+      "label_hard_failures": [
+        "labels_not_used_before_scoring",
+        "target_selection_empty",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "target_free_feature_manifest_preflight_passed",
+      "synthetic_field_counts": {
+        "feature_blocks": 1,
+        "grouping_keys": 2,
+        "reserved_target_columns": 1,
+        "top_level_keys": 28
+      },
+      "synthetic_passed": true
+    },
+    "hssayeni_mjff": {
+      "label_hard_failures": [
+        "labels_not_used_before_scoring",
+        "target_selection_empty",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "target_free_feature_manifest_preflight_passed",
+      "synthetic_field_counts": {
+        "feature_blocks": 1,
+        "grouping_keys": 2,
+        "reserved_target_columns": 1,
+        "top_level_keys": 28
+      },
+      "synthetic_passed": true
+    },
+    "icicle_gait": {
+      "label_hard_failures": [
+        "labels_not_used_before_scoring",
+        "target_selection_empty",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "target_free_feature_manifest_preflight_passed",
+      "synthetic_field_counts": {
+        "feature_blocks": 1,
+        "grouping_keys": 2,
+        "reserved_target_columns": 1,
+        "top_level_keys": 28
+      },
+      "synthetic_passed": true
+    },
+    "ppmi_verily": {
+      "label_hard_failures": [
+        "labels_not_used_before_scoring",
+        "target_selection_empty",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "target_free_feature_manifest_preflight_passed",
+      "synthetic_field_counts": {
+        "feature_blocks": 1,
+        "grouping_keys": 2,
+        "reserved_target_columns": 1,
+        "top_level_keys": 28
+      },
+      "synthetic_passed": true
+    },
+    "ppp_pd_vme": {
+      "label_hard_failures": [
+        "labels_not_used_before_scoring",
+        "target_selection_empty",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "target_free_feature_manifest_preflight_passed",
+      "synthetic_field_counts": {
+        "feature_blocks": 1,
+        "grouping_keys": 2,
+        "reserved_target_columns": 1,
+        "top_level_keys": 28
+      },
+      "synthetic_passed": true
+    },
+    "watchpd": {
+      "label_hard_failures": [
+        "labels_not_used_before_scoring",
+        "target_selection_empty",
+        "boundary_flags_false"
+      ],
+      "label_use_failed": true,
+      "local_path_failed": true,
+      "local_path_hard_failures": [
+        "forbidden_value_snippets_absent"
+      ],
+      "protected_failed": true,
+      "protected_hard_failures": [
+        "protected_payload_keys_absent"
+      ],
+      "redaction_passed": true,
+      "synthetic_decision": "target_free_feature_manifest_preflight_passed",
+      "synthetic_field_counts": {
+        "feature_blocks": 1,
+        "grouping_keys": 2,
+        "reserved_target_columns": 1,
+        "top_level_keys": 28
+      },
+      "synthetic_passed": true
+    }
+  },
+  "script": "audit_external_target_free_manifest_validator.py",
+  "synthetic_dir": "results/external_target_free_manifest_validator_synthetic",
+  "validator": "scripts/validate_target_free_manifest.py"
+}

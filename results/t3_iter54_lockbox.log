@@ -1,0 +1,42 @@
+
+=== T3 iter54 DANN + Tier-2 LOCKBOX (mode=both, seeds=[42, 1337, 7]) ===
+  cohort = drop_allmissing_validrange N=95
+  site_counts = {'NLS': 68, 'WPD': 27, 'OTHER': 0}
+
+--- LOOCV ---
+  seed=42 LOOCV fold 20/95 elapsed=48.6s
+  seed=42 LOOCV fold 40/95 elapsed=94.4s
+  seed=42 LOOCV fold 60/95 elapsed=144.6s
+  seed=42 LOOCV fold 80/95 elapsed=195.8s
+  seed=42 LOOCV fold 95/95 elapsed=240.1s
+  seed=42: ensemble=0.2696  lgb_only=0.3506  dann_only=0.1469
+  seed=1337 LOOCV fold 20/95 elapsed=59.1s
+  seed=1337 LOOCV fold 40/95 elapsed=97.8s
+  seed=1337 LOOCV fold 60/95 elapsed=140.5s
+  seed=1337 LOOCV fold 80/95 elapsed=190.2s
+  seed=1337 LOOCV fold 95/95 elapsed=226.0s
+  seed=1337: ensemble=0.0897  lgb_only=0.3947  dann_only=0.0217
+  seed=7 LOOCV fold 20/95 elapsed=47.3s
+  seed=7 LOOCV fold 40/95 elapsed=92.9s
+  seed=7 LOOCV fold 60/95 elapsed=139.2s
+  seed=7 LOOCV fold 80/95 elapsed=185.3s
+  seed=7 LOOCV fold 95/95 elapsed=218.9s
+  seed=7: ensemble=0.1257  lgb_only=0.3733  dann_only=0.0370
+  HEADLINE LOOCV: ensemble=0.1958  (vs iter47=0.3784, Δ=-0.1826)
+  promotion gate: FAIL (p=0.6286, BCa=[-0.4115, -0.0150], Δ=-0.1826)
+
+--- LOSO ---
+  direction: NLS -> WPD
+    seed=42: ensemble=0.1425  lgb_only=0.2431  dann_only=0.0627
+    seed=1337: ensemble=0.0326  lgb_only=0.1703  dann_only=0.0144
+    seed=7: ensemble=0.0613  lgb_only=0.1677  dann_only=0.0250
+    direction HEADLINE: ensemble=0.0788  (vs iter47_LOSO=0.1500)
+    promotion gate: FAIL
+  direction: WPD -> NLS
+    seed=42: ensemble=-0.0000  lgb_only=0.1027  dann_only=-0.0000
+    seed=1337: ensemble=0.0000  lgb_only=0.1094  dann_only=0.0000
+    seed=7: ensemble=-0.0000  lgb_only=0.1056  dann_only=-0.0000
+    direction HEADLINE: ensemble=-0.0000  (vs iter47_LOSO=0.1500)
+    promotion gate: FAIL
+
+Wrote /home/fiod/pd-imu/results/lockbox_t3_iter54_dann_tier2_20260512_115513.json

@@ -1,0 +1,70 @@
+{
+  "name": "ppmi_replication_blueprint_t3",
+  "purpose": "Lock T3 sklearn-GB K=250 formula BEFORE PPMI access opens.",
+  "created_at_utc": "2026-05-14T15:19:39.537958+00:00",
+  "git_sha": "unknown",
+  "primary_formula": {
+    "model": "sklearn.ensemble.GradientBoostingRegressor",
+    "model_params": {
+      "n_estimators": 300,
+      "max_depth": 4,
+      "min_samples_leaf": 10,
+      "subsample": 0.8,
+      "learning_rate": 0.05,
+      "random_state": "seed_from_seeds_list"
+    },
+    "selector": "univariate_corr_top_K",
+    "K": 250,
+    "stage_1": {
+      "model": "sklearn.linear_model.Ridge",
+      "alpha": 1.0,
+      "covariates": [
+        "hy_stage",
+        "cv_years",
+        "cv_sex",
+        "cv_dbs"
+      ]
+    },
+    "imputation": "fold_local_train_median",
+    "cohort": "drop_allmissing_validrange",
+    "subitem_validation": "clip MDSUPDRS_3-* to [0,4]; treat 5-99 as NaN",
+    "seeds": [
+      42,
+      1337,
+      7
+    ],
+    "evaluation": "LOOCV on PPMI cohort; paired-bootstrap vs PPMI baseline"
+  },
+  "secondary_to_lock_alongside": [
+    "T1 conformal abstention (V2_only): see lockbox_t1_conformal_20260512_211440.json",
+    "T3 conformal abstention (winning v-next cell A/B/C, post-screen)"
+  ],
+  "fwer_family_at_ppmi": {
+    "n": 1,
+    "gate_frac_pos": 0.95,
+    "comparator": "PPMI internal baseline (iter47-style if data permits)"
+  },
+  "first_allowed_action_after_PPMI_access": [
+    "Schema probe: confirm subject/visit/sensor IDs.",
+    "Stage-1 covariate availability check (hy, age, sex, dbs).",
+    "Build cohort under drop_allmissing_validrange.",
+    "Run primary formula ONLY; no exploratory variants."
+  ],
+  "leakage_safeguards": [
+    "No K-search at PPMI \u2014 K=250 fixed.",
+    "No model search at PPMI \u2014 sklearn-GB fixed.",
+    "No selector search at PPMI \u2014 univariate-corr fixed.",
+    "No threshold tuning post-OOF.",
+    "If primary formula fails Bonferroni n=1 (gate 0.95), report as null; do NOT post-hoc search alternatives."
+  ],
+  "wearagait_evidence_base": {
+    "iter47_canonical_ccc": 0.3784,
+    "k250_sklearn_gb_ccc_wearagait": 0.4488,
+    "delta_at_wearagait_n95": 0.0732,
+    "wearagait_frac_pos": 0.9518,
+    "wearagait_fwer_verdict": "FAILS Bonferroni n=7 (K-search family)",
+    "expected_ppmi_n": 517,
+    "expected_variance_reduction_factor": 2.3
+  },
+  "formula_sha256": "489ca6bbc96520c2ea56cc53ee52b03542bec799f9bd41c34d9c9ef5b61ebee4"
+}

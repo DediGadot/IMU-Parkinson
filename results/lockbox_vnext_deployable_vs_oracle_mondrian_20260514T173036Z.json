@@ -1,0 +1,164 @@
+{
+  "name": "deployable_vs_oracle_mondrian_audit",
+  "created_at_utc": "2026-05-14T17:30:36.092880+00:00",
+  "ts": "20260514T173036Z",
+  "audit_purpose": "Distinguish y-aware ORACLE Mondrian retention (Cell A recipe \u2014 retain[i] = |y_i - \u0177_i| \u2264 \u03c4_bin_i, NOT deployable) from y-FREE DEPLOYABLE Mondrian retention (retain by \u03c4_bin position in the ordering across bins). Compare both against the 2026-05-12 V2-only disagreement baseline for T1.",
+  "T1": {
+    "target": "T1",
+    "n": 92,
+    "oracle": [
+      {
+        "label": "oracle",
+        "coverage_target": 1.0,
+        "retained_n": 88,
+        "retained_ccc": 0.7557474747600864,
+        "retained_mae": 1.619204484720933
+      },
+      {
+        "label": "oracle",
+        "coverage_target": 0.85,
+        "retained_n": 76,
+        "retained_ccc": 0.803811112418341,
+        "retained_mae": 1.310015248127059
+      },
+      {
+        "label": "oracle",
+        "coverage_target": 0.7,
+        "retained_n": 63,
+        "retained_ccc": 0.8897436611383441,
+        "retained_mae": 1.0058399690232764
+      },
+      {
+        "label": "oracle",
+        "coverage_target": 0.5,
+        "retained_n": 46,
+        "retained_ccc": 0.9520994796977327,
+        "retained_mae": 0.6932328256421707
+      }
+    ],
+    "deployable": [
+      {
+        "label": "deployable_tau_bin_95",
+        "coverage_target": 1.0,
+        "retained_n": 92,
+        "retained_ccc": 0.7170378403014925,
+        "retained_mae": 1.7356018162374585
+      },
+      {
+        "label": "deployable_tau_bin_95",
+        "coverage_target": 0.85,
+        "retained_n": 92,
+        "retained_ccc": 0.7170378403014925,
+        "retained_mae": 1.7356018162374585
+      },
+      {
+        "label": "deployable_tau_bin_95",
+        "coverage_target": 0.7,
+        "retained_n": 68,
+        "retained_ccc": 0.3553405160431579,
+        "retained_mae": 1.4984057068829402
+      },
+      {
+        "label": "deployable_tau_bin_95",
+        "coverage_target": 0.5,
+        "retained_n": 46,
+        "retained_ccc": 0.28913349055372384,
+        "retained_mae": 1.3779965957763913
+      }
+    ],
+    "v2_v3_disagreement_baseline": [
+      {
+        "label": "disagreement",
+        "coverage_target": 1.0,
+        "retained_n": 92,
+        "retained_ccc": 0.7170378403014925,
+        "retained_mae": 1.7356018162374585
+      },
+      {
+        "label": "disagreement",
+        "coverage_target": 0.85,
+        "retained_n": 77,
+        "retained_ccc": 0.7514101885992726,
+        "retained_mae": 1.6831389376735804
+      },
+      {
+        "label": "disagreement",
+        "coverage_target": 0.7,
+        "retained_n": 64,
+        "retained_ccc": 0.777708087108654,
+        "retained_mae": 1.6327066441051619
+      },
+      {
+        "label": "disagreement",
+        "coverage_target": 0.5,
+        "retained_n": 46,
+        "retained_ccc": 0.833766584306216,
+        "retained_mae": 1.3322776154046476
+      }
+    ]
+  },
+  "T3": {
+    "target": "T3",
+    "n": 95,
+    "oracle": [
+      {
+        "label": "oracle",
+        "coverage_target": 1.0,
+        "retained_n": 91,
+        "retained_ccc": 0.3943039068838315,
+        "retained_mae": 7.0828030238242485
+      },
+      {
+        "label": "oracle",
+        "coverage_target": 0.85,
+        "retained_n": 77,
+        "retained_ccc": 0.6048696890640186,
+        "retained_mae": 5.592069954197175
+      },
+      {
+        "label": "oracle",
+        "coverage_target": 0.7,
+        "retained_n": 65,
+        "retained_ccc": 0.6935398627845398,
+        "retained_mae": 4.438714321920373
+      },
+      {
+        "label": "oracle",
+        "coverage_target": 0.5,
+        "retained_n": 48,
+        "retained_ccc": 0.848432275018737,
+        "retained_mae": 3.127169912593459
+      }
+    ],
+    "deployable": [
+      {
+        "label": "deployable_tau_bin_95",
+        "coverage_target": 1.0,
+        "retained_n": 95,
+        "retained_ccc": 0.3783671177953899,
+        "retained_mae": 7.528022830280761
+      },
+      {
+        "label": "deployable_tau_bin_95",
+        "coverage_target": 0.85,
+        "retained_n": 95,
+        "retained_ccc": 0.3783671177953899,
+        "retained_mae": 7.528022830280761
+      },
+      {
+        "label": "deployable_tau_bin_95",
+        "coverage_target": 0.7,
+        "retained_n": 70,
+        "retained_ccc": 0.11201908722230446,
+        "retained_mae": 6.951638807527678
+      },
+      {
+        "label": "deployable_tau_bin_95",
+        "coverage_target": 0.5,
+        "retained_n": 49,
+        "retained_ccc": 0.14688344482028962,
+        "retained_mae": 6.989092097279827
+      }
+    ]
+  }
+}

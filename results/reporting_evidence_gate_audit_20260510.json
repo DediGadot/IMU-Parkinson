@@ -1,0 +1,236 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "observed_paths": [
+          "results/t1_iter12_honest_composite.json",
+          "results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+          "results/iter47_invalidcode_20260508_194605.json",
+          "results/iter47_invalidcode_loso_20260508_195424.json",
+          "results/iter49_cops_zeroshot.json"
+        ]
+      },
+      "name": "source artifacts used in audit exist locally",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "internal_claims": [
+          "t1_iter12_canonical_floor",
+          "t1_iter34_strongest_candidate",
+          "t3_iter47_corrected_validrange",
+          "t3_iter47_loso_transportability"
+        ]
+      },
+      "name": "internal reporting claims come from current truth registry",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": []
+      },
+      "name": "complete reporting evidence gate can emit",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "missing claim source artifact: results/iter49_cops_zeroshot.json"
+        ]
+      },
+      "name": "missing source artifact blocks emission",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "missing required snippet: not canonical",
+          "missing required snippet: External transportability evidence only"
+        ]
+      },
+      "name": "missing required framing text blocks emission",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "t1_iter34_strongest_candidate: claim metric evidence sha256 is required when artifact ledger is hashed",
+          "t1_iter34_strongest_candidate: metric value mismatch at ccc: observed 0.1, claim 0.717",
+          "t1_iter34_strongest_candidate: n_subjects mismatch at n_subjects: observed 93, claim 92"
+        ]
+      },
+      "name": "stale metric evidence blocks emission",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "t1_iter34_strongest_candidate: claim metric evidence sha256 is required when artifact ledger is hashed",
+          "t1_iter34_strongest_candidate: metric value mismatch at ccc: observed 0.1, claim 0.717",
+          "t1_iter34_strongest_candidate: n_subjects mismatch at n_subjects: observed 93, claim 92"
+        ]
+      },
+      "name": "hashed source artifacts require matching metric evidence hashes",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "missing claim source artifact: results/t1_iter12_honest_composite.json",
+          "missing claim source artifact: results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+          "missing claim source artifact: results/iter47_invalidcode_20260508_194605.json",
+          "missing claim source artifact: results/iter47_invalidcode_loso_20260508_195424.json",
+          "missing claim source artifact: results/iter49_cops_zeroshot.json",
+          "t1_iter34_strongest_candidate: claim metric evidence sha256 must be 64 hex characters"
+        ]
+      },
+      "name": "claim metric evidence hashes must be hex",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "missing claim source artifact: results/t1_iter12_honest_composite.json",
+          "missing claim source artifact: results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+          "missing claim source artifact: results/iter47_invalidcode_20260508_194605.json",
+          "missing claim source artifact: results/iter47_invalidcode_loso_20260508_195424.json",
+          "missing claim source artifact: results/iter49_cops_zeroshot.json",
+          "t1_iter34_strongest_candidate: metric value path error: malformed index [bad] in 'ccc[bad]'"
+        ]
+      },
+      "name": "claim metric evidence JSON path syntax errors fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "missing claim source artifact: results/t1_iter12_honest_composite.json",
+          "missing claim source artifact: results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+          "missing claim source artifact: results/iter47_invalidcode_20260508_194605.json",
+          "missing claim source artifact: results/iter47_invalidcode_loso_20260508_195424.json",
+          "missing claim source artifact: results/iter49_cops_zeroshot.json",
+          "t1_iter34_strongest_candidate: metric value path error: malformed path 'ccc..value'"
+        ]
+      },
+      "name": "claim metric evidence JSON paths reject empty segments",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "malformed_errors": [
+          "missing claim source artifact: results/t1_iter12_honest_composite.json",
+          "missing claim source artifact: results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+          "missing claim source artifact: results/iter47_invalidcode_20260508_194605.json",
+          "missing claim source artifact: results/iter47_invalidcode_loso_20260508_195424.json",
+          "missing claim source artifact: results/iter49_cops_zeroshot.json",
+          "t1_iter34_strongest_candidate: claim metric evidence payload must be an object"
+        ],
+        "nonnumeric_errors": [
+          "missing claim source artifact: results/t1_iter12_honest_composite.json",
+          "missing claim source artifact: results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+          "missing claim source artifact: results/iter47_invalidcode_20260508_194605.json",
+          "missing claim source artifact: results/iter47_invalidcode_loso_20260508_195424.json",
+          "missing claim source artifact: results/iter49_cops_zeroshot.json",
+          "t1_iter34_strongest_candidate: metric value at ccc must be numeric",
+          "t1_iter34_strongest_candidate: n_subjects at n_subjects must be numeric"
+        ],
+        "protected_errors": [
+          "missing claim source artifact: results/t1_iter12_honest_composite.json",
+          "missing claim source artifact: results/lockbox_t1_iter34_hybrid_20260510_233019.json",
+          "missing claim source artifact: results/iter47_invalidcode_20260508_194605.json",
+          "missing claim source artifact: results/iter47_invalidcode_loso_20260508_195424.json",
+          "missing claim source artifact: results/iter49_cops_zeroshot.json",
+          "t1_iter34_strongest_candidate: claim metric evidence contains prohibited protected-content key: claim_metric_evidence.rows",
+          "t1_iter34_strongest_candidate: claim metric evidence contains prohibited protected-content key: claim_metric_evidence.metadata.access_token"
+        ]
+      },
+      "name": "claim metric evidence malformed/protected payloads fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bad_json_errors": [
+          "loader_bad_json: claim metric evidence source artifact is not valid JSON: bad.json",
+          "loader_bad_json: metric value path error: missing key 'metrics' in 'metrics.ccc'",
+          "loader_bad_json: n_subjects path error: missing key 'metrics' in 'metrics.n'"
+        ],
+        "missing_errors": [
+          "loader_missing: claim metric evidence source artifact is missing: missing.json",
+          "loader_missing: metric value path error: missing key 'metrics' in 'metrics.ccc'",
+          "loader_missing: n_subjects path error: missing key 'metrics' in 'metrics.n'"
+        ]
+      },
+      "name": "claim metric evidence loader errors fail closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "duplicate claim name: t3_iter47_corrected_validrange"
+        ]
+      },
+      "name": "duplicate claim names block ambiguous metric evidence",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "duplicate claim metric evidence: t1_iter12_canonical_floor"
+        ]
+      },
+      "name": "duplicate metric evidence names block silent overwrite",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "errors": [
+          "unexpected claim metric evidence: not_in_surface"
+        ]
+      },
+      "name": "metric evidence for unknown claims blocks emission",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "malformed_evidence_errors": [
+          "observed_artifact_paths entries must be non-empty strings",
+          "artifact_ledger: paths must be a tuple or list",
+          "claim_metric_evidence entries must be ClaimMetricEvidence",
+          "claim_metric_evidence entries must have non-empty claim_name",
+          "missing claim metric evidence: t1_iter34_strongest_candidate"
+        ],
+        "malformed_gate_errors": [
+          "surface must be a ReportingSurfaceSpec",
+          "observed_artifact_paths must be a tuple or list",
+          "artifact_ledger must be an ArtifactLedger",
+          "claim_metric_evidence must be a tuple or list"
+        ],
+        "malformed_surface_errors": [
+          "name is required",
+          "path is required",
+          "claims entries must be ClaimSpec",
+          "required_snippets entries must be non-empty strings",
+          "123: name is required",
+          "123: label 1 is not allowed",
+          "123: source_artifact is required",
+          "123: metric must be a non-empty string when set",
+          "123: value must be numeric when set",
+          "123: n_subjects must be an integer when set",
+          "123: caveat must be a non-empty string when set",
+          "123: updates_internal_canonical must be a boolean",
+          "rendered text must be a string when set"
+        ]
+      },
+      "name": "malformed reporting gate objects fail closed",
+      "passed": true
+    }
+  ],
+  "claim": "Reporting surfaces now have a reusable evidence gate: a surface can emit claims only when claim labels/framing validate, current internal truth claims come from the typed registry, claim names and metric-evidence names are unique, every metric-evidence entry belongs to a surface claim, every claim source artifact is present, metric-evidence hashes are true hex SHA-256 values, malformed metric-evidence JSON paths fail closed, including empty path segments, row-like or credential-like claim metric payload keys fail closed, malformed claim metric payloads fail closed, claim metric evidence loader errors fail closed, malformed reporting surface/gate objects fail closed, hashed source artifacts match metric-evidence hashes, and metric/value/N claims match parsed source-artifact evidence.",
+  "decision": "reporting_evidence_gate_passed",
+  "generated_at_utc": "2026-05-16T12:44:31+00:00",
+  "goal_complete": false,
+  "hard_failures": [],
+  "not_a_model_result": true,
+  "passed": true,
+  "script": "audit_reporting_evidence_gate.py"
+}

@@ -1,10 +1,10 @@
 {
-  "generated_at_utc": "2026-05-09T10:02:19+00:00",
+  "generated_at_utc": "2026-05-10T20:39:39+00:00",
   "script": "audit_readme_claim_routing.py",
   "policy": "README.md must route readers to current post-audit T1/T3 claims and may mention old SSL/XGBRanker numbers only when locally guarded as legacy/retracted/pre-audit or target-contaminated.",
   "passed": true,
   "decision": "readme_current_claim_route_guard_passed",
-  "readme_sha256": "f949f81bbd0197e04e2739991d4e2ff31b4b6d5fa153ec3b48f5f1d146b15d90",
+  "readme_sha256": "c18d267c68468a647836f8abc9d323b1836f76e0af47137e7559f646e142fb50",
   "missing_required": [],
   "forbidden_headline_hits": [],
   "dangerous_hits": [

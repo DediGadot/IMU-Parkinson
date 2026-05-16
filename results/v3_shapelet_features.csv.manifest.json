@@ -1,0 +1,27 @@
+{
+  "script": "cache_v3_shapelet_features.py",
+  "git_sha": "unknown",
+  "created_at_utc": "2026-05-12T20:09:10Z",
+  "labels_used": false,
+  "cohort_statistics_used": true,
+  "fold_scope": "global",
+  "tasks": [
+    "SelfPace",
+    "HurriedPace",
+    "TUG",
+    "TandemGait"
+  ],
+  "k_clusters": 8,
+  "n_phase_samples": 50,
+  "stride_channels": [
+    "LowerBack_FreeAcc_U",
+    "LowerBack_Gyr_Z",
+    "LowerBack_Gyr_X",
+    "Xiphoid_FreeAcc_U",
+    "L_LatShank_Gyr_Y",
+    "R_LatShank_Gyr_Y"
+  ],
+  "n_features_total": 120,
+  "n_subjects": 99,
+  "rationale": "V3 lightweight DTW shapelets \u2014 K-means on time-warped stride windows. Stride morphology features capture ordered execution shape under variable timing, complementary to V2 stationary aggregates and V3-GSP graph spectrum."
+}
