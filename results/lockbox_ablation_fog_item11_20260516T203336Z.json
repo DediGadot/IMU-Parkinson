@@ -1,0 +1,69 @@
+{
+  "experiment": "ablation_fog_item11",
+  "created_at_utc": "20260516T203336Z",
+  "git_sha": "unknown",
+  "formula_sha256": "05c087e5e2204fa8f2b4a3d0be269f39f968c8e328881da559fb4a2d3bf6645c",
+  "preregistration": "preregistration_ablation_fog_item11_20260516T203336Z.json",
+  "n_subjects": 94,
+  "k_best": 200,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "fog_features": [
+    "fog_event_rate",
+    "fog_event_duration_mean",
+    "fog_event_duration_std"
+  ],
+  "fog_event_rate_nonzero": 6,
+  "metrics_arm_a_baseline": {
+    "n": 94,
+    "ccc": 0.1284,
+    "cal_slope": 0.1004,
+    "mae": 0.4487,
+    "r": 0.1337,
+    "pred_mean": 0.229,
+    "pred_std": 0.463,
+    "true_mean": 0.213,
+    "true_std": 0.617,
+    "label": "arm_a_hy_v2_item11ms"
+  },
+  "metrics_arm_b_treatment": {
+    "n": 94,
+    "ccc": 0.1315,
+    "cal_slope": 0.103,
+    "mae": 0.4465,
+    "r": 0.137,
+    "pred_mean": 0.236,
+    "pred_std": 0.463,
+    "true_mean": 0.213,
+    "true_std": 0.617,
+    "label": "arm_b_plus_fog"
+  },
+  "delta_ccc_mean_of_seeds_pred_means": 0.003138384383125886,
+  "delta_ccc_per_seed": [
+    0.016261314151328504,
+    -0.0053205286535242535,
+    -0.0012010114244752346
+  ],
+  "seed_std_delta": 0.009355207554970392,
+  "paired_bootstrap": {
+    "delta_mean": 0.0031003348757685295,
+    "delta_ci_low": -0.007543842994223326,
+    "delta_ci_high": 0.014271115318234736,
+    "frac_above_zero": 0.709,
+    "frac_above_mcid": 0.3578,
+    "frac_above_0.025": 0.0002
+  },
+  "promotion_gate": {
+    "rule": "frac>0 \u2265 0.95 AND mean \u0394 \u2265 +0.025",
+    "frac_above_zero": 0.709,
+    "mean_delta": 0.0031003348757685295,
+    "passes_frac_gate": false,
+    "passes_mcid_gate": false,
+    "PASSES_PROMOTION_GATE": false
+  },
+  "published_baseline_w76": 0.222,
+  "delta_vs_published_w76": -0.09050556488405004
+}

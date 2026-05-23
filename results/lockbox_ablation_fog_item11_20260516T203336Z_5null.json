@@ -1,0 +1,7 @@
+{
+  "scrambled_label_ccc": -0.02713979815968032,
+  "scrambled_label_passes": true,
+  "canary_feature_ccc": 0.1452024813142307,
+  "canary_feature_passes": true,
+  "n_pos_at_train_time": 6
+}

@@ -1,0 +1,93 @@
+{
+  "experiment": "Bound A/D/E recalibration on valid-range cohort + label-noise floor",
+  "purpose": "Refresh theoretical T3 ceilings (pre-hygiene D=0.683, A=0.351, E=0.171) under N=95 valid-range cohort and iter34 hygiene-corrected T1 predictions.",
+  "created_at_utc": "20260516T202546Z",
+  "git_sha": "1aa78e9f038757040fbafeae9fb09ca3e0dfff46",
+  "literature_floor": {
+    "ICC_inter_rater_part3": 0.81,
+    "CCC_ceiling_sqrtICC": 0.9,
+    "source": "Goetz 2008 MDS-UPDRS Part III test-retest ICC"
+  },
+  "cohort": {
+    "cohort_label": "drop_allmissing_validrange (PD with \u22651 valid subitem + valid T1)",
+    "n_pd_total": 98,
+    "n_valid_t3": 95,
+    "n_both_t1_t3_valid": 94,
+    "sids_dropped_for_t1_missing": [
+      "WPD017"
+    ],
+    "t1_mean": 4.1063829787234045,
+    "t1_std": 2.81511152081119,
+    "t3_mean": 24.97872340425532,
+    "t3_std": 9.963741418320447,
+    "r_mean": 20.872340425531913,
+    "r_std": 8.378333306242563,
+    "corr_t1_t3_pearson": 0.6596397352323455
+  },
+  "bound_D_pearson_r": {
+    "definition": "Pearson r(T1_actual, T3_actual) -- upper bound on CCC under perfect linear calibration of T1\u2192T3.",
+    "value": 0.6596397352323455,
+    "ci95": [
+      0.5118091754056292,
+      0.7782930170903617
+    ]
+  },
+  "bound_D_ccc_calibrated": {
+    "definition": "CCC(a + b\u00b7T1, T3) with (a,b) by OLS = 2r\u00b2/(1+r\u00b2).",
+    "value": 0.606392763765817,
+    "ci95": [
+      0.41514944016543764,
+      0.7544683606765543
+    ]
+  },
+  "bound_A_oracle_t1_meanR": {
+    "definition": "CCC(T1_actual + mean(R), T3) -- oracle T1 + mean-imputed R = IMU-only max if R has zero IMU signal.",
+    "value": 0.3451882756844182,
+    "ci95": [
+      0.2568091930785914,
+      0.41692061939399166
+    ]
+  },
+  "bound_E_inductive_iter34": {
+    "definition": "CCC(iter34_T1_pred + mean(R), T3) -- realistic T3 ceiling under current T1 quality if R has zero IMU signal.",
+    "value": 0.257633978645362,
+    "ci95": [
+      0.1286355955180428,
+      0.356281140962287
+    ],
+    "n": 92,
+    "iter34_t1_ccc_recheck": 0.7170378403014925
+  },
+  "iter34_ccc_validation": {
+    "iter34_lockbox_published": 0.717,
+    "iter34_recomputed_on_matched": 0.7170378403014925,
+    "match_within_0.005": true
+  },
+  "label_noise_corrected": {
+    "note": "Each bound divided by sqrt(ICC)=sqrt(0.81)\u22480.9. Caps the deployable CCC against a noisy reference.",
+    "ICC": 0.81,
+    "bound_D_pearson_r__floored": 0.7329330391470505,
+    "bound_A__floored": 0.3835425285382424,
+    "bound_E__floored": 0.28625997627262445,
+    "deployment_caveat": "These division-corrected numbers are upper bounds on observable CCC against a perfectly-rated gold standard; they BOUND ABOVE what we could observe even with an oracle predictor."
+  },
+  "pre_hygiene_baselines": {
+    "from_claude_md": {
+      "bound_D_perfect_T1_to_T3": 0.683,
+      "bound_A_oracle_T1_plus_meanR": 0.351,
+      "bound_E_inductive_shrinkage_iter34_to_T3": 0.171
+    },
+    "delta_post_hygiene": {
+      "bound_D_pearson_r_minus_pre_D": -0.023360264767654515,
+      "bound_A_minus_pre_A": -0.005811724315581801,
+      "bound_E_minus_pre_E": 0.08663397864536201
+    }
+  },
+  "sota_contextualization": {
+    "t3_canonical_loocv_ccc": 0.3784,
+    "t3_canonical_minus_bound_A": 0.033211724315581836,
+    "t3_canonical_minus_bound_E": 0.12076602135463799,
+    "interpretation_short": "If T3 canonical (0.3784) > Bound_E, the iter47 LOOCV result extracts more than constant-R inductive ceiling \u2014 meaning R (items 1-8, 15-18) has some IMU-recoverable signal at N=95 beyond the contribution of T1. If T3 canonical \u2264 Bound_E, R is essentially constant-imputed in the canonical model."
+  },
+  "formula_sha256": "229a69e83d6b1001c4f385f39d728288cabaf14624f85ddde44d27cedfb3a504"
+}

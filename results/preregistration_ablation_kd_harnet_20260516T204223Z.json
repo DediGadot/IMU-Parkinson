@@ -1,0 +1,20 @@
+{
+  "experiment": "Ablation #11 \u2014 KD-cascade HARNet (sklearn approximation)",
+  "comparator": "ARM_A baseline = V2-only iter34-style LGB on H&Y residual",
+  "treatment": "ARM_B = ARM_A + 32-dim student-distilled HARNet block (forced-include)",
+  "kd_loss_approximation": "Per-fold Ridge(V2 \u2192 PCA32(HARNet_train)) \u2014 student learns V2 \u2192 teacher mapping; no labels involved.",
+  "k_best_v2_portion": 468,
+  "kd_dims": 32,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "n_subjects": 94,
+  "harnet_matched": 94,
+  "promotion_gate": "mean \u0394 \u2265 +0.025 AND paired-bootstrap frac>0 \u2265 0.95",
+  "orthogonality_F_iter15": "F-iter15 concat HARNet 2048-d into K=500 LGB pool \u2014 K=500 absorbed (only 0-2 cols survived). KD cascade forces 32 distilled cols (always-included) bypassing absorption.",
+  "created_at_utc": "20260516T204223Z",
+  "git_sha": "unknown",
+  "formula_sha256": "f483c348f2a4c69ed4314d9cc0c56c98b7ee050e5e63049bab53cffb367d2e60"
+}

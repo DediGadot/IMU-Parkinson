@@ -1,0 +1,61 @@
+{
+  "experiment": "ablation_kd_harnet_cascade",
+  "created_at_utc": "20260516T204223Z",
+  "git_sha": "unknown",
+  "formula_sha256": "f483c348f2a4c69ed4314d9cc0c56c98b7ee050e5e63049bab53cffb367d2e60",
+  "preregistration": "preregistration_ablation_kd_harnet_20260516T204223Z.json",
+  "n_subjects": 94,
+  "harnet_matched": 94,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "metrics_arm_a_baseline": {
+    "n": 94,
+    "ccc": 0.6326,
+    "cal_slope": 0.5784,
+    "mae": 1.7095,
+    "r": 0.6357,
+    "pred_mean": 4.023,
+    "pred_std": 2.562,
+    "true_mean": 4.106,
+    "true_std": 2.815,
+    "label": "arm_a_v2_only"
+  },
+  "metrics_arm_b_treatment": {
+    "n": 94,
+    "ccc": 0.63,
+    "cal_slope": 0.5801,
+    "mae": 1.7209,
+    "r": 0.6332,
+    "pred_mean": 3.974,
+    "pred_std": 2.579,
+    "true_mean": 4.106,
+    "true_std": 2.815,
+    "label": "arm_b_plus_kd_harnet"
+  },
+  "delta_ccc": -0.002546274178146013,
+  "per_seed_delta": [
+    -0.00503871395576394,
+    0.00584146542671804,
+    -0.00952783282441938
+  ],
+  "seed_std_delta": 0.006452784242689525,
+  "paired_bootstrap": {
+    "delta_mean": -0.002355515329178997,
+    "delta_ci_low": -0.018454332420871133,
+    "delta_ci_high": 0.01622267178120041,
+    "frac_above_zero": 0.3714,
+    "frac_above_mcid": 0.1938,
+    "frac_above_0.025": 0.0028
+  },
+  "promotion_gate": {
+    "rule": "mean \u0394 \u2265 +0.025 AND frac>0 \u2265 0.95",
+    "passes_delta_gate": false,
+    "passes_frac_gate": false,
+    "PASSES_PROMOTION_GATE": false
+  },
+  "published_baseline_iter34": 0.717,
+  "delta_vs_iter34": -0.08699117874256723
+}

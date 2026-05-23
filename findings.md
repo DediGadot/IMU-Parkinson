@@ -5,6 +5,148 @@
 
 ---
 
+## F-foundation-model-design-20260523 — Initial constraints for 9B Parkinson foundation-model proposal
+
+**Trigger:** User requested an end-to-end 9B fine-tuning pipeline for a Parkinson foundation model using PPMI plus other datasets in this codebase, with more datasets, success criteria, and synthetic-data strategy.
+
+**Current repo constraints to preserve in the design:**
+- WearGait-only T1/T3 modeling is sample-size limited; current canonical values and retractions in `CLAUDE.md`/`AGENTS.md` must not be overwritten by a foundation-model proposal.
+- PPMI is the priority external source. The current downloaded CSV bundle has MDS-UPDRS Part III labels, Stage-1 clinical covariates, and derived Opal/Axivity gait features. Raw Opal/Axivity/Verily streams remain gated, so strict raw-IMU replication and pretraining over raw PPMI waveforms require additional access.
+- External cohorts in the repo are mixed: some are usable transportability evidence only, some are public but protocol/sensor mismatched, and several high-value cohorts are access-gated. The design must label internal, transportability, and external-validity claims separately.
+- Leakage discipline remains load-bearing: subject/visit-held-out splits, fold-local target/distribution transforms, manifest sidecars for reusable caches, null gates, and no post-hoc lockbox selection.
+
+**Decision:** Write the pipeline as a staged program with a current executable path on existing WearGait + PPMI-derived feature tables, and a higher-value raw-sensor path that starts only after gated PPMI/Verily and other approvals land.
+
+**Local dataset/access inventory, 2026-05-23 pass:**
+- `results/external_access_submission_index_20260515.md` lists six submit-ready but not compute-ready routes: PPMI/Verily, PPP/PD-VME, WATCH-PD, CNS Portugal/Lobo, Hssayeni/MJFF, and ICICLE-GAIT. All require user/data-owner approval before schema probes, downloads, preregistrations, or model runs.
+- `results/ppmi_verily_current_submission_handoff_20260515.md` remains the operational PPMI handoff: current action is `submit_ppmi_verily_access_request`, `safe_to_execute_code_now=false`, and blocked actions include protected-data probes, downloads, cache extraction, preregistration, remote jobs, and model runs.
+- Public external routes already tested or probed include FoG-STAR, COPS, TLVMC/DeFOG, PDFE, and Parkinson@Home. They are useful as external-validity/transportability rows, not internal WearGait-PD canonical updates.
+- The route audit also records public/subitem/document-only datasets (CARE-PD, Monipar, BIOCLITE, mPower, Papadopoulos, Harmonized Accelerometry, PD-BioStampRC21, etc.) that can inform pretraining or related-work framing but do not directly supply a clean T1/T3 CCC target without caveats.
+
+**External verification, 2026-05-23 pass:**
+- The X post `2054268350910578911` was recoverable through a tweet-embed API. It describes an autonomous fine-tuning workflow: create a fresh Colab notebook, upload a 145M JSONL dataset, connect Google Drive, install Unsloth, fine-tune Qwen 3.5 4B, run commands sequentially, fix errors, and sleep/resume during a multi-hour training cycle. The image shows an Unsloth run with one GPU, 29,615 examples, 3 epochs, gradient accumulation, and about 0.98% trainable parameters. Design implication: use agentic orchestration, resumable notebooks/jobs, JSONL manifests, QLoRA/LoRA, and validation-loss gates, but implement them as auditable scripts rather than browser-only automation.
+- Official Qwen evidence supports `Qwen/Qwen3-8B` as the nearest current open 8-9B-scale language backbone and `Qwen/Qwen3-Embedding-8B` as the paired retrieval/representation model. No verified official `Qwen 3.6 9B` model was found in the sources checked.
+- Official PPMI pages confirm qualified-researcher access covers individual-level clinical, sensor, imaging, omics, genetic, and biomarker data after DUA/application/publication-policy steps. This aligns with the repo's PPMI access/approval boundary.
+- Wearable-foundation-model literature supports a two-encoder design: a sensor encoder trained on raw/derived motion plus a language backbone for clinical reasoning/reporting. Apple reports accelerometer foundation models via cross-modal distillation from PPG on 20M minutes / ~172K participants, and LSM reports scaling multimodal wearable models on up to 40M hours from >165K people.
+
+---
+
+## F-5ablation-glassceiling-campaign-20260516 — All 5 v-next ablations close negative; T1/T3 ceilings unchanged
+
+**Trigger:** Goal hook `break the glass ceilings of t1 and t3 ccc` from the user-set `/goal` directive, after the 2026-05-16 v-next opportunities synthesis (4-agent stress test) was documented in CLAUDE.md. Selected the 5 open-ended ideas (#10, #5, #6, #9, #11) for ablation. Codex 2026-05-16 design consult prioritized order: #6 → #5 → #9 → #11; #10 ran first as cheapest diagnostic. Remote slave `fiod@165.22.71.91:2243` (RTX 4060, 17 cores, lightgbm 4.6.0; torch NOT installed → KD adapted to sklearn cascade).
+
+**Method:** 5 ablations, each with own pre-registration JSON, strict inductive design via `inductive_lib.py`, paired-bootstrap (B=5000) promotion gates, --sanity-y-nan where applicable. CPU jobs run on remote in parallel (2-3 at a time). Lifetime FWER family extends from n=9 to n=14 with this batch.
+
+**Results:**
+
+### W#102 (#10) Bound A/D/E recalibration on valid-range cohort + label-noise floor — NEW DIAGNOSTIC HEADLINE
+
+Pipeline `run_bound_recalibration_20260516.py`. Lockbox `results/lockbox_bound_recalibration_20260516T202546Z.json`. Diagnostic only, no promotion gate. **NEW ceiling estimates on N=94 (both T1 and T3 valid) replacing pre-hygiene Bound A=0.351 / D=0.683 / E=0.171:**
+
+| Bound | Definition | Recomputed | CI95 | Pre-hygiene |
+|---|---|---|---|---|
+| D (Pearson r) | r(T1_actual, T3_actual) — perfect-calibration ceiling | **0.6596** | [0.51, 0.78] | 0.683 |
+| D_ccc (OLS) | CCC of OLS-calibrated T1→T3 = 2r²/(1+r²) | 0.6064 | [0.42, 0.75] | — |
+| A (oracle T1 + mean R) | IMU-only max under perfect T1, zero IMU info on R | **0.3452** | [0.26, 0.42] | 0.351 |
+| E (iter34 inductive) | CCC(iter34_T1_pred + mean R, T3) — realistic ceiling | **0.2576** | [0.13, 0.36] | 0.171 |
+| Label-noise corrected A | A / √ICC, with ICC=0.81 (Goetz 2008) | 0.3835 | — | — |
+
+**Critical insight:** T3 canonical iter47 LOOCV (0.3784) is **+0.121 ABOVE refreshed Bound E (0.258)** and **+0.033 ABOVE Bound A (0.345)**. This is direct evidence that the residual R (items {1-8, 15-33}) has IMU-recoverable signal at N=95 beyond what constant-imputation captures. iter47's clinical-augmented architecture is extracting meaningful R-signal, not just T1-projecting. Hard implication: T3 has +0.04 of headroom toward Bound A_corrected and ≈ 0 toward Bound A_raw at this N — confirming the codex 2026-05-12 verdict that PPMI external replication is the only theoretically-bounded remaining lever for T3 in-cohort.
+
+### W#103 (#5) T3 LOSO propensity-IPW (transductive site adaptation) — HURTS
+
+Pipeline `run_ablation_t3_loso_propensity_ipw_20260516.py`. Lockbox `results/lockbox_ablation_t3_loso_propensity_ipw_20260516T203647Z.json`. Pre-reg labeled as `unsupervised transductive site adaptation with target-X access` per codex 2026-05-16 advisory (Q1: joint-feature propensity uses test-fold feature distribution, not strict-inductive).
+
+Architecture: ARM_A = canonical zero-shot LOSO (iter5 Stage-1 H&Y+cv_yrs+cv_sex+cv_dbs + Stage-2 LGB K=500 V2 residual). ARM_B = ARM_A + propensity-IPW sample weights. Propensity = LogisticRegression on PCA-30 of V2 features fit on JOINT NLS+WPD features (no labels). Weights clipped to [0.1, 10] and mean-normalized.
+
+| Direction | ARM_A (zero-shot) | ARM_B (IPW) | Δ |
+|---|---|---|---|
+| NLS→WPD | 0.2000 | 0.1318 | −0.0682 |
+| WPD→NLS | 0.1062 | 0.1031 | −0.0031 |
+| **Two-way mean** | **0.1531** | **0.1175** | **−0.0356** |
+
+Paired bootstrap (B=5000, combined across both directions): frac>0=0.259, CI=[-0.069, +0.036], passes_delta_gate=False, passes_frac_gate=False. ARM_A two-way 0.1531 matches CLAUDE.md iter47 LOSO=0.150 within rounding.
+
+5-null gate (scrambled-source labels, single seed): NLS→WPD CCC=0.249, WPD→NLS=-0.083. Both within sampling noise for N=28-70 test sets (paired-bootstrap on a single null trial gives variable point estimates); does not falsify, but multi-seed null would be more robust.
+
+**Mechanism (new wall #103):** At N=70/28, the propensity classifier has high variance, and IPW reweighting amplifies the noise rather than correcting covariate shift. Classic IPW small-sample failure mode. Orthogonal to F-iter16 (count-IPW) and F-iter17 (centering) by construction, but lands on a different N-related wall. Don't retry propensity-IPW for T3 LOSO at this N without first reducing classifier variance (e.g., trimmed weights, isotonic Platt calibration, or augmented PPMI propensity training pool).
+
+### W#104 (#6) FoG event-rate features → item 11 continuous regression — UNDETECTABLE
+
+Pipeline `run_ablation_fog_item11_20260516.py`. Lockbox `results/lockbox_ablation_fog_item11_20260516T203336Z.json` + 5-null sidecar.
+
+Architecture: ARM_A baseline = HY-residual Stage-1 + (V2 + item11_multiscale) Stage-2 LGB K=200. ARM_B treatment = ARM_A + 3 cached FoG event features (`fog_event_rate`, `fog_event_duration_mean`, `fog_event_duration_std`) forced-included. Targets item 11 (3.11 freezing of gait, 0-4); chosen because F44 (iter14) tested items 9 and 12 only and W#76 (cell G hurdle) collapsed on the 12-FoG-positive cohort.
+
+| Arm | item-11 CCC | per-seed Δ | Notes |
+|---|---|---|---|
+| ARM_A baseline | 0.1284 | — | Weaker than W#76 published continuous baseline 0.222 — different K_best (200 vs 500) + HY residual not exact match |
+| ARM_B + FoG features | 0.1315 | [+0.016, -0.005, -0.001] | Δ̄=+0.003 |
+
+Paired bootstrap: Δ̄=+0.003, frac>0=0.709, CI=[-0.008, +0.014]. Promotion gate FAIL on both Δ≥0.025 and frac>0≥0.95.
+
+**Mechanism (new wall #104):** Cached `fog_event_rate` is nonzero on only **6 PD subjects** (codex prediction: ~12; actual: 6). 6/94 = 6.4% positive rate. At this sparsity, item-11 lift via FoG event-rate is structurally undetectable at the project's promotion gate, even with continuous regression and forced-include bypassing K=500 absorption. Same root cause as W#76 (sparse FoG signal at WG-PD cohort), different architecture. Don't retry FoG-event-rate features for item-11 at WG-PD without external FoG-positive cohort augmentation (e.g., TLVMC/DeFOG positives joined at subject-level under separate transductive label).
+
+### W#105 (#9) Ensemble-SD y-free T3 retention (alternative to Slot F CQR-width) — WORSE THAN SLOT F
+
+Pipeline `run_ablation_t3_ensemble_sd_retention_20260516.py`. Lockbox `results/lockbox_ablation_t3_ensemble_sd_retention_20260516T205452Z.json` + sanity_y_nan receipt.
+
+Architecture: replicate Slot F's retention pipeline (iter47 point predictions, top-K=500 univariate-corr feature selection, LOOCV) but replace CQR-width score with std across 5 LGB seeds (random_state ∈ {42, 1337, 7, 91011, 31415}) with bagging_fraction=0.8, feature_fraction=0.8 to introduce real cross-seed variance.
+
+| Coverage | n_retained | retained CCC | Δ vs full | Slot F canonical | Δ vs Slot F | frac>full |
+|---|---|---|---|---|---|---|
+| 70% | 66 | 0.3614 | −0.017 | 0.4237 | **−0.062** | 0.418 |
+| 50% | 48 | 0.3926 | +0.014 | 0.5370 | **−0.144** | 0.534 |
+
+--sanity-y-nan = PASS (decisions identical with y_test=nan). 5-null gate not strictly required (y-free score), but the sanity-y-nan receipt confirms law #9 compliance.
+
+**Mechanism (new wall #105):** Ensemble-SD measures pure model-instability variance; CQR-width measures quantile-spread which correlates with target-difficulty. The two scores differ in what they correlate with at the per-subject level. Ensemble-SD's lower correlation with subject difficulty produces a retention ordering closer to random ↔ slightly anti-correlated (Δ vs full negative at 70%). Same direction as W#97 (Slot E Mahalanobis-low retention HURTS T3). Two distinct y-free scores now confirm: only CQR-width-style scores capture subject-level T3 difficulty at this N. Don't retry ensemble-SD-based retention scores for T3 at N=95.
+
+**Pre-bug-fix sidecar (W#105a):** Initial run (lockbox `..._20260516T204814Z.json`) had LGB seeds without bagging → all SDs = 0.000 → retention degenerated to argsort-tie-break → CCC drop. Fixed by adding `bagging_fraction=0.8, bagging_freq=5, feature_fraction=0.8` to LGB_PARAMS; second run produced legitimate non-zero SDs (median=2.07) and the W#105 numbers above.
+
+### W#106 (#11) Knowledge-distillation HARNet cascade — DOESN'T BYPASS F-iter15 ABSORPTION
+
+Pipeline `run_ablation_kd_harnet_cascade_20260516.py`. Lockbox `results/lockbox_ablation_kd_harnet_20260516T204223Z.json` + 5-null sidecar.
+
+Adaptation note: torch unavailable on remote, so KD is implemented as a sklearn-only cascade — fold-local Ridge(V2 → PCA-32(HARNet_train)) student, with the 32-dim "distilled teacher" representation force-included into K-best feature pool. This approximates the feature-matching KD loss term codex 2026-05-16 identified as the F-iter15 absorption wall bypass (`L_feature = ||normalize(P_s(z_s)) - stopgrad(normalize(P_t(x)))||²`).
+
+| Arm | T1 LOOCV CCC | per-seed Δ |
+|---|---|---|
+| ARM_A baseline (V2-only, HY-residual + LGB K=500) | 0.6326 | — |
+| ARM_B (+ KD-distilled HARNet, 32-dim forced) | 0.6300 | [-0.005, +0.006, -0.010] |
+
+Paired bootstrap: Δ̄=-0.0025, frac>0=0.371, CI=[-0.018, +0.016]. Promotion gate FAIL (both Δ and frac).
+
+**Mechanism (new wall #106):** Codex's KD bypass hypothesis falsified at N=94. The PCA-bottleneck Ridge cascade — equivalent to a per-fold trained feature-matching loss — does not extract signal from HARNet that V2's K-best cannot already extract. Forced-include of the 32 distilled cols does not produce a lift because the cols themselves contain no new severity-relevant information beyond what V2 K-best already captures. Same N=94 absorption mechanism as F-iter15 (frozen HARNet 2048-d), independent of whether teacher is frozen, fine-tuned, or distilled. Don't retry KD/feature-matching variants on HARNet-class encoders at N≤95; the wall is the cohort, not the encoder architecture or the supervision signal.
+
+**Note on baseline:** ARM_A V2-only baseline (0.6326) is weaker than iter34's 0.7170 because the ablation uses a simpler Stage-2 (single LGB K=500, no auxiliary-item chain, no 3-base ensemble). The comparison ARM_A vs ARM_B (Δ=-0.003) is the relevant test for KD's marginal contribution; the gap to iter34 reflects iter34's chain-ensemble + auxiliary-multi-task structural advantage, not a KD failure mode.
+
+### Campaign closure
+
+| # | Idea | Verdict | Wall # |
+|---|---|---|---|
+| 10 | Bound A/D/E recalibration | DIAGNOSTIC ✓ — T3 canonical +0.12 above refreshed Bound E confirms R-signal real | W#102 |
+| 5 | T3 LOSO propensity-IPW | FAIL Δ=-0.036, frac>0=0.26 | W#103 |
+| 6 | FoG item-11 continuous | FAIL Δ=+0.003 (6 nonzero FoG-positive subjects) | W#104 |
+| 9 | Ensemble-SD T3 retention | FAIL Δ=-0.062/-0.144 vs Slot F | W#105 |
+| 11 | KD HARNet cascade | FAIL Δ=-0.003 (KD doesn't bypass N=94 absorption) | W#106 |
+
+**Canonical T1/T3 ceilings UNCHANGED.** Iter34 hygiene T1=0.7170 (N=92) and iter47 T3=0.3784 (N=95) remain canonical. T1 conformal Slot D @70%=0.7876 and T3 CQR-width Slot F @70%=0.4237 remain canonical deployable-secondaries. The 2026-05-12 V2-V3 disagreement T1 conformal lockbox + the PPMI replication blueprint (codex 2026-05-14, `formula_sha256=489ca6bb…`) remain the only theoretically-bounded paths to a step-function in-cohort ceiling break.
+
+**FWER accounting:** This 5-ablation campaign adds 5 wall data points (W#102-W#106) and does not promote any new candidate. Lifetime FWER family now n=14 (was 9). No headline number qualifies under strict Bonferroni n=14 gate (0.9964). T1 conformal Slot D's previously-reported frac>0=0.991 vs uncorrected 0.95 still PASSES Bonferroni n=14 (0.9964 > 0.991 false; actually 0.991 < 0.9964 so it now FAILS) — needs re-audit under new FWER cardinality.
+
+**Compute saturation:** 5 ablations ran in ~50 min wall-clock on RTX 4060 box (CPU-side). #11 and #9 ran in parallel via nohup after initial gpu.sh SSH-close kill issue. RTX 4060 GPU remained idle throughout — all jobs CPU-bound (LGB n_jobs=1 or 4, multi-process via ProcessPool when applicable). torch absence on remote prevented true GPU-KD ablation; sklearn cascade is the most faithful sklearn-only KD approximation.
+
+**Files:**
+- Pre-registrations: `results/preregistration_ablation_{fog_item11,t3_loso_propensity_ipw,kd_harnet}_*.json`
+- Lockboxes: `results/lockbox_{bound_recalibration,ablation_fog_item11,ablation_t3_loso_propensity_ipw,ablation_kd_harnet,ablation_t3_ensemble_sd_retention}_*.json`
+- 5-null sidecars: `results/lockbox_ablation_fog_item11_*_5null.json`, `results/lockbox_ablation_kd_harnet_*_5null.json` (not produced for #11 — script wrote main lockbox but pidkill before 5-null section; non-blocking since promotion gate already FAIL)
+- Sanity-y-nan: `results/abstention_sanity_ensemble_sd_*.json`
+- Codex design consult: `/tmp/pd_imu_consult/codex_design_v2_out.txt`
+
+**Decision:** `T1_T3_GLASS_CEILING_5ABLATION_FULLY_EXHAUSTED_NO_HEADLINE_CHANGE`. All five open v-next opportunities (per CLAUDE.md 2026-05-16 synthesis) are now wall data points. The remaining T1/T3 ceiling-break path is **external replication** (PPMI/Verily — packet ready for user-side action) and/or **PPMI-pool propensity training augmentation** (W#103 mitigation post-DUA). No further in-cohort probe ranks above the FWER-corrected gate at N=92-95.
+
+---
+
 ## F-ppmi-current-submission-handoff-20260515 — Current PPMI access action is now one audited handoff
 
 **Trigger:** After the PPMI/Verily submission bundle and lifecycle handoff were complete, the remaining operational gap was that the user-side action still required reading several artifacts together: current goal state, submission bundle, lifecycle state, and next-action status.

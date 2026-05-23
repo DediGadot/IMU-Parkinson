@@ -5,6 +5,37 @@
 
 ---
 
+# ACTIVE CONTINUATION — 2026-05-23: 9B Parkinson Foundation-Model Pipeline Design
+
+## Objective
+
+User objective: act as a 100x ML researcher and 100x medical Parkinson researcher; use ideas from `https://x.com/i/status/2054268350910578911`; design an end-to-end 9B model fine-tuning pipeline (for example Qwen-family 9B scale) to create a Parkinson foundation model based on PPMI and other datasets available in this codebase; propose more datasets, success criteria, and a synthetic-data strategy.
+
+## Current Scope
+
+- Produce a research/design artifact, not a fresh WearGait-only model run.
+- Ground the proposal in current repo truth: WearGait-only small-N modeling is saturated; PPMI has labels plus derived Opal/Axivity gait features, but strict raw-IMU replication still needs gated raw streams.
+- Preserve leakage discipline: subject/visit/time splits, no target-derived global preprocessing, no post-hoc lockbox selection, explicit external-dataset claim labels.
+- Verify current external facts for the referenced X/video, model candidates, PPMI access/data, and proposed datasets before finalizing the design.
+
+## Work Plan
+
+1. Inventory repo-local PPMI/external dataset artifacts and current canonical constraints.
+2. Verify external sources for the X link, model family options, and dataset availability.
+3. Write a concrete end-to-end 9B foundation-model pipeline: data schema, tokenization/encoders, objectives, tuning stages, synthetic strategy, governance, evaluation, compute, and milestones.
+4. Add success criteria that separate internal WearGait, PPMI transportability, external zero-shot, clinical utility, safety, and leakage-null gates.
+5. Run lightweight validation over the new artifact and update planning logs.
+
+## Status
+
+- Complete.
+- Planning files refreshed for the new objective.
+- Design artifact written at `PARKINSON_FOUNDATION_MODEL_9B_PIPELINE.md`.
+- Lightweight validation completed: required section terms were found, the new artifact is ASCII-only, and `git diff --check -- task_plan.md findings.md progress.md PARKINSON_FOUNDATION_MODEL_9B_PIPELINE.md` passed.
+- No model run, preregistration, protected-data access, or metric update has been created.
+
+---
+
 # ACTIVE CONTINUATION — 2026-05-15: `/tmp/pro-results.txt` glass-ceiling follow-through
 
 ## Objective

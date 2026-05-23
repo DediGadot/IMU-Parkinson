@@ -1,0 +1,24 @@
+{
+  "experiment": "Ablation #6 \u2014 FoG event-rate features for item-11 continuous regression",
+  "comparator": "ARM_A (baseline) = hy_residual + V2 + item-11 multiscale, K-best on V2 pool",
+  "treatment": "ARM_B (treatment) = ARM_A + 3 FoG event features forced-included",
+  "k_best": 200,
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "n_subjects": 94,
+  "promotion_gate": "frac>0 \u2265 0.95 AND mean \u0394 \u2265 +0.025 (item-level MCID; solo ablation, n=1 FWER pos)",
+  "fog_features": [
+    "fog_event_rate",
+    "fog_event_duration_mean",
+    "fog_event_duration_std"
+  ],
+  "stage1": "Ridge(alpha=1.0) on H&Y one-hot + linear; fold-local",
+  "stage2": "LGB on item-11 residual after Stage-1 Ridge",
+  "rationale": "F44 (compose_t1_iter14_fog) tested items 9 and 12 \u2014 null. W#76 hurdle collapsed at 12 FoG-positives. Continuous regression on item-11 with FoG features forced-included is genuinely new (item, gate, architecture).",
+  "created_at_utc": "20260516T203403Z",
+  "git_sha": "unknown",
+  "formula_sha256": "05c087e5e2204fa8f2b4a3d0be269f39f968c8e328881da559fb4a2d3bf6645c"
+}

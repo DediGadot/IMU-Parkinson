@@ -1,0 +1,25 @@
+{
+  "experiment": "Ablation #5 \u2014 T3 LOSO propensity-IPW (transductive site adaptation)",
+  "leakage_class": "unsupervised transductive site adaptation with target-X access",
+  "leakage_caveat": "Propensity classifier is fit on JOINT NLS+WPD feature distribution (no labels). Per codex advisory 2026-05-16, this uses test-fold feature distribution and is NOT canonical strict-inductive LOSO. It is acceptable as covariate-shift adaptation; the inductive zero-shot baseline is also reported as ARM_A comparator.",
+  "arm_a_baseline": "iter47 canonical (Stage-1 H&Y+cv_yrs+cv_sex+cv_dbs, Stage-2 LGB K=500 V2 residual), zero-shot LOSO",
+  "arm_b_treatment": "ARM_A + propensity-IPW sample weights on Stage-2 LGB (clip 0.1..10)",
+  "propensity": "LogisticRegression on PCA-30 of V2 features (joint distribution, no labels)",
+  "directions": [
+    "NLS_to_WPD",
+    "WPD_to_NLS"
+  ],
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "cohort": "drop_allmissing_validrange",
+  "n_subjects": 95,
+  "promotion_gate": "mean two-way \u0394CCC \u2265 +0.05 AND paired-bootstrap frac>0 \u2265 0.95",
+  "orthogonality_F_iter16": "F-iter16 used count-IPW w=N/(2*N_site). We use propensity logits per subject \u2014 different DA mechanism.",
+  "orthogonality_F_iter17": "F-iter17 centered features per-site. We reweight samples without modifying features.",
+  "created_at_utc": "20260516T203647Z",
+  "git_sha": "unknown",
+  "formula_sha256": "0dfd44e4c0281fa59c080ead272f03c3114108043e0298f371eb41a47365feba"
+}

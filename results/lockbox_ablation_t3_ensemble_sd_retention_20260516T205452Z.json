@@ -1,0 +1,57 @@
+{
+  "experiment": "ablation_t3_ensemble_sd_retention",
+  "created_at_utc": "20260516T205452Z",
+  "n_subjects": 95,
+  "ensemble_seeds": [
+    42,
+    1337,
+    7,
+    91011,
+    31415
+  ],
+  "null_mode": "none",
+  "iter47_full_cohort_ccc": 0.3783671177953899,
+  "results_per_coverage": {
+    "cov_70": {
+      "coverage": 0.7,
+      "n_retained": 66,
+      "iter47_full_cohort_ccc": 0.3784,
+      "retained_ccc": 0.3614,
+      "delta_retained_vs_full": -0.0169,
+      "retained_mae": 7.677,
+      "bootstrap_retained_ccc_ci95": [
+        0.1072,
+        0.5338
+      ],
+      "frac_retained_above_full": 0.418,
+      "passes_uncorrected_gate": false
+    },
+    "cov_50": {
+      "coverage": 0.5,
+      "n_retained": 48,
+      "iter47_full_cohort_ccc": 0.3784,
+      "retained_ccc": 0.3926,
+      "delta_retained_vs_full": 0.0142,
+      "retained_mae": 8.1173,
+      "bootstrap_retained_ccc_ci95": [
+        0.1116,
+        0.5665
+      ],
+      "frac_retained_above_full": 0.534,
+      "passes_uncorrected_gate": false
+    }
+  },
+  "comparator_slot_F_canonical": {
+    "cov_70": 0.4237,
+    "cov_50": 0.537
+  },
+  "vs_slot_F": {
+    "cov_70_delta": -0.0623,
+    "cov_50_delta": -0.1444
+  },
+  "promotion_gate": {
+    "rule": "retained CCC > Slot F baseline at both coverages AND frac>full \u2265 0.95",
+    "passes_cov70_uncorrected": false,
+    "passes_cov50_uncorrected": false
+  }
+}

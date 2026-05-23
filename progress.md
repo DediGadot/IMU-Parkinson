@@ -2,6 +2,53 @@
 
 ---
 
+## Session: 2026-05-23 continuation — 9B Parkinson foundation-model pipeline design
+
+### Trigger
+
+- Active objective: design an end-to-end 9B-scale Parkinson foundation-model fine-tuning pipeline using PPMI and other codebase datasets, informed by `https://x.com/i/status/2054268350910578911`, with proposed additional datasets, success criteria, and synthetic-data strategy.
+
+### Checkpoint
+
+- Read the planning-with-files skill and ran session catch-up; no unsynced catch-up output was reported.
+- Read `CLAUDE.md`, `task_plan.md`, `findings.md`, and `progress.md`.
+- Current constraints from the repo: WearGait-only modeling is saturated under current gates; PPMI has labels, Stage-1 covariates, and derived Opal/Axivity gait features; raw PPMI/Verily sensor streams remain gated; external cohorts need strict claim labels.
+- Added a new current section to `task_plan.md` and a foundation-model design findings stub in `findings.md`.
+- No code execution against protected data, no model run, no preregistration, and no metric update has been created.
+
+### Next
+
+- Inventory repo-local dataset/access artifacts and current external-route statuses.
+- Verify current external facts for the X link, Qwen/model options, and candidate datasets.
+- Write and validate the design artifact.
+
+### Local Dataset Inventory
+
+- Read `results/external_access_submission_index_20260515.md`, `results/ppmi_verily_current_submission_handoff_20260515.md`, `results/ppmi_verily_zeroshot_blueprint_20260515.md`, `results/fresh_external_route_sweep_20260509.md`, `results/external_dataset_route_audit_20260508.md`, `results/current_external_route_sweep_20260510.json`, and `pd_imu/experiments/routes.py`.
+- Current access queue: six submit-ready gated routes and zero compute-ready routes. The six are PPMI/Verily, PPP/PD-VME, WATCH-PD, CNS Portugal/Lobo, Hssayeni/MJFF, and ICICLE-GAIT.
+- Current public external evidence base: FoG-STAR, COPS, TLVMC/DeFOG, PDFE, and Parkinson@Home are already documented as transportability/external-validity only; they do not update internal WearGait-PD canonical T1/T3 metrics.
+- Local design implication: the 9B foundation-model plan must have a "now" path using already available WearGait + PPMI-derived tables/public external aggregates, and a "raw-sensor foundation pretraining" path gated on PPMI/Verily and peer access approvals.
+
+### External Verification
+
+- Browser open of `https://x.com/i/status/2054268350910578911` and search by status ID did not expose the post text. A public tweet-embed API returned the text and metadata, and the attached image was downloaded to `/tmp/x_2054268350910578911.jpg` for inspection.
+- X post content: autonomous Codex-driven Colab fine-tuning of Qwen 3.5 4B with Unsloth from a 145M JSONL dataset on Google Drive, sequential command execution, error recovery, and sleep/resume. Image details: Unsloth, one GPU, 29,615 examples, 3 epochs, batch size 2, gradient accumulation 8, total batch 16, about 21.8M trainable parameters out of 2.235B, validation-loss tracking.
+- Verified current model/tool sources: `Qwen/Qwen3-8B`, `Qwen/Qwen3-Embedding-8B`, Unsloth docs, and QLoRA paper. I did not find a reliable official `Qwen 3.6 9B` source, so the design should name Qwen3-8B/Embedding-8B as the concrete audited backbone while leaving "9B-class" as the scale target.
+- Verified current external/dataset sources: PPMI access pages, PPMI Verily npj paper, WATCH-PD npj paper, COPS Scientific Data, FoG-STAR/Zenodo, MJFF Synapse, CARE-PD, Apple wearable accelerometer foundation-model page, and LSM scaling paper.
+
+### Design Artifact And Validation
+
+- Added `PARKINSON_FOUNDATION_MODEL_9B_PIPELINE.md`.
+- The artifact covers the requested end-to-end design: Qwen3-8B/Qwen3-Embedding-8B choice, sensor encoder, data product, tokenization, training stages, QLoRA/Unsloth fine-tuning, PPMI and codebase dataset plan, additional dataset proposals, synthetic-data policy, success criteria, compute plan, milestones, red lines, and source notes.
+- Lightweight checks:
+  - `wc -l PARKINSON_FOUNDATION_MODEL_9B_PIPELINE.md`: 410 lines.
+  - `rg` confirmed required sections and terms: Qwen3-8B, Unsloth, PPMI, synthetic strategy, success criteria, red lines, source notes, WearGait, and external generalization.
+  - `LC_ALL=C rg -n "[^\\x00-\\x7F]" PARKINSON_FOUNDATION_MODEL_9B_PIPELINE.md`: no non-ASCII matches.
+  - `git diff --check -- task_plan.md findings.md progress.md PARKINSON_FOUNDATION_MODEL_9B_PIPELINE.md`: passed.
+- No protected-data probe, model run, preregistration, schema probe, canonical metric update, or external claim update was created.
+
+---
+
 ## Session: 2026-05-15 continuation — follow `/tmp/pro-results.txt` without repeating closed slots
 
 ## 2026-05-15T18:55Z - PPMI/Verily current submission handoff added

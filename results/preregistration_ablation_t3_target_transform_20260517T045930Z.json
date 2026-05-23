@@ -1,0 +1,24 @@
+{
+  "experiment": "Ablation #12 \u2014 T3 target-transformation ensemble",
+  "rationale": "All prior T3 walls operated in original target space. Target transforms compress right-skewed distribution, potentially extracting signal at the bulk.",
+  "transforms": [
+    "identity",
+    "sqrt",
+    "log1p"
+  ],
+  "ensemble_rule": "equal-weight mean of 3 back-transformed predictions across transforms",
+  "architecture": "iter47 canonical (Ridge Stage-1 H&Y+cv_yrs+cv_sex+cv_dbs + LGB Stage-2 K=500 V2 residual)",
+  "seeds": [
+    42,
+    1337,
+    7
+  ],
+  "k_best": 500,
+  "n_subjects": 95,
+  "promotion_gate": "paired-bootstrap frac>0 \u2265 0.95 AND \u0394\u0304 \u2265 +0.025 vs iter47 (0.3784)",
+  "fwer_lifetime": "n=15 (was 14 after 2026-05-16 campaign)",
+  "orthogonality_argument": "no prior T3 ablation has used target transforms; all walls W#73-W#106 operated in original target space",
+  "created_at_utc": "20260517T045930Z",
+  "git_sha": "unknown",
+  "formula_sha256": "857c9e9406f78a69c236191f03edf890f05f811951fe7ce11d4abf0430403c72"
+}

@@ -1,0 +1,44 @@
+{
+  "experiment": "W#108 \u2014 T1 KD principled retry, torch MLP student",
+  "delta_vs_w106": "ONLY the student head: Ridge(\u03b1=10) \u2192 MLP(in\u2192256\u2192128\u219232) trained via cosine-KD loss",
+  "kd_loss": "L_feature = || F.normalize(student_z) - F.normalize(teacher_z).detach() ||^2",
+  "mlp_arch": {
+    "hidden": [
+      256,
+      128
+    ],
+    "out_dim": 32,
+    "dropout": 0.1
+  },
+  "mlp_train": {
+    "epochs": 200,
+    "lr": 0.001,
+    "wd": 0.0001,
+    "optimizer": "Adam",
+    "batch": "full-fold"
+  },
+  "comparator": "ARM_A = V2-only iter34-style LGB on H&Y residual (= W#106 ARM_A baseline)",
+  "treatment": "ARM_B = ARM_A + 32-dim torch-MLP-distilled HARNet block (forced-include)",
+  "k_best_v2_portion": 468,
+  "kd_dims": 32,
+  "seeds_primary": [
+    42,
+    1337,
+    7
+  ],
+  "seeds_replication": [
+    91011,
+    31415,
+    27182
+  ],
+  "n_subjects": 94,
+  "harnet_matched": 94,
+  "promotion_gate_w106_parity": "mean \u0394 \u2265 +0.025 AND paired-bootstrap frac>0 \u2265 0.95 (single-test)",
+  "promotion_gate_lifetime_FWER_n15": "mean \u0394 \u2265 +0.062 vs iter34 0.7170 AND frac>0 \u2265 0.95 on both seed triples",
+  "kill_rule": "LOOCV mean \u0394 < +0.043 OR frac>0 < 0.95 \u2192 W#108 wall, T1 KD route exhausted",
+  "orthogonality_F_iter15": "F-iter15 concat HARNet 2048-d into K=500 LGB pool absorbed; W#108 forces 32 distilled cols",
+  "orthogonality_W106": "W#106 used Ridge proxy \u2192 flat \u0394=-0.003. W#108 uses cosine-KD-trained MLP. If W#108 also flat, wall is N=94 not student-head.",
+  "created_at_utc": "20260517T141254Z",
+  "git_sha": "unknown",
+  "formula_sha256": "2a35f0e16b54e09d89759bb378755abc93241b1a4855a786dd5a0db7152adb2c"
+}

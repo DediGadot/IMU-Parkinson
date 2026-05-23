@@ -1,0 +1,125 @@
+{
+  "skill": "sit-with-the-data",
+  "session_started_utc": "20260517T053100Z",
+  "session_concluded_utc": "20260517T100324Z",
+  "user_question": "what does the data say about where to focus next to boost ccc for t1 or t3?",
+  "phase_1_readout": {
+    "source_of_truth_ordering_applied": "AGENTS.md > findings.md > CLAUDE.md > memory",
+    "conflicts_surfaced": "none",
+    "files_opened": [
+      {"path": "CLAUDE.md", "mtime": "2026-05-16T21:04:00Z", "purpose": "SOTA table"},
+      {"path": "findings.md", "mtime": "post 2026-05-16T20:00Z", "purpose": "wall history; F-5ablation-glassceiling-campaign-20260516 latest"},
+      {"path": "results/lockbox_bound_recalibration_20260516T202546Z.json", "mtime": "2026-05-16T20:25:00Z", "purpose": "refreshed Bounds A/D/E"},
+      {"path": "results/lockbox_ablation_t3_target_transform_20260517T045930Z.json", "mtime": "2026-05-17T05:08:00Z", "purpose": "freshest ablation closure — NOT YET IN findings.md"},
+      {"path": "results/lockbox_ablation_kd_harnet_20260516T204223Z.json", "mtime": "2026-05-16T20:42:00Z", "purpose": "W#106 sklearn KD proxy fail"},
+      {"path": "results/lockbox_ablation_fog_item11_20260516T203336Z.json", "mtime": "2026-05-16T20:33:00Z", "purpose": "W#104 FoG item-11 fail"},
+      {"path": "results/lockbox_ablation_t3_loso_propensity_ipw_20260516T203647Z.json", "mtime": "2026-05-16T20:36:00Z", "purpose": "W#103 T3 LOSO IPW fail"},
+      {"path": "results/lockbox_ablation_t3_ensemble_sd_retention_20260516T204415Z.json", "mtime": "2026-05-16T20:44:00Z", "purpose": "W#105 BDE retry 1 fail"},
+      {"path": "results/lockbox_ablation_t3_ensemble_sd_retention_20260516T204814Z.json", "mtime": "2026-05-16T20:48:00Z", "purpose": "W#105 BDE retry 2 fail"},
+      {"path": "results/lockbox_ablation_t3_ensemble_sd_retention_20260516T205452Z.json", "mtime": "2026-05-16T20:54:00Z", "purpose": "W#105 BDE retry 3 fail"},
+      {"path": "results/ppmi_verily_current_submission_handoff_20260515.json", "mtime": "2026-05-16T12:53:00Z", "purpose": "PPMI submission packet complete"}
+    ],
+    "canonical_now": {
+      "t1_loocv_floor_iter12": 0.6550,
+      "t1_loocv_candidate_iter34_hygiene": 0.7170,
+      "t1_deployable_slotD_at_70pct": 0.7876,
+      "t1_deployable_conformal_at_70pct": 0.7777,
+      "t1_deployable_conformal_at_50pct": 0.8338,
+      "t3_loocv_iter47_valid_range": 0.3784,
+      "t3_deployable_slotF_cqrwidth_at_70pct": 0.4237,
+      "t3_deployable_slotF_cqrwidth_at_50pct": 0.5370,
+      "t3_loso_transportability": 0.150
+    },
+    "refreshed_bounds_label_noise_corrected": {
+      "bound_D_pearson_r": 0.733,
+      "bound_A_oracle_T1_meanR": 0.384,
+      "bound_E_inductive_shrinkage_iter34": 0.286,
+      "t3_canonical_minus_bound_A_corrected": -0.006,
+      "t3_canonical_minus_bound_E_corrected": 0.092
+    },
+    "recent_closure_direction_24h": {"negative": 6, "positive": 0, "list": ["W#102 bound-recalib (DONE)", "W#103 T3 LOSO IPW FAIL", "W#104 FoG item-11 FAIL", "W#105 BDE x3 FAIL", "W#106 KD sklearn-proxy FAIL", "W#107 T3 target-transform FAIL (this morning)"]}
+  },
+  "phase_2_scoring": {
+    "saturated_levers": ["in-cohort T3 architecture probes", "in-cohort T1 architecture probes"],
+    "promotable_status_moves": ["lock iter34 hygiene as canonical T1", "Slot D already promoted as deployable-secondary"],
+    "candidate_with_caveat": ["Slot F T3 CQR-width — failed strict seed-replication"],
+    "only_theoretically_bounded_path": "PPMI/Verily external (DUA pending)",
+    "speculative_one_retry": "T1 KD with real torch + real public FM (LSM-2 / MOMENT / TimesFM / Chronos)"
+  },
+  "phase_3_consults": {
+    "consult_packet_path": "/tmp/sit_consult_20260517.md",
+    "codex_run": {
+      "command": "codex exec -m gpt-5.5 -c model_reasoning_effort=xhigh --sandbox workspace-write",
+      "stdin_redirect": "/dev/null (first attempt at 05:33 stalled — relaunched at 06:34 with stdin from /dev/null)",
+      "completed_utc": "20260517T065500Z (approx)",
+      "verdict_top3": [
+        {"rank": 1, "lever": "T1 iter34 replication/promotion", "expected_delta": "+0.062 floor→candidate, 0 vs de-facto ceiling", "risk": "replication/audit keeps it in candidate status"},
+        {"rank": 2, "lever": "PPMI/Verily external replication", "expected_delta": "0 in-cohort; external validity only", "risk": "DUA delay + protocol mismatch"},
+        {"rank": 3, "lever": "Stop T3 full-cohort optimization; write the bound story", "expected_delta": "0 to +0.006", "risk": "reviewers demand higher T3"}
+      ],
+      "verdict": "boost-CCC framing mostly wrong; accept in-cohort ceiling, promote/replicate T1, ship paper, ready for PPMI"
+    },
+    "gemini_run": {
+      "command": "gemini -m gemini-3.1-pro-preview -y",
+      "completed_utc": "20260517T053400Z",
+      "verdict_top3": [
+        {"rank": 1, "lever": "Replicate & promote pending T1 candidates (hygiene + conformal)", "expected_delta": "+0.062 canonical / up to +0.132 deployable", "risk": "fails strict multi-seed replication like items 9/10/14 D4"},
+        {"rank": 2, "lever": "Execute PPMI/Verily external validation", "expected_delta": "±0 in-cohort; defensible external T1 ~0.60-0.65; SE reduction", "risk": "DUA delay + hardware/protocol shift"},
+        {"rank": 3, "lever": "Abandon T3 optimization; pivot narrative to T1/Item-13", "expected_delta": "0", "risk": "clinical reviewers demand total Part-III"}
+      ],
+      "verdict": "boost-CCC framing empirically dead; T3 bounded by unobserved clinical variance, T1 structurally exhausted at N=94; ship paper, wait passively on PPMI DUA"
+    },
+    "agreement": {
+      "top3_levers_identical_ordering": true,
+      "verdict_directionally_identical": true,
+      "calibration_note": "codex is conservative (~5% lift estimates), gemini optimistic (5-15%); both converged on the conservative recommendation — strongest possible directional signal from this pair"
+    },
+    "disagreement": {
+      "ppmi_expected_external_t1_ccc": "gemini estimates 0.60-0.65; codex declines to commit",
+      "implication": "uncertainty about external transportability; both flag protocol/hardware mismatch as dominant risk"
+    }
+  },
+  "user_concurrence": {
+    "concur_on_t3": true,
+    "concur_on_t1_general": "partial",
+    "redirect": "one principled torch+real-FM retry on T1 KD before calling it done",
+    "concur_on_iter34_promotion": "not contested",
+    "concur_on_paper_writing": "not contested"
+  },
+  "recommendation_final": {
+    "t3_decision": "STOP in-cohort optimization. Document T3 as at-ceiling under Bound A_corrected = 0.384. Paper framing: Bound-E-to-canonical (+0.121) is a positive claim; canonical-to-Bound-A (-0.006) is the kill claim.",
+    "t1_kd_retry": {
+      "permitted": true,
+      "preflight_gate": [
+        "Real FM weights publicly available — candidates ranked: LSM-2 (arXiv 2506.05321) > MOMENT-1-large > TimesFM-2.0 > Chronos-Bolt; Apple FM NOT public",
+        "torch on remote slave fiod@165.22.71.91:2243 verified via python -c 'import torch; print(torch.__version__, torch.cuda.is_available())'",
+        "KD not frozen-encoder: student = fold-local Ridge/small MLP; loss = α·MSE(student_pred,y) + β·MSE(student_intermediate, teacher_intermediate); α/β fixed in pre-reg; teacher intermediate enters as forced-include feature column to fold-local LGB/Ridge",
+        "5-null gate pre-cleared (scrambled-y, SID-shuffle, canary-test-fold, library-exclusion, transductive sanity)"
+      ],
+      "promotion_gate": {
+        "target": "T1 LOOCV CCC > iter34 hygiene 0.7170",
+        "delta_min_lifetime_FWER_n15": 0.062,
+        "frac_gt_zero_required": 0.95,
+        "mcid_floor": 0.005,
+        "seed_sets": ["{42, 1337, 7}", "{91011, 31415, 27182}"],
+        "boots": 5000
+      },
+      "kill_rule": "any preflight fail → 'preflight-blocked retry' wall. LOOCV Δ < +0.043 or frac>0 < 0.95 → W#108 wall, T1 KD route declared exhausted across proxy and real-torch substrates.",
+      "timebox_hours": 48,
+      "preflight_timebox_hours": 24,
+      "honest_prior_on_lift": "10-15% (wall is N=94, not encoder, per W#106 + F-iter15 + F-iter37 evidence)",
+      "purpose": "close the door properly on T1 KD; not a step-function bet"
+    },
+    "status_moves_independent_of_kd": [
+      "Edit CLAUDE.md: move iter34 hygiene 0.7170 N=92 from 'candidate' → 'canonical T1 LOOCV'",
+      "Confirm Slot D 0.7876 @70% (already canonical deployable-secondary) is in paper results table",
+      "Document new W#107 (T3 target-transform fail) in findings.md"
+    ],
+    "ordering": [
+      {"order": 1, "move": "Lock iter34 hygiene → canonical T1 (status edit)", "compute": "0", "wall_time_h": 1, "gated_on": "independent"},
+      {"order": 2, "move": "T1 KD preflight (FM availability + torch verify + 5-null sanity)", "compute": "<1h GPU", "wall_time_h": 24, "gated_on": "step 1"},
+      {"order": 3, "move": "T1 KD real-torch retry (if preflight passes)", "compute": "~4h GPU", "wall_time_h": 48, "gated_on": "step 2 clear"},
+      {"order": 4, "move": "T3 stop-the-clock + paper bound-story section", "compute": "0", "wall_time_h": "parallel with 2-3", "gated_on": "independent"}
+    ]
+  }
+}

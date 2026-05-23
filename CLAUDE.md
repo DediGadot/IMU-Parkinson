@@ -138,6 +138,32 @@ Every new experiment must:
 - **`paper.md`** → `CURRENT_PAPER.html` via `render_current_paper.py`. Legacy `generate_paper_v4.py` / `NEW4.html` are archaeology, not current evidence.
 - **`~/.claude/projects/-home-fiod-medical/memory/MEMORY.md`** — auto-memory across sessions.
 
+## PPMI replication data (2026-05-21 update — labels + derived gait features unlocked; raw IMU still gated)
+
+Location: `ssh -p 2243 fiod@165.22.71.91:/home/fiod/PPMI/` — 315 CSVs + 5 methods PDFs, 4.8 GB, single flat directory. Filename suffix `_20May2026.csv` (initial 193 files) or `_21May2026.csv` (122 new files including labels + Stage-1 covariates + derived gait features).
+
+**Now present (sufficient for a transportability test of Slot D / Slot F):**
+- **T1 + T3 labels (CRITICAL).** `MDS-UPDRS_Part_III_21May2026.csv` — 38 017 rows / 5 122 unique subjects. Carries all 33 NP3 items + `NP3TOT` (T3) + DBS / treatment / on-off / dyskinesia flags. T1 = `NP3RISNG + NP3GAIT + NP3FRZGT + NP3PSTBL + NP3POSTR + NP3BRADY` (items 3.9-3.14 axial). H&Y (`NHY`) lives in `Inclusion_Exclusion` and is also embedded per-visit; cross-join on `PATNO`+`EVENT_ID`.
+- **Stage-1 auxiliaries (CRITICAL for residualization pattern).** `MDS-UPDRS_Part_I`, `Part_I_Patient_Questionnaire`, `Part_II__Patient_Questionnaire`, `Part_IV__Motor_Complications` — non-motor + motor-complications baselines for the iter5-style `cv_yrs + cv_sex + cv_dbs` Stage-1 forced-include. `LEDD_Concomitant_Medication_Log` (9 750 rows) + `Concomitant_Medication_Log` + `Initiation_of_Dopaminergic_Therapy` + `PD_Diagnosis_History` + `Procedure_for_PD_Log` — LEDD + DBS substrate.
+- **Opal-derived gait features (PRIMARY IMU-side input, derived not raw).** `Gait_Data___Arm_swing__Opals__21May2026.csv` — 60 columns × 291 assessments / **199 unique subjects = 76 PD + 5 HC + 118 Prodromal**. Single-task (`*_U`) + dual-task (`*_DT`) + sit-to-walk open/closed-eye (`SW_*_OP/CL`) + TUG1/2 metrics: speed (`SP`), arm amplitude L/R (`RA_AMP/LA_AMP`), amplitude variance (`RA_STD/LA_STD`), arm symmetry (`SYM`, `ASA`, `ASYM_IND`), arm jerk L/R (`R_JERK/L_JERK`), trunk range (`TRA`), trunk amplitude (`T_AMP`), cadence (`CAD`), stride time (`STR_T`), stride CV (`STR_CV`), step regularity (`STEP_REG`), step symmetry (`STEP_SYM`), trunk jerk (`JERK_T`), TUG duration + step count + straight/turn split + step regularity/symmetry. These are pre-extracted APDM Mobility Lab features — **NOT raw accel/gyro samples**.
+- **Axivity AX6 continuous-wear features (SECONDARY IMU-side input, derived not raw).** `Gait_Data___Arm_swing__Axivity__21May2026.csv` — 99 rows / **97 subjects = 23 PD + 5 HC + 69 Prodromal**. Activity classification day/night: walking / lying / sitting / standing / sedentary percentages + Mean SVM (signal vector magnitude) mg day vs night. Continuous home monitoring complement; not session-aligned to MDS-UPDRS visits.
+- **Gait acquisition metadata.** `Gait_Substudy_Gait_Mobility_Assessment_and_Measurement_21May2026.csv` — 459 rows. Device flags (`AXIVITYUSED`, `OPALUSED`), `RARMLEN/LARMLEN/RLEGLEN/LLEGLEN` (use to normalize amplitude features), TUG1/2 raw durations, dual-task subtraction labels.
+- **Methods documents (READ FIRST before defining feature mapping).** `PPMI_Methods_Gait_AM0180319.pdf` (APDM Mobility Lab feature definitions), `PPMI_Methods_Document_Roche_v1.1.pdf`, plus genetics-methods PDFs.
+- **Cognitive battery for covariate-mining** (per F-iter23/24 wall, expect partial-r collapse, but available): MoCA, HVLT, Trail Making A/B, SDMT, Lexical/Semantic Fluency, Letter-Number Sequencing, Modified Boston Naming, Benton JLO, Symbol Digit, Clock Drawing, IDEA Cognitive Screen, ST-Direct_Cognitive.
+- **Non-motor scales:** SCOPA-AUT, GDS, Epworth, RBD Screening Questionnaire, STAI, QUIP-Current-Short, UPSIT smell, PDAQ-27, Neuro-QoL (Cognition / Communication / Lower-Extremity / Upper-Extremity), CGI-Investigator + PGI-Patient.
+- **Curated Data Cuts (from 2026-05-20 pass):** Demographics, Subject_Cohort_History, Participant_Status (N=8597 with GAITSTDY / GAITLEAPSTDY flags), Age_at_visit, Family_History, Socio-Economics, Imaging (DAT-SPECT / DTI / FS7 / MRI / AV-133 / SV2A / Tau / FD4 PET + acquisition metadata), Biospecimen + -omics (170 MB Current Biospecimen, 71 MB Blood Chemistry, Projects 151/177/196/214/222/9000 proteomics, LRRK2 metabolomics, SAA, Genetic Testing, PRS, iPSC, Pathology Core).
+- **Roche app (irrelevant for IMU replication).** 32 subjects of smartphone aggregated active-task scalars — sensor-topology mismatch with WG-PD per v-next #4 kill rule.
+
+**Still missing — only blocker for STRICT Slot D / Slot F replication:**
+- **Raw triaxial accel + gyro streams** (Opal `.h5` and/or Axivity `.cwa`). The locked blueprint (`results/lockbox_ppmi_replication_blueprint_20260514T151939Z.json`, formula_sha256 `489ca6bbc96520c2…`) expects features computed from raw IMU: V2 K-best, V3-GSP windowed graph-spectrum, item-13 persistent homology on Takens-embedded trunk pitch. The Opal CSV gives **pre-extracted APDM gait metrics**, not raw samples — so V3-GSP / PH-13 / MFDFA / our custom feature pipelines cannot be re-computed on PPMI from what is currently downloaded.
+- Verily Study Watch (separate substudy from Gait) — neither raw nor derived files are present.
+
+**Two replication paths:**
+
+1. **Strict pre-registered replication** — requires raw streams. Separate LONI IDA request via the Image and Data Archive *sensor-data* portal (NOT the Study Data CSV bundle that's already pulled). PPMI Data Coordinating Center typically takes 1-2 weeks on an active DUA; files are tens of GB. Targets the lockboxed Slot D / Slot F formulas verbatim.
+
+2. **Transportability test (EXECUTABLE NOW)** — use the 60 Opal-derived columns as the "PPMI feature matrix", refit the Slot D / Slot F calibration on top, report as cross-cohort transportability rather than strict pre-reg of V2/V3-GSP/PH-13. Same task semantics (gait, TUG, sit-to-walk, dual-task), different feature dictionary. Tests whether the **task-feature-level** T1/T3 prediction signal transfers across cohorts. PD cohort headroom: **76 PD + 5 HC** (HC-deficient, so PD-only severity-regression framing). Promotion gate must be re-derived for the alternate feature dictionary; do not reuse the WG-PD frac>0 ≥ 0.95 threshold without re-calibration on PPMI.
+
 ## Gotchas
 
 - **Two split files:** `data_split.json` (CONTAMINATED, seed=42) vs `paper3_split.json` (clean, seed=20260309). Always `paper3_split.json`.
@@ -156,3 +182,44 @@ Every new experiment must:
 Handcrafted feature group expansions at this N · 5 end-to-end DL architectures + HARNet fine-tune (iter37) · HC anchors / HC normative AE · frozen MOMENT/HC-SSL/HARNet/in-domain SSL encoders (4× negative — wall is N=94, not domain-gap) · privileged distillation · 4-base-learner stacking · post-hoc isotonic/Platt/poly calibration · NGBoost · pairwise contrastive boosting · TabPFN-2.5 (paywalled) · IMU additions to iter5 (event-axial, unsigned-asymmetry) · sensor-fusion at N=94 · per-item gated T3 composite (iter19, F53) · 1-param convex blend + Stage-1 widening (iter22, F58, with N→0.5975 Pareto asymptote) · nested k=19 Ridge meta hybrid (iter21, F56) · clinical-extras Stage-1/Stage-2 forced-inclusion (iter23/24, F59) · zero-shot cross-protocol transfer (PADS iter25b, F60b) · tail-aware Stage-2 retrain (iter27, F61) · SOTA shootout AutoGluon/MultiROCKET (iter28, F63) · low-degree convex IMU/clinical mixer (iter50, F-iter50) · **V3 feature families** (GSP / MoS / TITD / Phase-Manifold / Recovery / PSI / Shapelets, 2026-05-12) — only V2+V3-GSP nested cleared single-seed Δ=+0.0079; honest nested CV (BCa) gave Δ=+0.0115 with CI crossing 0; 4-CLI consult (codex+kimi+deepseek+grok) confirmed N=92 weight-variance is the wall, not feature subspace.
 
 **External labeled cohorts (Hssayeni/MJFF, PPMI/Verily, WATCH-PD, ICICLE, CNS Portugal, PPP/PD-VME) are access-gated.** See `scripts/*_setup.md` runbooks. PPMI is the priority application target (wrist-native, larger, longitudinal).
+
+## v-next opportunities (2026-05-16 synthesis + ablation closure)
+
+10-idea stack-rank produced by a 4-agent scientific-skills consult (literature scout + critical reviewer + power analyst; codebase reality audit failed and is pending re-dispatch). **5 in-cohort ablations ran 2026-05-16 evening — ALL 5 CLOSED NEGATIVE; T1/T3 ceilings UNCHANGED** (T1=0.7170, T3=0.3784). See `findings.md § F-5ablation-glassceiling-campaign-20260516` for full mechanism stories + walls W#102–W#106. Promotion gate at N=92 with 3 seeds: Δ ≥ +0.019; FWER n=5 pushes to ~+0.035–0.045; lifetime n=14 column to +0.060 (was n=10).
+
+### Tier 1 — fund first
+
+| # | Idea | Mechanism | Why now |
+|---|---|---|---|
+| 10 | **Bound A/D recalibration** under valid-range N=95 + label-noise floor (≈0.05 CCC from MDS Abstracts 2025 inter-rater variability) | Theoretical ceiling refresh | ✅ **DONE 2026-05-16** (W#102). New bounds D=0.6596 / D_ccc=0.6064 / A=0.3452 / **E=0.2576** (was 0.683 / 0.351 / 0.171). **T3 canonical 0.3784 is +0.121 ABOVE refreshed Bound E** = R has IMU-recoverable signal beyond constant-imputation. T3 has only +0.04 headroom toward label-noise-corrected Bound A (0.3835). PPMI external is the only theoretically-bounded remaining lever. |
+| 11 | **Apple wearable-accel foundation model (ICML 2025) + LSM-2 (arXiv 2506.05321) with knowledge distillation** into a fold-local probe | External SSL with KD differentiator | ❌ **FAILED 2026-05-16** (W#106). torch unavailable on remote → adapted to sklearn cascade (per-fold Ridge(V2 → PCA-32(HARNet_train)) + forced-include 32-dim distilled block). ARM_A=0.6326, ARM_B=0.6300, Δ=-0.003, frac>0=0.37. Wall: feature-matching KD does NOT bypass N=94 absorption; the wall is the cohort, not the encoder. Apple FM weights not yet public; LSM-2 retry under torch+GPU is a separate proposal. |
+| 1 | **PPMI external replication** of locked Slot D (T1 conformal @70%=0.7876) and Slot F (T3 CQR-width @70%=0.4237) | Cross-cohort transfer | 🟡 **READY-FOR-TRANSPORTABILITY-TEST / STRICT-REP-STILL-RAW-IMU-GATED (2026-05-21).** Labels (`MDS-UPDRS_Part_III`, 38 017 rows / 5 122 subj), Stage-1 covariates (Parts I/II/IV + LEDD log + DBS), and Opal-derived gait features (60 cols × 199 subj = 76 PD + 5 HC + 118 Prodromal) all landed at `fiod@165.22.71.91:/home/fiod/PPMI/` (315 CSVs, 4.8 GB). **Still missing: raw Opal accel/gyro streams** needed to reproduce V2-K-best / V3-GSP / item-13 PH features verbatim — strict pre-reg requires a separate IDA Image-and-Data-Archive sensor-data request (1-2 weeks). Transportability test (refit Slot D/F calibration on the 60 Opal-derived columns) is executable now; PD-only because HC count is only 5. See §"PPMI replication data" above for full inventory + path fork. |
+
+### Tier 2 — run after Tier 1
+
+| # | Idea | Caveat |
+|---|---|---|
+| 5 | **Site-aware fold-local Ridge centering** for T3 LOSO (calibrated-IPW per arXiv 2411.06342, **NOT DANN**) | ❌ **FAILED 2026-05-16** (W#103). ARM_A zero-shot LOSO=0.1531 (matches iter47=0.150 ✓), ARM_B propensity-IPW=0.1175, Δ=-0.036, frac>0=0.26. At N=70/28, propensity classifier high-variance amplifies sample-reweighting noise. Don't retry without PPMI-pool augmentation. |
+| 9 | **BDE predictive variance / selective-conformal-risk-control (arXiv 2512.12844)** as alternative y-free T3 retention | ❌ **FAILED 2026-05-16** (W#105). Retained CCC@70%=0.3614 (Δ=-0.062 vs Slot F), @50%=0.3926 (Δ=-0.144 vs Slot F). Ensemble-SD measures pure model-instability; CQR-width measures quantile-spread which correlates with target-difficulty. Two y-free scores now confirm only CQR-width-style captures subject-level T3 difficulty at N=95. |
+| 6 | **FoG event-rate** (subject-level rate / duration / variance from a nested-CV-trained detector) → item 11 | ❌ **FAILED 2026-05-16** (W#104). ARM_A=0.1284, ARM_B=0.1315, Δ=+0.003, frac>0=0.71. Cached `fog_event_rate` is nonzero on only 6 subjects (predicted ~12). Structural undetectability at WG-PD cohort — same root cause as W#76 (sparse FoG signal), different architecture. |
+
+### Reframe (not CCC moves; paper structure)
+
+- **#3 Causal mediation** — partial-r per item conditional on H&Y as descriptive BCa CIs. No Bonferroni gate. Paper Methods/Discussion section, not an experiment.
+- **#2 UK Biobank SSL** — same N=94 absorption wall as HARNet on the ranking-lift framing. Redirect into #11 as a distillation source, not a standalone probe.
+
+### Shelve 30 days
+
+- **#7 Item-13 raw 22-channel Euler + hy-residual rescue on items 9/11** — D4 calibration-mirage wall (2026-05-15) too fresh. Revisit after Bound-A update clarifies whether items 9/11 are inductively reachable at all.
+
+### Kill
+
+- **#4 Cross-dataset transfer to Hssayeni / mPower / OPDC** — sensor topology mismatch (hand-only / smartphone-tap / wrist-actigraphy). None homologous to 13-IMU WG-PD. PPMI (#1) is the only externally homologous wrist substrate.
+- **#8 Per-task × per-item gated meta-stack** — densest wall coverage in the project (F56, F58, F65, iter19). Variance compounding is the documented failure mode.
+
+### Stress-test provenance
+
+- **Literature**: 21 papers 2024–2026. Top sources: Yuan et al. *npj Digital Medicine* 2024 (UKB SSL, 700k person-days); Apple ML ICML 2025 (wearable FM + KD); arXiv 2411.06342 (calibrated-IPW, Apr 2025); arXiv 2512.12844 (selective-conformal-risk-control, 2025); LSM-2 arXiv 2506.05321; MDS Abstracts 2025 (inter-rater variability → label-noise floor).
+- **Critical review**: walls grep'd → F-iter14, F-iter15, F56, F58, F60b, F65, F70, F-stepfunction-20260515, F-D4-audit. 4 ideas (#2, #4, #6, #7, #8) collide with existing walls and require either reframing or kill.
+- **Power**: Lin's CCC asymptotic SE ≈ 0.072 at N=92; paired ΔCCC SE dominated by seed-std ≈ 0.020 (3 seeds). Promotion-gate Δ_min ≈ +0.019 single-test; FWER n=5 → +0.035; FWER n=10 → +0.060. Ideas #3, #7-spillover, #8 are structurally underpowered.
+- **Open**: codebase audit for existing partial implementations (Apple weights, LSM-2 checkpoints, distillation harness for #11; FoG detector + nested-CV label provenance for #6). Re-dispatch pending.

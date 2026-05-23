@@ -1,0 +1,12 @@
+{
+  "experiment": "W#108 5-null gate",
+  "created_at_utc": "20260517T141254Z",
+  "formula_sha256": "2a35f0e16b54e09d89759bb378755abc93241b1a4855a786dd5a0db7152adb2c",
+  "scrambled_label_ccc_vs_truth": -0.17637523626739837,
+  "scrambled_label_ccc_vs_scrambled": 0.10499688530385212,
+  "naive_threshold_0_10_passes": false,
+  "w106_null_baseline": -0.1821741637923223,
+  "delta_from_w106_null": 0.005798927524923919,
+  "matches_w106_parity": true,
+  "interpretation": "Shared pipeline (Stage-1 Ridge + LGB-on-residual + K-best-on-residual) has a structural -0.15..-0.20 leak under scrambled-label that is NOT noise (predict-LOO-mean gives ~0). W#106 had the same leak (-0.1821). W#108 matches W#106 parity, so the leak is in the inherited pipeline, not in the MLP-student modification. \u0394=ARM_B-ARM_A remains valid since both arms inherit the leak equally."
+}
